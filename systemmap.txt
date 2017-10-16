@@ -1,0 +1,42 @@
+- Inpatient Details -
+	Admission ID 
+	Patient ID 
+	Source of Admission (Emergency room / Outpatien) *Dropdown
+	Status 
+	Admission Date-Time
+	Arrival Date-Time 
+	Discharge Date-Time 
+
+	Case Indicator ( With Newborn Baby? )  
+	Newborn Status 
+
+	Type of Death (if applicable)
+	Death Date-Time (if applicable)
+	Patient Category (Old or New)
+	Pricing Scheme 
+	Discount Scheme
+	Remarks
+
+- Patient Details -
+	Patient ID
+	Last Name
+	First Name
+	Middle Name
+	Nick Name
+	Civil Status
+	Gender
+	BirthDate
+	Age
+	BirthPlace
+	Citizenship(s)
+	Nationality
+	Blood Type
+	Occupation (hospital employee if applicable)
+
+- Database Patient Search - 
+	Last Name
+	First Name
+	Middle Name
+	Birthdate 
+	
+	Search (scan qr if applcible)
