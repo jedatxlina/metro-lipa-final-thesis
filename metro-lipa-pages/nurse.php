@@ -10,7 +10,7 @@
             <!-- /.row -->
             <div class="row">
                 <div class="col-lg-12">
-                        TROLOLOL
+                      JED WAS HERE
                         
                 </div>      
                   
