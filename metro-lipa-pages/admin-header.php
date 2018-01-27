@@ -31,15 +31,22 @@
 
     <link href="../assets/dist/css/bootstrap-datetimepicker.min.css" rel="stylesheet" media="screen">
     
-    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.4/angular.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.4/angular.min.js">
+
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/webrtc-adapter/3.3.3/adapter.min.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/vue/2.l1.10/vue.min.js"></script>
+    <script type="text/javascript" src="https://rawgit.com/schmich/instascan-builds/master/instascan.min.js"></script>
+
+    <script src="../assets/js/mask.js"></script>
+
 
 </head>
 
-<body ng-app="">
+<body>
 
     <div id="wrapper">
 
-        <!-- Navigation -->
+
         <nav class="navbar navbar-default navbar-static-top" role="navigation" style="margin-bottom: 0">
             <div class="navbar-header">
                 <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
@@ -48,7 +55,7 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                <a class="navbar-brand" href="index.php">Metro Lipa Patient System</a>
+                <a class="navbar-brand" href="index.php"><img src="../assets/img/header-logo.jpg" alt="Metro Lipa Logo" width="40px" style="display: inline; padding-bottom: 5px; padding-top: 0px;">  Metro Lipa Patient System</a>
             </div>
             <!-- /.navbar-header -->
 
@@ -78,10 +85,10 @@
                             </a>
                         </li>
                     </ul>
-                    <!-- /.dropdown-messages -->
+          
                 </li>
                
-                <!-- /.dropdown -->
+       
                 <li class="dropdown">
                     <a class="dropdown-toggle" data-toggle="dropdown" href="#">
                         <i class="fa fa-bell fa-fw"></i> <i class="fa fa-caret-down"></i>
@@ -182,13 +189,13 @@
                             <a href="#"><i class="fa fa-sitemap fa-fw"></i>Patients<span class="fa arrow"></span></a>
                             <ul class="nav nav-second-level">
                                 <li>
-                                    <a href="#">Emergency</a>
+                                    <a href="emergency.php">Emergency</a>
                                 </li>
                                 <li>
                                     <a href="outpatient.php">Outpatient</a>
                                 </li>
                                 <li>
-                                    <a href="#"0>Inpatient</a>
+                                    <a href="inpatient.php"0>Inpatient</a>
                                 </li>
                                 <li>
                                     <a href="#">Patient Records</a>
@@ -196,12 +203,22 @@
                             </ul>
                             <!-- /.nav-second-level -->
                         </li>
-                        <li>
-                            <a href="#"><i class="fa fa-user"></i>Nurse</a>
+                       
+                       <li>
+                            <a href="#"><i class="fa fa-user"></i>Nurse<span class="fa arrow"></span></a>
+                            <ul class="nav nav-second-level">
+                                <li>
+                                    <a href="qr-scanner/index.php"><i class="fa fa-qrcode"></i> Scan QR Code</a>
+                                </li>
+                              
+                            </ul>
+                            <!-- /.nav-second-level -->
                         </li>
+
                         <li>
                             <a href="#"><i class="fa fa-user"></i>Doctors</a>
                         </li>
+                       
                         <li>
                             <a href="#"><i class="fa fa-medkit"></i>Pharmacy</a>
                         </li>
@@ -214,10 +231,17 @@
                             <a href="#"><i class="fa fa-sitemap fa-fw"></i>Accounts<span class="fa arrow"></span></a>
                             <ul class="nav nav-second-level">
                                 <li>
-                                    <a href="#">User Type</a>
-                                </li>
-                                <li>
                                     <a href="users.php">Users</a>
+                                </li>
+                            </ul>
+                            <!-- /.nav-second-level -->
+                        </li>
+
+                         <li>
+                            <a href="#"><i class="fa fa-gears fa-fw"></i>Tools<span class="fa arrow"></span></a>
+                            <ul class="nav nav-second-level">
+                                <li>
+                                    <a href="#">Beds</a>
                                 </li>
                             </ul>
                             <!-- /.nav-second-level -->

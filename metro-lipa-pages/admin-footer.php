@@ -1,7 +1,8 @@
 
     </div>
     <!-- /#wrapper -->
-
+    
+    <script type="text/javascript" src="../assets/qr-assets/app.js"></script>   
     <!-- jQuery -->
     <script src="../assets/vendor/jquery/jquery.min.js"></script>
     
@@ -61,7 +62,8 @@
         maxView: 1,
         forceParse: 0
     });
-    
+
+
     </script>
     
 </body>

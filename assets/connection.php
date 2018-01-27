@@ -1,9 +1,13 @@
- <?php
-$con = mysql_connect("localhost","root");  
+<?php
 
-if (!$con)
-{
-die('Failed to connect to MySQL: ' . mysql_error());
+$host = "localhost";
+$user = "root";
+$password = "";
+$dbname = "metro_lipa_db"; 
 
+$con = mysqli_connect($host, $user, $password,$dbname);
+
+if (!$con) {
+ die("Connection failed: " . mysqli_connect_error());
 }
 ?>

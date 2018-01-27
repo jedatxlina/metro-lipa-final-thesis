@@ -1,6 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
-
+<html lang="en" ng-app="demo">
 <head>
 
     <meta charset="utf-8">
@@ -23,7 +22,8 @@
     <!-- Custom Fonts -->
     <link href="../assets/vendor/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
 
-    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.4/angular.min.js"></script>
+    <script src="../assets/js/angular.min.js"></script>
+    <script src="../assets/js/mask.js"></script>
 
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -34,9 +34,10 @@
 
 </head>
 
-<body ng-app="">
+<body>
 
-    <div class="container">
+
+    <div class="container" ng-controller="myCtrl">
         <div class="row">
             <div class="col-md-4 col-md-offset-4">
                 <div class="login-panel panel panel-default">
@@ -45,29 +46,20 @@
                     </div>
                     <div class="panel-body">
                      
-                        <form name="myForm" action="index.php" method="post">
-                                    
-                                    <?php
-                                    if(isset($_GET['val'])){
-                                        ?>  <span style="color:red"> Invalid credentials. Please try again. </span> <?php
-                                    }
-                                    ?>
+                        <form>
+                        <div class="form-group">
+                            <label for="login-form-username">Account ID:</label>
+                                <input type="text" class="form-control" ng-model="phonenumber" ui-mask="9-99999"  ui-mask-placeholder ui-mask-placeholder-char=" "/>
+                        </div>
 
-                                    <div class="form-group">
-                                        <label for="login-form-username">Username:</label>
-                                        <input name="Username" ng-model="Username" class="form-control" required>
-                                        <span style="color:red">
-                                            <span ng-show="myForm.Username.$touched && myForm.Username.$invalid">Username is required.</span>
-                                        </span>
-                                    </div>
-
-                                    <div class="form-group">
-                                        <label for="login-form-username">Password:</label>
-                                        <input type='password' name="Password" ng-model="Password" class="form-control" required>
-                                        <span style="color:red">
+                        <div class="form-group">
+                            <label for="login-form-username">Password:</label>
+                                <input type='password' name="Password" ng-model="Password" class="form-control" required>
+                                        <!-- <span style="color:red">
                                             <span ng-show="myForm.Password.$touched && myForm.Password.$invalid">Password is required.</span>
-                                        </span>
-                                    </div>
+                                        </span> -->
+                        </div>
+                    
                                     
                                     <div class="checkbox">
                                     <label>
@@ -77,7 +69,7 @@
                                     
                                     <div class="col_full nobottommargin">
                                         
-                                        <input type="submit" class="btn btn-lg btn-default btn-block" value="Submit">
+                                        <button type="submit" class="btn btn-lg btn-default btn-block" ng-click="Submit()">Submit</button>
                                     </div>
                         </form>
                     </div>
@@ -97,6 +89,17 @@
 
     <!-- Custom Theme JavaScript -->
     <script src="../assets/dist/js/sb-admin-2.js"></script>
+
+    <script>
+    var app = angular.module('demo', ['ui.mask']);
+
+    app.controller('myCtrl', function($scope, $window, $http) {
+         $scope.Submit = function(){
+        
+                   window.location.href='index.php';
+                };
+        });
+    </script>
 
 </body>
 

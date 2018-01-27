@@ -19,14 +19,11 @@
                                     </div>
                                     <div class="col-xs-9 text-right">
 
-                                        <?php
+                                        <?php    
                                         require_once '../assets/connection.php';
-                                        mysql_select_db("metro_lipa_db", $con);
 
-
-                                        $result = mysql_query("SELECT * FROM user_account");
-                                        $num_rows = mysql_num_rows($result);
-
+                                        $sel = mysqli_query($con,"select * from user_account");
+                                        $num_rows = mysqli_num_rows($sel);
                                         echo "<div class='huge'>" . $num_rows . "</div>";
                                         ?>
                                         <div>Active Users</div>

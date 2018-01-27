@@ -1,4 +1,4 @@
-<?php  
+c<?php  
  require_once '../assets/connection.php';
  mysql_select_db("metro_lipa_db", $con);
 
