@@ -8,6 +8,6 @@
 </script>
 </head>
 <body>
-Go to <a href="metro-lipa-pages/login.php">/pages/login.php</a>
+Go toooooooo <a href="metro-lipa-pages/login.php">/pages/login.php</a>
 </body>
 </html>
