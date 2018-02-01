@@ -1,6 +1,6 @@
 <?php
 
-require_once '../connection.php';
+require_once 'connection.php';
 
 $sel = mysqli_query($con,"SELECT * FROM specialization");
 
@@ -11,7 +11,7 @@ while ($row = mysqli_fetch_array($sel)) {
         "SpecializationID"=>$row['SpecializationID'],
         "SpecializationName"=>$row['SpecializationName']);
 }
-header('Content-type: application/json');
+
 echo json_encode($data);
 ?>
 

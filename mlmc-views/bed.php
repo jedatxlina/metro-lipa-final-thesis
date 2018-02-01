@@ -67,15 +67,7 @@
                     </div>
                 </div>
             </div>
-            <!-- Error modal -->
-            <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
-                <div class="modal-dialog">
-                    <div class="alert alert-danger">
-                        Select Emergency record that you would like to apply an <a href="#" class="alert-link">Action.</a>
-                    </div>
-                </div>
-            </div>
-            <!--/ Error modal -->
+          
             <!--/ Edit modal -->
             <div class="modal fade" id="EditModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
                 <div class="modal-dialog">
