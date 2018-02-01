@@ -25,7 +25,7 @@
             <div class="col-md-9">
                 <div class="panel panel-default">
                     <div class="panel-heading">
-                        <h2>BED</h2>
+                        <h2>MEDICAL SPECIALIZATION</h2>
                         <div class="panel-ctrls"></div>
                     </div>
                     <div class="panel-body">
