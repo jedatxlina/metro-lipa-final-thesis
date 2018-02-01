@@ -35,6 +35,7 @@
 	<link type="text/css" href="assets/plugins/datatables/dataTables.themify.css" rel="stylesheet">
 	<!-- <script src="components/angular.js"></script> -->
 	<script src="components/angular.min.js"></script>
+	<script src="../assets/js/mask.js"></script>
     </head>
 
     <body class="animated-content">
@@ -305,9 +306,9 @@
 		</li>
 		<li><a href="javascript:;"><i class="fa fa-gears"></i><span>Tools</span></a>
 			<ul class="acc-menu">
-				<li><a href="#">Beds</a></li>
-				<li><a href="#">Medical Specializations</a></li>
-				<li><a href="#">Laboratories</a></li>
+				<li><a href="bed.php">Beds</a></li>
+				<li><a href="specialization.php">Medical Specializations</a></li>
+				<li><a href="laboratory.php">Laboratories</a></li>
 			</ul>
 		</li>
 		<li><a href="javascript:;"><i class="fa fa-file-archive-o"></i><span>Patient Archive</span></a></li>
