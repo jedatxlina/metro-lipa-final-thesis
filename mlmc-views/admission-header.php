@@ -35,7 +35,7 @@
 	<link type="text/css" href="assets/plugins/datatables/dataTables.themify.css" rel="stylesheet">
 	<!-- <script src="components/angular.js"></script> -->
 	<script src="components/angular.min.js"></script>
-	<script src="../assets/js/mask.js"></script>
+	<script src="assets/js/mask.js"></script>
     </head>
 
     <body class="animated-content">
