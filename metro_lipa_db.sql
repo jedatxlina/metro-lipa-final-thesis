@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jan 30, 2018 at 05:46 PM
+-- Generation Time: Feb 02, 2018 at 06:44 AM
 -- Server version: 10.1.28-MariaDB
 -- PHP Version: 7.1.10
 
@@ -1728,6 +1728,22 @@ INSERT INTO `laboratories` (`LaboratoryID`, `Description`, `Rate`) VALUES
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `medical_details`
+--
+
+CREATE TABLE `medical_details` (
+  `MedicalID` int(15) NOT NULL,
+  `AttendingID` int(15) NOT NULL,
+  `BedID` int(15) NOT NULL,
+  `VitalsID` int(15) NOT NULL,
+  `MedicationID` int(15) NOT NULL,
+  `OperationID` int(15) NOT NULL,
+  `AdmissionID` varchar(10) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `orders`
 --
 
@@ -1761,29 +1777,28 @@ CREATE TABLE `patients` (
   `CivilStatus` varchar(10) NOT NULL,
   `Birthdate` varchar(20) NOT NULL,
   `Contact` varchar(15) NOT NULL,
-  `DoctorID` varchar(30) NOT NULL,
   `Class` varchar(15) NOT NULL,
   `Occupation` varchar(20) NOT NULL,
   `Religion` varchar(20) NOT NULL,
   `Citizenship` varchar(20) NOT NULL,
-  `Triage` varchar(15) NOT NULL,
-  `BedID` varchar(6) NOT NULL
+  `MedicalID` int(15) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `patients`
 --
 
-INSERT INTO `patients` (`AdmissionID`, `AdmissionNo`, `AdmissionDateTime`, `FirstName`, `MiddleName`, `LastName`, `Admission`, `AdmissionType`, `Province`, `City`, `Gender`, `Age`, `CivilStatus`, `Birthdate`, `Contact`, `DoctorID`, `Class`, `Occupation`, `Religion`, `Citizenship`, `Triage`, `BedID`) VALUES
-('2017379677', 89, '2018-01-31 00:32:07', 'Jed', 'Matthew', 'Lina', 'Old Patient', 'Emergency', 'Batangas', 'Lipa City', 'Male', '20', 'Single', '01/17/2018', '', '', '', '', '', '', '', '');
+INSERT INTO `patients` (`AdmissionID`, `AdmissionNo`, `AdmissionDateTime`, `FirstName`, `MiddleName`, `LastName`, `Admission`, `AdmissionType`, `Province`, `City`, `Gender`, `Age`, `CivilStatus`, `Birthdate`, `Contact`, `Class`, `Occupation`, `Religion`, `Citizenship`, `MedicalID`) VALUES
+('2017910538', 95, '2018-01-31 15:24:52', 'Jed', 'Matthew', 'Lina', 'Old Patient', 'Emergency', 'Batangas', 'Lipa City', 'Male', '20', 'Single', '02/18/1998', '639175768818', 'Cash', 'Executive', '', '', 0),
+('2017993027', 96, '2018-01-31 15:42:26', 'Francis', 'Von', 'Ilagan', 'New Patient', 'Emergency', 'Batanes', 'Basco', 'Male', '20', 'Single', '07/21/2004', '639185695698', 'Cash', 'Executive', '', '', 0);
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `patient_records`
+-- Table structure for table `patient_archive`
 --
 
-CREATE TABLE `patient_records` (
+CREATE TABLE `patient_archive` (
   `PatientID` int(10) NOT NULL,
   `FirstName` varchar(20) NOT NULL,
   `MiddleName` varchar(15) NOT NULL,
@@ -1794,10 +1809,10 @@ CREATE TABLE `patient_records` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
--- Dumping data for table `patient_records`
+-- Dumping data for table `patient_archive`
 --
 
-INSERT INTO `patient_records` (`PatientID`, `FirstName`, `MiddleName`, `LastName`, `Gender`, `Address`, `Birthdate`) VALUES
+INSERT INTO `patient_archive` (`PatientID`, `FirstName`, `MiddleName`, `LastName`, `Gender`, `Address`, `Birthdate`) VALUES
 (12, 'Jed', 'Matthew', 'Lina', 'Male', 'Lipa', '2018-01-08');
 
 -- --------------------------------------------------------
@@ -1994,9 +2009,9 @@ ALTER TABLE `patients`
   ADD UNIQUE KEY `AdmissionNo` (`AdmissionNo`);
 
 --
--- Indexes for table `patient_records`
+-- Indexes for table `patient_archive`
 --
-ALTER TABLE `patient_records`
+ALTER TABLE `patient_archive`
   ADD PRIMARY KEY (`PatientID`);
 
 --
@@ -2037,7 +2052,7 @@ ALTER TABLE `cities`
 -- AUTO_INCREMENT for table `patients`
 --
 ALTER TABLE `patients`
-  MODIFY `AdmissionNo` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=90;
+  MODIFY `AdmissionNo` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=97;
 
 --
 -- AUTO_INCREMENT for table `provinces`
