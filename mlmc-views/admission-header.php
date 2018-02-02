@@ -19,12 +19,6 @@
     <link type="text/css" href="assets/plugins/codeprettifier/prettify.css" rel="stylesheet">                <!-- Code Prettifier -->
     <link type="text/css" href="assets/plugins/iCheck/skins/minimal/blue.css" rel="stylesheet">              <!-- iCheck -->
 
-    <!--[if lt IE 10]>
-        <script type="text/javascript" src="assets/js/media.match.min.js"></script>
-        <script type="text/javascript" src="assets/js/respond.min.js"></script>
-        <script type="text/javascript" src="assets/js/placeholder.min.js"></script>
-    <![endif]-->
-    <!-- The following CSS are included as plugins and can be removed if unused-->
 
 	<link type="text/css" href="assets/plugins/form-daterangepicker/daterangepicker-bs3.css" rel="stylesheet">  
 	<link type="text/css" href="assets/plugins/gridforms/gridforms/gridforms.css" rel="stylesheet"> 	
@@ -33,14 +27,28 @@
 	<link type="text/css" href="assets/plugins/switchery/switchery.css" rel="stylesheet">   							<!-- Switchery -->
 	<link type="text/css" href="assets/plugins/datatables/dataTables.bootstrap.css" rel="stylesheet">
 	<link type="text/css" href="assets/plugins/datatables/dataTables.themify.css" rel="stylesheet">
-	<!-- <script src="components/angular.js"></script> -->
+
+	<link type="text/css" href="assets/plugins/form-select2/select2.css" rel="stylesheet">                        <!-- Select2 -->
+	<link type="text/css" href="assets/plugins/form-multiselect/css/multi-select.css" rel="stylesheet">           <!-- Multiselect -->
+	<link type="text/css" href="assets/plugins/form-fseditor/fseditor.css" rel="stylesheet">                      <!-- FullScreen Editor -->
+	<link type="text/css" href="assets/plugins/bootstrap-tokenfield/css/bootstrap-tokenfield.css" rel="stylesheet">   <!-- Tokenfield -->
+
+	<link type="text/css" href="assets/plugins/bootstrap-touchspin/dist/jquery.bootstrap-touchspin.min.css" rel="stylesheet"> <!-- Touchspin -->
+
+	<link type="text/css" href="assets/plugins/iCheck/skins/minimal/_all.css" rel="stylesheet">                   <!-- Custom Checkboxes / iCheck -->
+	<link type="text/css" href="assets/plugins/iCheck/skins/flat/_all.css" rel="stylesheet">
+	<link type="text/css" href="assets/plugins/iCheck/skins/square/_all.css" rel="stylesheet">
+
+	<link type="text/css" href="assets/plugins/card/lib/css/card.css" rel="stylesheet"> 						 <!-- Card -->
+
+
 	<script src="components/angular.min.js"></script>
 	<script src="assets/js/mask.js"></script>
     </head>
 
     <body class="animated-content">
         
-        <header id="topnav" class="navbar navbar-blue navbar-fixed-top" role="banner">
+        <header id="topnav" class="navbar navbar-red navbar-fixed-top" role="banner">
 
 	<div class="logo-area">
 		<span id="trigger-sidebar" class="toolbar-trigger toolbar-icon-bg">
@@ -286,14 +294,14 @@
 		<li><a href="index.php"><i class="ti ti-home"></i><span>Dashboard</span></a></li>
 		<li><a href="javascript:;"><i class="fa fa-users"></i><span>Patients</span></a>
 			<ul class="acc-menu">
-				<li><a href="emergency.php">Emergency</a></li>
-				<li><a href="outpatient.php">Outpatient</a></li>
-				<li><a href="inpatient.php">Inpatient</a></li>
+				<li><a href="emergency.php"><i class="fa fa-user"></i><span>&emsp;Emergency</span></a></li>
+				<li><a href="outpatient.php"><i class="fa fa-user"></i><span>&emsp;Outpatient</span></a></li>
+				<li><a href="inpatient.php"><i class="fa fa-user"></i><span>&emsp;Inpatient</span></a></li>
 			</ul>
 		</li>
 		<li><a href="javascript:;"><i class="fa fa-stethoscope"></i><span>Nurse</span></a>
 			<ul class="acc-menu">
-				<li><a href="#">#</a></li>
+				<li><a href="qr-scanner/index.php"><i class="fa fa-qrcode"></i><span>&emsp;Scan QR Code</span></a></li>
 			</ul>
 		</li>
 		<li><a href="javascript:;"><i class="fa fa-user-md"></i><span>Doctors</span></a></li>
@@ -301,7 +309,7 @@
 		<li><a href="javascript:;"><i class="fa fa-money"></i><span>Billing</span></a></li>
 		<li><a href="javascript:;"><i class="fa fa-key"></i><span>Accounts</span></a>
 			<ul class="acc-menu">
-				<li><a href="#">User</a></li>
+				<li><a href="#"><i class="fa fa-user-md"></i><span>&emsp;User</span></a></li>
 			</ul>
 		</li>
 		<li><a href="javascript:;"><i class="fa fa-gears"></i><span>Tools</span></a>

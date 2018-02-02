@@ -15,13 +15,7 @@ font-weight: bold;
 
 <div class="container-fluid" ng-app="myApp" ng-controller="userCtrl">
 	
-	<div class="row">
-		<div class="col-md-6">
-                <br>
-				<button type="button" ng-click="addPatient()" class="btn btn-primary-alt pull-left"><i class="ti ti-user"></i>&nbsp;Add Patient</button>
-				
-		</div>
-	</div>
+	
 	<br>
 	<div data-widget-group="group1">
 			<div class="row">

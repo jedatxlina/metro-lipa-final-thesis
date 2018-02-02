@@ -454,7 +454,7 @@
                                             <div class="clearfix pt-md">
                                                 <div class="pull-right">
                                                     <button ng-click="goBack()" class="btn-default btn">Cancel</button>
-                                                    <button type="submit" class="btn-primary btn" ng-click="submitForm()">Next</button>
+                                                    <button type="submit" class="btn-danger btn" ng-click="submitForm()">Next</button>
                                                 </div>
                                             </div>
                                     </form>
@@ -518,9 +518,11 @@
                                     age: $scope.age,
                                     status: $scope.status,
                                     birthdate: $scope.birthdate,
-                                    contact: $scope.contact}
+                                    contact: $scope.contact,
+                                    classification: $scope.classification,
+                                    occupation: $scope.occupation}
                         }).then(function(response) {
-                            alert('eed');
+                            window.location.href = 'add-patient-next.php?id=' + $scope.admissionid;
                         });
                      
                      

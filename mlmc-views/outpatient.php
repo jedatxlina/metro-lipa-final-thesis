@@ -200,7 +200,7 @@ font-weight: bold;
 		});
 		   
 		$scope.addPatient = function(){
-			window.location.href = 'add-patient.php?id=' + 1;
+			window.location.href = 'add-patient.php?id=' + 0;
 		}
 
 		$scope.setClickedRow = function(user) {
