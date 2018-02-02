@@ -18,7 +18,7 @@ font-weight: bold;
 	<div class="row">
 		<div class="col-md-6">
                 <br>
-				<button type="button" ng-click="addPatient()" class="btn btn-primary-alt pull-left"><i class="ti ti-user"></i>&nbsp;Add Patient</button>
+				<button type="button" ng-click="addPatient()" class="btn btn-danger-alt pull-left"><i class="ti ti-user"></i>&nbsp;Add Patient</button>
 				
 		</div>
 	</div>
