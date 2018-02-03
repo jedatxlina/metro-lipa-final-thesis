@@ -93,8 +93,6 @@
             </div>
         </div>
 </div>
-
- JED WAS HERE   
     
     <!-- Load site level scripts -->
 
