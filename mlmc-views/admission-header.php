@@ -305,7 +305,7 @@
 			</ul>
 		</li>
 		<li><a href="javascript:;"><i class="fa fa-user-md"></i><span>Doctors</span></a></li>
-		<li><a href="javascript:;"><i class="fa fa-medkit"></i><span>Pharmacy</span></a></li>
+		<li><a href="pharmacy.php"><i class="fa fa-medkit"></i><span>Pharmacy</span></a></li>
 		<li><a href="javascript:;"><i class="fa fa-money"></i><span>Billing</span></a></li>
 		<li><a href="javascript:;"><i class="fa fa-key"></i><span>Accounts</span></a>
 			<ul class="acc-menu">
