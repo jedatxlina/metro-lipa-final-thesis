@@ -43,7 +43,7 @@
 
 
 	<script src="components/angular.min.js"></script>
-	<script src="assets/js/mask.js"></script>
+	<script src="../assets/js/mask.js"></script>
     </head>
 
     <body class="animated-content">
@@ -301,11 +301,12 @@
 		</li>
 		<li><a href="javascript:;"><i class="fa fa-stethoscope"></i><span>Nurse</span></a>
 			<ul class="acc-menu">
-				<li><a href="qr-scanner/index.php"><i class="fa fa-qrcode"></i><span>&emsp;Scan QR Code</span></a></li>
+				<li><a href="qr-scanner/index.php?type=addpatientvitals"><i class="fa fa-qrcode"></i><span>&emsp;Scan QR Code</span></a></li>
+				<li><a href="nurse-patient.php"><i class="fa fa-qrcode"></i><span>&emsp;Confined Patients</span></a></li>
 			</ul>
 		</li>
 		<li><a href="javascript:;"><i class="fa fa-user-md"></i><span>Doctors</span></a></li>
-		<li><a href="pharmacy.php"><i class="fa fa-medkit"></i><span>Pharmacy</span></a></li>
+		<li><a href="javascript:;"><i class="fa fa-medkit"></i><span>Pharmacy</span></a></li>
 		<li><a href="javascript:;"><i class="fa fa-money"></i><span>Billing</span></a></li>
 		<li><a href="javascript:;"><i class="fa fa-key"></i><span>Accounts</span></a>
 			<ul class="acc-menu">
