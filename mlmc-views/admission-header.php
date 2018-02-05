@@ -28,22 +28,13 @@
 	<link type="text/css" href="assets/plugins/datatables/dataTables.bootstrap.css" rel="stylesheet">
 	<link type="text/css" href="assets/plugins/datatables/dataTables.themify.css" rel="stylesheet">
 
-	<link type="text/css" href="assets/plugins/form-select2/select2.css" rel="stylesheet">                        <!-- Select2 -->
-	<link type="text/css" href="assets/plugins/form-multiselect/css/multi-select.css" rel="stylesheet">           <!-- Multiselect -->
-	<link type="text/css" href="assets/plugins/form-fseditor/fseditor.css" rel="stylesheet">                      <!-- FullScreen Editor -->
-	<link type="text/css" href="assets/plugins/bootstrap-tokenfield/css/bootstrap-tokenfield.css" rel="stylesheet">   <!-- Tokenfield -->
-
-	<link type="text/css" href="assets/plugins/bootstrap-touchspin/dist/jquery.bootstrap-touchspin.min.css" rel="stylesheet"> <!-- Touchspin -->
-
-	<link type="text/css" href="assets/plugins/iCheck/skins/minimal/_all.css" rel="stylesheet">                   <!-- Custom Checkboxes / iCheck -->
-	<link type="text/css" href="assets/plugins/iCheck/skins/flat/_all.css" rel="stylesheet">
-	<link type="text/css" href="assets/plugins/iCheck/skins/square/_all.css" rel="stylesheet">
-
-	<link type="text/css" href="assets/plugins/card/lib/css/card.css" rel="stylesheet"> 						 <!-- Card -->
-
+	<!-- <script type="text/javascript" src="assets/js/jquery-1.10.2.min.js"></script> 						
+    <script type="text/javascript" src="assets/js/jqueryui-1.10.3.min.js"></script> 						
+    <script src="//select2.github.io/select2/select2-3.4.1/select2.js"></script>
+    <link rel="stylesheet" type="text/css" href="//select2.github.io/select2/select2-3.4.1/select2.css"/> -->
 
 	<script src="components/angular.min.js"></script>
-	<script src="../assets/js/mask.js"></script>
+	<script src="assets/js/mask.js"></script>
     </head>
 
     <body class="animated-content">
