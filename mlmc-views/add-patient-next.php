@@ -1,8 +1,9 @@
 <?php include 'admission-header.php'   ?>
-<script src="assets/js/angular-autogrow.js"></script>
+
 <script type="text/javascript" src="assets/js/jquery-1.10.2.min.js"></script> 	
 <script src="//select2.github.io/select2/select2-3.4.1/select2.js"></script>
 <link rel="stylesheet" type="text/css" href="//select2.github.io/select2/select2-3.4.1/select2.css"/>
+
 
 <ol class="breadcrumb">
     <li><a href="index.php">Home</a>
@@ -92,10 +93,49 @@
                                             </div>
                                             <legend>Review of System</legend>
                                             <div data-row-span="4"> 
-                                                    <div data-field-span="4">
+                                                    <div data-field-span="2">
                                                         <label>Impression/Admitting Diagnosis</label>
                                                         <textarea ng-model="diagnosis" autogrow></textarea>
                                                     </div>
+                                                    <div data-field-span="2">
+                                                        <label>Administered Medications</label>
+                                                        <div class="controls">
+                                                            <select id="administered" class="select2" multiple="multiple" style="width:400px;">
+                                                                <optgroup label="List of Medicines">
+                                                                    <option value="Aspirin">Aspirin</option>
+                                                                    <option value="Paracetamol">Paracetamol</option>
+                                                                    <option value="Biogesic">Biogesic</option>
+                                                                    <option value="Bioflu">Bioflu</option>
+                                                                    <option value="Ibuprofen">Ibuprofen</option>
+                                                                </optgroup>
+                                                            </select>
+                                                        </div>
+                                                    </div>
+                                            </div>
+                                            <div data-row-span="2">
+                                                <div data-field-span="1">
+                                                    <label>Admitting Physician</label>
+                                                    <select class="form-control" ng-model="admitting">  
+                                                            <optgroup label="List of Doctors">
+                                                                <option value="" disabled selected>Select</option>
+                                                                <option value="111111">Dr. Jed</option>
+                                                                <option value="222222">Dr. Matthew</option>
+                                                                <option value="333333">Dr. Atienza</option>
+                                                                <option value="444444">Dr. Lina</option>
+                                                            </optgroup>
+                                                    </select>
+                                                </div>
+                                                <div data-field-span="1">
+                                                    <label>Classification</label>
+                                                    <label>
+                                                        <input type="radio" name="classification" ng-model="classification" value="Cash"> Cash</label> &nbsp;
+                                                    <label>
+                                                        <input type="radio" name="classification" ng-model="classification" value="HMO"> Corporate</label> &nbsp;
+                                                    <label>
+                                                        <input type="radio" name="classification" ng-model="classification" value="Corporate"> HMO</label>
+                                                    <label>
+                                                        <input type="radio" name="classification" ng-model="classification" value="Private"> Private</label>
+                                                </div>
                                             </div>
                                         </fieldset>
                                         <br>
@@ -123,34 +163,51 @@
             $('button[data-select2-open]').click(function(){
             $('#' + $(this).data('select2-open')).select2('open');
             });
-
-                var app = angular.module('myApp', ["angular-autogrow"]);
-                app.controller('userCtrl', function($scope, $window, $http) {
-                    
-                    $scope.admissionid = "<?php echo "2017" .  rand(111111, 999999); ?>";
+            // Angular module
+                var app = angular.module('myApp', ["angular-autogrow","ui-notification"])
+                        .config(function(NotificationProvider) {
+                        NotificationProvider.setOptions({
+                            delay: 3000,
+                            startTop: 20,
+                            startRight: 10,
+                            verticalSpacing: 20,
+                            horizontalSpacing: 20,
+                            positionX: 'right',
+                            positionY: 'top'
+                        });
+                });
+                
+                app.controller('userCtrl', function($scope, $window, $http, Notification) {
+           
                
                     $scope.submitForm = function(){
-                     
+                    
                         $scope.admissionid = "<?php echo $_GET['id']; ?>";
-                        $scope.conditions =$("#conditions").val();
-                        $scope.medications =$("#medications").val();
+                        $scope.medid = "<?php echo $_GET['medid']; ?>";
+                        $scope.condition =$("#conditions").val();
+                        $scope.medication =$("#medications").val();
 
                         $http({
                             method: 'GET',
                             url: 'insertData/insert-medical-details.php',
-                            params: {admissionid: $scope.admissionid,
-                                    conditions: $scope.conditions,
+                            params: {medid: $scope.medid,
+                                    admissionid: $scope.admissionid,
+                                    conditions: $scope.condition,
                                     surgery: $scope.surgery,
                                     bp: $scope.bp,
                                     pr: $scope.pr,
                                     rr: $scope.rr,
                                     temp: $scope.temp,
-                                    medications: $scope.medications,
+                                    medications: $scope.medication,
                                     weight: $scope.weight,
                                     height: $scope.height,
-                                    diagnosis: $scope.diagnosis}
+                                    diagnosis: $scope.diagnosis,
+                                    administered: $scope.administered,
+                                    admitting: $scope.admitting,
+                                    classification: $scope.classification}
                         }).then(function(response) {
-                            
+                  
+                            Notification.primary({message: '<span>Patient Data Inserted</span>', title: 'Success!'});
                         });
                       
                     }

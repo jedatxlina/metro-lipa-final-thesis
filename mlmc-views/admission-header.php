@@ -27,14 +27,21 @@
 	<link type="text/css" href="assets/plugins/switchery/switchery.css" rel="stylesheet">   							<!-- Switchery -->
 	<link type="text/css" href="assets/plugins/datatables/dataTables.bootstrap.css" rel="stylesheet">
 	<link type="text/css" href="assets/plugins/datatables/dataTables.themify.css" rel="stylesheet">
-
-	<!-- <script type="text/javascript" src="assets/js/jquery-1.10.2.min.js"></script> 						
+	<link rel="stylesheet" href="components/angular-ui-notification.min.css">
+	
+  	<!-- <script type="text/javascript" src="assets/js/jquery-1.10.2.min.js"></script> 						
     <script type="text/javascript" src="assets/js/jqueryui-1.10.3.min.js"></script> 						
     <script src="//select2.github.io/select2/select2-3.4.1/select2.js"></script>
     <link rel="stylesheet" type="text/css" href="//select2.github.io/select2/select2-3.4.1/select2.css"/> -->
-
+	
 	<script src="components/angular.min.js"></script>
+	<link rel="stylesheet" href="components/angular-ui-notification.min.css">
+	<script src="components/angular-ui-notification.min.js"></script> 
 	<script src="assets/js/mask.js"></script>
+	
+	<script src="components/angular-ui-notification.min.js"></script> 
+	<script src="assets/js/angular-autogrow.js"></script>
+	
     </head>
 
     <body class="animated-content">
@@ -278,7 +285,7 @@
             </div>
         </div>
     </div>
-	<div class="widget stay-on-collapse" id="widget-sidebar">
+	<div class="widget" id="widget-sidebar">
         <nav role="navigation" class="widget-body">
 	<ul class="acc-menu">
 		<li class="nav-separator"><span>Explore</span></li>
