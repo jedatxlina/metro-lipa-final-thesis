@@ -21,6 +21,7 @@
 <body>
 	<div class="app__layout">
 			<header class="app__header">
+				<span onclick="window.location.href='../index.php';">
 					&emsp;<svg fill="#FFFFFF" height="27" viewBox="0 0 24 24" width="27" xmlns="http://www.w3.org/2000/svg">
 						<path d="M0 0h24v24H0z" fill="none"/>
 						<path d="M11 17h2v-6h-2v6zm1-15C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8zM11 9h2V7h-2v2z"/>
@@ -31,29 +32,9 @@
 			<video autoplay></video><!-- Dialog  -->
 			<div class="app__dialog app__dialog--hide">
 
-				<?php
-				$type=$_GET['type'];
-				$link = '';
-				if($type=='emergencydetails')
-				{
-					$link = '../emergency-details.php';
-				}
-				if($type=='patientdetails')
-				{
-					$link = '../patient-details.php';
-				}
-				if($type=='patientvitals')
-				{
-					$link = '../patient-vitals.php';
-				}
-				if($type=='addpatientvitals')
-				{
-					$link = '../add-patient-vitals.php';
-				}
-				?>
-				<form action="<?php echo $link; ?>" method="GET">
+				<form action="confirm.php" method="GET">
 					<div class="app__dialog-content"><h5>Confirm ID</h5>
-						<input type="text" id="result" readonly="readonly" name="id">
+						<input type="text" id="result" readonly="readonly" name="result">
 					</div>
 					
 					<div class="app__dialog-actions">
@@ -75,9 +56,8 @@
 		<div class="app__help-text">Point the camera at a QR Code</div>
 		<div class="app__select-photos">Select from photos</div>
 	</div>
-
-	<script>
-	if (location.hostname !== "localhost") {
+<!-- 
+	<script>if (location.hostname !== "localhost") {
         (function(i,s,o,g,r,a,m){
         	i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
         (i[r].q=i[r].q||[]).push(arguments)},
@@ -87,7 +67,7 @@
         (window,document,'script','//www.google-analytics.com/analytics.js','ga');
         ga('create', 'pageview');
       }
-  </script>
+  </script> -->
   
   <script type="text/javascript" src="bundle.js"></script>
 </body>

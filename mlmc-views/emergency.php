@@ -75,13 +75,13 @@ font-weight: bold;
 						</div>
 						<div class="panel-body">
 							<a href="#" ng-click="viewPatient()" class="btn btn-default-alt btn-lg btn-block"><i class="ti ti-user"></i><span>&nbsp;&nbsp;Patient Details</span></a>
+							<a href="#" ng-click="viewEmergency()" class="btn btn-default-alt btn-lg btn-block"><i class="ti ti-info-alt"></i><span>&nbsp;&nbsp;Emergency Details</span></a>
 							<a href="#" ng-click="movePatient()" class="btn btn-default-alt btn-lg btn-block"><i class="fa fa-stethoscope"></i><span>&nbsp;&nbsp;Move to Inpatient</span></a>
 						</div>
 					</div>
 				</div>
-				
 				<!-- Error modal -->
-				<div class="modal fade" id="errorModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+				<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
 					<div class="modal-dialog">
 						<div class="alert alert-danger">
 							Select Emergency record that you would like to apply an <a href="#" class="alert-link">Action.</a>
@@ -105,19 +105,19 @@ font-weight: bold;
 												<div class="col-lg-4">
 													<div class="form-group">
 														<label>First Name</label> 
-														<input type="text" class="form-control" ng-value="patient.Firstname" ng-model="new.Firstname" disabled> 
+														<input type="text" class="form-control" ng-value="patient.Firstname" ng-model="new.Firstname" readonly="readonly"> 
 													</div>
 												</div>
 												<div class="col-lg-4">
 													<div class="form-group">
 														<label>Middle Name</label>
-														<input type="text" class="form-control" ng-value="patient.Middlename" ng-model="new.Middlename" disabled>
+														<input type="text" class="form-control" ng-value="patient.Middlename" ng-model="new.Middlename" readonly="readonly">
 													</div>
 												</div>
 												<div class="col-lg-4">
 													<div class="form-group">
 														<label>Last Name</label> 
-														<input type="text" class="form-control" ng-value="patient.Lastname" ng-model="new.Lastname" disabled> 
+														<input type="text" class="form-control" ng-value="patient.Lastname" ng-model="new.Lastname" readonly="readonly"> 
 													</div>
 												</div>
 											</div>
@@ -125,19 +125,19 @@ font-weight: bold;
 												<div class="col-lg-4">
 													<div class="form-group">
 														<label>Gender</label> 
-														<input type="text" class="form-control" ng-value="patient.Gender" ng-model="new.Gender" disabled> 
+														<input type="text" class="form-control" ng-value="patient.Gender" ng-model="new.Gender" readonly="readonly"> 
 													</div>
 												</div>
 												<div class="col-lg-4">
 													<div class="form-group">
 														<label>Civilstatus</label> 
-														<input type="text" class="form-control" ng-value="patient.Civilstatus" ng-model="new.Civilstatus" disabled> 
+														<input type="text" class="form-control" ng-value="patient.Civilstatus" ng-model="new.Civilstatus" readonly="readonly"> 
 													</div>
 												</div>
 												<div class="col-lg-4">
 													<div class="form-group">
 														<label>Birthdate</label> 
-														<input type="text" class="form-control" ng-value="patient.Birthdate" ng-model="new.Birthdate" disabled> 
+														<input type="text" class="form-control" ng-value="patient.Birthdate" ng-model="new.Birthdate" readonly="readonly"> 
 													</div>
 												</div>
 											</div>
@@ -145,13 +145,13 @@ font-weight: bold;
 												<div class="col-lg-4">
 													<div class="form-group">
 														<label>Province</label> 
-														<input type="text" class="form-control" ng-value="patient.Province" ng-model="new.Province" disabled> 
+														<input type="text" class="form-control" ng-value="patient.Province" ng-model="new.Province" readonly="readonly"> 
 													</div>
 												</div>
 												<div class="col-lg-4">
 													<div class="form-group">
 														<label>City</label> 
-														<input type="text" class="form-control" ng-value="patient.City" ng-model="new.City"  disabled> 
+														<input type="text" class="form-control" ng-value="patient.City" ng-model="new.City" readonly="readonly"> 
 													</div>
 												</div>
 											</div>
@@ -159,86 +159,22 @@ font-weight: bold;
 												<div class="col-lg-4">
 													<div class="form-group">
 														<label>Contact</label> 
-														<input type="text" class="form-control" ng-value="patient.Contact" ng-model="new.Contact"  disabled> 
+														<input type="text" class="form-control" ng-value="patient.Contact" ng-model="new.Contact" readonly="readonly"> 
 													</div>
 												</div>
 											</div>
 									</div>
 									<div class="modal-footer">
-										<button type="button" ng-click="viewPatientDetails()" class="btn btn-danger-alt pull-left">View Details</button>
+										<button type="button" ng-click="#" class="btn btn-primary-alt pull-left">View Details</button>
 										<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-										<button type="button" ng-click="confirmBtn()" class="btn btn-danger">Ok</button>
+										<button type="button" ng-click="confirmBtn()" class="btn btn-primary">Confirm</button>
 									</div>
 							</div><!-- /.modal-content -->
 						</div>
 					</form>
 				</div>
-				<div class="modal fade" id="moveInpatientModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
-					<form ng-repeat="patient in getdetails">
-						<div class="modal-dialog">
-							<div class="modal-content">
-
-								<div class="modal-header">
-									<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-									<h4 class="modal-title" id="myModalLabel">Move To Inpatient</h4>
-								</div>
-
-								<div class="modal-body">
-										<p>Data below will be moved to Inpatient section permanently.</p>
-										<div class="row">
-											<div class="col-lg-5">
-												<div class="form-group">
-													<label>Admission ID</label> 
-													<input type="text" class="form-control" ng-value="{{patient.AdmissionID}}" ng-model="new.admissionID" disabled> 
-												</div>
-											</div>
-											<div class="col-lg-5">
-												<div class="form-group">
-													<label>Admission No</label>
-													<input type="text" class="form-control" ng-value="{{patient.AdmissionNo}}" ng-model="new.admissionNo" disabled>
-												</div>
-											</div>
-										</div>
-										<div class="row">
-											<div class="col-lg-5">
-												<div class="form-group">
-													<label>Fullname</label> 
-													<input type="text" class="form-control" ng-value="patient.Firstname + ' ' + patient.Middlename + ' ' + patient.Lastname" ng-model="new.Fullname" disabled> 
-												</div>
-											</div>
-										
-										</div>
-										<div class="form-group">
-											<label>Room Type</label>
-											<select ng-model="RoomType" class="form-control" >
-											<option value="" disabled selected>Select Room Type</option>
-												<option value="Single Deluxe" >Single Deluxe</option>
-												<option value="Two-Bedded" >Two-Bedded</option>
-												<option value="Four-Bedded" >Four-Bedded</option>
-												<option value="Ward" >Ward</option>
-											</select>
-											</select>
-										</div>
-
-
-										<div class="form-group">
-											<label>Bed Number</label>
-											<select class="form-control" ng-options="data.BedID for data in bed |  filter:filterBed(RoomType)"  ng-model="$parent.bedno" ng-disabled="RoomType!='Single Deluxe' && RoomType!='Two-Bedded' && RoomType!='Four-Bedded' && RoomType!='Ward'">
-												<option value="" disabled selected>Select Bed Number</option>
-											</select>
-										</div>
-								</div>
-
-								<div class="modal-footer">
-										<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-										<button ng-click='ConfirmInpatient()' class="btn btn-primary">Confirm</button>
-								</div>
-							</div>
-							<!-- /.modal-content -->
-						</div>
-						<!-- /.modal-dialog -->
-					</form>
-				</div>
+				<!-- Patient Modal -->
+				
 		</div>
 	</div>
 	
@@ -262,27 +198,15 @@ font-weight: bold;
 			dTable.DataTable();  
 			});  
 		});
-
-		
-       $http({
-                    method: 'GET',
-                    url: 'getData/get-bed-details.php',
-                    contentType:"application/json; charset=utf-8",
-                    dataType:"json"
-                }).then(function(response) {
-                    $scope.bed = response.data;
-                });
 		   
-		$scope.setClickedRow = function(user) {
-           $scope.selectedRow = ($scope.selectedRow == null) ? user : ($scope.selectedRow == user) ? null : user;
-           $scope.clickedRow = ($scope.selectedRow == null) ? 0 : 1;
-	   	}
-
 		$scope.addPatient = function(){
 			window.location.href = 'add-patient.php?id=' + 1;
 		}
 
-		
+		$scope.setClickedRow = function(user) {
+           $scope.selectedRow = ($scope.selectedRow == null) ? user : ($scope.selectedRow == user) ? null : user;
+           $scope.clickedRow = ($scope.selectedRow == null) ? 0 : 1;
+	   }
 	   
 	  
 		$scope.viewPatient = function(){
@@ -299,12 +223,8 @@ font-weight: bold;
 			
 			}
 			else{
-			$('#errorModal').modal('show');
+			$('#myModal').modal('show');
 			}
-		}
-		
-		$scope.viewPatientDetails = function(){
-			window.location.href = 'view-patient-details.php?id=' + $scope.selectedRow;
 		}
 
 
@@ -312,50 +232,118 @@ font-weight: bold;
 			alert($scope.new.Firstname);
 		}
 
-		$scope.movePatient = function(){
-        	if($scope.selectedRow != null){
-				$scope.admissionid = $scope.selectedRow;
-				$http({
-						method: 'GET',
-						url: 'getData/get-patient-details.php',
-						params: {id: $scope.admissionid},
-						contentType:"application/json; charset=utf-8",
-						dataType:"json"
-						}).then(function(response) {
-						$scope.getdetails = response.data;
-					
-					});
-				$('#moveInpatientModal').modal('show');
-				
-          	}else{
-            	$('#errorModal').modal('show');
-           	}
-       };
+
 	
-        $scope.filterBed = function (param) {
-            return function (bed) {
-                if (bed.RoomType == param)
-                {
-                    if (bed.Status == 'Available')
-                    return true;
-                }
-                return false;
-            };
-        };
+        // $scope.filterBed = function (param) {
+        //     return function (bed) {
+        //         if (bed.RoomType == param)
+        //         {
+        //             if (bed.Status == 'Available')
+        //             return true;
+        //         }
+        //         return false;
+        //     };
+        // };
 
 
-       $scope.ConfirmInpatient = function(){
-			$http({
-				method: 'GET',
-				url: 'updateData/update-inpatient-details.php',
-				params: {AdmissionID: $scope.selectedRow,
-						BedID:$scope.bedno.BedID},
-				contentType:"application/json; charset=utf-8",
-				dataType:"json"
-				}).then(function(response) {
-				window.location.reload();
-				});
-		};
+    //    $scope.ConfirmInpatient = function(){
+    //     $http.post("http://localhost/Metro Lipa Patient System/assets/updateData/update-inpatient-details.php", {
+    //         'AdmissionID': $scope.selectedRow,
+    //         'BedID' : $scope.bedno.BedID
+    //     }).then(function(response){
+            
+           
+	// 			});
+	// 	window.location.reload();
+	// 	};
+
+    //    $scope.addPatient = function(){
+    //        window.location.href = 'add-patient-form.php?id=' + 1;
+    //    }
+
+    //    $scope.patientDetails = function(){
+    //       if($scope.selectedRow != null){
+    //         $scope.admissionid = $scope.selectedRow;
+    //         $http({
+    //                 method: 'GET',
+    //                 url: '../assets/getData/get-patient-details.php',
+    //                 params: {id: $scope.admissionid},
+    //                 contentType:"application/json; charset=utf-8",
+    //                 dataType:"json"
+    //                 }).then(function(response) {
+    //                 $scope.getdetails = response.data;
+                
+    //             });
+    //             $('#patientModal').modal('show');
+    //       }else{
+    //             $('#myModal').modal('show');
+    //        }
+                
+    //    };
+
+    //    $scope.movetoInpatient = function(){
+    //     if($scope.selectedRow != null){
+    //         $scope.admissionid = $scope.selectedRow;
+    //         $http({
+    //                 method: 'GET',
+    //                 url: '../assets/getData/get-patient-details.php',
+    //                 params: {id: $scope.admissionid},
+    //                 contentType:"application/json; charset=utf-8",
+    //                 dataType:"json"
+    //                 }).then(function(response) {
+    //                 $scope.getdetails = response.data;
+                
+    //             });
+    //             $('#movetoInpatientModal').modal('show');
+    //       }else{
+    //             $('#myModal').modal('show');
+    //        }
+    //    };
+
+    //    $http({
+    //                 method: 'GET',
+    //                 url: '../assets/getData/get-bed-details.php',
+    //                 contentType:"application/json; charset=utf-8",
+    //                 dataType:"json"
+    //             }).then(function(response) {
+    //                 $scope.bed = response.data;
+    //             });
+                
+
+    //    $scope.emergencyDetails = function(){
+    //     if($scope.selectedRow != null){
+    //         $scope.admissionid = $scope.selectedRow;
+    //         $http({
+    //                 method: 'GET',
+    //                 url: '../assets/getData/get-patient-details.php',
+    //                 params: {id: $scope.admissionid},
+    //                 contentType:"application/json; charset=utf-8",
+    //                 dataType:"json"
+    //                 }).then(function(response) {
+    //                 $scope.getdetails = response.data;
+                
+    //             });
+    //             $('#emergencyModal').modal('show');
+    //       }else{
+    //             $('#myModal').modal('show');
+    //        }
+    //    };
+
+    //    $scope.patientConfirm = function(){
+        
+    //    };
+    //    $scope.new = {};
+    //    $scope.emergencyConfirm = function(){
+    //     $http.post("http://localhost/Metro Lipa Patient System/assets/updateData/update-emergency-details.php", {
+    //                     'AdmissionID': $scope.selectedRow,
+    //                     'FirstName': $scope.new.FirstName
+    //                 }).then(function(response){
+    //                     $('#emergencyModal').modal('hide');
+                       
+    //                 });
+    //     window.location.reload();
+    //     };
+
 
    }]);
 </script>		

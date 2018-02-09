@@ -70,8 +70,6 @@ font-weight: bold;
 						<div class="panel-body">
 							<a href="#" ng-click="viewPatient()" class="btn btn-default-alt btn-lg btn-block"><i class="ti ti-user"></i><span>&nbsp;&nbsp;Patient Details</span></a>
 							<a href="#" ng-click="viewEmergency()" class="btn btn-default-alt btn-lg btn-block"><i class="ti ti-info-alt"></i><span>&nbsp;&nbsp;Inpatient Details</span></a>
-							<a href="#" ng-click="viewEmergency()" class="btn btn-default-alt btn-lg btn-block"><i class="fa  fa-refresh"></i><span>&nbsp;&nbsp;Relocate</span></a>
-							<a href="#" ng-click="viewEmergency()" class="btn btn-default-alt btn-lg btn-block"><i class="fa fa-check-square-o"></i><span>&nbsp;&nbsp;Discharge</span></a>
 						</div>
 					</div>
 				</div>
@@ -162,14 +160,14 @@ font-weight: bold;
 									<div class="modal-footer">
 										<button type="button" ng-click="#" class="btn btn-primary-alt pull-left">View Details</button>
 										<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-										<button type="button" ng-click="okBtn()" class="btn btn-primary">Confirm</button>
+										<button type="button" ng-click="confirmBtn()" class="btn btn-primary">Confirm</button>
 									</div>
 							</div><!-- /.modal-content -->
 						</div>
 					</form>
 				</div>
 				<!-- Patient Modal -->
-			
+				
 		</div>
 	</div>
 	
@@ -222,7 +220,123 @@ font-weight: bold;
 			}
 		}
 
-		
+
+		$scope.confirmBtn = function(){
+			alert($scope.new.Firstname);
+		}
+
+
+	
+        // $scope.filterBed = function (param) {
+        //     return function (bed) {
+        //         if (bed.RoomType == param)
+        //         {
+        //             if (bed.Status == 'Available')
+        //             return true;
+        //         }
+        //         return false;
+        //     };
+        // };
+
+
+    //    $scope.ConfirmInpatient = function(){
+    //     $http.post("http://localhost/Metro Lipa Patient System/assets/updateData/update-inpatient-details.php", {
+    //         'AdmissionID': $scope.selectedRow,
+    //         'BedID' : $scope.bedno.BedID
+    //     }).then(function(response){
+            
+           
+	// 			});
+	// 	window.location.reload();
+	// 	};
+
+    //    $scope.addPatient = function(){
+    //        window.location.href = 'add-patient-form.php?id=' + 1;
+    //    }
+
+    //    $scope.patientDetails = function(){
+    //       if($scope.selectedRow != null){
+    //         $scope.admissionid = $scope.selectedRow;
+    //         $http({
+    //                 method: 'GET',
+    //                 url: '../assets/getData/get-patient-details.php',
+    //                 params: {id: $scope.admissionid},
+    //                 contentType:"application/json; charset=utf-8",
+    //                 dataType:"json"
+    //                 }).then(function(response) {
+    //                 $scope.getdetails = response.data;
+                
+    //             });
+    //             $('#patientModal').modal('show');
+    //       }else{
+    //             $('#myModal').modal('show');
+    //        }
+                
+    //    };
+
+    //    $scope.movetoInpatient = function(){
+    //     if($scope.selectedRow != null){
+    //         $scope.admissionid = $scope.selectedRow;
+    //         $http({
+    //                 method: 'GET',
+    //                 url: '../assets/getData/get-patient-details.php',
+    //                 params: {id: $scope.admissionid},
+    //                 contentType:"application/json; charset=utf-8",
+    //                 dataType:"json"
+    //                 }).then(function(response) {
+    //                 $scope.getdetails = response.data;
+                
+    //             });
+    //             $('#movetoInpatientModal').modal('show');
+    //       }else{
+    //             $('#myModal').modal('show');
+    //        }
+    //    };
+
+    //    $http({
+    //                 method: 'GET',
+    //                 url: '../assets/getData/get-bed-details.php',
+    //                 contentType:"application/json; charset=utf-8",
+    //                 dataType:"json"
+    //             }).then(function(response) {
+    //                 $scope.bed = response.data;
+    //             });
+                
+
+    //    $scope.emergencyDetails = function(){
+    //     if($scope.selectedRow != null){
+    //         $scope.admissionid = $scope.selectedRow;
+    //         $http({
+    //                 method: 'GET',
+    //                 url: '../assets/getData/get-patient-details.php',
+    //                 params: {id: $scope.admissionid},
+    //                 contentType:"application/json; charset=utf-8",
+    //                 dataType:"json"
+    //                 }).then(function(response) {
+    //                 $scope.getdetails = response.data;
+                
+    //             });
+    //             $('#emergencyModal').modal('show');
+    //       }else{
+    //             $('#myModal').modal('show');
+    //        }
+    //    };
+
+    //    $scope.patientConfirm = function(){
+        
+    //    };
+    //    $scope.new = {};
+    //    $scope.emergencyConfirm = function(){
+    //     $http.post("http://localhost/Metro Lipa Patient System/assets/updateData/update-emergency-details.php", {
+    //                     'AdmissionID': $scope.selectedRow,
+    //                     'FirstName': $scope.new.FirstName
+    //                 }).then(function(response){
+    //                     $('#emergencyModal').modal('hide');
+                       
+    //                 });
+    //     window.location.reload();
+    //     };
+
 
    }]);
 </script>		

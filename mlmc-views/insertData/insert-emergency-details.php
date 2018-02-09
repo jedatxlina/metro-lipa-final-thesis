@@ -32,7 +32,6 @@ $date = $_GET['birthdate'];
 $contact = $_GET['contact'];
 $class = $_GET['classification'];
 $occupation = $_GET['occupation'];
-$medicalid = $_GET['medicalid'];
 
 $sel = mysqli_query($con,"select * from patient_archive where FirstName = '$firstname' and MiddleName = '$middlename' and LastName = '$lastname' and Gender = '$gender'");
 $counter = 0;
@@ -48,12 +47,10 @@ if($counter > 0){
 // $query = "INSERT into patients(AdmissionID,AdmissionDateTime,FirstName,MiddleName,LastName,Admission,AdmissionType,Gender,Province,City,Age,CivilStatus,Birthdate,Contact) 
 // VALUES('$admissionid',NOW(),'$firstname','$middlename','$lastname','$admission','$admissiontype','$gender','$province','$city','$age','$civilstatus','$birthdate','$contact')";
 
-$query = "INSERT into patients(AdmissionID,AdmissionDateTime,AdmissionType,FirstName,MiddleName,LastName,Admission,Province,City,Gender,Age,CivilStatus,Birthdate,Contact,Class,Occupation,MedicalID) 
-VALUES('$admissionid',NOW(),'$admissiontype','$firstname','$middlename','$lastname','$admission','$province','$city','$gender','$age','$status','$date','$contact','$class','$occupation','$medicalid')";
+$query = "INSERT into patients(AdmissionID,AdmissionDateTime,AdmissionType,FirstName,MiddleName,LastName,Admission,Province,City,Gender,Age,CivilStatus,Birthdate,Contact,Class,Occupation) 
+VALUES('$admissionid',NOW(),'$admissiontype','$firstname','$middlename','$lastname','$admission','$province','$city','$gender','$age','$status','$date','$contact','$class','$occupation')";
 
 mysqli_query($con,$query);  
-
-
 
 // session_start();
 // $_SESSION['data'] = $admissionid;

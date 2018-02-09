@@ -1,10 +1,13 @@
 <?php
-require_once 'connection.php';
+require_once '../connection.php';
 
-$id =  $_GET['AdmissionID'];
-$bedid = $_GET['BedID']; 
+$postdata = file_get_contents("php://input");
+$request = json_decode($postdata);
 
-$sql = "UPDATE patients SET AdmissionType='Pending' WHERE AdmissionID='$id'";
+$id = addslashes($request->AdmissionID);
+$bedid = addslashes($request->BedID);
+
+$sql = "UPDATE patients SET BedID='$bedid' , AdmissionType='Inpatient' WHERE AdmissionID='$id'";
 
 mysqli_query($con,$sql);  
 
@@ -12,8 +15,4 @@ $sql2 = "UPDATE beds SET Status='Occupied' WHERE BedID='$bedid'";
 
 mysqli_query($con,$sql2); 
 
-$sql3 = "UPDATE medical_details SET BedID='$bedid' WHERE AdmissionID='$id'";
-
-mysqli_query($con,$sql3); 
- 
 ?>
