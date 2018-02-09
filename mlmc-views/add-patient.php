@@ -430,25 +430,7 @@
                                                     <input type="text" ng-model="spouse" ng-disabled="status != 'Married'">
                                                 </div>
                                             </div>
-                                            <div data-row-span="2">
-                                                <div data-field-span="1">
-                                                    <label>Attending Physician</label>
-                                                    <select class="form-control" ng-model="attendingphys    ">  
-                                                        <option value="" disabled selected>Select</option>
-                                                    </select>
-                                                </div>
-                                                <div data-field-span="1">
-                                                    <label>Classification</label>
-                                                    <label>
-                                                        <input type="radio" name="classification" ng-model="classification" value="Cash"> Cash</label> &nbsp;
-                                                    <label>
-                                                        <input type="radio" name="classification" ng-model="classification" value="HMO"> Corporate</label> &nbsp;
-                                                    <label>
-                                                        <input type="radio" name="classification" ng-model="classification" value="Corporate"> HMO</label>
-                                                    <label>
-                                                        <input type="radio" name="classification" ng-model="classification" value="Private"> Private</label>
-                                                </div>
-                                            </div>
+                                          
                                             <br>
 
                                             <div class="clearfix pt-md">
@@ -503,7 +485,7 @@
                     $scope.submitForm = function(check){
                        
                         $scope.birthdate =$("#datepicker").datepicker("option", "dateFormat", "yy-mm-dd" ).val();
-
+                        $scope.medicalid = "<?php echo  rand(111111, 999999); ?>";
                         $http({
                             method: 'GET',
                             url: 'insertData/insert-emergency-details.php',
@@ -519,10 +501,10 @@
                                     status: $scope.status,
                                     birthdate: $scope.birthdate,
                                     contact: $scope.contact,
-                                    classification: $scope.classification,
-                                    occupation: $scope.occupation}
+                                    occupation: $scope.occupation,
+                                    medicalid: $scope.medicalid}
                         }).then(function(response) {
-                            window.location.href = 'add-patient-next.php?id=' + $scope.admissionid;
+                            window.location.href = 'add-patient-next.php?id=' + $scope.admissionid + '&medid=' + $scope.medicalid;
                         });
                      
                      

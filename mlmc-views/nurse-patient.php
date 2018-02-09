@@ -1,4 +1,5 @@
-<?php include 'admission-header.php' ?>
+<?php 
+include 'admission-header.php' ?>
 <style>
 .selected {
 color: #800000;
@@ -10,25 +11,19 @@ font-weight: bold;
 <ol class="breadcrumb">
 <li><a href="index.php">Home</a></li>
 <li><a href="index.php">Patients</a></li>
-<li class="active"><a href="outpatient.php">Outpatient</a></li>
+<li class="active"><a href="inpatient.php">Inpatient</a></li>
 </ol>
 
 <div class="container-fluid" ng-app="myApp" ng-controller="userCtrl">
 	
-	<div class="row">
-		<div class="col-md-6">
-                <br>
-				<button type="button" ng-click="addPatient()" class="btn btn-primary-alt pull-left"><i class="ti ti-user"></i>&nbsp;Add Patient</button>
-				
-		</div>
-	</div>
+	
 	<br>
 	<div data-widget-group="group1">
 			<div class="row">
 				<div class="col-md-9">
 					<div class="panel panel-default">
 						<div class="panel-heading">
-							<h2>Outpatient Patients</h2>
+							<h2>Inpatient Patients</h2>
 							<div class="panel-ctrls"></div>
 						</div>
 						<div class="panel-body">
@@ -61,6 +56,10 @@ font-weight: bold;
 						</div>
 						<div class="panel-footer"></div>
 					</div>
+					<div class="alert alert-dismissable alert-info">
+							&nbsp; 	<a href="#" ng-click="viewFlag()" <i class="ti ti-flag-alt"></i></a>&nbsp;&nbsp;Click the flag to view newly registered inpatient and confirm for tagging.
+						<button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+					</div>
 				</div>
 				<div class="col-md-3">
 					<div class="panel panel-default">
@@ -75,7 +74,8 @@ font-weight: bold;
 						</div>
 						<div class="panel-body">
 							<a href="#" ng-click="viewPatient()" class="btn btn-default-alt btn-lg btn-block"><i class="ti ti-user"></i><span>&nbsp;&nbsp;Patient Details</span></a>
-							<a href="#" ng-click="movePatient()" class="btn btn-default-alt btn-lg btn-block"><i class="fa fa-stethoscope"></i><span>&nbsp;&nbsp;Move to Inpatient</span></a>
+							<a href="#" ng-click="patientVitals()" class="btn btn-default-alt btn-lg btn-block"><i class="ti ti-user"></i><span>&nbsp;&nbsp;Patient Vitals</span></a>
+							<a href="#" ng-click="viewPatient()" class="btn btn-default-alt btn-lg btn-block"><i class="ti ti-user"></i><span>&nbsp;&nbsp;Doctors Order</span></a>
 						</div>
 					</div>
 				</div>
@@ -173,6 +173,45 @@ font-weight: bold;
 					</form>
 				</div>
 				<!-- Patient Modal -->
+				<div class="modal fade" id="flagModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+					<div class="modal-dialog">
+							<div class="modal-content">
+									<div class="modal-header">
+										<button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+										<h4 class="modal-title">Newly Registered Inpatients</h4>
+										<p>Confirmation of Patient's Arrival Tagging</p>
+									</div>
+									<div class="modal-body">
+											<table id="patient_table" class="table table-striped table-bordered" cellspacing="0" width="80%">
+								<thead>
+								<tr>
+									<th>Patients Name</th>
+									<th>Admission ID</th>
+									<th>Admission Date</th>
+									<th>Bed ID</th>
+									<th>Medical ID</th>
+								</tr>
+								</thead>
+								<tbody>
+								<tr ng-repeat="patient in flagPatients" ng-class="{'selected': patient.AdmissionID == selectedRow}" ng-click="setClickedRow(patient.AdmissionID)">
+										<td>{{patient.Lname}}, {{patient.Fname}} {{patient.Mname}}</td>
+                                        <td>{{patient.AdmissionID}}</td>
+                                        <td>{{patient.AdmissionDateTime}}</td>
+										<td>{{patient.BedID}}</td>
+										<td>{{patient.MedicalID}}</td>
+                                        <td></td>
+                                    </tr>
+								</tbody>
+							</table>
+									</div>
+									<div class="modal-footer">
+										<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+										<button type="button" ng-click="confirmBtn()" class="btn btn-primary">Confirm</button>
+									</div>
+							</div><!-- /.modal-content -->
+						</div>
+				</div>
+		
 				
 		</div>
 	</div>
@@ -189,7 +228,7 @@ font-weight: bold;
 
        	$http({
            method: 'get',
-           url: 'getData/get-outpatient-details.php'
+           url: 'getData/get-inpatient-details.php'
        	}).then(function(response) {
 		 	$scope.users = response.data;
 			angular.element(document).ready(function() {  
@@ -199,7 +238,7 @@ font-weight: bold;
 		});
 		   
 		$scope.addPatient = function(){
-			window.location.href = 'add-patient.php?id=' + 0;
+			window.location.href = 'add-patient.php?id=' + 1;
 		}
 
 		$scope.setClickedRow = function(user) {
@@ -229,6 +268,39 @@ font-weight: bold;
 
 		$scope.confirmBtn = function(){
 			alert($scope.new.Firstname);
+		}
+
+        $scope.patientVitals = function(){
+            if($scope.selectedRow != null){
+            window.location.href = 'patient-vitals.php?id=' + $scope.selectedRow;
+            }else{
+                window.location.href = 'qr-scanner/index.php?type=patientvitals';
+           }
+       };
+
+
+	   $scope.viewFlag = function(){
+				$http({
+					method: 'get',
+					url: 'getData/get-inpatient-flags.php'
+				}).then(function(response) {
+					$scope.flagPatients = response.data;
+				});
+				$('#flagModal').modal('show');
+		}
+
+
+		$scope.confirmBtn = function(user){
+	
+				$scope.admissionid = $scope.selectedRow;
+				$http({
+					method: 'get',
+					url: 'updateData/update-inpatient-flag.php',
+					params: {id: $scope.admissionid}
+				}).then(function(response) {
+				window.location.reload();
+				});
+			
 		}
 
    }]);
