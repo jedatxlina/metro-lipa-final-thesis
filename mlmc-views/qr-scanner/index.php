@@ -31,8 +31,10 @@
 		<main class="app__layout-content">
 			<video autoplay></video><!-- Dialog  -->
 			<div class="app__dialog app__dialog--hide">
-
-				<form action="confirm.php" method="GET">
+				<?php
+				$link = '../option.php';
+				?>
+				<form action="<?php echo $link; ?>" method="GET">
 					<div class="app__dialog-content"><h5>Confirm ID</h5>
 						<input type="text" id="result" readonly="readonly" name="result">
 					</div>

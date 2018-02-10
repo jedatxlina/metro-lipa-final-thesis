@@ -281,7 +281,7 @@ font-weight: bold;
             if($scope.selectedRow != null){
             window.location.href = 'patient-vitals.php?id=' + $scope.selectedRow;
             }else{
-                window.location.href = 'qr-scanner/index.php?type=patientvitals';
+                window.location.href = 'qr-scanner/index.php';
            }
        };
 
@@ -296,6 +296,14 @@ font-weight: bold;
 				});
 				$('#flagModal').modal('show');
 		}
+		
+        $scope.patientVitals = function(){
+            if($scope.selectedRow != null){
+            window.location.href = 'nurses-notes.php?id=' + $scope.selectedRow;
+            }else{
+                window.location.href = 'qr-scanner/index.php';
+           }
+       };
 
 
 		$scope.confirmBtn = function(user){
@@ -308,7 +316,6 @@ font-weight: bold;
 				}).then(function(response) {
 				window.location.reload();
 				});
-			
 		}
 
    }]);
