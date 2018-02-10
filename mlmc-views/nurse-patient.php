@@ -296,14 +296,6 @@ font-weight: bold;
 				});
 				$('#flagModal').modal('show');
 		}
-		
-        $scope.patientVitals = function(){
-            if($scope.selectedRow != null){
-            window.location.href = 'nurses-notes.php?id=' + $scope.selectedRow;
-            }else{
-                window.location.href = 'qr-scanner/index.php';
-           }
-       };
 
 
 		$scope.confirmBtn = function(user){
