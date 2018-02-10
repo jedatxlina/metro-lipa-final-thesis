@@ -486,6 +486,7 @@
                        
                         $scope.birthdate =$("#datepicker").datepicker("option", "dateFormat", "yy-mm-dd" ).val();
                         $scope.medicalid = "<?php echo  rand(111111, 999999); ?>";
+                        
                         $http({
                             method: 'GET',
                             url: 'insertData/insert-emergency-details.php',

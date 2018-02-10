@@ -17,6 +17,13 @@ font-weight: bold;
 <div class="container-fluid" ng-app="myApp" ng-controller="userCtrl">
 	
 	
+	<div class="row">
+		<div class="col-md-6">
+                <br>
+				<a href="qr-scanner/index.php?type=addpatientvitals" class="btn btn-danger-alt pull-left"><i class="fa fa-qrcode"></i>&nbsp;&nbsp;Scan</a>
+				
+		</div>
+	</div>
 	<br>
 	<div data-widget-group="group1">
 			<div class="row">
@@ -83,7 +90,7 @@ font-weight: bold;
 				<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
 					<div class="modal-dialog">
 						<div class="alert alert-danger">
-							Select Emergency record that you would like to apply an <a href="#" class="alert-link">Action.</a>
+							Select Patient record that you would like to apply an <a href="#" class="alert-link">Action.</a>
 						</div>
 					</div>
 				</div>
@@ -182,27 +189,27 @@ font-weight: bold;
 										<p>Confirmation of Patient's Arrival Tagging</p>
 									</div>
 									<div class="modal-body">
-											<table id="patient_table" class="table table-striped table-bordered" cellspacing="0" width="80%">
-								<thead>
-								<tr>
-									<th>Patients Name</th>
-									<th>Admission ID</th>
-									<th>Admission Date</th>
-									<th>Bed ID</th>
-									<th>Medical ID</th>
-								</tr>
-								</thead>
-								<tbody>
-								<tr ng-repeat="patient in flagPatients" ng-class="{'selected': patient.AdmissionID == selectedRow}" ng-click="setClickedRow(patient.AdmissionID)">
-										<td>{{patient.Lname}}, {{patient.Fname}} {{patient.Mname}}</td>
-                                        <td>{{patient.AdmissionID}}</td>
-                                        <td>{{patient.AdmissionDateTime}}</td>
-										<td>{{patient.BedID}}</td>
-										<td>{{patient.MedicalID}}</td>
-                                        <td></td>
-                                    </tr>
-								</tbody>
-							</table>
+								<table id="patient_table" class="table table-striped table-bordered" cellspacing="0" width="80%">
+									<thead>
+									<tr>
+										<th>Patients Name</th>
+										<th>Admission ID</th>
+										<th>Admission Date</th>
+										<th>Bed ID</th>
+										<th>Medical ID</th>
+									</tr>
+									</thead>
+									<tbody>
+									<tr ng-repeat="patient in flagPatients" ng-class="{'selected': patient.AdmissionID == selectedRow}" ng-click="setClickedRow(patient.AdmissionID)">
+											<td>{{patient.Lname}}, {{patient.Fname}} {{patient.Mname}}</td>
+											<td>{{patient.AdmissionID}}</td>
+											<td>{{patient.AdmissionDateTime}}</td>
+											<td>{{patient.BedID}}</td>
+											<td>{{patient.MedicalID}}</td>
+											<td></td>
+										</tr>
+									</tbody>
+								</table>
 									</div>
 									<div class="modal-footer">
 										<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
@@ -274,7 +281,7 @@ font-weight: bold;
             if($scope.selectedRow != null){
             window.location.href = 'patient-vitals.php?id=' + $scope.selectedRow;
             }else{
-                window.location.href = 'qr-scanner/index.php?type=patientvitals';
+                window.location.href = 'qr-scanner/index.php';
            }
        };
 
@@ -282,12 +289,21 @@ font-weight: bold;
 	   $scope.viewFlag = function(){
 				$http({
 					method: 'get',
-					url: 'getData/get-inpatient-flags.php'
+					url: 'getData/get-inpatient-flags.php',
+					params:{id:$scope.selectedRow}
 				}).then(function(response) {
 					$scope.flagPatients = response.data;
 				});
 				$('#flagModal').modal('show');
 		}
+		
+        $scope.patientVitals = function(){
+            if($scope.selectedRow != null){
+            window.location.href = 'nurses-notes.php?id=' + $scope.selectedRow;
+            }else{
+                window.location.href = 'qr-scanner/index.php';
+           }
+       };
 
 
 		$scope.confirmBtn = function(user){
@@ -300,7 +316,6 @@ font-weight: bold;
 				}).then(function(response) {
 				window.location.reload();
 				});
-			
 		}
 
    }]);

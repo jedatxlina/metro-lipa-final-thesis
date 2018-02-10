@@ -31,7 +31,4 @@ VALUES('$vitalsid','$admissionid','$bp','$pr','$rr','$temp',NOW())";
 
 mysqli_query($con,$query);
 
-// session_start();
-// $_SESSION['data'] = $admissionid;
-// include 'qr-generator/index.php';
 ?>

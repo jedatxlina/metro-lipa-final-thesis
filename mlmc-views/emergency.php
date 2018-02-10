@@ -76,6 +76,8 @@ font-weight: bold;
 						<div class="panel-body">
 							<a href="#" ng-click="viewPatient()" class="btn btn-default-alt btn-lg btn-block"><i class="ti ti-user"></i><span>&nbsp;&nbsp;Patient Details</span></a>
 							<a href="#" ng-click="movePatient()" class="btn btn-default-alt btn-lg btn-block"><i class="fa fa-stethoscope"></i><span>&nbsp;&nbsp;Move to Inpatient</span></a>
+							<a href="#" ng-click="dischargePatient()" class="btn btn-default-alt btn-lg btn-block"><i class="fa fa-check-square-o"></i><span>&nbsp;&nbsp;Discharge</span></a>
+							<a href="#" ng-click="ReAdmitPatient()" class="btn btn-default-alt btn-lg btn-block"><i class="fa fa-check-square-o"></i><span>&nbsp;&nbsp;Re-Admit</span></a>
 						</div>
 					</div>
 				</div>
@@ -83,160 +85,155 @@ font-weight: bold;
 				<!-- Error modal -->
 				<div class="modal fade" id="errorModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
 					<div class="modal-dialog">
-						<div class="alert alert-danger">
+						<div class="panel panel-danger" data-widget='{"draggable": "false"}'>
+							<div class="panel-heading">
+								<h2>Error:</h2>
+								<div class="panel-ctrls" data-actions-container="" data-action-collapse='{"target": ".panel-body, .panel-footer"}'></div>
+							</div>
+							<div class="panel-body" style="height: 60px">
 							Select Emergency record that you would like to apply an <a href="#" class="alert-link">Action.</a>
+							</div>
+							<!-- <div class="panel-footer">
+								<span class="text-gray"><em>Footer</em></span>
+							</div> -->
 						</div>
+						<!-- <div class="alert alert-danger">
+							Select Emergency record that you would like to apply an <a href="#" class="alert-link">Action.</a>
+						</div> -->
 					</div>
 				</div>
 				<!--/ Error modal -->
 
 				<!-- Patient Modal -->
 				<div class="modal fade" id="patientModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
-					<form ng-repeat="patient in patientdetails">
+					<form class="form-horizontal">
 						<div class="modal-dialog">
-							<div class="modal-content">
-									<div class="modal-header">
-										<button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-										<h2 class="modal-title">Patient Details</h2>
-										<p>Data below belongs to <small><u>{{patient.Firstname}} {{patient.Middlename}} {{patient.Lastname}}</u></small> </p>
+							<div class="panel panel-danger" data-widget='{"draggable": "false"}'>
+								<div class="panel-heading">
+									<h2>Patient Details</h2>
+									<div class="panel-ctrls" data-actions-container="" data-action-collapse='{"target": ".panel-body, .panel-footer"}'></div>
+								</div>
+								<div class="panel-body" style="height: 400px" data-ng-repeat="patient in patientdetails">
+									<center><span><strong>Registry Information</strong></span></center>
+									<hr>
+									<div class="row">
+										<div class="form-group">
+											<label for="focusedinput" class="col-sm-3 control-label">Patient name</label>
+											<div class="col-sm-8">
+												<input type="text" class="form-control" ng-value="patient.Lastname + ', ' + patient.Firstname + ' ' + patient.Middlename"  disabled>
+											</div>
+										</div>
 									</div>
-									<div class="modal-body">
-											<div class="row">
-												<div class="col-lg-4">
-													<div class="form-group">
-														<label>First Name</label> 
-														<input type="text" class="form-control" ng-value="patient.Firstname" ng-model="new.Firstname" disabled> 
-													</div>
-												</div>
-												<div class="col-lg-4">
-													<div class="form-group">
-														<label>Middle Name</label>
-														<input type="text" class="form-control" ng-value="patient.Middlename" ng-model="new.Middlename" disabled>
-													</div>
-												</div>
-												<div class="col-lg-4">
-													<div class="form-group">
-														<label>Last Name</label> 
-														<input type="text" class="form-control" ng-value="patient.Lastname" ng-model="new.Lastname" disabled> 
-													</div>
-												</div>
+									<div class="row">
+										<div class="form-group">
+											<label for="focusedinput" class="col-sm-3 control-label">Admission ID</label>
+											<div class="col-sm-5">
+												<input type="text" class="form-control" ng-value="patient.AdmissionID" disabled>
 											</div>
-											<div class="row">
-												<div class="col-lg-4">
-													<div class="form-group">
-														<label>Gender</label> 
-														<input type="text" class="form-control" ng-value="patient.Gender" ng-model="new.Gender" disabled> 
-													</div>
-												</div>
-												<div class="col-lg-4">
-													<div class="form-group">
-														<label>Civilstatus</label> 
-														<input type="text" class="form-control" ng-value="patient.Civilstatus" ng-model="new.Civilstatus" disabled> 
-													</div>
-												</div>
-												<div class="col-lg-4">
-													<div class="form-group">
-														<label>Birthdate</label> 
-														<input type="text" class="form-control" ng-value="patient.Birthdate" ng-model="new.Birthdate" disabled> 
-													</div>
-												</div>
-											</div>
-											<div class="row">
-												<div class="col-lg-4">
-													<div class="form-group">
-														<label>Province</label> 
-														<input type="text" class="form-control" ng-value="patient.Province" ng-model="new.Province" disabled> 
-													</div>
-												</div>
-												<div class="col-lg-4">
-													<div class="form-group">
-														<label>City</label> 
-														<input type="text" class="form-control" ng-value="patient.City" ng-model="new.City"  disabled> 
-													</div>
-												</div>
-											</div>
-											<div class="row">
-												<div class="col-lg-4">
-													<div class="form-group">
-														<label>Contact</label> 
-														<input type="text" class="form-control" ng-value="patient.Contact" ng-model="new.Contact"  disabled> 
-													</div>
-												</div>
-											</div>
+										</div>
 									</div>
-									<div class="modal-footer">
-										<button type="button" ng-click="viewPatientDetails()" class="btn btn-danger-alt pull-left">View Details</button>
-										<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-										<button type="button" ng-click="confirmBtn()" class="btn btn-danger">Ok</button>
+									<div class="row">
+										<div class="form-group">
+											<label for="focusedinput" class="col-sm-3 control-label">Admission Date Time</label>
+											<div class="col-sm-5">
+												<input type="text" class="form-control"  ng-value="patient.AdmissionDateTime" disabled>
+											</div>
+										</div>
 									</div>
-							</div><!-- /.modal-content -->
+									<div class="row">
+										<div class="form-group">
+											<label for="focusedinput" class="col-sm-3 control-label">Admission</label>
+											<div class="col-sm-5">
+												<input type="text" class="form-control" ng-value="patient.Admission" disabled>
+											</div>
+										</div>
+									</div>
+									<div class="row">
+										<div class="form-group">
+											<label for="focusedinput" class="col-sm-3 control-label">Admission Type</label>
+											<div class="col-sm-5">
+												<input type="text" class="form-control" ng-value="patient.AdmissionType" disabled>
+											</div>
+										</div>
+									</div>
+								</div>
+								<div class="panel-footer">
+								<button type="button" ng-click="#" class="btn btn-danger-alt pull-left">View Details</button>
+								<button type="button" ng-click="#" class="btn btn-danger-alt pull-right">Ok</button>
+								<button type="button" data-dismiss="modal" class="btn btn-default-alt pull-right">Cancel</button>
+								</div>
+							</div>
 						</div>
 					</form>
 				</div>
+
 				<div class="modal fade" id="moveInpatientModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
-					<form ng-repeat="patient in getdetails">
+					<form class="form-horizontal">
 						<div class="modal-dialog">
-							<div class="modal-content">
-
-								<div class="modal-header">
-									<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-									<h4 class="modal-title" id="myModalLabel">Move To Inpatient</h4>
+							<div class="panel panel-danger" data-widget='{"draggable": "false"}'>
+								<div class="panel-heading">
+									<h2>Patient Details</h2>
+									<div class="panel-ctrls" data-actions-container="" data-action-collapse='{"target": ".panel-body, .panel-footer"}'></div>
 								</div>
-
-								<div class="modal-body">
-										<p>Data below will be moved to Inpatient section permanently.</p>
-										<div class="row">
-											<div class="col-lg-5">
-												<div class="form-group">
-													<label>Admission ID</label> 
-													<input type="text" class="form-control" ng-value="{{patient.AdmissionID}}" ng-model="new.admissionID" disabled> 
-												</div>
-											</div>
-											<div class="col-lg-5">
-												<div class="form-group">
-													<label>Admission No</label>
-													<input type="text" class="form-control" ng-value="{{patient.AdmissionNo}}" ng-model="new.admissionNo" disabled>
-												</div>
-											</div>
-										</div>
-										<div class="row">
-											<div class="col-lg-5">
-												<div class="form-group">
-													<label>Fullname</label> 
-													<input type="text" class="form-control" ng-value="patient.Firstname + ' ' + patient.Middlename + ' ' + patient.Lastname" ng-model="new.Fullname" disabled> 
-												</div>
-											</div>
-										
-										</div>
+								<div class="panel-body" style="height: 400px" ng-repeat="patient in getdetails">
+									<center><span><strong>Registry Information</strong></span>
+									<p><small>Data below will be moved to Inpatient section permanently</small></p></center>
+									<hr>
+									<div class="row">
 										<div class="form-group">
-											<label>Room Type</label>
-											<select ng-model="RoomType" class="form-control" >
-											<option value="" disabled selected>Select Room Type</option>
-												<option value="Single Deluxe" >Single Deluxe</option>
-												<option value="Two-Bedded" >Two-Bedded</option>
-												<option value="Four-Bedded" >Four-Bedded</option>
-												<option value="Ward" >Ward</option>
-											</select>
-											</select>
+											<label for="focusedinput" class="col-sm-3 control-label">Patient name</label>
+											<div class="col-sm-8">
+											<input type="text" class="form-control" ng-value="patient.Firstname + ' ' + patient.Middlename + ' ' + patient.Lastname" ng-model="new.Fullname" disabled>
+											</div>
 										</div>
-
-
+									</div>
+									<div class="row">
 										<div class="form-group">
-											<label>Bed Number</label>
-											<select class="form-control" ng-options="data.BedID for data in bed |  filter:filterBed(RoomType)"  ng-model="$parent.bedno" ng-disabled="RoomType!='Single Deluxe' && RoomType!='Two-Bedded' && RoomType!='Four-Bedded' && RoomType!='Ward'">
-												<option value="" disabled selected>Select Bed Number</option>
-											</select>
+											<label for="focusedinput" class="col-sm-3 control-label">Admission ID</label>
+											<div class="col-sm-5">
+												<input type="text" class="form-control" ng-value="patient.AdmissionID" disabled>
+											</div>
 										</div>
+									</div>
+									<div class="row">
+										<div class="form-group">
+											<label for="focusedinput" class="col-sm-3 control-label">Admission Date Time</label>
+											<div class="col-sm-5">
+												<input type="text" class="form-control"  ng-value="patient.AdmissionDateTime" disabled>
+											</div>
+										</div>
+									</div>
+									<div class="row">
+										<div class="form-group">
+											<label for="focusedinput" class="col-sm-3 control-label">Room Type</label>
+											<div class="col-sm-5">
+												<select ng-model="RoomType" class="form-control" >
+													<option value="" disabled selected>Select Room Type</option>
+													<option value="Single Deluxe" >Single Deluxe</option>
+													<option value="Two-Bedded" >Two-Bedded</option>
+													<option value="Four-Bedded" >Four-Bedded</option>
+													<option value="Ward" >Ward</option>
+												</select>
+											</div>
+										</div>
+									</div>
+									<div class="row">
+										<div class="form-group">
+											<label for="focusedinput" class="col-sm-3 control-label">Bed Number</label>
+											<div class="col-sm-5">
+												<select class="form-control" ng-options="data.BedID for data in bed |  filter:filterBed(RoomType)"  ng-model="$parent.bedno" ng-disabled="RoomType!='Single Deluxe' && RoomType!='Two-Bedded' && RoomType!='Four-Bedded' && RoomType!='Ward'">
+													<option value="" disabled selected>Select Bed Number</option>
+												</select>
+											</div>
+										</div>
+									</div>
 								</div>
-
-								<div class="modal-footer">
-										<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-										<button ng-click='ConfirmInpatient()' class="btn btn-primary">Confirm</button>
+								<div class="panel-footer">
+								<button type="button" ng-click="ConfirmInpatient()" class="btn btn-danger-alt pull-right">Confirm</button>
+								<button type="button" data-dismiss="modal" class="btn btn-default-alt pull-right">Cancel</button>
 								</div>
 							</div>
-							<!-- /.modal-content -->
 						</div>
-						<!-- /.modal-dialog -->
 					</form>
 				</div>
 		</div>
@@ -349,11 +346,9 @@ font-weight: bold;
 				method: 'GET',
 				url: 'updateData/update-inpatient-details.php',
 				params: {AdmissionID: $scope.selectedRow,
-						BedID:$scope.bedno.BedID},
-				contentType:"application/json; charset=utf-8",
-				dataType:"json"
+						BedID:$scope.bedno.BedID}
 				}).then(function(response) {
-				window.location.reload();
+					window.location.reload();
 				});
 		};
 

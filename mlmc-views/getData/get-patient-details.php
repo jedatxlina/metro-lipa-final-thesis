@@ -10,16 +10,20 @@ while ($row = mysqli_fetch_array($sel)) {
     $data[] = array(
 		"AdmissionID"=>$row['AdmissionID'],
 		"AdmissionNo"=>$row['AdmissionNo'],
+		"AdmissionDateTime"=>$row['AdmissionDateTime'],
     	"Firstname"=>$row['FirstName'],
     	"Middlename"=>$row['MiddleName'],
-    	"Lastname"=>$row['LastName'],
+		"Lastname"=>$row['LastName'],
+		"Admission"=>$row['Admission'],
+		"AdmissionType"=>$row['AdmissionType'],
     	"Birthdate"=>$row['Birthdate'],
     	"Contact"=>$row['Contact'],
 		"Province"=>$row['Province'],
 		"City"=>$row['City'],
 		"Civilstatus"=>$row['CivilStatus'],
     	"Gender"=>$row['Gender'],
-    	"Age"=>$row['Age']);
+		"Age"=>$row['Age'],
+		"InpatientDate"=>$row['ArrivalDateTime']);
 }
 echo json_encode($data);
 ?>

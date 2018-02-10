@@ -1,9 +1,8 @@
-<?php include 'admission-header.php'   ?>
+<?php include 'admission-header.php';  $get = $_GET['id'];?>
 
 <script type="text/javascript" src="assets/js/jquery-1.10.2.min.js"></script> 	
 <script src="//select2.github.io/select2/select2-3.4.1/select2.js"></script>
 <link rel="stylesheet" type="text/css" href="//select2.github.io/select2/select2-3.4.1/select2.css"/>
-
 
 <ol class="breadcrumb">
     <li><a href="index.php">Home</a>
@@ -13,7 +12,8 @@
     <li class="active"><a href="index.php">Patient Medical Details</a>
     </li>
 </ol><br><br>
-<div ng-app="myApp" ng-controller="userCtrl" ng-init="check('<?php echo $get; ?>')">
+
+<div ng-app="myApp" ng-controller="userCtrl">
     <div class="container-fluid">
         <div class="row">
             <div class="col-md-12">
@@ -32,17 +32,15 @@
                                             <div data-row-span="2">
                                                 <div data-field-span="1">
                                                     <label>Conditions</label>
-                                                    <div class="controls">
-                                                        <select id="conditions" class="select2" multiple="multiple" style="width:400px;">
-                                                            <optgroup label="List of Conditions">
-                                                                <option value="Asthma">Asthma</option>
-                                                                <option value="Cva">CVA</option>
-                                                                <option value="Cancer">Cancer</option>
-                                                                <option value="Heart Disease">Heart Disease</option>
-                                                                <option value="Hypertension">Hypertension</option>
-                                                            </optgroup>   
-                                                        </select>
-                                                    </div>
+                                                    <select id="conditions" class="select2" multiple="multiple" style="width:400px;">
+                                                        <optgroup label="List of Conditions">
+                                                            <option value="Asthma">Asthma</option>
+                                                            <option value="Cva">CVA</option>
+                                                            <option value="Cancer">Cancer</option>
+                                                            <option value="Heart Disease">Heart Disease</option>
+                                                            <option value="Hypertension">Hypertension</option>
+                                                        </optgroup>   
+                                                    </select>
                                                 </div>
                                                 <div data-field-span="1">
                                                     <label>Previous Surgeries</label>
@@ -67,11 +65,10 @@
                                                     <input type="text" ng-model="temp">
                                                 </div>
                                             </div>
-                                            <div data-row-span="3"> 
-                                                    <div data-field-span="1">
-                                                        <label>Current Medications</label>
-                                                        <div class="controls">
-                                                            <select id="medications" class="select2" multiple="multiple" style="width:400px;">
+                                            <div data-row-span="3">
+                                                <div data-field-span="1">
+                                                    <label>Current Medications</label>
+                                                    <select id="medications" class="select2" multiple="multiple" style="width:400px;">
                                                                 <optgroup label="List of Medicines">
                                                                     <option value="Aspirin">Aspirin</option>
                                                                     <option value="Paracetamol">Paracetamol</option>
@@ -79,10 +76,9 @@
                                                                     <option value="Bioflu">Bioflu</option>
                                                                     <option value="Ibuprofen">Ibuprofen</option>
                                                                 </optgroup>
-                                                            </select>
-                                                        </div>
-                                                    </div>
-                                                    <div data-field-span="1">
+                                                    </select>
+                                                </div>
+                                                <div data-field-span="1">
                                                         <label>Weight</label>
                                                         <input type="text" ng-model="weight">
                                                     </div>
@@ -95,7 +91,7 @@
                                             <div data-row-span="4"> 
                                                     <div data-field-span="2">
                                                         <label>Impression/Admitting Diagnosis</label>
-                                                        <textarea ng-model="diagnosis" autogrow></textarea>
+                                                        <textarea autogrow ng-model="diagnosis"></textarea>
                                                     </div>
                                                     <div data-field-span="2">
                                                         <label>Administered Medications</label>
@@ -137,15 +133,14 @@
                                                         <input type="radio" name="classification" ng-model="classification" value="Private"> Private</label>
                                                 </div>
                                             </div>
-                                        </fieldset>
-                                        <br>
-
-                                        <div class="clearfix pt-md">
-                                            <div class="pull-right">
-                                                <button ng-click="goBack()" class="btn-default btn">Cancel</button>
-                                                <button type="submit" class="btn-danger btn" ng-click="submitForm()">Submit</button>
+                                            <br>
+                                            <div class="clearfix pt-md">
+                                                <div class="pull-right">
+                                                    <button ng-click="goBack()" class="btn-default btn">Cancel</button>
+                                                    <button type="submit" class="btn-danger btn" ng-click="submitDetails()">Submit</button>
+                                                </div>
                                             </div>
-                                        </div>
+                                        </fieldset>
                                     </form>
                                 </div>
                             </div>
@@ -156,36 +151,25 @@
         </div>
     </div>
     <script>
-            $('.select2').select2({ placeholder : '' });
+        $('.select2').select2({ placeholder : '' });
 
-            $('.select2-remote').select2({ data: [{id:'A', text:'A'}]});
+        $('.select2-remote').select2({ data: [{id:'A', text:'A'}]});
 
-            $('button[data-select2-open]').click(function(){
-            $('#' + $(this).data('select2-open')).select2('open');
-            });
-            // Angular module
-                var app = angular.module('myApp', ["angular-autogrow","ui-notification"])
-                        .config(function(NotificationProvider) {
-                        NotificationProvider.setOptions({
-                            delay: 3000,
-                            startTop: 20,
-                            startRight: 10,
-                            verticalSpacing: 20,
-                            horizontalSpacing: 20,
-                            positionX: 'right',
-                            positionY: 'top'
-                        });
-                });
-                
-                app.controller('userCtrl', function($scope, $window, $http, Notification) {
-           
-               
-                    $scope.submitForm = function(){
+        $('button[data-select2-open]').click(function(){
+        $('#' + $(this).data('select2-open')).select2('open');
+        });
+
+                var app = angular.module('myApp', ["angular-autogrow"]);
+
+                app.controller('userCtrl', function($scope, $window, $http) {
+                    
+                    $scope.submitDetails = function(){
                     
                         $scope.admissionid = "<?php echo $_GET['id']; ?>";
                         $scope.medid = "<?php echo $_GET['medid']; ?>";
                         $scope.condition =$("#conditions").val();
                         $scope.medication =$("#medications").val();
+                        $scope.administered =$("#administered").val();
 
                         $http({
                             method: 'GET',
@@ -206,13 +190,11 @@
                                     admitting: $scope.admitting,
                                     classification: $scope.classification}
                         }).then(function(response) {
-                  
-                            Notification.primary({message: '<span>Patient Data Inserted</span>', title: 'Success!'});
+                            alert('JED');
                         });
-                      
+                    
                     }
 
-                    
                     $scope.goBack = function(){
                         window.history.back();
                     }
