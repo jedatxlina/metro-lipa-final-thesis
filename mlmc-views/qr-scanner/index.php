@@ -32,24 +32,7 @@
 			<div class="app__dialog app__dialog--hide">
 
 				<?php
-				$type=$_GET['type'];
-				$link = '';
-				if($type=='emergencydetails')
-				{
-					$link = '../emergency-details.php';
-				}
-				if($type=='patientdetails')
-				{
-					$link = '../patient-details.php';
-				}
-				if($type=='patientvitals')
-				{
-					$link = '../patient-vitals.php';
-				}
-				if($type=='addpatientvitals')
-				{
-					$link = '../add-patient-vitals.php';
-				}
+				$link = '../option.php';
 				?>
 				<form action="<?php echo $link; ?>" method="GET">
 					<div class="app__dialog-content"><h5>Confirm ID</h5>

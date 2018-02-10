@@ -11,18 +11,34 @@ include '../mlmc-views/getData/get-inpatient-vitals.php';
 
 <p style="font-size: 30px;padding: 20px;" ng-model="admissionid">{{admissionid}}</p>
 <p style="font-size: 30px;padding: 20px;" ng-model="patientname">{{patientname}}</p>
-<div class="panel-body">
-                                <div id="chart-container">
-			                        <canvas style="height: 380px;" id="mycanvas1"></canvas>
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-12">
+                <div data-widget-group="group1">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="panel panel-white" data-widget='{"draggable": "false"}'>
+                                <div class="panel-heading">
+                                    <h2>Patient Vitals</h2>
                                 </div>
-                            </div>  
-                            <div class="panel-body">
-                                <div id="chart-container">
+                                <div class="panel-body">
+                                    <div id="chart-container">
+			                            <canvas style="height: 380px;" id="mycanvas1"></canvas>
+                                    </div>
+                                </div>  
+                                <div class="panel-body">
+                                    <div id="chart-container">
 			                        <canvas style="height: 500px;" id="mycanvas2"></canvas>
-		                        </div>
+		                            </div>
+                                </div>
                             </div>
-</div>
-
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 <script type="text/javascript" src="../mlmc-views/assets/js/Chart.js"></script>
 <script type="text/javascript" src="../mlmc-views/assets/js/jquery.min.js"></script>
 <script>
@@ -46,11 +62,11 @@ include '../mlmc-views/getData/get-inpatient-vitals.php';
             var pulse = [];
             var date = [];
 			for(var i in data) {
-				bloodp.push(data[i].BloodPressure);
-                respi.push(data[i].RespiRate);
+				bloodp.push(data[i].BP);
+                respi.push(data[i].RR);
 				temp.push(data[i].Temperature);
-				pulse.push(data[i].PulseRate);
-				date.push(data[i].DateTaken);
+				pulse.push(data[i].PR);
+				date.push(data[i].DateTimeChecked);
 			}
 
 			var chartdata = {
