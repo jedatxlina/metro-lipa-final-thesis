@@ -76,7 +76,8 @@ font-weight: bold;
 						<div class="panel-body">
 							<a href="#" ng-click="viewPatient()" class="btn btn-default-alt btn-lg btn-block"><i class="ti ti-user"></i><span>&nbsp;&nbsp;Patient Details</span></a>
 							<a href="#" ng-click="movePatient()" class="btn btn-default-alt btn-lg btn-block"><i class="fa fa-stethoscope"></i><span>&nbsp;&nbsp;Move to Inpatient</span></a>
-							<a href="#" ng-click="viewEmergency()" class="btn btn-default-alt btn-lg btn-block"><i class="fa fa-check-square-o"></i><span>&nbsp;&nbsp;Discharge</span></a>
+							<a href="#" ng-click="dischargePatient()" class="btn btn-default-alt btn-lg btn-block"><i class="fa fa-check-square-o"></i><span>&nbsp;&nbsp;Discharge</span></a>
+							<a href="#" ng-click="ReAdmitPatient()" class="btn btn-default-alt btn-lg btn-block"><i class="fa fa-check-square-o"></i><span>&nbsp;&nbsp;Re-Admit</span></a>
 						</div>
 					</div>
 				</div>

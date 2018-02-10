@@ -1,7 +1,7 @@
 <?php
 require_once 'connection.php';
 
-$sel = mysqli_query($con,"select * from patients where AdmissionType = 'Inpatient'");
+$sel = mysqli_query($con,"select * from patients where AdmissionType = 'Pending' OR AdmissionType = 'Inpatient'");
 
 $data = array();
 

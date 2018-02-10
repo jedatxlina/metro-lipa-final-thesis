@@ -288,28 +288,27 @@
 				<li><a href="inpatient.php"><i class="fa fa-user"></i><span>&emsp;Inpatient</span></a></li>
 			</ul>
 		</li>
-		<li><a href="javascript:;"><i class="fa fa-stethoscope"></i><span>Nurse</span></a>
+		<li><a href="javascript:;"><i class="fa fa-stethoscope"></i><span>Nursing Services</span></a>
 			<ul class="acc-menu">
-				<li><a href="qr-scanner/index.php?type=addpatientvitals"><i class="fa fa-qrcode"></i><span>&emsp;Scan QR Code</span></a></li>
 				<li><a href="nurse-patient.php"><i class="fa fa-qrcode"></i><span>&emsp;Confined Patients</span></a></li>
 			</ul>
 		</li>
-		<li><a href="javascript:;"><i class="fa fa-user-md"></i><span>Doctors</span></a></li>
-		<li><a href="javascript:;"><i class="fa fa-medkit"></i><span>Pharmacy</span></a></li>
-		<li><a href="javascript:;"><i class="fa fa-money"></i><span>Billing</span></a></li>
-		<li><a href="javascript:;"><i class="fa fa-key"></i><span>Accounts</span></a>
+		<li><a href="javascript:;"><i class="fa fa-user-md"></i><span>Physician Services</span></a></li>
+		<li><a href="javascript:;"><i class="fa fa-medkit"></i><span>Pharmacy Services</span></a></li>
+		<li><a href="javascript:;"><i class="fa fa-file-text-o"></i><span>Billing Department</span></a>
 			<ul class="acc-menu">
-				<li><a href="#"><i class="fa fa-user-md"></i><span>&emsp;User</span></a></li>
+				<li><a href="billing-emergency.php"><i class="fa fa-user"></i><span>&emsp;Emergency</span></a></li>
+				<li><a href="billing-outpatient.php"><i class="fa fa-user"></i><span>&emsp;Outpatient</span></a></li>
+				<li><a href="billing-inpatient.php"><i class="fa fa-user"></i><span>&emsp;Inpatient</span></a></li>
+				<li><a href="cashier-service.php"><i class="fa fa-money"></i><span>&emsp;Cashier Service</span></a></li>
 			</ul>
 		</li>
-		<li><a href="javascript:;"><i class="fa fa-gears"></i><span>Tools</span></a>
-			<ul class="acc-menu">
-				<li><a href="bed.php">Beds</a></li>
-				<li><a href="specialization.php">Medical Specializations</a></li>
-				<li><a href="laboratory.php">Laboratories</a></li>
-			</ul>
-		</li>
-		<li><a href="javascript:;"><i class="fa fa-file-archive-o"></i><span>Patient Archive</span></a></li>
+		<li class="nav-separator"><span>Other Transactions</span></li>
+		
+		<li><a href="javascript:;"><i class="fa fa-key"></i><span>Accounts</span></a></li>
+		<li><a href="bed.php"><i class="fa fa-bed"></i><span>Beds</span></a></li>
+		<li><a href="specialization.php"><i class="fa fa-medkit"></i><span>Medical Specializations</span> </a></li>
+		<li><a href="laboratory.php"><i class="fa fa-search"></i><span>Laboratories</span></a></li>
 	</ul>
 </nav>
     </div>	

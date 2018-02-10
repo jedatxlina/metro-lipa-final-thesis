@@ -17,6 +17,13 @@ font-weight: bold;
 <div class="container-fluid" ng-app="myApp" ng-controller="userCtrl">
 	
 	
+	<div class="row">
+		<div class="col-md-6">
+                <br>
+				<a href="qr-scanner/index.php?type=addpatientvitals" class="btn btn-danger-alt pull-left"><i class="fa fa-qrcode"></i>&nbsp;&nbsp;Scan</a>
+				
+		</div>
+	</div>
 	<br>
 	<div data-widget-group="group1">
 			<div class="row">

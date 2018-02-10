@@ -1,4 +1,4 @@
-<?php include 'admission-header.php' ?>
+<?php include 'admission-header.php'; $id = $_GET['id']; ?>
 <style>
 .selected {
 color: #800000;
@@ -133,6 +133,9 @@ font-weight: bold;
 		$scope.clickedRow = 0;
 		$scope.new = {};	  
 
+        $scope.relocateid = "<?php echo $id; ?>";
+           
+           
 		$scope.relocatePatient = function(){
 			if($scope.selectedRow != null){
 				$scope.admissionid = $scope.selectedRow;
