@@ -31,6 +31,16 @@ include '../mlmc-views/getData/get-inpatient-vitals.php';
 			                        <canvas style="height: 500px;" id="mycanvas2"></canvas>
 		                            </div>
                                 </div>
+                                <div class="panel-body">
+                                    <div id="chart-container">
+			                        <canvas style="height: 500px;" id="mycanvas3"></canvas>
+		                            </div>
+                                </div>
+                                <div class="panel-body">
+                                    <div id="chart-container">
+			                        <canvas style="height: 500px;" id="mycanvas4"></canvas>
+		                            </div>
+                                </div>
                             </div>
                             </div>
                         </div>
@@ -39,8 +49,9 @@ include '../mlmc-views/getData/get-inpatient-vitals.php';
             </div>
         </div>
     </div>
-<script type="text/javascript" src="../mlmc-views/assets/js/Chart.js"></script>
-<script type="text/javascript" src="../mlmc-views/assets/js/jquery.min.js"></script>
+    <script type="text/javascript" src="../mlmc-views/assets/js/Chart.bundle.js"></script>
+    <script type="text/javascript" src="../mlmc-views/assets/js/jquery.min.js"></script>
+    <script type="text/javascript" src="../mlmc-views/assets/js/utils.js"></script>
 <script>
         var data = '<?php echo json_encode($data) ?>';
         var data = angular.module('myApp', []);
@@ -97,6 +108,8 @@ include '../mlmc-views/getData/get-inpatient-vitals.php';
 			};
 			var ctx = $("#mycanvas1");
 			var ct2 = $("#mycanvas2");
+			var ct3 = $("#mycanvas3");
+			var ct4 = $("#mycanvas4");
 
 			var barGraph = new Chart(ctx, {
 				type: 'line',
@@ -150,6 +163,95 @@ include '../mlmc-views/getData/get-inpatient-vitals.php';
                                     max: 200
                                 }
                             }]
+                    }
+                }
+            });
+            var chartdata3 = {
+			labels: date,
+			datasets: [{
+				type: 'bar',
+				label: 'Systolic',
+				backgroundColor: window.chartColors.red,
+				data: bloodp,
+				borderColor: 'white',
+				borderWidth: 2
+			}, {
+				type: 'bar',
+				label: 'Diastolic',
+				backgroundColor: window.chartColors.green,
+				data: respi
+			}]
+        };
+        var chartdata4 = {
+			labels: date,
+			datasets: [{
+				type: 'line',
+				label: 'Respiration Rate',
+				backgroundColor: window.chartColors.red,
+				data: respi,
+				borderColor: 'white',
+				borderWidth: 2
+			}]
+		};
+            var barChart2 = new Chart(ct3, {
+                type: 'bar',
+                data: chartdata3,
+                options: {
+                    responsive: true,
+					maintainAspectRatio: false,
+                    layout: {
+                        padding: {
+                            left: 0,
+                            right: 50,
+                            top: 50,
+                            bottom: 0
+                        }
+                    },
+                    scales: {
+                        yAxes: [{
+                                display: true,
+                                ticks: {
+                                    beginAtZero: true,
+                                    steps: 10,
+                                    stepValue: 5,
+                                    max: 200
+                                }
+                            }]
+                    },
+                    tooltips: {
+                        mode: 'index',
+                        intersect: true
+                    }
+                }
+            });
+            var linechart2 = new Chart(ct4, {
+                type: 'line',
+                data: chartdata4,
+                options: {
+                    responsive: true,
+					maintainAspectRatio: false,
+                    layout: {
+                        padding: {
+                            left: 0,
+                            right: 50,
+                            top: 50,
+                            bottom: 0
+                        }
+                    },
+                    scales: {
+                        yAxes: [{
+                                display: true,
+                                ticks: {
+                                    beginAtZero: true,
+                                    steps: 10,
+                                    stepValue: 5,
+                                    max: 200
+                                }
+                            }]
+                    },
+                    tooltips: {
+                        mode: 'index',
+                        intersect: true
                     }
                 }
             });
