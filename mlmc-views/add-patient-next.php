@@ -167,6 +167,7 @@
                     
                         $scope.admissionid = "<?php echo $_GET['id']; ?>";
                         $scope.medid = "<?php echo $_GET['medid']; ?>";
+                        $scope.param = "<?php echo $_GET['param']; ?>";
                         $scope.condition =$("#conditions").val();
                         $scope.medication =$("#medications").val();
                         $scope.administered =$("#administered").val();
@@ -190,7 +191,14 @@
                                     admitting: $scope.admitting,
                                     classification: $scope.classification}
                         }).then(function(response) {
-                            alert('JED');
+                            switch ($scope.param) {
+                                case 'Emergency':
+                                    window.location.href = 'emergency.php';         
+                                    break;
+                            
+                                default:
+                                    break;
+                            }
                         });
                     
                     }

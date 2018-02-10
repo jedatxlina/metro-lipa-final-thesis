@@ -505,7 +505,7 @@
                                     occupation: $scope.occupation,
                                     medicalid: $scope.medicalid}
                         }).then(function(response) {
-                            window.location.href = 'add-patient-next.php?id=' + $scope.admissionid + '&medid=' + $scope.medicalid;
+                            window.location.href = 'add-patient-next.php?id=' + $scope.admissionid + '&medid=' + $scope.medicalid + '&param=' + $scope.admissiontype;
                         });
                      
                      

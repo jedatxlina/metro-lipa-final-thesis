@@ -290,11 +290,15 @@
 		</li>
 		<li><a href="javascript:;"><i class="fa fa-stethoscope"></i><span>Nursing Services</span></a>
 			<ul class="acc-menu">
-				<li><a href="nurse-patient.php"><i class="fa fa-qrcode"></i><span>&emsp;Confined Patients</span></a></li>
+				<li><a href="nurse-patient.php"><i class="fa fa-medkit"></i><span>&emsp;Confined Patients</span></a></li>
 			</ul>
 		</li>
 		<li><a href="javascript:;"><i class="fa fa-user-md"></i><span>Physician Services</span></a></li>
-		<li><a href="javascript:;"><i class="fa fa-medkit"></i><span>Pharmacy Services</span></a></li>
+		<li><a href="javascript:;"><i class="fa fa-cubes"></i><span>Pharmacy Department</span></a>
+			<ul class="acc-menu">
+				<li><a href="medicine-requisition.php"><i class="fa fa-users"></i><span>&emsp;Patient Services</span></a></li>
+			</ul>
+		</li>
 		<li><a href="javascript:;"><i class="fa fa-file-text-o"></i><span>Billing Department</span></a>
 			<ul class="acc-menu">
 				<li><a href="billing-emergency.php"><i class="fa fa-user"></i><span>&emsp;Emergency</span></a></li>

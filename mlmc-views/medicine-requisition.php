@@ -10,18 +10,12 @@ font-weight: bold;
 <ol class="breadcrumb">
 <li><a href="index.php">Home</a></li>
 <li><a href="index.php">Patients</a></li>
-<li class="active"><a href="emergency.php">Outpatient</a></li>
+<li class="active"><a href="emergency.php">Emergency</a></li>
 </ol>
 
 <div class="container-fluid" ng-app="myApp" ng-controller="userCtrl">
 	
-	<div class="row">
-		<div class="col-md-6">
-                <br>
-				<button type="button" ng-click="addPatient()" class="btn btn-danger-alt pull-left"><i class="ti ti-user"></i>&nbsp;Add Patient</button>
-				
-		</div>
-	</div>
+
 	<br>
 	<div data-widget-group="group1">
 			<div class="row">
@@ -75,9 +69,7 @@ font-weight: bold;
 						</div>
 						<div class="panel-body">
 							<a href="#" ng-click="viewPatient()" class="btn btn-default-alt btn-lg btn-block"><i class="ti ti-user"></i><span>&nbsp;&nbsp;Patient Details</span></a>
-							<a href="#" ng-click="movePatient()" class="btn btn-default-alt btn-lg btn-block"><i class="fa fa-stethoscope"></i><span>&nbsp;&nbsp;Move to Inpatient</span></a>
-							<a href="#" ng-click="dischargePatient()" class="btn btn-default-alt btn-lg btn-block"><i class="fa fa-check-square-o"></i><span>&nbsp;&nbsp;Discharge</span></a>
-							<a href="#" ng-click="ReAdmitPatient()" class="btn btn-default-alt btn-lg btn-block"><i class="fa fa-check-square-o"></i><span>&nbsp;&nbsp;Re-Admit</span></a>
+							<a href="#" ng-click="movePatient()" class="btn btn-default-alt btn-lg btn-block"><i class="fa fa-file-text-o"></i><span>&nbsp;&nbsp;Medicine Requisition</span></a>
 						</div>
 					</div>
 				</div>
@@ -251,7 +243,7 @@ font-weight: bold;
 
        	$http({
            method: 'get',
-           url: 'getData/get-outpatient-details.php'
+           url: 'getData/get-emergency-details.php'
        	}).then(function(response) {
 		 	$scope.users = response.data;
 			angular.element(document).ready(function() {  
@@ -262,13 +254,13 @@ font-weight: bold;
 
 		
        $http({
-            method: 'GET',
-            url: 'getData/get-bed-details.php',
-            contentType:"application/json; charset=utf-8",
-            dataType:"json"
-        }).then(function(response) {
-            $scope.bed = response.data;
-        });
+                    method: 'GET',
+                    url: 'getData/get-bed-details.php',
+                    contentType:"application/json; charset=utf-8",
+                    dataType:"json"
+                }).then(function(response) {
+                    $scope.bed = response.data;
+                });
 		   
 		$scope.setClickedRow = function(user) {
            $scope.selectedRow = ($scope.selectedRow == null) ? user : ($scope.selectedRow == user) ? null : user;
@@ -276,8 +268,11 @@ font-weight: bold;
 	   	}
 
 		$scope.addPatient = function(){
-			window.location.href = 'add-patient.php?id=' + 0;
+			window.location.href = 'add-patient.php?id=' + 1;
 		}
+
+		
+	   
 	  
 		$scope.viewPatient = function(){
 			if($scope.selectedRow != null){

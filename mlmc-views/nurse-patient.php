@@ -86,100 +86,100 @@ font-weight: bold;
 						</div>
 					</div>
 				</div>
+					
 				<!-- Error modal -->
 				<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
 					<div class="modal-dialog">
-						<div class="alert alert-danger">
+						<div class="panel panel-danger" data-widget='{"draggable": "false"}'>
+							<div class="panel-heading">
+								<h2>Error:</h2>
+								<div class="panel-ctrls" data-actions-container="" data-action-collapse='{"target": ".panel-body, .panel-footer"}'></div>
+							</div>
+							<div class="panel-body" style="height: 60px">
 							Select Emergency record that you would like to apply an <a href="#" class="alert-link">Action.</a>
+							</div>
+							<!-- <div class="panel-footer">
+								<span class="text-gray"><em>Footer</em></span>
+							</div> -->
 						</div>
+						<!-- <div class="alert alert-danger">
+							Select Emergency record that you would like to apply an <a href="#" class="alert-link">Action.</a>
+						</div> -->
 					</div>
 				</div>
 				<!--/ Error modal -->
 
+
 				<!-- Patient Modal -->
 				<div class="modal fade" id="patientModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
-					<form ng-repeat="patient in patientdetails">
-						<div class="modal-dialog">
-							<div class="modal-content">
-									<div class="modal-header">
-										<button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-										<h2 class="modal-title">Patient Details</h2>
-										<p>Data below belongs to <small><u>{{patient.Firstname}} {{patient.Middlename}} {{patient.Lastname}}</u></small> </p>
+				<form class="form-horizontal">
+					<div class="modal-dialog">
+						<div class="panel panel-danger" data-widget='{"draggable": "false"}'>
+							<div class="panel-heading">
+								<h2>Patient Details</h2>
+								<div class="panel-ctrls" data-actions-container="" data-action-collapse='{"target": ".panel-body, .panel-footer"}'></div>
+							</div>
+							<div class="panel-body" style="height: 450px" data-ng-repeat="patient in patientdetails">
+								<center><span><strong>Registry Information</strong></span></center>
+								<hr>
+								<div class="row">
+									<div class="form-group">
+										<label for="focusedinput" class="col-sm-3 control-label">Patient name</label>
+										<div class="col-sm-8">
+											<input type="text" class="form-control" ng-value="patient.Lastname + ', ' + patient.Firstname + ' ' + patient.Middlename"  disabled>
+										</div>
 									</div>
-									<div class="modal-body">
-											<div class="row">
-												<div class="col-lg-4">
-													<div class="form-group">
-														<label>First Name</label> 
-														<input type="text" class="form-control" ng-value="patient.Firstname" ng-model="new.Firstname" readonly="readonly"> 
-													</div>
-												</div>
-												<div class="col-lg-4">
-													<div class="form-group">
-														<label>Middle Name</label>
-														<input type="text" class="form-control" ng-value="patient.Middlename" ng-model="new.Middlename" readonly="readonly">
-													</div>
-												</div>
-												<div class="col-lg-4">
-													<div class="form-group">
-														<label>Last Name</label> 
-														<input type="text" class="form-control" ng-value="patient.Lastname" ng-model="new.Lastname" readonly="readonly"> 
-													</div>
-												</div>
-											</div>
-											<div class="row">
-												<div class="col-lg-4">
-													<div class="form-group">
-														<label>Gender</label> 
-														<input type="text" class="form-control" ng-value="patient.Gender" ng-model="new.Gender" readonly="readonly"> 
-													</div>
-												</div>
-												<div class="col-lg-4">
-													<div class="form-group">
-														<label>Civilstatus</label> 
-														<input type="text" class="form-control" ng-value="patient.Civilstatus" ng-model="new.Civilstatus" readonly="readonly"> 
-													</div>
-												</div>
-												<div class="col-lg-4">
-													<div class="form-group">
-														<label>Birthdate</label> 
-														<input type="text" class="form-control" ng-value="patient.Birthdate" ng-model="new.Birthdate" readonly="readonly"> 
-													</div>
-												</div>
-											</div>
-											<div class="row">
-												<div class="col-lg-4">
-													<div class="form-group">
-														<label>Province</label> 
-														<input type="text" class="form-control" ng-value="patient.Province" ng-model="new.Province" readonly="readonly"> 
-													</div>
-												</div>
-												<div class="col-lg-4">
-													<div class="form-group">
-														<label>City</label> 
-														<input type="text" class="form-control" ng-value="patient.City" ng-model="new.City" readonly="readonly"> 
-													</div>
-												</div>
-											</div>
-											<div class="row">
-												<div class="col-lg-4">
-													<div class="form-group">
-														<label>Contact</label> 
-														<input type="text" class="form-control" ng-value="patient.Contact" ng-model="new.Contact" readonly="readonly"> 
-													</div>
-												</div>
-											</div>
+								</div>
+								<div class="row">
+									<div class="form-group">
+										<label for="focusedinput" class="col-sm-3 control-label">Admission ID</label>
+										<div class="col-sm-5">
+											<input type="text" class="form-control" ng-value="patient.AdmissionID" disabled>
+										</div>
 									</div>
-									<div class="modal-footer">
-										<button type="button" ng-click="#" class="btn btn-primary-alt pull-left">View Details</button>
-										<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-										<button type="button" ng-click="confirmBtn()" class="btn btn-primary">Confirm</button>
+								</div>
+								<div class="row">
+									<div class="form-group">
+										<label for="focusedinput" class="col-sm-3 control-label">Admission Date Time</label>
+										<div class="col-sm-5">
+											<input type="text" class="form-control"  ng-value="patient.AdmissionDateTime" disabled>
+										</div>
 									</div>
-							</div><!-- /.modal-content -->
+								</div>
+								<div class="row">
+									<div class="form-group">
+										<label for="focusedinput" class="col-sm-3 control-label">Admission</label>
+										<div class="col-sm-5">
+											<input type="text" class="form-control" ng-value="patient.Admission" disabled>
+										</div>
+									</div>
+								</div>
+								<div class="row">
+									<div class="form-group">
+										<label for="focusedinput" class="col-sm-3 control-label">Admission Type</label>
+										<div class="col-sm-5">
+											<input type="text" class="form-control" ng-value="patient.AdmissionType" disabled>
+										</div>
+									</div>
+								</div>
+								<div class="row">
+									<div class="form-group">
+										<label for="focusedinput" class="col-sm-3 control-label">Inpatient Date</label>
+										<div class="col-sm-5">
+											<input type="text" class="form-control" ng-value="patient.InpatientDate" disabled>
+										</div>
+									</div>
+								</div>
+							</div>
+							<div class="panel-footer">
+							<button type="button" ng-click="#" class="btn btn-danger-alt pull-left">View Details</button>
+							<button type="button" ng-click="#" class="btn btn-danger-alt pull-right">Ok</button>
+							<button type="button" data-dismiss="modal" class="btn btn-default-alt pull-right">Cancel</button>
+							</div>
 						</div>
-					</form>
-				</div>
-				<!-- Patient Modal -->
+					</div>
+				</form>
+			</div>
 				<div class="modal fade" id="flagModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
 					<div class="modal-dialog">
 							<div class="modal-content">
