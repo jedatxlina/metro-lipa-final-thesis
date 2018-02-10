@@ -1,4 +1,4 @@
-<?php include 'admission-header.php' ?>
+<?php include 'billing-header.php' ?>
 <style>
 .selected {
 color: #800000;

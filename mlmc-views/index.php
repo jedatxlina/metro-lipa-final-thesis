@@ -1,7 +1,9 @@
-<?php include 'admission-header.php' ?>
+<?php $id = $_GET['id']; ?>
+<?php require_once '_validation-header.php';?>
+
 <ol class="breadcrumb">
 <li><a href="index.php">Home</a></li>
-<li class="active"><a href="index.php">Dashboard</a></li>
+<li class="active"><a href="#" ng-click="reSubmit()">Dashboard</a></li>
 </ol>
 <br><br>
 <div class="container-fluid" ng-app="myApp" ng-controller="userCtrl">
@@ -26,7 +28,7 @@
                         $scope.count = Object.keys(response.data).length;
 			
                     });
-                 
+				
                 });
 
         </script>

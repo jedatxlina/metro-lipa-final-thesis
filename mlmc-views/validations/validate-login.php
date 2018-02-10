@@ -1,18 +1,18 @@
 <?php
 require_once 'connection.php';
 
-$user = $_GET['user'];
+$id = $_GET['id'];
 $pass =  $_GET['pass'];
 
-$sel = mysqli_query($con,"SELECT * FROM user_account WHERE AccountID='$user' && Passwordd='$pass'");
-$data = array();
+$sel = mysqli_query($con,"SELECT AccessType FROM user_account WHERE AccountID='$id' AND Passwordd='$pass' LIMIT 1");
 
-while ($row = mysqli_fetch_array($sel)) {
-    $data[] = array(
-    	"AccountID"=>$row['AccountID'],
-    	"AccessType"=>$row['AccessType'],
-    	"Password"=>$row['Passwordd']);
+while($result = $sel->fetch_array()){
+    $data = $result['AccessType'];
 }
-
+if(empty($data)){
+$check = 0;
+echo json_encode($check);
+}else{
 echo json_encode($data);
+}
 ?>

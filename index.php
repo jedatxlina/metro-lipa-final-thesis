@@ -16,21 +16,12 @@
     <link type="text/css" href="mlmc-views/assets/css/styles.css" rel="stylesheet">
 
     <script src="mlmc-views/components/angular.min.js"></script>
-
-    <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries. Placeholdr.js enables the placeholder attribute -->
-    <!--[if lt IE 9]>
-        <link type="text/css" href="assets/css/ie8.css" rel="stylesheet">
-        <script type="text/javascript" src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
-    <![endif]-->
-
-    <!-- The following CSS are included as plugins and can be removed if unused-->
-    
+	<script src="mlmc-views/assets/js/mask.js"></script>
     </head>
 
     <body class="focused-form animated-content">
-        
 <div class="container" id="login-form"  ng-app="myApp" ng-controller="userCtrl">
-	<a href="index.html" class="login-logo"><img src="mlmc-views/assets/img/header-logo.png"></a>
+	<a href="index.php" class="login-logo"><img src="mlmc-views/assets/img/header-logo.png"></a>
 		<div class="row">
 			<div class="col-md-4 col-md-offset-4">
 				<div class="panel panel-default">
@@ -46,7 +37,7 @@
 										<span class="input-group-addon">
 											<i class="ti ti-user"></i>
 										</span>
-										<input type="text" class="form-control"  ng-model="user"  placeholder="Username" data-parsley-minlength="6" placeholder="At least 6 characters" required>
+										<input type="text" class="form-control" ng-model="user" ui-mask="9-99999"  ui-mask-placeholder ui-mask-placeholder-char="_"/>
 									</div>
 		                        </div>
 							</div>
@@ -57,14 +48,14 @@
 										<span class="input-group-addon">
 											<i class="ti ti-key"></i>
 										</span>
-										<input type="password" class="form-control"  ng-model="pass" id="exampleInputPassword1" placeholder="Password">
+										<input type="password" class="form-control"  ng-model="pass" placeholder="Password" required>
 									</div>
 		                        </div>
 							</div>
 
 							<div class="form-group mb-n">
 								<div class="col-xs-12">
-									<a href="extras-forgotpassword.html" class="pull-left">Forgot password?</a>
+									<a href="forgot-password.php" class="pull-left">Forgot password?</a>
 									<div class="checkbox-inline icheck pull-right p-n">
 										<label for="">
 											<input type="checkbox"></input>
@@ -84,20 +75,67 @@
 				</div>
 			</div>
         </div>
-        <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+        <!-- <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
             <div class="modal-dialog">
                 <div class="alert alert-dismissable alert-danger">
                 <i class="ti ti-close"></i>&nbsp; <strong>Oh snap!</strong> Change a few things up and try submitting again.
                     <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
                 </div>
             </div>
-        </div>
+        </div> -->
+        	<!-- Error modal -->
+				<div class="modal fade" id="errorModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+					<div class="modal-dialog">
+						<div class="panel panel-danger" data-widget='{"draggable": "false"}'>
+							<div class="panel-heading">
+								<h2>Error:</h2>
+								<div class="panel-ctrls" data-actions-container="" data-action-collapse='{"target": ".panel-body, .panel-footer"}'></div>
+							</div>
+							<div class="panel-body" style="height: 60px">
+							<strong>Oh snap!</strong> Change a few things up and try submitting again.
+							</div>
+						</div>
+					</div>
+				</div>
+				
+
+   
+<script>
+    var app = angular.module('myApp', ['ui.mask']);
+        app.controller('userCtrl', function($scope, $http) {
+
+            $scope.user = '';
+            $scope.pass = '';
+
+            $scope.Submit = function(){
+                if($scope.user === '' && $scope.pass === ''){
+					alert('Oh snap! Change a few things up and try submitting again.');
+                }else{
+                  $http({
+                        method: 'GET',
+                        url: 'mlmc-views/validations/validate-login.php',
+                        params: {id: $scope.user,
+                                 pass: $scope.pass}
+       	            }).then(function(response) {
+                        $scope.param = response.data;
+						if($scope.param == 0){
+						alert('Oh snap! Change a few things up and try submitting again.');
+						}else{
+						window.location.href = 'mlmc-views/index.php?id=' + $scope.param;	
+						}
+		            });
+				
+                }
+			
+            
+            }
+           
+                    
+    });
+
+</script>
 </div>
     
-    <!-- Load site level scripts -->
-
-<!-- <script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
-<script src="//ajax.googleapis.com/ajax/libs/jqueryui/1.9.2/jquery-ui.min.js"></script> -->
 
 <script type="text/javascript" src="mlmc-views/assets/js/jquery-1.10.2.min.js"></script> 							<!-- Load jQuery -->
 <script type="text/javascript" src="mlmc-views/assets/js/jqueryui-1.10.3.min.js"></script> 							<!-- Load jQueryUI -->
@@ -123,35 +161,6 @@
 <script type="text/javascript" src="mlmc-views/assets/demo/demo-switcher.js"></script>
 <script type="text/javascript" src="mlmc-views/assets/demo/demo-alerts.js"></script>
 <script type="text/javascript" src="mlmc-views/assets/demo/demo-formvalidation.js"></script>
-<!-- End loading site level scripts -->
-    <!-- Load page level scripts-->
-    
-<script>
-    var app = angular.module('myApp', []);
-        app.controller('userCtrl', function($scope, $http) {
 
-            $scope.Submit = function(){
-                    $http({
-                        method: 'get',
-                        url: 'mlmc-views/validations/validate-login.php',
-                        params: {user: $scope.user,
-                                 pass: $scope.pass}
-       	            }).then(function(response) {
-                        $scope.auth = response.data.length;
-                      
-                        if ($scope.auth ==  0){
-                            $('#myModal').modal('show');
-                        }else
-                        {
-                        window.location.href = 'mlmc-views/index.php';
-                        }
-		            });
-            }
-           
-                    
-    });
-
-</script>
-    <!-- End loading page level scripts-->
 </body>
 </html>

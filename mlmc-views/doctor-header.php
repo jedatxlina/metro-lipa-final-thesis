@@ -62,6 +62,18 @@
 
 	<ul class="nav navbar-nav toolbar pull-right">
 
+		<li class="toolbar-icon-bg visible-xs-block" id="trigger-toolbar-search">
+			<a href="#"><span class="icon-bg"><i class="ti ti-search"></i></span></a>
+		</li>
+        
+		<li class="toolbar-icon-bg hidden-xs">
+            <a href="#"><span class="icon-bg"><i class="ti ti-world"></i></span></i></a>
+        </li>
+
+        <li class="toolbar-icon-bg hidden-xs">
+            <a href="#"><span class="icon-bg"><i class="ti ti-view-grid"></i></span></i></a>
+        </li>
+
         <li class="toolbar-icon-bg hidden-xs" id="trigger-fullscreen">
             <a href="#" class="toggle-fullscreen"><span class="icon-bg"><i class="ti ti-fullscreen"></i></span></i></a>
         </li>
@@ -160,7 +172,77 @@
 			</div>
 		</li>
 		
-	
+		<li class="dropdown toolbar-icon-bg">
+			<a href="#" class="hasnotifications dropdown-toggle" data-toggle='dropdown'><span class="icon-bg"><i class="ti ti-bell"></i></span><span class="badge badge-deeporange">2</span></a>
+			<div class="dropdown-menu notifications arrow">
+				<div class="topnav-dropdown-header">
+					<span>Notifications</span>
+				</div>
+				<div class="scroll-pane">
+					<ul class="media-list scroll-content">
+						<li class="media notification-success">
+							<a href="#">
+								<div class="media-left">
+									<span class="notification-icon"><i class="ti ti-check"></i></span>
+								</div>
+								<div class="media-body">
+									<h4 class="notification-heading">Update 1.0.4 successfully pushed</h4>
+									<span class="notification-time">8 mins ago</span>
+								</div>
+							</a>
+						</li>
+						<li class="media notification-info">
+							<a href="#">
+								<div class="media-left">
+									<span class="notification-icon"><i class="ti ti-check"></i></span>
+								</div>
+								<div class="media-body">
+									<h4 class="notification-heading">Update 1.0.3 successfully pushed</h4>
+									<span class="notification-time">24 mins ago</span>
+								</div>
+							</a>
+						</li>
+						<li class="media notification-teal">
+							<a href="#">
+								<div class="media-left">
+									<span class="notification-icon"><i class="ti ti-check"></i></span>
+								</div>
+								<div class="media-body">
+									<h4 class="notification-heading">Update 1.0.2 successfully pushed</h4>
+									<span class="notification-time">16 hours ago</span>
+								</div>
+							</a>
+						</li>
+						<li class="media notification-indigo">
+							<a href="#">
+								<div class="media-left">
+									<span class="notification-icon"><i class="ti ti-check"></i></span>
+								</div>
+								<div class="media-body">
+									<h4 class="notification-heading">Update 1.0.1 successfully pushed</h4>
+									<span class="notification-time">2 days ago</span>
+								</div>
+							</a>
+						</li>
+						<li class="media notification-danger">
+							<a href="#">
+								<div class="media-left">
+									<span class="notification-icon"><i class="ti ti-arrow-up"></i></span>
+								</div>
+								<div class="media-body">
+									<h4 class="notification-heading">Initial Release 1.0</h4>
+									<span class="notification-time">4 days ago</span>
+								</div>
+							</a>
+						</li>
+					</ul>
+				</div>
+				<div class="topnav-dropdown-footer">
+					<a href="#">See all notifications</a>
+				</div>
+			</div>
+		</li>
+
 		<li class="dropdown toolbar-icon-bg">
 		<a href="#" class="hasnotifications dropdown-toggle" data-toggle='dropdown'><span class="icon-bg"><i class="fa fa-gear"></i></span><span class="badge badge-deeporange">2</span></a>
 			<ul class="dropdown-menu userinfo arrow">
@@ -188,7 +270,7 @@
                     <img src="http://meconstructionnews.com/wp-content/uploads/2016/05/Admin-logo.png" class="img-responsive img-circle"> 
                 </div>
                 <div class="info">
-                    <span class="username">Admission Staff</span>
+                    <span class="username">Administrator</span>
                     <span class="useremail">*username</span>
                 </div>
             </div>
@@ -198,14 +280,9 @@
         <nav role="navigation" class="widget-body">
 		<ul class="acc-menu">
 		<li class="nav-separator"><span>Explore</span></li>
-		<li><a href="index.php?id=2"><i class="ti ti-home"></i><span>Dashboard</span></a></li>
-		<li><a href="javascript:;"><i class="fa fa-users"></i><span>Patients</span></a>
-			<ul class="acc-menu">
-				<li><a href="emergency.php"><i class="fa fa-user"></i><span>&emsp;Emergency</span></a></li>
-				<li><a href="outpatient.php"><i class="fa fa-user"></i><span>&emsp;Outpatient</span></a></li>
-				<li><a href="inpatient.php"><i class="fa fa-user"></i><span>&emsp;Inpatient</span></a></li>
-			</ul>
-		</li>
+		<li><a href="index.php?id=4"><i class="ti ti-home"></i><span>Dashboard</span></a></li>
+		<li><a href="javascript:;"><i class="fa fa-user-md"></i><span>Physician Services</span></a></li>
+		
 	</ul>
 </nav>
     </div>	
