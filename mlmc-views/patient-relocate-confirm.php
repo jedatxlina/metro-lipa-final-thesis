@@ -1,4 +1,4 @@
-<?php include 'admission-header.php'; $id = $_GET['id']; ?>
+<?php include 'admin-header.php'; $id = $_GET['id']; ?>
 <style>
 .selected {
 color: #800000;

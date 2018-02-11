@@ -121,7 +121,7 @@
 						if($scope.param == 0){
 						alert('Oh snap! Change a few things up and try submitting again.');
 						}else{
-						window.location.href = 'mlmc-views/index.php?id=' + $scope.param;	
+						window.location.href = 'mlmc-views/index.php?id=' + $scope.param.charAt(1);	
 						}
 		            });
 				

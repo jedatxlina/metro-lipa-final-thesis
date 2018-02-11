@@ -1,6 +1,6 @@
 <?php 
     switch ($id[1]) {
-	case '1':	header('Location:admin-view/index.php');
+	case '1':	include 'admin-header.php';
 				break;
 	
 	case '2':	include 'admission-header.php';

@@ -1,5 +1,4 @@
-<?php $id = $_GET['id']; ?>
-<?php require_once '_validation-header.php';?>
+<?php require_once 'admin-header.php'; $id = $_GET['id']; ?>
 
 <ol class="breadcrumb">
 <li><a href="index.php">Home</a></li>
@@ -17,20 +16,21 @@
 			</div>
 		</div>
 	</div>
-	<script>
-                var app = angular.module('myApp', []);
-                app.controller('userCtrl', function($scope, $http) {
-                    
-					$http({
-                        method: 'GET',
-                        url: 'getData/get-emergency-details.php'
-                    }).then(function(response) {
-                        $scope.count = Object.keys(response.data).length;
-			
-                    });
-				
-                });
+<script>
+        var app = angular.module('myApp', []);
+        app.controller('userCtrl', function($scope, $http) {
+                   
+			$http({
+                method: 'GET',
+                 url: 'getData/get-emergency-details.php'
+            }).then(function(response) {
+                $scope.count = Object.keys(response.data).length;
+            });
 
-        </script>
+			$scope.param = '<?php echo $id;?>';
+			
+
+        });
+</script>
 </div>
 <?php include 'footer.php'?>

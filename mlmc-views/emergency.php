@@ -1,4 +1,4 @@
-<?php include 'admission-header.php' ?>
+<?php include 'admin-header.php' ?>
 <style>
 .selected {
 color: #800000;
@@ -300,10 +300,6 @@ font-weight: bold;
 			}
 		}
 		
-		$scope.viewPatientDetails = function(){
-			window.location.href = 'view-patient-details.php?id=' + $scope.selectedRow;
-		}
-
 
 		$scope.confirmBtn = function(){
 			alert($scope.new.Firstname);

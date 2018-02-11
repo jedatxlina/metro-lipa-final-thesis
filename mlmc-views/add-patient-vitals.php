@@ -1,4 +1,4 @@
-<?php session_start(); $_SESSION['id'] = $_GET['id']; include 'admission-header.php'; $get = $_GET['id'];?>
+<?php session_start(); $_SESSION['id'] = $_GET['id']; include 'admin-header.php'; $get = $_GET['id'];?>
 <div ng-app="myApp" ng-controller="userCtrl" ng-init="check('<?php echo $get; ?>')">
     <div id="page-wrapper">
         <div class="row">

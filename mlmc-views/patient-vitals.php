@@ -1,5 +1,5 @@
 <?php 
-include 'admission-header.php';
+include 'admin-header.phpr.php';
 include '../mlmc-views/getData/get-inpatient-vitals.php';
 ?>
 <ol class="breadcrumb">

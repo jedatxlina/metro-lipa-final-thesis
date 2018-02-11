@@ -1,4 +1,4 @@
-<?php include 'pharmacy-header.php' ?>
+<?php include 'admin-header.php' ?>
 <style>
 .selected {
 color: #800000;

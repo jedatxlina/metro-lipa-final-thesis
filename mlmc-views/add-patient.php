@@ -1,4 +1,4 @@
-<?php include 'admission-header.php';  $get = $_GET['id'];  ?>
+<?php include 'admin-header.php';  $get = $_GET['id'];  ?>
 <ol class="breadcrumb">
     <li><a href="index.php">Home</a>
     </li>

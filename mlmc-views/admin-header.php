@@ -280,7 +280,7 @@
         <nav role="navigation" class="widget-body">
 		<ul class="acc-menu">
 		<li class="nav-separator"><span>Explore</span></li>
-		<li><a href="index.php"><i class="ti ti-home"></i><span>Dashboard</span></a></li>
+		<li><a href="index.php?id='1'"><i class="ti ti-home"></i><span>Dashboard</span></a></li>
 		<li><a href="javascript:;"><i class="fa fa-users"></i><span>Patients</span></a>
 			<ul class="acc-menu">
 				<li><a href="emergency.php"><i class="fa fa-user"></i><span>&emsp;Emergency</span></a></li>
