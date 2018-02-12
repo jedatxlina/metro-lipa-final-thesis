@@ -13,7 +13,7 @@ font-weight: bold;
 <li class="active"><a href="emergency.php">Emergency</a></li>
 </ol>
 
-<div class="container-fluid" ng-app="myApp" ng-controller="userCtrl">
+<div class="container-fluid">
 	
 	<div class="row">
 		<div class="col-md-6">
@@ -244,10 +244,39 @@ font-weight: bold;
   
 
    fetch.controller('userCtrl', ['$scope', '$http', function($scope, $http) {   
-
+		$scope.param = "<?php echo $_GET['at'];?>";
 		$scope.selectedRow = null;
 		$scope.clickedRow = 0;
 		$scope.new = {};
+
+			switch ($scope.param) {
+                case '1':
+                    $scope.Administrator = true;
+                     break;
+                        
+                case '2':
+                    $scope.Admission = true;
+                    break;
+                        
+                case '3':
+                    $scope.Nurse = true;
+                    break;
+                        
+                case '4':
+                    $scope.Physician = true;
+                    break;
+                        
+                case '5':
+                    $scope.Pharmacy = true;
+                    break;
+
+                case '6':
+                    $scope.Billing = true;
+                    break;
+                    
+                    default:
+                    break;
+            }    
 
        	$http({
            method: 'get',
@@ -259,16 +288,15 @@ font-weight: bold;
 			dTable.DataTable();  
 			});  
 		});
-
 		
        $http({
-                    method: 'GET',
-                    url: 'getData/get-bed-details.php',
-                    contentType:"application/json; charset=utf-8",
-                    dataType:"json"
-                }).then(function(response) {
-                    $scope.bed = response.data;
-                });
+            method: 'GET',
+            url: 'getData/get-bed-details.php',
+            contentType:"application/json; charset=utf-8",
+            dataType:"json"
+        }).then(function(response) {
+            $scope.bed = response.data;
+        });
 		   
 		$scope.setClickedRow = function(user) {
            $scope.selectedRow = ($scope.selectedRow == null) ? user : ($scope.selectedRow == user) ? null : user;
@@ -276,11 +304,8 @@ font-weight: bold;
 	   	}
 
 		$scope.addPatient = function(){
-			window.location.href = 'add-patient.php?id=' + 1;
+			window.location.href = 'add-patient.php?at=' + $scope.param + '&id=' + 1;
 		}
-
-		
-	   
 	  
 		$scope.viewPatient = function(){
 			if($scope.selectedRow != null){
@@ -347,6 +372,64 @@ font-weight: bold;
 					window.location.reload();
 				});
 		};
+		
+		$scope.getPage = function(check){
+			
+			switch (check) {
+				case 'Dashboard':
+						window.location.href = 'index.php?at=' + $scope.param;
+						break;
+				case 'Emergency':
+						window.location.href = 'emergency.php?at=' + $scope.param;
+						break;
+				case 'Outpatient':
+						window.location.href = 'outpatient.php?at=' + $scope.param;
+						break;
+				case 'Inpatient':
+						window.location.href = 'inpatient.php?at=' + $scope.param;
+						break;
+						
+				case 'Confined':
+						window.location.href = 'nurse-patient.php?at=' + $scope.param;
+						break;
+				
+				case 'Physician':
+						window.location.href = 'physician.php?at=' + $scope.param;
+						break;
+				
+				case 'Pharmacy':
+						window.location.href = 'medicine-requisition.php?at=' + $scope.param;
+						break;
+				
+				case 'Billing':
+						window.location.href = 'billing.php?at=' + $scope.param;
+						break;
+
+				case 'Cashier':
+						window.location.href = 'cashier.php?at=' + $scope.param;
+						break;
+				
+				case 'Accounts':
+						window.location.href = 'user.php?at=' + $scope.param;
+						break;
+
+				case 'Bed':
+						window.location.href = 'bed.php?at=' + $scope.param;
+						break;
+
+				case 'Specialization':
+						window.location.href = 'specialization.php?at=' + $scope.param;
+						break;
+				
+				case 'Laboratory':
+						window.location.href = 'laboratory.php?at=' + $scope.param;
+						break;
+				
+				default:
+					break;
+			}
+		}
+
 
    }]);
 </script>		

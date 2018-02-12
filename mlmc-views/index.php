@@ -1,11 +1,11 @@
-<?php require_once 'admin-header.php'; $id = $_GET['id']; ?>
+<?php include 'admin-header.php'?>
 
 <ol class="breadcrumb">
 <li><a href="index.php">Home</a></li>
 <li class="active"><a href="#" ng-click="reSubmit()">Dashboard</a></li>
 </ol>
 <br><br>
-<div class="container-fluid" ng-app="myApp" ng-controller="userCtrl">
+<div class="container-fluid">
 	<div class="row">
 		<div class="col-md-3">
 			<div class="info-tile tile-info">
@@ -16,10 +16,43 @@
 			</div>
 		</div>
 	</div>
+
+</div>
+
 <script>
         var app = angular.module('myApp', []);
         app.controller('userCtrl', function($scope, $http) {
-                   
+			
+			$scope.param = "<?php echo $_GET['at'];?>";
+			switch ($scope.param) {
+				case '1':
+					$scope.Administrator = true;
+					break;
+				
+				case '2':
+					$scope.Admission = true;
+					break;
+				
+				case '3':
+					$scope.Nurse = true;
+					break;
+				
+				case '4':
+					$scope.Physician = true;
+					break;
+				
+				case '5':
+					$scope.Pharmacy = true;
+					break;
+
+				case '6':
+					$scope.Billing = true;
+					break;
+			
+				default:
+					break;
+			}
+
 			$http({
                 method: 'GET',
                  url: 'getData/get-emergency-details.php'
@@ -27,10 +60,68 @@
                 $scope.count = Object.keys(response.data).length;
             });
 
-			$scope.param = '<?php echo $id;?>';
+			$scope.buttonDisable = function() { 
+			  if($scope.param == '1')
+			  return true;
+			}
+	
+			$scope.getPage = function(check){
 			
+				switch (check) {
+					case 'Dashboard':
+							window.location.href = 'index.php?at=' + $scope.param;
+							break;
+					case 'Emergency':
+							window.location.href = 'emergency.php?at=' + $scope.param;
+							break;
+					case 'Outpatient':
+							window.location.href = 'outpatient.php?at=' + $scope.param;
+							break;
+					case 'Inpatient':
+							window.location.href = 'inpatient.php?at=' + $scope.param;
+							break;
+							
+					case 'Confined':
+							window.location.href = 'nurse-patient.php?at=' + $scope.param;
+							break;
+					
+					case 'Physician':
+							window.location.href = 'physician.php?at=' + $scope.param;
+							break;
+					
+					case 'Pharmacy':
+							window.location.href = 'medicine-requisition.php?at=' + $scope.param;
+							break;
+					
+					case 'Billing':
+							window.location.href = 'billing.php?at=' + $scope.param;
+							break;
 
-        });
+					case 'Cashier':
+							window.location.href = 'cashier.php?at=' + $scope.param;
+							break;
+					
+					case 'Accounts':
+							window.location.href = 'user.php?at=' + $scope.param;
+							break;
+
+					case 'Bed':
+							window.location.href = 'bed.php?at=' + $scope.param;
+							break;
+
+					case 'Specialization':
+							window.location.href = 'specialization.php?at=' + $scope.param;
+							break;
+					
+					case 'Laboratory':
+							window.location.href = 'laboratory.php?at=' + $scope.param;
+							break;
+					
+					default:
+						break;
+				}
+			}
+
+		});
 </script>
-</div>
 <?php include 'footer.php'?>

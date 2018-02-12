@@ -1,4 +1,4 @@
-<?php include 'admin-header.php.php' ?>
+<?php include 'admin-header.php' ?>
 <style>
 .selected {
 color: #800000;
@@ -240,10 +240,39 @@ font-weight: bold;
   
 
    fetch.controller('userCtrl', ['$scope', '$http', function($scope, $http) {   
-
+		$scope.at = "<?php echo $_GET['at'];?>";
 		$scope.selectedRow = null;
 		$scope.clickedRow = 0;
 		$scope.new = {};
+
+			switch ($scope.at) {
+                case '1':
+                    $scope.Administrator = true;
+                     break;
+                        
+                case '2':
+                    $scope.Admission = true;
+                    break;
+                        
+                case '3':
+                    $scope.Nurse = true;
+                    break;
+                        
+                case '4':
+                    $scope.Physician = true;
+                    break;
+                        
+                case '5':
+                    $scope.Pharmacy = true;
+                    break;
+
+                case '6':
+                    $scope.Billing = true;
+                    break;
+                    
+                    default:
+                    break;
+            }    
 
        	$http({
            method: 'get',
@@ -323,7 +352,7 @@ font-weight: bold;
           	}else{
             	$('#errorModal').modal('show');
            	}
-       };
+       }
 	
         $scope.filterBed = function (param) {
             return function (bed) {
@@ -334,7 +363,7 @@ font-weight: bold;
                 }
                 return false;
             };
-        };
+        }
 
 
        $scope.ConfirmInpatient = function(){
@@ -346,7 +375,65 @@ font-weight: bold;
 				}).then(function(response) {
 					window.location.reload();
 				});
-		};
+		}
+
+		
+		$scope.getPage = function(check){
+                    switch (check) {
+                        case 'Dashboard':
+                                window.location.href = 'index.php?at=' + $scope.at;
+                                break;
+                        case 'Emergency':
+                                window.location.href = 'emergency.php?at=' + $scope.at;
+                                break;
+                        case 'Outpatient':
+                                window.location.href = 'outpatient.php?at=' + $scope.at;
+                                break;
+                        case 'Inpatient':
+                                window.location.href = 'inpatient.php?at=' + $scope.at;
+                                break;
+                                
+                        case 'Confined':
+                                window.location.href = 'nurse-patient.php?at=' + $scope.at;
+                                break;
+                        
+                        case 'Physician':
+                                window.location.href = 'physician.php?at=' + $scope.at;
+                                break;
+                        
+                        case 'Pharmacy':
+                                window.location.href = 'medicine-requisition.php?at=' + $scope.at;
+                                break;
+                        
+                        case 'Billing':
+                                window.location.href = 'billing.php?at=' + $scope.at;
+                                break;
+
+                        case 'Cashier':
+                                window.location.href = 'cashier.php?at=' + $scope.at;
+                                break;
+                        
+                        case 'Accounts':
+                                window.location.href = 'user.php?at=' + $scope.at;
+                                break;
+
+                        case 'Bed':
+                                window.location.href = 'bed.php?at=' + $scope.at;
+                                break;
+
+                        case 'Specialization':
+                                window.location.href = 'specialization.php?at=' + $scope.at;
+                                break;
+                        
+                        case 'Laboratory':
+                                window.location.href = 'laboratory.php?at=' + $scope.at;
+                                break;
+                        
+                        default:
+                            break;
+                    }
+                        
+                }
 
    }]);
 </script>		

@@ -34,17 +34,17 @@ $class = $_GET['classification'];
 $occupation = $_GET['occupation'];
 $medicalid = $_GET['medicalid'];
 
-$sel = mysqli_query($con,"select * from patient_archive where FirstName = '$firstname' and MiddleName = '$middlename' and LastName = '$lastname' and Gender = '$gender'");
-$counter = 0;
-while ($row = mysqli_fetch_array($sel)) {
-    $counter++;
-}
-if($counter > 0){
-    $admission = 'Old Patient';
-}else{
-    $admission = 'New Patient';
-}
-
+// $sel = mysqli_query($con,"select * from patient_archive where FirstName = '$firstname' and MiddleName = '$middlename' and LastName = '$lastname' and Gender = '$gender'");
+// $counter = 0;
+// while ($row = mysqli_fetch_array($sel)) {
+//     $counter++;
+// }
+// if($counter > 0){
+//     $admission = 'Old Patient';
+// }else{
+//     $admission = 'New Patient';
+// }
+$admission = 'New Patient';
 // $query = "INSERT into patients(AdmissionID,AdmissionDateTime,FirstName,MiddleName,LastName,Admission,AdmissionType,Gender,Province,City,Age,CivilStatus,Birthdate,Contact) 
 // VALUES('$admissionid',NOW(),'$firstname','$middlename','$lastname','$admission','$admissiontype','$gender','$province','$city','$age','$civilstatus','$birthdate','$contact')";
 

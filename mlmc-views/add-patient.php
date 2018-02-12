@@ -451,8 +451,37 @@
             
                 var app = angular.module('myApp', []);
                 app.controller('userCtrl', function($scope, $window, $http) {
-                    
+                    $scope.at = "<?php echo $_GET['at'];?>";
                     $scope.admissionid = "<?php echo "2017" .  rand(111111, 999999); ?>";
+                    
+                    switch ($scope.at) {
+                        case '1':
+                            $scope.Administrator = true;
+                            break;
+                        
+                        case '2':
+                            $scope.Admission = true;
+                            break;
+                        
+                        case '3':
+                            $scope.Nurse = true;
+                            break;
+                        
+                        case '4':
+                            $scope.Physician = true;
+                            break;
+                        
+                        case '5':
+                            $scope.Pharmacy = true;
+                            break;
+
+                        case '6':
+                            $scope.Billing = true;
+                            break;
+                    
+                        default:
+                            break;
+                    }
                     
                     $http({
                         method: 'GET',
@@ -505,7 +534,7 @@
                                     occupation: $scope.occupation,
                                     medicalid: $scope.medicalid}
                         }).then(function(response) {
-                            window.location.href = 'add-patient-next.php?id=' + $scope.admissionid + '&medid=' + $scope.medicalid + '&param=' + $scope.admissiontype;
+                            window.location.href = 'add-patient-next.php?at=' + $scope.param + '&id=' + $scope.admissionid + '&medid=' + $scope.medicalid + '&param=' + $scope.admissiontype;
                         });
                      
                      
@@ -514,6 +543,62 @@
                     
                     $scope.goBack = function(){
                         window.history.back();
+                    }
+
+                    $scope.getPage = function(check){
+			
+                        switch (check) {
+                            case 'Dashboard':
+                                    window.location.href = 'index.php?at=' + $scope.at;
+                                    break;
+                            case 'Emergency':
+                                    window.location.href = 'emergency.php?at=' + $scope.at;
+                                    break;
+                            case 'Outpatient':
+                                    window.location.href = 'outpatient.php?at=' + $scope.at;
+                                    break;
+                            case 'Inpatient':
+                                    window.location.href = 'inpatient.php?at=' + $scope.at;
+                                    break;
+                                    
+                            case 'Confined':
+                                    window.location.href = 'nurse-patient.php?at=' + $scope.at;
+                                    break;
+                            
+                            case 'Physician':
+                                    window.location.href = 'physician.php?at=' + $scope.at;
+                                    break;
+                            
+                            case 'Pharmacy':
+                                    window.location.href = 'medicine-requisition.php?at=' + $scope.at;
+                                    break;
+                            
+                            case 'Billing':
+                                    window.location.href = 'billing.php?at=' + $scope.at;
+                                    break;
+
+                            case 'Cashier':
+                                    window.location.href = 'cashier.php?at=' + $scope.at;
+                            
+                            case 'Accounts':
+                                    window.location.href = 'user.php?at=' + $scope.at;
+                                    break;
+
+                            case 'Bed':
+                                    window.location.href = 'bed.php?at=' + $scope.at;
+                                    break;
+
+                            case 'Specialization':
+                                    window.location.href = 'specialization.php?at=' + $scope.at;
+                                    break;
+                            
+                            case 'Laboratory':
+                                    window.location.href = 'laboratory.php?at=' + $scope.at;
+                                    break;
+                            
+                            default:
+                                break;
+                        }
                     }
                 });
                 

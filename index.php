@@ -109,7 +109,7 @@
 
             $scope.Submit = function(){
                 if($scope.user === '' && $scope.pass === ''){
-					alert('Oh snap! Change a few things up and try submitting again.');
+					$('#errorModal').modal('show');
                 }else{
                   $http({
                         method: 'GET',
@@ -121,16 +121,11 @@
 						if($scope.param == 0){
 						alert('Oh snap! Change a few things up and try submitting again.');
 						}else{
-						window.location.href = 'mlmc-views/index.php?id=' + $scope.param.charAt(1);	
+						window.location.href = 'mlmc-views/index.php?at=' + $scope.param.charAt(1);	
 						}
 		            });
-				
                 }
-			
-            
-            }
-           
-                    
+            }     
     });
 
 </script>

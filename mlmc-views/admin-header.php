@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" ng-app="myApp" ng-controller="userCtrl">
 <head>
     <meta charset="utf-8">
     <title>Metro Lipa Patient Management System</title>
@@ -27,7 +27,12 @@
 	<link type="text/css" href="assets/plugins/switchery/switchery.css" rel="stylesheet">   							<!-- Switchery -->
 	<link type="text/css" href="assets/plugins/datatables/dataTables.bootstrap.css" rel="stylesheet">
 	<link type="text/css" href="assets/plugins/datatables/dataTables.themify.css" rel="stylesheet">
-
+	<style>
+	.disabled {
+	color: #ccc;
+    pointer-events:none;
+	}
+	</style>
 	
 	<script src="components/angular.min.js"></script>
 	<script src="assets/js/mask.js"></script>
@@ -35,8 +40,10 @@
 	
     </head>
 
-    <body class="animated-content">
-        
+    <body class="animated-content">	
+	<?php
+ 	$id = $_GET['at'];
+	?>
         <header id="topnav" class="navbar navbar-red navbar-fixed-top" role="banner">
 
 	<div class="logo-area">
@@ -48,7 +55,7 @@
 			</a>
 		</span>
 		
-		<a class="navbar-brand" href="index.php">Metro Lipa Patient Management System</a>
+		<a class="navbar-brand" href="index.php?at=1">Metro Lipa Patient Management System</a>
 
 		<div class="toolbar-icon-bg hidden-xs" id="toolbar-search">
             <div class="input-group">
@@ -270,51 +277,54 @@
                     <img src="http://meconstructionnews.com/wp-content/uploads/2016/05/Admin-logo.png" class="img-responsive img-circle"> 
                 </div>
                 <div class="info">
-                    <span class="username">Administrator</span>
+                    <span class="username"  ng-if="Administrator">Administrator</span>
+					<span class="username"  ng-if="Admission">Admission Staff<br></span>
+					<span class="username"  ng-if="Nurse">Nursing Staff<br></span>
+					<span class="username"  ng-if="Physician">Physician<br></span>
+					<span class="username"  ng-if="Pharmacy">Pharmacy Staff<br></span>
+					<span class="username"  ng-if="Billing">Billing Staff<br></span>
                     <span class="useremail">*username</span>
                 </div>
             </div>
         </div>
     </div>
 	<div class="widget" id="widget-sidebar">
-        <nav role="navigation" class="widget-body">
-		<ul class="acc-menu">
-		<li class="nav-separator"><span>Explore</span></li>
-		<li><a href="index.php?id=1"><i class="ti ti-home"></i><span>Dashboard</span></a></li>
-		<li><a href="javascript:;"><i class="fa fa-users"></i><span>Patients</span></a>
+		<nav role="navigation" class="widget-body">
 			<ul class="acc-menu">
-				<li><a href="emergency.php"><i class="fa fa-user"></i><span>&emsp;Emergency</span></a></li>
-				<li><a href="outpatient.php"><i class="fa fa-user"></i><span>&emsp;Outpatient</span></a></li>
-				<li><a href="inpatient.php"><i class="fa fa-user"></i><span>&emsp;Inpatient</span></a></li>
+				<li class="nav-separator"><span>Explore</span></li>
+				<li><a ng-click="getPage('Dashboard')" href="javascript:void(0);"><i class="ti ti-home"></i><span>Dashboard</span></a></li>
+				<li><a href="javascript:;"><i class="fa fa-users"></i><span>Patients</span></a>
+					<ul class="acc-menu">
+						<li><a ng-click="getPage('Emergency')" href="javascript:void(0);"><i class="fa fa-user"></i><span>&emsp;Emergency</span></a></li>
+						<li><a ng-click="getPage('Outpatient')" href="javascript:void(0);"><i class="fa fa-user"></i><span>&emsp;Outpatient</span></a></li>
+						<li><a ng-click="getPage('Inpatient')" href="javascript:void(0);"><i class="fa fa-user"></i><span>&emsp;Inpatient</span></a></li>
+					</ul>
+				</li>
+				<li><a href="javascript:;"><i class="fa fa-stethoscope"></i><span>Nursing Services</span></a>
+					<ul class="acc-menu">
+						<li><a ng-click="getPage('Confined')" href="javascript:void(0);"<i class="fa fa-medkit"></i><span>&emsp;Confined Patients</span></a></li>
+					</ul>
+				</li>
+				<li><a ng-click="getPage('Physician')" href="javascript:void(0);"><i class="fa fa-user-md"></i><span>Physician Services</span></a></li>
+				<li><a  href="javascript:void(0);"><i class="fa fa-cubes"></i><span>Pharmacy Department</span></a>
+					<ul class="acc-menu">
+						<li><a ng-click="getPage('Pharmacy')" href="javascript:void(0);"><i class="fa fa-users"></i><span>&emsp;Patient Services</span></a></li>
+					</ul>
+				</li>
+				<li><a href="javascript:;"><i class="fa fa-file-text-o"></i><span>Billing Department</span></a>
+					<ul class="acc-menu">
+						<li><a ng-click="getPage('Billing')" href="javascript:void(0);"><i class="fa fa-user"></i><span>&emsp;Patients</span></a></li>
+						<li><a ng-click="getPage('Cashier')" href="javascript:void(0);"><i class="fa fa-money"></i><span>&emsp;Cashier Service</span></a></li>
+					</ul>
+				</li>
+				<li class="nav-separator"><span>Other Transactions</span></li>
+				
+				<li><a ng-click="getPage('Accounts')" href="javascript:void(0);"><i class="fa fa-key"></i><span>Accounts</span></a></li>
+				<li><a ng-click="getPage('Bed')" href="javascript:void(0);"><i class="fa fa-bed"></i><span>Beds</span></a></li>
+				<li><a ng-click="getPage('Specialization')" href="javascript:void(0);"><i class="fa fa-medkit"></i><span>Medical Specializations</span> </a></li>
+				<li><a  ng-click="getPage('Laboratory')" href="javascript:void(0);"><i class="fa fa-search"></i><span>Laboratories</span></a></li>
 			</ul>
-		</li>
-		<li><a href="javascript:;"><i class="fa fa-stethoscope"></i><span>Nursing Services</span></a>
-			<ul class="acc-menu">
-				<li><a href="nurse-patient.php"><i class="fa fa-medkit"></i><span>&emsp;Confined Patients</span></a></li>
-			</ul>
-		</li>
-		<li><a href="javascript:;"><i class="fa fa-user-md"></i><span>Physician Services</span></a></li>
-		<li><a href="javascript:;"><i class="fa fa-cubes"></i><span>Pharmacy Department</span></a>
-			<ul class="acc-menu">
-				<li><a href="medicine-requisition.php"><i class="fa fa-users"></i><span>&emsp;Patient Services</span></a></li>
-			</ul>
-		</li>
-		<li><a href="javascript:;"><i class="fa fa-file-text-o"></i><span>Billing Department</span></a>
-			<ul class="acc-menu">
-				<li><a href="billing-emergency.php"><i class="fa fa-user"></i><span>&emsp;Emergency</span></a></li>
-				<li><a href="billing-outpatient.php"><i class="fa fa-user"></i><span>&emsp;Outpatient</span></a></li>
-				<li><a href="billing-inpatient.php"><i class="fa fa-user"></i><span>&emsp;Inpatient</span></a></li>
-				<li><a href="cashier-service.php"><i class="fa fa-money"></i><span>&emsp;Cashier Service</span></a></li>
-			</ul>
-		</li>
-		<li class="nav-separator"><span>Other Transactions</span></li>
-		
-		<li><a href="javascript:;"><i class="fa fa-key"></i><span>Accounts</span></a></li>
-		<li><a href="bed.php"><i class="fa fa-bed"></i><span>Beds</span></a></li>
-		<li><a href="specialization.php"><i class="fa fa-medkit"></i><span>Medical Specializations</span> </a></li>
-		<li><a href="laboratory.php"><i class="fa fa-search"></i><span>Laboratories</span></a></li>
-	</ul>
-</nav>
+		</nav>
     </div>	
     
 </div>

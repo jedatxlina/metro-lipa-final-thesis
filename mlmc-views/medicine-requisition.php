@@ -236,10 +236,39 @@ font-weight: bold;
   
 
    fetch.controller('userCtrl', ['$scope', '$http', function($scope, $http) {   
-
+		$scope.at = "<?php echo $_GET['at'];?>";
 		$scope.selectedRow = null;
 		$scope.clickedRow = 0;
 		$scope.new = {};
+
+			switch ($scope.at) {
+                case '1':
+                    $scope.Administrator = true;
+                     break;
+                        
+                case '2':
+                    $scope.Admission = true;
+                    break;
+                        
+                case '3':
+                    $scope.Nurse = true;
+                    break;
+                        
+                case '4':
+                    $scope.Physician = true;
+                    break;
+                        
+                case '5':
+                    $scope.Pharmacy = true;
+                    break;
+
+                case '6':
+                    $scope.Billing = true;
+                    break;
+                    
+                    default:
+                    break;
+            }    
 
        	$http({
            method: 'get',
@@ -252,25 +281,13 @@ font-weight: bold;
 			});  
 		});
 
-		
-       $http({
-                    method: 'GET',
-                    url: 'getData/get-bed-details.php',
-                    contentType:"application/json; charset=utf-8",
-                    dataType:"json"
-                }).then(function(response) {
-                    $scope.bed = response.data;
-                });
 		   
 		$scope.setClickedRow = function(user) {
            $scope.selectedRow = ($scope.selectedRow == null) ? user : ($scope.selectedRow == user) ? null : user;
            $scope.clickedRow = ($scope.selectedRow == null) ? 0 : 1;
 	   	}
 
-		$scope.addPatient = function(){
-			window.location.href = 'add-patient.php?id=' + 1;
-		}
-
+	
 		
 	   
 	  
@@ -291,58 +308,63 @@ font-weight: bold;
 			$('#errorModal').modal('show');
 			}
 		}
-		
-		$scope.viewPatientDetails = function(){
-			window.location.href = 'view-patient-details.php?id=' + $scope.selectedRow;
-		}
-
-
-		$scope.confirmBtn = function(){
-			alert($scope.new.Firstname);
-		}
-
-		$scope.movePatient = function(){
-        	if($scope.selectedRow != null){
-				$scope.admissionid = $scope.selectedRow;
-				$http({
-						method: 'GET',
-						url: 'getData/get-patient-details.php',
-						params: {id: $scope.admissionid},
-						contentType:"application/json; charset=utf-8",
-						dataType:"json"
-						}).then(function(response) {
-						$scope.getdetails = response.data;
-					
-					});
-				$('#moveInpatientModal').modal('show');
+     
+		$scope.getPage = function(check){
+			
+			switch (check) {
+				case 'Dashboard':
+						window.location.href = 'index.php?at=' + $scope.at;
+						break;
+				case 'Emergency':
+						window.location.href = 'emergency.php?at=' + $scope.at;
+						break;
+				case 'Outpatient':
+						window.location.href = 'outpatient.php?at=' + $scope.at;
+						break;
+				case 'Inpatient':
+						window.location.href = 'inpatient.php?at=' + $scope.at;
+						break;
+						
+				case 'Confined':
+						window.location.href = 'nurse-patient.php?at=' + $scope.at;
+						break;
 				
-          	}else{
-            	$('#errorModal').modal('show');
-           	}
-       };
-	
-        $scope.filterBed = function (param) {
-            return function (bed) {
-                if (bed.RoomType == param)
-                {
-                    if (bed.Status == 'Available')
-                    return true;
-                }
-                return false;
-            };
-        };
+				case 'Physician':
+						window.location.href = 'physician.php?at=' + $scope.at;
+						break;
+				
+				case 'Pharmacy':
+						window.location.href = 'medicine-requisition.php?at=' + $scope.at;
+						break;
+				
+				case 'Billing':
+						window.location.href = 'billing.php?at=' + $scope.at;
+						break;
 
+				case 'Cashier':
+						window.location.href = 'cashier.php?at=' + $scope.at;
+						break;
+				
+				case 'Accounts':
+						window.location.href = 'user.php?at=' + $scope.at;
+						break;
 
-       $scope.ConfirmInpatient = function(){
-			$http({
-				method: 'GET',
-				url: 'updateData/update-inpatient-details.php',
-				params: {AdmissionID: $scope.selectedRow,
-						BedID:$scope.bedno.BedID}
-				}).then(function(response) {
-					window.location.reload();
-				});
-		};
+				case 'Bed':
+						window.location.href = 'bed.php?at=' + $scope.at;
+						break;
+
+				case 'Specialization':
+						window.location.href = 'specialization.php?at=' + $scope.at;
+						break;
+				
+				case 'Laboratory':
+						window.location.href = 'laboratory.php?at=' + $scope.at;
+						break;
+				
+				default:
+					break;
+			}
+		}
 
    }]);
 </script>		

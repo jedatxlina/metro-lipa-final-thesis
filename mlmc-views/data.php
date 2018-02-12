@@ -1,11 +1,10 @@
 <?php
-//setting header to json
-//database
+
 define('DB_HOST', 'localhost');
 define('DB_USERNAME', 'root');
 define('DB_PASSWORD', '');
 define('DB_NAME', 'metro_lipa_db');
-// //get connection
+
 $id = $_GET["id"];
 $mysqli = new mysqli(DB_HOST, DB_USERNAME, DB_PASSWORD, DB_NAME);
 if(!$mysqli){
