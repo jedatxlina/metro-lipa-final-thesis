@@ -163,6 +163,9 @@
 
                 app.controller('userCtrl', function($scope, $window, $http) {
                     $scope.at = "<?php echo $_GET['at'];?>";
+                    $scope.admissionid = "<?php echo $_GET['id']; ?>";
+                    $scope.medid = "<?php echo $_GET['medid']; ?>";
+                    $scope.param = "<?php echo $_GET['param']; ?>";
                     
                     switch ($scope.at) {
                         case '1':
@@ -193,11 +196,9 @@
                             break;
                     }
 
+                  
+
                     $scope.submitDetails = function(){
-                    
-                        $scope.admissionid = "<?php echo $_GET['id']; ?>";
-                        $scope.medid = "<?php echo $_GET['medid']; ?>";
-                        $scope.param = "<?php echo $_GET['param']; ?>";
                         $scope.condition =$("#conditions").val();
                         $scope.medication =$("#medications").val();
                         $scope.administered =$("#administered").val();
@@ -244,8 +245,15 @@
                     }
 
                     $scope.goBack = function(){
-                        window.history.back();
+                            $http({
+                                method: 'get',
+                                url: 'cancelData/cancel-patient-details.php',
+                                params: {id: $scope.admissionid}
+                            }).then(function(response) {
+                               alert('jed');
+                            });
                     }
+
                     $scope.getPage = function(check){
                       
                         switch (check) {
