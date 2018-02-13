@@ -221,8 +221,18 @@
                                     admitting: $scope.admitting,
                                     classification: $scope.classification}
                         }).then(function(response) {
-                            switch ($scope.param) {
-                                case 'Emergency':
+                        });
+
+                              
+                        $http({
+                            method: 'GET',
+                            url: 'qr-generator/index.php',
+                            params: {medid: $scope.medid,
+                                    admissionid: $scope.admissionid,
+                                 }
+                        }).then(function(response) {
+                                switch ($scope.param) {
+                                    case 'Emergency':
                                     window.location.href = 'emergency.php?at=' + $scope.at;         
                                     break;
                             

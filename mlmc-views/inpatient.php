@@ -8,9 +8,9 @@ font-weight: bold;
 </style>
 
 <ol class="breadcrumb">
-<li><a href="index.php">Home</a></li>
-<li><a href="index.php">Patients</a></li>
-<li class="active"><a href="inpatient.php">Inpatient</a></li>
+<li><a href="#">Home</a></li>
+<li><a href="#">Patients</a></li>
+<li class="active"><a href="#">Inpatient</a></li>
 </ol>
 
 <div class="container-fluid">
@@ -100,7 +100,8 @@ font-weight: bold;
 			<!--/ Error modal -->
 
 					<!-- Patient Modal -->
-					<div class="modal fade" id="patientModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+				<!-- Patient Modal -->
+				<div class="modal fade" id="patientModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
 					<form class="form-horizontal">
 						<div class="modal-dialog">
 							<div class="panel panel-danger" data-widget='{"draggable": "false"}'>
@@ -108,7 +109,7 @@ font-weight: bold;
 									<h2>Patient Details</h2>
 									<div class="panel-ctrls" data-actions-container="" data-action-collapse='{"target": ".panel-body, .panel-footer"}'></div>
 								</div>
-								<div class="panel-body" style="height: 450px" data-ng-repeat="patient in patientdetails">
+								<div class="panel-body" style="height: 550px" data-ng-repeat="patient in patientdetails">
 									<center><span><strong>Registry Information</strong></span></center>
 									<hr>
 									<div class="row">
@@ -153,23 +154,22 @@ font-weight: bold;
 									</div>
 									<div class="row">
 										<div class="form-group">
-											<label for="focusedinput" class="col-sm-3 control-label">Inpatient Date</label>
+											<label for="focusedinput" class="col-sm-3 control-label">QR Code</label>
 											<div class="col-sm-5">
-												<input type="text" class="form-control" ng-value="patient.InpatientDate" disabled>
+											<center> <img ng-src="{{patient.QRpath}}">
 											</div>
 										</div>
 									</div>
+								
 								</div>
 								<div class="panel-footer">
 								<button type="button" ng-click="#" class="btn btn-danger-alt pull-left">View Details</button>
-								<button type="button" ng-click="#" class="btn btn-danger-alt pull-right">Ok</button>
-								<button type="button" data-dismiss="modal" class="btn btn-default-alt pull-right">Cancel</button>
+								<button type="button" data-dismiss="modal" class="btn btn-danger pull-right">Ok</button>
 								</div>
 							</div>
 						</div>
 					</form>
 				</div>
-
 					<!-- Relocate modal -->
 					<div class="modal fade" id="relocateModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
 						<form class="form-horizontal" >
@@ -179,7 +179,7 @@ font-weight: bold;
 										<h2>Relocate Patient</h2>
 										<div class="panel-ctrls" data-actions-container="" data-action-collapse='{"target": ".panel-body, .panel-footer"}'></div>
 									</div>
-									<div class="panel-body" style="height: 550px" data-ng-repeat="relocate in reldetails">
+									<div class="panel-body" style="height: 450px" data-ng-repeat="relocate in reldetails">
 										<center><span><strong>Registry Information</strong></span></center>
 										<hr>
 
@@ -197,15 +197,6 @@ font-weight: bold;
 												<label for="focusedinput" class="col-sm-3 control-label">Admission ID</label>
 												<div class="col-sm-5">
 													<input type="text" class="form-control" ng-value="relocate.AdmissionID" disabled>
-												</div>
-											</div>
-										</div>
-
-										<div class="row">
-											<div class="form-group">
-												<label for="focusedinput" class="col-sm-3 control-label">Inpatient Date</label>
-												<div class="col-sm-5">
-													<input type="text" class="form-control" ng-value="relocate.Arrival" disabled>
 												</div>
 											</div>
 										</div>
@@ -316,12 +307,12 @@ font-weight: bold;
   
 
    fetch.controller('userCtrl', ['$scope', '$http', function($scope, $http) {   
-		$scope.param = "<?php echo $_GET['at'];?>";
+		$scope.at = "<?php echo $_GET['at'];?>";
 		$scope.selectedRow = null;
 		$scope.clickedRow = 0;
 		$scope.new = {};
 
-			switch ($scope.param) {
+			switch ($scope.at) {
                 case '1':
                     $scope.Administrator = true;
                      break;
@@ -462,52 +453,52 @@ font-weight: bold;
 		$scope.getPage = function(check){
 			switch (check) {
 				case 'Dashboard':
-						window.location.href = 'index.php?at=' + $scope.param;
+						window.location.href = 'index.php?at=' + $scope.at;
 						break;
 				case 'Emergency':
-						window.location.href = 'emergency.php?at=' + $scope.param;
+						window.location.href = 'emergency.php?at=' + $scope.at;
 						break;
 				case 'Outpatient':
-						window.location.href = 'outpatient.php?at=' + $scope.param;
+						window.location.href = 'outpatient.php?at=' + $scope.at;
 						break;
 				case 'Inpatient':
-						window.location.href = 'inpatient.php?at=' + $scope.param;
+						window.location.href = 'inpatient.php?at=' + $scope.at;
 						break;
 						
 				case 'Confined':
-						window.location.href = 'nurse-patient.php?at=' + $scope.param;
+						window.location.href = 'nurse-patient.php?at=' + $scope.at;
 						break;
 				
 				case 'Physician':
-						window.location.href = 'physician.php?at=' + $scope.param;
+						window.location.href = 'physician.php?at=' + $scope.at;
 						break;
 				
 				case 'Pharmacy':
-						window.location.href = 'medicine-requisition.php?at=' + $scope.param;
+						window.location.href = 'medicine-requisition.php?at=' + $scope.at;
 						break;
 				
 				case 'Billing':
-						window.location.href = 'billing.php?at=' + $scope.param;
+						window.location.href = 'billing.php?at=' + $scope.at;
 						break;
 
 				case 'Cashier':
-						window.location.href = 'cashier.php?at=' + $scope.param;
+						window.location.href = 'cashier.php?at=' + $scope.at;
 						break;
 				
 				case 'Accounts':
-						window.location.href = 'user.php?at=' + $scope.param;
+						window.location.href = 'user.php?at=' + $scope.at;
 						break;
 
 				case 'Bed':
-						window.location.href = 'bed.php?at=' + $scope.param;
+						window.location.href = 'bed.php?at=' + $scope.at;
 						break;
 
 				case 'Specialization':
-						window.location.href = 'specialization.php?at=' + $scope.param;
+						window.location.href = 'specialization.php?at=' + $scope.at;
 						break;
 				
 				case 'Laboratory':
-						window.location.href = 'laboratory.php?at=' + $scope.param;
+						window.location.href = 'laboratory.php?at=' + $scope.at;
 						break;
 				
 				default:

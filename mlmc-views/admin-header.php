@@ -283,7 +283,6 @@
 					<span class="username"  ng-if="Physician">Physician<br></span>
 					<span class="username"  ng-if="Pharmacy">Pharmacy Staff<br></span>
 					<span class="username"  ng-if="Billing">Billing Staff<br></span>
-                    <span class="useremail">*username</span>
                 </div>
             </div>
         </div>

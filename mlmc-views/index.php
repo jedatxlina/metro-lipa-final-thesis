@@ -7,7 +7,7 @@
 <br><br>
 <div class="container-fluid">
 	<div class="row">
-		<div class="col-md-3">
+		<div class="col-md-4">
 			<div class="info-tile tile-info">
 				<div class="tile-icon"><i class="ti ti-user"></i></div>
 				<div class="tile-heading"><span>Emergency Patients</span></div>
@@ -15,8 +15,24 @@
 				<div class="tile-footer"><span class="text-success">+0.0%</span></div>
 			</div>
 		</div>
+		<div class="col-md-4">
+			<div class="info-tile tile-info">
+				<div class="tile-icon"><i class="ti ti-user"></i></div>
+				<div class="tile-heading"><span>Outpatient Patients</span></div>
+				<div class="tile-body"><span>{{count}}</span></div>
+				<div class="tile-footer"><span class="text-success">+0.0%</span></div>
+			</div>
+		</div>
+		<div class="col-md-4">
+			<div class="info-tile tile-info">
+				<div class="tile-icon"><i class="ti ti-user"></i></div>
+				<div class="tile-heading"><span>Inpatient Patients</span></div>
+				<div class="tile-body"><span>{{count}}</span></div>
+				<div class="tile-footer"><span class="text-success">+0.0%</span></div>
+			</div>
+		</div>
+		
 	</div>
-
 </div>
 
 <script>

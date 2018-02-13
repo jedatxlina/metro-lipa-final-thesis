@@ -14,15 +14,15 @@ $pr = $_GET['pr'];
 $rr = $_GET['rr'];
 $temp = $_GET['temp'];
 $medications = $_GET['medications'];
-$weight = $_GET['weight'];
+$weight = $_GET['weight'];  
 $height = $_GET['height'];
 $diagnosis = $_GET['diagnosis'];
 $administered = $_GET['administered'];
 $admitting = $_GET['admitting'];
 $classification = $_GET['classification'];
 
-$query = "INSERT into medical_details(MedicalID,AdmissionID,AdmittingID,VitalsID,MedicationID,DiagnosisID,Conditions,CurrentMedication,PreviousSurgeries,Weight,Height) 
-VALUES('$medicalid','$admissionid','$admitting','$vitalsid','$medicationid','$diagnosisid','$conditions','$medications','$surgery','$weight','$height')";
+$query = "INSERT into medical_details(MedicalID,AdmissionID,AdmittingID,ArrivalDateTime,VitalsID,MedicationID,DiagnosisID,Conditions,CurrentMedication,PreviousSurgeries,Weight,Height,Class) 
+VALUES('$medicalid','$admissionid','$admitting',NOW(),'$vitalsid','$medicationid','$diagnosisid','$conditions','$medications','$surgery','$weight','$height','$classification')";
 
 mysqli_query($con,$query);  
 

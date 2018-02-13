@@ -8,9 +8,9 @@ font-weight: bold;
 </style>
 
 <ol class="breadcrumb">
-<li><a href="index.php">Home</a></li>
-<li><a href="index.php">Patients</a></li>
-<li class="active"><a href="emergency.php">Emergency</a></li>
+<li><a href="#">Home</a></li>
+<li><a href="#">Patients</a></li>
+<li class="active"><a href="#">Emergency</a></li>
 </ol>
 
 <div class="container-fluid">
@@ -113,7 +113,7 @@ font-weight: bold;
 									<h2>Patient Details</h2>
 									<div class="panel-ctrls" data-actions-container="" data-action-collapse='{"target": ".panel-body, .panel-footer"}'></div>
 								</div>
-								<div class="panel-body" style="height: 400px" data-ng-repeat="patient in patientdetails">
+								<div class="panel-body" style="height: 550px" data-ng-repeat="patient in patientdetails">
 									<center><span><strong>Registry Information</strong></span></center>
 									<hr>
 									<div class="row">
@@ -156,11 +156,19 @@ font-weight: bold;
 											</div>
 										</div>
 									</div>
+									<div class="row">
+										<div class="form-group">
+											<label for="focusedinput" class="col-sm-3 control-label">QR Code</label>
+											<div class="col-sm-5">
+											<center> <img ng-src="{{patient.QRpath}}">
+											</div>
+										</div>
+									</div>
+								
 								</div>
 								<div class="panel-footer">
 								<button type="button" ng-click="#" class="btn btn-danger-alt pull-left">View Details</button>
-								<button type="button" ng-click="#" class="btn btn-danger-alt pull-right">Ok</button>
-								<button type="button" data-dismiss="modal" class="btn btn-default-alt pull-right">Cancel</button>
+								<button type="button" data-dismiss="modal" class="btn btn-danger pull-right">Ok</button>
 								</div>
 							</div>
 						</div>

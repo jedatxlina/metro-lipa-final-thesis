@@ -48,14 +48,9 @@ $admission = 'New Patient';
 // $query = "INSERT into patients(AdmissionID,AdmissionDateTime,FirstName,MiddleName,LastName,Admission,AdmissionType,Gender,Province,City,Age,CivilStatus,Birthdate,Contact) 
 // VALUES('$admissionid',NOW(),'$firstname','$middlename','$lastname','$admission','$admissiontype','$gender','$province','$city','$age','$civilstatus','$birthdate','$contact')";
 
-$query = "INSERT into patients(AdmissionID,AdmissionDateTime,AdmissionType,FirstName,MiddleName,LastName,Admission,Province,City,Gender,Age,CivilStatus,Birthdate,Contact,Class,Occupation,MedicalID) 
-VALUES('$admissionid',NOW(),'$admissiontype','$firstname','$middlename','$lastname','$admission','$province','$city','$gender','$age','$status','$date','$contact','$class','$occupation','$medicalid')";
+$query = "INSERT into patients(AdmissionID,AdmissionDateTime,AdmissionType,FirstName,MiddleName,LastName,Admission,Province,City,Gender,Age,CivilStatus,Birthdate,Contact,Occupation,MedicalID) 
+VALUES('$admissionid',NOW(),'$admissiontype','$firstname','$middlename','$lastname','$admission','$province','$city','$gender','$age','$status','$date','$contact','$occupation','$medicalid')";
 
 mysqli_query($con,$query);  
 
-
-
-// session_start();
-// $_SESSION['data'] = $admissionid;
-// include 'qr-generator/index.php';
 ?>
