@@ -102,11 +102,11 @@
                             <form ng-repeat="special in specials">
                                 <div class="form-group">
                                     <label>Specialization ID</label>
-                                    <input type="text" ng-model="$parent.specialid" ng-init="$parent.specialid=special.SpecializationID" placeholder="Surgeon" class="form-control" readonly>
+                                    <input type="text" ng-model="$parent.specialid" ng-init="$parent.specialid=special.SpecializationID" class="form-control" disabled>
                                 </div>
                                 <div class="form-group">
                                     <label>Specialization Name</label>
-                                    <input type="text" ng-model="$parent.specialn" ng-init="$parent.specialn=special.SpecializationName" placeholder="Surgeon" class="form-control" required>
+                                    <input type="text" ng-model="$parent.specialn" ng-init="$parent.specialn=special.SpecializationName" class="form-control" required>
                                 </div>
                                 <div class="modal-footer">
                                     <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
@@ -191,7 +191,7 @@
                             specialization: $scope.specialization
                         }
                     }).then(function(response) {
-                        window.location.href = 'specialization.php'
+                        window.location.href = 'specialization.php?at=' + $scope.param;
                     });
                 }
 
@@ -205,7 +205,7 @@
                             specialization: $scope.specialn
                         }
                     }).then(function(response) {
-                        window.location.href = 'specialization.php'
+                        window.location.href = 'specialization.php?at=' + $scope.param;
                     });
                 }
 
