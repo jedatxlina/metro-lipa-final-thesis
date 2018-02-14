@@ -20,9 +20,12 @@ while ($row = mysqli_fetch_array($sel)) {
     	"Contact"=>$row['Contact'],
 		"Province"=>$row['Province'],
 		"City"=>$row['City'],
-		"Civilstatus"=>$row['CivilStatus'],
+		"CompleteAddress"=>$row['CompleteAddress'],
+		"CivilStatus"=>$row['CivilStatus'],
     	"Gender"=>$row['Gender'],
 		"Age"=>$row['Age'],
+		"Religion"=>$row['Religion'],
+		"Citizenship"=>$row['Citizenship'],
 		"QRpath"=>$row['QR_Path']);
 }
 echo json_encode($data);
