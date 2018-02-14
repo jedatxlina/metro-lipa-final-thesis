@@ -115,7 +115,11 @@ include '../mlmc-views/getData/get-inpatient-vitals.php';
                         case 'Pharmacy':
                                 window.location.href = 'medicine-requisition.php?at=' + $scope.param;
                                 break;
-                        
+                        							
+                        case 'Pharmaceuticals':
+                                window.location.href = 'pharmacy.php?at=' + $scope.param;
+                                break; 
+
                         case 'Billing':
                                 window.location.href = 'billing.php?at=' + $scope.param;
                                 break;
