@@ -1,7 +1,7 @@
 <?php
 require_once 'connection.php';
-
-$sel = mysqli_query($con,"select * from user_account");
+$id = $_GET['id'];
+$sel = mysqli_query($con,"select * from user_account WHERE AccountID = '$id'");
 $data = array();
 
 
