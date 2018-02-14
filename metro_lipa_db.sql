@@ -3,9 +3,9 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Feb 02, 2018 at 06:44 AM
--- Server version: 10.1.28-MariaDB
--- PHP Version: 7.1.10
+-- Generation Time: Feb 14, 2018 at 06:00 PM
+-- Server version: 10.1.29-MariaDB
+-- PHP Version: 7.2.0
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET AUTOCOMMIT = 0;
@@ -1835,7 +1835,8 @@ CREATE TABLE `pharmaceuticals` (
 
 INSERT INTO `pharmaceuticals` (`PharmaID`, `PharmaType`, `PharmaName`, `Unit`, `Price`) VALUES
 (13339, 'Medicine', 'Dolfenal', '250mg', 150),
-(22741, 'Medicine', 'Paracetamol', '500mg', 100);
+(22741, 'Medicine', 'Paracetamol', '500mg', 100),
+(371683, 'Drug', 'Obeticholic Acid', '10mg', 1500);
 
 -- --------------------------------------------------------
 
@@ -1951,7 +1952,8 @@ CREATE TABLE `specialization` (
 
 INSERT INTO `specialization` (`SpecializationID`, `SpecializationName`) VALUES
 (1, 'Surgeon'),
-(2, 'Surgery');
+(2, 'Surgery'),
+(2576, 'General Surgery');
 
 -- --------------------------------------------------------
 
@@ -1962,16 +1964,19 @@ INSERT INTO `specialization` (`SpecializationID`, `SpecializationName`) VALUES
 CREATE TABLE `user_account` (
   `AccountID` varchar(10) NOT NULL,
   `AccessType` varchar(1) NOT NULL,
-  `Passwordd` varchar(15) NOT NULL
+  `Passwordd` varchar(15) NOT NULL,
+  `Email` varchar(50) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `user_account`
 --
 
-INSERT INTO `user_account` (`AccountID`, `AccessType`, `Passwordd`) VALUES
-('100000', '1', '123'),
-('140543', '1', '1');
+INSERT INTO `user_account` (`AccountID`, `AccessType`, `Passwordd`, `Email`) VALUES
+('100000', '1', '123', 'masaka@yahoo.com'),
+('140543', '1', '1', '123@gmail.com'),
+('229126', '2', '123', 'admissioN@gmail.com'),
+('299700', '2', 'hays', 'salamat@gmail.com');
 
 --
 -- Indexes for dumped tables
@@ -2064,7 +2069,7 @@ ALTER TABLE `provinces`
 -- AUTO_INCREMENT for table `specialization`
 --
 ALTER TABLE `specialization`
-  MODIFY `SpecializationID` int(4) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `SpecializationID` int(4) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2577;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
