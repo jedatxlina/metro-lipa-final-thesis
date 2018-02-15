@@ -269,7 +269,7 @@
    
           $scope.setClickedRow = function (index) {
           $scope.selectedRow = ($scope.selectedRow == index) ? null : index;
-         }
+          }
 
             $scope.Add = function() {
                 $('#AddModal').modal('show');

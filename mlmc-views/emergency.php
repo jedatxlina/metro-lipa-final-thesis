@@ -27,7 +27,7 @@ font-weight: bold;
 				<div class="col-md-9">
 					<div class="panel panel-default">
 						<div class="panel-heading">
-							<h2>Emergency Patients</h2>
+							<h2>Emergency Patients</h2>	<a ng-click="viewReport()"> <i class="ti ti-printer pull-right"></i></a>
 							<div class="panel-ctrls"></div>
 						</div>
 						<div class="panel-body">
@@ -250,7 +250,7 @@ font-weight: bold;
    var fetch = angular.module('myApp', []);
   
 
-   fetch.controller('userCtrl', ['$scope', '$http', function($scope, $http) {   
+   fetch.controller('userCtrl', ['$scope', '$http','$window', function($scope, $http,$window) {   
 		$scope.param = "<?php echo $_GET['at'];?>";
 		$scope.selectedRow = null;
 		$scope.clickedRow = 0;
@@ -330,6 +330,10 @@ font-weight: bold;
 			else{
 			$('#errorModal').modal('show');
 			}
+		}
+
+		$scope.viewReport = function(){
+			$window.open('try-report.php', '_blank');
 		}
 
 		$scope.viewPatientDetails = function(){

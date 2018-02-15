@@ -21,13 +21,16 @@ $administered = $_GET['administered'];
 $admitting = $_GET['admitting'];
 $classification = $_GET['classification'];
 
+date_default_timezone_set("Asia/Singapore");
+$arrivaldatetime = date("Y/m/d h:i:sa");
+
 $query = "INSERT into medical_details(MedicalID,AdmissionID,AdmittingID,ArrivalDateTime,VitalsID,MedicationID,DiagnosisID,Conditions,CurrentMedication,PreviousSurgeries,Weight,Height,Class) 
-VALUES('$medicalid','$admissionid','$admitting',NOW(),'$vitalsid','$medicationid','$diagnosisid','$conditions','$medications','$surgery','$weight','$height','$classification')";
+VALUES('$medicalid','$admissionid','$admitting','$arrivaldatetime','$vitalsid','$medicationid','$diagnosisid','$conditions','$medications','$surgery','$weight','$height','$classification')";
 
 mysqli_query($con,$query);  
 
 $query = "INSERT into vitals(VitalsID,AdmissionID,BP,PR,RR,Temperature,DateTimeChecked) 
-VALUES('$vitalsid','$admissionid','$bp','$pr','$rr','$temp',NOW())";
+VALUES('$vitalsid','$admissionid','$bp','$pr','$rr','$temp','$arrivaldatetime')";
 
 mysqli_query($con,$query);
 

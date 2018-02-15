@@ -3,9 +3,9 @@ include 'admin-header.php';
 include '../mlmc-views/getData/get-inpatient-vitals.php';
 ?>
 <ol class="breadcrumb">
-<li><a href="index.php">Home</a></li>
-<li><a href="index.php">Patients</a></li>
-<li class="active"><a href="inpatient.php">Inpatient</a></li>
+<li><a href="#">Home</a></li>
+<li><a href="#">Patients</a></li>
+<li class="active"><a href="#">Inpatient</a></li>
 </ol>
 <div class="container-fluid" ng-app="myApp" ng-controller="userCtrl">
 

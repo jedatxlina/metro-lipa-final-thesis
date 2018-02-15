@@ -24,6 +24,7 @@ while ($row = mysqli_fetch_array($sel)) {
 		"CivilStatus"=>$row['CivilStatus'],
     	"Gender"=>$row['Gender'],
 		"Age"=>$row['Age'],
+		"Occupation"=>$row['Occupation'],
 		"Religion"=>$row['Religion'],
 		"Citizenship"=>$row['Citizenship'],
 		"QRpath"=>$row['QR_Path']);

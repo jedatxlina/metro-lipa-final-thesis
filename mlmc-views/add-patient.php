@@ -526,6 +526,7 @@
                                     lastname: $scope.lastname,
                                     province: $scope.province.provname,
                                     city: $scope.city.city,
+                                    address:$scope.address,
                                     gender: $scope.gender,
                                     age: $scope.age,
                                     status: $scope.status,
