@@ -308,6 +308,7 @@
 				<li><a  href="javascript:void(0);"><i class="fa fa-cubes"></i><span>Pharmacy Department</span></a>
 					<ul class="acc-menu">
 						<li><a ng-click="getPage('Pharmacy')" href="javascript:void(0);"><i class="fa fa-users"></i><span>&emsp;Patient Services</span></a></li>
+						<li><a ng-click="getPage('Pharmaceuticals')" href="javascript:void(0);"><i class="ti ti-support"></i><span>&emsp;Pharmaceuticals</span></a></li>
 					</ul>
 				</li>
 				<li><a href="javascript:;"><i class="fa fa-file-text-o"></i><span>Billing Department</span></a>

@@ -115,7 +115,7 @@
             </div>
 
          
-            <div class="modal fade" id="EditModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+            <div class="modal fade" id="EditPharmaceutical" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
             <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
@@ -126,15 +126,15 @@
                 <form ng-repeat="ep in editpharmac">
                 <div class="form-group">       
                         <label>Pharmaceutical ID</label>
-                        <input type="text" ng-model="$parent.Pharmaid" ng-init="$parent.Pharmaid=ep.PharmaID" class="form-control" disabled>
+                        <input type="text" ng-model="$parent.PID" ng-init="$parent.PID=ep.PharmaID" class="form-control" disabled>
                      </div>
                      <div class="form-group">       
                      <label>Pharmaceutical Name </label>
-                     <input type="text" ng-model="$parent.Pharmaname" ng-init="$parent.Pharmaname=ep.PharmaName" class="form-control">
+                     <input type="text" ng-model="$parent.PName" ng-init="$parent.PName=ep.PharmaName" class="form-control">
                   </div>
                   <div class="form-group">       
                      <label>Pharmaceutical Type </label>
-                     <select ng-model="$parent.Pharmatype" ng-init="$parent.Pharmatype=ep.PharmaType" class="form-control">
+                     <select ng-model="$parent.PType" ng-init="$parent.PType=ep.PharmaType" class="form-control">
                      <option value="" disabled selected>Select Type</option>
                            <option value="Drug">Drug</option>
                            <option value="Medicine">Medicine</option>
@@ -142,11 +142,11 @@
                   </div>
                   <div class="form-group">       
                      <label>Unit </label>
-                     <input type="text" ng-model="$parent.UNIT" ng-init="$parent.UNIT=ep.Unit" class="form-control">
+                     <input type="text" ng-model="$parent.PUnit" ng-init="$parent.PUnit=ep.Unit" class="form-control">
                   </div>
                   <div class="form-group">       
                      <label>Price </label>
-                     <input type="text" ng-model="$parent.PRICE" ng-init="$parent.PRICE=ep.Price" class="form-control">
+                     <input type="text" ng-model="$parent.PPrice" ng-init="$parent.PPrice=ep.Price" class="form-control">
                   </div>
                      <div class="modal-footer">
                         <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
@@ -235,31 +235,31 @@
                         price: $scope.price
                     }
                 }).then(function(response) {
-                    window.location.href = 'pharmacy.php'
+                    window.location.href = 'pharmacy.php?at=' + $scope.param;
                 });
             }
 
             $scope.Update = function() {
 
                 $http({
-                    method: 'get',
+                    method: 'GET',
                     url: 'updateData/update-pharmaceutical-details.php',
                     params: {
-                        pharmaid: $scope.Pharmaid,
-                        pharmatype: $scope.Pharmatype,
-                        pharmaname: $scope.Pharmaname,
-                        unit: $scope.UNIT,
-                        price: $scope.PRICE
+                        pharmaid: $scope.PID,
+                        pharmatype: $scope.PType,
+                        pharmaname: $scope.PName,
+                        unit: $scope.PUnit,
+                        price: $scope.PPrice
                     }
                 }).then(function(response) {
-                    window.location.href = 'pharmacy.php'
+                    window.location.href = 'pharmacy.php?at=' + $scope.param;
                 });
             }
 
             $scope.EditPharmaceutical = function() {
                 if ($scope.selectedRow != null) {
                     $scope.pharmaid = $scope.selectedRow;
-                    $('#EditModal').modal('show');
+                    $('#EditPharmaceutical').modal('show');
                     $http({
                         method: 'GET',
                         params: {
@@ -300,7 +300,11 @@
                         case 'Pharmacy':
                                 window.location.href = 'medicine-requisition.php?at=' + $scope.param;
                                 break;
-                        
+                                               							
+                        case 'Pharmaceuticals':
+                                window.location.href = 'pharmacy.php?at=' + $scope.param;
+                                break; 
+
                         case 'Billing':
                                 window.location.href = 'billing.php?at=' + $scope.param;
                                 break;

@@ -215,7 +215,7 @@
                     rate: $scope.rate
                 }
             }).then(function(response) {
-                window.location.href = 'laboratory.php'
+                window.location.href = 'laboratory.php?at=' + $scope.param;
             });
         }
 
@@ -229,7 +229,7 @@
                     rate: $scope.rate
                 }
             }).then(function(response) {
-                window.location.href = 'laboratory.php'
+                window.location.href = 'laboratory.php?at=' + $scope.param;
             });
         }
 
@@ -277,7 +277,11 @@
 				case 'Pharmacy':
 						window.location.href = 'medicine-requisition.php?at=' + $scope.param;
 						break;
-				
+											
+                case 'Pharmaceuticals':
+                      	window.location.href = 'pharmacy.php?at=' + $scope.param;
+                      	break; 
+
 				case 'Billing':
 						window.location.href = 'billing.php?at=' + $scope.param;
 						break;

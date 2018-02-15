@@ -297,7 +297,7 @@
                         room: $scope.Room
                     }
                 }).then(function(response) {
-                    window.location.href = 'bed.php'
+                    window.location.href = 'bed.php?at=' + $scope.param;
                 });
             }
 
@@ -324,7 +324,7 @@
                         room: $scope.room
                     }
                 }).then(function(response) {
-                    window.location.href = 'bed.php'
+                    window.location.href = 'bed.php?at=' + $scope.param;
                 });
             }
 
@@ -380,7 +380,11 @@
                         case 'Pharmacy':
                                 window.location.href = 'medicine-requisition.php?at=' + $scope.param;
                                 break;
-                        
+
+                        case 'Pharmaceuticals':
+                                window.location.href = 'pharmacy.php?at=' + $scope.param;
+                                break; 
+
                         case 'Billing':
                                 window.location.href = 'billing.php?at=' + $scope.param;
                                 break;

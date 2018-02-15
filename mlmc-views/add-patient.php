@@ -573,6 +573,10 @@
                                     window.location.href = 'medicine-requisition.php?at=' + $scope.at;
                                     break;
                             
+                             case 'Pharmaceuticals':
+                                    window.location.href = 'pharmacy.php?at=' + $scope.at;
+                                    break; 
+                            
                             case 'Billing':
                                     window.location.href = 'billing.php?at=' + $scope.at;
                                     break;
