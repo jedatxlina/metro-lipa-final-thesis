@@ -7,10 +7,23 @@ include '../mlmc-views/getData/get-inpatient-vitals.php';
 <li><a href="#">Patients</a></li>
 <li class="active"><a href="#">Inpatient</a></li>
 </ol>
-<div class="container-fluid" ng-app="myApp" ng-controller="userCtrl">
+<div class="container-fluid" data-ng-repeat="patient in patientdetails">
+    <br>
+    <br>
 
-<p style="font-size: 30px;padding: 20px;" ng-model="admissionid">{{admissionid}}</p>
-<p style="font-size: 30px;padding: 20px;" ng-model="patientname">{{patientname}}</p>
+    <div class="col-sm-3" >
+        <div class="panel panel-profile">
+            <div class="panel-body"  >
+                <img ng-src="{{patient.QRpath}}">
+                <div class="name">{{patient.Lastname}}, {{patient.Firstname}}{{patient.Middlename}}</div>
+                <div class="info">{{patient.AdmissionID}}</div>
+                
+            </div>
+        </div><!-- panel -->
+    </div>
+
+    
+
     <div class="container-fluid">
         <div class="row">
             <div class="col-md-12">
@@ -57,8 +70,15 @@ include '../mlmc-views/getData/get-inpatient-vitals.php';
         var data = angular.module('myApp', []);
         data.controller("userCtrl", function($scope, $window, $http) {  
             $scope.param = "<?php echo $_GET['at'];?>";
-            $scope.admissionid = "<?php echo $AdID; ?>"
-            $scope.patientname = "<?php echo $Fname.' '.$Mname.' '.$Lname; ?>"
+            $scope.admissionid = "<?php echo $_GET['id']; ?>"
+
+            $http({
+            method: 'GET',
+            url: 'getData/get-patient-details.php',
+            params: {id: $scope.admissionid}
+            }).then(function(response) {
+                $scope.patientdetails = response.data;
+            });
 
             switch ($scope.param) {
                 case '1':

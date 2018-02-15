@@ -57,29 +57,10 @@
 		
 		<a class="navbar-brand" href="index.php?at=1">Metro Lipa Patient Management System</a>
 
-		<div class="toolbar-icon-bg hidden-xs" id="toolbar-search">
-            <div class="input-group">
-            	<span class="input-group-btn"><button class="btn" type="button"><i class="ti ti-search"></i></button></span>
-				<input type="text" class="form-control" placeholder="Search...">
-				<span class="input-group-btn"><button class="btn" type="button"><i class="ti ti-close"></i></button></span>
-			</div>
-        </div>
-
 	</div><!-- logo-area -->
 
 	<ul class="nav navbar-nav toolbar pull-right">
 
-		<li class="toolbar-icon-bg visible-xs-block" id="trigger-toolbar-search">
-			<a href="#"><span class="icon-bg"><i class="ti ti-search"></i></span></a>
-		</li>
-        
-		<li class="toolbar-icon-bg hidden-xs">
-            <a href="#"><span class="icon-bg"><i class="ti ti-world"></i></span></i></a>
-        </li>
-
-        <li class="toolbar-icon-bg hidden-xs">
-            <a href="#"><span class="icon-bg"><i class="ti ti-view-grid"></i></span></i></a>
-        </li>
 
         <li class="toolbar-icon-bg hidden-xs" id="trigger-fullscreen">
             <a href="#" class="toggle-fullscreen"><span class="icon-bg"><i class="ti ti-fullscreen"></i></span></i></a>

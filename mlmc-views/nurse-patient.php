@@ -15,13 +15,12 @@ font-weight: bold;
 </ol>
 
 <div class="container-fluid" ng-app="myApp" ng-controller="userCtrl">
-	
-	
 	<div class="row">
-		<div class="col-md-6">
+		<div class="col-md-9">
                 <br>
 				<a href="qr-scanner/index.php?type=addpatientvitals" class="btn btn-danger-alt pull-left"><i class="fa fa-qrcode"></i>&nbsp;&nbsp;Scan</a>
 				
+	
 		</div>
 	</div>
 	<br>
@@ -69,22 +68,49 @@ font-weight: bold;
 					</div>
 				</div>
 				<div class="col-md-3">
-					<div class="panel panel-default">
+					<div class="panel panel-midnightblue widget-progress" data-widget='{"draggable": "false"}'>
 						<div class="panel-heading">
-							<h2>Action Panel</h2>
-							
-							<div class="panel-ctrls">
-								<a href="#" class="button-icon"><i class="ti ti-file"></i></a>
-								<a href="#" class="button-icon"><i class="ti ti-mouse"></i></a>
-								<a href="#" class="button-icon"><i class="ti ti-settings"></i></a>
+							<h2>Current Time</h2>
+							<div class="panel-ctrls button-icon-bg" 
+								data-actions-container="" 
+								data-action-refresh-demo='{"type": "circular"}'
+								>
 							</div>
 						</div>
+						<div class="panel-footer">
+							<div class="tabular">
+								<div class="tabular-row">
+									<div class="tabular-cell">
+										<span class="status-total">Date</span>
+										<span class="status-value">	{{ clock | date:'MMM d, y'}}</span>
+									</div>
+									<div class="tabular-cell">
+										<span class="status-pending">Time</span>
+										<span class="status-value">	{{ clock | date:'h:m:s a'}}</span>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+					<!-- <div class="panel panel-default">
+						<div class="panel-heading">
+							<h2>Action Panel</h2>
+						</div>
+						
+						
 						<div class="panel-body">
 							<a href="#" ng-click="viewPatient()" class="btn btn-default-alt btn-lg btn-block"><i class="ti ti-user"></i><span>&nbsp;&nbsp;Patient Details</span></a>
 							<a href="#" ng-click="patientVitals()" class="btn btn-default-alt btn-lg btn-block"><i class="ti ti-user"></i><span>&nbsp;&nbsp;Patient Vitals</span></a>
 							<a href="#" ng-click="viewPatient()" class="btn btn-default-alt btn-lg btn-block"><i class="ti ti-user"></i><span>&nbsp;&nbsp;Doctors Order</span></a>
 						</div>
-					</div>
+					</div> -->
+					<div class="list-group list-group-alternate mb-n nav nav-tabs">
+						<a href="#" role="tab" data-toggle="tab" class="list-group-item active">Actions Panel</a>
+						<a href="#" ng-click="viewPatient()" role="tab" data-toggle="tab" class="list-group-item"><i class="ti ti-user"></i> Patient Details</a>
+                        <a href="#" ng-click="patientVitals()" role="tab" data-toggle="tab" class="list-group-item"><i class="fa fa-stethoscope"></i>Patient Vitals</a>
+                        <a href="#" ng-click="viewPatient()" role="tab" data-toggle="tab" class="list-group-item"><span class="badge badge-primary">1</span> <i class="ti ti-email"></i>Doctors Order</a>
+                        <a href="#" role="tab" data-toggle="tab" class="list-group-item"><span class="badge badge-danger">1</span><i class="ti ti-bell"></i> Notifcations</a>
+                    </div>
 				</div>
 					
 				<!-- Error modal -->
@@ -183,42 +209,48 @@ font-weight: bold;
 				</div>
 				
 				<div class="modal fade" id="flagModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
-					<div class="modal-dialog">
-							<div class="modal-content">
-									<div class="modal-header">
-										<button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-										<h4 class="modal-title">Newly Registered Inpatients</h4>
-										<p>Confirmation of Patient's Arrival Tagging</p>
-									</div>
-									<div class="modal-body">
-								<table id="patient_table" class="table table-striped table-bordered" cellspacing="0" width="80%">
-									<thead>
-									<tr>
-										<th>Patients Name</th>
-										<th>Admission ID</th>
-										<th>Admission Date</th>
-										<th>Bed ID</th>
-										<th>Medical ID</th>
-									</tr>
-									</thead>
-									<tbody>
-									<tr ng-repeat="patient in flagPatients" ng-class="{'selected': patient.AdmissionID == selectedRow}" ng-click="setClickedRow(patient.AdmissionID)">
-											<td>{{patient.Lname}}, {{patient.Fname}} {{patient.Mname}}</td>
-											<td>{{patient.AdmissionID}}</td>
-											<td>{{patient.AdmissionDateTime}}</td>
-											<td>{{patient.BedID}}</td>
-											<td>{{patient.MedicalID}}</td>
-											<td></td>
+					<form class="form-horizontal">
+						<div class="modal-dialog">
+							<div class="panel panel-danger" data-widget='{"draggable": "false"}'>
+								<div class="panel-heading">
+									<h2>Newly Registered Inpatients</h2>
+									
+									<div class="panel-ctrls" data-actions-container="" data-action-collapse='{"target": ".panel-body, .panel-footer"}'></div>
+								</div>
+								<div class="panel-body" style="height: 500px">
+									<center><span><strong>Registry Information</strong></span></center>
+									<hr>
+									<table id="patient_table" class="table table-striped table-bordered" cellspacing="0" width="80%">
+										<thead>
+										<tr>
+											<th>Patients Name</th>
+											<th>Admission ID</th>
+											<th>Admission Date</th>
+											<th>Bed ID</th>
+											<th>Medical ID</th>
 										</tr>
-									</tbody>
-								</table>
-									</div>
-									<div class="modal-footer">
-										<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-										<button type="button" ng-click="confirmBtn()" class="btn btn-primary">Confirm</button>
-									</div>
-							</div><!-- /.modal-content -->
+										</thead>
+										<tbody>
+										<tr ng-repeat="patient in flagPatients" ng-class="{'selected': patient.AdmissionID == selectedRow}" ng-click="setClickedRow(patient.AdmissionID)">
+												<td>{{patient.Lname}}, {{patient.Fname}} {{patient.Mname}}</td>
+												<td>{{patient.AdmissionID}}</td>
+												<td>{{patient.AdmissionDateTime}}</td>
+												<td>{{patient.BedID}}</td>
+												<td>{{patient.MedicalID}}</td>
+												<td></td>
+											</tr>
+										</tbody>
+									</table>
+
+								
+								</div>
+								<div class="panel-footer">
+										<button type="button" class="btn btn-default pull-right" data-dismiss="modal">Close</button>
+										<button type="button" ng-click="confirmBtn()" class="btn btn-danger pull-right">Confirm</button>
+								</div>
+							</div>
 						</div>
+					</form>
 				</div>
 		
 				
@@ -226,14 +258,26 @@ font-weight: bold;
 	</div>
 	
 <script>
+
    var fetch = angular.module('myApp', []);
   
 
-   fetch.controller('userCtrl', ['$scope', '$http', function($scope, $http) {   
+   fetch.controller('userCtrl', ['$scope', '$http','$interval', function($scope, $http,$interval) {   
 		$scope.param = "<?php echo $_GET['at'];?>";
 		$scope.selectedRow = null;
 		$scope.clickedRow = 0;
 		$scope.new = {};
+
+		var tick = function() {
+			$scope.clock = Date.now();
+			$scope.datetime = new Date().toLocaleTimeString('en-US', { hour: 'numeric', hour12: true, minute: 'numeric' });		
+			// if($scope.try == $scope.datetime){
+			// 	alert('jed');
+			// }
+		}
+
+		tick();
+		$interval(tick, 1000);
 
 			switch ($scope.param) {
                 case '1':

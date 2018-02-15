@@ -161,51 +161,41 @@
                                                 <tr>
                                                     <th>Full Name</th>
                                                     <td>{{patient.Lastname}}, {{patient.Firstname}} {{patient.Middlename}}</td>
+                                                    <th>Age</th>
+                                                    <td>{{patient.Age}}</td>
+                                                    
                                                 </tr>
                                                 <tr>
                                                     <th>Birth Date</th>
                                                     <td>{{patient.Birthdate}}</td>
-                                                </tr>
-                                                <tr>
-                                                    <th>Gender</th>
-                                                    <td>{{patient.Gender}}</td>
-                                                </tr>
-                                                <tr>
-                                                    <th>Province</th>
-                                                    <td>{{patient.Province}}</td>
-                                                </tr>
-                                                <tr>
-                                                    <th>City</th>
-                                                    <td>{{patient.City}}</td>
-                                                </tr>
-                                                <tr>
-                                                    <th>Address</th>
-                                                    <td>{{patient.CompleteAddress}}</td>
-                                                </tr>
-                                                <tr>
-                                                    <th>Age</th>
-                                                    <td>{{patient.Age}}</td>
-                                                </tr>
-                                                <tr>
                                                     <th>Civil Status</th>
                                                     <td>{{patient.CivilStatus}}</td>
                                                 </tr>
                                                 <tr>
+                                                    <th>Gender</th>
+                                                    <td>{{patient.Gender}}</td>
                                                     <th>Contact</th>
                                                     <td>{{patient.Contact}}</td>
                                                 </tr>
                                                 <tr>
+                                                    <th>Province</th>
+                                                    <td>{{patient.Province}}</td>
                                                     <th>Occupation</th>
                                                     <td>{{patient.Occupation}}</td>
                                                 </tr>
                                                 <tr>
+                                                    <th>City</th>
+                                                    <td>{{patient.City}}</td>
                                                     <th>Religion</th>
                                                     <td>{{patient.Religion}}</td>
                                                 </tr>
                                                 <tr>
+                                                    <th>Address</th>
+                                                    <td>{{patient.CompleteAddress}}</td>
                                                     <th>Citizenship</th>
                                                     <td>Citizenship</td>
                                                 </tr>
+                                           
                                                 </tbody>
                                             </table>
                                             </div>
@@ -325,62 +315,48 @@
                                     <div class="about-area">
                                         <h4>Personal Information</h4>
                                             <div class="table-responsive">
-                                                <div class="col-lg-8">
+                                                <div class="col-lg-11">
                                                 <table class="table about-table">
                                                     <tbody>
                                                     <tr>
                                                         <th>Last name</th>
                                                         <td><input type="text" class="form-control"  ng-model="patient.Lastname" ></td>
-                                                    </tr>
-                                                    <tr>
-                                                        <th>First name</th>
-                                                        <td><input type="text" class="form-control"  ng-model="patient.Firstname"></td>
-                                                    </tr>
-                                                    <tr>
-                                                        <th>Middle name</th>
-                                                        <td><input type="text" class="form-control"  ng-model="patient.Middlename"></td>
-                                                    </tr>
-                                                    <tr>
-                                                        <th>Birth Date</th>
-                                                        <td><input type="text" class="form-control"  ng-model="patient.Birthdate"></td>
-                                                    </tr>
-                                                    <tr>
-                                                        <th>Gender</th>
-                                                        <td><input type="text" class="form-control" ng-model="patient.Gender"></td>
-                                                    </tr>
-                                                    <tr>
-                                                        <th>Province</th>
-                                                        <td><input type="text" class="form-control" ng-model="patient.Province"></td>
-                                                    </tr>
-                                                    <tr>
-                                                        <th>City</th>
-                                                        <td><input type="text" class="form-control" ng-model="patient.City"></td>
-                                                    </tr>
-                                                    <tr>
                                                         <th>Address</th>
                                                         <td><input type="text" class="form-control" ng-model="patient.CompleteAddress"></td>
                                                     </tr>
                                                     <tr>
+                                                        <th>First name</th>
+                                                        <td><input type="text" class="form-control"  ng-model="patient.Firstname"></td>
                                                         <th>Age</th>
                                                         <td><input type="text" class="form-control" ng-model="patient.Age"></td>
                                                     </tr>
                                                     <tr>
+                                                        <th>Middle name</th>
+                                                        <td><input type="text" class="form-control"  ng-model="patient.Middlename"></td>
                                                         <th>Civil Status</th>
                                                         <td><input type="text" class="form-control" ng-model="patient.CivilStatus"></td>
                                                     </tr>
                                                     <tr>
+                                                        <th>Birth Date</th>
+                                                        <td><input type="text" class="form-control"  ng-model="patient.Birthdate"></td>
                                                         <th>Contact</th>
                                                         <td><input type="text" class="form-control" ng-model="patient.Contact"></td>
                                                     </tr>
                                                     <tr>
+                                                        <th>Gender</th>
+                                                        <td><input type="text" class="form-control" ng-model="patient.Gender"></td>
                                                         <th>Occupation</th>
                                                         <td><input type="text" class="form-control" ng-model="patient.Occupation"></td>
                                                     </tr>
                                                     <tr>
+                                                        <th>Province</th>
+                                                        <td><input type="text" class="form-control" ng-model="patient.Province"></td>
                                                         <th>Religion</th>
                                                         <td><input type="text" class="form-control" ng-model="patient.Religion"></td>
                                                     </tr>
                                                     <tr>
+                                                        <th>City</th>
+                                                        <td><input type="text" class="form-control" ng-model="patient.City"></td>
                                                         <th>Citizenship</th>
                                                         <td><input type="text" class="form-control" ng-model="patient.Citizenship"></td>
                                                     </tr>
