@@ -273,27 +273,27 @@
 		<nav role="navigation" class="widget-body">
 			<ul class="acc-menu">
 				<li class="nav-separator"><span>Explore</span></li>
-				<li><a ng-click="getPage('Dashboard')" href="javascript:void(0);"><i class="ti ti-home"></i><span>Dashboard</span></a></li>
-				<li><a href="javascript:;"><i class="fa fa-users"></i><span>Patients</span></a>
+				<li ><a ng-click="getPage('Dashboard')" href="javascript:void(0);"><i class="ti ti-home"></i><span>Dashboard</span></a></li>
+				<li <?php if ($id!=1 && $id!=2){?>style="display:none"<?php } ?>><a href="javascript:;"><i class="fa fa-users"></i><span>Patients</span></a>
 					<ul class="acc-menu">
 						<li><a ng-click="getPage('Emergency')" href="javascript:void(0);"><i class="fa fa-user"></i><span>&emsp;Emergency</span></a></li>
 						<li><a ng-click="getPage('Outpatient')" href="javascript:void(0);"><i class="fa fa-user"></i><span>&emsp;Outpatient</span></a></li>
 						<li><a ng-click="getPage('Inpatient')" href="javascript:void(0);"><i class="fa fa-user"></i><span>&emsp;Inpatient</span></a></li>
 					</ul>
 				</li>
-				<li><a href="javascript:;"><i class="fa fa-stethoscope"></i><span>Nursing Services</span></a>
+				<li <?php if ($id!=1 && $id!=3){?>style="display:none"<?php } ?>><a href="javascript:;"><i class="fa fa-stethoscope"></i><span>Nursing Services</span></a>
 					<ul class="acc-menu">
 						<li><a ng-click="getPage('Confined')" href="javascript:void(0);"<i class="fa fa-medkit"></i><span>&emsp;Confined Patients</span></a></li>
 					</ul>
 				</li>
-				<li><a ng-click="getPage('Physician')" href="javascript:void(0);"><i class="fa fa-user-md"></i><span>Physician Services</span></a></li>
-				<li><a  href="javascript:void(0);"><i class="fa fa-cubes"></i><span>Pharmacy Department</span></a>
+				<li <?php if ($id!=1 && $id!=4){?>style="display:none"<?php } ?>><a ng-click="getPage('Physician')" href="javascript:void(0);"><i class="fa fa-user-md"></i><span>Physician Services</span></a></li>
+				<li <?php if ($id!=1 && $id!=5){?>style="display:none"<?php } ?>><a  href="javascript:void(0);"><i class="fa fa-cubes"></i><span>Pharmacy Department</span></a>
 					<ul class="acc-menu">
 						<li><a ng-click="getPage('Pharmacy')" href="javascript:void(0);"><i class="fa fa-users"></i><span>&emsp;Patient Services</span></a></li>
 						<li><a ng-click="getPage('Pharmaceuticals')" href="javascript:void(0);"><i class="ti ti-support"></i><span>&emsp;Pharmaceuticals</span></a></li>
 					</ul>
 				</li>
-				<li><a href="javascript:;"><i class="fa fa-file-text-o"></i><span>Billing Department</span></a>
+				<li <?php if ($id!=1 && $id!=6){?>style="display:none"<?php } ?>><a href="javascript:;"><i class="fa fa-file-text-o"></i><span>Billing Department</span></a>
 					<ul class="acc-menu">
 						<li><a ng-click="getPage('Billing')" href="javascript:void(0);"><i class="fa fa-user"></i><span>&emsp;Patients</span></a></li>
 						<li><a ng-click="getPage('Cashier')" href="javascript:void(0);"><i class="fa fa-money"></i><span>&emsp;Cashier Service</span></a></li>
@@ -301,10 +301,10 @@
 				</li>
 				<li class="nav-separator"><span>Other Transactions</span></li>
 				
-				<li><a ng-click="getPage('Accounts')" href="javascript:void(0);"><i class="fa fa-key"></i><span>Accounts</span></a></li>
-				<li><a ng-click="getPage('Bed')" href="javascript:void(0);"><i class="fa fa-bed"></i><span>Beds</span></a></li>
-				<li><a ng-click="getPage('Specialization')" href="javascript:void(0);"><i class="fa fa-medkit"></i><span>Medical Specializations</span> </a></li>
-				<li><a  ng-click="getPage('Laboratory')" href="javascript:void(0);"><i class="fa fa-search"></i><span>Laboratories</span></a></li>
+				<li <?php if ($id!=1){?>style="display:none"<?php } ?>><a ng-click="getPage('Accounts')" href="javascript:void(0);"><i class="fa fa-key"></i><span>Accounts</span></a></li>
+				<li <?php if ($id!=1){?>style="display:none"<?php } ?>><a ng-click="getPage('Bed')" href="javascript:void(0);"><i class="fa fa-bed"></i><span>Beds</span></a></li>
+				<li <?php if ($id!=1){?>style="display:none"<?php } ?>><a ng-click="getPage('Specialization')" href="javascript:void(0);"><i class="fa fa-medkit"></i><span>Medical Specializations</span> </a></li>
+				<li <?php if ($id!=1){?>style="display:none"<?php } ?>><a  ng-click="getPage('Laboratory')" href="javascript:void(0);"><i class="fa fa-search"></i><span>Laboratories</span></a></li>
 			</ul>
 		</nav>
     </div>	
