@@ -8,12 +8,12 @@
 </style>
 
 <ol class="breadcrumb">
-    <li><a href="index.php">Home</a>
-    </li>
-    <li class="active"> <a href="bed.php">Pharmacy</a>
-    </li>
+<li><a href="index.php">Home</a></li>
+<li><a href="index.php">Patients</a></li>
+<li class="active"><a href="emergency.php">Pharmacy</a></li>
 </ol>
 
+<br><br>
 <div class="container-fluid" ng-app="myApp" ng-controller="userCtrl">
 
     <div class="row">
@@ -54,15 +54,10 @@
                 </div>
             </div>
             <div class="col-md-3">
-                <div class="panel panel-default">
-                    <div class="panel-heading">
-                        <h2>Action Panel</h2>
-
-                    </div>
-                    <div class="panel-body">
-                        <a href="#" ng-click="AddPharmaceutical()" class="btn btn-default-alt btn-lg btn-block"><i class="fa fa-list-alt fa-fw"></i><span>&nbsp;&nbsp;Add Pharmaceutical</span></a>
-                        <a href="#" ng-click="EditPharmaceutical()" class="btn btn-default-alt btn-lg btn-block"><i class="ti ti-info-alt"></i><span>&nbsp;&nbsp;Edit Pharmaceutical</span></a>
-                    </div>
+                <div class="list-group list-group-alternate mb-n nav nav-tabs">
+						<a href="#" role="tab" data-toggle="tab" class="list-group-item active">Actions Panel</a>
+						<a href="#" ng-click="AddPharmaceutical()" role="tab" data-toggle="tab" class="list-group-item"><i class="fa fa-list-alt fa-fw"></i> Add Pharmaceutical</a>
+                        <a href="#" ng-click="EditPharmaceutical()"role="tab" data-toggle="tab" class="list-group-item"><i class="ti ti-info-alt"></i>Edit Pharmaceutical</a>
                 </div>
             </div>
 
@@ -78,14 +73,6 @@
                                 <div class="form-group">
                                     <label>Pharmaceutical Name </label>
                                     <input type="text" ng-model="pharmaname" placeholder="Paracetamol" class="form-control">
-                                </div>
-                                <div class="form-group">
-                                    <label>Pharmaceutical Type </label>
-                                    <select ng-model="pharmatype" class="form-control">
-                                        <option value="" disabled selected>Select Type</option>
-                                        <option value="Drug">Drug</option>
-                                        <option value="Medicine">Medicine</option>
-                                    </select>
                                 </div>
                                 <div class="form-group">
                                     <label>Unit </label>
@@ -131,14 +118,6 @@
                      <div class="form-group">       
                      <label>Pharmaceutical Name </label>
                      <input type="text" ng-model="$parent.PName" ng-init="$parent.PName=ep.PharmaName" class="form-control">
-                  </div>
-                  <div class="form-group">       
-                     <label>Pharmaceutical Type </label>
-                     <select ng-model="$parent.PType" ng-init="$parent.PType=ep.PharmaType" class="form-control">
-                     <option value="" disabled selected>Select Type</option>
-                           <option value="Drug">Drug</option>
-                           <option value="Medicine">Medicine</option>
-                      </select>
                   </div>
                   <div class="form-group">       
                      <label>Unit </label>
@@ -229,7 +208,6 @@
                     url: 'insertData/insert-pharmaceutical.php',
                     params: {
                         pharmaid: $scope.pharmaid,
-                        pharmatype: $scope.pharmatype,
                         pharmaname: $scope.pharmaname,
                         unit: $scope.unit,
                         price: $scope.price
@@ -246,7 +224,6 @@
                     url: 'updateData/update-pharmaceutical-details.php',
                     params: {
                         pharmaid: $scope.PID,
-                        pharmatype: $scope.PType,
                         pharmaname: $scope.PName,
                         unit: $scope.PUnit,
                         price: $scope.PPrice

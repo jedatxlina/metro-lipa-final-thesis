@@ -68,7 +68,7 @@
                                                     </select>
                                                 </div>
                                                 <div data-field-span="1">
-                                                    <label>Country</label>
+                                                    <label>Nationality</label>
                                                     <select class="form-control" ng-mode="country">  
                                                         <option value="" disabled selected>Select</option>
                                                         <option value="Philippines" title="Philippines">Filipino</option>

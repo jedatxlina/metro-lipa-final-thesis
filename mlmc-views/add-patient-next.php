@@ -58,11 +58,11 @@
                                                 </div>
                                                 <div data-field-span="1">
                                                     <label>RR</label>
-                                                    <input type="text" ng-model="rr">
+                                                    <input type="text" class="form-control" ng-model="rr" ui-mask="99"  ui-mask-placeholder ui-mask-placeholder-char="-  "/>
                                                 </div>
                                                 <div data-field-span="1">
                                                     <label>Temperature</label>
-                                                    <input type="text" ng-model="temp">
+                                                    <input type="text" class="form-control" ng-model="temp" ui-mask="99°"  ui-mask-placeholder ui-mask-placeholder-char="-  "/>
                                                 </div>
                                             </div>
                                             <div data-row-span="3">
@@ -157,7 +157,7 @@
         $('#' + $(this).data('select2-open')).select2('open');
         });
 
-                var app = angular.module('myApp', ["angular-autogrow"]);
+                var app = angular.module('myApp', ['angular-autogrow','ui.mask']);
 
                 app.controller('userCtrl', function($scope, $window, $http) {
                     $scope.at = "<?php echo $_GET['at'];?>";

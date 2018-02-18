@@ -2,12 +2,11 @@
 require_once 'connection.php';
 
 $pharmaid = $_GET['pharmaid'];
-$pharmatype = $_GET['pharmatype'];
 $pharmaname = $_GET['pharmaname'];
 $unit = $_GET['unit'];
 $price =$_GET['price'];
 
-$query = "UPDATE pharmaceuticals SET PharmaID = '$pharmaid' , PharmaType = '$pharmatype' , PharmaName = '$pharmaname' , Unit = '$unit' , Price = '$price' WHERE PharmaID = '$pharmaid'";
+$query = "UPDATE pharmaceuticals SET MedicineID = '$pharmaid' , MedicineName = '$pharmaname' , Unit = '$unit' , Price = '$price' WHERE MedicineID = '$pharmaid'";
 
 mysqli_query($con,$query);  
 ?>

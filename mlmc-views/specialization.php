@@ -13,7 +13,7 @@
     <li class="active"> <a href="specialization.php">Medical Specialization</a>
     </li>
 </ol>
-
+<br><br>
 <div class="container-fluid" ng-app="myApp" ng-controller="userCtrl">
 
     <div class="row">
@@ -47,18 +47,15 @@
                     <div class="panel-footer"></div>
                 </div>
             </div>
-            <div class="col-md-3">
-                <div class="panel panel-default">
-                    <div class="panel-heading">
-                        <h2>Action Panel</h2>
 
-                    </div>
-                    <div class="panel-body">
-                        <a href="#" ng-click="AddSpecialization()" class="btn btn-default-alt btn-lg btn-block"><i class="fa fa-list-alt fa-fw"></i><span>&nbsp;&nbsp;Add Specialization</span></a>
-                        <a href="#" ng-click="EditSpecialization()" class="btn btn-default-alt btn-lg btn-block"><i class="ti ti-info-alt"></i><span>&nbsp;&nbsp;Edit Specialization</span></a>
-                    </div>
-                </div>
+            <div class="col-md-3">
+                    <div class="list-group list-group-alternate mb-n nav nav-tabs">
+						<a href="#" role="tab" data-toggle="tab" class="list-group-item active">Actions Panel</a>
+						<a href="#" ng-click="AddSpecialization()" role="tab" data-toggle="tab" class="list-group-item"><i class="fa fa-list-alt fa-fw"></i>Add Bed</a>
+						<a href="#" ng-click="EditSpecialization()"role="tab" data-toggle="tab" class="list-group-item"><i class="ti ti-info-alt"></i>Edit Bed</a>
+                	</div>
             </div>
+
             <div class="modal fade" id="AddSpecializationModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
                 <div class="modal-dialog">
                     <div class="modal-content">

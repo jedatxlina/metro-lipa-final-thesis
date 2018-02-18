@@ -68,8 +68,7 @@
         </li>
 
         <li class="dropdown toolbar-icon-bg hidden-xs">
-			<a href="#" class="hasnotifications dropdown-toggle" data-toggle='dropdown'><span class="icon-bg"><i class="ti ti-email"></i></span><span
-			class="badge badge-deeporange">2</span></a>
+			<a href="#" class="hasnotifications dropdown-toggle" data-toggle='dropdown'><span class="icon-bg"><i class="ti ti-email"></i></span></a>
 			<div class="dropdown-menu notifications arrow">
 				<div class="topnav-dropdown-header">
 					<span>Messages</span>
@@ -87,72 +86,6 @@
 								</div>
 							</a>
 						</li>
-						<li class="media notification-message">
-							<a href="#">
-								<div class="media-left">
-									<img class="img-circle avatar" src="http://placehold.it/300&text=Placeholder" alt="" />
-								</div>
-								<div class="media-body">
-									<h4 class="notification-heading"><strong>Frend Pratt</strong> <span class="text-gray">‒ I will start with the ...</span></h4>
-									<span class="notification-time">40 mins ago</span>
-								</div>
-							</a>
-						</li>
-						<li class="media notification-message">
-							<a href="#">
-								<div class="media-left">
-									<img class="img-circle avatar" src="http://placehold.it/300&text=Placeholder" alt="" />
-								</div>
-								<div class="media-body">
-									<h4 class="notification-heading"><strong>Cynthia Hines</strong> <span class="text-gray">‒ Interior bits are ...</span></h4>
-									<span class="notification-time">6 hours ago</span>
-								</div>
-							</a>
-						</li>
-						<li class="media notification-message">
-							<a href="#">
-								<div class="media-left">
-									<img class="img-circle avatar" src="http://placehold.it/300&text=Placeholder" alt="" />
-								</div>
-								<div class="media-body">
-									<h4 class="notification-heading"><strong>Robin Horton</strong> <span class="text-gray">‒ Are you even ...</span></h4>
-									<span class="notification-time">8 days ago</span>
-								</div>
-							</a>
-						</li>
-						<li class="media notification-message">
-							<a href="#">
-								<div class="media-left">
-									<img class="img-circle avatar" src="http://placehold.it/300&text=Placeholder" alt="" />
-								</div>
-								<div class="media-body">
-									<h4 class="notification-heading"><strong>Amanda Torrez</strong> <span class="text-gray">‒ The message is ...</span></h4>
-									<span class="notification-time">16 hours ago</span>
-								</div>
-							</a>
-						</li>
-						<li class="media notification-message">
-							<a href="#">
-								<div class="media-left">
-									<img class="img-circle avatar" src="http://placehold.it/300&text=Placeholder" alt="" />
-								</div>
-								<div class="media-body">
-									<h4 class="notification-heading"><strong>Khan Farhan</strong> <span class="text-gray">‒ Expected the stuff ...</span></h4>
-									<span class="notification-time">2 days ago</span>
-								</div>
-							</a>
-						</li>
-						<li class="media notification-message">
-							<a href="#">
-								<div class="media-left">
-									<img class="img-circle avatar" src="http://placehold.it/300&text=Placeholder" alt="" />
-								</div>
-								<div class="media-body">
-									<h4 class="notification-heading"><strong>Will Whedon</strong> <span class="text-gray">‒ The movie of this ...</span></h4>
-									<span class="notification-time">4 days ago</span>
-								</div>
-							</a>
-						</li>
 					</ul>
 				</div>
 				<div class="topnav-dropdown-footer">
@@ -162,7 +95,7 @@
 		</li>
 		
 		<li class="dropdown toolbar-icon-bg">
-			<a href="#" class="hasnotifications dropdown-toggle" data-toggle='dropdown'><span class="icon-bg"><i class="ti ti-bell"></i></span><span class="badge badge-deeporange">2</span></a>
+			<a href="#" class="hasnotifications dropdown-toggle" data-toggle='dropdown'><span class="icon-bg"><i class="ti ti-bell"></i></span></a>
 			<div class="dropdown-menu notifications arrow">
 				<div class="topnav-dropdown-header">
 					<span>Notifications</span>
@@ -233,7 +166,7 @@
 		</li>
 
 		<li class="dropdown toolbar-icon-bg">
-		<a href="#" class="hasnotifications dropdown-toggle" data-toggle='dropdown'><span class="icon-bg"><i class="fa fa-gear"></i></span><span class="badge badge-deeporange">2</span></a>
+		<a href="#" class="hasnotifications dropdown-toggle" data-toggle='dropdown'><span class="icon-bg"><i class="fa fa-gear"></i></span></a>
 			<ul class="dropdown-menu userinfo arrow">
 				<li><a href="#" ng-click="viewProfile()"><i class="ti ti-user"></i><span>Profile</span></a></li>
 				<li><a href="#/"><i class="ti ti-settings"></i><span>Settings</span></a></li>

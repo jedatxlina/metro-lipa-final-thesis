@@ -13,9 +13,7 @@
     <li class="active"> <a href="laboratory.php">Medical Laboratories</a>
     </li>
 </ol>
-
-
-
+<br><br>
 <div class="container-fluid" ng-app="myApp" ng-controller="userCtrl">
 
     <div class="row">
@@ -51,16 +49,13 @@
                     <div class="panel-footer"></div>
                 </div>
             </div>
+     
             <div class="col-md-3">
-                <div class="panel panel-default">
-                    <div class="panel-heading">
-                        <h2>Action Panel</h2>
-
-                    </div>
-                    <div class="panel-body">
-                        <a href="#" ng-click="AddLaboratory()" class="btn btn-default-alt btn-lg btn-block"><i class="fa fa-list-alt fa-fw"></i><span>&nbsp;&nbsp;Add Laboratory</span></a>
-                        <a href="#" ng-click="EditLaboratory()" class="btn btn-default-alt btn-lg btn-block"><i class="ti ti-info-alt"></i><span>&nbsp;&nbsp;Edit Laboratory</span></a>
-                    </div>
+                <div class="list-group list-group-alternate mb-n nav nav-tabs">
+                    <a href="#" role="tab" data-toggle="tab" class="list-group-item active">Actions Panel</a>
+                    <a href="#" ng-click="AddLaboratory()" role="tab" data-toggle="tab" class="list-group-item"><i class="fa fa-list-alt fa-fw"></i> Add Laboratory</a>
+                    <a href="#" ng-click="EditLaboratory()" role="tab" data-toggle="tab" class="list-group-item"><i class="ti ti-info-alt"></i>Edit Laboratory</a>
+                   
                 </div>
             </div>
 

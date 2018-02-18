@@ -13,7 +13,7 @@
     <li class="active"> <a href="bed.php">Bed Specifications</a>
     </li>
 </ol>
-
+<bR><br>
 <div class="container-fluid" ng-app="myApp" ng-controller="userCtrl">
 
     <div class="row">
@@ -56,16 +56,11 @@
                 </div>
             </div>
             <div class="col-md-3">
-                <div class="panel panel-default">
-                    <div class="panel-heading">
-                        <h2>Action Panel</h2>
-
-                    </div>
-                    <div class="panel-body">
-                        <a href="#" ng-click="Add()" class="btn btn-default-alt btn-lg btn-block"><i class="fa fa-list-alt fa-fw"></i><span>&nbsp;&nbsp;Add Bed</span></a>
-                        <a href="#" ng-click="Edit()" class="btn btn-default-alt btn-lg btn-block"><i class="ti ti-info-alt"></i><span>&nbsp;&nbsp;Edit Bed</span></a>
-                    </div>
-                </div>
+                    <div class="list-group list-group-alternate mb-n nav nav-tabs">
+						<a href="#" role="tab" data-toggle="tab" class="list-group-item active">Actions Panel</a>
+						<a href="#" ng-click="Add()" role="tab" data-toggle="tab" class="list-group-item"><i class="fa fa-list-alt fa-fw"></i>Add Bed</a>
+						<a href="#" ng-click="Edit()"role="tab" data-toggle="tab" class="list-group-item"><i class="ti ti-info-alt"></i>Edit Bed</a>
+                	</div>
             </div>
           
             <!--/ Edit modal -->

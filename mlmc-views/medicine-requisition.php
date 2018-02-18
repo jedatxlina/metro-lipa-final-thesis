@@ -10,9 +10,9 @@ font-weight: bold;
 <ol class="breadcrumb">
 <li><a href="index.php">Home</a></li>
 <li><a href="index.php">Patients</a></li>
-<li class="active"><a href="emergency.php">Emergency</a></li>
+<li class="active"><a href="emergency.php">Medicine</a></li>
 </ol>
-
+<br><br>
 <div class="container-fluid" ng-app="myApp" ng-controller="userCtrl">
 	
 
@@ -57,21 +57,11 @@ font-weight: bold;
 					</div>
 				</div>
 				<div class="col-md-3">
-					<div class="panel panel-default">
-						<div class="panel-heading">
-							<h2>Action Panel</h2>
-							
-							<div class="panel-ctrls">
-								<a href="#" class="button-icon"><i class="ti ti-file"></i></a>
-								<a href="#" class="button-icon"><i class="ti ti-mouse"></i></a>
-								<a href="#" class="button-icon"><i class="ti ti-settings"></i></a>
-							</div>
-						</div>
-						<div class="panel-body">
-							<a href="#" ng-click="viewPatient()" class="btn btn-default-alt btn-lg btn-block"><i class="ti ti-user"></i><span>&nbsp;&nbsp;Patient Details</span></a>
-							<a href="#" ng-click="movePatient()" class="btn btn-default-alt btn-lg btn-block"><i class="fa fa-file-text-o"></i><span>&nbsp;&nbsp;Medicine Requisition</span></a>
-						</div>
-					</div>
+					<div class="list-group list-group-alternate mb-n nav nav-tabs">
+						<a href="#" role="tab" data-toggle="tab" class="list-group-item active">Actions Panel</a>
+						<a href="#" ng-click="viewPatient()" role="tab" data-toggle="tab" class="list-group-item"><i class="ti ti-user"></i> Patient Details</a>
+                        <a href="#" ng-click="relocatePatient()" role="tab" data-toggle="tab" class="list-group-item"><i class="fa fa-file-text-o"></i>Medicine Requisition</a>
+                    </div>
 				</div>
 				
 				<!-- Error modal -->
