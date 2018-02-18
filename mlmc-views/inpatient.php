@@ -163,7 +163,7 @@ font-weight: bold;
 								
 								</div>
 								<div class="panel-footer">
-								<button type="button" ng-click="#" class="btn btn-danger-alt pull-left">View Details</button>
+								<button type="button" ng-click="viewPatientDetails()" class="btn btn-danger-alt pull-left">View Details</button>
 								<button type="button" data-dismiss="modal" class="btn btn-danger pull-right">Ok</button>
 								</div>
 							</div>
@@ -312,7 +312,7 @@ font-weight: bold;
 		$scope.clickedRow = 0;
 		$scope.new = {};
 
-			switch ($scope.at) {
+			switch ($scope.at.charAt(0)) {
                 case '1':
                     $scope.Administrator = true;
                      break;
@@ -388,6 +388,11 @@ font-weight: bold;
 			$('#errorModal').modal('show');
 			}
 		}
+
+		$scope.viewPatientDetails = function(){
+			window.location.href = 'view-patient-data.php?at=' + $scope.at + '&id=' + $scope.admissionid;
+		}
+		
 
 
 		$scope.confirmBtn = function(){

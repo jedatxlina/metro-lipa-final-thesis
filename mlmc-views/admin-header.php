@@ -42,7 +42,8 @@
 
     <body class="animated-content">	
 	<?php
- 	$id = $_GET['at'];
+	$at = $_GET['at'];
+ 	$id = $at[0];
 	?>
         <header id="topnav" class="navbar navbar-red navbar-fixed-top" role="banner">
 
@@ -55,7 +56,7 @@
 			</a>
 		</span>
 		
-		<a class="navbar-brand" href="index.php?at=1">Metro Lipa Patient Management System</a>
+		<a class="navbar-brand" href="#">Metro Lipa Patient Management System</a>
 
 	</div><!-- logo-area -->
 
@@ -234,8 +235,7 @@
 		<li class="dropdown toolbar-icon-bg">
 		<a href="#" class="hasnotifications dropdown-toggle" data-toggle='dropdown'><span class="icon-bg"><i class="fa fa-gear"></i></span><span class="badge badge-deeporange">2</span></a>
 			<ul class="dropdown-menu userinfo arrow">
-				<li><a href="#/"><i class="ti ti-user"></i><span>Profile</span><span class="badge badge-info pull-right">80%</span></a></li>
-				<li><a href="#/"><i class="ti ti-panel"></i><span>Account</span></a></li>
+				<li><a href="#" ng-click="viewProfile()"><i class="ti ti-user"></i><span>Profile</span></a></li>
 				<li><a href="#/"><i class="ti ti-settings"></i><span>Settings</span></a></li>
 				<li class="divider"></li>
 				<li><a href="../index.php"><i class="ti ti-shift-right"></i><span>Sign Out</span></a></li>
@@ -264,6 +264,7 @@
 					<span class="username"  ng-if="Physician">Physician<br></span>
 					<span class="username"  ng-if="Pharmacy">Pharmacy Staff<br></span>
 					<span class="username"  ng-if="Billing">Billing Staff<br></span>
+					{{ at }}
                 </div>
             </div>
         </div>

@@ -69,13 +69,9 @@
                                                 <div data-field-span="1">
                                                     <label>Current Medications</label>
                                                     <select id="medications" class="select2" multiple="multiple" style="width:400px;">
-                                                                <optgroup label="List of Medicines">
-                                                                    <option value="Aspirin">Aspirin</option>
-                                                                    <option value="Paracetamol">Paracetamol</option>
-                                                                    <option value="Biogesic">Biogesic</option>
-                                                                    <option value="Bioflu">Bioflu</option>
-                                                                    <option value="Ibuprofen">Ibuprofen</option>
-                                                                </optgroup>
+                                                        <optgroup label="List of Medicines">
+                                                             <option ng-repeat="medicine in medicines" value="{{medicine.MedicineID}}">{{medicine.MedicineName}}</option>
+                                                        </optgroup>
                                                     </select>
                                                 </div>
                                                 <div data-field-span="1">
@@ -96,13 +92,21 @@
                                                     <div data-field-span="2">
                                                         <label>Administered Medications</label>
                                                         <div class="controls">
-                                                            <select id="administered" class="select2" multiple="multiple" style="width:400px;">
+                                                            <!-- <select id="administered" class="select2" multiple="multiple" style="width:400px;">
                                                                 <optgroup label="List of Medicines">
                                                                     <option value="Aspirin">Aspirin</option>
-                                                                    <option value="Paracetamol">Paracetamol</option>
+                                                                    <option value="Paracetamol">Paracetamol</option>    
                                                                     <option value="Biogesic">Biogesic</option>
                                                                     <option value="Bioflu">Bioflu</option>
                                                                     <option value="Ibuprofen">Ibuprofen</option>
+                                                                </optgroup>
+                                                            </select> -->
+                                                            <!-- <select class="form-control"  ng-model="administered" ng-options="medicine.MedicineName for medicine in medicines | orderBy:'provname':false track by medicine.MedicineID">
+                                                                <option value="" disabled selected>Select Medicine</option>
+                                                            </select> -->
+                                                            <select id="administered" class="select2" multiple="multiple" style="width:400px;">
+                                                                <optgroup label="List of Medicines">
+                                                                     <option ng-repeat="medicine in medicines" value="{{medicine.MedicineID}}">{{medicine.MedicineName}}</option>
                                                                 </optgroup>
                                                             </select>
                                                         </div>
@@ -110,15 +114,9 @@
                                             </div>
                                             <div data-row-span="2">
                                                 <div data-field-span="1">
-                                                    <label>Admitting Physician</label>
-                                                    <select class="form-control" ng-model="admitting">  
-                                                            <optgroup label="List of Doctors">
-                                                                <option value="" disabled selected>Select</option>
-                                                                <option value="111111">Dr. Jed</option>
-                                                                <option value="222222">Dr. Matthew</option>
-                                                                <option value="333333">Dr. Atienza</option>
-                                                                <option value="444444">Dr. Lina</option>
-                                                            </optgroup>
+                                                    <label>Attending Physician</label>
+                                                    <select class="form-control" ng-options="physician.Fullname for physician in physicians | orderBy:'provname':false track by physician.PhysicianID" ng-model="attending">
+                                                        <option value="" disabled selected>Select Physician</option>
                                                     </select>
                                                 </div>
                                                 <div data-field-span="1">
@@ -167,7 +165,7 @@
                     $scope.medid = "<?php echo $_GET['medid']; ?>";
                     $scope.param = "<?php echo $_GET['param']; ?>";
                     
-                    switch ($scope.at) {
+                    switch ($scope.at.charAt(0)) {
                         case '1':
                             $scope.Administrator = true;
                             break;
@@ -196,7 +194,23 @@
                             break;
                     }
 
-                  
+                    $http({
+                        method: 'GET',
+                        url: 'getData/get-physician-details.php'
+                    }).then(function(response) {
+                        $scope.physicians = response.data;
+                    });
+
+                    
+                    $http({
+                        method: 'GET',
+                        url: 'getData/get-medicine-details.php'
+                    }).then(function(response) {
+                        $scope.medicines = response.data;
+                    });
+                    
+
+         
 
                     $scope.submitDetails = function(){
                         $scope.condition =$("#conditions").val();
@@ -219,7 +233,7 @@
                                     height: $scope.height,
                                     diagnosis: $scope.diagnosis,
                                     administered: $scope.administered,
-                                    admitting: $scope.admitting,
+                                    attending: $scope.attending.PhysicianID,
                                     classification: $scope.classification}
                         }).then(function(response) {
                         });
@@ -241,6 +255,7 @@
                                     break;
                             }
                         });
+                  
                     
                     }
 

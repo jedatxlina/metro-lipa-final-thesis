@@ -69,7 +69,7 @@ include '../mlmc-views/getData/get-inpatient-vitals.php';
         var data = '<?php echo json_encode($data) ?>';
         var data = angular.module('myApp', []);
         data.controller("userCtrl", function($scope, $window, $http) {  
-            $scope.param = "<?php echo $_GET['at'];?>";
+            $scope.at = "<?php echo $_GET['at'];?>";
             $scope.admissionid = "<?php echo $_GET['id']; ?>"
 
             $http({
@@ -80,7 +80,7 @@ include '../mlmc-views/getData/get-inpatient-vitals.php';
                 $scope.patientdetails = response.data;
             });
 
-            switch ($scope.param) {
+            switch ($scope.at.charAt(0)) {
                 case '1':
                     $scope.Administrator = true;
                      break;
@@ -110,65 +110,65 @@ include '../mlmc-views/getData/get-inpatient-vitals.php';
             }    
 
             $scope.getPage = function(check){
-                    switch (check) {
-                        case 'Dashboard':
-                                window.location.href = 'index.php?at=' + $scope.param;
-                                break;
-                        case 'Emergency':
-                                window.location.href = 'emergency.php?at=' + $scope.param;
-                                break;
-                        case 'Outpatient':
-                                window.location.href = 'outpatient.php?at=' + $scope.param;
-                                break;
-                        case 'Inpatient':
-                                window.location.href = 'inpatient.php?at=' + $scope.param;
-                                break;
-                                
-                        case 'Confined':
-                                window.location.href = 'nurse-patient.php?at=' + $scope.param;
-                                break;
-                        
-                        case 'Physician':
-                                window.location.href = 'physician.php?at=' + $scope.param;
-                                break;
-                        
-                        case 'Pharmacy':
-                                window.location.href = 'medicine-requisition.php?at=' + $scope.param;
-                                break;
-                        							
-                        case 'Pharmaceuticals':
-                                window.location.href = 'pharmacy.php?at=' + $scope.param;
-                                break; 
-
-                        case 'Billing':
-                                window.location.href = 'billing.php?at=' + $scope.param;
-                                break;
-
-                        case 'Cashier':
-                                window.location.href = 'cashier.php?at=' + $scope.param;
-                                break;
-                        
-                        case 'Accounts':
-                                window.location.href = 'user.php?at=' + $scope.param;
-                                break;
-
-                        case 'Bed':
-                                window.location.href = 'bed.php?at=' + $scope.param;
-                                break;
-
-                        case 'Specialization':
-                                window.location.href = 'specialization.php?at=' + $scope.param;
-                                break;
-                        
-                        case 'Laboratory':
-                                window.location.href = 'laboratory.php?at=' + $scope.param;
-                                break;
-                        
-                        default:
+                switch (check) {
+                    case 'Dashboard':
+                            window.location.href = 'index.php?at=' + $scope.at;
                             break;
-                    }
+                    case 'Emergency':
+                            window.location.href = 'emergency.php?at=' + $scope.at;
+                            break;
+                    case 'Outpatient':
+                            window.location.href = 'outpatient.php?at=' + $scope.at;
+                            break;
+                    case 'Inpatient':
+                            window.location.href = 'inpatient.php?at=' + $scope.at;
+                            break;
+                            
+                    case 'Confined':
+                            window.location.href = 'nurse-patient.php?at=' + $scope.at;
+                            break;
+                    
+                    case 'Physician':
+                            window.location.href = 'physician.php?at=' + $scope.at;
+                            break;
+                    
+                    case 'Pharmacy':
+                            window.location.href = 'medicine-requisition.php?at=' + $scope.at;
+                            break;
+
+                    case 'Pharmaceuticals':
+                            window.location.href = 'pharmacy.php?at=' + $scope.at;
+                            break; 
+                            
+                    case 'Billing':
+                            window.location.href = 'billing.php?at=' + $scope.at;
+                            break;
+
+                    case 'Cashier':
+                            window.location.href = 'cashier.php?at=' + $scope.at;
+                            break;
+                    
+                    case 'Accounts':
+                            window.location.href = 'user.php?at=' + $scope.at;
+                            break;
+
+                    case 'Bed':
+                            window.location.href = 'bed.php?at=' + $scope.at;
+                            break;
+
+                    case 'Specialization':
+                            window.location.href = 'specialization.php?at=' + $scope.at;
+                            break;
+                    
+                    case 'Laboratory':
+                            window.location.href = 'laboratory.php?at=' + $scope.at;
+                            break;
+                    
+                    default:
+                        break;
+                }
                         
-                }  
+            }  
                   
             
             

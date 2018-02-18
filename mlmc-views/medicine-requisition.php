@@ -241,7 +241,7 @@ font-weight: bold;
 		$scope.clickedRow = 0;
 		$scope.new = {};
 
-			switch ($scope.at) {
+			switch ($scope.at.charAt(0)) {
                 case '1':
                     $scope.Administrator = true;
                      break;

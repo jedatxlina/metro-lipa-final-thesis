@@ -2,7 +2,7 @@
 require_once 'connection.php';
 
 $id = $_GET['id'];
-$sel = mysqli_query($con,"SELECT patients.*, medical_details.* FROM patients JOIN medical_details USING(AdmissionID)");
+$sel = mysqli_query($con,"SELECT patients.*, medical_details.* FROM patients JOIN medical_details USING(AdmissionID) WHERE AdmissionID = '$id'");
 
 $data = array();
 

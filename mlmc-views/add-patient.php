@@ -206,7 +206,7 @@
                     $scope.at = "<?php echo $_GET['at'];?>";
                     $scope.admissionid = "<?php echo "2017" .  rand(111111, 999999); ?>";
                     
-                    switch ($scope.at) {
+                    switch ($scope.at.charAt(0)) {
                         case '1':
                             $scope.Administrator = true;
                             break;
@@ -287,7 +287,7 @@
                                     occupation: $scope.occupation,
                                     medicalid: $scope.medicalid}
                         }).then(function(response) {
-                            window.location.href = 'add-patient-next.php?at=' + $scope.param + '&id=' + $scope.admissionid + '&medid=' + $scope.medicalid + '&param=' + $scope.admissiontype;
+                            window.location.href = 'add-patient-next.php?at=' + $scope.at + '&id=' + $scope.admissionid + '&medid=' + $scope.medicalid + '&param=' + $scope.admissiontype;
                         });
                      
                      
