@@ -77,6 +77,9 @@
                                             <tr>
                                                 <th>Middle Name</th>
                                                 <td>{{user.Middlename}}</td>
+                                            </tr><tr>
+                                                <th>Gender</th>
+                                                <td>{{user.Gender}}</td>
                                             </tr>
                                             <tr>
                                                 <th>Address</th>
@@ -104,6 +107,10 @@
                                             <tr>
                                                 <th>Professional Fee</th>
                                                 <td>{{user.ProfessionalFee}}</td>
+                                            </tr>
+                                            <tr>
+                                                <th>Contact</th>
+                                                <td>{{user.Contact}}</td>
                                             </tr>
                                             </tbody>
                                         </table>
@@ -142,6 +149,17 @@
                                                 <tr>
                                                     <th>Middle name</th>
                                                     <td><input type="text" class="form-control"  ng-model="user.Middlename"></td>
+                                                    <th>Contact</th>
+                                                    <td><input type="text" class="form-control"  ng-model="user.Contact"></td>
+                                                </tr>
+                                                <tr>
+                                                    <th>Gender</th>
+                                                    <td> 
+                                                    <select class="form-control" ng-model="user.Gender">  
+                                                        <option value="" disabled selected>Select</option>
+                                                        <option value="Male">Male</option>
+                                                        <option value="Female">Female</option>
+                                                    </select></td>
                                                     <th>Profile Photo</th>
                                                     <td>
                                                         <div class="fileinput fileinput-new" data-provides="fileinput">
@@ -158,10 +176,10 @@
                                                 <tr>
                                                     <th>Address</th>
                                                     <td><input type="text" class="form-control"  ng-model="user.Address"></td>
-                                                </tr>
+                                                </tr>                                              
                                                 <tr>
                                                     <th>Birthdate</th>
-                                                    <td><input type="text" class="form-control" ng-model="user.Birthdate"></td>
+                                                    <td><input type="text" class="form-control"  ng-model="user.Birthdate"></td>
                                                 </tr>
                                                 </tbody>
                                                 
@@ -220,11 +238,11 @@ var fetch = angular.module('myApp', ['ui.mask']);
             default:
                 break;
         }
-
+            $scope.accesstype = $scope.at[0];
             $http({
             method: 'GET',
             url: 'getData/get-user-profile.php',
-            params: {id: $scope.at}
+            params: {id: $scope.at, atype : $scope.accesstype}
             }).then(function(response) {
                 $scope.userdetails = response.data;
             });
@@ -237,9 +255,12 @@ var fetch = angular.module('myApp', ['ui.mask']);
                         Lastname: user.Lastname,
                         Firstname: user.Firstname,
                         Middlename: user.Middlename,
+                        Gender: user.Gender,
                         Birthdate: user.Birthdate,
                         Address: user.Address,
-                        ProfessionalFee: user.ProfessionalFee}
+                        ProfessionalFee: user.ProfessionalFee,
+                        Contact: user.Contact,
+                        Specialization: user.Specialization}
                 }).then(function(response) {
                     window.location.href = 'user-profile.php?at=' + $scope.at;
                 });

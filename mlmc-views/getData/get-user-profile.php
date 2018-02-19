@@ -2,25 +2,70 @@
 require_once 'connection.php';
 
 $id = $_GET['id'];
-$sel = mysqli_query($con,"SELECT physicians.*, user_account.* FROM physicians JOIN user_account USING(AccountID)  WHERE AccountID = '$id'");
+$accesstype = $_GET['atype'];
 
+switch ($accesstype) {
+	case '2':
+	$query= "SELECT * FROM admission_staffs JOIN user_account WHERE admission_staffs.AdmissionStaffID = '$id' AND user_account.AccountID = '$id' ";
+	break;
+
+   case '3':
+	$query= "SELECT * FROM nurses JOIN user_account WHERE nurses.NurseID = '$id' AND user_account.AccountID = '$id' ";
+	break;
+
+   case '4':
+   $query = "SELECT * FROM physicians JOIN user_account WHERE physicians.PhysicianID = '$id' AND user_account.AccountID = '$id' ";
+	break;
+
+   case '5':
+	$query= "SELECT * FROM pharmacy_staff JOIN user_account WHERE pharmacy_staff.PharmacyID = '$id' AND user_account.AccountID = '$id' ";
+	break;
+
+   case '6':
+	$query= "SELECT * FROM billing_staff JOIN user_account WHERE billing_staff.BillingStaffID = '$id' AND user_account.AccountID = '$id' ";
+	break;
+
+   default:
+	break;
+
+}
+
+$sel = mysqli_query($con,$query);
 $data = array();
 
-while ($row = mysqli_fetch_array($sel)) {
-    $data[] = array(
-		"PhysicianID"=>$row['PhysicianID'],
-		"AccountID"=>$row['AccountID'],
-		"Lastname"=>$row['LastName'],
-    	"Firstname"=>$row['FirstName'],
-    	"Middlename"=>$row['MiddleName'],
-		"Address"=>$row['Address'],
-		"Birthdate"=>$row['Birthdate'],
-		"ProfessionalFee"=>$row['ProfessionalFee'],
-		"Specialization"=>$row['Specialization'],
-    	"AccessType"=>$row['AccessType'],
-		"Passwordd"=>$row['Passwordd'],
-		"Email"=>$row['Email']);
-}
+//	if ($accesstype == 4)
+//	{
+		while ($row = mysqli_fetch_array($sel)) {
+			$data[] = array(
+				"Lastname"=>$row['LastName'],
+				"Firstname"=>$row['FirstName'],
+				"Middlename"=>$row['MiddleName'],
+				"Gender"=>$row['Gender'],
+				"Address"=>$row['Address'],
+				"Contact"=>$row['Contact'],
+				"Birthdate"=>$row['Birthdate'],
+				"ProfessionalFee"=>$row['ProfessionalFee'],
+				"Specialization"=>$row['Specialization'],
+				"AccessType"=>$row['AccessType'],
+				"Passwordd"=>$row['Passwordd'],
+				"Email"=>$row['Email']);
+		}
+//	}
+	// else 
+	// {
+	// 	while ($row = mysqli_fetch_array($sel)) {
+	// 		$data[] = array(
+	// 			"Lastname"=>$row['LastName'],
+	// 			"Firstname"=>$row['FirstName'],
+	// 			"Middlename"=>$row['MiddleName'],
+	// 			"Gender"=>$row['Gender'],
+	// 			"Address"=>$row['Address'],
+	// 			"Birthdate"=>$row['Birthdate'],
+	// 			"AccessType"=>$row['AccessType'],
+	// 			"Passwordd"=>$row['Passwordd'],
+	// 			"Email"=>$row['Email']);
+	// 	}
+	// }
 echo json_encode($data);
 ?>
 

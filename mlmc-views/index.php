@@ -32,7 +32,7 @@
 			</div>
 			</div>
 				<form ng-repeat="user in users">
-							<input type="text" ng-model="$parent.LN" ng-init="$parent.LN=user.LastName" class="form-control">
+							<input type="hidden" ng-model="$parent.LN" ng-init="$parent.LN=user.LastName" class="form-control">
 							
 				</form>
 		</div>
@@ -47,14 +47,8 @@
 
 				//after page loads	
 				angular.element(document).ready(function(){
-					if ($scope.at[0] != 1)
-						{
-							if ($scope.LN == "")
-							{
-								window.location.href = 'user-details.php?at=' + $scope.at;
-							}
-						}
-					else if ($scope.at[0] == 4)
+				
+				 if ($scope.at[0] == 4)
 						{
 							if ($scope.LN == "")
 							{
