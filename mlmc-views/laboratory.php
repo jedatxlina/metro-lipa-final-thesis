@@ -61,13 +61,13 @@
 
             <div class="modal fade" id="EditModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
                 <div class="modal-dialog">
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                            <h4 class="modal-title" id="myModalLabel">Edit Laboratory</h4>
+                <div class="panel panel-danger" data-widget='{"draggable": "false"}'>
+                        <div class="panel-heading">
+                            <h2>Edit Laboratory</h2>
+                            <div class="panel-ctrls" data-actions-container="" data-action-collapse='{"target": ".panel-body, .panel-footer"}'></div>
                         </div>
-                        <div class="modal-body">
-                            <form ng-repeat="elab in editlab">
+                        <div class="panel-body" style="height: 340px">
+                             <form ng-repeat="elab in editlab">
                                 <div class="form-group">
                                     <label>Laboratory ID</label>
                                     <input type="text" ng-model="$parent.laboratoryid" ng-init="$parent.laboratoryid=elab.LaboratoryID" class="form-control" readonly>
@@ -80,10 +80,8 @@
                                     <label>Rate </label>
                                     <input type="text" ng-model="$parent.rate" ng-init="$parent.rate=elab.Rate" class="form-control">
                                 </div>
-                                <div class="modal-footer">
-                                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                                    <button ng-click='Update()' class="btn btn-primary">Confirm</button>
-                                </div>
+                                    <button type="button" class="btn btn-default pull-right" data-dismiss="modal">Close</button>
+                                    <button ng-click='Update()' class="btn btn-danger pull-right">Confirm</button>
                             </form>
                         </div>
                     </div>
@@ -96,13 +94,13 @@
             <!-- Modal -->
             <div class="modal fade" id="AddModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
                 <div class="modal-dialog">
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                            <h4 class="modal-title" id="myModalLabel">Add Laboratory</h4>
+                    <div class="panel panel-danger" data-widget='{"draggable": "false"}'>
+                        <div class="panel-heading">
+                            <h2>Add Laboratory</h2>
+                            <div class="panel-ctrls" data-actions-container="" data-action-collapse='{"target": ".panel-body, .panel-footer"}'></div>
                         </div>
-                        <div class="modal-body">
-                            <form>
+                        <div class="panel-body" style="height: 250px">
+                             <form>
                                 <div class="form-group">
                                     <label>Description</label>
                                     <input type="text" ng-model="description" placeholder="XRAY" class="form-control">
@@ -111,24 +109,29 @@
                                     <label>Rate </label>
                                     <input type="text" ng-model="rate" placeholder="5000" class="form-control">
                                 </div>
-                                <div class="modal-footer">
-                                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                                    <button ng-click='Add()' class="btn btn-primary">Confirm</button>
-                                </div>
+                                    <button type="button" class="btn btn-default pull-right" data-dismiss="modal">Close</button>
+                                    <button ng-click='Add()' class="btn btn-danger pull-right">Confirm</button>
                             </form>
                         </div>
                     </div>
-                    <!-- /.modal-content -->
                 </div>
             </div>
 
+            <!-- Error modal -->
             <div class="modal fade" id="ErrorModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
                 <div class="modal-dialog">
-                    <div class="alert alert-danger">
-                        Select Laboratory record that you would like to apply an <a href="#" class="alert-link">Action.</a>
+                    <div class="panel panel-danger" data-widget='{"draggable": "false"}'>
+                        <div class="panel-heading">
+                            <h2>Error:</h2>
+                            <div class="panel-ctrls" data-actions-container="" data-action-collapse='{"target": ".panel-body, .panel-footer"}'></div>
+                        </div>
+                        <div class="panel-body" style="height: 60px">
+                        Select record that you would like to apply an <a href="#" class="alert-link">Action.</a>
+                        </div>
                     </div>
                 </div>
             </div>
+            <!--/ Error modal -->
 
 
 
@@ -149,33 +152,33 @@
         $scope.new = {};
 
             switch ($scope.at.charAt(0)) {
-                case '1':
-                    $scope.Administrator = true;
-                     break;
-                        
-                case '2':
-                    $scope.Admission = true;
-                    break;
-                        
-                case '3':
-                    $scope.Nurse = true;
-                    break;
-                        
-                case '4':
-                    $scope.Physician = true;
-                    break;
-                        
-                case '5':
-                    $scope.Pharmacy = true;
-                    break;
+				case '1':
+					$scope.User = "Administrator";
+					break;
+				
+				case '2':
+					$scope.User = "Admission Staff";
+					break;
+				
+				case '3':
+					$scope.User = "Nursing Staff";
+					break;
+				
+				case '4':
+					$scope.User = "Physician";
+					break;
+				
+				case '5':
+					$scope.User = "Pharmacy Staff";
+					break;
 
-                case '6':
-                    $scope.Billing = true;
-                    break;
-                    
-                    default:
-                    break;
-            }    
+				case '6':
+					$scope.User = "Billing Staff";
+					break;
+			
+				default:
+					break;
+			}
 
         $http({
             method: 'get',

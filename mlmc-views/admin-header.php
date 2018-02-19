@@ -191,12 +191,7 @@
                     <img src="http://meconstructionnews.com/wp-content/uploads/2016/05/Admin-logo.png" class="img-responsive img-circle"> 
                 </div>
                 <div class="info">
-                    <span class="username"  ng-if="Administrator">Administrator</span>
-					<span class="username"  ng-if="Admission">Admission Staff<br></span>
-					<span class="username"  ng-if="Nurse">Nursing Staff<br></span>
-					<span class="username"  ng-if="Physician">Physician<br></span>
-					<span class="username"  ng-if="Pharmacy">Pharmacy Staff<br></span>
-					<span class="username"  ng-if="Billing">Billing Staff<br></span>
+					 <span class="username">{{User}}</span><br>
 					{{ at }}
                 </div>
             </div>

@@ -42,27 +42,27 @@
 			$scope.at = "<?php echo $at;?>";
 			switch ($scope.at.charAt(0)) {
 				case '1':
-					$scope.Administrator = true;
+					$scope.User = "Administrator";
 					break;
 				
 				case '2':
-					$scope.Admission = true;
+					$scope.User = "Admission Staff";
 					break;
 				
 				case '3':
-					$scope.Nurse = true;
+					$scope.User = "Nursing Staff";
 					break;
 				
 				case '4':
-					$scope.Physician = true;
+					$scope.User = "Physician";
 					break;
 				
 				case '5':
-					$scope.Pharmacy = true;
+					$scope.User = "Pharmacy Staff";
 					break;
 
 				case '6':
-					$scope.Billing = true;
+					$scope.User = "Billing Staff";
 					break;
 			
 				default:

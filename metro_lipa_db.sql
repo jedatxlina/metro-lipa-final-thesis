@@ -3,9 +3,9 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Feb 14, 2018 at 06:00 PM
--- Server version: 10.1.29-MariaDB
--- PHP Version: 7.2.0
+-- Generation Time: Feb 19, 2018 at 05:20 PM
+-- Server version: 10.1.28-MariaDB
+-- PHP Version: 7.1.10
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET AUTOCOMMIT = 0;
@@ -21,6 +21,40 @@ SET time_zone = "+00:00";
 --
 -- Database: `metro_lipa_db`
 --
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `admission_staffs`
+--
+
+CREATE TABLE `admission_staffs` (
+  `AdmissionStaffID` int(6) NOT NULL,
+  `LastName` varchar(15) NOT NULL,
+  `FirstName` varchar(15) NOT NULL,
+  `MiddleName` varchar(15) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `attending_physicians`
+--
+
+CREATE TABLE `attending_physicians` (
+  `AttendingID` int(6) NOT NULL,
+  `PhysicianID` int(6) NOT NULL,
+  `AdmissionID` int(10) NOT NULL,
+  `DiagnosisID` int(6) NOT NULL,
+  `Discount` decimal(15,2) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `attending_physicians`
+--
+
+INSERT INTO `attending_physicians` (`AttendingID`, `PhysicianID`, `AdmissionID`, `DiagnosisID`, `Discount`) VALUES
+(467625, 123456, 2017865322, 376916, '0.00');
 
 -- --------------------------------------------------------
 
@@ -42,13 +76,26 @@ CREATE TABLE `beds` (
 --
 
 INSERT INTO `beds` (`BedID`, `RoomType`, `Rate`, `Floor`, `Room`, `Status`) VALUES
-('100', 'Single Deluxe', 1500, '1st', 100, 'Occupied'),
-('101-1', 'Two-Bedded', 700, '1st', 101, 'Occupied'),
-('101-2', 'Two-Bedded', 700, '1st', 101, 'Available'),
-('105-1', 'Four-Bedded', 300, '1st', 105, 'Available'),
-('105-2', 'Four-Bedded', 300, '1st', 105, 'Available'),
-('105-3', 'Four-Bedded', 300, '1st', 105, 'Available'),
-('105-4', 'Four-Bedded', 300, '1st', 105, 'Available');
+('100', 'Single Deluxe', 1500, '1st', 100, 'Available'),
+('101-1', 'Two-Bedded', 7000, '1st', 101, 'Occupied'),
+('101-2', 'Two-Bedded', 7000, '1st', 101, 'Occupied'),
+('105-1', 'Four-Bedded', 3000, '1st', 105, 'Available'),
+('105-2', 'Four-Bedded', 3000, '1st', 105, 'Available'),
+('205-3', 'Four-Bedded', 30000, '2nd', 205, 'Available'),
+('305-4', 'Four-Bedded', 3000, '3rd', 305, 'Available');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `billing_staff`
+--
+
+CREATE TABLE `billing_staff` (
+  `BillingStaffID` int(6) NOT NULL,
+  `LastName` varchar(15) NOT NULL,
+  `FirstName` varchar(15) NOT NULL,
+  `MiddleName` varchar(15) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
 
@@ -1707,6 +1754,28 @@ INSERT INTO `cities` (`id`, `name`, `province_id`) VALUES
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `diagnosis`
+--
+
+CREATE TABLE `diagnosis` (
+  `DiagnosisID` int(6) NOT NULL,
+  `AttendingID` int(6) NOT NULL,
+  `Findings` varchar(100) NOT NULL,
+  `Notes` varchar(50) NOT NULL,
+  `DateDiagnosed` varchar(25) NOT NULL,
+  `MedicationID` int(6) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `diagnosis`
+--
+
+INSERT INTO `diagnosis` (`DiagnosisID`, `AttendingID`, `Findings`, `Notes`, `DateDiagnosed`, `MedicationID`) VALUES
+(376916, 467625, 'Nagtatae', '', '2018/02/19 12:12:33am', 866879);
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `laboratories`
 --
 
@@ -1721,9 +1790,10 @@ CREATE TABLE `laboratories` (
 --
 
 INSERT INTO `laboratories` (`LaboratoryID`, `Description`, `Rate`) VALUES
+(1008, 'ECG', 1000),
 (1056, 'Operation', 1000),
 (1075, 'CT-SCAN', 2500),
-(1087, 'XRAY', 6000);
+(1087, 'XRAY', 500);
 
 -- --------------------------------------------------------
 
@@ -1733,12 +1803,80 @@ INSERT INTO `laboratories` (`LaboratoryID`, `Description`, `Rate`) VALUES
 
 CREATE TABLE `medical_details` (
   `MedicalID` int(15) NOT NULL,
-  `AttendingID` int(15) NOT NULL,
-  `BedID` int(15) NOT NULL,
+  `AdmissionID` int(15) NOT NULL,
+  `AttendingID` int(6) NOT NULL,
+  `ArrivalDateTime` datetime NOT NULL,
+  `BedID` varchar(10) NOT NULL,
   `VitalsID` int(15) NOT NULL,
   `MedicationID` int(15) NOT NULL,
   `OperationID` int(15) NOT NULL,
-  `AdmissionID` varchar(10) NOT NULL
+  `DiagnosisID` int(15) NOT NULL,
+  `Conditions` varchar(50) NOT NULL,
+  `CurrentMedication` varchar(50) NOT NULL,
+  `PreviousSurgeries` varchar(50) NOT NULL,
+  `Weight` int(10) NOT NULL,
+  `Height` int(10) NOT NULL,
+  `Class` varchar(15) NOT NULL,
+  `QR_Path` varchar(100) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `medical_details`
+--
+
+INSERT INTO `medical_details` (`MedicalID`, `AdmissionID`, `AttendingID`, `ArrivalDateTime`, `BedID`, `VitalsID`, `MedicationID`, `OperationID`, `DiagnosisID`, `Conditions`, `CurrentMedication`, `PreviousSurgeries`, `Weight`, `Height`, `Class`, `QR_Path`) VALUES
+(376778, 2017865322, 467625, '2018-02-19 12:12:33', '101-2', 351212, 866879, 0, 376916, 'Array', 'Array', 'Tuli', 100, 100, 'Cash', 'qr-generator/temp/2017865322.png');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `medical_history`
+--
+
+CREATE TABLE `medical_history` (
+  `MedHistoryID` int(6) NOT NULL,
+  `AdmissionID` int(6) NOT NULL,
+  `MedicalID` int(6) NOT NULL,
+  `DischargeTime` datetime NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `medication`
+--
+
+CREATE TABLE `medication` (
+  `MedicationID` int(6) NOT NULL,
+  `AdmissionID` int(10) NOT NULL,
+  `MedicineID` int(15) NOT NULL,
+  `Quantity` int(15) NOT NULL,
+  `DateTimeAdministered` datetime NOT NULL,
+  `Dosage` varchar(15) NOT NULL,
+  `NurseID` int(15) NOT NULL,
+  `DoctorID` int(11) NOT NULL,
+  `DateTimeStart` datetime NOT NULL,
+  `DateTimeEnd` datetime NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `medication`
+--
+
+INSERT INTO `medication` (`MedicationID`, `AdmissionID`, `MedicineID`, `Quantity`, `DateTimeAdministered`, `Dosage`, `NurseID`, `DoctorID`, `DateTimeStart`, `DateTimeEnd`) VALUES
+(123123, 2017865322, 718665, 0, '2018-02-19 12:12:33', '', 0, 0, '0000-00-00 00:00:00', '0000-00-00 00:00:00');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `nurses`
+--
+
+CREATE TABLE `nurses` (
+  `NurseID` int(6) NOT NULL,
+  `LastName` varchar(15) NOT NULL,
+  `FirstName` varchar(15) NOT NULL,
+  `MiddleName` varchar(15) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
@@ -1764,7 +1902,7 @@ CREATE TABLE `orders` (
 CREATE TABLE `patients` (
   `AdmissionID` varchar(10) NOT NULL,
   `AdmissionNo` int(11) NOT NULL,
-  `AdmissionDateTime` datetime NOT NULL,
+  `AdmissionDateTime` varchar(25) NOT NULL,
   `FirstName` varchar(15) NOT NULL,
   `MiddleName` varchar(15) NOT NULL,
   `LastName` varchar(15) NOT NULL,
@@ -1772,12 +1910,12 @@ CREATE TABLE `patients` (
   `AdmissionType` varchar(10) NOT NULL,
   `Province` varchar(20) NOT NULL,
   `City` varchar(20) NOT NULL,
+  `CompleteAddress` varchar(100) NOT NULL,
   `Gender` varchar(10) NOT NULL,
   `Age` varchar(3) NOT NULL,
   `CivilStatus` varchar(10) NOT NULL,
   `Birthdate` varchar(20) NOT NULL,
   `Contact` varchar(15) NOT NULL,
-  `Class` varchar(15) NOT NULL,
   `Occupation` varchar(20) NOT NULL,
   `Religion` varchar(20) NOT NULL,
   `Citizenship` varchar(20) NOT NULL,
@@ -1788,32 +1926,33 @@ CREATE TABLE `patients` (
 -- Dumping data for table `patients`
 --
 
-INSERT INTO `patients` (`AdmissionID`, `AdmissionNo`, `AdmissionDateTime`, `FirstName`, `MiddleName`, `LastName`, `Admission`, `AdmissionType`, `Province`, `City`, `Gender`, `Age`, `CivilStatus`, `Birthdate`, `Contact`, `Class`, `Occupation`, `Religion`, `Citizenship`, `MedicalID`) VALUES
-('2017910538', 95, '2018-01-31 15:24:52', 'Jed', 'Matthew', 'Lina', 'Old Patient', 'Emergency', 'Batangas', 'Lipa City', 'Male', '20', 'Single', '02/18/1998', '639175768818', 'Cash', 'Executive', '', '', 0),
-('2017993027', 96, '2018-01-31 15:42:26', 'Francis', 'Von', 'Ilagan', 'New Patient', 'Emergency', 'Batanes', 'Basco', 'Male', '20', 'Single', '07/21/2004', '639185695698', 'Cash', 'Executive', '', '', 0);
+INSERT INTO `patients` (`AdmissionID`, `AdmissionNo`, `AdmissionDateTime`, `FirstName`, `MiddleName`, `LastName`, `Admission`, `AdmissionType`, `Province`, `City`, `CompleteAddress`, `Gender`, `Age`, `CivilStatus`, `Birthdate`, `Contact`, `Occupation`, `Religion`, `Citizenship`, `MedicalID`) VALUES
+('2017865322', 1, '2018/02/19 12:08:41am', 'Jed', 'Matthew', 'Lina', 'New Patient', 'Inpatient', 'Batangas', 'Lipa City', '152 Bagongpook Lipa City', 'Male', '20', 'Single', '1998/02/18', '9175768818', 'Executive', '', '', 376778);
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `patient_archive`
+-- Table structure for table `patients_archive`
 --
 
-CREATE TABLE `patient_archive` (
-  `PatientID` int(10) NOT NULL,
-  `FirstName` varchar(20) NOT NULL,
+CREATE TABLE `patients_archive` (
+  `ArchiveID` varchar(10) NOT NULL,
+  `ArchiveNo` int(11) NOT NULL DEFAULT '0',
+  `FirstName` varchar(15) NOT NULL,
   `MiddleName` varchar(15) NOT NULL,
   `LastName` varchar(15) NOT NULL,
-  `Gender` varchar(7) NOT NULL,
-  `Address` varchar(20) NOT NULL,
-  `Birthdate` date NOT NULL
+  `Province` varchar(20) NOT NULL,
+  `City` varchar(20) NOT NULL,
+  `Gender` varchar(10) NOT NULL,
+  `Age` varchar(3) NOT NULL,
+  `CivilStatus` varchar(10) NOT NULL,
+  `Birthdate` varchar(20) NOT NULL,
+  `Contact` varchar(15) NOT NULL,
+  `Occupation` varchar(20) NOT NULL,
+  `Religion` varchar(20) NOT NULL,
+  `Citizenship` varchar(20) NOT NULL,
+  `MedHistoryID` int(6) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-
---
--- Dumping data for table `patient_archive`
---
-
-INSERT INTO `patient_archive` (`PatientID`, `FirstName`, `MiddleName`, `LastName`, `Gender`, `Address`, `Birthdate`) VALUES
-(12, 'Jed', 'Matthew', 'Lina', 'Male', 'Lipa', '2018-01-08');
 
 -- --------------------------------------------------------
 
@@ -1822,9 +1961,8 @@ INSERT INTO `patient_archive` (`PatientID`, `FirstName`, `MiddleName`, `LastName
 --
 
 CREATE TABLE `pharmaceuticals` (
-  `PharmaID` int(8) NOT NULL,
-  `PharmaType` varchar(25) NOT NULL,
-  `PharmaName` varchar(50) NOT NULL,
+  `MedicineID` int(6) NOT NULL,
+  `MedicineName` varchar(50) NOT NULL,
   `Unit` varchar(20) NOT NULL,
   `Price` int(10) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
@@ -1833,10 +1971,48 @@ CREATE TABLE `pharmaceuticals` (
 -- Dumping data for table `pharmaceuticals`
 --
 
-INSERT INTO `pharmaceuticals` (`PharmaID`, `PharmaType`, `PharmaName`, `Unit`, `Price`) VALUES
-(13339, 'Medicine', 'Dolfenal', '250mg', 150),
-(22741, 'Medicine', 'Paracetamol', '500mg', 100),
-(371683, 'Drug', 'Obeticholic Acid', '10mg', 1500);
+INSERT INTO `pharmaceuticals` (`MedicineID`, `MedicineName`, `Unit`, `Price`) VALUES
+(13339, 'Dolfenal', '250mg', 150),
+(22741, 'Paracetamol', '500mg', 1000),
+(718665, 'Advil', '500mg', 100);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `pharmacy_staff`
+--
+
+CREATE TABLE `pharmacy_staff` (
+  `PharmacyID` int(6) NOT NULL,
+  `LastName` varchar(15) NOT NULL,
+  `FirstName` varchar(15) NOT NULL,
+  `MiddleName` varchar(15) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `physicians`
+--
+
+CREATE TABLE `physicians` (
+  `PhysicianID` int(6) NOT NULL,
+  `LastName` varchar(10) NOT NULL,
+  `FirstName` varchar(10) NOT NULL,
+  `MiddleName` varchar(10) NOT NULL,
+  `Address` varchar(80) NOT NULL,
+  `Birthdate` varchar(20) NOT NULL,
+  `Specialization` varchar(50) NOT NULL,
+  `ProfessionalFee` decimal(15,2) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `physicians`
+--
+
+INSERT INTO `physicians` (`PhysicianID`, `LastName`, `FirstName`, `MiddleName`, `Address`, `Birthdate`, `Specialization`, `ProfessionalFee`) VALUES
+(123456, 'Lina', 'Jed', 'Matthew', '152 Bagongpook Lipa City', '1998/02/18', 'Surgeon', '500.00'),
+(222222, 'Atienza', 'JM', 'JM', 'Bagongpook', '12/11/11', 'Surgeon', '100.00');
 
 -- --------------------------------------------------------
 
@@ -1938,6 +2114,21 @@ INSERT INTO `provinces` (`id`, `name`) VALUES
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `relocate`
+--
+
+CREATE TABLE `relocate` (
+  `RelocateID` int(6) NOT NULL,
+  `AdmissionID` int(11) NOT NULL,
+  `MedicalID` int(11) NOT NULL,
+  `BedID` varchar(11) NOT NULL,
+  `DateAdmitted` datetime NOT NULL,
+  `DateRelocated` datetime NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `specialization`
 --
 
@@ -1953,7 +2144,7 @@ CREATE TABLE `specialization` (
 INSERT INTO `specialization` (`SpecializationID`, `SpecializationName`) VALUES
 (1, 'Surgeon'),
 (2, 'Surgery'),
-(2576, 'General Surgery');
+(1741, 'Cardiovascular');
 
 -- --------------------------------------------------------
 
@@ -1962,9 +2153,9 @@ INSERT INTO `specialization` (`SpecializationID`, `SpecializationName`) VALUES
 --
 
 CREATE TABLE `user_account` (
-  `AccountID` varchar(10) NOT NULL,
+  `AccountID` varchar(100) NOT NULL,
   `AccessType` varchar(1) NOT NULL,
-  `Passwordd` varchar(15) NOT NULL,
+  `Passwordd` varchar(100) NOT NULL,
   `Email` varchar(50) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
@@ -1973,10 +2164,35 @@ CREATE TABLE `user_account` (
 --
 
 INSERT INTO `user_account` (`AccountID`, `AccessType`, `Passwordd`, `Email`) VALUES
-('100000', '1', '123', 'masaka@yahoo.com'),
-('140543', '1', '1', '123@gmail.com'),
-('229126', '2', '123', 'admissioN@gmail.com'),
-('299700', '2', 'hays', 'salamat@gmail.com');
+('111111', '1', '111111', 'admin@gmail.com'),
+('222222', '2', '222222', 'admission@gmail.com'),
+('333333', '3', '333333', 'nurse@gmail.com'),
+('444444', '4', '444444', 'jmatthewlina.ceo@gmail.com'),
+('523770', '5', '555555', 'pharmacy@gmail.com');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `vitals`
+--
+
+CREATE TABLE `vitals` (
+  `VitalsID` int(15) NOT NULL,
+  `AdmissionID` int(15) NOT NULL,
+  `BP` int(15) NOT NULL,
+  `PR` int(15) NOT NULL,
+  `RR` int(15) NOT NULL,
+  `Temperature` int(15) NOT NULL,
+  `DateTimeChecked` varchar(25) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `vitals`
+--
+
+INSERT INTO `vitals` (`VitalsID`, `AdmissionID`, `BP`, `PR`, `RR`, `Temperature`, `DateTimeChecked`) VALUES
+(351212, 2017865322, 120, 90, 60, 32, '2018/02/19 12:12:33am'),
+(351212, 2017865322, 150, 60, 60, 60, '2018/02/19 12:17:33am');
 
 --
 -- Indexes for dumped tables
@@ -2014,16 +2230,10 @@ ALTER TABLE `patients`
   ADD UNIQUE KEY `AdmissionNo` (`AdmissionNo`);
 
 --
--- Indexes for table `patient_archive`
---
-ALTER TABLE `patient_archive`
-  ADD PRIMARY KEY (`PatientID`);
-
---
 -- Indexes for table `pharmaceuticals`
 --
 ALTER TABLE `pharmaceuticals`
-  ADD PRIMARY KEY (`PharmaID`);
+  ADD PRIMARY KEY (`MedicineID`);
 
 --
 -- Indexes for table `provinces`
@@ -2057,7 +2267,7 @@ ALTER TABLE `cities`
 -- AUTO_INCREMENT for table `patients`
 --
 ALTER TABLE `patients`
-  MODIFY `AdmissionNo` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=97;
+  MODIFY `AdmissionNo` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT for table `provinces`
@@ -2069,7 +2279,7 @@ ALTER TABLE `provinces`
 -- AUTO_INCREMENT for table `specialization`
 --
 ALTER TABLE `specialization`
-  MODIFY `SpecializationID` int(4) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2577;
+  MODIFY `SpecializationID` int(4) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=1742;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
