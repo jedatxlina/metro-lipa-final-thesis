@@ -47,7 +47,14 @@
 
 				//after page loads	
 				angular.element(document).ready(function(){
-					if ($scope.at[0] == 4)
+					if ($scope.at[0] != 1)
+						{
+							if ($scope.LN == "")
+							{
+								window.location.href = 'user-details.php?at=' + $scope.at;
+							}
+						}
+					else if ($scope.at[0] == 4)
 						{
 							if ($scope.LN == "")
 							{
@@ -56,7 +63,29 @@
 						}
 				});
 
-				if ($scope.at[0] == 4)
+							
+				if ($scope.at[0] == 2)		
+				{
+					$http({
+							method: 'get',
+							params: {accid : $scope.at},
+							url: 'getData/get-admissionstaff-id.php'
+						}).then(function(response) {		
+							$scope.users = response.data;
+						});
+				}	
+				else if ($scope.at[0] == 3)
+					{
+						$http({
+								method: 'get',
+								params: {accid : $scope.at},
+								url: 'getData/get-nurse-id.php'
+							}).then(function(response) {		
+								$scope.users = response.data;
+							});
+					}
+				else if ($scope.at[0] == 4)
+					{
 						$http({
 								method: 'get',
 								params: {accid : $scope.at},
@@ -64,6 +93,28 @@
 							}).then(function(response) {		
 								$scope.users = response.data;
 							});
+					}
+				else if ($scope.at[0] == 5)
+					{
+						$http({
+								method: 'get',
+								params: {accid : $scope.at},
+								url: 'getData/get-pharmacystaff-id.php'
+							}).then(function(response) {		
+								$scope.users = response.data;
+							});
+					}	
+				else if ($scope.at[0] == 6)
+					{
+						$http({
+								method: 'get',
+								params: {accid : $scope.at},
+								url: 'getData/get-billingstaff-id.php'
+							}).then(function(response) {		
+								$scope.users = response.data;
+							});
+					}
+		
 
 			
 				

@@ -7,11 +7,6 @@ $accesstype = $_GET['accesstype'];
 $password = $_GET['password'];
 $email = $_GET['email'];
 
-if ($accesstype==4)
-{
-    $query2= "INSERT into physicians(PhysicianID,AccountID,LastName,FirstName,MiddleName,Gender,Address,Birthdate,Specialization,ProfessionalFee,Email) VALUES ('$accountid','$accountid','','','','','','','','','$email')";
-    mysqli_query($con,$query2);  
-}
 
 $query= "INSERT into user_account(AccountID,AccessType,Passwordd,Email) VALUES ('$accountid','$accesstype','$password','$email')";
 
@@ -19,23 +14,23 @@ mysqli_query($con,$query);
 
 switch ($accesstype) {
     case '2':
-        $query= "INSERT into admission_staffs(AdmissionStaffID) VALUES ('$accountid')";
+        $query= "INSERT into admission_staffs(AdmissionStaffID,Email) VALUES ('$accountid','$email')";
         break;
 
     case '3':
-        $query= "INSERT into nurses(NurseID) VALUES ('$accountid')";
+        $query= "INSERT into nurses(NurseID,Email) VALUES ('$accountid','$email')";
         break;
 
     case '4':
-        $query= "INSERT into physicians(PhysicianID) VALUES ('$accountid')";
+        $query= "INSERT into physicians(PhysicianID,Email) VALUES ('$accountid','$email')";
         break;
     
     case '5':
-        $query= "INSERT into pharmacy_staff(PharmacyID) VALUES ('$accountid')";
+        $query= "INSERT into pharmacy_staff(PharmacyID,Email) VALUES ('$accountid','$email')";
         break;
     
     case '6':
-        $query= "INSERT into billing_staff(BillingStaffID) VALUES ('$accountid')";
+        $query= "INSERT into billing_staff(BillingStaffID,Email) VALUES ('$accountid','$email')";
         break;
     
     default:
