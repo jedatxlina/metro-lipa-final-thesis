@@ -13,7 +13,7 @@
     <li class="active"> <a href="bed.php">Bed Specifications</a>
     </li>
 </ol>
-
+<bR><br>
 <div class="container-fluid" ng-app="myApp" ng-controller="userCtrl">
 
     <div class="row">
@@ -56,28 +56,23 @@
                 </div>
             </div>
             <div class="col-md-3">
-                <div class="panel panel-default">
-                    <div class="panel-heading">
-                        <h2>Action Panel</h2>
-
-                    </div>
-                    <div class="panel-body">
-                        <a href="#" ng-click="Add()" class="btn btn-default-alt btn-lg btn-block"><i class="fa fa-list-alt fa-fw"></i><span>&nbsp;&nbsp;Add Bed</span></a>
-                        <a href="#" ng-click="Edit()" class="btn btn-default-alt btn-lg btn-block"><i class="ti ti-info-alt"></i><span>&nbsp;&nbsp;Edit Bed</span></a>
-                    </div>
-                </div>
+                    <div class="list-group list-group-alternate mb-n nav nav-tabs">
+						<a href="#" role="tab" data-toggle="tab" class="list-group-item active">Actions Panel</a>
+						<a href="#" ng-click="Add()" role="tab" data-toggle="tab" class="list-group-item"><i class="fa fa-list-alt fa-fw"></i>Add Bed</a>
+						<a href="#" ng-click="Edit()"role="tab" data-toggle="tab" class="list-group-item"><i class="ti ti-info-alt"></i>Edit Bed</a>
+                	</div>
             </div>
           
             <!--/ Edit modal -->
             <div class="modal fade" id="EditModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
                 <div class="modal-dialog">
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                            <h4 class="modal-title" id="myModalLabel">Edit Bed</h4>
+                <div class="panel panel-danger" data-widget='{"draggable": "false"}'>
+                        <div class="panel-heading">
+                            <h2>Edit Bed</h2>
+                            <div class="panel-ctrls" data-actions-container="" data-action-collapse='{"target": ".panel-body, .panel-footer"}'></div>
                         </div>
-                        <div class="modal-body">
-                            <form ng-repeat="getbed in getbedid">
+                        <div class="panel-body" style="height: 520px">
+                        <form ng-repeat="getbed in getbedid">
                                 <div class="form-group">
                                     <label>Bed ID </label>
                                     <input type="text" ng-model="bedid" class="form-control" readonly>
@@ -112,26 +107,25 @@
                                     <label>Room Number </label>
                                     <input type="text" ng-model="$parent.Room" placeholder="" class="form-control" ng-init="$parent.Room=getbed.Room" ui-mask="{{editrmask}}" ui-mask-placeholder ui-mask-placeholder-char="_" disabled/>
                                 </div>
-                                <div class="modal-footer">
-                                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                                    <button ng-click='Update()' class="btn btn-primary">Update</button>
-                                </div>
+                                    <button type="button" class="btn btn-default pull-right" data-dismiss="modal">Close</button>
+                                    <button ng-click='Update()' class="btn btn-danger pull-right">Update</button>
                             </form>
                         </div>
                     </div>
                 </div>
             </div>
             <!--/ End Edit modal -->
+
             <!-- / Add Modal -->
             <div class="modal fade" id="AddModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
                 <div class="modal-dialog">
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                            <h4 class="modal-title" id="myModalLabel">Add Bed</h4>
+                    <div class="panel panel-danger" data-widget='{"draggable": "false"}'>
+                        <div class="panel-heading">
+                            <h2>Add Bed</h2>
+                            <div class="panel-ctrls" data-actions-container="" data-action-collapse='{"target": ".panel-body, .panel-footer"}'></div>
                         </div>
-                        <div class="modal-body">
-                            <form>
+                        <div class="panel-body" style="height: 430px">
+                        <form>
                                 <div class="form-group">
                                     <label>Room Type </label>
                                     <select ng-model="RoomType" class="form-control">
@@ -161,30 +155,55 @@
                                     <label>Room Number </label>
                                     <input type="text" ng-model="room" class="form-control" ui-mask="{{addrmask}}" ui-mask-placeholder ui-mask-placeholder-char="_" ng-disabled="floor == disabled">
                                 </div>
-                                <div class="modal-footer">
-                                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                                    <button ng-click='ConfirmAdd()' class="btn btn-primary">Confirm</button>
-                                </div>
+                                    <button type="button" class="btn btn-default pull-right" data-dismiss="modal">Close</button>
+                                    <button ng-click='ConfirmAdd()' class="btn btn-danger pull-right">Confirm</button>
                             </form>
                         </div>
                     </div>
                 </div>
             </div>
             <!--/ End Add Modal -->
+
+
             <!-- Error modal -->
-            <div class="modal fade" id="ErrorModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+                <div class="modal fade" id="ErrorModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
                 <div class="modal-dialog">
-                    <div class="alert alert-danger">
-                        Select Bed record that you would like to apply an <a href="#" class="alert-link">Action.</a>
+                    <div class="panel panel-danger" data-widget='{"draggable": "false"}'>
+                        <div class="panel-heading">
+                            <h2>Error:</h2>
+                            <div class="panel-ctrls" data-actions-container="" data-action-collapse='{"target": ".panel-body, .panel-footer"}'></div>
+                        </div>
+                        <div class="panel-body" style="height: 60px">
+                        Select Emergency record that you would like to apply an <a href="#" class="alert-link">Action.</a>
+                        </div>
+                        <!-- <div class="panel-footer">
+                            <span class="text-gray"><em>Footer</em></span>
+                        </div> -->
                     </div>
+                    <!-- <div class="alert alert-danger">
+                        Select Emergency record that you would like to apply an <a href="#" class="alert-link">Action.</a>
+                    </div> -->
                 </div>
             </div>
             <!--/ Error modal -->
+
             <!-- Edit Error modal -->
             <div class="modal fade" id="EditErrorModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
                 <div class="modal-dialog">
-                    <div class="alert alert-danger">
+                    <!-- <div class="alert alesrt-danger">
                         <a href="#" class="alert-link">Occupied</a> records are unable to edit.
+                    </div> -->
+                    <div class="panel panel-danger" data-widget='{"draggable": "false"}'>
+                        <div class="panel-heading">
+                            <h2>Error:</h2>
+                            <div class="panel-ctrls" data-actions-container="" data-action-collapse='{"target": ".panel-body, .panel-footer"}'></div>
+                        </div>
+                        <div class="panel-body" style="height: 60px">
+                        <a href="#" class="alert-link">Occupied</a> records are unable to edit.
+                        </div>
+                        <!-- <div class="panel-footer">
+                            <span class="text-gray"><em>Footer</em></span>
+                        </div> -->
                     </div>
                 </div>
             </div>
@@ -204,33 +223,33 @@
             $scope.new = {};
                 
             switch ($scope.at.charAt(0)) {
-                case '1':
-                    $scope.Administrator = true;
-                     break;
-                        
-                case '2':
-                    $scope.Admission = true;
-                    break;
-                        
-                case '3':
-                    $scope.Nurse = true;
-                    break;
-                        
-                case '4':
-                    $scope.Physician = true;
-                    break;
-                        
-                case '5':
-                    $scope.Pharmacy = true;
-                    break;
+				case '1':
+					$scope.User = "Administrator";
+					break;
+				
+				case '2':
+					$scope.User = "Admission Staff";
+					break;
+				
+				case '3':
+					$scope.User = "Nursing Staff";
+					break;
+				
+				case '4':
+					$scope.User = "Physician";
+					break;
+				
+				case '5':
+					$scope.User = "Pharmacy Staff";
+					break;
 
-                case '6':
-                    $scope.Billing = true;
-                    break;
-                    
-                    default:
-                    break;
-            }    
+				case '6':
+					$scope.User = "Billing Staff";
+					break;
+			
+				default:
+					break;
+			}
             $http({
                 method: 'get',
                 url: 'getData/get-bed-details.php'

@@ -58,11 +58,11 @@
                                                 </div>
                                                 <div data-field-span="1">
                                                     <label>RR</label>
-                                                    <input type="text" ng-model="rr">
+                                                    <input type="text" class="form-control" ng-model="rr" ui-mask="99"  ui-mask-placeholder ui-mask-placeholder-char="-  "/>
                                                 </div>
                                                 <div data-field-span="1">
                                                     <label>Temperature</label>
-                                                    <input type="text" ng-model="temp">
+                                                    <input type="text" class="form-control" ng-model="temp" ui-mask="99°"  ui-mask-placeholder ui-mask-placeholder-char="-  "/>
                                                 </div>
                                             </div>
                                             <div data-row-span="3">
@@ -157,7 +157,7 @@
         $('#' + $(this).data('select2-open')).select2('open');
         });
 
-                var app = angular.module('myApp', ["angular-autogrow"]);
+                var app = angular.module('myApp', ['angular-autogrow','ui.mask']);
 
                 app.controller('userCtrl', function($scope, $window, $http) {
                     $scope.at = "<?php echo $_GET['at'];?>";
@@ -167,27 +167,27 @@
                     
                     switch ($scope.at.charAt(0)) {
                         case '1':
-                            $scope.Administrator = true;
+                            $scope.User = "Administrator";
                             break;
                         
                         case '2':
-                            $scope.Admission = true;
+                            $scope.User = "Admission Staff";
                             break;
                         
                         case '3':
-                            $scope.Nurse = true;
+                            $scope.User = "Nursing Staff";
                             break;
                         
                         case '4':
-                            $scope.Physician = true;
+                            $scope.User = "Physician";
                             break;
                         
                         case '5':
-                            $scope.Pharmacy = true;
+                            $scope.User = "Pharmacy Staff";
                             break;
-
+        
                         case '6':
-                            $scope.Billing = true;
+                            $scope.User = "Billing Staff";
                             break;
                     
                         default:

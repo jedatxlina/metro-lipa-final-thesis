@@ -13,7 +13,7 @@
     <li class="active"> <a href="specialization.php">Medical Specialization</a>
     </li>
 </ol>
-
+<br><br>
 <div class="container-fluid" ng-app="myApp" ng-controller="userCtrl">
 
     <div class="row">
@@ -47,59 +47,62 @@
                     <div class="panel-footer"></div>
                 </div>
             </div>
-            <div class="col-md-3">
-                <div class="panel panel-default">
-                    <div class="panel-heading">
-                        <h2>Action Panel</h2>
 
-                    </div>
-                    <div class="panel-body">
-                        <a href="#" ng-click="AddSpecialization()" class="btn btn-default-alt btn-lg btn-block"><i class="fa fa-list-alt fa-fw"></i><span>&nbsp;&nbsp;Add Specialization</span></a>
-                        <a href="#" ng-click="EditSpecialization()" class="btn btn-default-alt btn-lg btn-block"><i class="ti ti-info-alt"></i><span>&nbsp;&nbsp;Edit Specialization</span></a>
-                    </div>
-                </div>
+            <div class="col-md-3">
+                    <div class="list-group list-group-alternate mb-n nav nav-tabs">
+						<a href="#" role="tab" data-toggle="tab" class="list-group-item active">Actions Panel</a>
+						<a href="#" ng-click="AddSpecialization()" role="tab" data-toggle="tab" class="list-group-item"><i class="fa fa-list-alt fa-fw"></i>Add Bed</a>
+						<a href="#" ng-click="EditSpecialization()"role="tab" data-toggle="tab" class="list-group-item"><i class="ti ti-info-alt"></i>Edit Bed</a>
+                	</div>
             </div>
+
             <div class="modal fade" id="AddSpecializationModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
                 <div class="modal-dialog">
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                            <h4 class="modal-title" id="myModalLabel">Add Specialization</h4>
+                    <div class="panel panel-danger" data-widget='{"draggable": "false"}'>
+                        <div class="panel-heading">
+                            <h2>Add Specialization</h2>
+                            <div class="panel-ctrls" data-actions-container="" data-action-collapse='{"target": ".panel-body, .panel-footer"}'></div>
                         </div>
-                        <div class="modal-body">
-                            <form>
+                        <div class="panel-body" style="height: 150px">
+                             <form>
                                 <div class="form-group">
                                     <label>Specialization </label>
                                     <input type="text" ng-model="specialization" placeholder="Surgeon" class="form-control">
                                 </div>
-                                <div class="modal-footer">
-                                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                                    <button ng-click='Add()' class="btn btn-primary">Confirm</button>
-                                </div>
+                                    <button type="button" class="btn btn-default pull-right" data-dismiss="modal">Close</button>
+                                    <button ng-click='Add()' class="btn btn-danger pull-right">Confirm</button>
                             </form>
                         </div>
                     </div>
-                    <!-- /.modal-content -->
                 </div>
             </div>
 
+          
+            <!-- Error modal -->
             <div class="modal fade" id="ErrorModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
                 <div class="modal-dialog">
-                    <div class="alert alert-danger">
-                        Select Medical Specialization record that you would like to apply an <a href="#" class="alert-link">Action.</a>
+                    <div class="panel panel-danger" data-widget='{"draggable": "false"}'>
+                        <div class="panel-heading">
+                            <h2>Error:</h2>
+                            <div class="panel-ctrls" data-actions-container="" data-action-collapse='{"target": ".panel-body, .panel-footer"}'></div>
+                        </div>
+                        <div class="panel-body" style="height: 60px">
+                        Select Emergency record that you would like to apply an <a href="#" class="alert-link">Action.</a>
+                        </div>
                     </div>
                 </div>
             </div>
+            <!--/ Error modal -->
 
             <div class="modal fade" id="EditSpecialization" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
                 <div class="modal-dialog">
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                            <h4 class="modal-title" id="myModalLabel">Edit Specialization</h4>
+                  <div class="panel panel-danger" data-widget='{"draggable": "false"}'>
+                        <div class="panel-heading">
+                            <h2>Edit Specialization</h2>
+                            <div class="panel-ctrls" data-actions-container="" data-action-collapse='{"target": ".panel-body, .panel-footer"}'></div>
                         </div>
-                        <div class="modal-body">
-                            <form ng-repeat="special in specials">
+                        <div class="panel-body" style="height: 250px">
+                              <form ng-repeat="special in specials">
                                 <div class="form-group">
                                     <label>Specialization ID</label>
                                     <input type="text" ng-model="$parent.specialid" ng-init="$parent.specialid=special.SpecializationID" class="form-control" disabled>
@@ -108,10 +111,8 @@
                                     <label>Specialization Name</label>
                                     <input type="text" ng-model="$parent.specialn" ng-init="$parent.specialn=special.SpecializationName" class="form-control" required>
                                 </div>
-                                <div class="modal-footer">
-                                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                                    <button ng-click='Update()' class="btn btn-primary">Confirm</button>
-                                </div>
+                                    <button type="button" class="btn btn-default pull-right" data-dismiss="modal">Close</button>
+                                    <button ng-click='Update()' class="btn btn-danger pull-right">Confirm</button>
                             </form>
                         </div>
                     </div>
@@ -131,34 +132,34 @@
                 $scope.clickedRow = 0;
                 $scope.new = {};
 
-                switch ($scope.at.charAt(0)) {
-                case '1':
-                    $scope.Administrator = true;
-                     break;
+                    switch ($scope.at.charAt(0)) {
+                        case '1':
+                            $scope.User = "Administrator";
+                            break;
                         
-                case '2':
-                    $scope.Admission = true;
-                    break;
+                        case '2':
+                            $scope.User = "Admission Staff";
+                            break;
                         
-                case '3':
-                    $scope.Nurse = true;
-                    break;
+                        case '3':
+                            $scope.User = "Nursing Staff";
+                            break;
                         
-                case '4':
-                    $scope.Physician = true;
-                    break;
+                        case '4':
+                            $scope.User = "Physician";
+                            break;
                         
-                case '5':
-                    $scope.Pharmacy = true;
-                    break;
-
-                case '6':
-                    $scope.Billing = true;
-                    break;
+                        case '5':
+                            $scope.User = "Pharmacy Staff";
+                            break;
+        
+                        case '6':
+                            $scope.User = "Billing Staff";
+                            break;
                     
-                    default:
-                    break;
-            }    
+                        default:
+                            break;
+                    }
 
                 $http({
                     method: 'get',
