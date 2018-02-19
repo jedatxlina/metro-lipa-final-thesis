@@ -2,7 +2,7 @@
 
 require_once 'connection.php';
 $accid = $_GET['accid'];
-$sel = mysqli_query($con,"SELECT * FROM physicians WHERE AccountID='$accid'");
+$sel = mysqli_query($con,"SELECT * FROM physicians WHERE PhysicianID='$accid'");
 
 $data = array();
 
@@ -11,6 +11,7 @@ while ($row = mysqli_fetch_array($sel)) {
         "PhysicianID"=>$row['PhysicianID'],
         "LastName"=>$row['LastName'],
         "FirstName"=>$row['FirstName'],
+        "Gender"=>$row['Gender'],
         "MiddleName"=>$row['Address'],
         "Birthdate"=>$row['Birthdate'],
         "Specialization"=>$row['Specialization'],
