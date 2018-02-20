@@ -3,9 +3,9 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Feb 19, 2018 at 05:20 PM
--- Server version: 10.1.28-MariaDB
--- PHP Version: 7.1.10
+-- Generation Time: Feb 19, 2018 at 06:08 PM
+-- Server version: 10.1.29-MariaDB
+-- PHP Version: 7.2.0
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET AUTOCOMMIT = 0;
@@ -32,7 +32,11 @@ CREATE TABLE `admission_staffs` (
   `AdmissionStaffID` int(6) NOT NULL,
   `LastName` varchar(15) NOT NULL,
   `FirstName` varchar(15) NOT NULL,
-  `MiddleName` varchar(15) NOT NULL
+  `MiddleName` varchar(15) NOT NULL,
+  `Gender` varchar(10) NOT NULL,
+  `Address` varchar(50) NOT NULL,
+  `Birthdate` date NOT NULL,
+  `Email` varchar(50) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
@@ -94,7 +98,11 @@ CREATE TABLE `billing_staff` (
   `BillingStaffID` int(6) NOT NULL,
   `LastName` varchar(15) NOT NULL,
   `FirstName` varchar(15) NOT NULL,
-  `MiddleName` varchar(15) NOT NULL
+  `MiddleName` varchar(15) NOT NULL,
+  `Gender` varchar(10) NOT NULL,
+  `Address` varchar(50) NOT NULL,
+  `Birthdate` date NOT NULL,
+  `Email` varchar(50) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
@@ -1876,7 +1884,11 @@ CREATE TABLE `nurses` (
   `NurseID` int(6) NOT NULL,
   `LastName` varchar(15) NOT NULL,
   `FirstName` varchar(15) NOT NULL,
-  `MiddleName` varchar(15) NOT NULL
+  `MiddleName` varchar(15) NOT NULL,
+  `Gender` varchar(10) NOT NULL,
+  `Address` varchar(50) NOT NULL,
+  `Birthdate` date NOT NULL,
+  `Email` varchar(50) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
@@ -1986,7 +1998,11 @@ CREATE TABLE `pharmacy_staff` (
   `PharmacyID` int(6) NOT NULL,
   `LastName` varchar(15) NOT NULL,
   `FirstName` varchar(15) NOT NULL,
-  `MiddleName` varchar(15) NOT NULL
+  `MiddleName` varchar(15) NOT NULL,
+  `Gender` varchar(10) NOT NULL,
+  `Address` varchar(50) NOT NULL,
+  `Birthdate` date NOT NULL,
+  `Email` varchar(50) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
@@ -1997,22 +2013,26 @@ CREATE TABLE `pharmacy_staff` (
 
 CREATE TABLE `physicians` (
   `PhysicianID` int(6) NOT NULL,
-  `LastName` varchar(10) NOT NULL,
-  `FirstName` varchar(10) NOT NULL,
-  `MiddleName` varchar(10) NOT NULL,
+  `LastName` varchar(25) NOT NULL,
+  `FirstName` varchar(20) NOT NULL,
+  `MiddleName` varchar(20) NOT NULL,
+  `Gender` varchar(10) NOT NULL,
   `Address` varchar(80) NOT NULL,
+  `Contact` varchar(15) NOT NULL,
   `Birthdate` varchar(20) NOT NULL,
   `Specialization` varchar(50) NOT NULL,
-  `ProfessionalFee` decimal(15,2) NOT NULL
+  `ProfessionalFee` decimal(15,2) NOT NULL,
+  `Email` varchar(50) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `physicians`
 --
 
-INSERT INTO `physicians` (`PhysicianID`, `LastName`, `FirstName`, `MiddleName`, `Address`, `Birthdate`, `Specialization`, `ProfessionalFee`) VALUES
-(123456, 'Lina', 'Jed', 'Matthew', '152 Bagongpook Lipa City', '1998/02/18', 'Surgeon', '500.00'),
-(222222, 'Atienza', 'JM', 'JM', 'Bagongpook', '12/11/11', 'Surgeon', '100.00');
+INSERT INTO `physicians` (`PhysicianID`, `LastName`, `FirstName`, `MiddleName`, `Gender`, `Address`, `Contact`, `Birthdate`, `Specialization`, `ProfessionalFee`, `Email`) VALUES
+(123456, 'Lina', 'Jed', 'Matthew', '', '152 Bagongpook Lipa City', '', '1998/02/18', 'Surgeon', '500.00', ''),
+(410170, 'Chubby', 'Renz', 'Sakazuki', 'Male', 'Lemery Angeles Batangas', '123456', '06/08/1994', 'Cardiovascular', '5000.00', 'chabilog@gmail.com'),
+(444444, 'Lina', 'Jed', 'Matthew', 'Male', '152 Bagong Pook Lipa City Batangas', '', '', 'Surgeon', '0.00', 'jedlina@gmail.com');
 
 -- --------------------------------------------------------
 
@@ -2167,8 +2187,9 @@ INSERT INTO `user_account` (`AccountID`, `AccessType`, `Passwordd`, `Email`) VAL
 ('111111', '1', '111111', 'admin@gmail.com'),
 ('222222', '2', '222222', 'admission@gmail.com'),
 ('333333', '3', '333333', 'nurse@gmail.com'),
+('410170', '4', '123', 'doctor@gmail.com'),
 ('444444', '4', '444444', 'jmatthewlina.ceo@gmail.com'),
-('523770', '5', '555555', 'pharmacy@gmail.com');
+('523770', '5', '555555', 'pharmacist@gmail.com');
 
 -- --------------------------------------------------------
 
@@ -2199,10 +2220,22 @@ INSERT INTO `vitals` (`VitalsID`, `AdmissionID`, `BP`, `PR`, `RR`, `Temperature`
 --
 
 --
+-- Indexes for table `admission_staffs`
+--
+ALTER TABLE `admission_staffs`
+  ADD PRIMARY KEY (`AdmissionStaffID`);
+
+--
 -- Indexes for table `beds`
 --
 ALTER TABLE `beds`
   ADD PRIMARY KEY (`BedID`);
+
+--
+-- Indexes for table `billing_staff`
+--
+ALTER TABLE `billing_staff`
+  ADD PRIMARY KEY (`BillingStaffID`);
 
 --
 -- Indexes for table `cities`
@@ -2215,6 +2248,12 @@ ALTER TABLE `cities`
 --
 ALTER TABLE `laboratories`
   ADD PRIMARY KEY (`LaboratoryID`);
+
+--
+-- Indexes for table `nurses`
+--
+ALTER TABLE `nurses`
+  ADD PRIMARY KEY (`NurseID`);
 
 --
 -- Indexes for table `orders`
@@ -2234,6 +2273,18 @@ ALTER TABLE `patients`
 --
 ALTER TABLE `pharmaceuticals`
   ADD PRIMARY KEY (`MedicineID`);
+
+--
+-- Indexes for table `pharmacy_staff`
+--
+ALTER TABLE `pharmacy_staff`
+  ADD PRIMARY KEY (`PharmacyID`);
+
+--
+-- Indexes for table `physicians`
+--
+ALTER TABLE `physicians`
+  ADD PRIMARY KEY (`PhysicianID`);
 
 --
 -- Indexes for table `provinces`
