@@ -119,7 +119,7 @@
                                                         <option value="" disabled selected>Select Physician</option>
                                                     </select>
                                                 </div>
-                                                <div data-field-span="1">
+                                                <!-- <div data-field-span="1">
                                                     <label>Classification</label>
                                                     <label>
                                                         <input type="radio" name="classification" ng-model="classification" value="Cash"> Cash</label> &nbsp;
@@ -129,13 +129,13 @@
                                                         <input type="radio" name="classification" ng-model="classification" value="Corporate"> HMO</label>
                                                     <label>
                                                         <input type="radio" name="classification" ng-model="classification" value="Private"> Private</label>
-                                                </div>
+                                                </div> -->
                                             </div>
                                             <br>
                                             <div class="clearfix pt-md">
                                                 <div class="pull-right">
                                                     <button ng-click="goBack()" class="btn-default btn">Cancel</button>
-                                                    <button type="submit" class="btn-danger btn" ng-click="submitDetails()">Submit</button>
+                                                    <button type="submit" class="btn-danger btn" ng-click="submitDetails()">Next</button>
                                                 </div>
                                             </div>
                                         </fieldset>
@@ -213,32 +213,16 @@
          
 
                     $scope.submitDetails = function(){
+                        $scope.vitalsid =     "<?php echo rand(111111, 999999);?>"; 
+                        $scope.medicationid = "<?php echo rand(111111, 999999);?>"; 
+                        $scope.diagnosisid =  "<?php echo rand(111111, 999999);?>"; 
+                        $scope.attendingid =  "<?php echo rand(111111, 999999);?>"; 
+                        
                         $scope.condition =$("#conditions").val();
                         $scope.medication =$("#medications").val();
                         $scope.administered =$("#administered").val();
 
-                        $http({
-                            method: 'GET',
-                            url: 'insertData/insert-medical-details.php',
-                            params: {medid: $scope.medid,
-                                    admissionid: $scope.admissionid,
-                                    conditions: $scope.condition,
-                                    surgery: $scope.surgery,
-                                    bp: $scope.bp,
-                                    pr: $scope.pr,
-                                    rr: $scope.rr,
-                                    temp: $scope.temp,
-                                    medications: $scope.medication,
-                                    weight: $scope.weight,
-                                    height: $scope.height,
-                                    diagnosis: $scope.diagnosis,
-                                    administered: $scope.administered,
-                                    attending: $scope.attending.PhysicianID,
-                                    classification: $scope.classification}
-                        }).then(function(response) {
-                        });
-
-                              
+            
                         $http({
                             method: 'GET',
                             url: 'qr-generator/index.php',
@@ -246,16 +230,30 @@
                                     admissionid: $scope.admissionid,
                                  }
                         }).then(function(response) {
-                                switch ($scope.param) {
-                                    case 'Emergency':
-                                    window.location.href = 'emergency.php?at=' + $scope.at;         
-                                    break;
-                            
-                                default:
-                                    break;
-                            }
                         });
-                  
+
+                        $http({
+                            method: 'GET',
+                            url: 'insertData/insert-medical-details.php',
+                            params: {medid: $scope.medid,
+                                    admissionid: $scope.admissionid,
+                                    vitalsid: $scope.vitalsid,
+                                    medicationid: $scope.medicationid,
+                                    diagnosisid: $scope.diagnosisid,
+                                    attendingid: $scope.attendingid,
+                                    surgery: $scope.surgery,
+                                    bp: $scope.bp,
+                                    pr: $scope.pr,
+                                    rr: $scope.rr,
+                                    temp: $scope.temp,
+                                    weight: $scope.weight,
+                                    height: $scope.height,
+                                    diagnosis: $scope.diagnosis,
+                                    attending: $scope.attending.PhysicianID}
+                        }).then(function(response) {
+                            window.location.href = 'insertData/insert-medications-details.php?param=' + $scope.param + '&at=' + $scope.at + '&medicationid=' + $scope.medicationid + '&admissionid=' + $scope.admissionid + '&administered=' + $scope.administered + '&physicianid=' + $scope.attending.PhysicianID;
+                        });
+
                     
                     }
 
