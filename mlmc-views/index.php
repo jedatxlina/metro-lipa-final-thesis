@@ -31,10 +31,11 @@
 				<div class="tile-footer"><span class="text-success">+0.0%</span></div>
 			</div>
 			</div>
-				<form ng-repeat="user in users">
-							<input type="hidden" ng-model="$parent.LN" ng-init="$parent.LN=user.LastName" class="form-control">
-							
-				</form>
+
+			<form ng-repeat="user in users">
+				<input type="hidden" ng-model="$parent.LN" ng-init="$parent.LN=user.LastName" class="form-control">
+			</form>
+			
 		</div>
 
 	</div>
@@ -43,9 +44,8 @@
 <script>
         var app = angular.module('myApp', []);
         app.controller('userCtrl', function($scope, $http) {
-			$scope.at = "<?php echo $at;?>";
+				$scope.at = "<?php echo $at;?>";
 
-				//after page loads	
 				angular.element(document).ready(function(){
 				
 				 if ($scope.at[0] == 4)
@@ -57,7 +57,6 @@
 						}
 				});
 
-							
 				if ($scope.at[0] == 2)		
 				{
 					$http({
@@ -108,10 +107,6 @@
 								$scope.users = response.data;
 							});
 					}
-		
-
-			
-				
 
 			switch ($scope.at.charAt(0)) {
 				case '1':

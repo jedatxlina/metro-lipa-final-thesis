@@ -239,6 +239,7 @@ var fetch = angular.module('myApp', ['ui.mask']);
                 break;
         }
             $scope.accesstype = $scope.at[0];
+            
             $http({
             method: 'GET',
             url: 'getData/get-user-profile.php',
