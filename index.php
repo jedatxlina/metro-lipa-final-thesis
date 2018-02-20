@@ -119,7 +119,7 @@
        	            }).then(function(response) {
                         $scope.param = response.data;
 						if($scope.param == 0){
-							alert('Oh snap! Change a few things up and try submitting again.');
+							alert('Invalid Username And Password');
 						}else{
 							window.location.href = 'mlmc-views/index.php?at=' + $scope.user;	
 						}
