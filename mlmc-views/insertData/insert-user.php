@@ -21,7 +21,7 @@ switch ($accesstype) {
         break;
 
     case '4':
-        $query= "INSERT into physicians(PhysicianID) VALUES ('$accountid')";
+        $query= "INSERT into physicians(PhysicianID,AccountID) VALUES ('$accountid','$accountid')";
         break;
     
     case '5':

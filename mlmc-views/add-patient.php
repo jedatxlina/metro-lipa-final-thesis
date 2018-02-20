@@ -56,8 +56,8 @@
                                                     <input type="text" class="form-control" ng-model="" id="datepicker">
                                                 </div>
                                                 <div data-field-span="1">
-                                                    <label>Age</label>
-                                                    <input type="text" class="form-control" ng-model="age">
+                                                <label>Mobile No.</label>
+                                                    <input type="text" class="form-control" ng-model="contact" ui-mask="+63 999-999-9999"  ui-mask-placeholder ui-mask-placeholder-char="-  "/>
                                                 </div>
                                                 <div data-field-span="1">
                                                     <label>Gender</label>
@@ -75,16 +75,7 @@
                                                     </select>
                                                 </div>
                                             </div>
-                                             <div data-row-span="4">
-                                                <div data-field-span="2" data-field-error="Please enter a valid email address">
-                                                    <label>E-mail</label>
-                                                    <input type="text" class="form-control" ng-model="email">
-                                                </div>
-                                                <div data-field-span="1">
-                                                    <label>Mobile No.</label>
-                                                    <input type="text" class="form-control" ng-model="contact" ui-mask="+63 999-999-9999"  ui-mask-placeholder ui-mask-placeholder-char="-  "/>
-                                                </div>
-                                            </div>
+                                           
                                             <div data-row-span="1">
                                                 <div data-field-span="1">
                                                     <label>In case of a minor please provide details (Name of parent and natural guardian)</label>
@@ -146,12 +137,6 @@
                                                         <input type="radio" name="occupation" value="Other" ng-model="occupation"> Other</label> &nbsp;
                                                     <label>
                                                         <input type="radio" name="occupation" value="Unemployed" ng-model="occupation"> Unemployed</label>
-                                                </div>
-                                            </div>
-                                              <div data-row-span="1">
-                                                <div data-field-span="1">
-                                                    <label>Job Title</label>
-                                                    <input type="text" ng-model="jobtitle">
                                                 </div>
                                             </div>
                                             <div data-row-span="2">
@@ -243,13 +228,13 @@
                     });
 
                     $scope.check = function(check){
-                    $scope.param = check;
-                    if($scope.param == 1){
-                        $scope.admissiontype = 'Emergency';
-                        
-                    }else{
-                        $scope.admissiontype = 'Outpatient';
-                    }
+                        $scope.param = check;
+                        if($scope.param == 1){
+                            $scope.admissiontype = 'Emergency';
+                            
+                        }else{
+                            $scope.admissiontype = 'Outpatient';
+                        }
                     }
 
                     $scope.cityUpdate = function(){
@@ -280,7 +265,6 @@
                                     city: $scope.city.city,
                                     address:$scope.address,
                                     gender: $scope.gender,
-                                    age: $scope.age,
                                     status: $scope.status,
                                     birthdate: $scope.birthdate,
                                     contact: $scope.contact,

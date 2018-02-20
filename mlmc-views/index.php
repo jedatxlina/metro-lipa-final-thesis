@@ -1,7 +1,7 @@
 <?php include 'admin-header.php'?>
 
 <ol class="breadcrumb">
-<li><a href="index.php">Home</a></li>
+<li><a href="#">Home</a></li>
 <li class="active"><a href="#" ng-click="reSubmit()">Dashboard</a></li>
 </ol>
 <br><br>

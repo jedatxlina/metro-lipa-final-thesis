@@ -24,15 +24,16 @@ $classification = $_GET['classification'];
 $discount = '0.00';
 
 date_default_timezone_set("Asia/Singapore");
-$arrivaldatetime = date("Y/m/d h:i:sa");
+$date = date("Y-m-d");
+$time = date("h:i A");
 
-$query = "INSERT into medical_details(MedicalID,AdmissionID,AttendingID,ArrivalDateTime,VitalsID,MedicationID,DiagnosisID,Conditions,CurrentMedication,PreviousSurgeries,Weight,Height,Class) 
-VALUES('$medicalid','$admissionid','$attendingid','$arrivaldatetime','$vitalsid','$medicationid','$diagnosisid','$conditions','$medications','$surgery','$weight','$height','$classification')";
+$query = "INSERT into medical_details(MedicalID,AdmissionID,AttendingID,ArrivalDate,ArrivalTime,VitalsID,MedicationID,DiagnosisID,PreviousSurgeries,Weight,Height,Class) 
+VALUES('$medicalid','$admissionid','$attendingid','$date','$time','$vitalsid','$medicationid','$diagnosisid','$surgery','$weight','$height','$classification')";
 
 mysqli_query($con,$query);  
 
-$query = "INSERT into vitals(VitalsID,AdmissionID,BP,PR,RR,Temperature,DateTimeChecked) 
-VALUES('$vitalsid','$admissionid','$bp','$pr','$rr','$temp','$arrivaldatetime')";
+$query = "INSERT into vitals(VitalsID,AdmissionID,BP,PR,RR,Temperature,DateChecked,TimeChecked) 
+VALUES('$vitalsid','$admissionid','$bp','$pr','$rr','$temp','$date','$time')";
 
 mysqli_query($con,$query);
 
@@ -41,17 +42,16 @@ VALUES('$attendingid','$attendingphysicianid','$admissionid','$diagnosisid','$di
 
 mysqli_query($con,$query);
 
-$query = "INSERT into diagnosis(DiagnosisID,AttendingID,Findings,DateDiagnosed,MedicationID) 
-VALUES('$diagnosisid','$attendingid','$diagnosis','$arrivaldatetime','$medicationid')";
+$query = "INSERT into diagnosis(DiagnosisID,AttendingID,Findings,DateDiagnosed,TimeDiagnosed,MedicationID) 
+VALUES('$diagnosisid','$attendingid','$diagnosis','$date','$time','$medicationid')";
 
 mysqli_query($con,$query);
 
 
 foreach($administered AS $value) {
 
-$query = "INSERT into medication(MedicationID,AdmissionID,MedicineID,DateTimeAdministered) 
-VALUES('123123','$admissionid','$value','$arrivaldatetime')";
-
+$query = "INSERT into medication(MedicationID,AdmissionID,MedicineID,DateAdministered,TimeAdministered) 
+VALUES('123123','$admissionid','$value','$date','$time')";
 mysqli_query($con,$query);
 
 }

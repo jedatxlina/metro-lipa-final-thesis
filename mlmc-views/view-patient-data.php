@@ -66,8 +66,12 @@
                                                 <td>{{patient.AdmissionNo}}</td>
                                             </tr>
                                             <tr>
-                                                <th>Admisison Date Time</th>
-                                                <td>{{patient.AdmissionDateTime}}</td>
+                                                <th>Admisison Date</th>
+                                                <td>{{patient.AdmissionDate}}</td>
+                                            </tr>
+                                            <tr>
+                                                <th>Admisison Time</th>
+                                                <td>{{patient.AdmissionTime}}</td>
                                             </tr>
                                             <tr>
                                                 <th>Admission</th>
@@ -98,6 +102,7 @@
                                                 <th>Patients Name</th>
                                                 <th>Admission ID</th>
                                                 <th>Admission Date</th>
+                                                <th>Admission Time</th>
                                                 <th>Bed ID</th>
                                                 <th>Medical ID</th>
                                             </tr>
@@ -106,7 +111,8 @@
                                             <tr ng-repeat="" ng-class="{'selected': patient.AdmissionID == selectedRow}" ng-click="setClickedRow(patient.AdmissionID)">
                                                     <td>{{patient.Lname}}, {{patient.Fname}} {{patient.Mname}}</td>
                                                     <td>{{patient.AdmissionID}}</td>
-                                                    <td>{{patient.AdmissionDateTime}}</td>
+                                                    <td>{{patient.AdmissionDate}}</td>
+                                                    <td>{{patient.AdmissionTime}}</td>
                                                     <td>{{patient.BedID}}</td>
                                                     <td>{{patient.MedicalID}}</td>
                                                     <td></td>
@@ -138,8 +144,12 @@
                                                     <td>{{patient.AdmissionNo}}</td>
                                                 </tr>
                                                 <tr>
-                                                    <th>Admisison Date Time</th>
-                                                    <td>{{patient.AdmissionDateTime}}</td>
+                                                    <th>Admisison Date</th>
+                                                    <td>{{patient.AdmissionDate}}</td>
+                                                </tr>
+                                                <tr>
+                                                    <th>Admisison Time</th>
+                                                    <td>{{patient.AdmissionTime}}</td>
                                                 </tr>
                                                 <tr>
                                                     <th>Admission</th>
@@ -296,8 +306,12 @@
                                                     <td>{{patient.AdmissionNo}}</td>
                                                 </tr>
                                                 <tr>
-                                                    <th>Admisison Date Time</th>
-                                                    <td>{{patient.AdmissionDateTime}}</td>
+                                                    <th>Admisison Date</th>
+                                                    <td>{{patient.AdmissionDate}}</td>
+                                                </tr>
+                                                <tr>
+                                                    <th>Admisison Time</th>
+                                                    <td>{{patient.AdmissionTime}}</td>
                                                 </tr>
                                                 <tr>
                                                     <th>Admission</th>

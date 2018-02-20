@@ -64,8 +64,9 @@
                 <div class="list-group list-group-alternate mb-n nav nav-tabs">
                     <a href="#" role="tab" data-toggle="tab" class="list-group-item active">Actions Panel</a>
                     <a href="#" ng-click="viewPatient()" role="tab" data-toggle="tab" class="list-group-item"><i class="ti ti-user"></i> Patient Details</a>
-                    <a href="#" ng-click="movePatient()" role="tab" data-toggle="tab" class="list-group-item"><i class="fa fa-stethoscope"></i>Post Diagnosis</a>
-                    <a href="#" ng-click="dischargePatient()" role="tab" data-toggle="tab" class="list-group-item"><i class="fa fa-check-square-o"></i>Post Prescription</a>
+                    <a href="#" ng-click="postDiagnosis()" role="tab" data-toggle="tab" class="list-group-item"><i class="fa fa-stethoscope"></i>Post Diagnosis</a>
+                    <a href="#" ng-click="postOrder()" role="tab" data-toggle="tab" class="list-group-item"><i class="fa fa-stethoscope"></i>Post Order</a>
+                    <a href="#" ng-click="postPrescription()" role="tab" data-toggle="tab" class="list-group-item"><i class="fa fa-check-square-o"></i>Post Prescription</a>
                    
                 </div>
             </div>
