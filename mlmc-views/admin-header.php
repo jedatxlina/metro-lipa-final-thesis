@@ -231,7 +231,7 @@
 				<li class="nav-separator"><span>Other Transactions</span></li>
 				
 				<li <?php if ($id!=1){?>style="display:none"<?php } ?>><a ng-click="getPage('Accounts')" href="javascript:void(0);"><i class="fa fa-key"></i><span>Accounts</span></a></li>
-					<li <?php if ($id!=1){?>style="display:none"<?php } ?>><a ng-click="getPage('Specialization')" href="javascript:void(0);"><i class="fa fa-medkit"></i><span>Medical Specializations</span> </a></li>
+					<li <?php if ($id!=1){?>style="display:none"<?php } ?>><a ng-click="getPage('Specialization')" href="javascript:void(0);"><i class="fa fa-medkit"></i><span>List of Doctors</span> </a></li>
 				<li <?php if ($id!=1){?>style="display:none"<?php } ?>><a  ng-click="getPage('Laboratory')" href="javascript:void(0);"><i class="fa fa-search"></i><span>Laboratories</span></a></li>
 			</ul>
 		</nav>
