@@ -28,7 +28,7 @@
                     </div>
                     </div><!-- panel -->
                     <div class="list-group list-group-alternate mb-n nav nav-tabs">
-                        <a href="#tab-edit" 	role="tab" data-toggle="tab" class="list-group-item active"><i class="ti ti-view-list-alt"></i> Edit</a>
+                        <a href="#tab-edit" 	role="tab" data-toggle="tab" class="list-group-item active"><i class="ti ti-view-list-alt"></i> Medication Details</a>
                     </div>
                 </div><!-- col-sm-3 -->
                 <div class="col-sm-9">
@@ -86,30 +86,35 @@
                                     </div>
                                  <br><br>
                                 </fieldset>
+                                
                                 <fieldset>
                                         <legend  class="pull-right">Payment</legend>
                                         <div data-row-span="2">
                                             <div data-field-span="1">
                                                 <label>Classification</label><br>
                                                 <label>
-                                                    <input type="radio" name="classification" ng-model="classification" value="Cash"> Cash</label> &nbsp;
+                                                    <input type="radio" ng-model="type" value="Cash"> Cash</label> &nbsp;
                                                 <label>
-                                                    <input type="radio" name="classification" ng-model="classification" value="HMO"> Corporate</label> &nbsp;
+                                                    <input type="radio"  ng-model="type" value="Corporate"> Corporate</label> &nbsp;
                                                 <label>
-                                                    <input type="radio" name="classification" ng-model="classification" value="Corporate"> HMO</label>
+                                                    <input type="radio" ng-model="type" value="HMO"> HMO</label>
                                                 <label>
-                                                    <input type="radio" name="classification" ng-model="classification" value="Private"> Private</label>
+                                                    <input type="radio" ng-model="type" value="Private"> Private</label>
                                             </div>
                                         </div>
                                 </fieldset>
-                                    <br>
-                            
+                                
                                     <div class="clearfix pt-md">
                                         <div class="pull-right">
                                             <button ng-click="goBack()" class="btn-default btn">Cancel</button>
-                                            <button type="submit" class="btn-danger btn" ng-click="submitDetails()">Submit</button>
+                                            <button type="submit" class="btn-danger btn" ng-click="submitDetails(type)">Submit</button>
                                         </div>
                                     </div>
+                        
+                                  
+                                </fieldset>
+
+                                    
                             </form>
                         </div>
                     </div>
@@ -126,6 +131,7 @@
                 var app = angular.module('myApp', ['angular-autogrow','ui.mask']);
 
                 app.controller('userCtrl', function($scope, $window, $http) {
+                    
                     $scope.at = "<?php echo $_GET['at'];?>";
                     $scope.medicationid = "<?php echo $_GET['medicationid']; ?>";
                     $scope.admissionid = "<?php echo $_GET['admissionid']; ?>";
@@ -133,7 +139,8 @@
                     $scope.MedID = [];
                     $scope.Quantity = [];
                     $scope.Dosage = [];
-
+                    $scope.birthdate =$("#datepicker").datepicker("option", "dateFormat", "yy-mm-dd" ).val();
+                    
                     switch ($scope.at.charAt(0)) {
                         case '1':
                             $scope.User = "Administrator";
@@ -180,11 +187,9 @@
                         $scope.patientdetails = response.data;
                     });
 
-                    $scope.submitDetails = function(){
+                    $scope.submitDetails = function(type){
                        
-
-                        window.location.href = 'initiate-medication.php?quantity=' + $scope.Quantity + '&id=' + $scope.medicationid + '&at=' + $scope.at + '&dosage=' + $scope.Dosage + '&medid=' + $scope.MedID + '&param=' + $scope.param + '&classification=' + $scope.classification;
-                        alert($scope.Quantity);
+                        window.location.href = 'initiate-medication.php?type=' + type +'&quantity=' + $scope.Quantity + '&id=' + $scope.medicationid + '&at=' + $scope.at + '&dosage=' + $scope.Dosage + '&medid=' + $scope.MedID + '&param=' + $scope.param;
                     }
 
                     $scope.goBack = function(){

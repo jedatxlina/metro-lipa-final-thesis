@@ -1,5 +1,6 @@
 <?php 
 require_once 'connection.php';
+
 $at = $_GET['at'];
 $param = $_GET['param'];
 $medicationid = $_GET['medicationid'];

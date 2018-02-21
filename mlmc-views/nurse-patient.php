@@ -62,10 +62,6 @@ font-weight: bold;
 						</div>
 						<div class="panel-footer"></div>
 					</div>
-					<div class="alert alert-dismissable alert-info">
-							&nbsp; 	<a href="#" ng-click="viewFlag()" <i class="ti ti-flag-alt"></i></a>&nbsp;&nbsp;Click the flag to view newly registered inpatient and confirm for tagging.
-						<button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
-					</div>
 				</div>
 				<div class="col-md-3">
 					<div class="panel panel-midnightblue widget-progress" data-widget='{"draggable": "false"}'>
@@ -98,8 +94,9 @@ font-weight: bold;
 						<a href="#" ng-click="viewPatient()" role="tab" data-toggle="tab" class="list-group-item"><i class="ti ti-user"></i> Patient Details</a>
                         <a href="#" ng-click="patientVitals()" role="tab" data-toggle="tab" class="list-group-item"><i class="fa fa-stethoscope"></i>Patient Vitals</a>
 						<a href="#" ng-click="viewPatientMedication()" role="tab" data-toggle="tab" class="list-group-item"><span class="badge badge-primary"  ng-if="order > 0">{{order}}</span> <i class="fa fa-medkit"></i>View Medication</a>
-                        <a href="#" ng-click="viewPatient()" role="tab" data-toggle="tab" class="list-group-item"><span class="badge badge-primary"  ng-if="order > 0">{{order}}</span> <i class="ti ti-email"></i>Doctors Order</a>
-                        <a href="#" role="tab" data-toggle="tab" class="list-group-item"><span class="badge badge-danger" ng-if="notif > 0">{{notif}}</span><i class="ti ti-bell"></i> Notifcations</a>
+						<a href="#" ng-click="viewPatientMedication()" role="tab" data-toggle="tab" class="list-group-item"><span class="badge badge-primary"  ng-if="order > 0">{{order}}</span> <i class="fa fa-plus-square-o"></i>Medicine Requisition</a>
+						<a href="#" ng-click="viewPatient()" role="tab" data-toggle="tab" class="list-group-item"><span class="badge badge-primary"  ng-if="order > 0">{{order}}</span> <i class="ti ti-email"></i>Doctors Order</a>
+                        <a href="#" ng-click="viewFlag()" role="tab" data-toggle="tab" class="list-group-item"><span class="badge badge-danger" ng-if="notif > 0">{{notif}}</span><i class="ti ti-bell"></i> Notifcations</a>
                     </div>
 				</div>
 					
@@ -208,18 +205,18 @@ font-weight: bold;
 											<th>Patients Name</th>
 											<th>Admission ID</th>
 											<th>Admission Date</th>
-											<th>Bed ID</th>
-											<th>Medical ID</th>
+											<th>Admission Time</th>
+											<th>Room</th>
 										</tr>
 										</thead>
 										<tbody>
 										<tr ng-repeat="patient in flagPatients" ng-class="{'selected': patient.AdmissionID == selectedRow}" ng-click="setClickedRow(patient.AdmissionID)">
 												<td>{{patient.Lname}}, {{patient.Fname}} {{patient.Mname}}</td>
 												<td>{{patient.AdmissionID}}</td>
-												<td>{{patient.AdmissionDateTime}}</td>
+												<td>{{patient.AdmissionDate}}</td>
+												<td>{{patient.AdmissionTime}}</td>
 												<td>{{patient.BedID}}</td>
-												<td>{{patient.MedicalID}}</td>
-												<td></td>
+												
 											</tr>
 										</tbody>
 									</table>
@@ -255,11 +252,18 @@ font-weight: bold;
 		var tick = function() {
 			$scope.clock = Date.now();
 			$scope.datetime = new Date().toLocaleTimeString('en-US', { hour: 'numeric', hour12: true, minute: 'numeric' });		
-			// if($scope.try == $scope.datetime){
-			// 	alert('jed');
-			// }
-		}
+			
+			$http({
+					method: 'get',
+					url: 'getData/get-inpatient-flags.php',
+					params:{id:$scope.selectedRow}
+				}).then(function(response) {
+					$scope.cnt = response.data;
+					$scope.notif = $scope.cnt.length;
+				});
 		
+		}
+	
 		tick();
 		$interval(tick, 1000);
 
@@ -359,7 +363,6 @@ font-weight: bold;
 				});
 				$('#flagModal').modal('show');
 		}
-
 
 		$scope.confirmBtn = function(user){
 	

@@ -7,8 +7,7 @@ $qnty = explode(',',$_GET['quantity']);
 $dosage = explode(',',$_GET['dosage']);
 $medid  = explode(',',$_GET['medid']);
 $param = $_GET['param'];
-$class = $_GET['classification'];
-
+$type = $_GET['type'];
 $cnt = count($medid);
 
 for($x = 0; $x < $cnt ; $x ++){
@@ -16,7 +15,7 @@ for($x = 0; $x < $cnt ; $x ++){
     mysqli_query($con,$query);
 }
 
-$query1 = "UPDATE  medical_details SET class = '$class' WHERE MedicationID = '$id'";
+$query1 = "UPDATE  medical_details SET class = '$type' WHERE MedicationID = '$id'";
 mysqli_query($con,$query1);
 
 switch ($param) {

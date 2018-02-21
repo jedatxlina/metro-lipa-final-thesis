@@ -47,6 +47,4 @@ VALUES('$diagnosisid','$attendingid','$diagnosis','$date','$time','$medicationid
 
 mysqli_query($con,$query);
 
-
-
 ?>

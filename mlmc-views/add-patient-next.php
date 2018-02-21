@@ -217,7 +217,6 @@
                         $scope.medicationid = "<?php echo rand(111111, 999999);?>"; 
                         $scope.diagnosisid =  "<?php echo rand(111111, 999999);?>"; 
                         $scope.attendingid =  "<?php echo rand(111111, 999999);?>"; 
-                        
                         $scope.condition =$("#conditions").val();
                         $scope.medication =$("#medications").val();
                         $scope.administered =$("#administered").val();
