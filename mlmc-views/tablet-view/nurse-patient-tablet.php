@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" ng-app="myApp" ng-controller="userCtrl">
     <head>
         <meta charset="utf-8">
         <title>Metro Lipa Patient Management System</title>
@@ -9,27 +9,27 @@
         <meta name="apple-touch-fullscreen" content="yes">
         <meta name="description" content="Avenxo Admin Theme">
         <meta name="author" content="KaijuThemes">
-        <link type='text/css' href='http://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400italic,600' rel='stylesheet'>
-        <link type="text/css" href="../assets/fonts/font-awesome/css/font-awesome.min.css" rel="stylesheet">
-        <!-- Font Awesome -->
-        <link type="text/css" href="../assets/fonts/themify-icons/themify-icons.css" rel="stylesheet">
-        <!-- Themify Icons -->
-        <link type="text/css" href="../assets/css/styles.css" rel="stylesheet">
-        <!-- Core CSS with all styles -->
-        <link type="text/css" href="../assets/plugins/codeprettifier/prettify.css" rel="stylesheet">
-        <!-- Code Prettifier -->
-        <link type="text/css" href="../assets/plugins/iCheck/skins/minimal/blue.css" rel="stylesheet">
-        <!-- iCheck -->
-        <link type="text/css" href="../assets/plugins/form-daterangepicker/daterangepicker-bs3.css" rel="stylesheet">
-        <link type="text/css" href="../assets/plugins/gridforms/gridforms/gridforms.css" rel="stylesheet">
-        <link type="text/css" href="../assets/plugins/fullcalendar/fullcalendar.css" rel="stylesheet">
-        <!-- FullCalendar -->
-        <link type="text/css" href="../assets/plugins/jvectormap/jquery-jvectormap-2.0.2.css" rel="stylesheet">
-        <!-- jVectorMap -->
-        <link type="text/css" href="../assets/plugins/switchery/switchery.css" rel="stylesheet">
-        <!-- Switchery -->
-        <link type="text/css" href="../assets/plugins/datatables/dataTables.bootstrap.css" rel="stylesheet">
-        <link type="text/css" href="../assets/plugins/datatables/dataTables.themify.css" rel="stylesheet">
+        
+
+    <link type='text/css' href='http://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400italic,600' rel='stylesheet'>
+
+    <link type="text/css" href="assets/fonts/font-awesome/css/font-awesome.min.css" rel="stylesheet">        <!-- Font Awesome -->
+    <link type="text/css" href="assets/fonts/themify-icons/themify-icons.css" rel="stylesheet">              <!-- Themify Icons -->
+    <link type="text/css" href="assets/css/styles.css" rel="stylesheet">                                     <!-- Core CSS with all styles -->
+
+    <link type="text/css" href="assets/plugins/codeprettifier/prettify.css" rel="stylesheet">                <!-- Code Prettifier -->
+    <link type="text/css" href="assets/plugins/iCheck/skins/minimal/blue.css" rel="stylesheet">              <!-- iCheck -->
+
+    <!--[if lt IE 10]>
+        <script type="text/javascript" src="assets/js/media.match.min.js"></script>
+        <script type="text/javascript" src="assets/js/respond.min.js"></script>
+        <script type="text/javascript" src="assets/js/placeholder.min.js"></script>
+    <![endif]-->
+    <!-- The following CSS are included as plugins and can be removed if unused-->
+    
+<link type="text/css" href="assets/plugins/fullcalendar/fullcalendar.css" rel="stylesheet"> 						<!-- FullCalendar -->
+<link type="text/css" href="assets/plugins/jvectormap/jquery-jvectormap-2.0.2.css" rel="stylesheet"> 			<!-- jVectorMap -->
+<link type="text/css" href="assets/plugins/switchery/switchery.css" rel="stylesheet">   							<!-- Switchery -->
         <style>
             .disabled {
             color: #ccc;
@@ -180,8 +180,8 @@
                                             <img src="http://placehold.it/300&text=Placeholder" class="img-responsive img-circle"> 
                                         </div>
                                         <div class="info">
-                                            <span class="username">Jonathan Smith</span>
-                                            <span class="useremail">jon@avenxo.com</span>
+                                        <span class="username">{{User}}</span><br>
+                                            {{ at }}
                                         </div>
                                     </div>
                                 </div>
@@ -196,31 +196,6 @@
                                         <li><a href="extras-calendar.html"><i class="ti ti-calendar	"></i><span>Calendar</span><span class="badge badge-orange">1</span></a></li>
                                     </ul>
                                 </nav>
-                            </div>
-                            <div class="widget" id="widget-progress">
-                                <div class="widget-heading">
-                                    Progress
-                                </div>
-                                <div class="widget-body">
-                                    <div class="mini-progressbar">
-                                        <div class="clearfix mb-sm">
-                                            <div class="pull-left">Bandwidth</div>
-                                            <div class="pull-right">50%</div>
-                                        </div>
-                                        <div class="progress">
-                                            <div class="progress-bar progress-bar-lime" style="width: 50%"></div>
-                                        </div>
-                                    </div>
-                                    <div class="mini-progressbar">
-                                        <div class="clearfix mb-sm">
-                                            <div class="pull-left">Storage</div>
-                                            <div class="pull-right">25%</div>
-                                        </div>
-                                        <div class="progress">
-                                            <div class="progress-bar progress-bar-info" style="width: 25%"></div>
-                                        </div>
-                                    </div>
-                                </div>
                             </div>
                         </div>
                     </div>
@@ -296,7 +271,7 @@
                                      if($scope.selectedRow != null){
                                      window.location.href = 'patient-vitals.php?at=' + $scope.at + '&id=' + $scope.selectedRow;
                                      }else{
-                                        window.location.href = 'qr-scanner/index.php';
+                                        window.location.href = '../qr-scanner/index2.php?type=addpatientvitals&at=' + $scope.at;
                                     }
                                 };
                                 $scope.confirmBtn = function(user){

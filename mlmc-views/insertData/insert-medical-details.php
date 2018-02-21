@@ -11,6 +11,8 @@ $admissionid = $_GET['admissionid'];
 $conditions = explode(',',$_GET['conditions']);
 $surgery = $_GET['surgery'];
 $bp = $_GET['bp'];
+$bpd = $_GET['bpd'];
+echo $bpd;
 $pr = $_GET['pr'];
 $rr = $_GET['rr'];
 $temp = $_GET['temp'];
@@ -32,8 +34,8 @@ VALUES('$medicalid','$admissionid','$attendingid','$date','$time','$vitalsid','$
 
 mysqli_query($con,$query);  
 
-$query = "INSERT into vitals(VitalsID,AdmissionID,BP,PR,RR,Temperature,DateChecked,TimeChecked) 
-VALUES('$vitalsid','$admissionid','$bp','$pr','$rr','$temp','$date','$time')";
+$query = "INSERT into vitals(VitalsID,AdmissionID,BP,BPD,PR,RR,Temperature,DateTimeChecked) 
+VALUES('$vitalsid','$admissionid','$bp','$bpd','$pr','$rr','$temp',NOW())";
 
 mysqli_query($con,$query);
 

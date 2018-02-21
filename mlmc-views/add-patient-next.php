@@ -164,7 +164,7 @@
                     $scope.admissionid = "<?php echo $_GET['id']; ?>";
                     $scope.medid = "<?php echo $_GET['medid']; ?>";
                     $scope.param = "<?php echo $_GET['param']; ?>";
-                    
+                    alert("TROL");
                     switch ($scope.at.charAt(0)) {
                         case '1':
                             $scope.User = "Administrator";
@@ -215,8 +215,11 @@
                     $scope.submitDetails = function(){
                         $scope.condition =$("#conditions").val();
                         $scope.medication =$("#medications").val();
-                        $scope.administered =$("#administered").val();
-
+                        $scope.administered =$("#administered").val();   
+                        const input = $scope.bp;
+                        const [sys,dia] = input.split('/');
+                        var sys1 = sys;
+                        var dia1 = dia;
                         $http({
                             method: 'GET',
                             url: 'insertData/insert-medical-details.php',
@@ -224,7 +227,8 @@
                                     admissionid: $scope.admissionid,
                                     conditions: $scope.condition,
                                     surgery: $scope.surgery,
-                                    bp: $scope.bp,
+                                    bp: sys1,
+                                    bpd: dia1,
                                     pr: $scope.pr,
                                     rr: $scope.rr,
                                     temp: $scope.temp,
