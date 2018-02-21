@@ -46,18 +46,31 @@
         app.controller('userCtrl', function($scope, $http) {
 				$scope.at = "<?php echo $at;?>";
 
-				angular.element(document).ready(function(){
-				
-				 if ($scope.at[0] == 4)
-						{
-							if ($scope.LN == "")
+				angular.element(document).ready(function()
+				{
+					if ($scope.at[0] == 4)
 							{
-								window.location.href = 'physician-details.php?at=' + $scope.at;
+								if ($scope.LN == "")
+								{
+									window.location.href = 'physician-details.php?at=' + $scope.at;
+								}
 							}
-						}
+					
+					else
+							{
+							if ($scope.LN == "")
+								{
+									window.location.href = 'user-details.php?at=' + $scope.at;
+								}
+							}
 				});
 
-				if ($scope.at[0] == 2)		
+
+				if ($scope.at[0] == 1)
+				{
+					$scope.LN = 'admin';
+				}
+				else if ($scope.at[0] == 2)		
 				{
 					$http({
 							method: 'get',

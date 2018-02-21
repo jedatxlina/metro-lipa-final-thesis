@@ -33,8 +33,8 @@ switch ($accesstype) {
 $sel = mysqli_query($con,$query);
 $data = array();
 
-//	if ($accesstype == 4)
-//	{
+	if ($accesstype == 4)
+	{
 		while ($row = mysqli_fetch_array($sel)) {
 			$data[] = array(
 				"Lastname"=>$row['LastName'],
@@ -50,22 +50,22 @@ $data = array();
 				"Passwordd"=>$row['Passwordd'],
 				"Email"=>$row['Email']);
 		}
-//	}
-	// else 
-	// {
-	// 	while ($row = mysqli_fetch_array($sel)) {
-	// 		$data[] = array(
-	// 			"Lastname"=>$row['LastName'],
-	// 			"Firstname"=>$row['FirstName'],
-	// 			"Middlename"=>$row['MiddleName'],
-	// 			"Gender"=>$row['Gender'],
-	// 			"Address"=>$row['Address'],
-	// 			"Birthdate"=>$row['Birthdate'],
-	// 			"AccessType"=>$row['AccessType'],
-	// 			"Passwordd"=>$row['Passwordd'],
-	// 			"Email"=>$row['Email']);
-	// 	}
-	// }
+	}
+	 else 
+	 {
+	 	while ($row = mysqli_fetch_array($sel)) {
+	 		$data[] = array(
+	 			"Lastname"=>$row['LastName'],
+	 			"Firstname"=>$row['FirstName'],
+	 			"Middlename"=>$row['MiddleName'],
+				"Gender"=>$row['Gender'],
+	 			"Address"=>$row['Address'],
+	 			"Birthdate"=>$row['Birthdate'],
+	 			"AccessType"=>$row['AccessType'],
+	 			"Passwordd"=>$row['Passwordd'],
+				"Email"=>$row['Email']);
+	 	}
+	 }
 echo json_encode($data);
 ?>
 

@@ -1,3 +1,4 @@
+
 <?php include 'admin-header.php' ?>
 <style>
     .selected {
@@ -9,8 +10,6 @@
 
 <ol class="breadcrumb">
     <li><a href="index.php">Home</a>
-    </li>
-    <li class="active"> <a href="physician.php">Physician</a>
     </li>
 </ol>
 
@@ -32,9 +31,9 @@
                                             <legend>Personal Detail</legend>
                                             <div data-row-span="1">
                                                 <div data-field-span="1">
-                                                    <label>Physician ID</label>
+                                                    <label> {{ Label }} </label>
                                                     <div  ng-repeat="user in users">
-                                                    <input type="text" ng-model="$parent.physicianid" ng-init="$parent.physicianid=user.PhysicianID" disabled >
+                                                    <input type="text" ng-model="$parent.accountid" ng-init="$parent.accountid=user.AccountID" disabled >
                                                     </div>
                                                 </div>
                                             </div>
@@ -88,29 +87,7 @@
                                                     </div>
                                                 </div>
                                               
-                                                <fieldset>
-                                                <legend>Professional Details</legend>
-                                             
-                                                <div data-row-span="3">
                                                
-                                                    <div data-field-span="1">
-                                                        <label>Professional Fee </label>
-                                                        <input type="text" ng-model="fee">
-                                                    </div>
-                                                <div data-field-span="1">
-                                                    <label>Specialization</label>
-                                                    <select ng-model="$parent.special" class="form-control" ng-options="data.SpecializationName as data.SpecializationName for data in spec | orderBy:'SpecializationName':false track by data.SpecializationID">
-                                                    <option value="" disabled selected>Select Specialization</option>
-                                                </select>
-                                                </div>
-                                                <div data-field-span="1">
-                                                <label>Mobile No.</label>
-                                                <input type="text" class="form-control" ng-model="contact" ui-mask="+63 999-999-9999"  ui-mask-placeholder ui-mask-placeholder-char="-  "/>
-                                                </div>
-                                                    </div>
-                                              
-                                                </div>
-                                                </fieldset>
                                             </fieldset>
                                         </fieldset>
                                         <br>
@@ -160,48 +137,73 @@
     $scope.clickedRow = 0;
     $scope.new = {};
 
-
-        $http({
-				method: 'get',
-				params: {accid : $scope.param},
-				url: 'getData/get-physician-id.php'
-                    }).then(function(response) {		
-                    $scope.users = response.data;
-			});
-
-        
-    $http({
-        method: 'get',
-        url: 'getData/get-specialization-details.php'
-         }).then(function(response) {
-        $scope.spec = response.data;
-    });
+                 if ($scope.param[0] == 2)		
+				{
+					$http({
+							method: 'get',
+							params: {accid : $scope.param},
+							url: 'getData/get-admissionstaff-id.php'
+						}).then(function(response) {	
+                            $scope.Label = "Admission Staff ID";	
+							$scope.users = response.data;
+						});
+				}	
+				else if ($scope.param[0] == 3)
+					{
+						$http({
+								method: 'get',
+								params: {accid : $scope.param},
+								url: 'getData/get-nurse-id.php'
+							}).then(function(response) {	
+                                $scope.Label = "Nurse ID";	
+								$scope.users = response.data;
+							});
+					}
+				else if ($scope.param[0] == 5)
+					{
+						$http({
+								method: 'get',
+								params: {accid : $scope.param},
+								url: 'getData/get-pharmacystaff-id.php'
+							}).then(function(response) {
+                                $scope.Label = "Pharmacy Staff ID";		
+								$scope.users = response.data;
+							});
+					}	
+				else if ($scope.param[0] == 6)
+					{
+						$http({
+								method: 'get',
+								params: {accid : $scope.param},
+								url: 'getData/get-billingstaff-id.php'
+							}).then(function(response) {		
+                                $scope.Label = "Billing Staff ID";
+								$scope.users = response.data;
+							});
+					}
 
    
 
     $scope.submitForm = function(){
 
-                $scope.birthdate =$("#datepicker").datepicker("option", "dateFormat", "yy-mm-dd" ).val();
+        $scope.birthdate =$("#datepicker").datepicker("option", "dateFormat", "yy-mm-dd" ).val();
                 
-                $http({
-                method: 'GET',
-                url: 'updateData/update-user-profile.php',
-                params: {atype: $scope.param[0],
-                        id: $scope.param,
-                        Lastname: $scope.lastname,
-                        Firstname: $scope.firstname,
-                        Middlename: $scope.middlename,
-                        Gender: $scope.gender,
-                        Birthdate: $scope.birthdate,
-                        Address: $scope.address,
-                        ProfessionalFee: $scope.fee,
-                        Email: $scope.email,
-                        Specialization: $scope.special,
-                        Contact: $scope.contact
-                        }
-                }).then(function(response) {
-                    window.location.href = 'user-profile.php?at=' + $scope.param;
-                });
+                    $http({
+                    method: 'GET',
+                    url: 'updateData/update-user-profile.php',
+                    params: {atype: $scope.param[0],
+                            id: $scope.param,
+                            Lastname: $scope.lastname,
+                            Firstname: $scope.firstname,
+                            Middlename: $scope.middlename,
+                            Gender: $scope.gender,
+                            Birthdate: $scope.birthdate,
+                            Address: $scope.address,
+                            Email: $scope.email
+                            }
+                    }).then(function(response) {
+                        window.location.href = 'user-profile.php?at=' + $scope.param;
+                    });
         }
 
 

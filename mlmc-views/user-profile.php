@@ -11,9 +11,7 @@
 <ol class="breadcrumb">
     <li><a href="index.php">Home</a>
     </li>
-    <li> <a href="#">Patient</a>
-    </li>
-    <li class="active"> <a href="#">Details</a>
+    <li class="active"> <a href="#">User Profile</a>
     </li>
 </ol>
 <br>
@@ -89,12 +87,16 @@
                                                 <th>Birthdate</th>
                                                 <td>{{user.Birthdate}}</td>
                                             </tr>
+                                            <tr>
+                                                <th>Email</th>
+                                                <td>{{user.Email}}</td>
+                                            </tr>
                                             </tbody>
                                         </table>
                                         </div>
                                 </div>
 
-                                <div class="about-area">
+                                <div class="about-area"  <?php if ($id!=4){?>style="display:none"<?php } ?>>
                                     <h4>Professional Information</h4>
                                         <div class="table-responsive">
                                         <table class="table about-table">
@@ -137,20 +139,21 @@
                                                 <tr>
                                                     <th>Last name</th>
                                                     <td><input type="text" class="form-control"  ng-model="user.Lastname" ></td>
-                                                    <th>Specialization</th>
-                                                    <td><input type="text" class="form-control" ng-model="user.Specialization" ng-disabled="true"></td>
+                                                    <th  <?php if ($id!=4){?>style="display:none"<?php } ?>>Specialization</th>
+                                                    <td  <?php if ($id!=4){?>style="display:none"<?php } ?>><input type="text" class="form-control" ng-model="user.Specialization" ng-disabled="true"></td>
                                                  </tr>
                                                 <tr>
                                                     <th>First name</th>
                                                     <td><input type="text" class="form-control"  ng-model="user.Firstname"></td>
-                                                    <th>Professional Fee</th>
-                                                    <td><input type="text" class="form-control" ng-model="user.ProfessionalFee"></td>
+                                                    <th  <?php if ($id!=4){?>style="display:none"<?php } ?>>Professional Fee</th>
+                                                    <td  <?php if ($id!=4){?>style="display:none"<?php } ?>><input type="text" class="form-control" ng-model="user.ProfessionalFee"></td>
                                                 </tr>
                                                 <tr>
                                                     <th>Middle name</th>
                                                     <td><input type="text" class="form-control"  ng-model="user.Middlename"></td>
-                                                    <th>Contact</th>
-                                                    <td><input type="text" class="form-control"  ng-model="user.Contact"></td>
+                                                    <th <?php if ($id!=4){?>style="display:none"<?php } ?>>Mobile No.</th>
+                                                    <td <?php if ($id!=4){?>style="display:none"<?php } ?>>   <input type="text" class="form-control" ng-model="user.Contact" ui-mask="+63 999-999-9999"  ui-mask-placeholder ui-mask-placeholder-char="-  "/></td>
+                                                </div>
                                                 </tr>
                                                 <tr>
                                                     <th>Gender</th>
@@ -160,7 +163,22 @@
                                                         <option value="Male">Male</option>
                                                         <option value="Female">Female</option>
                                                     </select></td>
-                                                    <th>Profile Photo</th>
+                                                    
+                                                </tr>
+                                                <tr>
+                                                    <th>Address</th>
+                                                    <td><input type="text" class="form-control"  ng-model="user.Address"></td>
+                                                </tr>                                              
+                                                <tr>
+                                                    <th>Birthdate</th>
+                                                    <td><input type="text" class="form-control" ng-model="user.Birthdate"></td>
+                                                </tr>
+                                                <tr>
+                                                    <th>Email</th>
+                                                    <td><input type="text" class="form-control" ng-model="user.Email"></td>
+                                                </tr>
+                                                <tr>
+                                                <th>Profile Photo</th>
                                                     <td>
                                                         <div class="fileinput fileinput-new" data-provides="fileinput">
                                                             <span class="btn btn-default btn-file">
@@ -172,14 +190,6 @@
                                                             <a href="#" class="close fileinput-exists" data-dismiss="fileinput" style="float: none">&times;</a>
                                                         </div>
                                                     </td>
-                                                </tr>
-                                                <tr>
-                                                    <th>Address</th>
-                                                    <td><input type="text" class="form-control"  ng-model="user.Address"></td>
-                                                </tr>                                              
-                                                <tr>
-                                                    <th>Birthdate</th>
-                                                    <td><input type="text" class="form-control"  ng-model="user.Birthdate"></td>
                                                 </tr>
                                                 </tbody>
                                                 
@@ -209,7 +219,7 @@ var fetch = angular.module('myApp', ['ui.mask']);
    fetch.controller('userCtrl', ['$scope', '$http', function($scope, $http) {
        $scope.at = "<?php echo $_GET['at'];?>";
        $scope.new = {};
-   
+        
         switch ($scope.at.charAt(0)) {
             case '1':
                 $scope.User = "Administrator";
@@ -252,7 +262,8 @@ var fetch = angular.module('myApp', ['ui.mask']);
                 $http({
                 method: 'GET',
                 url: 'updateData/update-user-profile.php',
-                params: {id: $scope.at,
+                params: {atype: $scope.at[0],
+                        id: $scope.at,
                         Lastname: user.Lastname,
                         Firstname: user.Firstname,
                         Middlename: user.Middlename,
@@ -261,6 +272,7 @@ var fetch = angular.module('myApp', ['ui.mask']);
                         Address: user.Address,
                         ProfessionalFee: user.ProfessionalFee,
                         Contact: user.Contact,
+                        Email: user.Email,
                         Specialization: user.Specialization}
                 }).then(function(response) {
                     window.location.href = 'user-profile.php?at=' + $scope.at;
