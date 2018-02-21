@@ -91,9 +91,7 @@ font-weight: bold;
 			alert($scope.new.Firstname);
 		}
         $scope.patientVitals = function(){
-            if($scope.selectedRow != null){
-            window.location.href = 'patient-vitals.php';
-            }
+            window.location.href = 'patient-vitals.php?id=<?php echo $_GET['result'] ?>&at=<?php echo $_GET['at']; ?>';
        	};
    }]);
 </script>		

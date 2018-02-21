@@ -29,7 +29,7 @@
 
                                 <div class="form-group">
                                     <label>Blood Pressure</label>
-                                    <input type="text" ng-model="BP" maxlength="3" class="form-control">
+                                    <input type="text" ng-model="BP" maxlength="6" class="form-control">
                                     </select>
                                 </div>
                                 
@@ -73,19 +73,20 @@
             $scope.admissionid = "<?php echo $AdID; ?>"
             $scope.patientname = "<?php echo $Fname.' '.$Mname.' '.$Lname; ?>"
             $scope.AddVitals = function() {
+                    const input = $scope.BP;
+                    const [sys,dia] = input.split('/');
+                    var sys1 = sys;
+                    var dia1 = dia;
                     $http.post("../mlmc-views/insertData/patient-vitals-exec.php", {
                         'admissionid': $scope.admissionid,
                         'patientname': $scope.patientname,
-                        'bloodpressure': $scope.BP,
+                        'bloodpressure': sys1,
+                        'bloodpressuredia': dia1,
                         'temperature': $scope.TEMP,
                         'respiratoryrate': $scope.RP,
                         'pulserate': $scope.PR
                     }).then(function(response){
-                        if($scope.admissiontype == 'Emergency'){
-                            window.location.href = 'emergency.php'
-                        }else{
-                            window.location.href = 'outpatient.php'
-                        }
+                        window.location.href = 'nurse-patient.php?at=<?php echo $_GET['at'] ?>';
                     });
 
                 };

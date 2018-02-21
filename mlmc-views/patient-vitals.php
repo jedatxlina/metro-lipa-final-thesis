@@ -21,9 +21,6 @@ include '../mlmc-views/getData/get-inpatient-vitals.php';
             </div>
         </div><!-- panel -->
     </div>
-
-    
-
     <div class="container-fluid">
         <div class="row">
             <div class="col-md-12">
@@ -182,12 +179,14 @@ include '../mlmc-views/getData/get-inpatient-vitals.php';
             success: function(data) {
                 console.log(data);
                 var bloodp = [];
+                var bloodpd = [];
                 var respi = [];
                 var temp = [];
                 var pulse = [];
                 var date = [];
                 for(var i in data) {
                     bloodp.push(data[i].BP);
+                    bloodpd.push(data[i].BPD);
                     respi.push(data[i].RR);
                     temp.push(data[i].Temperature);
                     pulse.push(data[i].PR);
@@ -293,7 +292,7 @@ include '../mlmc-views/getData/get-inpatient-vitals.php';
                     type: 'bar',
                     label: 'Diastolic',
                     backgroundColor: window.chartColors.green,
-                    data: respi
+                    data: bloodpd
                 }]
             };
             var chartdata4 = {
