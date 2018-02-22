@@ -368,6 +368,7 @@ font-weight: bold;
 
 
        $scope.ConfirmInpatient = function(){
+
 			$http({
 				method: 'GET',
 				url: 'updateData/update-inpatient-details.php',
@@ -376,7 +377,8 @@ font-weight: bold;
 				}).then(function(response) {
 					window.location.reload();
 				});
-		};
+
+		}
 		
 		$scope.getPage = function(check){
 			

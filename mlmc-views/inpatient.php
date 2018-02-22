@@ -118,9 +118,9 @@ font-weight: bold;
 									</div>
 									<div class="row">
 										<div class="form-group">
-											<label for="focusedinput" class="col-sm-3 control-label">Admission Date Time</label>
+											<label for="focusedinput" class="col-sm-3 control-label">Admission Date</label>
 											<div class="col-sm-5">
-												<input type="text" class="form-control"  ng-value="patient.AdmissionDateTime" disabled>
+												<input type="text" class="form-control"  ng-value="patient.AdmissionDate" disabled>
 											</div>
 										</div>
 									</div>

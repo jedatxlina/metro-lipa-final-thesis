@@ -10,7 +10,7 @@
 <ol class="breadcrumb">
     <li><a href="index.php">Home</a>
     </li>
-    <li class="active"> <a href="bed.php">Bed Specifications</a>
+    <li class="active"> <a href="bed.php">Users</a>
     </li>
 </ol>
 <br><br>

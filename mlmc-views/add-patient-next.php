@@ -23,7 +23,6 @@
                             <div class="panel panel-white" data-widget='{"draggable": "false"}'>
                                 <div class="panel-heading">
                                     <h2>Patient Medical Details</h2>
-                                    <!-- <div class="panel-ctrls" data-actions-container="" data-action-collapse='{"target": ".panel-body"}'></div> -->
                                 </div>
                                 <div class="panel-body">
                                     <form class="grid-form" action="javascript:void(0)">
@@ -31,16 +30,21 @@
                                             <legend>Personal Medical History</legend>
                                             <div data-row-span="2">
                                                 <div data-field-span="1">
+                                                    
                                                     <label>Conditions</label>
-                                                    <select id="conditions" class="select2" multiple="multiple" style="width:400px;">
-                                                        <optgroup label="List of Conditions">
-                                                            <option value="Asthma">Asthma</option>
-                                                            <option value="Cva">CVA</option>
-                                                            <option value="Cancer">Cancer</option>
-                                                            <option value="Heart Disease">Heart Disease</option>
-                                                            <option value="Hypertension">Hypertension</option>
-                                                        </optgroup>   
-                                                    </select>
+                                                    <select id="conditions" class="select2" multiple="multiple" style="width:550px;">
+                                                        <optgroup label="List of Medicines">
+                                                            <option ng-repeat="condition in conditions" value="{{condition.ConditionID}}">{{condition.Conditions}}</option>
+                                                        </optgroup>
+                                                        <option ng-value="Others">Others</option>
+                                                    </select>     
+
+                                                    <a href="#">&nbsp;<i class="ti ti-close" ng-click="reset('condition')"></i></a><br><br>
+                                                    <div id="otherconditions">
+                                                        <label>Other Conditions</label>
+                                                        <input type="text" ng-model="otherconditions" class="form-control tooltips" data-trigger="hover" data-original-title="Separate with , if more than 1">
+                                                    </div>
+
                                                 </div>
                                                 <div data-field-span="1">
                                                     <label>Previous Surgeries</label>
@@ -68,11 +72,18 @@
                                             <div data-row-span="3">
                                                 <div data-field-span="1">
                                                     <label>Current Medications</label>
-                                                    <select id="medications" class="select2" multiple="multiple" style="width:400px;">
+                                                    <select id="medications" class="select2" multiple="multiple" style="width:350px;">
                                                         <optgroup label="List of Medicines">
                                                              <option ng-repeat="medicine in medicines" value="{{medicine.MedicineID}}">{{medicine.MedicineName}}</option>
                                                         </optgroup>
+                                                        <option ng-value="Others">Others</option>
                                                     </select>
+
+                                                    <a href="#">&nbsp;<i class="ti ti-close" ng-click="reset('currentmed')"></i></a><br><br>
+                                                    <div id="othercurrentmed">
+                                                        <label>Other Current Medication</label>
+                                                        <input type="text" ng-model="othercurrentmed" class="form-control tooltips" data-trigger="hover" data-original-title="Separate with , if more than 1">
+                                                    </div>
                                                 </div>
                                                 <div data-field-span="1">
                                                         <label>Weight</label>
@@ -92,50 +103,37 @@
                                                     <div data-field-span="2">
                                                         <label>Administered Medications</label>
                                                         <div class="controls">
-                                                            <!-- <select id="administered" class="select2" multiple="multiple" style="width:400px;">
-                                                                <optgroup label="List of Medicines">
-                                                                    <option value="Aspirin">Aspirin</option>
-                                                                    <option value="Paracetamol">Paracetamol</option>    
-                                                                    <option value="Biogesic">Biogesic</option>
-                                                                    <option value="Bioflu">Bioflu</option>
-                                                                    <option value="Ibuprofen">Ibuprofen</option>
-                                                                </optgroup>
-                                                            </select> -->
-                                                            <!-- <select class="form-control"  ng-model="administered" ng-options="medicine.MedicineName for medicine in medicines | orderBy:'provname':false track by medicine.MedicineID">
-                                                                <option value="" disabled selected>Select Medicine</option>
-                                                            </select> -->
+                                                        
                                                             <select id="administered" class="select2" multiple="multiple" style="width:400px;">
                                                                 <optgroup label="List of Medicines">
                                                                      <option ng-repeat="medicine in medicines" value="{{medicine.MedicineID}}">{{medicine.MedicineName}}</option>
                                                                 </optgroup>
+                                                                <option ng-value="Others">Others</option>
                                                             </select>
+                                                            <a href="#">&nbsp;<i class="ti ti-close" ng-click="reset('administeredmed')"></i></a><br><br>
+                                                            <div id="otheradministeredmed">
+                                                                <label>Other Administered Medication</label>
+                                                                <input type="text" ng-model="otheradministeredmed" class="form-control tooltips" data-trigger="hover" data-original-title="Separate with , if more than 1">
+                                                            </div>
                                                         </div>
                                                     </div>
                                             </div>
                                             <div data-row-span="2">
                                                 <div data-field-span="1">
                                                     <label>Attending Physician</label>
-                                                    <select class="form-control" ng-options="physician.Fullname for physician in physicians | orderBy:'provname':false track by physician.PhysicianID" ng-model="attending">
-                                                        <option value="" disabled selected>Select Physician</option>
+                                                    <select class="form-control" ng-model="attending" style="width:395px;">
+                                                        <optgroup label="List of Doctors">
+                                                            <option ng-repeat="physician in physicians" value="{{physician.PhysicianID}}">{{physician.Fullname}}</option>
+                                                        </optgroup>    
                                                     </select>
-                                                </div>
-                                                <div data-field-span="1">
-                                                    <label>Classification</label>
-                                                    <label>
-                                                        <input type="radio" name="classification" ng-model="classification" value="Cash"> Cash</label> &nbsp;
-                                                    <label>
-                                                        <input type="radio" name="classification" ng-model="classification" value="HMO"> Corporate</label> &nbsp;
-                                                    <label>
-                                                        <input type="radio" name="classification" ng-model="classification" value="Corporate"> HMO</label>
-                                                    <label>
-                                                        <input type="radio" name="classification" ng-model="classification" value="Private"> Private</label>
+                                                    
                                                 </div>
                                             </div>
                                             <br>
                                             <div class="clearfix pt-md">
                                                 <div class="pull-right">
                                                     <button ng-click="goBack()" class="btn-default btn">Cancel</button>
-                                                    <button type="submit" class="btn-danger btn" ng-click="submitDetails()">Submit</button>
+                                                    <button type="submit" class="btn-danger btn" ng-click="submitDetails()">Next</button>
                                                 </div>
                                             </div>
                                         </fieldset>
@@ -159,12 +157,12 @@
 
                 var app = angular.module('myApp', ['angular-autogrow','ui.mask']);
 
-                app.controller('userCtrl', function($scope, $window, $http) {
+                app.controller('userCtrl', function($scope, $window, $http,$interval) {
                     $scope.at = "<?php echo $_GET['at'];?>";
                     $scope.admissionid = "<?php echo $_GET['id']; ?>";
                     $scope.medid = "<?php echo $_GET['medid']; ?>";
                     $scope.param = "<?php echo $_GET['param']; ?>";
-                    
+                  
                     switch ($scope.at.charAt(0)) {
                         case '1':
                             $scope.User = "Administrator";
@@ -208,37 +206,88 @@
                     }).then(function(response) {
                         $scope.medicines = response.data;
                     });
-                    
 
-         
+                    $http({
+                        method: 'GET',
+                        url: 'getData/get-conditions-details.php'
+                    }).then(function(response) {
+                        $scope.conditions = response.data;
+                     
+                    });
+                    $('#otherconditions').hide();
+                    $('#othercurrentmed').hide();
+                    $('#otheradministeredmed').hide();
+
+                    $( "#conditions" ).click(function() {
+                        $scope.condition = $("#conditions").val();
+                        if($scope.condition == 'Others'){
+                            $('#conditions').attr('disabled', 'disabled');
+                            $('#otherconditions').show();
+                        }
+                   
+                    });
+
+                    $( "#medications" ).click(function() {
+                        $scope.medication = $("#medications").val();
+                        if($scope.medication == 'Others'){
+                            $('#medications').attr('disabled', 'disabled');
+                            $('#othercurrentmed').show();
+                        }
+                   
+                    });
+
+                    $( "#administered" ).click(function() {
+                        $scope.administered = $("#administered").val();
+                        if($scope.administered == 'Others'){
+                            $('#administered').attr('disabled', 'disabled');
+                            $('#otheradministeredmed').show();
+                        }
+                   
+                    });
+
+                    $scope.reset = function(param){
+                        $scope.chck = param;
+                        switch ($scope.chck) {
+                            case 'condition':
+                            $('#conditions').removeAttr('disabled');
+                            $('#otherconditions').hide();
+                                break;
+                                
+                            case 'currentmed':
+                            $('#medications').removeAttr('disabled');
+                            $('#othercurrentmed').hide();
+                                break;
+
+                            case 'administeredmed':
+                            $('#administered').removeAttr('disabled');
+                            $('#otheradministeredmed').hide();
+                                break;
+                        
+                            default:
+                                break;
+                        }
+                    }
 
                     $scope.submitDetails = function(){
-                        $scope.condition =$("#conditions").val();
+                        $scope.condition = $("#conditions").val();
                         $scope.medication =$("#medications").val();
                         $scope.administered =$("#administered").val();
-
-                        $http({
-                            method: 'GET',
-                            url: 'insertData/insert-medical-details.php',
-                            params: {medid: $scope.medid,
-                                    admissionid: $scope.admissionid,
-                                    conditions: $scope.condition,
-                                    surgery: $scope.surgery,
-                                    bp: $scope.bp,
-                                    pr: $scope.pr,
-                                    rr: $scope.rr,
-                                    temp: $scope.temp,
-                                    medications: $scope.medication,
-                                    weight: $scope.weight,
-                                    height: $scope.height,
-                                    diagnosis: $scope.diagnosis,
-                                    administered: $scope.administered,
-                                    attending: $scope.attending.PhysicianID,
-                                    classification: $scope.classification}
-                        }).then(function(response) {
-                        });
-
-                              
+                        $scope.vitalsid =     "<?php echo rand(111111, 999999);?>"; 
+                        $scope.medicationid = "<?php echo rand(111111, 999999);?>"; 
+                        $scope.diagnosisid =  "<?php echo rand(111111, 999999);?>"; 
+                        $scope.attendingid =  "<?php echo rand(111111, 999999);?>"; 
+                        
+                          
+                        if($scope.condition == 'Others'){
+                         $scope.condition = $scope.otherconditions;
+                        }
+                        if($scope.medication == 'Others'){
+                         $scope.medication = $scope.othercurrentmed;
+                        }
+                        if($scope.administered == 'Others'){
+                         $scope.administered = $scope.otheradministeredmed;
+                        }
+                                 
                         $http({
                             method: 'GET',
                             url: 'qr-generator/index.php',
@@ -246,16 +295,31 @@
                                     admissionid: $scope.admissionid,
                                  }
                         }).then(function(response) {
-                                switch ($scope.param) {
-                                    case 'Emergency':
-                                    window.location.href = 'emergency.php?at=' + $scope.at;         
-                                    break;
-                            
-                                default:
-                                    break;
-                            }
                         });
-                  
+
+                        $http({
+                            method: 'GET',
+                            url: 'insertData/insert-medical-details.php',
+                            params: {medid: $scope.medid,
+                                    admissionid: $scope.admissionid,
+                                    vitalsid: $scope.vitalsid,
+                                    medicationid: $scope.medicationid,
+                                    diagnosisid: $scope.diagnosisid,
+                                    attendingid: $scope.attendingid,
+                                    surgery: $scope.surgery,
+                                    bp: sys1,
+                                    bpd: dia1,
+                                    pr: $scope.pr,
+                                    rr: $scope.rr,
+                                    temp: $scope.temp,
+                                    weight: $scope.weight,
+                                    height: $scope.height,
+                                    diagnosis: $scope.diagnosis,
+                                    attending: $scope.attending.PhysicianID}
+                        }).then(function(response) {
+                            window.location.href = 'insertData/insert-medications-details.php?param=' + $scope.param + '&at=' + $scope.at + '&medicationid=' + $scope.medicationid + '&admissionid=' + $scope.admissionid + '&administered=' + $scope.administered + '&physicianid=' + $scope.attending + '&medication=' + $scope.medication + '&condition=' + $scope.condition;
+                        });
+
                     
                     }
 
@@ -331,8 +395,6 @@
                     }
                 });
                 
-         
-
         </script>
 </div>
 <?php include 'footer.php'?>

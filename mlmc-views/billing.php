@@ -31,7 +31,7 @@ font-weight: bold;
 								<tr>
 									<th>Admission ID</th>
 									<th>Admission No</th>
-									<th>Admission Date-Time</th>
+									<th>Admission Date</th>
 									<th>Full name</th>
 									<th>Admission</th>
 									<th>Admission Type</th>
@@ -43,7 +43,7 @@ font-weight: bold;
 								<tr ng-repeat="user in users" ng-class="{'selected': user.AdmissionID == selectedRow}" ng-click="setClickedRow(user.AdmissionID)">
                                         <td>{{user.AdmissionID}}</td>
                                         <td>{{user.AdmissionNo}}</td>
-                                        <td>{{user.AdmissionDateTime}}</td>
+                                        <td>{{user.AdmissionDate}}</td>
                                         <td>{{user.Lname}}, {{user.Fname}} {{user.Mname}} </td>
                                         <td>{{user.Admission}}</td>
                                         <td>{{user.AdmissionType}}</td>
@@ -61,11 +61,13 @@ font-weight: bold;
 						<a href="#" role="tab" data-toggle="tab" class="list-group-item active">Actions Panel</a>
 						<a href="#" ng-click="viewPatient()" role="tab" data-toggle="tab" class="list-group-item"><i class="ti ti-user"></i>Patient Details</a>
 						<a href="#" ng-click="movePatient()"role="tab" data-toggle="tab" class="list-group-item"><i class="fa fa-file-text-o"></i>Post Professional Fees</a>
-						<a href="#" ng-click="AddPharmaceutical()" role="tab" data-toggle="tab" class="list-group-item"><i class="fa fa-file-text-o"></i>Post Discounts</a>
-						<a href="#" ng-click="EditPharmaceutical()"role="tab" data-toggle="tab" class="list-group-item"><i class="fa fa-file-text-o"></i>Post A/R Transfers</a>
-						<a href="#" ng-click="AddPharmaceutical()" role="tab" data-toggle="tab" class="list-group-item"><i class="fa fa-file-text-o"></i>Post Room Charges</a>
-                        <a href="#" ng-click="EditPharmaceutical()"role="tab" data-toggle="tab" class="list-group-item"><i class="fa fa-file-text-o"></i>SOA/Billing Statement</a>
-                	</div>
+						<a href="#" ng-click="postDiscount()" role="tab" data-toggle="tab" class="list-group-item"><i class="fa fa-file-text-o"></i>Post Discounts</a>
+						<a href="#" ng-click="postTransfers()"role="tab" data-toggle="tab" class="list-group-item"><i class="fa fa-file-text-o"></i>Post A/R Transfers</a>
+						<a href="#" ng-click="postCharges()" role="tab" data-toggle="tab" class="list-group-item"><i class="fa fa-file-text-o"></i>Post Room Charges</a>
+                        <a href="#" ng-click="postStatement()"role="tab" data-toggle="tab" class="list-group-item"><i class="fa fa-file-text-o"></i>SOA/Billing Statement</a>
+						<a href="#" ng-click="postReceipt()"role="tab" data-toggle="tab" class="list-group-item"><i class="fa fa-file-text-o"></i>Post Receipt Details</a>
+                        <a href="#" ng-click="reprintReceipt()"role="tab" data-toggle="tab" class="list-group-item"><i class="fa fa-file-text-o"></i>Re-Print Receipt Details</a>
+					</div>
 				</div>
 				
 				<!-- Error modal -->
@@ -120,9 +122,9 @@ font-weight: bold;
 									</div>
 									<div class="row">
 										<div class="form-group">
-											<label for="focusedinput" class="col-sm-3 control-label">Admission Date Time</label>
+											<label for="focusedinput" class="col-sm-3 control-label">Admission Date</label>
 											<div class="col-sm-5">
-												<input type="text" class="form-control"  ng-value="patient.AdmissionDateTime" disabled>
+												<input type="text" class="form-control"  ng-value="patient.AdmissionDate	" disabled>
 											</div>
 										</div>
 									</div>
@@ -183,9 +185,9 @@ font-weight: bold;
 									</div>
 									<div class="row">
 										<div class="form-group">
-											<label for="focusedinput" class="col-sm-3 control-label">Admission Date Time</label>
+											<label for="focusedinput" class="col-sm-3 control-label">Admission Date</label>
 											<div class="col-sm-5">
-												<input type="text" class="form-control"  ng-value="patient.AdmissionDateTime" disabled>
+												<input type="text" class="form-control"  ng-value="patient.AdmissionDate" disabled>
 											</div>
 										</div>
 									</div>
