@@ -63,7 +63,6 @@ include '../mlmc-views/getData/get-inpatient-vitals.php';
     <script type="text/javascript" src="../mlmc-views/assets/js/jquery.min.js"></script>
     <script type="text/javascript" src="../mlmc-views/assets/js/utils.js"></script>
 <script>
-        var data = '<?php echo json_encode($data) ?>';
         var data = angular.module('myApp', []);
         data.controller("userCtrl", function($scope, $window, $http) {  
             $scope.at = "<?php echo $_GET['at'];?>";

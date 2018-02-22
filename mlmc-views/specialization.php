@@ -10,7 +10,7 @@
 <ol class="breadcrumb">
     <li><a href="index.php">Home</a>
     </li>
-    <li class="active"> <a href="specialization.php">Medical Specialization</a>
+    <li class="active"> <a href="specialization.php">List of Doctors</a>
     </li>
 </ol>
 <br><br>
@@ -25,21 +25,21 @@
             <div class="col-md-9">
                 <div class="panel panel-default">
                     <div class="panel-heading">
-                        <h2>MEDICAL SPECIALIZATION</h2>
+                        <h2>List of Doctors</h2>
                         <div class="panel-ctrls"></div>
                     </div>
                     <div class="panel-body">
                         <table id="table_info" class="table table-striped table-bordered" cellspacing="0" width="100%">
                             <thead>
                                 <tr>
-                                    <th>Specialization ID</th>
-                                    <th>Specialization Name</th>
+                                    <th>Physician Name</th>
+                                    <th>Specialization</th>
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr ng-repeat="spec in specs" ng-class="{'selected': spec.SpecializationID == selectedRow}" ng-click="setClickedRow(spec.SpecializationID)">
-                                    <td>{{spec.SpecializationID}}</td>
-                                    <td>{{spec.SpecializationName}}</td>
+                                <tr ng-repeat="spec in specs" >
+                                    <td>{{spec.Fullname}}</td>
+                                    <td>{{spec.Specialization}}</td>
                                 </tr>
                             </tbody>
                         </table>
@@ -48,75 +48,8 @@
                 </div>
             </div>
 
-            <div class="col-md-3">
-                    <div class="list-group list-group-alternate mb-n nav nav-tabs">
-						<a href="#" role="tab" data-toggle="tab" class="list-group-item active">Actions Panel</a>
-						<!-- <a href="#" ng-click="AddSpecialization()" role="tab" data-toggle="tab" class="list-group-item"><i class="fa fa-list-alt fa-fw"></i>Add Specialization</a> -->
-						<a href="#" ng-click="EditSpecialization()"role="tab" data-toggle="tab" class="list-group-item"><i class="ti ti-info-alt"></i>Edit Specialization</a>
-                	</div>
-            </div>
-
-            <div class="modal fade" id="AddSpecializationModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-                <div class="modal-dialog">
-                    <div class="panel panel-danger" data-widget='{"draggable": "false"}'>
-                        <div class="panel-heading">
-                            <h2>Add Specialization</h2>
-                            <div class="panel-ctrls" data-actions-container="" data-action-collapse='{"target": ".panel-body, .panel-footer"}'></div>
-                        </div>
-                        <div class="panel-body" style="height: 150px">
-                             <form>
-                                <div class="form-group">
-                                    <label>Specialization </label>
-                                    <input type="text" ng-model="specialization" placeholder="Surgeon" class="form-control">
-                                </div>
-                                    <button type="button" class="btn btn-default pull-right" data-dismiss="modal">Close</button>
-                                    <button ng-click='Add()' class="btn btn-danger pull-right">Confirm</button>
-                            </form>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-          
-            <!-- Error modal -->
-            <div class="modal fade" id="ErrorModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
-                <div class="modal-dialog">
-                    <div class="panel panel-danger" data-widget='{"draggable": "false"}'>
-                        <div class="panel-heading">
-                            <h2>Error:</h2>
-                            <div class="panel-ctrls" data-actions-container="" data-action-collapse='{"target": ".panel-body, .panel-footer"}'></div>
-                        </div>
-                        <div class="panel-body" style="height: 60px">
-                        Select Emergency record that you would like to apply an <a href="#" class="alert-link">Action.</a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <!--/ Error modal -->
-
-            <div class="modal fade" id="EditSpecialization" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
-                <div class="modal-dialog">
-                  <div class="panel panel-danger" data-widget='{"draggable": "false"}'>
-                        <div class="panel-heading">
-                            <h2>Edit Specialization</h2>
-                            <div class="panel-ctrls" data-actions-container="" data-action-collapse='{"target": ".panel-body, .panel-footer"}'></div>
-                        </div>
-                        <div class="panel-body" style="height: 250px">
-                              <form ng-repeat="special in specials">
-                                <div class="form-group">
-                                    <label>Specialization ID</label>
-                                    <input type="text" ng-model="$parent.specialid" ng-init="$parent.specialid=special.SpecializationID" class="form-control" disabled>
-                                </div>
-                                <div class="form-group">
-                                    <label>Specialization Name</label>
-                                    <input type="text" ng-model="$parent.specialn" ng-init="$parent.specialn=special.SpecializationName" class="form-control" required>
-                                </div>
-                                    <button type="button" class="btn btn-default pull-right" data-dismiss="modal">Close</button>
-                                    <button ng-click='Update()' class="btn btn-danger pull-right">Confirm</button>
-                            </form>
-                        </div>
-                    </div>
-                </div>
+            <div class="col-md-1">
+                   </div>
 
             </div>
         </div>
@@ -163,7 +96,7 @@
 
                 $http({
                     method: 'get',
-                    url: 'getData/get-specialization-details.php'
+                    url: 'getData/get-physicians.php'
                 }).then(function(response) {
                     $scope.specs = response.data;
                     angular.element(document).ready(function() {
@@ -176,56 +109,6 @@
                 $scope.setClickedRow = function(spec) {
                     $scope.selectedRow = ($scope.selectedRow == null) ? spec : ($scope.selectedRow == spec) ? null : spec;
                     $scope.clickedRow = ($scope.selectedRow == null) ? 0 : 1;
-                }
-
-                $scope.AddSpecialization = function() {
-                    $('#AddSpecializationModal').modal('show');
-                }
-
-                $scope.Add = function() {
-                    $scope.specializationid = "<?php echo rand(1000, 5000); ?>"
-                    $http({
-                        method: 'GET',
-                        url: 'insertData/insert-specialization.php',
-                        params: {
-                            specializationid: $scope.specializationid,
-                            specialization: $scope.specialization
-                        }
-                    }).then(function(response) {
-                        window.location.href = 'specialization.php?at=' + $scope.at;
-                    });
-                }
-
-                $scope.Update = function() {
-
-                    $http({
-                        method: 'GET',
-                        url: 'updateData/update-specialization-details.php',
-                        params: {
-                            id: $scope.specialid,
-                            specialization: $scope.specialn
-                        }
-                    }).then(function(response) {
-                        window.location.href = 'specialization.php?at=' + $scope.at;
-                    });
-                }
-
-                $scope.EditSpecialization = function() {
-                    if ($scope.selectedRow != null) {
-                        $scope.specializationid = $scope.selectedRow;
-                        $('#EditSpecialization').modal('show');
-                        $http({
-                            method: 'GET',
-                            params: {
-                                id: $scope.specializationid
-                            },
-                            url: 'getData/get-specialization-id.php'
-                        }).then(function(response) {
-                            $scope.specials = response.data;
-                        });
-                    } else {
-                        $('#ErrorModal').modal('show');
-                    }
                 }
 
                   $scope.getPage = function(check){

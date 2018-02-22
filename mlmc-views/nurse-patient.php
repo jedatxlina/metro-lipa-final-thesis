@@ -18,7 +18,7 @@ font-weight: bold;
 	<div class="row">
 		<div class="col-md-9">
                 <br>
-				<a href="qr-scanner/index.php?type=addpatientvitals" class="btn btn-danger-alt pull-left"><i class="fa fa-qrcode"></i>&nbsp;&nbsp;Scan</a>
+				<a href="qr-scanner/index.php?at=<?php echo $_GET['at']?>" class="btn btn-danger-alt pull-left"><i class="fa fa-qrcode"></i>&nbsp;&nbsp;Scan</a>
 				
 	
 		</div>

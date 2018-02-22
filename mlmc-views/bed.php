@@ -58,7 +58,6 @@
             <div class="col-md-3">
                     <div class="list-group list-group-alternate mb-n nav nav-tabs">
 						<a href="#" role="tab" data-toggle="tab" class="list-group-item active">Actions Panel</a>
-						<a href="#" ng-click="Add()" role="tab" data-toggle="tab" class="list-group-item"><i class="fa fa-list-alt fa-fw"></i>Add Bed</a>
 						<a href="#" ng-click="Edit()"role="tab" data-toggle="tab" class="list-group-item"><i class="ti ti-info-alt"></i>Edit Bed</a>
                 	</div>
             </div>
@@ -71,7 +70,7 @@
                             <h2>Edit Bed</h2>
                             <div class="panel-ctrls" data-actions-container="" data-action-collapse='{"target": ".panel-body, .panel-footer"}'></div>
                         </div>
-                        <div class="panel-body" style="height: 520px">
+                        <div class="panel-body" style="height: 620px">
                         <form ng-repeat="getbed in getbedid">
                                 <div class="form-group">
                                     <label>Bed ID </label>
@@ -89,11 +88,11 @@
                                 </div>
                                 <div class="form-group">
                                     <label>Rate </label>
-                                    <input type="text" ng-model="$parent.Rate" class="form-control" ng-init="$parent.Rate=getbed.Rate" >
+                                    <input type="text" ng-model="$parent.Rate" class="form-control" ng-init="$parent.Rate=getbed.Rate" disabled>
                                 </div>
                                 <div class="form-group">
                                     <label>Floor </label>
-                                    <select ng-model="$parent.Floor" class="form-control" ng-init="$parent.Floor=getbed.Floor" ng-click="EditMask()" disabled>
+                                    <select ng-model="$parent.Floor" class="form-control" ng-init="$parent.Floor=getbed.Floor" disabled>
 
                                         <option value="" disabled selected>Select Floor</option>
                                         <option value="1st">1st</option>
@@ -105,8 +104,17 @@
                                 </div>
                                 <div class="form-group">
                                     <label>Room Number </label>
-                                    <input type="text" ng-model="$parent.Room" placeholder="" class="form-control" ng-init="$parent.Room=getbed.Room" ui-mask="{{editrmask}}" ui-mask-placeholder ui-mask-placeholder-char="_" disabled/>
+                                    <input type="text" ng-model="$parent.Room" placeholder="" class="form-control" ng-init="$parent.Room=getbed.Room" ui-mask-placeholder ui-mask-placeholder-char="_" disabled/>
                                 </div>
+                                
+                                <div class="form-group">
+                                    <label>Status </label>
+                                    <select ng-model="$parent.status" class="form-control" ng-init="$parent.status=getbed.Status"/>
+                                    <option value="Available">Available</option>
+                                    <option value="Unavailable">Unavailable</option>
+                                    </select>
+                                </div>
+                                
                                     <button type="button" class="btn btn-default pull-right" data-dismiss="modal">Close</button>
                                     <button ng-click='Update()' class="btn btn-danger pull-right">Update</button>
                             </form>
@@ -116,53 +124,7 @@
             </div>
             <!--/ End Edit modal -->
 
-            <!-- / Add Modal -->
-            <div class="modal fade" id="AddModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-                <div class="modal-dialog">
-                    <div class="panel panel-danger" data-widget='{"draggable": "false"}'>
-                        <div class="panel-heading">
-                            <h2>Add Bed</h2>
-                            <div class="panel-ctrls" data-actions-container="" data-action-collapse='{"target": ".panel-body, .panel-footer"}'></div>
-                        </div>
-                        <div class="panel-body" style="height: 430px">
-                        <form>
-                                <div class="form-group">
-                                    <label>Room Type </label>
-                                    <select ng-model="RoomType" class="form-control">
-                                        <option value="" disabled selected>Select Room Type</option>
-                                        <option value="Single Deluxe">Single Deluxe</option>
-                                        <option value="Two-Bedded">Two-Bedded</option>
-                                        <option value="Four-Bedded">Four-Bedded</option>
-                                        <option value="Ward">Ward</option>
-                                    </select>
-                                </div>
-                                <div class="form-group">
-                                    <label>Rate </label>
-                                    <input type="text" ng-model="rate" placeholder="100" class="form-control" ng-disabled="RoomType == disabled">
-                                </div>
-                                <div class="form-group">
-                                    <label>Floor </label>
-                                    <select ng-model="floor" class="form-control" ng-click='UpdateMask()' ng-disabled="RoomType == disabled">
-                                        <option value="" disabled selected>Select Floor</option>
-                                        <option value="1st">1st</option>
-                                        <option value="2nd">2nd</option>
-                                        <option value="3rd">3rd</option>
-                                        <option value="4th">4th</option>
-                                        <option value="5th">5th</option>
-                                    </select>
-                                </div>
-                                <div class="form-group">
-                                    <label>Room Number </label>
-                                    <input type="text" ng-model="room" class="form-control" ui-mask="{{addrmask}}" ui-mask-placeholder ui-mask-placeholder-char="_" ng-disabled="floor == disabled">
-                                </div>
-                                    <button type="button" class="btn btn-default pull-right" data-dismiss="modal">Close</button>
-                                    <button ng-click='ConfirmAdd()' class="btn btn-danger pull-right">Confirm</button>
-                            </form>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <!--/ End Add Modal -->
+           
 
 
             <!-- Error modal -->
@@ -170,11 +132,11 @@
                 <div class="modal-dialog">
                     <div class="panel panel-danger" data-widget='{"draggable": "false"}'>
                         <div class="panel-heading">
-                            <h2>Error:</h2>
+                            <h2>ERROR</h2>
                             <div class="panel-ctrls" data-actions-container="" data-action-collapse='{"target": ".panel-body, .panel-footer"}'></div>
                         </div>
                         <div class="panel-body" style="height: 60px">
-                        Select Emergency record that you would like to apply an <a href="#" class="alert-link">Action.</a>
+                        Select Bed record that you would like to apply an <a href="#" class="alert-link">Action.</a>
                         </div>
                         <!-- <div class="panel-footer">
                             <span class="text-gray"><em>Footer</em></span>
@@ -261,46 +223,11 @@
                 });
             });
 
-            $scope.UpdateMask = function() {
-                if ($scope.floor == '1st') {
-                    $scope.addrmask = 199;
-                } else if ($scope.floor == '2nd') {
-                    $scope.addrmask = 299;
-                } else if ($scope.floor == '3rd') {
-                    $scope.addrmask = 399;
-                } else if ($scope.floor == '4th') {
-                    $scope.addrmask = 499;
-                } else if ($scope.floor == '5th') {
-                    $scope.addrmask = 599;
-                }
-            }
-
-            $scope.EditMask = function() {
-                if ($scope.Floor == '1st') {
-                    $scope.editrmask = 199;
-                } else if ($scope.Floor == '2nd') {
-                    $scope.editrmask = 299;
-                } else if ($scope.Floor == '3rd') {
-                    $scope.editrmask = 399;
-                } else if ($scope.Floor == '4th') {
-                    $scope.editrmask = 499;
-                } else if ($scope.Floor == '5th') {
-                    $scope.editrmask = 599;
-                }
-            }
-
-         
-
             $scope.setClickedRow = function(bed,stat) {
                 $scope.selectedRow = ($scope.selectedRow == null) ? bed : ($scope.selectedRow == bed) ? null : bed;
                 $scope.selectedStatus= ($scope.selectedStatus == null) ? stat : ($scope.selectedStatus == stat) ? null : stat;
                 $scope.clickedRow = ($scope.selectedRow == null) ? 0 : 1;
                 
-            }
-
-
-            $scope.Add = function() {
-                $('#AddModal').modal('show');
             }
 
             $scope.Update = function() {
@@ -310,43 +237,12 @@
                     url: 'updateData/update-bed-details.php',
                     params: {
                         id: $scope.bedid,
-                        RoomType: $scope.BType,
-                        rate: $scope.Rate,
-                        floor: $scope.Floor,
-                        room: $scope.Room
+                        status: $scope.status
                     }
                 }).then(function(response) {
                     window.location.href = 'bed.php?at=' + $scope.at;
                 });
             }
-
-            $scope.ConfirmAdd = function() {
-
-                if ($scope.floor == '1st')
-                    $scope.room = '1' + $scope.room
-                else if ($scope.floor == '2nd')
-                    $scope.room = '2' + $scope.room
-                else if ($scope.floor == '3rd')
-                    $scope.room = '3' + $scope.room
-                else if ($scope.floor == '4th')
-                    $scope.room = '4' + $scope.room
-                else if ($scope.floor == '5th')
-                    $scope.room = '5' + $scope.room
-
-                $http({
-                    method: 'GET',
-                    url: 'insertData/insert-bed.php',
-                    params: {
-                        RoomType: $scope.RoomType,
-                        rate: $scope.rate,
-                        floor: $scope.floor,
-                        room: $scope.room
-                    }
-                }).then(function(response) {
-                    window.location.href = 'bed.php?at=' +  $scope.at;
-                });
-            }
-
 
             $scope.Edit = function() {
                 if ($scope.selectedRow != null) 

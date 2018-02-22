@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<!DOCTYPE html>							
 <html lang="en">
     <head>
         <meta charset="utf-8">
@@ -190,10 +190,10 @@
                                 <nav role="navigation" class="widget-body">
                                     <ul class="acc-menu">
                                         <li class="nav-separator"><span>Explore</span></li>
-                                        <li><a href="../qr-scanner/index2.php"><i class="ti ti-home"></i><span>Scan QR</span><span class="badge badge-teal">2</span></a></li>
+                                        <li><a href="../qr-scanner/index2.php"><i class="ti ti-home"></i><span>Scan QR</span><span class="badge badge-teal"></span></a></li>
                                         <li class="nav-separator"><span>Extras</span></li>
-                                        <li><a href="app-inbox.html"><i class="ti ti-email"></i><span>Inbox</span><span class="badge badge-danger">3</span></a></li>
-                                        <li><a href="extras-calendar.html"><i class="ti ti-calendar	"></i><span>Calendar</span><span class="badge badge-orange">1</span></a></li>
+                                        <li><a href="app-inbox.html"><i class="ti ti-email"></i><span>Inbox</span><span class="badge badge-danger"></span></a></li>
+                                        <li><a href="extras-calendar.html"><i class="ti ti-calendar	"></i><span>Calendar</span><span class="badge badge-orange"></span></a></li>
                                     </ul>
                                 </nav>
                             </div>
@@ -227,150 +227,361 @@
                 </div>
                 <div class="static-content-wrapper">
                     <div class="static-content">
-                        <div class="container-fluid" ng-app="myApp" ng-controller="userCtrl">
-                            <!-- comment -->
-                            <div class="row">
-                                <div class="col-md-9">
-                                    <br>
-                                    <a href="qr-scanner/index.php?type=addpatientvitals" class="btn btn-danger-alt pull-left"><i class="fa fa-qrcode"></i>&nbsp;&nbsp;Scan</a>
-                                </div>
-                            </div>
-                            <br>
-                            <div data-widget-group="group1">
-                                <div class="row">
-                                    <div class="col-md-3">
-                                        
-                                        <div class="list-group list-group-alternate mb-n nav nav-tabs">
-                                            <a href="#" role="tab" data-toggle="tab" class="list-group-item active">Actions Panel</a>
-                                            <a href="#" ng-click="viewPatient()" role="tab" data-toggle="tab" class="list-group-item"><i class="ti ti-user"></i> Patient Details</a>
-                                            <a href="#" ng-click="patientVitals()" role="tab" data-toggle="tab" class="list-group-item"><i class="fa fa-stethoscope"></i>Patient Vitals</a>
-                                            <a href="#" ng-click="viewPatientMedication()" role="tab" data-toggle="tab" class="list-group-item"><span class="badge badge-primary"  ng-if="order > 0">{{order}}</span> <i class="fa fa-medkit"></i>View Medication</a>
-                                            <a href="#" ng-click="viewPatient()" role="tab" data-toggle="tab" class="list-group-item"><span class="badge badge-primary"  ng-if="order > 0">{{order}}</span> <i class="ti ti-email"></i>Doctors Order</a>
-                                            <a href="#" role="tab" data-toggle="tab" class="list-group-item"><span class="badge badge-danger" ng-if="notif > 0">{{notif}}</span><i class="ti ti-bell"></i> Notifcations</a>
+                    <div class="container-fluid" data-ng-repeat="patient in patientdetails">
+                    <br>
+                    <br>
+                    <div class="container-fluid">
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div data-widget-group="group1">
+                                    <div class="row">
+                                        <div class="col-md-12">
+                                            <div class="panel panel-white" data-widget='{"draggable": "false"}'>
+                                                <div class="panel-heading">
+                                                    <h2>Patient Vitals</h2>
+                                                </div>
+                                                <div class="panel-body">
+                                                    <div id="chart-container">
+                                                        <canvas style="height: 380px;" id="mycanvas1"></canvas>
+                                                    </div>
+                                                </div>  
+                                                <div class="panel-body">
+                                                    <div id="chart-container">
+                                                    <canvas style="height: 500px;" id="mycanvas2"></canvas>
+                                                    </div>
+                                                </div>
+                                                <div class="panel-body">
+                                                    <div id="chart-container">
+                                                    <canvas style="height: 500px;" id="mycanvas3"></canvas>
+                                                    </div>
+                                                </div>
+                                                <div class="panel-body">
+                                                    <div id="chart-container">
+                                                    <canvas style="height: 500px;" id="mycanvas4"></canvas>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
                             </div>
-                            <script>
-                                var fetch = angular.module('myApp', []);
-                                fetch.controller('userCtrl', ['$scope', '$http','$interval', function($scope, $http,$interval) {   
-                                $scope.at = "<?php echo $_GET['at'];?>";
-                                $scope.new = {};
-                                $scope.order = 0;
-                                $scope.notif = 0;
-                                switch ($scope.at.charAt(0)) {
+                        </div>
+                    </div>
+                    <script type="text/javascript" src="../assets/js/Chart.bundle.js"></script>
+                    <script type="text/javascript" src="../assets/js/jquery.min.js"></script>
+                    <script type="text/javascript" src="../assets/js/utils.js"></script>
+                <script>
+                        var data = angular.module('myApp', []);
+                        data.controller("userCtrl", function($scope, $window, $http) {  
+                            $scope.at = "<?php echo $_GET['at'];?>";
+                            $scope.admissionid = "<?php echo $_GET['result']; ?>"
+                            $http({
+                            method: 'GET',
+                            url: '../getData/get-patient-details.php',
+                            params: {id: "2017441375"}
+                            }).then(function(response) {
+                                $scope.patientdetails = response.data;
+                            });
+                
+                            switch ($scope.at.charAt(0)) {
                                 case '1':
-                                	$scope.User = "Administrator";
-                                	break;
+                                    $scope.User = "Administrator";
+                                    break;
                                 
                                 case '2':
-                                	$scope.User = "Admission Staff";
-                                	break;
+                                    $scope.User = "Admission Staff";
+                                    break;
                                 
                                 case '3':
-                                	$scope.User = "Nursing Staff";
-                                	break;
+                                    $scope.User = "Nursing Staff";
+                                    break;
                                 
                                 case '4':
-                                	$scope.User = "Physician";
-                                	break;
+                                    $scope.User = "Physician";
+                                    break;
                                 
                                 case '5':
-                                	$scope.User = "Pharmacy Staff";
-                                	break;
-                                
+                                    $scope.User = "Pharmacy Staff";
+                                    break;
+                
                                 case '6':
-                                	$scope.User = "Billing Staff";
-                                	break;
-                                
+                                    $scope.User = "Billing Staff";
+                                    break;
+                            
                                 default:
-                                	break;
-                                }
-                                $scope.viewProfile = function() { 
-                                	window.location.href = 'user-profile.php?at=' + $scope.at;
-                                }
-                                $scope.confirmBtn = function(){
-                                alert($scope.new.Firstname);
-                                }
-                                $scope.patientVitals = function(){
-                                     if($scope.selectedRow != null){
-                                     window.location.href = 'patient-vitals.php?at=' + $scope.at + '&id=' + $scope.selectedRow;
-                                     }else{
-                                        window.location.href = 'qr-scanner/index.php';
-                                    }
-                                };
-                                $scope.confirmBtn = function(user){
-                                	$scope.admissionid = $scope.selectedRow;
-                                	$http({
-                                		method: 'get',
-                                		url: 'updateData/update-inpatient-flag.php',
-                                		params: {id: $scope.admissionid}
-                                	}).then(function(response) {
-                                	window.location.reload();
-                                	});
-                                }
-                                $scope.getPage = function(check){
+                                    break;
+                            }
+                
+                            $scope.getPage = function(check){
                                 switch (check) {
-                                	case 'Dashboard':
-                                			window.location.href = 'index.php?at=' + $scope.at;
-                                			break;
-                                	case 'Emergency':
-                                			window.location.href = 'emergency.php?at=' + $scope.at;
-                                			break;
-                                	case 'Outpatient':
-                                			window.location.href = 'outpatient.php?at=' + $scope.at;
-                                			break;
-                                	case 'Inpatient':
-                                			window.location.href = 'inpatient.php?at=' + $scope.at;
-                                			break;
-                                			
-                                	case 'Confined':
-                                			window.location.href = 'nurse-patient.php?at=' + $scope.at;
-                                			break;
-                                	
-                                	case 'Physician':
-                                			window.location.href = 'physician.php?at=' + $scope.at;
-                                			break;
-                                	
-                                	case 'Pharmacy':
-                                			window.location.href = 'medicine-requisition.php?at=' + $scope.at;
-                                			break;
-                                
-                                	case 'Pharmaceuticals':
-                                			window.location.href = 'pharmacy.php?at=' + $scope.at;
-                                			break; 
-                                			
-                                	case 'Billing':
-                                			window.location.href = 'billing.php?at=' + $scope.at;
-                                			break;
-                                
-                                	case 'Cashier':
-                                			window.location.href = 'cashier.php?at=' + $scope.at;
-                                			break;
-                                	
-                                	case 'Accounts':
-                                			window.location.href = 'user.php?at=' + $scope.at;
-                                			break;
-                                
-                                	case 'Bed':
-                                			window.location.href = 'bed.php?at=' + $scope.at;
-                                			break;
-                                
-                                	case 'Specialization':
-                                			window.location.href = 'specialization.php?at=' + $scope.at;
-                                			break;
-                                	
-                                	case 'Laboratory':
-                                			window.location.href = 'laboratory.php?at=' + $scope.at;
-                                			break;
-                                	
-                                	default:
-                                		break;
+                                    case 'Dashboard':
+                                            window.location.href = 'index.php?at=' + $scope.at;
+                                            break;
+                                    case 'Emergency':
+                                            window.location.href = 'emergency.php?at=' + $scope.at;
+                                            break;
+                                    case 'Outpatient':
+                                            window.location.href = 'outpatient.php?at=' + $scope.at;
+                                            break;
+                                    case 'Inpatient':
+                                            window.location.href = 'inpatient.php?at=' + $scope.at;
+                                            break;
+                                            
+                                    case 'Confined':
+                                            window.location.href = 'nurse-patient.php?at=' + $scope.at;
+                                            break;
+                                    
+                                    case 'Physician':
+                                            window.location.href = 'physician.php?at=' + $scope.at;
+                                            break;
+                                    
+                                    case 'Pharmacy':
+                                            window.location.href = 'medicine-requisition.php?at=' + $scope.at;
+                                            break;
+                
+                                    case 'Pharmaceuticals':
+                                            window.location.href = 'pharmacy.php?at=' + $scope.at;
+                                            break; 
+                                            
+                                    case 'Billing':
+                                            window.location.href = 'billing.php?at=' + $scope.at;
+                                            break;
+                
+                                    case 'Cashier':
+                                            window.location.href = 'cashier.php?at=' + $scope.at;
+                                            break;
+                                    
+                                    case 'Accounts':
+                                            window.location.href = 'user.php?at=' + $scope.at;
+                                            break;
+                
+                                    case 'Bed':
+                                            window.location.href = 'bed.php?at=' + $scope.at;
+                                            break;
+                
+                                    case 'Specialization':
+                                            window.location.href = 'specialization.php?at=' + $scope.at;
+                                            break;
+                                    
+                                    case 'Laboratory':
+                                            window.location.href = 'laboratory.php?at=' + $scope.at;
+                                            break;
+                                    
+                                    default:
+                                        break;
+                                }
+                                        
+                            }  
+                                  
+                            
+                            
+                        });
+                        $(document).ready(function(){
+                        $.ajax({
+                            url: "data.php",
+                            method: "GET",
+                            dataType: 'json',
+                            data: { id: "<?php echo $_GET['result']; ?>"} ,
+                            success: function(data) {
+                                console.log(data);
+                                var bloodp = [];
+                                var bloodpd = [];
+                                var respi = [];
+                                var temp = [];
+                                var pulse = [];
+                                var date = [];
+                                for(var i in data) {
+                                    bloodp.push(data[i].BP);
+                                    bloodpd.push(data[i].BPD);
+                                    respi.push(data[i].RR);
+                                    temp.push(data[i].Temperature);
+                                    pulse.push(data[i].PR);
+                                    date.push(data[i].DateTimeChecked);
+                                }
+                
+                                var chartdata = {
+                                    labels: date,
+                                    datasets : [
+                                        {
+                                            label: 'Temperature',
+                                            backgroundColor: 'rgba(229,28,35,0.10)',
+                                            borderColor: 'rgba(167, 12, 12, 0.75)',
+                                            hoverBackgroundColor: 'rgba(12, 23, 45, 1)',
+                                            hoverBorderColor: 'rgba(123, 43, 55, 1)',
+                                            data: temp
+                                        }
+                                    ]
+                                };
+                                var chartdata2 = {
+                                    labels: date,
+                                    datasets : [
+                                        {
+                                            label: 'Pulse Rate',
+                                            backgroundColor: 'rgba(229,28,35,0.75)',
+                                            borderColor: 'rgba(167, 12, 12, 0.75)',
+                                            hoverBackgroundColor: 'rgba(12, 23, 45, 1)',
+                                            hoverBorderColor: 'rgba(123, 43, 55, 1)',
+                                            data: pulse
+                                        }
+                                    ]
+                                };
+                                var ctx = $("#mycanvas1");
+                                var ct2 = $("#mycanvas2");
+                                var ct3 = $("#mycanvas3");
+                                var ct4 = $("#mycanvas4");
+                
+                                var barGraph = new Chart(ctx, {
+                                    type: 'line',
+                                    data: chartdata,
+                                    height: 2000,
+                                    options: {
+                                        responsive: true,
+                                        maintainAspectRatio: false,
+                                        layout: {
+                                            padding: {
+                                                left: 0,
+                                                right: 50,
+                                                top: 50,
+                                                bottom: 0
+                                            }
+                                        },
+                                        scales: {
+                                            yAxes: [{
+                                                    display: true,
+                                                    ticks: {
+                                                        beginAtZero: true,
+                                                        steps: 10,
+                                                        stepValue: 5,
+                                                        max: 50
+                                                    }
+                                                }]
+                                        }
                                     }
-                                                     
-                                     }
-                                
-                                }]);
+                                });
+                                var barChart = new Chart(ct2, {
+                                    type: 'bar',
+                                    data: chartdata2,
+                                    options: {
+                                        responsive: true,
+                                        maintainAspectRatio: false,
+                                        layout: {
+                                            padding: {
+                                                left: 0,
+                                                right: 50,
+                                                top: 50,
+                                                bottom: 0
+                                            }
+                                        },
+                                        scales: {
+                                            yAxes: [{
+                                                    display: true,
+                                                    ticks: {
+                                                        beginAtZero: true,
+                                                        steps: 10,
+                                                        stepValue: 5,
+                                                        max: 200
+                                                    }
+                                                }]
+                                        }
+                                    }
+                                });
+                                var chartdata3 = {
+                                labels: date,
+                                datasets: [{
+                                    type: 'bar',
+                                    label: 'Systolic',
+                                    backgroundColor: window.chartColors.red,
+                                    data: bloodp,
+                                    borderColor: 'white',
+                                    borderWidth: 2
+                                }, {
+                                    type: 'bar',
+                                    label: 'Diastolic',
+                                    backgroundColor: window.chartColors.green,
+                                    data: bloodpd
+                                }]
+                            };
+                            var chartdata4 = {
+                                labels: date,
+                                datasets: [{
+                                    type: 'line',
+                                    label: 'Respiration Rate',
+                                    backgroundColor: window.chartColors.red,
+                                    data: respi,
+                                    borderColor: 'white',
+                                    borderWidth: 2
+                                }]
+                            };
+                                var barChart2 = new Chart(ct3, {
+                                    type: 'bar',
+                                    data: chartdata3,
+                                    options: {
+                                        responsive: true,
+                                        maintainAspectRatio: false,
+                                        layout: {
+                                            padding: {
+                                                left: 0,
+                                                right: 50,
+                                                top: 50,
+                                                bottom: 0
+                                            }
+                                        },
+                                        scales: {
+                                            yAxes: [{
+                                                    display: true,
+                                                    ticks: {
+                                                        beginAtZero: true,
+                                                        steps: 10,
+                                                        stepValue: 5,
+                                                        max: 200
+                                                    }
+                                                }]
+                                        },
+                                        tooltips: {
+                                            mode: 'index',
+                                            intersect: true
+                                        }
+                                    }
+                                });
+                                var linechart2 = new Chart(ct4, {
+                                    type: 'line',
+                                    data: chartdata4,
+                                    options: {
+                                        responsive: true,
+                                        maintainAspectRatio: false,
+                                        layout: {
+                                            padding: {
+                                                left: 0,
+                                                right: 50,
+                                                top: 50,
+                                                bottom: 0
+                                            }
+                                        },
+                                        scales: {
+                                            yAxes: [{
+                                                    display: true,
+                                                    ticks: {
+                                                        beginAtZero: true,
+                                                        steps: 10,
+                                                        stepValue: 5,
+                                                        max: 200
+                                                    }
+                                                }]
+                                        },
+                                        tooltips: {
+                                            mode: 'index',
+                                            intersect: true
+                                        }
+                                    }
+                                });
+                            },
+                            error: function(data) {
+                                console.log(data);
+                            }
+                        });
+                });
+                    </script>
                             </script>		
                         </div>
                     </div>

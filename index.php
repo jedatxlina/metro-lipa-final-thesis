@@ -124,9 +124,38 @@
        	            }).then(function(response) {
                         $scope.param = response.data;
 						if($scope.param == 0){
-							alert('Invalid Username And Password');
+						alert('Oh snap! Change a few things up and try submitting again.');
 						}else{
-							window.location.href = 'mlmc-views/index.php?at=' + $scope.user;	
+							var isMobile = {
+    							Android: function() {
+    						    	return navigator.userAgent.match(/Android/i);
+    							},
+    							BlackBerry: function() {
+    						    	return navigator.userAgent.match(/BlackBerry/i);
+    							},
+								iOS: function() {
+        							return navigator.userAgent.match(/iPhone|iPad|iPod/i);
+    							},
+    							Opera: function() {
+    						    	return navigator.userAgent.match(/Opera Mini/i);
+    							},
+    							Windows: function() {
+    							    return navigator.userAgent.match(/IEMobile/i) || navigator.userAgent.match(/WPDesktop/i);
+    							},
+    							any: function() {
+    							    return (isMobile.Android() || isMobile.BlackBerry() || isMobile.iOS() || isMobile.Opera() || isMobile.Windows());
+    							}
+    						};
+    						if( isMobile.any() )
+    						{
+								if($scope.param.charAt(1) == '3')
+									window.location.href = 'mlmc-views/tablet-view/nurse-patient-tablet.php?at=' + $scope.user;
+								else
+									alert("You are not authorized to access this tablet");
+    						}
+							else {
+								window.location.href = 'mlmc-views/index.php?at=' + $scope.user;
+							}	
 						}
 		            });
                 }
