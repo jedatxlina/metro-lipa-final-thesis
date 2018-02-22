@@ -12,7 +12,9 @@ while ($row = mysqli_fetch_array($sel)) {
         "PharmaID"=>$row['MedicineID'],
         "PharmaName"=>$row['MedicineName'],
         "Unit"=>$row['Unit'],
-        "Price"=>$row['Price']);
+        "Price"=>$row['Price'],
+        "Quantity"=>$row['Quantity'],
+        "ReOrder"=>$row['ReOrder']);
 }
 echo json_encode($data);
 

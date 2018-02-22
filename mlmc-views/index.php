@@ -33,7 +33,7 @@
 			</div>
 
 			<form ng-repeat="user in users">
-				<input type="hidden" ng-model="$parent.LN" ng-init="$parent.LN=user.LastName" class="form-control">
+				<input type="hidden" ng-model="$parent.PW" ng-init="$parent.PW=user.Password" class="form-control">
 			</form>
 			
 		</div>
@@ -50,7 +50,7 @@
 				{
 					if ($scope.at[0] == 4)
 							{
-								if ($scope.LN == "")
+								if ($scope.PW == "mlmc")
 								{
 									window.location.href = 'physician-details.php?at=' + $scope.at;
 								}
@@ -58,7 +58,7 @@
 					
 					else
 							{
-							if ($scope.LN == "")
+							if ($scope.PW == "mlmc")
 								{
 									window.location.href = 'user-details.php?at=' + $scope.at;
 								}
@@ -68,59 +68,16 @@
 
 				if ($scope.at[0] == 1)
 				{
-					$scope.LN = 'admin';
+					$scope.PW = 'admin';
 				}
-				else if ($scope.at[0] == 2)		
-				{
-					$http({
-							method: 'get',
-							params: {accid : $scope.at},
-							url: 'getData/get-admissionstaff-id.php'
-						}).then(function(response) {		
-							$scope.users = response.data;
-						});
-				}	
-				else if ($scope.at[0] == 3)
-					{
-						$http({
+				$http({
 								method: 'get',
-								params: {accid : $scope.at},
-								url: 'getData/get-nurse-id.php'
-							}).then(function(response) {		
+				 				params: {id : $scope.at},
+				 				url: 'getData/get-user-id.php'
+				 			}).then(function(response) {		
 								$scope.users = response.data;
 							});
-					}
-				else if ($scope.at[0] == 4)
-					{
-						$http({
-								method: 'get',
-								params: {accid : $scope.at},
-								url: 'getData/get-physician-id.php'
-							}).then(function(response) {		
-								$scope.users = response.data;
-							});
-					}
-				else if ($scope.at[0] == 5)
-					{
-						$http({
-								method: 'get',
-								params: {accid : $scope.at},
-								url: 'getData/get-pharmacystaff-id.php'
-							}).then(function(response) {		
-								$scope.users = response.data;
-							});
-					}	
-				else if ($scope.at[0] == 6)
-					{
-						$http({
-								method: 'get',
-								params: {accid : $scope.at},
-								url: 'getData/get-billingstaff-id.php'
-							}).then(function(response) {		
-								$scope.users = response.data;
-							});
-					}
-
+				
 			switch ($scope.at.charAt(0)) {
 				case '1':
 					$scope.User = "Administrator";

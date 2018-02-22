@@ -21,14 +21,14 @@
             <div class="col-md-9">
                 <div class="panel panel-default">
                     <div class="panel-heading">
-                        <h2>Physician Information</h2>
+                        <h2>User Information</h2>
                         <div class="panel-ctrls"></div>
                     </div>
                     <div class="panel-body">
                         <div class="panel-body">
                            <form class="grid-form" action="javascript:void(0)">
                                         <fieldset>
-                                            <legend>Personal Detail</legend>
+                                            <legend>Account Details</legend>
                                             <div data-row-span="1">
                                                 <div data-field-span="1">
                                                     <label> {{ Label }} </label>
@@ -37,59 +37,33 @@
                                                     </div>
                                                 </div>
                                             </div>
-                                             <div data-row-span="3">
-                                         
+                                            <div data-row-span="1">
                                                 <div data-field-span="1">
-                                                    <label>First Name</label>
-                                                    <input type="text" ng-model="firstname">
-                                                </div>
-                                                <div data-field-span="1">
-                                                    <label>Middle Name</label>
-                                                    <input type="text" ng-model="middlename">
-                                                </div>
-                                                <div data-field-span="1">
-                                                    <label>Last Name</label>
-                                                    <input type="text" ng-model="lastname">
-                                                </div>
-                                            </div>
-                                            <div data-row-span="3">
-                                                <div data-field-span="1">
-                                                    <label>Date of birth</label>
-                                                    <input type="text" class="form-control" ng-model="" id="datepicker">
-                                                </div>
-                                                
-                                                <div data-field-span="1">
-                                                    <label>Gender</label>
-                                                    <select class="form-control" ng-model="gender">  
-                                                        <option value="" disabled selected>Select</option>
-                                                        <option value="Male">Male</option>
-                                                        <option value="Female">Female</option>
-                                                    </select>
-                                                </div>
-                                                
-                                                <div data-field-span="1" data-field-error="Please enter a valid email address">
-                                                    <label>E-mail</label>
+                                                    <label> Email </label>
                                                     <div  ng-repeat="user in users">
-                                                    <input type="text" class="form-control" ng-model="$parent.email" ng-init="$parent.email=user.Email" >
+                                                    <input type="email" class="form-control" ng-model="$parent.email" ng-init="$parent.email=user.Email" >
                                                     </div>
                                                 </div>
-                                               
                                             </div>
-                                            <Br>
-                                            <fieldset>
-                                                <legend>Residential address</legend>
-                                             
-                                                <div data-row-span="2">
-
-                                                    <div data-field-span="2">
-                                                        <label>Complete Address</label>
-                                                        <input type="text" ng-model="address">
-                                                    </div>
+                                            <div data-row-span="1">
+                                                <div data-field-span="1">
+                                                    <label> New Password </label>
+                                                    <input type="password" class="form-control" ng-model="pw" >
                                                 </div>
-                                              
-                                               
-                                            </fieldset>
+                                            </div>
+                                            <div data-row-span="1">
+                                                <div data-field-span="1">
+                                                    <label> Confirm Password </label>
+                                                    <input type="password" class="form-control" ng-model="confirmpw" >
+                                                </div>
+                                            </div>
+                                           
+                                         
                                         </fieldset>
+                                        <br>
+                                        <span style="color:red" ng-show="pw != confirmpw">Password have to match!</span>
+                                        <span style="color:red" ng-show="pw == null">Password is required!</span>
+                                        <span style="color:red" ng-show="email.length == 0">Email is required!</span>
                                         <br>
                                         <br>
                                           
@@ -136,6 +110,8 @@
     $scope.selectedStatus = null;
     $scope.clickedRow = 0;
     $scope.new = {};
+    $scope.password = {};
+    $scope.confirmpassword = {};
 
                  if ($scope.param[0] == 2)		
 				{
@@ -182,30 +158,32 @@
 							});
 					}
 
-   
 
     $scope.submitForm = function(){
 
-        $scope.birthdate =$("#datepicker").datepicker("option", "dateFormat", "yy-mm-dd" ).val();
-                
-                    $http({
-                    method: 'GET',
-                    url: 'updateData/update-user-profile.php',
-                    params: {atype: $scope.param[0],
-                            id: $scope.param,
-                            Lastname: $scope.lastname,
-                            Firstname: $scope.firstname,
-                            Middlename: $scope.middlename,
-                            Gender: $scope.gender,
-                            Birthdate: $scope.birthdate,
-                            Address: $scope.address,
-                            Email: $scope.email
-                            }
-                    }).then(function(response) {
-                        window.location.href = 'user-profile.php?at=' + $scope.param;
-                    });
-        }
 
+            if ($scope.pw == $scope.confirmpw && $scope.pw!=null && $scope.confirmpw!=null && $scope.email!=null)
+            {
+                        $http({
+                        method: 'GET',
+                        url: 'updateData/update-user-details.php',
+                        params: {accesstype: $scope.param[0],
+                                accountid: $scope.param,
+                                email: $scope.email,
+                                password: $scope.pw
+                                }
+                        }).then(function(response) {
+                            if ($scope.param[0] == 3)
+                            window.location.href = 'index.php?at=' + $scope.param;
+                            else
+                            window.location.href = 'user-profile.php?at=' + $scope.param;
+                        });
+                    
+            }
+            
+ 
+
+        }
 
 
     switch ($scope.param) {
