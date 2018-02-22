@@ -36,7 +36,8 @@
 	<script src="components/angular.min.js"></script>
 	<script src="assets/js/mask.js"></script>
 	<script src="assets/js/angular-autogrow.js"></script>
-	
+	<script src="assets/sweetalert.min.js"></script>	
+
     </head>
 
     <body class="animated-content">	
@@ -44,7 +45,7 @@
 	$at = $_GET['at'];
  	$id = $at[0];
 	?>
-        <header id="topnav" class="navbar navbar-red navbar-fixed-top" role="banner">
+        <header id="topnav" class="navbar navbar-default navbar-fixed-top" role="banner">
 
 	<div class="logo-area">
 		<span id="trigger-sidebar" class="toolbar-trigger toolbar-icon-bg">

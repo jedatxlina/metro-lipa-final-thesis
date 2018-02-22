@@ -54,7 +54,7 @@
                                             <div data-row-span="4">
                                                 <div data-field-span="1">
                                                     <label>BP</label>
-                                                    <input type="text" ng-model="bp">
+                                                    <input type="text" ng-model="bp" class="form-control tooltips" data-trigger="hover" data-original-title="Separate with /">
                                                 </div>
                                                 <div data-field-span="1">
                                                     <label>PR</label>
@@ -86,12 +86,12 @@
                                                     </div>
                                                 </div>
                                                 <div data-field-span="1">
-                                                        <label>Weight</label>
-                                                        <input type="text" ng-model="weight">
+                                                        <label>Weight (Kg)</label>
+                                                        <input type="text" ng-model="weight" class="form-control tooltips" data-trigger="hover" data-original-title="(Kg)">
                                                     </div>
                                                     <div data-field-span="1">
-                                                        <label>Height</label>
-                                                        <input type="text" ng-model="height">
+                                                        <label>Height (cm)</label>
+                                                        <input type="text" ng-model="height"class="form-control tooltips" data-trigger="hover" data-original-title="(Cm)">
                                                     </div>
                                             </div>
                                             <legend>Review of System</legend>
@@ -245,8 +245,8 @@
                    
                     });
 
-                    $scope.reset = function(param){
-                        $scope.chck = param;
+                    $scope.reset = function(val){
+                        $scope.chck = val;
                         switch ($scope.chck) {
                             case 'condition':
                             $('#conditions').removeAttr('disabled');
@@ -267,17 +267,28 @@
                                 break;
                         }
                     }
+                    
+                    $scope.parsedbp = [];
 
                     $scope.submitDetails = function(){
-                        $scope.condition = $("#conditions").val();
-                        $scope.medication =$("#medications").val();
-                        $scope.administered =$("#administered").val();
-                        $scope.vitalsid =     "<?php echo rand(111111, 999999);?>"; 
-                        $scope.medicationid = "<?php echo rand(111111, 999999);?>"; 
-                        $scope.diagnosisid =  "<?php echo rand(111111, 999999);?>"; 
-                        $scope.attendingid =  "<?php echo rand(111111, 999999);?>"; 
-                        
-                          
+                            $scope.condition = $("#conditions").val();
+                            $scope.medication =$("#medications").val();
+                            $scope.administered =$("#administered").val();
+
+                            $scope.vitalsid =     "<?php echo rand(111111, 999999);?>"; 
+                            $scope.medicationid = "<?php echo rand(111111, 999999);?>"; 
+                            $scope.diagnosisid =  "<?php echo rand(111111, 999999);?>"; 
+                            $scope.attendingid =  "<?php echo rand(111111, 999999);?>"; 
+                            $scope.parsedbp =  $scope.bp.split('/');
+                             
+                            $http({
+                            method: 'GET',
+                            url: 'try.php',
+                            params: { bp: JSON.stringify($scope.parsedbp)}
+                            }).then(function(response) {
+                             
+                            });
+                      
                         if($scope.condition == 'Others'){
                          $scope.condition = $scope.otherconditions;
                         }
@@ -287,7 +298,7 @@
                         if($scope.administered == 'Others'){
                          $scope.administered = $scope.otheradministeredmed;
                         }
-                                 
+              
                         $http({
                             method: 'GET',
                             url: 'qr-generator/index.php',
@@ -296,7 +307,8 @@
                                  }
                         }).then(function(response) {
                         });
-
+                      
+                     
                         $http({
                             method: 'GET',
                             url: 'insertData/insert-medical-details.php',
@@ -307,8 +319,7 @@
                                     diagnosisid: $scope.diagnosisid,
                                     attendingid: $scope.attendingid,
                                     surgery: $scope.surgery,
-                                    bp: sys1,
-                                    bpd: dia1,
+                                    bp: JSON.stringify($scope.parsedbp),
                                     pr: $scope.pr,
                                     rr: $scope.rr,
                                     temp: $scope.temp,
@@ -319,7 +330,7 @@
                         }).then(function(response) {
                             window.location.href = 'insertData/insert-medications-details.php?param=' + $scope.param + '&at=' + $scope.at + '&medicationid=' + $scope.medicationid + '&admissionid=' + $scope.admissionid + '&administered=' + $scope.administered + '&physicianid=' + $scope.attending + '&medication=' + $scope.medication + '&condition=' + $scope.condition;
                         });
-
+                    
                     
                     }
 
