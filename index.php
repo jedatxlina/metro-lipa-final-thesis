@@ -64,6 +64,11 @@
 									</div>
 								</div>
 							</div>
+							<div class="form-group mb-n">
+								<div class="col-xs-12">
+									<br><a href="forgot-password.php" class="pull-left">Create Account</a>
+								</div>
+							</div>
 						
                             </div>
                             <div class="panel-footer">

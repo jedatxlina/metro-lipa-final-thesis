@@ -6,17 +6,17 @@ $id= $_GET['id'];
 $qnty = explode(',',$_GET['quantity']);
 $dosage = explode(',',$_GET['dosage']);
 $medid  = explode(',',$_GET['medid']);
+$notes  = explode(',',$_GET['notes']);
+
 $param = $_GET['param'];
-$type = $_GET['type'];
 $cnt = count($medid);
 
 for($x = 0; $x < $cnt ; $x ++){
-    $query = "UPDATE medication SET Quantity = '$qnty[$x]' , Dosage = '$dosage[$x]' WHERE MedicationID ='$id' AND MedicineID = '$medid[$x]'";
+    $query = "UPDATE medication SET Quantity = '$qnty[$x]', Dosage = '$dosage[$x]', Notes = '$notes[$x]' WHERE MedicationID ='$id' AND MedicineID = '$medid[$x]'";
     mysqli_query($con,$query);
-}
+} 
 
-$query1 = "UPDATE  medical_details SET class = '$type' WHERE MedicationID = '$id'";
-mysqli_query($con,$query1);
+
 
 switch ($param) {
     case 'Emergency':

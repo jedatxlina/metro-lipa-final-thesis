@@ -39,7 +39,6 @@ font-weight: bold;
 									<th>Admission ID</th>
 									<th>Admission No</th>
 									<th>Admission Date</th>
-									<th>Admission Time</th>
 									<th>Full name</th>
 									<th>Admission</th>
 									<th>Admission Type</th>
@@ -51,7 +50,6 @@ font-weight: bold;
                                         <td>{{user.AdmissionID}}</td>
                                         <td>{{user.AdmissionNo}}</td>
                                         <td>{{user.AdmissionDate}}</td>
-										<td>{{user.AdmissionTime}}</td>
                                         <td>{{user.Lname}}, {{user.Fname}} {{user.Mname}} </td>
                                         <td>{{user.Admission}}</td>
                                         <td>{{user.AdmissionType}}</td>
@@ -94,8 +92,9 @@ font-weight: bold;
 						<a href="#" ng-click="viewPatient()" role="tab" data-toggle="tab" class="list-group-item"><i class="ti ti-user"></i> Patient Details</a>
                         <a href="#" ng-click="patientVitals()" role="tab" data-toggle="tab" class="list-group-item"><i class="fa fa-stethoscope"></i>Patient Vitals</a>
 						<a href="#" ng-click="viewPatientMedication()" role="tab" data-toggle="tab" class="list-group-item"><span class="badge badge-primary"  ng-if="order > 0">{{order}}</span> <i class="fa fa-medkit"></i>View Medication</a>
-						<a href="#" ng-click="viewPatientMedication()" role="tab" data-toggle="tab" class="list-group-item"><span class="badge badge-primary"  ng-if="order > 0">{{order}}</span> <i class="fa fa-plus-square-o"></i>Medicine Requisition</a>
-						<a href="#" ng-click="viewPatient()" role="tab" data-toggle="tab" class="list-group-item"><span class="badge badge-primary"  ng-if="order > 0">{{order}}</span> <i class="ti ti-email"></i>Doctors Order</a>
+						<a href="#" ng-click="medicineRequisition()" role="tab" data-toggle="tab" class="list-group-item"><span class="badge badge-primary"  ng-if="order > 0">{{order}}</span> <i class="fa fa-plus-square-o"></i>Medicine Requisition</a>
+						<a href="#" ng-click="postCharges()" role="tab" data-toggle="tab" class="list-group-item"><span class="badge badge-primary"  ng-if="order > 0">{{order}}</span> <i class="fa fa-plus-square-o"></i>Post Charges</a>
+						<a href="#" ng-click="viewOrder()" role="tab" data-toggle="tab" class="list-group-item"><span class="badge badge-primary"  ng-if="order > 0">{{order}}</span> <i class="ti ti-email"></i>Doctors Order</a>
                         <a href="#" ng-click="viewFlag()" role="tab" data-toggle="tab" class="list-group-item"><span class="badge badge-danger" ng-if="notif > 0">{{notif}}</span><i class="ti ti-bell"></i> Notifcations</a>
                     </div>
 				</div>
@@ -348,7 +347,7 @@ font-weight: bold;
             if($scope.selectedRow != null){
             window.location.href = 'patient-vitals.php?at=' + $scope.at + '&id=' + $scope.selectedRow;
             }else{
-                window.location.href = 'qr-scanner/index.php';
+                window.location.href = 'qr-scanner/index.php?at=' + $scope.at;
            }
        };
 

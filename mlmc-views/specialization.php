@@ -51,8 +51,8 @@
             <div class="col-md-3">
                     <div class="list-group list-group-alternate mb-n nav nav-tabs">
 						<a href="#" role="tab" data-toggle="tab" class="list-group-item active">Actions Panel</a>
-						<a href="#" ng-click="AddSpecialization()" role="tab" data-toggle="tab" class="list-group-item"><i class="fa fa-list-alt fa-fw"></i>Add Bed</a>
-						<a href="#" ng-click="EditSpecialization()"role="tab" data-toggle="tab" class="list-group-item"><i class="ti ti-info-alt"></i>Edit Bed</a>
+						<!-- <a href="#" ng-click="AddSpecialization()" role="tab" data-toggle="tab" class="list-group-item"><i class="fa fa-list-alt fa-fw"></i>Add Specialization</a> -->
+						<a href="#" ng-click="EditSpecialization()"role="tab" data-toggle="tab" class="list-group-item"><i class="ti ti-info-alt"></i>Edit Specialization</a>
                 	</div>
             </div>
 

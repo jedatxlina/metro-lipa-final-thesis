@@ -223,7 +223,6 @@
 				<li <?php if ($id!=1 && $id!=6){?>style="display:none"<?php } ?>><a href="javascript:;"><i class="fa fa-file-text-o"></i><span>Billing Department</span></a>
 					<ul class="acc-menu">
 						<li><a ng-click="getPage('Billing')" href="javascript:void(0);"><i class="fa fa-user"></i><span>&emsp;Patients</span></a></li>
-						<li><a ng-click="getPage('Cashier')" href="javascript:void(0);"><i class="fa fa-money"></i><span>&emsp;Cashier Service</span></a></li>
 					</ul>
 				</li>
 				<li class="nav-separator"><span>Other Transactions</span></li>
