@@ -33,19 +33,21 @@
                             <thead>
                                 <tr>
                                     <th>Pharmaceutical ID</th>
-                                    <th>Pharmaceutical Type</th>
                                     <th>Pharmaceutical Name </th>
                                     <th>Unit</th>
                                     <th>Price</th>
+                                    <th>Quantity</th>
+                                    <th>Re-Order Point</th>
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr ng-repeat="pharma in pharmacs" ng-class="{'selected': pharma.PharmaID == selectedRow}" ng-click="setClickedRow(pharma.PharmaID)">
+                                <tr ng-repeat="pharma in pharmacs" ng-class="{'selected': pharma.PharmaID == selectedRow}" ng-click="setClickedRow(pharma.PharmaID)" >
                                     <td>{{pharma.PharmaID}}</td>
-                                    <td>{{pharma.PharmaType}}</td>
                                     <td>{{pharma.PharmaName}}</td>
                                     <td>{{pharma.Unit}}</td>
                                     <td>{{pharma.Price}}</td>
+                                    <td>{{pharma.Quantity}}</td>  
+                                    <td>{{pharma.ReOrder}}</td>
                                 </tr>
                             </tbody>
                         </table>
@@ -56,8 +58,9 @@
             <div class="col-md-3">
                 <div class="list-group list-group-alternate mb-n nav nav-tabs">
 						<a href="#" role="tab" data-toggle="tab" class="list-group-item active">Actions Panel</a>
-						<a href="#" ng-click="AddPharmaceutical()" role="tab" data-toggle="tab" class="list-group-item"><i class="fa fa-list-alt fa-fw"></i> Add Pharmaceutical</a>
-                        <a href="#" ng-click="EditPharmaceutical()"role="tab" data-toggle="tab" class="list-group-item"><i class="ti ti-info-alt"></i>Edit Pharmaceutical</a>
+						<a href="#" ng-click="AddPharmaceutical()" role="tab" data-toggle="tab" class="list-group-item"><i class="fa fa-list-alt fa-fw"></i>Add Medicine</a>
+                        <a href="#" ng-click="EditPharmaceutical()"role="tab" data-toggle="tab" class="list-group-item"><i class="ti ti-info-alt"></i>Edit Medicine</a>
+                        <a href="#" ng-click="AddStock()"role="tab" data-toggle="tab" class="list-group-item"><i class="ti ti-info-alt"></i>Add Stock</a>
                 </div>
             </div>
 
@@ -66,12 +69,12 @@
                     <div class="modal-content">
                         <div class="modal-header">
                             <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                            <h4 class="modal-title" id="myModalLabel">Add Pharmaceutical</h4>
+                            <h4 class="modal-title" id="myModalLabel">Add Medicine</h4>
                         </div>
                         <div class="modal-body">
                             <form>
                                 <div class="form-group">
-                                    <label>Pharmaceutical Name </label>
+                                    <label>Medicine Name </label>
                                     <input type="text" ng-model="pharmaname" placeholder="Paracetamol" class="form-control">
                                 </div>
                                 <div class="form-group">
@@ -81,6 +84,14 @@
                                 <div class="form-group">
                                     <label>Price </label>
                                     <input type="text" ng-model="price" placeholder="100" class="form-control">
+                                </div>
+                                <div class="form-group">
+                                    <label>Quantity </label>
+                                    <input type="text" ng-model="quantity" placeholder="10" class="form-control">
+                                </div>
+                                <div class="form-group">
+                                    <label>Re-Order Point </label>
+                                    <input type="text" ng-model="reorder" placeholder="5" class="form-control">
                                 </div>
                                 <div class="modal-footer">
                                     <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
@@ -93,10 +104,41 @@
                 </div>
             </div>
 
+            <div class="modal fade" id="AddStock" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                            <h4 class="modal-title" id="myModalLabel">Add Stock</h4>
+                        </div>
+                        <div class="modal-body">
+                            <form ng-repeat="stock in stocks">
+                                <div class="form-group">
+                                    <label>Medicine Name </label>
+                                    <input type="text" ng-model="$parent.medname" ng-init="$parent.medname=stock.PharmaName" class="form-control" disabled>
+                                </div>
+                                </forM>
+                                <div class="form-group">
+                                    <label>Quantity </label>
+                                    <input type="text" ng-model="addqty" placeholder="10" class="form-control">
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                                    <button ng-click='UpdateStock()' class="btn btn-primary">Confirm</button>
+                                </div>
+                            
+                        </div>
+                    </div>
+                    <!-- /.modal-content -->
+                </div>
+            </div>
+
+
+
             <div class="modal fade" id="ErrorModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
                 <div class="modal-dialog">
                     <div class="alert alert-danger">
-                        Select Pharmaceutical record that you would like to apply an <a href="#" class="alert-link">Action.</a>
+                        Select Medicine record that you would like to apply an <a href="#" class="alert-link">Action.</a>
                     </div>
                 </div>
             </div>
@@ -117,15 +159,23 @@
                      </div>
                      <div class="form-group">       
                      <label>Pharmaceutical Name </label>
-                     <input type="text" ng-model="$parent.PName" ng-init="$parent.PName=ep.PharmaName" class="form-control">
+                     <input type="text" ng-model="$parent.PName" ng-init="$parent.PName=ep.PharmaName" class="form-control" disabled>
                   </div>
                   <div class="form-group">       
                      <label>Unit </label>
-                     <input type="text" ng-model="$parent.PUnit" ng-init="$parent.PUnit=ep.Unit" class="form-control">
+                     <input type="text" ng-model="$parent.PUnit" ng-init="$parent.PUnit=ep.Unit" class="form-control" disabled>
                   </div>
                   <div class="form-group">       
                      <label>Price </label>
                      <input type="text" ng-model="$parent.PPrice" ng-init="$parent.PPrice=ep.Price" class="form-control">
+                  </div>
+                  <div class="form-group">       
+                     <label>Quantity </label>
+                     <input type="text" ng-model="$parent.qquantity" ng-init="$parent.qquantity=ep.Quantity" class="form-control" disabled>
+                  </div>
+                  <div class="form-group">       
+                     <label>Re-Order Point </label>
+                     <input type="text" ng-model="$parent.ROrder" ng-init="$parent.ROrder=ep.ReOrder" class="form-control">
                   </div>
                      <div class="modal-footer">
                         <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
@@ -150,6 +200,8 @@
             $scope.selectedStatus = null;
             $scope.clickedRow = 0;
             $scope.new = {};
+
+           
 
                 switch ($scope.at.charAt(0)) {
                     case '1':
@@ -210,7 +262,9 @@
                         pharmaid: $scope.pharmaid,
                         pharmaname: $scope.pharmaname,
                         unit: $scope.unit,
-                        price: $scope.price
+                        price: $scope.price,
+                        quantity: $scope.quantity,
+                        reorder: $scope.reorder
                     }
                 }).then(function(response) {
                     window.location.href = 'pharmacy.php?at=' + $scope.at;
@@ -226,7 +280,23 @@
                         pharmaid: $scope.PID,
                         pharmaname: $scope.PName,
                         unit: $scope.PUnit,
-                        price: $scope.PPrice
+                        price: $scope.PPrice,
+                        quantity: $scope.qquantity,
+                        reorder: $scope.ROrder
+                    }
+                }).then(function(response) {
+                    window.location.href = 'pharmacy.php?at=' + $scope.at;
+                });
+            }
+
+            $scope.UpdateStock = function() {
+                $scope.medid = $scope.selectedRow;
+                $http({
+                    method: 'GET',
+                    url: 'updateData/update-pharmaceutical-stock.php',
+                    params: {
+                        pharmaid: $scope.medid,
+                        qty: $scope.addqty
                     }
                 }).then(function(response) {
                     window.location.href = 'pharmacy.php?at=' + $scope.at;
@@ -245,6 +315,24 @@
                         url: 'getData/get-pharmaceutical-id.php'
                     }).then(function(response) {
                         $scope.editpharmac = response.data;
+                    });
+                } else {
+                    $('#ErrorModal').modal('show');
+                }
+            }
+
+            $scope.AddStock = function() {
+                if ($scope.selectedRow != null) {
+                    $scope.pharmaid = $scope.selectedRow;
+                    $('#AddStock').modal('show');
+                    $http({
+                        method: 'GET',
+                        params: {
+                            id: $scope.pharmaid
+                        },
+                        url: 'getData/get-pharmaceutical-id.php'
+                    }).then(function(response) {
+                        $scope.stocks = response.data;
                     });
                 } else {
                     $('#ErrorModal').modal('show');

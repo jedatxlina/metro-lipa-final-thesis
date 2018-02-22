@@ -32,14 +32,14 @@
                         <table id="table_info" class="table table-striped table-bordered" cellspacing="0" width="100%">
                             <thead>
                                 <tr>
-                                    <th>Physician Name</th>
+                                    <th>Doctor Name</th>
                                     <th>Specialization</th>
                                 </tr>
                             </thead>
                             <tbody>
                                 <tr ng-repeat="spec in specs" >
-                                    <td>{{spec.Fullname}}</td>
-                                    <td>{{spec.Specialization}}</td>
+                                    <td><i class="fa fa-stethoscope"> Dr. {{spec.Fullname}}</td>
+                                    <td><i class="fa fa-medkit"> {{spec.Specialization}}</td>
                                 </tr>
                             </tbody>
                         </table>
