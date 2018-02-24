@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Feb 22, 2018 at 03:20 PM
+-- Generation Time: Feb 24, 2018 at 09:21 PM
 -- Server version: 10.1.28-MariaDB
 -- PHP Version: 7.1.10
 
@@ -65,7 +65,7 @@ CREATE TABLE `attending_physicians` (
 --
 
 INSERT INTO `attending_physicians` (`AttendingID`, `PhysicianID`, `AdmissionID`, `DiagnosisID`, `Discount`) VALUES
-(275301, 0, 2017914766, 471100, '0.00');
+(820168, 452854, 2017167525, 339154, '0.00');
 
 -- --------------------------------------------------------
 
@@ -87,7 +87,7 @@ CREATE TABLE `beds` (
 --
 
 INSERT INTO `beds` (`BedID`, `RoomType`, `Rate`, `Floor`, `Room`, `Status`) VALUES
-('100', 'Single Deluxe', 1500, '1st', 100, 'Available'),
+('100', 'Single Deluxe', 1500, '1st', 100, 'Occupied'),
 ('101-1', 'Two-Bedded', 7000, '1st', 101, 'Occupied'),
 ('101-2', 'Two-Bedded', 7000, '1st', 101, 'Occupied'),
 ('105-1', 'Four-Bedded', 3000, '1st', 105, 'Available'),
@@ -1784,14 +1784,10 @@ CREATE TABLE `conditions` (
 --
 
 INSERT INTO `conditions` (`ConditionID`, `Conditions`) VALUES
-(235165, 'Asthma'),
-(623482, 'CVA'),
-(213624, 'Cancer'),
-(785411, 'Heart Disease'),
-(213522, 'Hypertension'),
-(213321, 'Diabetes'),
-(235890, 'Chest Pain'),
-(920050, 'Tooth Ache');
+(123321, 'Asthma'),
+(234522, 'CVA'),
+(223566, 'Cancer'),
+(253610, 'Chest Pain');
 
 -- --------------------------------------------------------
 
@@ -1814,7 +1810,7 @@ CREATE TABLE `diagnosis` (
 --
 
 INSERT INTO `diagnosis` (`DiagnosisID`, `AttendingID`, `Findings`, `Notes`, `DateDiagnosed`, `TimeDiagnosed`, `MedicationID`) VALUES
-(471100, 275301, 'N/a', '', '2018-02-22', '02:05 AM', 851180);
+(339154, 820168, 'N/a', '', '2018-02-24', '08:52 PM', 868391);
 
 -- --------------------------------------------------------
 
@@ -1837,6 +1833,25 @@ INSERT INTO `laboratories` (`LaboratoryID`, `Description`, `Rate`) VALUES
 (1056, 'Operation', 1000),
 (1075, 'CT-SCAN', 2500),
 (1087, 'XRAY', 500);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `medical_conditions`
+--
+
+CREATE TABLE `medical_conditions` (
+  `MedicalConditionID` int(6) NOT NULL,
+  `ConditionID` int(6) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `medical_conditions`
+--
+
+INSERT INTO `medical_conditions` (`MedicalConditionID`, `ConditionID`) VALUES
+(626454, 123321),
+(626454, 253610);
 
 -- --------------------------------------------------------
 
@@ -1867,7 +1882,7 @@ CREATE TABLE `medical_details` (
 --
 
 INSERT INTO `medical_details` (`MedicalID`, `AdmissionID`, `AttendingID`, `ArrivalDate`, `ArrivalTime`, `BedID`, `VitalsID`, `MedicationID`, `OperationID`, `DiagnosisID`, `PreviousSurgeries`, `Weight`, `Height`, `Class`, `QR_Path`) VALUES
-(216687, 2017914766, 275301, '2018-02-22', '02:05 AM', '', 312166, 851180, 0, 471100, 'N/a', 40, 40, '', 'qr-generator/temp/2017914766.png');
+(200102, 2017167525, 820168, '2018-02-24', '08:52 PM', '100', 928946, 868391, 0, 339154, 'N/a', 40, 155, '', 'qr-generator/temp/2017167525.png');
 
 -- --------------------------------------------------------
 
@@ -1892,7 +1907,7 @@ CREATE TABLE `medical_history` (
 CREATE TABLE `medication` (
   `MedicationID` int(6) NOT NULL,
   `AdmissionID` int(10) NOT NULL,
-  `ConditionID` int(6) NOT NULL,
+  `MedicalConditionID` int(6) NOT NULL,
   `MedicineID` int(15) NOT NULL,
   `Quantity` int(15) NOT NULL,
   `DateAdministered` varchar(25) NOT NULL,
@@ -1911,11 +1926,9 @@ CREATE TABLE `medication` (
 -- Dumping data for table `medication`
 --
 
-INSERT INTO `medication` (`MedicationID`, `AdmissionID`, `ConditionID`, `MedicineID`, `Quantity`, `DateAdministered`, `TimeAdministered`, `Dosage`, `NurseID`, `PhysicianID`, `Notes`, `DateStart`, `TimeStart`, `DateEnd`, `TimeEnd`) VALUES
-(829784, 2017412720, 235890, 718665, 0, '2018-02-22', '01:54 AM', '', 0, 1, '', '', '', '', ''),
-(829784, 2017412720, 235890, 13339, 0, '2018-02-22', '01:54 AM', '', 0, 1, '', '', '', '', ''),
-(851180, 2017914766, 920050, 13339, 1, '2018-02-22', '02:05 AM', '250mg', 0, 1, 'ako', '', '', '', ''),
-(851180, 2017914766, 920050, 718665, 2, '2018-02-22', '02:05 AM', '500mg', 0, 1, 'bahala', '', '', '', '');
+INSERT INTO `medication` (`MedicationID`, `AdmissionID`, `MedicalConditionID`, `MedicineID`, `Quantity`, `DateAdministered`, `TimeAdministered`, `Dosage`, `NurseID`, `PhysicianID`, `Notes`, `DateStart`, `TimeStart`, `DateEnd`, `TimeEnd`) VALUES
+(868391, 2017167525, 626454, 13339, 5, '2018-02-24', '08:52 PM', '250mg', 0, 452854, '5 a day', '', '', '', ''),
+(868391, 2017167525, 626454, 22741, 5, '2018-02-24', '08:52 PM', '500mg', 0, 452854, '5 a day', '', '', '', '');
 
 -- --------------------------------------------------------
 
@@ -1991,7 +2004,7 @@ CREATE TABLE `patients` (
 --
 
 INSERT INTO `patients` (`AdmissionID`, `AdmissionNo`, `AdmissionDate`, `AdmissionTime`, `FirstName`, `MiddleName`, `LastName`, `Admission`, `AdmissionType`, `Province`, `City`, `CompleteAddress`, `Gender`, `Age`, `CivilStatus`, `Birthdate`, `Contact`, `Occupation`, `Religion`, `Citizenship`, `MedicalID`) VALUES
-('2017914766', 1, '2018-02-22', '02:04 AM', 'Jed', 'Matthew', 'Lina', 'New Patient', 'Emergency', 'Batangas', 'Lipa City', '152 Bagongpook Lipa City', 'Male', '19y', 'Single', '1998-07-23', '8888884444', 'Executive', '', '', 216687);
+('2017167525', 1, '2018-02-24', '08:50 PM', 'Jed', 'Matthew', 'Lina', 'New Patient', 'Inpatient', 'Batangas', 'Lipa City', '152 bagongpook lipa city', 'Male', '22y', 'Single', '1995-07-17', '5515653222', 'Executive', '', '', 200102);
 
 -- --------------------------------------------------------
 
@@ -2059,13 +2072,6 @@ CREATE TABLE `pharmacy_staff` (
   `Email` varchar(50) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
---
--- Dumping data for table `pharmacy_staff`
---
-
-INSERT INTO `pharmacy_staff` (`PharmacyID`, `LastName`, `FirstName`, `MiddleName`, `Gender`, `Address`, `Birthdate`, `Email`) VALUES
-(598531, 'noyoure', 'not the', 'Pharmacist', 'Female', 'PMMMM', '01/03/2018', 'pharmacymodule@gmail.comm');
-
 -- --------------------------------------------------------
 
 --
@@ -2091,7 +2097,8 @@ CREATE TABLE `physicians` (
 --
 
 INSERT INTO `physicians` (`PhysicianID`, `LastName`, `FirstName`, `MiddleName`, `Gender`, `Address`, `Contact`, `Birthdate`, `Specialization`, `ProfessionalFee`, `Email`) VALUES
-(1, 'lina', 'jed', '', '', '', '', '', '', '0.00', '');
+(452854, 'Atienza', 'Protacio', 'Realonda', 'Female', '152 gagongpook', '639154785487', '12-01-25', '', '500.00', 'protocio@gmail.com'),
+(456325, 'Rizal', 'Jose', 'Mercado', 'Male', 'Santa Rosa Calamba', '639175669856', '12-02-21', '', '500.00', 'jose@gmail.com');
 
 -- --------------------------------------------------------
 
@@ -2208,6 +2215,31 @@ CREATE TABLE `relocate` (
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `secretary`
+--
+
+CREATE TABLE `secretary` (
+  `SecretaryID` int(6) NOT NULL,
+  `LastName` varchar(15) NOT NULL,
+  `FirstName` int(15) NOT NULL,
+  `MiddleName` int(15) NOT NULL,
+  `Gender` varchar(10) NOT NULL,
+  `Address` varchar(50) NOT NULL,
+  `Birthdate` varchar(20) NOT NULL,
+  `Email` varchar(50) NOT NULL,
+  `PhysicianID` int(6) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `secretary`
+--
+
+INSERT INTO `secretary` (`SecretaryID`, `LastName`, `FirstName`, `MiddleName`, `Gender`, `Address`, `Birthdate`, `Email`, `PhysicianID`) VALUES
+(738030, '', 0, 0, '', '', '', 'secretary1@gmail.com', 456325);
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `specialization`
 --
 
@@ -2256,13 +2288,9 @@ CREATE TABLE `user_account` (
 --
 
 INSERT INTO `user_account` (`AccountID`, `AccessType`, `Passwordd`, `Email`) VALUES
-('111111', '1', '111111', 'admin@gmail.com'),
-('222222', '2', '222222', 'admission@gmail.com'),
-('333333', '3', '333333', 'nurse@gmail.com'),
-('366289', '3', 'jedjed', 'nurse@gmail.com'),
-('410170', '4', '123', 'doctor@gmail.com'),
-('444444', '4', '444444', 'jmatthewlina.ceo@gmail.com'),
-('598531', '5', '123', 'pharmacymodule@gmail.comm');
+('146404', '1', '123', 'admin123@gmail.com'),
+('446042', '4', '123', 'doctor1@gmail.com'),
+('738030', '7', '123', 'secretary1@gmail.com');
 
 -- --------------------------------------------------------
 
@@ -2286,7 +2314,7 @@ CREATE TABLE `vitals` (
 --
 
 INSERT INTO `vitals` (`VitalsID`, `AdmissionID`, `BP`, `BPD`, `PR`, `RR`, `Temperature`, `DateTimeChecked`) VALUES
-(312166, 2017914766, 120, 0, 40, 40, 40, '2018-02-22 02:05 AM');
+(928946, 2017167525, 150, 20, 20, 20, 20, '2018-02-24 20:52:03');
 
 --
 -- Indexes for dumped tables
@@ -2391,7 +2419,7 @@ ALTER TABLE `cities`
 -- AUTO_INCREMENT for table `patients`
 --
 ALTER TABLE `patients`
-  MODIFY `AdmissionNo` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `AdmissionNo` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT for table `provinces`
