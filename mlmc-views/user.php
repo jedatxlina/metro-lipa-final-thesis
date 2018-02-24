@@ -64,6 +64,7 @@
             <!--/ Edit modal -->
          
             <!--/ End Edit modal -->
+
              <!-- Modal -->
          <div class="modal fade" id="AddModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
             <div class="modal-dialog">
@@ -72,7 +73,7 @@
                         <h2>Add User Account</h2>
                         <div class="panel-ctrls" data-actions-container="" data-action-collapse='{"target": ".panel-body, .panel-footer"}'></div>
                     </div>
-                    <div class="panel-body" style="height: 460px">
+                    <div class="panel-body" style="height: 560px">
                     <p>Data below will be used as credential and restrictions of the user</p>
                         <form>
                             <div class="form-group" >
@@ -90,6 +91,7 @@
                                     <option value="4">Type 4 - Doctor Module</option>
                                     <option value="5">Type 5 - Pharmacy Module</option>
                                     <option value="6">Type 6 - Billing Module</option>
+                                    <option value="7">Type 7 - Secretary Module</option>
                                 </select>
                                 </div>
                             </div>
@@ -104,6 +106,15 @@
                             <!-- <div class="modal-footer">
                                
                             </div> -->
+                            <div class="form-group" >
+                                <label>Select Physician</label>
+                                <select class="form-control" ng-model="physician" style="width:620px;" ng-disabled='accesstype != 7'>
+                                    <optgroup label="List of Doctors">
+                                        <option ng-repeat="physician in physicians" value="{{physician.PhysicianID}}">{{physician.Fullname}}</option>
+                                    </optgroup>    
+                                </select>
+                            </div>
+
                             <button type="button" class="btn btn-defualt pull-right" data-dismiss="modal">Close</button>
                             <button ng-click='Confirm()' class="btn btn-danger pull-right">Confirm</button>
                         </form>
@@ -144,7 +155,7 @@
                             <h2>Edit User Account</h2>
                             <div class="panel-ctrls" data-actions-container="" data-action-collapse='{"target": ".panel-body, .panel-footer"}'></div>
                         </div>
-                        <div class="panel-body" style="height: 460px">
+                        <div class="panel-body" style="height: 560px">
                         <p>Data below will be used as credential and restrictions of the user</p>
                         <form ng-repeat="getaccount in getaccountid">
                         <div class="form-group">
@@ -162,6 +173,7 @@
                                     <option value="4">Type 4 - Doctor Module</option>
                                     <option value="5">Type 5 - Pharmacy Module</option>
                                     <option value="6">Type 6 - Billing Module</option>
+                                    <option value="7">Type 7 - Secretary Module</option>
                                 </select>
                             </div>
                         </div>
@@ -173,8 +185,16 @@
                             <label>Email </label>
                             <input type="email" ng-model="$parent.mail" ng-init="$parent.mail=getaccount.Email" class="form-control">
                         </div>
-                        <!-- <div class="modal-footer">
-                        </div> -->
+                       
+                        <div class="form-group" >
+                                <label>Select Physician</label>
+                                <select class="form-control" ng-model="physician" style="width:620px;" ng-disabled='$parent.acctype != 7'>
+                                    <optgroup label="List of Doctors">
+                                        <option ng-repeat="physician in physicians" value="{{physician.PhysicianID}}">{{physician.Fullname}}</option>
+                                    </optgroup>    
+                                </select>
+                            </div>
+
                         <button type="button" class="btn btn-default pull-right" data-dismiss="modal">Close</button>
                         <button ng-click='Update()' class="btn btn-danger pull-right">Update</button>
                     </form>
@@ -237,23 +257,50 @@
                 });
             });
 
-           
+            $http({
+                method: 'GET',
+                url: 'getData/get-physician-details.php'
+            }).then(function(response) {
+                $scope.physicians = response.data;
+            });
 
 
             $scope.Confirm = function() { 
-                $http({
-                method: 'GET',
-                url: 'insertData/insert-user.php',
-                params: {
-                    accountid: $scope.accountid,
-                    accesstype: $scope.accesstype,
-                    password: $scope.password,
-                    email: $scope.email
+       
+                switch ($scope.accesstype) {
+                    case '7':
+                        $http({
+                        method: 'GET',
+                        url: 'insertData/insert-user.php',
+                        params: {
+                            accountid: $scope.accountid,
+                            accesstype: $scope.accesstype,
+                            password: $scope.password,
+                            email: $scope.email,
+                            physician: $scope.physician
+                        }
+                        }).then(function(response) {
+                            window.location.href = 'user.php?at=' + $scope.at;
+                        });
+                        break;
+                
+                    default:
+                        $http({
+                        method: 'GET',
+                        url: 'insertData/insert-user.php',
+                        params: {
+                            accountid: $scope.accountid,
+                            accesstype: $scope.accesstype,
+                            password: $scope.password,
+                            email: $scope.email
+                        }
+                        }).then(function(response) {
+                            window.location.href = 'user.php?at=' + $scope.at;
+                        });
+                        break;
                 }
-            }).then(function(response) {
-                window.location.href = 'user.php?at=' + $scope.at;
-            });
-                };
+                    
+            };
 
 
             $scope.accessType = function (){
@@ -269,6 +316,8 @@
                 $scope.accountid = "<?php echo "5" .  rand(10000, 99999); ?>"
               }if($scope.accesstype == 6){
                 $scope.accountid = "<?php echo "6" .  rand(10000, 99999); ?>"
+              }if($scope.accesstype == 7){
+                $scope.accountid = "<?php echo "7" .  rand(10000, 99999); ?>"
                 }
           }
 

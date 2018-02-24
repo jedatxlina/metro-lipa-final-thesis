@@ -21,6 +21,7 @@ foreach($variable as $key => $val) {
         $dia = $val;
     }
 }
+
 $pr = $_GET['pr'];
 $rr = $_GET['rr'];
 $temp = $_GET['temp'];

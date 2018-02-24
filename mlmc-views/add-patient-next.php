@@ -126,7 +126,7 @@
                                                             <option ng-repeat="physician in physicians" value="{{physician.PhysicianID}}">{{physician.Fullname}}</option>
                                                         </optgroup>    
                                                     </select>
-                                                    
+                                                
                                                 </div>
                                             </div>
                                             <br>
@@ -187,17 +187,37 @@
                         case '6':
                             $scope.User = "Billing Staff";
                             break;
+
+                        case '7':
+                            $scope.User = "Secretary";
+                            break;
                     
                         default:
                             break;
                     }
 
-                    $http({
-                        method: 'GET',
-                        url: 'getData/get-physician-details.php'
-                    }).then(function(response) {
-                        $scope.physicians = response.data;
-                    });
+                    switch ($scope.at.charAt(0)) {
+                        case '7':
+                            $http({
+                                method: 'GET',
+                                url: 'getData/get-physician-outpatient-details.php',
+                                params: {id: $scope.at}
+                            }).then(function(response) {
+                                $scope.physicians = response.data;
+                            });
+                            break;
+                    
+
+                        default:
+                            $http({
+                                method: 'GET',
+                                url: 'getData/get-physician-details.php'
+                            }).then(function(response) {
+                                $scope.physicians = response.data;
+                            });
+                            break;
+                    }
+                   
 
                     
                     $http({
@@ -212,16 +232,19 @@
                         url: 'getData/get-conditions-details.php'
                     }).then(function(response) {
                         $scope.conditions = response.data;
-                     
                     });
+
+                    $scope.otherconditions = '';
+                    $scope.othercurrentmed = '';
+                    $scope.otheradministeredmed = '';
                     $('#otherconditions').hide();
                     $('#othercurrentmed').hide();
                     $('#otheradministeredmed').hide();
 
                     $( "#conditions" ).click(function() {
                         $scope.condition = $("#conditions").val();
-                        if($scope.condition == 'Others'){
-                            $('#conditions').attr('disabled', 'disabled');
+
+                        if( $scope.condition.indexOf('Others') >= 0){
                             $('#otherconditions').show();
                         }
                    
@@ -229,8 +252,7 @@
 
                     $( "#medications" ).click(function() {
                         $scope.medication = $("#medications").val();
-                        if($scope.medication == 'Others'){
-                            $('#medications').attr('disabled', 'disabled');
+                        if( $scope.medication.indexOf('Others') >= 0){
                             $('#othercurrentmed').show();
                         }
                    
@@ -238,8 +260,7 @@
 
                     $( "#administered" ).click(function() {
                         $scope.administered = $("#administered").val();
-                        if($scope.administered == 'Others'){
-                            $('#administered').attr('disabled', 'disabled');
+                        if( $scope.administered.indexOf('Others') >= 0){
                             $('#otheradministeredmed').show();
                         }
                    
@@ -271,44 +292,61 @@
                     $scope.parsedbp = [];
 
                     $scope.submitDetails = function(){
-                            $scope.condition = $("#conditions").val();
-                            $scope.medication =$("#medications").val();
-                            $scope.administered =$("#administered").val();
+
+                             $scope.condition = $("#conditions").val();
+                             $scope.medication =$("#medications").val();
+                             $scope.administered =$("#administered").val();
+
+                            $scope.found = $scope.condition.indexOf('Others');
+                            while ($scope.found !== -1) {
+                                $scope.condition.splice($scope.found, 1);
+                                $scope.found = $scope.condition.indexOf('Others');
+                             
+                            }
+                            if($scope.otherconditions != ''){
+                                $scope.condition = $scope.condition.concat($scope.otherconditions);
+                            }
+                            
+
+                            $scope.found1 = $scope.medication.indexOf('Others');
+                            while ($scope.found1 !== -1) {
+                                $scope.medication.splice($scope.found1, 1);
+                                $scope.found1 = $scope.medication.indexOf('Others');
+                             
+                            }
+                            if($scope.othercurrentmed != ''){
+                                $scope.medication = $scope.medication.concat($scope.othercurrentmed);
+                            }
+                           
+                            
+                            $scope.found2 = $scope.administered.indexOf('Others');
+                            while ($scope.found2 !== -1) {
+                                $scope.administered.splice($scope.found2, 1);
+                                $scope.found2 = $scope.administered.indexOf('Others');
+                             
+                            }
+                            if($scope.otheradministeredmed != ''){
+                                $scope.administered = $scope.administered.concat($scope.otheradministeredmed);
+                            }
+                
 
                             $scope.vitalsid =     "<?php echo rand(111111, 999999);?>"; 
                             $scope.medicationid = "<?php echo rand(111111, 999999);?>"; 
                             $scope.diagnosisid =  "<?php echo rand(111111, 999999);?>"; 
                             $scope.attendingid =  "<?php echo rand(111111, 999999);?>"; 
+
                             $scope.parsedbp =  $scope.bp.split('/');
-                             
+                      
                             $http({
-                            method: 'GET',
-                            url: 'try.php',
-                            params: { bp: JSON.stringify($scope.parsedbp)}
+                                method: 'GET',
+                                url: 'qr-generator/index.php',
+                                params: {medid: $scope.medid,
+                                        admissionid: $scope.admissionid,
+                                    }
                             }).then(function(response) {
-                             
                             });
                       
-                        if($scope.condition == 'Others'){
-                         $scope.condition = $scope.otherconditions;
-                        }
-                        if($scope.medication == 'Others'){
-                         $scope.medication = $scope.othercurrentmed;
-                        }
-                        if($scope.administered == 'Others'){
-                         $scope.administered = $scope.otheradministeredmed;
-                        }
-              
-                        $http({
-                            method: 'GET',
-                            url: 'qr-generator/index.php',
-                            params: {medid: $scope.medid,
-                                    admissionid: $scope.admissionid,
-                                 }
-                        }).then(function(response) {
-                        });
-                      
-                     
+         
                         $http({
                             method: 'GET',
                             url: 'insertData/insert-medical-details.php',
@@ -326,11 +364,11 @@
                                     weight: $scope.weight,
                                     height: $scope.height,
                                     diagnosis: $scope.diagnosis,
-                                    attending: $scope.attending.PhysicianID}
+                                    attending: $scope.attending}
                         }).then(function(response) {
                             window.location.href = 'insertData/insert-medications-details.php?param=' + $scope.param + '&at=' + $scope.at + '&medicationid=' + $scope.medicationid + '&admissionid=' + $scope.admissionid + '&administered=' + $scope.administered + '&physicianid=' + $scope.attending + '&medication=' + $scope.medication + '&condition=' + $scope.condition;
                         });
-                    
+                 
                     
                     }
 

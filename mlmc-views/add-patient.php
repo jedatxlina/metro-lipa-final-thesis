@@ -215,6 +215,10 @@
                         case '6':
                             $scope.User = "Billing Staff";
                             break;
+
+                        case '7':
+                            $scope.User = "Secretary";
+                            break;
                     
                         default:
                             break;
