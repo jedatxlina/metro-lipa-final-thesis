@@ -48,21 +48,12 @@
 
 				angular.element(document).ready(function()
 				{
-					if ($scope.at[0] == 4)
-							{
-								if ($scope.PW == "mlmc")
-								{
-									window.location.href = 'physician-details.php?at=' + $scope.at;
-								}
-							}
 					
-					else
-							{
 							if ($scope.PW == "mlmc")
 								{
 									window.location.href = 'user-details.php?at=' + $scope.at;
 								}
-							}
+							
 				});
 
 

@@ -135,6 +135,17 @@
 								$scope.users = response.data;
 							});
 					}
+                    else if ($scope.param[0] == 4)
+					{
+						$http({
+								method: 'get',
+								params: {accid : $scope.param},
+								url: 'getData/get-physician-id.php'
+							}).then(function(response) {	
+                                $scope.Label = "Physician ID";	
+								$scope.users = response.data;
+							});
+					}
 				else if ($scope.param[0] == 5)
 					{
 						$http({

@@ -17,7 +17,7 @@
 <br>
   <div class="clearfix">
         <div class="pull-left">
-           &emsp;<button ng-click="goBack()" class="btn-danger-alt btn">Back</button>
+            <!-- &emsp;<button ng-click="goBack()" class="btn-danger-alt btn">Back</button> -->
         </div>
     </div>
 <br>
@@ -46,7 +46,8 @@
                 </div><!-- panel -->
                 <div class="list-group list-group-alternate mb-n nav nav-tabs">
                     <a href="#tab-about" role="tab" data-toggle="tab" class="list-group-item active"><i class="ti ti-user"></i> About </a>
-                    <a href="#tab-edit" role="tab" data-toggle="tab" class="list-group-item"><i class="ti ti-pencil"></i> Edit</a>
+                    <a href="#tab-edit" role="tab" data-toggle="tab" class="list-group-item active" ng-click="ChangePassword"><i class="ti ti-pencil"></i> Change Password</a>
+                    <a href="#tab-edit" role="tab" data-toggle="tab" class="list-group-item active" ng-click="ChangeEmail"><i class="ti ti-pencil"></i> Change Email / Contact</a>
                 </div>
             </div><!-- col-sm-3 -->
             <div class="col-sm-9">
@@ -65,17 +66,18 @@
                                         <table class="table">
                                             <tbody>
                                             <tr>
-                                                <th>Last Name </th>
-                                                <td>{{user.Lastname}}</td>
-                                            </tr>
-                                            <tr>
                                                 <th>First Name</th>
                                                 <td>{{user.Firstname}}</td>
                                             </tr>
                                             <tr>
                                                 <th>Middle Name</th>
                                                 <td>{{user.Middlename}}</td>
-                                            </tr><tr>
+                                            </tr>
+                                            <tr>
+                                                <th>Last Name </th>
+                                                <td>{{user.Lastname}}</td>
+                                            </tr>
+                                            <tr>
                                                 <th>Gender</th>
                                                 <td>{{user.Gender}}</td>
                                             </tr>
@@ -90,6 +92,20 @@
                                             <tr>
                                                 <th>Email</th>
                                                 <td>{{user.Email}}</td>
+                                            </tr>
+                                            <tr>
+                                            <th>Change Photo</th>
+                                            <td>
+                                            <div class="fileinput fileinput-new" data-provides="fileinput">
+                                                <span class="btn btn-default btn-file">
+                                                     <span class="fileinput-new">Upload a photo</span>
+                                                     <span class="fileinput-exists">Change</span>
+                                                         <input type="file" ng-model="photo">
+                                                </span>
+                                                     <span class="fileinput-filename"></span>
+                                                 <a href="#" class="close fileinput-exists" data-dismiss="fileinput" style="float: none">&times;</a>
+                                            </div>
+                                            </td>
                                             </tr>
                                             </tbody>
                                         </table>
@@ -112,7 +128,7 @@
                                             </tr>
                                             <tr>
                                                 <th>Contact</th>
-                                                <td>{{user.Contact}}</td>
+                                                <td>+63{{user.Contact}}</td>
                                             </tr>
                                             </tbody>
                                         </table>
@@ -138,19 +154,19 @@
                                                 <tbody>
                                                 <tr>
                                                     <th>Last name</th>
-                                                    <td><input type="text" class="form-control"  ng-model="user.Lastname" ></td>
+                                                    <td><input type="text" class="form-control"  ng-model="user.Lastname" disabled></td>
                                                     <th  <?php if ($id!=4){?>style="display:none"<?php } ?>>Specialization</th>
                                                     <td  <?php if ($id!=4){?>style="display:none"<?php } ?>><input type="text" class="form-control" ng-model="user.Specialization" ng-disabled="true"></td>
                                                  </tr>
                                                 <tr>
                                                     <th>First name</th>
-                                                    <td><input type="text" class="form-control"  ng-model="user.Firstname"></td>
+                                                    <td><input type="text" class="form-control"  ng-model="user.Firstname" disabled></td>
                                                     <th  <?php if ($id!=4){?>style="display:none"<?php } ?>>Professional Fee</th>
                                                     <td  <?php if ($id!=4){?>style="display:none"<?php } ?>><input type="text" class="form-control" ng-model="user.ProfessionalFee"></td>
                                                 </tr>
                                                 <tr>
                                                     <th>Middle name</th>
-                                                    <td><input type="text" class="form-control"  ng-model="user.Middlename"></td>
+                                                    <td><input type="text" class="form-control"  ng-model="user.Middlename" disabled></td>
                                                     <th <?php if ($id!=4){?>style="display:none"<?php } ?>>Mobile No.</th>
                                                     <td <?php if ($id!=4){?>style="display:none"<?php } ?>>   <input type="text" class="form-control" ng-model="user.Contact" ui-mask="+63 999-999-9999"  ui-mask-placeholder ui-mask-placeholder-char="-  "/></td>
                                                 </div>
@@ -158,7 +174,7 @@
                                                 <tr>
                                                     <th>Gender</th>
                                                     <td> 
-                                                    <select class="form-control" ng-model="user.Gender">  
+                                                    <select class="form-control" ng-model="user.Gender" disabled>  
                                                         <option value="" disabled selected>Select</option>
                                                         <option value="Male">Male</option>
                                                         <option value="Female">Female</option>
@@ -167,11 +183,11 @@
                                                 </tr>
                                                 <tr>
                                                     <th>Address</th>
-                                                    <td><input type="text" class="form-control"  ng-model="user.Address"></td>
+                                                    <td><input type="text" class="form-control"  ng-model="user.Address" disabled></td>
                                                 </tr>                                              
                                                 <tr>
                                                     <th>Birthdate</th>
-                                                    <td><input type="text" class="form-control" ng-model="user.Birthdate"></td>
+                                                    <td><input type="text" class="form-control" ng-model="user.Birthdate" disabled></td>
                                                 </tr>
                                                 <tr>
                                                     <th>Email</th>
