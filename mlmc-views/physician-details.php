@@ -34,7 +34,7 @@
                                                 <div data-field-span="1">
                                                     <label>Physician ID</label>
                                                     <div  ng-repeat="user in users">
-                                                    <input type="text" ng-model="$parent.physicianid" ng-init="$parent.physicianid=user.PhysicianID" disabled >
+                                                    <input type="text" ng-model="$parent.physicianid" ng-init="$parent.physicianid=user.AccountID" disabled >
                                                     </div>
                                                 </div>
                                             </div>
