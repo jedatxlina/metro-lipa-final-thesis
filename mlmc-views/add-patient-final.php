@@ -152,6 +152,10 @@
                         case '6':
                             $scope.User = "Billing Staff";
                             break;
+
+                        case '7':
+                            $scope.User = "Secretary";
+                            break;
                     
                         default:
                             break;
@@ -175,7 +179,18 @@
              
                     });
                     $scope.submitDetails = function(type){
-                        window.location.href = 'initiate-medication.php?quantity=' + $scope.Quantity + '&id=' + $scope.medicationid + '&at=' + $scope.at + '&dosage=' + $scope.Dosage + '&medid=' + $scope.MedID + '&param=' + $scope.param + '&notes=' + $scope.NoteID;
+                        swal({
+                            icon: "success",
+                            title: "Successfully Added!",
+                            text: "Redirecting in 2..",
+                            timer: 2000
+                        }).then(function () {
+                            window.location.href = 'initiate-medication.php?quantity=' + $scope.Quantity + '&id=' + $scope.medicationid + '&at=' + $scope.at + '&dosage=' + $scope.Dosage + '&medid=' + $scope.MedID + '&param=' + $scope.param + '&notes=' + $scope.NoteID;
+                            }, function (dismiss) {
+                            if (dismiss === 'cancel') {
+                                window.location.href = 'initiate-medication.php?quantity=' + $scope.Quantity + '&id=' + $scope.medicationid + '&at=' + $scope.at + '&dosage=' + $scope.Dosage + '&medid=' + $scope.MedID + '&param=' + $scope.param + '&notes=' + $scope.NoteID;
+                            }
+                        });
                     }
 
                     $scope.goBack = function(){

@@ -18,7 +18,7 @@ font-weight: bold;
 		<div class="col-md-6">
                 <br>
 				<button type="button" ng-click="addPatient()" class="btn btn-danger-alt pull-left"><i class="ti ti-user"></i>&nbsp;Add Patient</button>
-				
+			
 		</div>
 	</div>
 	<br>
@@ -66,6 +66,7 @@ font-weight: bold;
 						<a href="#" role="tab" data-toggle="tab" class="list-group-item active">Actions Panel</a>
 						<a href="#" ng-click="viewPatient()" role="tab" data-toggle="tab" class="list-group-item"><i class="ti ti-user"></i> Patient Details</a>
                         <a href="#" ng-click="movePatient()" role="tab" data-toggle="tab" class="list-group-item"><i class="fa fa-stethoscope"></i>Move to Inpatient</a>
+						<a href="#" ng-click="movePatient()" role="tab" data-toggle="tab" class="list-group-item"><i class="fa fa-file-o"></i>Move to Outpatient</a>
                         <a href="#" ng-click="dischargePatient()" role="tab" data-toggle="tab" class="list-group-item"><i class="fa fa-check-square-o"></i>Discharge</a>
                         <a href="#" ng-click="ReAdmitPatient()" role="tab" data-toggle="tab" class="list-group-item"><i class="fa fa-check-square-o"></i> Re-Admit</a>
                     </div>
@@ -235,8 +236,9 @@ font-weight: bold;
 				</div>
 		</div>
 	</div>
-	
+
 <script>
+	
    var fetch = angular.module('myApp', []);
   
 
@@ -302,6 +304,7 @@ font-weight: bold;
 
 		$scope.addPatient = function(){
 			window.location.href = 'add-patient.php?at=' + $scope.at + '&id=' + 1;
+			
 		}
 	  
 		$scope.viewPatient = function(){

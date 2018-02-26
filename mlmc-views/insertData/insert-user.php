@@ -6,7 +6,7 @@ $accountid = $_GET['accountid'];
 $accesstype = $_GET['accesstype'];
 $password = $_GET['password'];
 $email = $_GET['email'];
-
+$physician = isset($_GET['physician']) ? $_GET['physician'] : '';
 
 $query= "INSERT into user_account(AccountID,AccessType,Passwordd,Email) VALUES ('$accountid','$accesstype','$password','$email')";
 
@@ -31,6 +31,10 @@ switch ($accesstype) {
     
     case '6':
         $query= "INSERT into billing_staff(BillingStaffID,Email) VALUES ('$accountid','$email')";
+        break;
+
+    case '7':
+        $query= "INSERT into secretary(SecretaryID,Email,PhysicianID) VALUES ('$accountid','$email','$physician')";
         break;
     
     default:

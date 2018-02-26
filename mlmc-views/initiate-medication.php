@@ -16,8 +16,6 @@ for($x = 0; $x < $cnt ; $x ++){
     mysqli_query($con,$query);
 } 
 
-
-
 switch ($param) {
     case 'Emergency':
         header("Location:emergency.php?at=$at");
@@ -28,3 +26,5 @@ switch ($param) {
         header("Location:outpatient.php?at=$at");
         break;
 }
+
+

@@ -248,6 +248,9 @@ font-weight: bold;
 		$scope.order = 0;
 		$scope.notif = 0;
 
+		var pushalert = function (){
+			alert('jed');
+		}	
 		var tick = function() {
 			$scope.clock = Date.now();
 			$scope.datetime = new Date().toLocaleTimeString('en-US', { hour: 'numeric', hour12: true, minute: 'numeric' });		
@@ -257,10 +260,11 @@ font-weight: bold;
 					url: 'getData/get-inpatient-flags.php',
 					params:{id:$scope.selectedRow}
 				}).then(function(response) {
-					$scope.cnt = response.data;
-					$scope.notif = $scope.cnt.length;
+					$scope.notif = response.data.length;
+					
 				});
-		
+				
+			
 		}
 	
 		tick();

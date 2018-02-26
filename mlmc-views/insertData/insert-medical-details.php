@@ -10,9 +10,18 @@ $admissionid =  $_GET['admissionid'];
 $medicalid = $_GET['medid'];
 
 $surgery = $_GET['surgery'];
-$bp = $_GET['bp'];
-$bpd = $_GET['bpd'];
-echo $bpd;
+
+$variable = json_decode($_GET['bp'], true);
+$cnt = count($variable);
+
+foreach($variable as $key => $val) {
+    if($key == 0){
+        $sys = $val;
+    }else{
+        $dia = $val;
+    }
+}
+
 $pr = $_GET['pr'];
 $rr = $_GET['rr'];
 $temp = $_GET['temp'];
@@ -35,7 +44,7 @@ VALUES('$medicalid','$admissionid','$attendingid','$date','$time','$vitalsid','$
 mysqli_query($con,$query);  
 
 $query = "INSERT into vitals(VitalsID,AdmissionID,BP,BPD,PR,RR,Temperature,DateTimeChecked) 
-VALUES('$vitalsid','$admissionid','$bp','$bpd','$pr','$rr','$temp',NOW())";
+VALUES('$vitalsid','$admissionid','$sys','$dia','$pr','$rr','$temp',NOW())";
 
 mysqli_query($con,$query);
 

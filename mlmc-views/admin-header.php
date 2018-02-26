@@ -36,7 +36,8 @@
 	<script src="components/angular.min.js"></script>
 	<script src="assets/js/mask.js"></script>
 	<script src="assets/js/angular-autogrow.js"></script>
-	
+	<script src="assets/sweetalert.min.js"></script>	
+
     </head>
 
     <body class="animated-content">	
@@ -44,7 +45,7 @@
 	$at = $_GET['at'];
  	$id = $at[0];
 	?>
-        <header id="topnav" class="navbar navbar-red navbar-fixed-top" role="banner">
+        <header id="topnav" class="navbar navbar-default navbar-fixed-top" role="banner">
 
 	<div class="logo-area">
 		<span id="trigger-sidebar" class="toolbar-trigger toolbar-icon-bg">
@@ -201,11 +202,11 @@
 			<ul class="acc-menu">
 				<li class="nav-separator"><span>Explore</span></li>
 				<li ><a ng-click="getPage('Dashboard')" href="javascript:void(0);"><i class="ti ti-home"></i><span>Dashboard</span></a></li>
-				<li <?php if ($id!=1 && $id!=2){?>style="display:none"<?php } ?>><a href="javascript:;"><i class="fa fa-users"></i><span>Patients</span></a>
+				<li <?php if ($id!=1 && $id!=2 && $id !=7){?>style="display:none"<?php } ?>><a href="javascript:;"><i class="fa fa-users"></i><span>Patients</span></a>
 					<ul class="acc-menu">
-						<li><a ng-click="getPage('Emergency')" href="javascript:void(0);"><i class="fa fa-user"></i><span>&emsp;Emergency</span></a></li>
+						<li <?php if ($id == 7){?>style="display:none"<?php } ?>><a ng-click="getPage('Emergency')" href="javascript:void(0);"><i class="fa fa-user"></i><span>&emsp;Emergency</span></a></li>
 						<li><a ng-click="getPage('Outpatient')" href="javascript:void(0);"><i class="fa fa-user"></i><span>&emsp;Outpatient</span></a></li>
-						<li><a ng-click="getPage('Inpatient')" href="javascript:void(0);"><i class="fa fa-user"></i><span>&emsp;Inpatient</span></a></li>
+						<li <?php if ($id == 7){?>style="display:none"<?php } ?>><a ng-click="getPage('Inpatient')" href="javascript:void(0);"><i class="fa fa-user"></i><span>&emsp;Inpatient</span></a></li>
 					</ul>
 				</li>
 				<li <?php if ($id!=1 && $id!=3){?>style="display:none"<?php } ?>><a href="javascript:;"><i class="fa fa-stethoscope"></i><span>Nursing Services</span></a>
