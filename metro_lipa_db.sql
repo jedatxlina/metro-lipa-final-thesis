@@ -3,9 +3,9 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Feb 24, 2018 at 09:21 PM
--- Server version: 10.1.28-MariaDB
--- PHP Version: 7.1.10
+-- Generation Time: Feb 26, 2018 at 09:30 AM
+-- Server version: 10.1.29-MariaDB
+-- PHP Version: 7.2.0
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET AUTOCOMMIT = 0;
@@ -87,15 +87,50 @@ CREATE TABLE `beds` (
 --
 
 INSERT INTO `beds` (`BedID`, `RoomType`, `Rate`, `Floor`, `Room`, `Status`) VALUES
-('100', 'Single Deluxe', 1500, '1st', 100, 'Occupied'),
-('101-1', 'Two-Bedded', 7000, '1st', 101, 'Occupied'),
-('101-2', 'Two-Bedded', 7000, '1st', 101, 'Occupied'),
-('105-1', 'Four-Bedded', 3000, '1st', 105, 'Available'),
-('105-2', 'Four-Bedded', 3000, '1st', 105, 'Available'),
-('205-3', 'Four-Bedded', 30000, '2nd', 205, 'Available'),
-('305-4', 'Four-Bedded', 3000, '3rd', 305, 'Available'),
-('306-1', 'Two-Bedded', 1000, '3rd', 306, 'Available'),
-('306-2', 'Two-Bedded', 1000, '3rd', 306, 'Available');
+('300-1', 'Ward', 900, '3', 300, 'Available'),
+('300-2', 'Ward', 900, '3', 300, 'Available'),
+('300-3', 'Ward', 900, '3', 300, 'Available'),
+('300-4', 'Ward', 900, '3', 300, 'Available'),
+('301-1', 'OB-Ward', 900, '3', 301, 'Available'),
+('301-2', 'OB-Ward', 900, '3', 301, 'Available'),
+('301-3', 'OB-Ward', 900, '3', 301, 'Available'),
+('301-4', 'OB-Ward', 900, '3', 301, 'Available'),
+('302-1', 'Female-Ward', 900, '3', 302, 'Available'),
+('302-2', 'Female-Ward', 900, '3', 302, 'Available'),
+('302-3', 'Female-Ward', 900, '3', 302, 'Available'),
+('302-4', 'Female-Ward', 900, '3', 302, 'Available'),
+('303-1', 'Male-Ward', 900, '3', 303, 'Available'),
+('303-2', 'Male-Ward', 900, '3', 303, 'Available'),
+('303-3', 'Male-Ward', 900, '3', 303, 'Available'),
+('303-4', 'Male-Ward', 900, '3', 303, 'Available'),
+('304-1', 'Pedia-Ward', 900, '3', 304, 'Available'),
+('304-2', 'Pedia-Ward', 900, '3', 304, 'Available'),
+('304-3', 'Pedia-Ward', 900, '3', 304, 'Available'),
+('304-4', 'Pedia-Ward', 900, '3', 304, 'Available'),
+('305-1', 'Surgical-Ward', 900, '3', 305, 'Available'),
+('305-2', 'Surgical-Ward', 900, '3', 305, 'Available'),
+('305-3', 'Surgical-Ward', 900, '3', 305, 'Available'),
+('305-4', 'Surgical-Ward', 900, '3', 305, 'Available'),
+('306-1', 'Semi-Private', 1250, '3', 306, 'Available'),
+('306-2', 'Semi-Private', 1250, '3', 306, 'Available'),
+('306-3', 'Semi-Private', 1250, '3', 306, 'Available'),
+('306-4', 'Semi-Private', 1250, '3', 306, 'Available'),
+('307-1', 'Semi-Private', 1500, '3', 307, 'Available'),
+('307-2', 'Semi-Private', 1500, '3', 307, 'Available'),
+('308-1', 'Semi-Private', 1500, '3', 308, 'Available'),
+('308-2', 'Semi-Private', 1500, '3', 308, 'Available'),
+('400', 'Private', 1800, '4', 400, 'Available'),
+('401', 'Private', 1800, '4', 401, 'Available'),
+('402', 'Private', 1800, '4', 402, 'Available'),
+('403', 'Private', 1800, '4', 403, 'Available'),
+('404', 'Private', 1800, '4', 404, 'Available'),
+('405', 'Private', 1800, '4', 405, 'Available'),
+('406', 'Suite', 2500, '4', 406, 'Available'),
+('407', 'Suite', 2500, '4', 407, 'Available'),
+('408', 'Suite', 2500, '4', 408, 'Available'),
+('409', 'Suite', 2500, '4', 409, 'Available'),
+('411', 'Infectious', 2500, '4', 411, 'Available'),
+('412', 'Infectious', 2500, '4', 412, 'Available');
 
 -- --------------------------------------------------------
 
