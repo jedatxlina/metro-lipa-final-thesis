@@ -230,8 +230,56 @@ font-weight: bold;
 						</div>
 					</form>
 				</div>
-		
-				
+
+				<!-- View Medication Modal -->
+					
+				<div class="modal fade" id="viewMedicationModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+					<form class="form-horizontal">
+						<div class="modal-dialog">
+							<div class="panel panel-danger" data-widget='{"draggable": "false"}'>
+								<div class="panel-heading">
+									<h2>Newly Registered Inpatients</h2>	
+									<div class="panel-ctrls" data-actions-container="" data-action-collapse='{"target": ".panel-body, .panel-footer"}'></div>
+								</div>
+								<div class="panel-body" style="height: 500px">
+									<center><span><strong>Registry Information</strong></span></center>
+									<hr>
+									<table id="medication_table" class="table table-striped table-bordered" cellspacing="0" width="100%">
+										<thead>
+										<tr>
+											<th>Medicine ID</th>
+											<th>Date Administered</th>
+											<th>Time Administered</th>
+											<th>Medicine Name</th>
+											<th>Quantity</th>
+											<th>Dosage</th>
+										</tr>
+										</thead>
+										<tbody>
+										<tr ng-repeat="medication in medicationdetails" ng-class="{'selected': medication.MedicineID == selectedRow}" ng-click="setClickedRow(medication.MedicineID)">
+												<td>{{medication.MedicineID}}</td>
+												<td>{{medication.DateAdministered}}</td>
+												<td>{{medication.TimeAdministered}}</td>
+												<td>{{medication.MedicineName}}</td>
+												<td>{{medication.Quantity}}</td>
+												<td>{{medication.Dosage}}</td>
+												
+											</tr>
+										</tbody>
+									</table>
+
+								
+								</div>
+								<div class="panel-footer">
+										<button type="button" ng-click="viewMedicine()" class="btn btn-default pull-left" data-dismiss="modal">View Details</button>
+										<button type="button" class="btn btn-default pull-right" data-dismiss="modal">Close</button>
+										<button type="button" ng-click="confirmBtn()" class="btn btn-danger pull-right">Confirm</button>
+								</div>
+							</div>
+						</div>
+					</form>
+				</div>
+				<!-- View Medication Modal -->
 		</div>
 	</div>
 	
@@ -263,8 +311,7 @@ font-weight: bold;
 					$scope.notif = response.data.length;
 					
 				});
-				
-			
+
 		}
 	
 		tick();
@@ -336,6 +383,32 @@ font-weight: bold;
 			else{
 			$('#myModal').modal('show');
 			}
+		}
+
+		$scope.viewPatientMedication = function(){
+			if($scope.selectedRow != null){
+				$scope.admissionid = $scope.selectedRow;
+				$http({
+					method: 'get',
+					url: 'getData/get-medication-details.php',
+					params: {id: $scope.admissionid}
+				}).then(function(response) {
+					$scope.medicationdetails = response.data;
+					angular.element(document).ready(function() {  
+					dTable = $('#medication_table')  
+					dTable.DataTable();  
+					});  
+				});
+				$('#viewMedicationModal').modal('show');
+			
+			}
+			else{
+			$('#myModal').modal('show');
+			}
+		}
+
+		$scope.viewMedicine = function(param){
+			alert($scope.selectedRow);
 		}
 
 		$scope.viewProfile = function() { 

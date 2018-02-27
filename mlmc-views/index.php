@@ -7,30 +7,38 @@
 <br><br>
 <div class="container-fluid"  ng-app="myApp">
 	<div class="row">
-		<div class="col-md-4">
-			<div class="info-tile tile-info">
-				<div class="tile-icon"><i class="ti ti-user"></i></div>
-				<div class="tile-heading"><span>Emergency Patients</span></div>
-				<div class="tile-body"><span>{{count}}</span></div>
-				<div class="tile-footer"><span class="text-success">+0.0%</span></div>
+		<div class="col-md-3">
+			<div class="info-tile tile-warning">
+				<div class="tile-icon"><i class="ti ti-eye"></i></div>
+				<div class="tile-heading"><span>Page Views</span></div>
+				<div class="tile-body"><span>1600</span></div>
+				<div class="tile-footer"><span class="text-danger">-7.6%</span></div>
 			</div>
 		</div>
-		<div class="col-md-4">
-			<div class="info-tile tile-info">
-				<div class="tile-icon"><i class="ti ti-user"></i></div>
-				<div class="tile-heading"><span>Outpatient Patients</span></div>
-				<div class="tile-body"><span>{{count}}</span></div>
-				<div class="tile-footer"><span class="text-success">+0.0%</span></div>
+		<div class="col-md-3">
+			<div class="info-tile tile-success">
+				<div class="tile-icon"><i class="ti ti-thumb-up"></i></div>
+				<div class="tile-heading"><span>Likes</span></div>
+				<div class="tile-body"><span>345</span></div>
+				<div class="tile-footer"><span class="text-success">+15.4%</span></div>
 			</div>
 		</div>
-		<div class="col-md-4">
+		<div class="col-md-3">
+			<div class="info-tile tile-danger">
+				<div class="tile-icon"><i class="ti ti-check-box"></i></div>
+				<div class="tile-heading"><span>Bugs Fixed</span></div>
+				<div class="tile-body"><span>21</span></div>
+				<div class="tile-footer"><span class="text-success">+10.4%</span></div>
+			</div>
+		</div>
+		<div class="col-md-3">
 			<div class="info-tile tile-info">
 				<div class="tile-icon"><i class="ti ti-user"></i></div>
-				<div class="tile-heading"><span>Inpatient Patients</span></div>
-				<div class="tile-body"><span>{{count}}</span></div>
-				<div class="tile-footer"><span class="text-success">+0.0%</span></div>
+				<div class="tile-heading"><span>New Members</span></div>
+				<div class="tile-body"><span>124</span></div>
+				<div class="tile-footer"><span class="text-danger">-25.4%</span></div>
 			</div>
-			</div>
+		</div>
 
 			<form ng-repeat="user in users">
 				<input type="hidden" ng-model="$parent.PW" ng-init="$parent.PW=user.Password" class="form-control">
@@ -42,6 +50,7 @@
 </div>
 
 <script>
+
         var app = angular.module('myApp', []);
         app.controller('userCtrl', function($scope, $http) {
 				$scope.at = "<?php echo $at;?>";
@@ -55,7 +64,6 @@
 								}
 							
 				});
-
 
 				if ($scope.at[0] == 1)
 				{

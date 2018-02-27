@@ -94,6 +94,7 @@
                                                         <input type="text" ng-model="height"class="form-control tooltips" data-trigger="hover" data-original-title="(Cm)">
                                                     </div>
                                             </div>
+                                           
                                             <legend>Review of System</legend>
                                             <div data-row-span="4"> 
                                                     <div data-field-span="2">
@@ -122,13 +123,66 @@
                                                 <div data-field-span="1">
                                                     <label>Attending Physician</label>
                                                     <select class="form-control" ng-model="attending" style="width:395px;">
-                                                        <optgroup label="List of Doctors">
-                                                            <option ng-repeat="physician in physicians" value="{{physician.PhysicianID}}">{{physician.Fullname}}</option>
-                                                        </optgroup>    
+                                                        <option value="" disabled selected>Select Physician</option>
+                                                         <option ng-repeat="physician in physicians" value="{{physician.PhysicianID}}">{{physician.Fullname}}</option>
+                                                       
                                                     </select>
                                                 
                                                 </div>
+                                                <!-- <div data-field-span="1">
+                                                    <label>With New Born Baby?</label>
+                                                    <input type="radio" ng-model="newborn" name="newborn"  id="newborn" value='Yes' class="tooltips" data-trigger="hover" data-original-title="Yes"> Yes &nbsp;
+                                                    
+                                                    <input type="radio" ng-model="newborn" name="newborn"  id="newborn" value='No' class="tooltips" data-trigger="hover" data-original-title="No"> No
+                                                </div> -->
                                             </div>
+                                            <br>
+                                            <!-- <div id="newborndiv">
+                                                <legend>New Born Review</legend>
+                                                <div data-row-span="4"> 
+                                                        <div data-field-span="2">
+                                                            <label>Mother Account</label>
+                                                            <input type="text" ng-model="otheradministeredmed" class="form-control tooltips" data-trigger="hover" data-original-title="Separate with , if more than 1">
+                                                        </div>
+                                                        <div data-field-span="2">
+                                                            <label>Admission ID</label>
+                                                            <input type="text" ng-model="otheradministeredmed" class="form-control tooltips" data-trigger="hover" data-original-title="Separate with , if more than 1">
+                                                        </div>
+                                                </div>
+                                                <div data-row-span="3">
+                                                    <div data-field-span="1">
+                                                        <label>First Name</label>
+                                                        <input type="text" ng-model="otheradministeredmed" class="form-control tooltips" data-trigger="hover" data-original-title="Separate with , if more than 1">
+                                                    
+                                                    </div>
+                                                    <div data-field-span="1">
+                                                        <label>Middle Name</label>
+                                                        <input type="text" ng-model="otheradministeredmed" class="form-control tooltips" data-trigger="hover" data-original-title="Separate with , if more than 1">
+                                                    
+                                                    </div>
+                                                    <div data-field-span="1">
+                                                        <label>Last Name</label>
+                                                        <input type="text" ng-model="otheradministeredmed" class="form-control tooltips" data-trigger="hover" data-original-title="Separate with , if more than 1">
+                                                    </div>
+                                                </div>
+                                                <div data-row-span="3">
+                                                    <div data-field-span="1">
+                                                        <label>Weight</label>
+                                                        <input type="text" ng-model="otheradministeredmed" class="form-control tooltips" data-trigger="hover" data-original-title="Separate with , if more than 1">
+                                                    
+                                                    </div>
+                                                    <div data-field-span="1">
+                                                        <label>Height</label>
+                                                        <input type="text" ng-model="otheradministeredmed" class="form-control tooltips" data-trigger="hover" data-original-title="Separate with , if more than 1">
+                                                    </div>
+                                                </div>
+                                                <div data-row-span="3">
+                                                    <div data-field-span="1">
+                                                        <label>Blood Type</label>
+                                                        <input type="text" ng-model="otheradministeredmed" class="form-control tooltips" data-trigger="hover" data-original-title="Separate with , if more than 1">
+                                                    </div>
+                                                </div>
+                                            </div> -->
                                             <br>
                                             <div class="clearfix pt-md">
                                                 <div class="pull-right">
@@ -137,6 +191,7 @@
                                                 </div>
                                             </div>
                                         </fieldset>
+                                        
                                     </form>
                                 </div>
                             </div>
@@ -240,7 +295,7 @@
                     $('#otherconditions').hide();
                     $('#othercurrentmed').hide();
                     $('#otheradministeredmed').hide();
-
+                
                     $( "#conditions" ).click(function() {
                         $scope.condition = $("#conditions").val();
 
@@ -263,8 +318,10 @@
                         if( $scope.administered.indexOf('Others') >= 0){
                             $('#otheradministeredmed').show();
                         }
-                   
                     });
+
+
+                  
 
                     $scope.reset = function(val){
                         $scope.chck = val;
@@ -369,7 +426,6 @@
                             window.location.href = 'insertData/insert-medications-details.php?param=' + $scope.param + '&at=' + $scope.at + '&medicationid=' + $scope.medicationid + '&admissionid=' + $scope.admissionid + '&administered=' + $scope.administered + '&physicianid=' + $scope.attending + '&medication=' + $scope.medication + '&condition=' + $scope.condition;
                         });
                  
-                    
                     }
 
                     $scope.goBack = function(){

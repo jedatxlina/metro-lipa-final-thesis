@@ -19,12 +19,18 @@
                             <div class="panel panel-white" data-widget='{"draggable": "false"}'>
                                 <div class="panel-heading">
                                     <h2>Patient Form</h2>
-                                    <!-- <div class="panel-ctrls" data-actions-container="" data-action-collapse='{"target": ".panel-body"}'></div> -->
+                                    &nbsp;&nbsp;
+                                    <small class='pull-right'>New Born: &emsp;
+                                        <input type="radio" ng-model="newborn" name="newborn"  id="newbornyes" value='Yes' class="tooltips" data-trigger="hover" data-original-title="Yes"> Yes &nbsp;
+                                        <input type="radio" ng-model="newborn" name="newborn"  id="newborno" value='No' class="tooltips" data-trigger="hover" data-original-title="No" checked="checked"> No
+                                    </small>
                                 </div>
-                                <div class="panel-body">
+                                <div class="panel-body"  id="notnewborndiv">
+
                                     <form class="grid-form" action="javascript:void(0)">
                                         <fieldset>
-                                            <legend>Personal Detail</legend>
+                                            <legend>Personal Detail</label>
+                                            </legend>
                                             <div data-row-span="2">
                                                 <div data-field-span="1">
                                                     <label>Admission ID</label>
@@ -35,8 +41,8 @@
                                                     <input type="text" ng-model="admissiontype" disabled>
                                                 </div>
                                             </div>
-                                             <div data-row-span="3">
-                                         
+                                            <div data-row-span="3">
+
                                                 <div data-field-span="1">
                                                     <label>First Name</label>
                                                     <input type="text" ng-model="firstname">
@@ -56,127 +62,210 @@
                                                     <input type="text" class="form-control" ng-model="" id="datepicker">
                                                 </div>
                                                 <div data-field-span="1">
-                                                <label>Mobile No.</label>
-                                                    <input type="text" class="form-control" ng-model="contact" ui-mask="+63 999-999-9999"  ui-mask-placeholder ui-mask-placeholder-char="-  "/>
+                                                    <label>Mobile No.</label>
+                                                    <input type="text" class="form-control" ng-model="contact" ui-mask="+63 999-999-9999" ui-mask-placeholder ui-mask-placeholder-char="-  " />
                                                 </div>
                                                 <div data-field-span="1">
                                                     <label>Gender</label>
                                                     <select class="form-control" ng-model="gender">  
-                                                        <option value="" disabled selected>Select</option>
-                                                        <option value="Male">Male</option>
-                                                        <option value="Female">Female</option>
-                                                    </select>
+                                                            <option value="" disabled selected>Select</option>
+                                                            <option value="Male">Male</option>
+                                                            <option value="Female">Female</option>
+                                                        </select>
                                                 </div>
                                                 <div data-field-span="1">
                                                     <label>Nationality</label>
-                                                    <select class="form-control" ng-mode="country">  
-                                                        <option value="" disabled selected>Select</option>
-                                                        <option value="Philippines" title="Philippines">Filipino</option>
+                                                    <select class="form-control" ng-model="citizenship">  
+                                                            <option value="" disabled selected>Select</option>
+                                                            <option value="Philippines" title="Philippines">Filipino</option>
                                                     </select>
                                                 </div>
                                             </div>
-                                           
-                                            <div data-row-span="1">
+
+                                            <div data-row-span="2">
                                                 <div data-field-span="1">
                                                     <label>In case of a minor please provide details (Name of parent and natural guardian)</label>
                                                     <input type="text">
                                                 </div>
-                                        
+                                                <div data-field-span="1">
+                                                    <label>Contact</label>
+                                                    <input type="text">
+                                                </div>
                                             </div>
 
                                             <br>
-                                            <fieldset>
-                                                <legend>Residential address</legend>
-                                             
-                                                <div data-row-span="4">
-                                                    <div data-field-span="1">
-                                                        <label>Province</label>
-                                                        <select class="form-control" ng-options="data.provname for data in provinces | orderBy:'provname':false track by data.id" ng-model="province" ng-change="cityUpdate()">
-                                                             <option value="" disabled selected>Select Province</option>
-                                                        </select>
-                                                    </div>
-                                                    <div data-field-span="1">
-                                                        <label>City</label>
-                                                        <select class="form-control" ng-options="data.city for data in citymun | orderBy:'city':false track by data.id" ng-model="city">
-                                                            <option value="" disabled selected>Select City</option>
-                                                        </select>   
-                                                    </div>
-                                                    <div data-field-span="2">
-                                                        <label>Complete Address</label>
-                                                        <input type="text" ng-model="address">
-                                                    </div>
-                                                </div>
-                                                 <div data-row-span="1">
-                                                    <div data-field-span="1">
-                                                        <label>Telephone Residence</label>
-                                                        <input type="text" ng-model="telephone">
-                                                    </div>
+                                            <div>
+                                                <fieldset>
+                                                    <legend>Residential address</legend>
 
-                                              
-                                                </div>
-                                            </fieldset>
-                                        </fieldset>
+                                                    <div data-row-span="4">
+                                                        <div data-field-span="1">
+                                                            <label>Province</label>
+                                                            <select class="form-control" ng-options="data.provname for data in provinces | orderBy:'provname':false track by data.id" ng-model="province" ng-change="cityUpdate()">
+                                                                <option value="" disabled selected>Select Province</option>
+                                                            </select>
+                                                        </div>
+                                                        <div data-field-span="1">
+                                                            <label>City</label>
+                                                            <select class="form-control" ng-options="data.city for data in citymun | orderBy:'city':false track by data.id" ng-model="city">
+                                                                    <option value="" disabled selected>Select City</option>
+                                                                </select>
+                                                        </div>
+                                                        <div data-field-span="2">
+                                                            <label>Complete Address</label>
+                                                            <input type="text" ng-model="address">
+                                                        </div>
+                                                    </div>
+                                                    <div data-row-span="1">
+                                                        <div data-field-span="1">
+                                                            <label>Telephone Residence</label>
+                                                            <input type="text" ng-model="telephone">
+                                                        </div>
 
 
-                                        <br>
-                                        <br>
+                                                    </div>
+                                                </fieldset>
+                                                <br>
+                                                <fieldset>
+                                                    <legend>Personal Details</legend>
+                                                    <div data-row-span="1">
+                                                        <div data-field-span="1">
+                                                            <label>Occupation</label>
+                                                            <label>
+                                                                    <input type="radio"  name="occupation" value="Employed" ng-model="occupation">Employed</label> &nbsp;
+                                                            <label>
+                                                                    <input type="radio" name="occupation" value="Retired" ng-model="occupation"> Retired</label> &nbsp;
+                                                            <label>
+                                                                    <input type="radio" name="occupation" value="Student" ng-model="occupation"> Student</label> &nbsp;
+                                                            <label>
+                                                                    <input type="radio" name="occupation" value="Unemployed" ng-model="occupation"> Unemployed</label>
+                                                        </div>
+                                                    </div>
+                                                    <div data-row-span="2">
+                                                        <div data-field-span="1">
+                                                            <label>Education</label>
+                                                            <label>
+                                                                    <input type="radio" name="education" ng-model="education" value="Under Graduate"> Under graduate</label> &nbsp;
+                                                            <label>
+                                                                    <input type="radio" name="education" ng-model="education" value="Graduate"> Graduate</label> &nbsp;
+                                                            <label>
+                                                                    <input type="radio" name="education" ng-model="education" value="Others"> Others</label>
+                                                        </div>
+
+                                                    </div>
+                                                    <div data-row-span="3">
+                                                        <div data-field-span="1">
+                                                            <label>Maritial Status</label>
+                                                            <select class="form-control" ng-model="status">  
+                                                                    <option value="" disabled selected>Select</option>
+                                                                    <option value="Single">Single</option>
+                                                                    <option value="Married">Married</option>
+                                                                    <option value="Widowed">Widowed</option>
+                                                                    <option value="Separated">Separated</option>
+                                                                </select>
+                                                        </div>
+                                                        <div data-field-span="2">
+                                                            <label>Spouse name</label>
+                                                            <input type="text" ng-model="spouse" ng-disabled="status != 'Married'">
+                                                        </div>
+                                                    </div>
+                                                </fieldset>
+                                            </div>
+                                    </form>
+                                    <br>
+                                    <div class="clearfix pt-md">
+                                        <div class="pull-right">
+                                            <button ng-click="goBack()" class="btn-default btn">Cancel</button>
+                                            <button type="submit" class="btn-danger btn" ng-click="submitForm()">Next</button>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="panel-body"  id="newbornbabydiv">
+
+                                    <form class="grid-form" action="javascript:void(0)">
                                         <fieldset>
-                                            <legend>Personal Details</legend>
-                                            <div data-row-span="1">
+                                            <legend>Personal Detail</label></legend>
+                                            <div data-row-span="3">
                                                 <div data-field-span="1">
-                                                    <label>Occupation</label>
-                                                    <label>
-                                                        <input type="radio"  name="occupation" value="Executive" ng-model="occupation">Executive</label> &nbsp;
-                                                    <label>
-                                                        <input type="radio"  name="occupation" value="Non-executive" ng-model="occupation"> Non-executive</label> &nbsp;
-                                                    <label>
-                                                        <input type="radio" name="occupation" value="Retired" ng-model="occupation"> Retired</label> &nbsp;
-                                                    <label>
-                                                        <input type="radio" name="occupation" value="Student" ng-model="occupation"> Student</label> &nbsp;
-                                                    <label>
-                                                        <input type="radio" name="occupation" value="Other" ng-model="occupation"> Other</label> &nbsp;
-                                                    <label>
-                                                        <input type="radio" name="occupation" value="Unemployed" ng-model="occupation"> Unemployed</label>
+                                                    <label>Mother Account</label>
+                                                    <select  ng-change="newbornUpdate()" class="form-control" ng-model="mother">
+                                                        <option  value="" disabled selected >Select Mother</option>
+                                                         <option ng-repeat="patient in patients" value="{{patient.AdmissionID}}">{{patient.Fname}}</option>
+                                                    </select>
+                                                    
+                                                </div>
+                                                <div data-field-span="1">
+                                                    <label>Admission ID</label>
+                                                    <input type="text" ng-model="babyadmission" disabled="disabled">
+                                                </div>
+                                              
+                                            </div>
+                                            <div data-row-span="3">
+                                                <div data-field-span="1">
+                                                    <label>Last Name</label>
+                                                    <input type="text" ng-model="babylastname">
+                                                </div>
+                                                <div data-field-span="1">
+                                                    <label>First Name</label>
+                                                    <input type="text" ng-model="babyfirstname">
+                                                </div>
+                                                <div data-field-span="1">
+                                                    <label>Middle Name</label>
+                                                    <input type="text" ng-model="babymiddlename">
+                                                </div>
+                                            </div>
+                                            <div data-row-span="3">
+                                                <div data-field-span="1">
+                                                    <label>Birthdate</label>
+                                                    <input type="text" ng-model="babybirthdate" disabled="disabled">
+                                                </div>
+                                                <div data-field-span="1">
+                                                    <label>Birth time</label>
+                                                    <input type="text" class="form-control tooltips" ng-model="babybirthtime" ui-mask="99:99 AA" ui-mask-placeholder ui-mask-placeholder-char="-  " data-trigger="hover" data-original-title="12-Hour Format"/>
                                                 </div>
                                             </div>
                                             <div data-row-span="2">
                                                 <div data-field-span="1">
-                                                    <label>Education</label>
-                                                    <label>
-                                                        <input type="radio" name="education" ng-model="education" value="Under Graduate"> Under graduate</label> &nbsp;
-                                                    <label>
-                                                        <input type="radio" name="education" ng-model="education" value="Graduate"> Graduate</label> &nbsp;
-                                                    <label>
-                                                        <input type="radio" name="education" ng-model="education" value="Others"> Others</label>
-                                                </div>
-
-                                            </div>
-                                            <div data-row-span="3">
-                                                <div data-field-span="1">
-                                                    <label>Maritial Status</label>
-                                                    <select class="form-control" ng-model="status">  
-                                                        <option value="" disabled selected>Select</option>
-                                                        <option value="Single">Single</option>
-                                                        <option value="Married">Married</option>
-                                                        <option value="Widowed">Widowed</option>
-                                                        <option value="Separated">Separated</option>
+                                                    <label>Nationality</label>
+                                                    <select class="form-control" ng-model="babycitizenship"  style="width:400px;">  
+                                                            <option value="" disabled selected>Select</option>
+                                                            <option value="Filipino">Filipino</option>
                                                     </select>
                                                 </div>
-                                                <div data-field-span="2">
-                                                    <label>Spouse name</label>
-                                                    <input type="text" ng-model="spouse" ng-disabled="status != 'Married'">
-                                                </div>
                                             </div>
-                                          
-                                            <br>
-
-                                            <div class="clearfix pt-md">
-                                                <div class="pull-right">
-                                                    <button ng-click="goBack()" class="btn-default btn">Cancel</button>
-                                                    <button type="submit" class="btn-danger btn" ng-click="submitForm()">Next</button>
+                                            <legend>Medical Detail</label></legend>
+                                            <div data-row-span="3">
+                                                <div data-field-span="1">
+                                                    <label>Blood Type</label>
+                                                    <select class="form-control" ng-model="babybloodtype">
+                                                        <optgroup label="List of Blood Types">
+                                                            <option value="O">O</option>
+                                                            <option value="A">A</option>
+                                                            <option value="B">B</option>
+                                                            <option value="AB">AB</option>
+                                                        </optgroup>
+                                                    </select>
                                                 </div>
+                                                <div data-field-span="1">
+                                                    <label>Type of Delivery</label>
+                                                    <select class="form-control" ng-model="babydelivery">
+                                                        <optgroup label="List of Delivery">
+                                                            <option value="Normal">Normal</option>
+                                                            <option value="C-Section">Cesarian (C-Section)</option>
+                                                        </optgroup>
+                                                    </select>
+                                                </div>
+                                              
                                             </div>
+                                        </fieldset>
                                     </form>
+                                    <br>
+                                    <div class="clearfix pt-md">
+                                        <div class="pull-right">
+                                            <button ng-click="goBack()" class="btn-default btn">Cancel</button>
+                                            <button type="submit" class="btn-danger btn" ng-click="submitForm()">Next</button>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -185,12 +274,12 @@
             </div>
         </div>
         <script>
-            
-                var app = angular.module('myApp', ['ui.mask']);
+            var app = angular.module('myApp', ['ui.mask']);
                 app.controller('userCtrl', function($scope, $window, $http) {
                     $scope.at = "<?php echo $_GET['at'];?>";
                     $scope.admissionid = "<?php echo "2017" .  rand(111111, 999999); ?>";
-                    
+                    $scope.newborn = 'No';
+
                     switch ($scope.at.charAt(0)) {
                         case '1':
                             $scope.User = "Administrator";
@@ -231,6 +320,28 @@
                         $scope.provinces = response.data;
                     });
 
+                    $('#newbornbabydiv').hide();
+                    
+                    $( "#newbornyes" ).click(function() {
+                        $('#newbornbabydiv').show();
+                        $('#notnewborndiv').hide();
+
+                        $scope.param = '1';
+                        
+                        $http({
+                            method: 'GET',
+                            url: 'getData/get-emergency-details.php'
+                        }).then(function(response) {
+                            $scope.patients = response.data;
+                        });
+
+                    });
+
+                    $( "#newborno" ).click(function() {
+                        $('#newbornbabydiv').hide();
+                        $('#notnewborndiv').show();
+                    });
+
                     $scope.check = function(check){
                         $scope.param = check;
                         if($scope.param == 1){
@@ -241,6 +352,25 @@
                         }
                     }
 
+                   
+
+                    $scope.newbornUpdate = function(){
+                            $scope.babyadmission = $scope.mother.concat('-1');
+                            var today = new Date();
+                            var dd = today.getDate();
+                            var mm = today.getMonth()+1; //January is 0!
+
+                            var yyyy = today.getFullYear();
+                            if(dd<10){
+                                dd='0'+dd;
+                            } 
+                            if(mm<10){
+                                mm='0'+mm;
+                            } 
+                            var today = dd+'/'+mm+'/'+yyyy;
+                            $scope.babybirthdate = today;
+                    }
+                
                     $scope.cityUpdate = function(){
         
                         $http({
@@ -253,7 +383,26 @@
                     };
 
                     $scope.submitForm = function(check){
-                       
+                        if($scope.newborn == 'Yes'){
+                            $http({
+                            method: 'GET',
+                            url: 'insertData/insert-baby-details.php',
+                            params: {babyadmission: $scope.babyadmission,
+                                    admissionid: $scope.mother,
+                                    lastname: $scope.babylastname,
+                                    middlename: $scope.babymiddlename,
+                                    firstname: $scope.babyfirstname,
+                                    birthdate: $scope.babybirthdate,
+                                    birthtime: $scope.babybirthtime,
+                                    citizenship: $scope.babycitizenship,
+                                    bloodtype: $scope.babybloodtype,
+                                    delivery: $scope.babydelivery}
+                            }).then(function(response) {
+                                // window.location.href = 'add-baby-next.php?at=' + $scope.at + '&id=' + $scope.babyadmission;
+                                alert('jed');
+                            });
+                            
+                        }else{
                         $scope.birthdate =$("#datepicker").datepicker("option", "dateFormat", "yy-mm-dd" ).val();
                         $scope.medicalid = "<?php echo  rand(111111, 999999); ?>";
                         
@@ -278,9 +427,10 @@
                             window.location.href = 'add-patient-next.php?at=' + $scope.at + '&id=' + $scope.admissionid + '&medid=' + $scope.medicalid + '&param=' + $scope.admissiontype;
                         });
                      
+                        }
+                       
                      
                     }
-
                     
                     $scope.goBack = function(){
                         window.history.back();
@@ -346,9 +496,6 @@
                         }
                     }
                 });
-                
-         
-
         </script>
     </div>
 </div>

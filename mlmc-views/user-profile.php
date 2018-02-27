@@ -269,7 +269,8 @@ var fetch = angular.module('myApp', ['ui.mask']);
             $http({
             method: 'GET',
             url: 'getData/get-user-profile.php',
-            params: {id: $scope.at, atype : $scope.accesstype}
+            params: {id: $scope.at,
+                   atype : $scope.accesstype}
             }).then(function(response) {
                 $scope.userdetails = response.data;
             });

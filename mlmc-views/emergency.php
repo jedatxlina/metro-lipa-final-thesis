@@ -8,17 +8,19 @@ font-weight: bold;
 </style>
 
 <ol class="breadcrumb">
-<li><a href="#">Home</a></li>
-<li><a href="#">Patients</a></li>
-<li class="active"><a href="#">Emergency</a></li>
-</ol>
-
+		<li><a href="#">Home</a></li>
+		<li><a href="#">Patients</a></li>
+		<li class="active"><a href="#">Emergency</a></li>
+	</ol>
+	
 <div class="container-fluid">	
+	
+	<div class="panel-body">
+		<h3>Emergency<small> Section</small></h3>
+	</div>	
 	<div class="row">
-		<div class="col-md-6">
-                <br>
+		<div class="col-md-9">
 				<button type="button" ng-click="addPatient()" class="btn btn-danger-alt pull-left"><i class="ti ti-user"></i>&nbsp;Add Patient</button>
-			
 		</div>
 	</div>
 	<br>
@@ -57,11 +59,36 @@ font-weight: bold;
                                     </tr>
 								</tbody>
 							</table>
+							
 						</div>
 						<div class="panel-footer"></div>
 					</div>
 				</div>
 				<div class="col-md-3">
+					<div class="panel panel-midnightblue widget-progress" data-widget='{"draggable": "false"}'>
+						<div class="panel-heading">
+							<h2>Current Time</h2>
+							<div class="panel-ctrls button-icon-bg" 
+								data-actions-container="" 
+								data-action-refresh-demo='{"type": "circular"}'
+								>
+							</div>
+						</div>
+						<div class="panel-footer">
+							<div class="tabular">
+								<div class="tabular-row">
+									<div class="tabular-cell">
+										<span class="status-total">Date</span>
+										<span class="status-value">	{{ clock | date:'MMM d, y'}}</span>
+									</div>
+									<div class="tabular-cell">
+										<span class="status-pending">Time</span>
+										<span class="status-value">	{{ clock | date:'h:m:s a'}}</span>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
 					<div class="list-group list-group-alternate mb-n nav nav-tabs">
 						<a href="#" role="tab" data-toggle="tab" class="list-group-item active">Actions Panel</a>
 						<a href="#" ng-click="viewPatient()" role="tab" data-toggle="tab" class="list-group-item"><i class="ti ti-user"></i> Patient Details</a>
@@ -242,11 +269,35 @@ font-weight: bold;
    var fetch = angular.module('myApp', []);
   
 
-   fetch.controller('userCtrl', ['$scope', '$http','$window', function($scope, $http,$window) {   
+   fetch.controller('userCtrl', ['$scope', '$http','$window','$interval', function($scope, $http,$window,$interval) {   
 		$scope.at = "<?php echo $_GET['at'];?>";
 		$scope.selectedRow = null;
 		$scope.clickedRow = 0;
 		$scope.new = {};
+		$scope.order = 0;
+		$scope.notif = 0;
+
+		var pushalert = function (){
+			alert('jed');
+		}	
+		var tick = function() {
+			$scope.clock = Date.now();
+			$scope.datetime = new Date().toLocaleTimeString('en-US', { hour: 'numeric', hour12: true, minute: 'numeric' });		
+			
+			$http({
+					method: 'get',
+					url: 'getData/get-inpatient-flags.php',
+					params:{id:$scope.selectedRow}
+				}).then(function(response) {
+					$scope.notif = response.data.length;
+					
+				});
+				
+			
+		}
+	
+		tick();
+		$interval(tick, 1000);
 
 			switch ($scope.at.charAt(0)) {
 				case '1':

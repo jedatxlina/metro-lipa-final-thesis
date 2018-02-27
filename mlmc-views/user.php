@@ -299,8 +299,9 @@
                         });
                         break;
                 }
+
                     
-            };
+            }
 
 
             $scope.accessType = function (){
