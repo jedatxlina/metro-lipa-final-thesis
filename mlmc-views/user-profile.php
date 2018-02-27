@@ -46,9 +46,8 @@
                 </div><!-- panel -->
                 <div class="list-group list-group-alternate mb-n nav nav-tabs">
                     <a href="#tab-about" role="tab" data-toggle="tab" class="list-group-item active"><i class="ti ti-user"></i> About </a>
-                    <a href="#tab-edit" role="tab" data-toggle="tab" class="list-group-item active" ng-click="ChangePassword"><i class="ti ti-pencil"></i> Change Password</a>
-                    <a href="#tab-edit" role="tab" data-toggle="tab" class="list-group-item active" ng-click="ChangeEmail"><i class="ti ti-pencil"></i> Change Email / Contact</a>
-                </div>
+                    <a href="#tab-edit" role="tab" data-toggle="tab" class="list-group-item active" ng-click="ChangePE()"><i class="ti ti-pencil"></i> Change Password / Email</a>
+                        </div>
             </div><!-- col-sm-3 -->
             <div class="col-sm-9">
                 <div class="tab-content">
@@ -139,90 +138,38 @@
                     </div>
 
 
-                    <div class="tab-pane" id="tab-edit">
-                        <div class="panel">
-                            <div class="panel-heading">
-                                <h2>Edit</h2>
+                  <!-- View modal -->
+         <div class="modal fade" id="EditModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="panel panel-danger" data-widget='{"draggable": "false"}'>
+                        <div class="panel-heading">
+                            <h2>Edit User Account</h2>
+                            <div class="panel-ctrls" data-actions-container="" data-action-collapse='{"target": ".panel-body, .panel-footer"}'></div>
+                        </div>
+                        <div class="panel-body" style="height: 370px" ng-repeat="acc in getaccountid">
+                        <div class="form-group">
+                            <label>Email</label>
+                            <input type="email" class="form-control" ng-model="$parent.mail" ng-init="$parent.mail=acc.Email">
                             </div>
-                            <div class="panel-body">
-                            <div class="about-area" data-ng-repeat="user in userdetails">
-                                <div class="about-area">
-                                    <h4>Personal Information</h4>
-                                        <div class="table-responsive">
-                                            <div class="col-lg-11">
-                                            <table class="table about-table">
-                                                <tbody>
-                                                <tr>
-                                                    <th>Last name</th>
-                                                    <td><input type="text" class="form-control"  ng-model="user.Lastname" disabled></td>
-                                                    <th  <?php if ($id!=4){?>style="display:none"<?php } ?>>Specialization</th>
-                                                    <td  <?php if ($id!=4){?>style="display:none"<?php } ?>><input type="text" class="form-control" ng-model="user.Specialization" ng-disabled="true"></td>
-                                                 </tr>
-                                                <tr>
-                                                    <th>First name</th>
-                                                    <td><input type="text" class="form-control"  ng-model="user.Firstname" disabled></td>
-                                                    <th  <?php if ($id!=4){?>style="display:none"<?php } ?>>Professional Fee</th>
-                                                    <td  <?php if ($id!=4){?>style="display:none"<?php } ?>><input type="text" class="form-control" ng-model="user.ProfessionalFee"></td>
-                                                </tr>
-                                                <tr>
-                                                    <th>Middle name</th>
-                                                    <td><input type="text" class="form-control"  ng-model="user.Middlename" disabled></td>
-                                                    <th <?php if ($id!=4){?>style="display:none"<?php } ?>>Mobile No.</th>
-                                                    <td <?php if ($id!=4){?>style="display:none"<?php } ?>>   <input type="text" class="form-control" ng-model="user.Contact" ui-mask="+63 999-999-9999"  ui-mask-placeholder ui-mask-placeholder-char="-  "/></td>
-                                                </div>
-                                                </tr>
-                                                <tr>
-                                                    <th>Gender</th>
-                                                    <td> 
-                                                    <select class="form-control" ng-model="user.Gender" disabled>  
-                                                        <option value="" disabled selected>Select</option>
-                                                        <option value="Male">Male</option>
-                                                        <option value="Female">Female</option>
-                                                    </select></td>
-                                                    
-                                                </tr>
-                                                <tr>
-                                                    <th>Address</th>
-                                                    <td><input type="text" class="form-control"  ng-model="user.Address" disabled></td>
-                                                </tr>                                              
-                                                <tr>
-                                                    <th>Birthdate</th>
-                                                    <td><input type="text" class="form-control" ng-model="user.Birthdate" disabled></td>
-                                                </tr>
-                                                <tr>
-                                                    <th>Email</th>
-                                                    <td><input type="text" class="form-control" ng-model="user.Email"></td>
-                                                </tr>
-                                                <tr>
-                                                <th>Profile Photo</th>
-                                                    <td>
-                                                        <div class="fileinput fileinput-new" data-provides="fileinput">
-                                                            <span class="btn btn-default btn-file">
-                                                                <span class="fileinput-new">Upload a photo</span>
-                                                                <span class="fileinput-exists">Change</span>
-                                                                <input type="file" ng-model="photo">
-                                                            </span>
-                                                            <span class="fileinput-filename"></span>
-                                                            <a href="#" class="close fileinput-exists" data-dismiss="fileinput" style="float: none">&times;</a>
-                                                        </div>
-                                                    </td>
-                                                </tr>
-                                                </tbody>
-                                                
-                                            </table>
-                                        </div>
-                                </div>
-                            </div>
-                            <div class="panel-footer">
-                                <div class="row">
-                                    <div class="col-sm-12 pull-right">
-                                        <button class="btn-primary btn" ng-click="saveDetails(user)">Save</button>
-                                        <button class="btn-default btn" ng-click="uploadPhoto()">Reset</button>
-                                    </div>
-                                </div>
-                            </div>
+                        <div class="form-group">
+                            <label>New Password</label>
+                            <input type="password" class="form-control" ng-model="$parent.pass">
+                        </div>
+                        <div class="form-group">
+                            <label>Confirm New Password</label>
+                            <input type="password" class="form-control" ng-model="$parent.confirmpw">
+                        </div>
+                                        <span style="color:red" ng-show="pass != confirmpw">Password have to match!</span>
+                                        <span style="color:red" ng-show="pass == null">Password is required!</span>
+                                        <span style="color:red" ng-show="email.length == 0">Email is required!</span>
+                        <br>
+                        <button type="button" class="btn btn-default pull-right" data-dismiss="modal">Close</button>
+                        <button ng-click='Update()' class="btn btn-danger pull-right">Update</button>
                         </div>
                     </div>
+                </div>
+            </div>
+            <!--/ View modal -->
                 </div><!-- .tab-content -->
             </div><!-- col-sm-8 -->
         </div>
@@ -274,31 +221,45 @@ var fetch = angular.module('myApp', ['ui.mask']);
                 $scope.userdetails = response.data;
             });
 
-        $scope.saveDetails = function(user){
-                $http({
-                method: 'GET',
-                url: 'updateData/update-user-profile.php',
-                params: {atype: $scope.at[0],
-                        id: $scope.at,
-                        Lastname: user.Lastname,
-                        Firstname: user.Firstname,
-                        Middlename: user.Middlename,
-                        Gender: user.Gender,
-                        Birthdate: user.Birthdate,
-                        Address: user.Address,
-                        ProfessionalFee: user.ProfessionalFee,
-                        Contact: user.Contact,
-                        Email: user.Email,
-                        Specialization: user.Specialization}
-                }).then(function(response) {
-                    window.location.href = 'user-profile.php?at=' + $scope.at;
-                });
-        }
+      
 
         $scope.uploadPhoto = function(){
             alert($scope.file);
         }
 
+        $scope.Update = function() {
+            if ($scope.pass == $scope.confirmpw && $scope.pass!=null && $scope.confirmpw!=null && $scope.mail!=null)
+            {
+                        $http({
+                        method: 'GET',
+                        url: 'updateData/update-user-details.php',
+                        params: {accesstype: $scope.at[0],
+                                accountid: $scope.at,
+                                password: $scope.pass,
+                                email: $scope.mail
+                                }
+                        }).then(function(response) {
+                            window.location.href = 'user-profile.php?at=' + $scope.at;
+                        });
+                    
+            }
+            }
+
+        $scope.ChangePE = function(){
+                      $scope.accountid = $scope.at;
+            $('#EditModal').modal('show');
+            $http({
+                            method: 'GET',
+                            params: {
+                                id: $scope.accountid
+                            },
+                            url: 'getData/get-user-id.php'
+                        }).then(function(response) {
+                            $scope.getaccountid = response.data;
+                        });
+                     
+                }
+        
 
        $scope.getPage = function(check){
         switch (check) {

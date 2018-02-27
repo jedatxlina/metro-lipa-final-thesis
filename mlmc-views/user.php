@@ -58,6 +58,7 @@
 						<a href="#" role="tab" data-toggle="tab" class="list-group-item active">Actions Panel</a>
 						<a href="#" ng-click="Add()" role="tab" data-toggle="tab" class="list-group-item"><i class="fa fa-list-alt fa-fw"></i>Add User</a>
 						<a href="#" ng-click="EditUser()"role="tab" data-toggle="tab" class="list-group-item"><i class="ti ti-info-alt"></i>Edit User</a>
+                        <a href="#" ng-click="ViewUser()"role="tab" data-toggle="tab" class="list-group-item"><i class="ti ti-info-alt"></i>View User Details</a>
                 	</div>
             </div>
           
@@ -203,6 +204,63 @@
                 </div>
             </div>
             <!--/ Edit Error modal -->
+
+         <!-- View modal -->
+         <div class="modal fade" id="EditUser" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="panel panel-danger" data-widget='{"draggable": "false"}'>
+                        <div class="panel-heading">
+                            <h2>Edit User Account</h2>
+                            <div class="panel-ctrls" data-actions-container="" data-action-collapse='{"target": ".panel-body, .panel-footer"}'></div>
+                        </div>
+                        <div class="panel-body" style="height: 560px">
+                        <form ng-repeat="getaccount in getaccountid">
+                        <div class="form-group">
+                            <label>Account ID</label>
+                            <input type="text" class="form-control" ng-model="$parent.accid" ng-init="$parent.accid=getaccount.AccountID" disabled>
+                        </div>
+                        <div class="form-group">
+                            <label>Access Type </label>
+                            <div class="col-sm-13 select">
+                                <select ng-model="$parent.acctype" ng-init="$parent.acctype=getaccount.AccessType" class="form-control" ng-change="accessType()" disabled>
+                                    <option value="">Select</option>
+                                    <option value="1">Type 1 - All Priviliges</option>
+                                    <option value="2">Type 2 - Admission Module</option>
+                                    <option value="3">Type 3 - Nurse Module</option>
+                                    <option value="4">Type 4 - Doctor Module</option>
+                                    <option value="5">Type 5 - Pharmacy Module</option>
+                                    <option value="6">Type 6 - Billing Module</option>
+                                    <option value="7">Type 7 - Secretary Module</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label>Password </label>
+                            <input type="text" ng-model="$parent.pword" ng-init="$parent.pword=getaccount.Password" class="form-control">
+                        </div>
+                        <div class="form-group">
+                            <label>Email </label>
+                            <input type="email" ng-model="$parent.mail" ng-init="$parent.mail=getaccount.Email" class="form-control">
+                        </div>
+                       
+                        <div class="form-group" >
+                                <label>Select Physician</label>
+                                <select class="form-control" ng-model="physician" style="width:620px;" ng-disabled='$parent.acctype != 7'>
+                                    <optgroup label="List of Doctors">
+                                        <option ng-repeat="physician in physicians" value="{{physician.PhysicianID}}">{{physician.Fullname}}</option>
+                                    </optgroup>    
+                                </select>
+                            </div>
+
+                        <button type="button" class="btn btn-default pull-right" data-dismiss="modal">Close</button>
+                        <button ng-click='Update()' class="btn btn-danger pull-right">Update</button>
+                    </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!--/ View modal -->
+
         </div>
     </div>
 
