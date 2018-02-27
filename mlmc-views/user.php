@@ -14,7 +14,7 @@
     </li>
 </ol>
 <br><br>
-<div class="container-fluid" ng-app="myApp" ng-controller="userCtrl">
+<div class="container-fluid" ng-app="myApp" ng-controller="userCtrl" >
 
     <div class="row">
 
@@ -58,7 +58,7 @@
 						<a href="#" role="tab" data-toggle="tab" class="list-group-item active">Actions Panel</a>
 						<a href="#" ng-click="Add()" role="tab" data-toggle="tab" class="list-group-item"><i class="fa fa-list-alt fa-fw"></i>Add User Account</a>
 						<a href="#" ng-click="EditUser()"role="tab" data-toggle="tab" class="list-group-item"><i class="ti ti-info-alt"></i>Edit Account</a>
-                        <a href="#" ng-click="ViewUser()"role="tab" data-toggle="tab" class="list-group-item"><i class="ti ti-info-alt"></i>View User Details</a>
+                        <a href="#" ng-click="ViewUser()"role="tab" data-toggle="tab" class="list-group-item"><i class="ti ti-info-alt"></i>Edit User Details</a>
                 	</div>
             </div>
           
@@ -155,7 +155,7 @@
                                 <label>Select Physician</label>
                                 <select class="form-control" ng-model="assignedphysician" style="width:620px;">
                                     <optgroup label="List of Doctors">
-                                        <option ng-repeat="physician in physicians" value="{{physician.PhysicianID}}">{{physician.Fullname}}</option>
+                                        <option ng-repeat="physician in physicians" value="{{physician.AccountID}}">Dr. {{physician.Fullname}}</option>
                                     </optgroup>    
                                 </select>
                             </div>
@@ -163,7 +163,9 @@
                             <div class="form-group" ng-show='accesstype == 4'>
                                 <label >Select Specialization</label>
                                 <select class="form-control" ng-model="specialization" style="width:620px">
+                                <optgroup label="List of Specializations">
                                 <option ng-repeat="special in spec" value="{{special.SpecializationName}}">{{special.SpecializationName}}</option>
+                                </optgroup>
                                 </select>
                                 
                             </div>
@@ -260,7 +262,7 @@
             <!--/ Edit Error modal -->
 
          <!-- View modal -->
-         <div class="modal fade" id="ViewUser" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+         <div class="modal fade" id="ViewUser" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" >
                 <div class="modal-dialog">
                     <div class="panel panel-danger" data-widget='{"draggable": "false"}'>
                         <div class="panel-heading">
@@ -268,10 +270,10 @@
                             <div class="panel-ctrls" data-actions-container="" data-action-collapse='{"target": ".panel-body, .panel-footer"}'></div>
                         </div>
                         <div class="panel-body" style="height: auto">
-                        <div ng-repeat="acc in getuser">
+                     <div ng-repeat="acc in getuser">
                         <div class="form-group">
                             <label>Account ID</label>
-                            <input type="text" class="form-control" ng-model="$parent.viewid" ng-init="$parent.viewid=acc.AccountID">
+                            <input type="text" class="form-control" ng-model="$parent.viewid" ng-init="$parent.viewid=acc.AccountID" disabled>
                         </div>
                         <div class="form-group">
                             <label>First Name</label>
@@ -293,7 +295,7 @@
 
                         <div class="form-group">
                             <label>Gender</label>
-                            <select ng-model="$parent.gender" ng-init="$parent.gender=acc.Gender" class="form-control">
+                            <select ng-model="$parent.ggender" ng-init="$parent.ggender=acc.Gender" class="form-control">
                                     <option value="" disabled>Select Gender</option>
                                     <option value="Male">Male</option>
                                     <option value="Female">Female</option>
@@ -301,12 +303,21 @@
                         </div>
                         <div class="form-group">
                             <label>Address</label>
-                            <input type="text" class="form-control" ng-model="$parent.CAddress" ng-init="$parent.CAddress=acc.Address">
+                            <input type="text" class="form-control" ng-model="$parent.aaddress" ng-init="$parent.aaddress=acc.Address">
                         </div>
-                    </div>
+
+                        <input type="hidden" class="form-control" ng-model="$parent.tempmail"  ng-init="$parent.tempmail=acc.Email" >
+
+                         <div class="form-group" ng-show='viewid[0] == 4'>
+                                <label >Select Specialization</label>
+                                <select class="form-control" ng-model="$parent.sspecialization" ng-init="$parent.sspecialization=acc.Specialization" style="width:620px">
+                                <option ng-repeat="special in spec" value="{{special.SpecializationName}}">{{special.SpecializationName}}</option>
+                                </select>
+                                
+                        </div>
 
                         <button type="button" class="btn btn-default pull-right" data-dismiss="modal">Close</button>
-                        <button ng-click='Update()' class="btn btn-danger pull-right">Update</button>
+                        <button ng-click='UpdateDetails()' class="btn btn-danger pull-right">Update</button>
                     
                         </div>
                     </div>
@@ -533,6 +544,29 @@
                 }).then(function(response) {
                     window.location.href = 'user.php?at=' + $scope.at;
                 });
+            }
+
+            $scope.UpdateDetails = function() {
+
+                $http({
+                    method: 'GET',
+                    url: 'updateData/update-user-profile.php',
+                    params: {id: $scope.viewid,
+                            Lastname: $scope.lastname,
+                            Firstname: $scope.firstname,
+                            Middlename: $scope.middlename,
+                            Gender: $scope.ggender,
+                            Birthdate: $scope.bdate,
+                            Specialization: $scope.sspecialization,
+                            Address: $scope.aaddress,
+                            ProfessionalFee: $scope.fee,
+                            Contact: $scope.contact,
+                            Email: $scope.tempmail,
+                            atype: $scope.viewid[0]
+                            }
+                    }).then(function(response) {
+                        window.location.href = 'user.php?at=' + $scope.at;
+                    });
             }
 
             $scope.EditUser = function() {
