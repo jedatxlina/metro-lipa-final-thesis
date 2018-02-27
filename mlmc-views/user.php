@@ -57,7 +57,7 @@
                     <div class="list-group list-group-alternate mb-n nav nav-tabs">
 						<a href="#" role="tab" data-toggle="tab" class="list-group-item active">Actions Panel</a>
 						<a href="#" ng-click="Add()" role="tab" data-toggle="tab" class="list-group-item"><i class="fa fa-list-alt fa-fw"></i>Add User Account</a>
-						<a href="#" ng-click="EditUser()"role="tab" data-toggle="tab" class="list-group-item"><i class="ti ti-info-alt"></i>Edit User</a>
+						<a href="#" ng-click="EditUser()"role="tab" data-toggle="tab" class="list-group-item"><i class="ti ti-info-alt"></i>Edit Account</a>
                         <a href="#" ng-click="ViewUser()"role="tab" data-toggle="tab" class="list-group-item"><i class="ti ti-info-alt"></i>View User Details</a>
                 	</div>
             </div>
@@ -188,7 +188,7 @@
                             <div class="panel-ctrls" data-actions-container="" data-action-collapse='{"target": ".panel-body, .panel-footer"}'></div>
                         </div>
                         <div class="panel-body" style="height: 60px">
-                        Select Emergency record that you would like to apply an <a href="#" class="alert-link">Action.</a>
+                        Select User record that you would like to apply an <a href="#" class="alert-link">Action.</a>
                         </div>
                         <!-- <div class="panel-footer">
                             <span class="text-gray"><em>Footer</em></span>
@@ -267,8 +267,12 @@
                             <h2>User Information</h2>
                             <div class="panel-ctrls" data-actions-container="" data-action-collapse='{"target": ".panel-body, .panel-footer"}'></div>
                         </div>
-                        <div class="panel-body" style="height: 560px">
-                        <form ng-repeat="acc in getaccount">
+                        <div class="panel-body" style="height: auto">
+                        <div ng-repeat="acc in getuser">
+                        <div class="form-group">
+                            <label>Account ID</label>
+                            <input type="text" class="form-control" ng-model="$parent.viewid" ng-init="$parent.viewid=acc.AccountID">
+                        </div>
                         <div class="form-group">
                             <label>First Name</label>
                             <input type="text" class="form-control" ng-model="$parent.firstname" ng-init="$parent.firstname=acc.FirstName">
@@ -284,22 +288,26 @@
 
                         <div class="form-group">
                             <label>Birthdate</label>
-                            <input type="text" class="form-control" ng-model="$parent.bdate" ng-init="$parent.bdate=acc.Birthdate">
+                            <input type="text" class="form-control" ng-model="$parent.bdate" id="datepicker" ng-init="$parent.bdate=acc.Birthdate">
                         </div>
 
                         <div class="form-group">
                             <label>Gender</label>
-                            <select ng-model="gender" class="form-control">
+                            <select ng-model="$parent.gender" ng-init="$parent.gender=acc.Gender" class="form-control">
                                     <option value="" disabled>Select Gender</option>
                                     <option value="Male">Male</option>
                                     <option value="Female">Female</option>
                                 </select>
                         </div>
-  
+                        <div class="form-group">
+                            <label>Address</label>
+                            <input type="text" class="form-control" ng-model="$parent.CAddress" ng-init="$parent.CAddress=acc.Address">
+                        </div>
+                    </div>
 
                         <button type="button" class="btn btn-default pull-right" data-dismiss="modal">Close</button>
                         <button ng-click='Update()' class="btn btn-danger pull-right">Update</button>
-                    </form>
+                    
                         </div>
                     </div>
                 </div>
@@ -556,7 +564,7 @@
                 {
                     $scope.accountid = $scope.selectedRow;
 
-                            if ($scope.at[0] == 2)		
+                            if ($scope.accountid[0] == 2)		
                             {
                                 $http({
                                         method: 'get',
@@ -566,7 +574,7 @@
                                         $scope.getuser = response.data;
                                     });
                             }	
-                            else if ($scope.at[0] == 3)
+                            else if ($scope.accountid[0] == 3)
                                 {
                                     $http({
                                             method: 'get',
@@ -576,7 +584,7 @@
                                         $scope.getuser = response.data;
                                     });
                                 }
-                                else if ($scope.at[0] == 4)
+                                else if ($scope.accountid[0] == 4)
                                 {
                                     $http({
                                             method: 'get',
@@ -586,7 +594,7 @@
                                         $scope.getuser = response.data;
                                     });
                                 }
-                            else if ($scope.at[0] == 5)
+                            else if ($scope.accountid[0] == 5)
                                 {
                                     $http({
                                             method: 'get',
@@ -596,12 +604,22 @@
                                         $scope.getuser = response.data;
                                     });
                                 }	
-                            else if ($scope.at[0] == 6)
+                            else if ($scope.accountid[0] == 6)
                                 {
                                     $http({
                                             method: 'get',
                                             params: {accid : $scope.accountid},
                                             url: 'getData/get-billingstaff-id.php'
+                                        }).then(function(response) {
+                                        $scope.getuser = response.data;
+                                    });
+                                }
+                            else if ($scope.accountid[0] == 7)
+                                {
+                                    $http({
+                                            method: 'get',
+                                            params: {accid : $scope.accountid},
+                                            url: 'getData/get-secretary-id.php'
                                         }).then(function(response) {
                                         $scope.getuser = response.data;
                                     });
