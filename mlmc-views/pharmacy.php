@@ -32,8 +32,8 @@
                         <table id="table_info" class="table table-striped table-bordered" cellspacing="0" width="100%">
                             <thead>
                                 <tr>
-                                    <th>Pharmaceutical ID</th>
-                                    <th>Pharmaceutical Name </th>
+                                    <th>Medicine ID</th>
+                                    <th>Medicine Name </th>
                                     <th>Unit</th>
                                     <th>Price</th>
                                     <th>Quantity</th>
@@ -149,16 +149,16 @@
             <div class="modal-content">
                 <div class="modal-header">
                     <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                    <h4 class="modal-title" id="myModalLabel">Add Pharmaceutical</h4>
+                    <h4 class="modal-title" id="myModalLabel">Edit Medicine</h4>
                 </div>
                 <div class="modal-body">
                 <form ng-repeat="ep in editpharmac">
                 <div class="form-group">       
-                        <label>Pharmaceutical ID</label>
+                        <label>Medicine ID</label>
                         <input type="text" ng-model="$parent.PID" ng-init="$parent.PID=ep.PharmaID" class="form-control" disabled>
                      </div>
                      <div class="form-group">       
-                     <label>Pharmaceutical Name </label>
+                     <label>Medicine Name </label>
                      <input type="text" ng-model="$parent.PName" ng-init="$parent.PName=ep.PharmaName" class="form-control" disabled>
                   </div>
                   <div class="form-group">       
