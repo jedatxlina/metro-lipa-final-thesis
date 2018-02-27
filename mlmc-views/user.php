@@ -56,7 +56,7 @@
 
                     <div class="list-group list-group-alternate mb-n nav nav-tabs">
 						<a href="#" role="tab" data-toggle="tab" class="list-group-item active">Actions Panel</a>
-						<a href="#" ng-click="Add()" role="tab" data-toggle="tab" class="list-group-item"><i class="fa fa-list-alt fa-fw"></i>Add User</a>
+						<a href="#" ng-click="Add()" role="tab" data-toggle="tab" class="list-group-item"><i class="fa fa-list-alt fa-fw"></i>Add User Account</a>
 						<a href="#" ng-click="EditUser()"role="tab" data-toggle="tab" class="list-group-item"><i class="ti ti-info-alt"></i>Edit User</a>
                         <a href="#" ng-click="ViewUser()"role="tab" data-toggle="tab" class="list-group-item"><i class="ti ti-info-alt"></i>View User Details</a>
                 	</div>
@@ -74,9 +74,11 @@
                         <h2>Add User Account</h2>
                         <div class="panel-ctrls" data-actions-container="" data-action-collapse='{"target": ".panel-body, .panel-footer"}'></div>
                     </div>
-                    <div class="panel-body" style="height: 560px">
+                    <div class="panel-body" style="height: 650px">
                     <p>Data below will be used as credential and restrictions of the user</p>
                         <form>
+                        <div class="row">
+                         <div class="col-md-6">
                             <div class="form-group" >
                                 <label>Account ID</label>
                                 <input type="text" class="form-control" ng-model="accountid" disabled>
@@ -104,19 +106,63 @@
                                 <label>Email </label>
                                 <input type="email" ng-model="email" placeholder="youremail@yahoo.com" class="form-control">
                             </div>
+                            
+                            </div>
+                            <div class="col-md-6">
+
+                            <div class="form-group">       
+                                <label>First Name </label>
+                                <input type="text" ng-model="fname" placeholder="Juan" class="form-control">
+                            </div>
+                            <div class="form-group">       
+                                <label>Middle Name </label>
+                                <input type="text" ng-model="mname" placeholder="Dela" class="form-control">
+                            </div>
+                            <div class="form-group">       
+                                <label>Last Name </label>
+                                <input type="text" ng-model="lname" placeholder="Cruz" class="form-control">
+                            </div>
+                            <div class="form-group">       
+                                <label>Gender </label>
+                                <select ng-model="gender" class="form-control">
+                                    <option value="" selected disabled>Select Gender</option>
+                                    <option value="Male">Male</option>
+                                    <option value="Female">Female</option>
+                                </select>
+                            </div>
+
+                            </div>
+                            </div>
+
+                            <div class="row">
+                            <div class="col-md-6">
+                            <div class="form-group">       
+                                <label>Birthdate </label>
+                                <input type="text" ng-model="" id="datepicker" class="form-control">
+                            </div>
+                            </div>
+                            <div class="col-md-6">
+                            <div class="form-group">       
+                                <label>Address </label>
+                                <input type="text" ng-model="address" placeholder="Province / City / Street" class="form-control">
+                            </div>
+                            </div>
+                            </div>
                             <!-- <div class="modal-footer">
                                
                             </div> -->
                             <div class="form-group" >
-                                <label>Select Physician</label>
-                                <select class="form-control" ng-model="physician" style="width:620px;" ng-disabled='accesstype != 7'>
+                                <label ng-show='accesstype == 7'>Select Physician</label>
+                                <select class="form-control" ng-model="physician" style="width:620px;" ng-show='accesstype == 7'>
                                     <optgroup label="List of Doctors">
                                         <option ng-repeat="physician in physicians" value="{{physician.PhysicianID}}">{{physician.Fullname}}</option>
                                     </optgroup>    
                                 </select>
                             </div>
 
+
                             <button type="button" class="btn btn-defualt pull-right" data-dismiss="modal">Close</button>
+                            &emsp;
                             <button ng-click='Confirm()' class="btn btn-danger pull-right">Confirm</button>
                         </form>
                     </div>
@@ -206,51 +252,28 @@
             <!--/ Edit Error modal -->
 
          <!-- View modal -->
-         <div class="modal fade" id="EditUser" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+         <div class="modal fade" id="ViewUser" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
                 <div class="modal-dialog">
                     <div class="panel panel-danger" data-widget='{"draggable": "false"}'>
                         <div class="panel-heading">
-                            <h2>Edit User Account</h2>
+                            <h2>User Information</h2>
                             <div class="panel-ctrls" data-actions-container="" data-action-collapse='{"target": ".panel-body, .panel-footer"}'></div>
                         </div>
                         <div class="panel-body" style="height: 560px">
-                        <form ng-repeat="getaccount in getaccountid">
+                        <form ng-repeat="acc in getaccount">
                         <div class="form-group">
-                            <label>Account ID</label>
-                            <input type="text" class="form-control" ng-model="$parent.accid" ng-init="$parent.accid=getaccount.AccountID" disabled>
+                            <label>First Name</label>
+                            <input type="text" class="form-control" ng-model="$parent.firstname" ng-init="$parent.firstname=acc.FirstName">
                         </div>
                         <div class="form-group">
-                            <label>Access Type </label>
-                            <div class="col-sm-13 select">
-                                <select ng-model="$parent.acctype" ng-init="$parent.acctype=getaccount.AccessType" class="form-control" ng-change="accessType()" disabled>
-                                    <option value="">Select</option>
-                                    <option value="1">Type 1 - All Priviliges</option>
-                                    <option value="2">Type 2 - Admission Module</option>
-                                    <option value="3">Type 3 - Nurse Module</option>
-                                    <option value="4">Type 4 - Doctor Module</option>
-                                    <option value="5">Type 5 - Pharmacy Module</option>
-                                    <option value="6">Type 6 - Billing Module</option>
-                                    <option value="7">Type 7 - Secretary Module</option>
-                                </select>
-                            </div>
+                            <label>Middle Name</label>
+                            <input type="text" class="form-control" ng-model="$parent.middlename" ng-init="$parent.middlename=acc.MiddleName">
                         </div>
                         <div class="form-group">
-                            <label>Password </label>
-                            <input type="text" ng-model="$parent.pword" ng-init="$parent.pword=getaccount.Password" class="form-control">
+                            <label>Last Name</label>
+                            <input type="text" class="form-control" ng-model="$parent.lastname" ng-init="$parent.lastname=acc.LastName">
                         </div>
-                        <div class="form-group">
-                            <label>Email </label>
-                            <input type="email" ng-model="$parent.mail" ng-init="$parent.mail=getaccount.Email" class="form-control">
-                        </div>
-                       
-                        <div class="form-group" >
-                                <label>Select Physician</label>
-                                <select class="form-control" ng-model="physician" style="width:620px;" ng-disabled='$parent.acctype != 7'>
-                                    <optgroup label="List of Doctors">
-                                        <option ng-repeat="physician in physicians" value="{{physician.PhysicianID}}">{{physician.Fullname}}</option>
-                                    </optgroup>    
-                                </select>
-                            </div>
+  
 
                         <button type="button" class="btn btn-default pull-right" data-dismiss="modal">Close</button>
                         <button ng-click='Update()' class="btn btn-danger pull-right">Update</button>
@@ -427,6 +450,77 @@
                     $('#ErrorModal').modal('show');
                 }
             }
+
+         
+
+
+            $scope.ViewUser = function() {
+                if ($scope.selectedRow != null) 
+                {
+                    $scope.accountid = $scope.selectedRow;
+
+                            if ($scope.at[0] == 2)		
+                            {
+                                $http({
+                                        method: 'get',
+                                        params: {accid : $scope.accountid},
+                                        url: 'getData/get-admissionstaff-id.php'
+                                    }).then(function(response) {
+                                        $scope.getuser = response.data;
+                                    });
+                            }	
+                            else if ($scope.at[0] == 3)
+                                {
+                                    $http({
+                                            method: 'get',
+                                            params: {accid : $scope.accountid},
+                                            url: 'getData/get-nurse-id.php'
+                                        }).then(function(response) {
+                                        $scope.getuser = response.data;
+                                    });
+                                }
+                                else if ($scope.at[0] == 4)
+                                {
+                                    $http({
+                                            method: 'get',
+                                            params: {accid : $scope.accountid},
+                                            url: 'getData/get-physician-id.php'
+                                        }).then(function(response) {
+                                        $scope.getuser = response.data;
+                                    });
+                                }
+                            else if ($scope.at[0] == 5)
+                                {
+                                    $http({
+                                            method: 'get',
+                                            params: {accid : $scope.accountid},
+                                            url: 'getData/get-pharmacystaff-id.php'
+                                        }).then(function(response) {
+                                        $scope.getuser = response.data;
+                                    });
+                                }	
+                            else if ($scope.at[0] == 6)
+                                {
+                                    $http({
+                                            method: 'get',
+                                            params: {accid : $scope.accountid},
+                                            url: 'getData/get-billingstaff-id.php'
+                                        }).then(function(response) {
+                                        $scope.getuser = response.data;
+                                    });
+                                }
+                       
+                        $('#ViewUser').modal('show');
+            }
+                     else
+                     {
+                        $('#ErrorModal').modal('show');
+                     }
+                }
+               
+
+            
+
 
             $scope.getPage = function(check){
                 switch (check) {
