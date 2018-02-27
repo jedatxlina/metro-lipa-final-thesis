@@ -30,7 +30,11 @@ switch ($accesstype) {
     case '6':
         $query= "UPDATE billing_staff SET Email = '$email' WHERE BillingStaffID = '$accountid'";
         break;
-    
+
+    case '7':
+        $query= "UPDATE secretary SET Email = '$email' WHERE SecretaryID = '$accountid'";
+        break; 
+        
     default:
         break;
 }

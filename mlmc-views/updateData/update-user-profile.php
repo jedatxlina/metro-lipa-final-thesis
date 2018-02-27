@@ -36,6 +36,10 @@ else if ($acctype == 6)
 {
     $query= "UPDATE billing_staff SET LastName = '$lastname', FirstName = '$firstname', MiddleName = '$middlename', Gender = '$gender', Birthdate = '$birthdate', Address = '$address' , Email = '$email' WHERE BillingStaffID = '$id'";
 }
+else if ($acctype == 7)
+{
+    $query= "UPDATE secretary SET LastName = '$lastname', FirstName = '$firstname', MiddleName = '$middlename', Gender = '$gender', Birthdate = '$birthdate', Address = '$address' , Email = '$email' WHERE SecretaryID = '$id'";
+}
 mysqli_query($con,$query);  
 $query2 = "UPDATE user_account SET Email = '$email' WHERE AccountID = '$id' ";
 mysqli_query($con,$query2);
