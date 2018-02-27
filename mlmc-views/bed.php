@@ -80,10 +80,16 @@
                                     <label>Room Type </label>
                                     <select ng-model="$parent.BType" class="form-control" ng-init="$parent.BType=getbed.RoomType" disabled>
                                         <option value="" disabled selected>Select</option>
-                                        <option value="Single Deluxe">Single Deluxe</option>
-                                        <option value="Two-Bedded">Two-Bedded</option>
-                                        <option value="Four-Bedded">Four-Bedded</option>
                                         <option value="Ward">Ward</option>
+                                        <option value="OB-Ward">OB-Ward</option>
+                                        <option value="Female-Ward">Female-Ward</option>
+                                        <option value="Male-Ward">Male-Ward</option>
+                                        <option value="Pedia-Ward">Pedia-Ward</option>
+                                        <option value="Surgical-Ward">Surgical-Ward</option>
+                                        <option value="Semi-Private">Semi-Private</option>
+                                        <option value="Private">Private</option>
+                                        <option value="Suite">Suite</option>
+                                        <option value="Infectious">Infectious</option>
                                     </select>
                                 </div>
                                 <div class="form-group">
@@ -92,15 +98,7 @@
                                 </div>
                                 <div class="form-group">
                                     <label>Floor </label>
-                                    <select ng-model="$parent.Floor" class="form-control" ng-init="$parent.Floor=getbed.Floor" disabled>
-
-                                        <option value="" disabled selected>Select Floor</option>
-                                        <option value="1st">1st</option>
-                                        <option value="2nd">2nd</option>
-                                        <option value="3rd">3rd</option>
-                                        <option value="4th">4th</option>
-                                        <option value="5th">5th</option>
-                                    </select>
+                                    <input type="text" ng-model="$parent.Floor" class="form-control" ng-init="$parent.Floor=getbed.Floor" disabled>
                                 </div>
                                 <div class="form-group">
                                     <label>Room Number </label>

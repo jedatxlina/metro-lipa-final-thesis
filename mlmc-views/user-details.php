@@ -57,7 +57,6 @@
                                                     <input type="password" class="form-control" ng-model="confirmpw" >
                                                 </div>
                                             </div>
-                                           
                                          
                                         </fieldset>
                                         <br>

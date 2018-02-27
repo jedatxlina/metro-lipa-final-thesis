@@ -14,7 +14,7 @@
     </li>
 </ol>
 <br><br>
-<div class="container-fluid" ng-app="myApp" ng-controller="userCtrl">
+<div class="container-fluid" ng-app="myApp" ng-controller="userCtrl" >
 
     <div class="row">
 
@@ -56,8 +56,9 @@
 
                     <div class="list-group list-group-alternate mb-n nav nav-tabs">
 						<a href="#" role="tab" data-toggle="tab" class="list-group-item active">Actions Panel</a>
-						<a href="#" ng-click="Add()" role="tab" data-toggle="tab" class="list-group-item"><i class="fa fa-list-alt fa-fw"></i>Add User</a>
-						<a href="#" ng-click="EditUser()"role="tab" data-toggle="tab" class="list-group-item"><i class="ti ti-info-alt"></i>Edit User</a>
+						<a href="#" ng-click="Add()" role="tab" data-toggle="tab" class="list-group-item"><i class="fa fa-list-alt fa-fw"></i>Add User Account</a>
+						<a href="#" ng-click="EditUser()"role="tab" data-toggle="tab" class="list-group-item"><i class="ti ti-info-alt"></i>Edit Account</a>
+                        <a href="#" ng-click="ViewUser()"role="tab" data-toggle="tab" class="list-group-item"><i class="ti ti-info-alt"></i>Edit User Details</a>
                 	</div>
             </div>
           
@@ -73,9 +74,11 @@
                         <h2>Add User Account</h2>
                         <div class="panel-ctrls" data-actions-container="" data-action-collapse='{"target": ".panel-body, .panel-footer"}'></div>
                     </div>
-                    <div class="panel-body" style="height: 560px">
+                    <div class="panel-body" style="height: auto">
                     <p>Data below will be used as credential and restrictions of the user</p>
                         <form>
+                        <div class="row">
+                         <div class="col-md-6">
                             <div class="form-group" >
                                 <label>Account ID</label>
                                 <input type="text" class="form-control" ng-model="accountid" disabled>
@@ -84,8 +87,8 @@
                                 <label>Access Type  </label>
                                 <div class="col-sm-13 select">
                                 <select ng-model="accesstype" class="form-control" ng-change="accessType()">
-                                    <option value="">Select</option>
-                                    <option value="1">Type 1 - All Priviliges</option>
+                                    <option value="" disabled>Select</option>
+                                    <!-- <option value="1">Type 1 - All Priviliges</option> -->
                                     <option value="2">Type 2 - Admission Module</option>
                                     <option value="3">Type 3 - Nurse Module</option>
                                     <option value="4">Type 4 - Doctor Module</option>
@@ -97,25 +100,79 @@
                             </div>
                             <div class="form-group">       
                                 <label>Password </label>
-                                <input type="password" ng-model="password" placeholder="Password" class="form-control">
+                                <input type="text" ng-model="password" class="form-control" disabled>
                             </div>
                             <div class="form-group">       
                                 <label>Email </label>
                                 <input type="email" ng-model="email" placeholder="youremail@yahoo.com" class="form-control">
                             </div>
+                            
+                            </div>
+                            <div class="col-md-6">
+
+                            <div class="form-group">       
+                                <label>First Name </label>
+                                <input type="text" ng-model="fname" placeholder="Juan" class="form-control">
+                            </div>
+                            <div class="form-group">       
+                                <label>Middle Name </label>
+                                <input type="text" ng-model="mname" placeholder="Dela" class="form-control">
+                            </div>
+                            <div class="form-group">       
+                                <label>Last Name </label>
+                                <input type="text" ng-model="lname" placeholder="Cruz" class="form-control">
+                            </div>
+                            <div class="form-group">       
+                                <label>Gender </label>
+                                <select ng-model="gender" class="form-control">
+                                    <option value="" selected disabled>Select Gender</option>
+                                    <option value="Male">Male</option>
+                                    <option value="Female">Female</option>
+                                </select>
+                            </div>
+
+                            </div>
+                            </div>
+
+                            <div class="row">
+                            <div class="col-md-6">
+                            <div class="form-group">       
+                                <label>Birthdate </label>
+                                <input type="text" ng-model="" id="datepicker" class="form-control">
+                            </div>
+                            </div>
+                            <div class="col-md-6">
+                            <div class="form-group">       
+                                <label>Address </label>
+                                <input type="text" ng-model="address" placeholder="Province / City / Street" class="form-control">
+                            </div>
+                            </div>
+                            </div>
                             <!-- <div class="modal-footer">
                                
                             </div> -->
-                            <div class="form-group" >
+                            <div class="form-group" ng-show='accesstype == 7' >
                                 <label>Select Physician</label>
-                                <select class="form-control" ng-model="physician" style="width:620px;" ng-disabled='accesstype != 7'>
+                                <select class="form-control" ng-model="assignedphysician" style="width:620px;">
                                     <optgroup label="List of Doctors">
-                                        <option ng-repeat="physician in physicians" value="{{physician.PhysicianID}}">{{physician.Fullname}}</option>
+                                        <option ng-repeat="physician in physicians" value="{{physician.AccountID}}">Dr. {{physician.Fullname}}</option>
                                     </optgroup>    
                                 </select>
                             </div>
 
+                            <div class="form-group" ng-show='accesstype == 4'>
+                                <label >Select Specialization</label>
+                                <select class="form-control" ng-model="specialization" style="width:620px">
+                                <optgroup label="List of Specializations">
+                                <option ng-repeat="special in spec" value="{{special.SpecializationName}}">{{special.SpecializationName}}</option>
+                                </optgroup>
+                                </select>
+                                
+                            </div>
+
+
                             <button type="button" class="btn btn-defualt pull-right" data-dismiss="modal">Close</button>
+                            &emsp;
                             <button ng-click='Confirm()' class="btn btn-danger pull-right">Confirm</button>
                         </form>
                     </div>
@@ -133,7 +190,7 @@
                             <div class="panel-ctrls" data-actions-container="" data-action-collapse='{"target": ".panel-body, .panel-footer"}'></div>
                         </div>
                         <div class="panel-body" style="height: 60px">
-                        Select Emergency record that you would like to apply an <a href="#" class="alert-link">Action.</a>
+                        Select User record that you would like to apply an <a href="#" class="alert-link">Action.</a>
                         </div>
                         <!-- <div class="panel-footer">
                             <span class="text-gray"><em>Footer</em></span>
@@ -155,7 +212,7 @@
                             <h2>Edit User Account</h2>
                             <div class="panel-ctrls" data-actions-container="" data-action-collapse='{"target": ".panel-body, .panel-footer"}'></div>
                         </div>
-                        <div class="panel-body" style="height: 560px">
+                        <div class="panel-body" style="height: auto">
                         <p>Data below will be used as credential and restrictions of the user</p>
                         <form ng-repeat="getaccount in getaccountid">
                         <div class="form-group">
@@ -167,7 +224,7 @@
                             <div class="col-sm-13 select">
                                 <select ng-model="$parent.acctype" ng-init="$parent.acctype=getaccount.AccessType" class="form-control" ng-change="accessType()" disabled>
                                     <option value="">Select</option>
-                                    <option value="1">Type 1 - All Priviliges</option>
+                                    <!-- <option value="1">Type 1 - All Priviliges</option> -->
                                     <option value="2">Type 2 - Admission Module</option>
                                     <option value="3">Type 3 - Nurse Module</option>
                                     <option value="4">Type 4 - Doctor Module</option>
@@ -179,7 +236,7 @@
                         </div>
                         <div class="form-group">
                             <label>Password </label>
-                            <input type="text" ng-model="$parent.pword" ng-init="$parent.pword=getaccount.Password" class="form-control">
+                            <input type="password" ng-model="$parent.pword" ng-init="$parent.pword=getaccount.Password" class="form-control">
                         </div>
                         <div class="form-group">
                             <label>Email </label>
@@ -187,8 +244,8 @@
                         </div>
                        
                         <div class="form-group" >
-                                <label>Select Physician</label>
-                                <select class="form-control" ng-model="physician" style="width:620px;" ng-disabled='$parent.acctype != 7'>
+                                <label ng-show='$parent.acctype == 7'>Select Physician</label>
+                                <select class="form-control" ng-model="physician" style="width:620px;" ng-show='$parent.acctype == 7'>
                                     <optgroup label="List of Doctors">
                                         <option ng-repeat="physician in physicians" value="{{physician.PhysicianID}}">{{physician.Fullname}}</option>
                                     </optgroup>    
@@ -203,6 +260,71 @@
                 </div>
             </div>
             <!--/ Edit Error modal -->
+
+         <!-- View modal -->
+         <div class="modal fade" id="ViewUser" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" >
+                <div class="modal-dialog">
+                    <div class="panel panel-danger" data-widget='{"draggable": "false"}'>
+                        <div class="panel-heading">
+                            <h2>User Information</h2>
+                            <div class="panel-ctrls" data-actions-container="" data-action-collapse='{"target": ".panel-body, .panel-footer"}'></div>
+                        </div>
+                        <div class="panel-body" style="height: auto">
+                     <div ng-repeat="acc in getuser">
+                        <div class="form-group">
+                            <label>Account ID</label>
+                            <input type="text" class="form-control" ng-model="$parent.viewid" ng-init="$parent.viewid=acc.AccountID" disabled>
+                        </div>
+                        <div class="form-group">
+                            <label>First Name</label>
+                            <input type="text" class="form-control" ng-model="$parent.firstname" ng-init="$parent.firstname=acc.FirstName">
+                        </div>
+                        <div class="form-group">
+                            <label>Middle Name</label>
+                            <input type="text" class="form-control" ng-model="$parent.middlename" ng-init="$parent.middlename=acc.MiddleName">
+                        </div>
+                        <div class="form-group">
+                            <label>Last Name</label>
+                            <input type="text" class="form-control" ng-model="$parent.lastname" ng-init="$parent.lastname=acc.LastName">
+                        </div>
+
+                        <div class="form-group">
+                            <label>Birthdate</label>
+                            <input type="text" class="form-control" ng-model="$parent.bdate" id="datepicker" ng-init="$parent.bdate=acc.Birthdate">
+                        </div>
+
+                        <div class="form-group">
+                            <label>Gender</label>
+                            <select ng-model="$parent.ggender" ng-init="$parent.ggender=acc.Gender" class="form-control">
+                                    <option value="" disabled>Select Gender</option>
+                                    <option value="Male">Male</option>
+                                    <option value="Female">Female</option>
+                                </select>
+                        </div>
+                        <div class="form-group">
+                            <label>Address</label>
+                            <input type="text" class="form-control" ng-model="$parent.aaddress" ng-init="$parent.aaddress=acc.Address">
+                        </div>
+
+                        <input type="hidden" class="form-control" ng-model="$parent.tempmail"  ng-init="$parent.tempmail=acc.Email" >
+
+                         <div class="form-group" ng-show='viewid[0] == 4'>
+                                <label >Select Specialization</label>
+                                <select class="form-control" ng-model="$parent.sspecialization" ng-init="$parent.sspecialization=acc.Specialization" style="width:620px">
+                                <option ng-repeat="special in spec" value="{{special.SpecializationName}}">{{special.SpecializationName}}</option>
+                                </select>
+                                
+                        </div>
+
+                        <button type="button" class="btn btn-default pull-right" data-dismiss="modal">Close</button>
+                        <button ng-click='UpdateDetails()' class="btn btn-danger pull-right">Update</button>
+                    
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!--/ View modal -->
+
         </div>
     </div>
 
@@ -257,6 +379,13 @@
                 });
             });
 
+                $http({
+                        method: 'get',
+                        url: 'getData/get-specialization-details.php'
+                        }).then(function(response) {
+                        $scope.spec = response.data;
+                    });
+
             $http({
                 method: 'GET',
                 url: 'getData/get-physician-details.php'
@@ -266,7 +395,7 @@
 
 
             $scope.Confirm = function() { 
-       
+                $scope.birthdate =$("#datepicker").datepicker("option", "dateFormat", "yy-mm-dd" ).val();
                 switch ($scope.accesstype) {
                     case '7':
                         $http({
@@ -277,13 +406,61 @@
                             accesstype: $scope.accesstype,
                             password: $scope.password,
                             email: $scope.email,
-                            physician: $scope.physician
+                            physician: $scope.assignedphysician
                         }
                         }).then(function(response) {
-                            window.location.href = 'user.php?at=' + $scope.at;
+                            $http({
+                                method: 'GET',
+                                url: 'updateData/update-user-profile.php',
+                                params: {id: $scope.accountid,
+                                        Lastname: $scope.lname,
+                                        Firstname: $scope.fname,
+                                        Middlename: $scope.mname,
+                                        Gender: $scope.gender,
+                                        Birthdate: $scope.birthdate,
+                                        Address: $scope.address,
+                                        Contact: $scope.contact,
+                                        Email: $scope.email,
+                                        atype: $scope.accesstype 
+                                        }
+                                }).then(function(response) {
+                                    window.location.href = 'user.php?at=' + $scope.at;
+                                });
                         });
                         break;
-                
+                    case '4':
+                    $http({
+                        method: 'GET',
+                        url: 'insertData/insert-user.php',
+                        params: {
+                            accountid: $scope.accountid,
+                            accesstype: $scope.accesstype,
+                            password: $scope.password,
+                            email: $scope.email
+                        }
+                        }).then(function(response) {
+                            $http({
+                                method: 'GET',
+                                url: 'updateData/update-user-profile.php',
+                                params: {id: $scope.accountid,
+                                        Lastname: $scope.lname,
+                                        Firstname: $scope.fname,
+                                        Middlename: $scope.mname,
+                                        Gender: $scope.gender,
+                                        Birthdate: $scope.birthdate,
+                                        Specialization: $scope.specialization,
+                                        Address: $scope.address,
+                                        ProfessionalFee: $scope.fee,
+                                        Contact: $scope.contact,
+                                        Email: $scope.email,
+                                        atype: $scope.accesstype
+                                        }
+                                }).then(function(response) {
+                                    window.location.href = 'user.php?at=' + $scope.at;
+                                });
+                        });
+                        break;
+
                     default:
                         $http({
                         method: 'GET',
@@ -295,7 +472,27 @@
                             email: $scope.email
                         }
                         }).then(function(response) {
+                                     
+                        $http({
+                        method: 'GET',
+                        url: 'updateData/update-user-profile.php',
+                        params: {id: $scope.accountid,
+                                Lastname: $scope.lname,
+                                Firstname: $scope.fname,
+                                Middlename: $scope.mname,
+                                Gender: $scope.gender,
+                                Birthdate: $scope.birthdate,
+                                Specialization: $scope.specialization,
+                                Address: $scope.address,
+                                ProfessionalFee: $scope.fee,
+                                Contact: $scope.contact,
+                                Email: $scope.email,
+                                atype: $scope.accesstype
+                                }
+                        }).then(function(response) {
                             window.location.href = 'user.php?at=' + $scope.at;
+                        });
+                          
                         });
                         break;
                 }
@@ -331,6 +528,7 @@
           }
 
             $scope.Add = function() {
+                $scope.password="mlmc";
                 $('#AddModal').modal('show');
             }
 
@@ -348,6 +546,29 @@
                 }).then(function(response) {
                     window.location.href = 'user.php?at=' + $scope.at;
                 });
+            }
+
+            $scope.UpdateDetails = function() {
+
+                $http({
+                    method: 'GET',
+                    url: 'updateData/update-user-profile.php',
+                    params: {id: $scope.viewid,
+                            Lastname: $scope.lastname,
+                            Firstname: $scope.firstname,
+                            Middlename: $scope.middlename,
+                            Gender: $scope.ggender,
+                            Birthdate: $scope.bdate,
+                            Specialization: $scope.sspecialization,
+                            Address: $scope.aaddress,
+                            ProfessionalFee: $scope.fee,
+                            Contact: $scope.contact,
+                            Email: $scope.tempmail,
+                            atype: $scope.viewid[0]
+                            }
+                    }).then(function(response) {
+                        window.location.href = 'user.php?at=' + $scope.at;
+                    });
             }
 
             $scope.EditUser = function() {
@@ -370,6 +591,87 @@
                     $('#ErrorModal').modal('show');
                 }
             }
+
+         
+
+
+            $scope.ViewUser = function() {
+                if ($scope.selectedRow != null) 
+                {
+                    $scope.accountid = $scope.selectedRow;
+
+                            if ($scope.accountid[0] == 2)		
+                            {
+                                $http({
+                                        method: 'get',
+                                        params: {accid : $scope.accountid},
+                                        url: 'getData/get-admissionstaff-id.php'
+                                    }).then(function(response) {
+                                        $scope.getuser = response.data;
+                                    });
+                            }	
+                            else if ($scope.accountid[0] == 3)
+                                {
+                                    $http({
+                                            method: 'get',
+                                            params: {accid : $scope.accountid},
+                                            url: 'getData/get-nurse-id.php'
+                                        }).then(function(response) {
+                                        $scope.getuser = response.data;
+                                    });
+                                }
+                                else if ($scope.accountid[0] == 4)
+                                {
+                                    $http({
+                                            method: 'get',
+                                            params: {accid : $scope.accountid},
+                                            url: 'getData/get-physician-id.php'
+                                        }).then(function(response) {
+                                        $scope.getuser = response.data;
+                                    });
+                                }
+                            else if ($scope.accountid[0] == 5)
+                                {
+                                    $http({
+                                            method: 'get',
+                                            params: {accid : $scope.accountid},
+                                            url: 'getData/get-pharmacystaff-id.php'
+                                        }).then(function(response) {
+                                        $scope.getuser = response.data;
+                                    });
+                                }	
+                            else if ($scope.accountid[0] == 6)
+                                {
+                                    $http({
+                                            method: 'get',
+                                            params: {accid : $scope.accountid},
+                                            url: 'getData/get-billingstaff-id.php'
+                                        }).then(function(response) {
+                                        $scope.getuser = response.data;
+                                    });
+                                }
+                            else if ($scope.accountid[0] == 7)
+                                {
+                                    $http({
+                                            method: 'get',
+                                            params: {accid : $scope.accountid},
+                                            url: 'getData/get-secretary-id.php'
+                                        }).then(function(response) {
+                                        $scope.getuser = response.data;
+                                    });
+                                }
+                       
+                        $('#ViewUser').modal('show');
+            }
+                     else
+                     {
+                        $('#ErrorModal').modal('show');
+                     }
+                }
+               
+
+            
+
 
             $scope.getPage = function(check){
                 switch (check) {
