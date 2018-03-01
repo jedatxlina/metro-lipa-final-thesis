@@ -1,3 +1,4 @@
+
 <?php 
 /* Main page with two forms: sign up and log in */
 require 'db.php';
@@ -12,6 +13,23 @@ session_start();
 	<script src="mlmc-views/assets/js/mask.js"></script>
 </head>
 
+<?php 
+
+if ($_SERVER['REQUEST_METHOD'] == 'POST') 
+{
+    if (isset($_POST['login'])) { //user logging in
+      
+        require 'login.php';
+        
+    }
+    
+    elseif (isset($_POST['register'])) { //user registering
+        
+        require 'register.php';
+        
+    }
+}
+?>
 <body>
 
   <div class="form"  ng-app="myApp" ng-controller="userCtrl">
@@ -29,30 +47,30 @@ session_start();
            -->
           <form action="index.php" method="post" autocomplete="off">
           
+              <div class="field-wrap">
+              <label>
+                Account ID<span class="req">*</span>
+              </label>
+              <input type="text"  required autocomplete="off" name='id'/>
+            </div>
+            
             <div class="field-wrap">
-            <label>
-              Account ID<span class="req">*</span>
-            </label>
-            <input type="text"  required autocomplete="off" ng-model="user" ui-mask="9-99999"  ui-mask-placeholder ui-mask-placeholder-char="_"/>
-          </div>
-          
-          <div class="field-wrap">
-            <label>
-              Password<span class="req">*</span>
-            </label>
-            <input type="password" required autocomplete="off"   ng-model="pass" required>
-          </div>
-          
-          <p class="forgot"><a href="forgot.php">Forgot Password?</a></p>
-          
-          <button class="button button-block" name="login"  ng-click="Submit()" />Log In</button>
+              <label>
+                Password<span class="req">*</span>
+              </label>
+              <input type="password" required autocomplete="off" name='pass' >
+            </div>
+            
+            <p class="forgot"><a href="forgot.php">Forgot Password?</a></p>
+            
+            <button class="button button-block" name="login" />Log In</button>
           
           </form>
 
         </div>
           
         <div id="signup">   
-          <h1>Sign Up for Free</h1>
+          <!-- <h1>Sign Up for Free</h1>
           
           <form action="index.php" method="post" autocomplete="off">
           
@@ -88,7 +106,7 @@ session_start();
           
           <button type="submit" class="button button-block" name="register" />Register</button>
           
-          </form>
+          </form> -->
 
         </div>  
         

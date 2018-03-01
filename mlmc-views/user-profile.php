@@ -231,20 +231,10 @@ var fetch = angular.module('myApp', ['ui.mask']);
         $scope.Update = function() {
             if ($scope.pass == $scope.confirmpw && $scope.pass!=null && $scope.confirmpw!=null && $scope.mail!=null)
             {
-                        $http({
-                        method: 'GET',
-                        url: 'updateData/update-user-details.php',
-                        params: {accesstype: $scope.at[0],
-                                accountid: $scope.at,
-                                password: $scope.pass,
-                                email: $scope.mail
-                                }
-                        }).then(function(response) {
-                            window.location.href = 'user-profile.php?at=' + $scope.at;
-                        });
-                    
+                window.location.href = 'updateData/update-user-details.php?accountid=' + $scope.at +  '&password=' + $scope.pass + '&email=' + $scope.mail;
+                     
             }
-            }
+        }
 
         $scope.ChangePE = function(){
                       $scope.accountid = $scope.at;

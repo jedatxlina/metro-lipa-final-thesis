@@ -181,7 +181,7 @@
                         <li><a href="#" ng-click="viewProfile()"><i class="ti ti-user"></i><span>Profile</span></a></li>
                         <li><a href="#/"><i class="ti ti-settings"></i><span>Settings</span></a></li>
                         <li class="divider"></li>
-                        <li><a href="../index.php"><i class="ti ti-shift-right"></i><span>Sign Out</span></a></li>
+                        <li><a href="../logout.php"><i class="ti ti-shift-right"></i><span>Sign Out</span></a></li>
                     </ul>
                 </li>
 

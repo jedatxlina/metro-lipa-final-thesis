@@ -2,13 +2,12 @@
 require_once 'connection.php';
 
 
-$id = $_GET['id'];
+$accountid = $_GET['id'];
 $lastname = $_GET['Lastname'];
 $firstname = $_GET['Firstname'];
 $middlename = $_GET['Middlename'];
 $gender = $_GET['Gender'];
 $birthdate = $_GET['Birthdate'];
-$specialization = $_GET['Specialization'];
 $address = $_GET['Address']; 
 $fee = $_GET['ProfessionalFee']; 
 $contact = $_GET['Contact'];
@@ -16,31 +15,34 @@ $email = $_GET['Email'];
 $acctype = $_GET['atype'];
 
 
+$specialization = isset($_GET['Specialization']) ? $_GET['Specialization'] : '';
+$assigned = isset($_GET['Assigned']) ? $_GET['Assigned'] : '';
+
 if ($acctype == 2)
-{
-    $query= "UPDATE admission_staffs SET LastName = '$lastname', FirstName = '$firstname', MiddleName = '$middlename', Gender = '$gender',  Address = '$address' , Birthdate = '$birthdate', Email = '$email' WHERE AdmissionStaffID = '$id'";
+{   
+    $query= "INSERT into admission_staffs(AdmissionStaffID,LastName,FirstName,MiddleName,Gender,Address,Birthdate,Email) VALUES ('$accountid','$lastname','$firstname','$middlename','$gender','$address','$birthdate','$email')";
 }
 else if ($acctype == 3)
 {
-    $query= "UPDATE nurses SET LastName = '$lastname', FirstName = '$firstname', MiddleName = '$middlename', Gender = '$gender', Birthdate = '$birthdate', Address = '$address' , Email = '$email' WHERE NurseID = '$id'";
+    $query= "INSERT into nurses(NurseID,LastName,FirstName,MiddleName,Gender,Address,Birthdate,Email) VALUES ('$accountid','$lastname','$firstname','$middlename','$gender','$address','$birthdate','$email')";
 }
 else if ($acctype == 4)
 {
-$query= "UPDATE physicians SET LastName = '$lastname', FirstName = '$firstname', MiddleName = '$middlename', Gender = '$gender', Birthdate = '$birthdate', Specialization = '$specialization' , Address = '$address', Contact = '$contact' , ProfessionalFee = '$fee' , Email = '$email' WHERE PhysicianID = '$id'";
+    $query= "INSERT into physicians(PhysicianID,LastName,FirstName,MiddleName,Gender,Birthdate,Specialization,Address,Contact,ProfessionalFee,Email) 
+    VALUES ('$accountid','$lastname','$firstname','$middlename','$gender','$birthdate','$specialization','$address','$contact','$fee','$email')";
 }
 else if ($acctype == 5)
 {
-    $query= "UPDATE pharmacy_staff SET LastName = '$lastname', FirstName = '$firstname', MiddleName = '$middlename', Gender = '$gender', Birthdate = '$birthdate', Address = '$address' , Email = '$email' WHERE PharmacyID = '$id'";
+    $query= "INSERT into pharmacy_staff(PharmacyID,LastName,FirstName,MiddleName,Gender,Address,Birthdate,Email) VALUES ('$accountid','$lastname','$firstname','$middlename','$gender','$address','$birthdate','$email')";
 }
 else if ($acctype == 6)
 {
-    $query= "UPDATE billing_staff SET LastName = '$lastname', FirstName = '$firstname', MiddleName = '$middlename', Gender = '$gender', Birthdate = '$birthdate', Address = '$address' , Email = '$email' WHERE BillingStaffID = '$id'";
+    $query= "INSERT into billing_staff(BillingStaffID,LastName,FirstName,MiddleName,Gender,Address,Birthdate,Email) VALUES ('$accountid','$lastname','$firstname','$middlename','$gender','$address','$birthdate','$email')";
 }
 else if ($acctype == 7)
 {
-    $query= "UPDATE secretary SET LastName = '$lastname', FirstName = '$firstname', MiddleName = '$middlename', Gender = '$gender', Birthdate = '$birthdate', Address = '$address' , Email = '$email' WHERE SecretaryID = '$id'";
+    $query= "INSERT into secretary(SecretaryID,LastName,FirstName,MiddleName,Gender,Address,Birthdate,Email,PhysicianID) VALUES ('$accountid','$lastname','$firstname','$middlename','$gender','$address','$birthdate','$email','$assigned')";
 }
+
 mysqli_query($con,$query);  
-$query2 = "UPDATE user_account SET Email = '$email' WHERE AccountID = '$id' ";
-mysqli_query($con,$query2);
 ?>

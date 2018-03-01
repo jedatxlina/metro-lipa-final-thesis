@@ -1,44 +1,20 @@
 <?php
 require_once 'connection.php';
 
+$at = $_GET['at'];
 
-$accountid = $_GET['accountid'];
-$accesstype = $_GET['accesstype'];
-$password = $_GET['password'];
+$accountid = $con->escape_string($_GET['accountid']);
+$accesstype = $con->escape_string($_GET['accesstype']);
+$password = $con->escape_string(password_hash($_GET['password'], PASSWORD_BCRYPT));
 $email = $_GET['email'];
+
 $physician = isset($_GET['physician']) ? $_GET['physician'] : '';
 
-$query= "INSERT into user_account(AccountID,AccessType,Passwordd,Email) VALUES ('$accountid','$accesstype','$password','$email')";
+$hash = $con->escape_string( md5( rand(0,1000) ) );
+
+$query= "INSERT into user_account(AccountID,AccessType,Passwordd,hash,Email) VALUES ('$accountid','$accesstype','$password','$hash','$email')";
 
 mysqli_query($con,$query);  
 
-switch ($accesstype) {
-    case '2':
-        $query= "INSERT into admission_staffs(AdmissionStaffID,Email) VALUES ('$accountid','$email')";
-        break;
-
-    case '3':
-        $query= "INSERT into nurses(NurseID,Email) VALUES ('$accountid','$email')";
-        break;
-
-    case '4':
-        $query= "INSERT into physicians(PhysicianID,Email) VALUES ('$accountid','$email')";
-        break;
-    
-    case '5':
-        $query= "INSERT into pharmacy_staff(PharmacyID,Email) VALUES ('$accountid','$email')";
-        break;
-    
-    case '6':
-        $query= "INSERT into billing_staff(BillingStaffID,Email) VALUES ('$accountid','$email')";
-        break;
-
-    case '7':
-        $query= "INSERT into secretary(SecretaryID,Email,PhysicianID) VALUES ('$accountid','$email','$physician')";
-        break;
-    
-    default:
-        break;
-}
-mysqli_query($con,$query);  
+header("Location: ../user.php?at=$at");
 ?>

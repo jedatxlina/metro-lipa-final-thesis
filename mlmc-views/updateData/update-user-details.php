@@ -1,16 +1,17 @@
 <?php
 require_once 'connection.php';
 
+$account = isset($_GET['at']) ? $_GET['at'] : '';
+
 $accountid = $_GET['accountid'];
-$accesstype = $_GET['accesstype'];
-$password = $_GET['password'];
+$password = $con->escape_string(password_hash($_GET['password'], PASSWORD_BCRYPT));
 $email = $_GET['email'];
 
-$query= "UPDATE user_account SET AccountID = '$accountid' , AccessType = '$accesstype', Passwordd = '$password' , Email = '$email' WHERE AccountID = '$accountid'";
+$query= "UPDATE user_account SET AccountID = '$accountid' , AccessType = '$accountid[0]', Passwordd = '$password' , Email = '$email' WHERE AccountID = '$accountid'";
 
 mysqli_query($con,$query);  
 
-switch ($accesstype) {
+switch ($accountid[0]) {
     case '2':
         $query= "UPDATE admission_staffs SET Email = '$email' WHERE AdmissionStaffID = '$accountid'";
         break;
@@ -39,6 +40,11 @@ switch ($accesstype) {
         break;
 }
 mysqli_query($con,$query);  
+if(isset($_GET['at'])){
+    header("Location: ../user.php?at=$account");
+}else{
+    header("Location: ../user-profile.php?at=$accountid");
+}
 
 ?>
 

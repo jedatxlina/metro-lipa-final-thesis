@@ -236,7 +236,7 @@
                         </div>
                         <div class="form-group">
                             <label>Password </label>
-                            <input type="password" ng-model="$parent.pword" ng-init="$parent.pword=getaccount.Password" class="form-control">
+                            <input type="password" ng-model="pword"  class="form-control">
                         </div>
                         <div class="form-group">
                             <label>Email </label>
@@ -398,17 +398,6 @@
                 $scope.birthdate =$("#datepicker").datepicker("option", "dateFormat", "yy-mm-dd" ).val();
                 switch ($scope.accesstype) {
                     case '7':
-                        $http({
-                        method: 'GET',
-                        url: 'insertData/insert-user.php',
-                        params: {
-                            accountid: $scope.accountid,
-                            accesstype: $scope.accesstype,
-                            password: $scope.password,
-                            email: $scope.email,
-                            physician: $scope.assignedphysician
-                        }
-                        }).then(function(response) {
                             $http({
                                 method: 'GET',
                                 url: 'updateData/update-user-profile.php',
@@ -421,79 +410,53 @@
                                         Address: $scope.address,
                                         Contact: $scope.contact,
                                         Email: $scope.email,
-                                        atype: $scope.accesstype 
+                                        atype: $scope.accesstype,
+                                        Assigned: $scope.assignedphysician
                                         }
                                 }).then(function(response) {
-                                    window.location.href = 'user.php?at=' + $scope.at;
+                                    window.location.href = 'insertData/insert-user.php?at=' + $scope.at + '&accountid=' + $scope.accountid + '&accesstype=' + $scope.accesstype + '&password=' + $scope.password + '&email=' + $scope.email;
                                 });
-                        });
                         break;
                     case '4':
-                    $http({
-                        method: 'GET',
-                        url: 'insertData/insert-user.php',
-                        params: {
-                            accountid: $scope.accountid,
-                            accesstype: $scope.accesstype,
-                            password: $scope.password,
-                            email: $scope.email
-                        }
-                        }).then(function(response) {
                             $http({
                                 method: 'GET',
                                 url: 'updateData/update-user-profile.php',
                                 params: {id: $scope.accountid,
-                                        Lastname: $scope.lname,
-                                        Firstname: $scope.fname,
-                                        Middlename: $scope.mname,
-                                        Gender: $scope.gender,
-                                        Birthdate: $scope.birthdate,
-                                        Specialization: $scope.specialization,
-                                        Address: $scope.address,
-                                        ProfessionalFee: $scope.fee,
-                                        Contact: $scope.contact,
-                                        Email: $scope.email,
-                                        atype: $scope.accesstype
-                                        }
+                                    Lastname: $scope.lname,
+                                    Firstname: $scope.fname,
+                                    Middlename: $scope.mname,
+                                    Gender: $scope.gender,
+                                    Birthdate: $scope.birthdate,
+                                    Specialization: $scope.specialization,
+                                    Address: $scope.address,
+                                    Contact: $scope.contact,
+                                    Email: $scope.email,
+                                    atype: $scope.accesstype
+                                    }
                                 }).then(function(response) {
-                                    window.location.href = 'user.php?at=' + $scope.at;
+                                    window.location.href = 'insertData/insert-user.php?at=' + $scope.at + '&accountid=' + $scope.accountid + '&accesstype=' + $scope.accesstype + '&password=' + $scope.password + '&email=' + $scope.email;
                                 });
-                        });
+                   
                         break;
 
                     default:
-                        $http({
-                        method: 'GET',
-                        url: 'insertData/insert-user.php',
-                        params: {
-                            accountid: $scope.accountid,
-                            accesstype: $scope.accesstype,
-                            password: $scope.password,
-                            email: $scope.email
-                        }
-                        }).then(function(response) {
-                                     
-                        $http({
-                        method: 'GET',
-                        url: 'updateData/update-user-profile.php',
-                        params: {id: $scope.accountid,
-                                Lastname: $scope.lname,
-                                Firstname: $scope.fname,
-                                Middlename: $scope.mname,
-                                Gender: $scope.gender,
-                                Birthdate: $scope.birthdate,
-                                Specialization: $scope.specialization,
-                                Address: $scope.address,
-                                ProfessionalFee: $scope.fee,
-                                Contact: $scope.contact,
-                                Email: $scope.email,
-                                atype: $scope.accesstype
-                                }
-                        }).then(function(response) {
-                            window.location.href = 'user.php?at=' + $scope.at;
-                        });
-                          
-                        });
+                            $http({
+                            method: 'GET',
+                            url: 'updateData/update-user-profile.php',
+                            params: {id: $scope.accountid,
+                                    Lastname: $scope.lname,
+                                    Firstname: $scope.fname,
+                                    Middlename: $scope.mname,
+                                    Gender: $scope.gender,
+                                    Birthdate: $scope.birthdate,
+                                    Address: $scope.address,
+                                    Contact: $scope.contact,
+                                    Email: $scope.email,
+                                    atype: $scope.accesstype
+                                    }
+                            }).then(function(response) {
+                            window.location.href = 'insertData/insert-user.php?at=' + $scope.at + '&accountid=' + $scope.accountid + '&accesstype=' + $scope.accesstype + '&password=' + $scope.password + '&email=' + $scope.email;
+                            });
                         break;
                 }
 
@@ -533,19 +496,9 @@
             }
 
             $scope.Update = function() {
-
-                $http({
-                    method: 'GET',
-                    url: 'updateData/update-user-details.php',
-                    params: {  
-                    accountid : $scope.accid,
-                    accesstype: $scope.acctype,
-                    password: $scope.pword,
-                    email: $scope.mail                  
-                    }
-                }).then(function(response) {
-                    window.location.href = 'user.php?at=' + $scope.at;
-                });
+                
+                window.location.href = 'updateData/update-user-details.php?at=' + $scope.at + '&accountid=' + $scope.accid + '&password=' + $scope.pword + '&email=' + $scope.mail;
+         
             }
 
             $scope.UpdateDetails = function() {
