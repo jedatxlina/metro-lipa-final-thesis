@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Mar 01, 2018 at 08:42 PM
+-- Generation Time: Mar 01, 2018 at 09:01 PM
 -- Server version: 10.1.28-MariaDB
 -- PHP Version: 7.1.10
 
@@ -2345,8 +2345,8 @@ CREATE TABLE `user_account` (
 --
 
 INSERT INTO `user_account` (`AccountID`, `AccessType`, `Passwordd`, `hash`, `Email`) VALUES
-('146404', '1', '$2y$10$Shc2Px/ehp6fAwQOxBSZsOUyYtw1elDvzjDq1y0RPHXA8nDHufSEO', '847cc55b7032108eee6dd897f3bca8a5', 'admin@gmail.com'),
-('292556', '2', '$2y$10$u9Oruv2uKNu6g6KiRpcM6u3zZu1Bso0FSpp2PcTDZje3rza.S1cDy', 'd709f38ef758b5066ef31b18039b8ce5', 'admission@gmail.com'),
+('146404', '1', '$2y$10$/JFlibHRyG9jS.BfMvFYeuMzJckB/PeVtxZjF4grG9Dqx.iAnNq.S', '847cc55b7032108eee6dd897f3bca8a5', 'admin@gmail.com'),
+('292556', '2', '$2y$10$WXd0kGvt2052wAMqSVWdeuWQZqaLFP6W06PX9Xu5buKK9hAcK.3gC', 'd709f38ef758b5066ef31b18039b8ce5', 'admission@gmail.com'),
 ('440333', '4', '$2y$10$rALMHQbyTlm6TuvaZ4znRux9yQtY.K2PJJsLRp2G.HJvzoQyQoSPC', '82cec96096d4281b7c95cd7e74623496', 'doctor@gmail.com'),
 ('776602', '7', '$2y$10$TtZ.91q7G8Tcnc/uxxamG.0fovkb/0K0O9xb4dtMe1uoxEE3e1Pxq', '6855456e2fe46a9d49d3d3af4f57443d', 'secretary@gmail.com');
 
