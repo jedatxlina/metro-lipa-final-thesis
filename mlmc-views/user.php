@@ -236,7 +236,7 @@
                         </div>
                         <div class="form-group">
                             <label>Password </label>
-                            <input type="password" ng-model="pword"  class="form-control">
+                            <input type="password" ng-model="$parent.pword"   class="form-control">
                         </div>
                         <div class="form-group">
                             <label>Email </label>
@@ -499,7 +499,8 @@
                 
                 window.location.href = 'updateData/update-user-details.php?at=' + $scope.at + '&accountid=' + $scope.accid + '&password=' + $scope.pword + '&email=' + $scope.mail;
          
-            }
+        
+               }
 
             $scope.UpdateDetails = function() {
 
