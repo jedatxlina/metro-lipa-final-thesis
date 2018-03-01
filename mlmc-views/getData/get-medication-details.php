@@ -4,11 +4,12 @@ require_once 'connection.php';
 if(isset($_GET['medicationid']) && isset($_GET['admissionid'])) {
     $medicationid = $_GET['medicationid'];
     $admissionid = $_GET['admissionid'];
-    $sel = mysqli_query($con,"SELECT * FROM medication JOIN pharmaceuticals WHERE medication.MedicationID = '$medicationid' AND pharmaceuticals.MedicineID = medication.MedicineID ");
+    $sel = mysqli_query($con,"SELECT a.MedicineID,a.MedicineName,a.Unit,b.* FROM pharmaceuticals a,medication b WHERE b.MedicationID = '$medicationid' AND a.MedicineID = b.MedicineID  ");
     $data = array();
     while ($row = mysqli_fetch_array($sel)) {
         $data[] = array(
             "MedicineID"=>$row['MedicineID'],
+            "MedicineName"=>$row['MedicineName'],
             "DateAdministered"=>$row['DateAdministered'],
             "TimeAdministered"=>$row['TimeAdministered'],
             "PhysicianID"=>$row['PhysicianID'],
@@ -16,9 +17,7 @@ if(isset($_GET['medicationid']) && isset($_GET['admissionid'])) {
             "Quantity"=>$row['Quantity'],
             "DateStart"=>$row['DateStart'],
             "TimeStart"=>$row['TimeStart'],
-            "MedicineName"=>$row['MedicineName'],
-            "Unit"=>$row['Unit'],
-            "Price"=>$row['Price']);
+            "Unit"=>$row['Unit']);
     }
 }
 

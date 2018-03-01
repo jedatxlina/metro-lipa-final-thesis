@@ -89,7 +89,7 @@
                                                 </div>
                                                 <div data-field-span="1">
                                                     <label>Contact</label>
-                                                    <input type="text">
+                                                    <input type="text" class="form-control" ng-model="contact2" ui-mask="+63 999-999-9999" ui-mask-placeholder ui-mask-placeholder-char="-  " />
                                                 </div>
                                             </div>
 

@@ -122,9 +122,9 @@
                                             <div data-row-span="2">
                                                 <div data-field-span="1">
                                                     <label>Attending Physician</label>
-                                                    <select class="form-control" ng-model="attending" style="width:395px;">
+                                                    <select class="form-control" ng-model="attendingphysician" style="width:395px;">
                                                         <option value="" disabled selected>Select Physician</option>
-                                                         <option ng-repeat="physician in physicians" value="{{physician.PhysicianID}}">{{physician.Fullname}}</option>
+                                                         <option ng-repeat="physician in physicians" value="{{physician.AccountID}}">{{physician.Fullname}}</option>
                                                        
                                                     </select>
                                                 
@@ -421,9 +421,9 @@
                                     weight: $scope.weight,
                                     height: $scope.height,
                                     diagnosis: $scope.diagnosis,
-                                    attending: $scope.attending}
+                                    attending: $scope.attendingphysician}
                         }).then(function(response) {
-                            window.location.href = 'insertData/insert-medications-details.php?param=' + $scope.param + '&at=' + $scope.at + '&medicationid=' + $scope.medicationid + '&admissionid=' + $scope.admissionid + '&administered=' + $scope.administered + '&physicianid=' + $scope.attending + '&medication=' + $scope.medication + '&condition=' + $scope.condition;
+                            window.location.href = 'insertData/insert-medications-details.php?param=' + $scope.param + '&at=' + $scope.at + '&medicationid=' + $scope.medicationid + '&admissionid=' + $scope.admissionid + '&administered=' + $scope.administered + '&physicianid=' + $scope.attendingphysician + '&medication=' + $scope.medication + '&condition=' + $scope.condition;
                         });
                  
                     }

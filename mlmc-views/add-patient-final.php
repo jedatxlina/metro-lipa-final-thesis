@@ -75,7 +75,7 @@
                                         <div data-row-span="2">
                                             <div data-field-span="1">
                                                 <label>Dosage</label>
-                                                <input type="text" ng-model="Dosage[$index]" ng-init="Dosage[$index] = medication.Unit" > 
+                                                <input type="text" ng-model="Dosage[$index]" ng-init="Dosage[$index] = medication.Unit" disabled="disabled"> 
                                             </div>
                                             <div data-field-span="1">
                                                 <label>Quantity</label>

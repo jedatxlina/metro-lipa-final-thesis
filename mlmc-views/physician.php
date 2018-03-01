@@ -64,17 +64,16 @@
                 <div class="list-group list-group-alternate mb-n nav nav-tabs">
                     <a href="#" role="tab" data-toggle="tab" class="list-group-item active">Actions Panel</a>
                     <a href="#" ng-click="viewPatient()" role="tab" data-toggle="tab" class="list-group-item"><i class="ti ti-user"></i> Patient Details</a>
+                    <a href="#" ng-click="post()" role="tab" data-toggle="tab" class="list-group-item"><i class="fa fa-stethoscope"></i>View Patient Condition</a>
                     <a href="#" ng-click="postDiagnosis()" role="tab" data-toggle="tab" class="list-group-item"><i class="fa fa-stethoscope"></i>Post Diagnosis</a>
-                    <a href="#" ng-click="postOrder()" role="tab" data-toggle="tab" class="list-group-item"><i class="fa fa-stethoscope"></i>Post Order</a>
-                    <a href="#" ng-click="postPrescription()" role="tab" data-toggle="tab" class="list-group-item"><i class="fa fa-check-square-o"></i>Post Prescription</a>
                    
                 </div>
             </div>
 
         </div>
 
-            	<!-- Patient Modal -->
-				<div class="modal fade" id="patientModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+            <!-- Patient Modal -->
+			    <div class="modal fade" id="patientModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
 					<form class="form-horizontal">
 						<div class="modal-dialog">
 							<div class="panel panel-danger" data-widget='{"draggable": "false"}'>
@@ -144,6 +143,74 @@
 					</form>
 				</div>
 
+                <!-- Patient Modal -->
+			    <div class="modal fade" id="postDiagnosisModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+                    <div class="modal-dialog">
+                        <div class="panel panel-danger" data-widget='{"draggable": "false"}'>
+                            <div class="panel-heading">
+                                <h2>Post Diagnosis</h2>
+                                <div class="panel-ctrls" data-actions-container="" data-action-collapse='{"target": ".panel-body, .panel-footer"}'></div>
+                            </div>
+                            <div class="panel-body" style="height: auto" >
+                                <p>Data below will be used as a diagnosis note for the patient  </p>
+                                <form data-ng-repeat="patient in patientdetails">
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <div class="form-group" >
+                                            <label>Admission ID</label>
+                                            <input type="text" class="form-control" ng-value="patient.AdmissionID" disabled="disabled">
+                                        </div>
+                                        <div class="form-group">
+                                            <label>Patient Name </label>
+                                            <div class="col-sm-13 select">
+                                            <input type="text" class="form-control" ng-value="patient.Lastname + ', ' + patient.Firstname + ' ' + patient.Middlename" disabled="disabled">
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-md-6">
+
+                                        <div class="form-group">       
+                                            <label>Attending ID</label>
+                                            <input type="text" class="form-control" ng-value="patient.Attending" disabled="disabled">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <div class="form-group" >
+                                            <label>Post-Diagnosis</label><br>
+                                            <textarea ng-model="$parent.diagnosis" rows="4" cols="96"></textarea>
+                                        </div>
+
+                                        <div class="form-group" >
+                                            <label>Post-Order</label><br>
+                                            <textarea ng-model="$parent.order" rows="4" cols="96"></textarea>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                    <!-- <div class="row">
+                                        <div class="col-md-6">
+                                            <div class="form-group">       
+                                                <label>Birthdate </label>
+                                                <input type="text" ng-model="" id="datepicker" class="form-control">
+                                            </div>
+                                        </div>
+                                    </div> -->
+                                    <!-- <div class="modal-footer">
+                                    
+                                    </div> -->
+
+                                    <button type="button" class="btn btn-defualt pull-right" data-dismiss="modal">Close</button>
+                                    &emsp;
+                                    <button ng-click='confirmDiagnosis()' class="btn btn-danger pull-right">Confirm</button>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+				</div>
+               
                 <!-- Error modal -->
 				<div class="modal fade" id="errorModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
 					<div class="modal-dialog">
@@ -166,7 +233,7 @@
 				</div>
 				<!--/ Error modal -->
         <script>
-            var fetch = angular.module('myApp', ['ui.mask']);
+            var fetch = angular.module('myApp', ['angular-autogrow']);
 
 
             fetch.controller('userCtrl', ['$scope', '$http', function($scope, $http) {
@@ -175,6 +242,7 @@
                 $scope.selectedStatus = null;
                 $scope.clickedRow = 0;
                 $scope.new = {};
+                $scope.diagnosis = '';
 
                     switch ($scope.at.charAt(0)) {
                         case '1':
@@ -216,11 +284,10 @@
                     dTable.DataTable();  
                     });  
                 });
-
-                $scope.viewProfile = function() { 
-				    window.location.href = 'user-profile.php?at=' + $scope.at;
-			    }
-	
+                
+                $scope.viewPatientDetails = function(){
+                    window.location.href = 'view-patient-data.php?at=' + $scope.at + '&id=' + $scope.admissionid;
+                }
 
                 $scope.setClickedRow = function(spec) {
                     $scope.selectedRow = ($scope.selectedRow == null) ? spec : ($scope.selectedRow == spec) ? null : spec;
@@ -243,6 +310,28 @@
                     else{
                     $('#errorModal').modal('show');
                     }
+                }
+
+                $scope.postDiagnosis = function(){
+                    if($scope.selectedRow != null){
+                        $scope.admissionid = $scope.selectedRow;
+                        $http({
+                            method: 'get',
+                            url: 'getData/get-patient-details.php',
+                            params: {id: $scope.admissionid}
+                        }).then(function(response) {
+                            $scope.patientdetails = response.data;
+                        });
+                        $('#postDiagnosisModal').modal('show');
+                    
+                    }
+                    else{
+                    $('#errorModal').modal('show');
+                    }
+                }
+                
+                $scope.confirmDiagnosis = function(){
+                    alert($scope.order);
                 }
          
                 $scope.getPage = function(check){

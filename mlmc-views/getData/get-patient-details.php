@@ -12,6 +12,7 @@ while ($row = mysqli_fetch_array($sel)) {
 		"AdmissionNo"=>$row['AdmissionNo'],
 		"AdmissionDate"=>$row['AdmissionDate'],
 		"AdmissionTime"=>$row['AdmissionTime'],
+		"Attending"=>$row['AttendingID'],
     	"Firstname"=>$row['FirstName'],
     	"Middlename"=>$row['MiddleName'],
 		"Lastname"=>$row['LastName'],

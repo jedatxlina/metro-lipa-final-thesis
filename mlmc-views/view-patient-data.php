@@ -407,34 +407,38 @@
            $scope.clickedRow = 0;
            $scope.new = {};
        
-               switch ($scope.at.charAt(0)) {
-                   case '1':
-                       $scope.Administrator = true;
-                       break;
-                           
-                   case '2':
-                       $scope.Admission = true;
-                       break;
-                           
-                   case '3':
-                       $scope.Nurse = true;
-                       break;
-                           
-                   case '4':
-                       $scope.Physician = true;
-                       break;
-                           
-                   case '5':
-                       $scope.Pharmacy = true;
-                       break;
+            switch ($scope.at.charAt(0)) {
+                case '1':
+                    $scope.User = "Administrator";
+                    break;
+                
+                case '2':
+                    $scope.User = "Admission Staff";
+                    break;
+                
+                case '3':
+                    $scope.User = "Nursing Staff";
+                    break;
+                
+                case '4':
+                    $scope.User = "Physician";
+                    break;
+                
+                case '5':
+                    $scope.User = "Pharmacy Staff";
+                    break;
+    
+                case '6':
+                    $scope.User = "Billing Staff";
+                    break;
+
+                case '7':
+                    $scope.User = "Secretary";
+            
+                default:
+                    break;
+            }
        
-                   case '6':
-                       $scope.Billing = true;
-                       break;
-                       
-                       default:
-                       break;
-               }    
     
             $http({
             method: 'GET',

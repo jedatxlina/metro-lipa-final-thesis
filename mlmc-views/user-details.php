@@ -41,7 +41,7 @@
                                                 <div data-field-span="1">
                                                     <label> Email </label>
                                                     <div  ng-repeat="user in users">
-                                                    <input type="email" class="form-control" ng-model="$parent.email" ng-init="$parent.email=user.Email" >
+                                                    <input type="email" class="form-control" ng-model="$parent.email" ng-init="$parent.email=user.Email">
                                                     </div>
                                                 </div>
                                             </div>
