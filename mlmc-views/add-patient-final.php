@@ -169,7 +169,6 @@
                     }).then(function(response) {
                         $scope.medications = response.data;
                     });
-
                     $http({
                         method: 'get',
                         url: 'getData/get-patient-details.php',
@@ -179,6 +178,15 @@
              
                     });
                     $scope.submitDetails = function(type){
+                        $scope.totalbill = 5000;
+                        $http({
+                        method: 'GET',
+                        url: 'insertData/insert-bed-bill.php',
+                        params: {admissionid: $scope.admissionid,
+                            department: $scope.User,
+                            description: 'Room Fee',
+                            total: $scope.totalbill}
+                        });
                         swal({
                             icon: "success",
                             title: "Successfully Added!",

@@ -60,7 +60,7 @@ font-weight: bold;
 					<div class="list-group list-group-alternate mb-n nav nav-tabs">
 						<a href="#" role="tab" data-toggle="tab" class="list-group-item active">Actions Panel</a>
 						<a href="#" ng-click="viewPatient()" role="tab" data-toggle="tab" class="list-group-item"><i class="ti ti-user"></i>Patient Details</a>
-						<a href="#" ng-click="movePatient()"role="tab" data-toggle="tab" class="list-group-item"><i class="fa fa-file-text-o"></i>Post Professional Fees</a>
+						<a href="#" ng-click="postDoctorFees()"role="tab" data-toggle="tab" class="list-group-item"><i class="fa fa-file-text-o"></i>Post Professional Fees</a>
 						<a href="#" ng-click="postDiscount()" role="tab" data-toggle="tab" class="list-group-item"><i class="fa fa-file-text-o"></i>Post Discounts</a>
 						<a href="#" ng-click="postTransfers()"role="tab" data-toggle="tab" class="list-group-item"><i class="fa fa-file-text-o"></i>Post A/R Transfers</a>
 						<a href="#" ng-click="postCharges()" role="tab" data-toggle="tab" class="list-group-item"><i class="fa fa-file-text-o"></i>Post Room Charges</a>
@@ -69,7 +69,6 @@ font-weight: bold;
                         <a href="#" ng-click="reprintReceipt()"role="tab" data-toggle="tab" class="list-group-item"><i class="fa fa-file-text-o"></i>Re-Print Receipt Details</a>
 					</div>
 				</div>
-				
 				<!-- Error modal -->
 				<div class="modal fade" id="errorModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
 					<div class="modal-dialog">
@@ -91,7 +90,71 @@ font-weight: bold;
 					</div>
 				</div>
 				<!--/ Error modal -->
-
+				<!-- Proffesional Fee Module -->
+				<div class="modal fade" id="patientModal2" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+					<form class="form-horizontal">
+						<div class="modal-dialog">
+							<div class="panel panel-danger" data-widget='{"draggable": "false"}'>
+								<div class="panel-heading">
+									<h2>Patient Details</h2>
+									<div class="panel-ctrls" data-actions-container="" data-action-collapse='{"target": ".panel-body, .panel-footer"}'></div>
+								</div>
+								<div class="panel-body" style="height: 200px" data-ng-repeat="doctor in medicaldetails">
+									<center><span><strong>Attending Doctor Information</strong></span></center>
+									<hr>
+									<div class="row">
+										<div class="form-group">
+											<label for="focusedinput" class="col-sm-3 control-label">Doctor ID</label>
+											<div class="col-sm-8">
+												<input type="text" class="form-control" ng-value="doctor.AttendingID" ng-model="doctorid"  disabled> 
+											</div>
+										</div>
+									</div>
+									<div class="row">
+										<div class="form-group">
+											<label for="focusedinput" class="col-sm-3 control-label">Doctor Name</label>
+											<div class="col-sm-5">
+												<input type="text" class="form-control" ng-value="doctor.Firstname + ' ' + doctor.Middlename + ' ' + doctor.Lastname" disabled>
+											</div>
+										</div>
+									</div>
+								</div>
+								<hr>
+								<div class="panel-body">
+									<div class="row">
+										<div class="form-group">
+											<label for="focusedinput" class="col-sm-3 control-label">Professional Fee</label>
+											<div class="col-sm-5">
+												<input type="text" class="form-control" ng-model="totalbill">
+											</div>
+										</div>
+									</div>
+									<!-- <div class="row">
+										<div class="form-group">
+											<label for="focusedinput" class="col-sm-3 control-label">Admission</label>
+											<div class="col-sm-5">
+												<input type="text" class="form-control" ng-value="patient.Admission" disabled>
+											</div>
+										</div>
+									</div>
+									<div class="row">
+										<div class="form-group">
+											<label for="focusedinput" class="col-sm-3 control-label">Admission Type</label>
+											<div class="col-sm-5">
+												<input type="text" class="form-control" ng-value="patient.AdmissionType" disabled>
+											</div>
+										</div>
+									</div> -->
+								</div>
+								<div class="panel-footer">
+								<button type="button" ng-click="#" class="btn btn-danger-alt pull-left">View Details</button>
+								<button type="button" ng-click="postFees()" class="btn btn-danger-alt pull-right">Ok</button>
+								<button type="button" data-dismiss="modal" class="btn btn-default-alt pull-right">Cancel</button>
+								</div>
+							</div>
+						</div>
+					</form>
+				</div>
 				<!-- Patient Modal -->
 				<div class="modal fade" id="patientModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
 					<form class="form-horizontal">
@@ -268,7 +331,7 @@ font-weight: bold;
 
        	$http({
            method: 'get',
-           url: 'getData/get-emergency-details.php'
+           url: 'getData/get-inpatient-details.php'
        	}).then(function(response) {
 		 	$scope.users = response.data;
 			angular.element(document).ready(function() {  
@@ -316,7 +379,43 @@ font-weight: bold;
 			$('#errorModal').modal('show');
 			}
 		}
-		
+
+		$scope.postDoctorFees = function(){
+			if($scope.selectedRow != null){
+				$scope.admissionid = $scope.selectedRow;
+				$http({
+					method: 'get',
+					url: 'getData/get-medical-details.php',
+					params: {id: $scope.admissionid}
+				}).then(function(response) {
+					$scope.medicaldetails = response.data;
+				});
+				$('#patientModal2').modal('show');
+			
+			}
+			else{
+			$('#errorModal').modal('show');
+			}
+		}
+
+		$scope.postFees = function(){
+			if($scope.selectedRow != null){
+				$scope.admissionid = $scope.selectedRow;
+				$http({
+                    method: 'GET',
+                    url: 'insertData/insert-bill-details.php',
+                    params: {admissionid: $scope.admissionid,
+                            department: $scope.User,
+                            description: 'Doctor Fee',
+                            total: $scope.totalbill}
+                }).then(function(response) {
+                $('#patientModal2').modal('hide');
+                });
+			}
+			else{
+			$('#errorModal').modal('show');
+			}
+		}
 		$scope.viewPatientDetails = function(){
 			window.location.href = 'view-patient-details.php?id=' + $scope.selectedRow;
 		}

@@ -191,6 +191,76 @@ font-weight: bold;
 						</div>
 					</form>
 				</div>
+				<div class="modal fade" id="dischargeModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+					<form class="form-horizontal">
+						<div class="modal-dialog">
+							<div class="panel panel-danger" data-widget='{"draggable": "false"}'>
+								<div class="panel-heading">
+									<h2>Patient Details</h2>
+									<div class="panel-ctrls" data-actions-container="" data-action-collapse='{"target": ".panel-body, .panel-footer"}'></div>
+								</div>
+								<div class="panel-body" style="height: 550px">
+									<center><span><strong>Patient Bill</strong></span></center>
+									<hr>
+									<div class="row" data-ng-repeat="bill in billdetails">
+										<div class="form-group">
+											<label for="focusedinput" class="col-sm-3 control-label">Bed Bill</label>
+											<div class="col-sm-8">
+												<input type="text" class="form-control" ng-value="bill.totalbill"  disabled>
+											</div>
+										</div>
+									</div>
+									<div class="row" data-ng-repeat="bill in medicinebill">
+										<div class="form-group">
+											<label for="focusedinput" class="col-sm-3 control-label">Admission ID</label>
+											<div class="col-sm-5">
+												<input type="text" class="form-control" ng-value="bill.totalbill * bill.price" disabled>
+											</div>
+										</div>
+									</div>
+									<!--
+									<div class="row">
+										<div class="form-group">
+											<label for="focusedinput" class="col-sm-3 control-label">Admission Date</label>
+											<div class="col-sm-5">
+												<input type="text" class="form-control"  ng-value="patient.AdmissionDate" disabled>
+											</div>
+										</div>
+									</div>
+									<div class="row">
+										<div class="form-group">
+											<label for="focusedinput" class="col-sm-3 control-label">Admission</label>
+											<div class="col-sm-5">
+												<input type="text" class="form-control" ng-value="patient.Admission" disabled>
+											</div>
+										</div>
+									</div>
+									<div class="row">
+										<div class="form-group">
+											<label for="focusedinput" class="col-sm-3 control-label">Admission Type</label>
+											<div class="col-sm-5">
+												<input type="text" class="form-control" ng-value="patient.AdmissionType" disabled>
+											</div>
+										</div>
+									</div>
+									<div class="row">
+										<div class="form-group">
+											<label for="focusedinput" class="col-sm-3 control-label">QR Code</label>
+											<div class="col-sm-5">
+											<center> <img ng-src="{{patient.QRpath}}">
+											</div>
+										</div>
+									</div> -->
+								
+								</div>
+								<div class="panel-footer">
+								<button type="button" ng-click="viewPatientDetails()" class="btn btn-danger-alt pull-left">View Details</button>
+								<button type="button" data-dismiss="modal" class="btn btn-danger pull-right">Ok</button>
+								</div>
+							</div>
+						</div>
+					</form>
+				</div>
 
 				<div class="modal fade" id="moveInpatientModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
 					<form class="form-horizontal">
@@ -357,7 +427,31 @@ font-weight: bold;
 			window.location.href = 'add-patient.php?at=' + $scope.at + '&id=' + 1;
 			
 		}
-	  
+		
+		$scope.dischargePatient = function(){
+			if($scope.selectedRow != null){
+				$scope.admissionid = $scope.selectedRow;
+				$http({
+					method: 'get',
+					url: 'getData/get-bill-details.php',
+					params: {id: $scope.admissionid}
+				}).then(function(response) {
+					$scope.billdetails = response.data;
+				});
+				$http({
+					method: 'get',
+					url: 'getData/get-medication-details.php',
+					params: {id: $scope.admissionid}
+				}).then(function(response) {
+					$scope.medicinebill = response.data;
+				});
+				$('#dischargeModal').modal('show');
+			}
+			else{
+			$('#errorModal').modal('show');
+			}
+		}
+
 		$scope.viewPatient = function(){
 			if($scope.selectedRow != null){
 				$scope.admissionid = $scope.selectedRow;
