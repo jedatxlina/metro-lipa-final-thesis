@@ -3,9 +3,9 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Mar 01, 2018 at 09:01 PM
--- Server version: 10.1.28-MariaDB
--- PHP Version: 7.1.10
+-- Generation Time: Mar 03, 2018 at 03:10 PM
+-- Server version: 10.1.29-MariaDB
+-- PHP Version: 7.2.0
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET AUTOCOMMIT = 0;
@@ -65,7 +65,10 @@ CREATE TABLE `attending_physicians` (
 --
 
 INSERT INTO `attending_physicians` (`AttendingID`, `PhysicianID`, `AdmissionID`, `DiagnosisID`, `Discount`) VALUES
-(997345, 452854, 2017845859, 187742, '0.00');
+(997345, 452854, 2017845859, 187742, '0.00'),
+(120019, 452854, 2017149302, 643012, '0.00'),
+(120019, 452854, 2017149302, 643012, '0.00'),
+(176398, 456325, 2017997560, 505410, '0.00');
 
 -- --------------------------------------------------------
 
@@ -89,7 +92,7 @@ CREATE TABLE `beds` (
 INSERT INTO `beds` (`BedID`, `RoomType`, `Rate`, `Floor`, `Room`, `Status`) VALUES
 ('300-1', 'Ward', 900, '3', 300, 'Occupied'),
 ('300-2', 'Ward', 900, '3', 300, 'Occupied'),
-('300-3', 'Ward', 900, '3', 300, 'Available'),
+('300-3', 'Ward', 900, '3', 300, 'Occupied'),
 ('300-4', 'Ward', 900, '3', 300, 'Available'),
 ('301-1', 'OB-Ward', 900, '3', 301, 'Available'),
 ('301-2', 'OB-Ward', 900, '3', 301, 'Available'),
@@ -131,6 +134,31 @@ INSERT INTO `beds` (`BedID`, `RoomType`, `Rate`, `Floor`, `Room`, `Status`) VALU
 ('409', 'Suite', 2500, '4', 409, 'Available'),
 ('411', 'Infectious', 2500, '4', 411, 'Available'),
 ('412', 'Infectious', 2500, '4', 412, 'Available');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `billing`
+--
+
+CREATE TABLE `billing` (
+  `BillID` int(10) NOT NULL,
+  `AdmissionID` int(10) NOT NULL,
+  `Department` varchar(20) NOT NULL,
+  `ItemID` int(10) NOT NULL,
+  `BillDes` varchar(30) NOT NULL,
+  `TotalBill` int(10) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `billing`
+--
+
+INSERT INTO `billing` (`BillID`, `AdmissionID`, `Department`, `ItemID`, `BillDes`, `TotalBill`) VALUES
+(50518, 2017845859, 'Administrator', 123123123, 'Doctor Fee', 4500),
+(33315, 2017997560, 'Administrator', 123123123, 'Room Fee', 5000),
+(16685, 2017997560, 'Administrator', 123123123, 'Room Fee', 5000),
+(25467, 2017997560, 'Administrator', 123123123, 'Room Fee', 5000);
 
 -- --------------------------------------------------------
 
@@ -1823,7 +1851,8 @@ INSERT INTO `conditions` (`ConditionID`, `Conditions`) VALUES
 (234522, 'CVA'),
 (223566, 'Cancer'),
 (253610, 'Chest Pain'),
-(621345, 'Hypertension');
+(621345, 'Hypertension'),
+(362007, 'Stomachache');
 
 -- --------------------------------------------------------
 
@@ -1847,7 +1876,10 @@ CREATE TABLE `diagnosis` (
 
 INSERT INTO `diagnosis` (`DiagnosisID`, `AttendingID`, `Findings`, `Notes`, `DateDiagnosed`, `TimeDiagnosed`, `MedicationID`) VALUES
 (968474, 268075, 'N/a', '', '2018-02-28', '12:23 AM', 952804),
-(187742, 997345, 'N/a', '', '2018-02-28', '11:02 PM', 914639);
+(187742, 997345, 'N/a', '', '2018-02-28', '11:02 PM', 914639),
+(643012, 120019, 'Masakit ang tiyan. Baka Kabag lang.', '', '2018-03-03', '08:50 PM', 171081),
+(643012, 120019, 'Masakit ang tiyan. Baka Kabag lang.', '', '2018-03-03', '08:50 PM', 171081),
+(505410, 176398, 'none', '', '2018-03-03', '09:18 PM', 477332);
 
 -- --------------------------------------------------------
 
@@ -1887,7 +1919,9 @@ CREATE TABLE `medical_conditions` (
 --
 
 INSERT INTO `medical_conditions` (`MedicalConditionID`, `ConditionID`) VALUES
-(775953, 123321);
+(775953, 123321),
+(919712, 362007),
+(347649, 362007);
 
 -- --------------------------------------------------------
 
@@ -1918,7 +1952,9 @@ CREATE TABLE `medical_details` (
 --
 
 INSERT INTO `medical_details` (`MedicalID`, `AdmissionID`, `AttendingID`, `ArrivalDate`, `ArrivalTime`, `BedID`, `VitalsID`, `MedicationID`, `OperationID`, `DiagnosisID`, `PreviousSurgeries`, `Weight`, `Height`, `Class`, `QR_Path`) VALUES
-(729843, 2017845859, 997345, '2018-02-28', '11:02 PM', '300-2', 299324, 914639, 0, 187742, 'N/a', 40, 155, '', 'qr-generator/temp/2017845859.png');
+(403882, 2017149302, 120019, '2018-03-03', '08:50 PM', '', 966261, 171081, 0, 643012, 'None', 85, 2, '', 'qr-generator/temp/2017149302.png'),
+(604556, 2017997560, 176398, '2018-03-03', '09:18 PM', '300-3', 667139, 477332, 0, 505410, 'none', 0, 0, '', 'qr-generator/temp/2017997560.png'),
+(729843, 2017845859, 440333, '2018-02-28', '11:02 PM', '300-2', 299324, 914639, 0, 187742, 'N/a', 40, 155, '', 'qr-generator/temp/2017845859.png');
 
 -- --------------------------------------------------------
 
@@ -1964,7 +2000,11 @@ CREATE TABLE `medication` (
 
 INSERT INTO `medication` (`MedicationID`, `AdmissionID`, `MedicalConditionID`, `MedicineID`, `Quantity`, `DateAdministered`, `TimeAdministered`, `Dosage`, `NurseID`, `PhysicianID`, `Notes`, `DateStart`, `TimeStart`, `DateEnd`, `TimeEnd`) VALUES
 (914639, 2017845859, 775953, 718665, 3, '2018-02-28', '11:02 PM', '500mg', 0, 452854, 'Thrice', '', '', '', ''),
-(914639, 2017845859, 775953, 22741, 2, '2018-02-28', '11:02 PM', '500mg', 0, 452854, 'Twice', '', '', '', '');
+(914639, 2017845859, 775953, 22741, 2, '2018-02-28', '11:02 PM', '500mg', 0, 452854, 'Twice', '', '', '', ''),
+(171081, 2017149302, 919712, 22741, 2, '2018-03-03', '08:50 PM', '500mg', 0, 452854, '', '', '', '', ''),
+(171081, 2017149302, 919712, 22741, 2, '2018-03-03', '08:50 PM', '500mg', 0, 452854, '', '', '', '', ''),
+(477332, 2017997560, 347649, 22741, 1, '2018-03-03', '09:18 PM', '500mg', 0, 456325, '', '', '', '', ''),
+(477332, 2017997560, 347649, 22741, 1, '2018-03-03', '09:18 PM', '500mg', 0, 456325, '', '', '', '', '');
 
 -- --------------------------------------------------------
 
@@ -2059,7 +2099,9 @@ CREATE TABLE `patients` (
 --
 
 INSERT INTO `patients` (`AdmissionID`, `AdmissionNo`, `AdmissionDate`, `AdmissionTime`, `FirstName`, `MiddleName`, `LastName`, `Admission`, `AdmissionType`, `Province`, `City`, `CompleteAddress`, `Gender`, `Age`, `CivilStatus`, `Birthdate`, `Contact`, `Occupation`, `Religion`, `Citizenship`, `MedicalID`) VALUES
-('2017845859', 1, '2018-02-28', '11:02 PM', 'Jed', 'Matthew', 'Lina', 'New Patient', 'Inpatient', 'Batangas', 'Lipa City', '152 Bagongpook Lipa Ciry', 'Male', '22y', 'Single', '1995-07-27', '5556332222', 'Employed', '', '', 729843);
+('2017149302', 2, '2018-03-03', '08:48 PM', 'Renz', 'Catapang', 'MariÃ±ez', 'New Patient', 'Emergency', 'Batangas', 'Lemery', 'Brgy. Sambal Ilaya, Lemery, Batangas', 'Male', '19y', 'Single', '1998-09-04', '9959864747', 'Employed', '', '', 403882),
+('2017845859', 1, '2018-02-28', '11:02 PM', 'Jed', 'Matthew', 'Lina', 'New Patient', 'Inpatient', 'Batangas', 'Lipa City', '152 Bagongpook Lipa Ciry', 'Male', '22y', 'Single', '1995-07-27', '5556332222', 'Employed', '', '', 729843),
+('2017997560', 3, '2018-03-03', '09:18 PM', 'Q', 'Q', 'Q', 'New Patient', 'Inpatient', 'Agusan del Norte', 'Buenavista', 'q', 'Male', '0y0', 'Single', '2018-03-01', '8481871891', 'Employed', '', '', 604556);
 
 -- --------------------------------------------------------
 
@@ -2372,7 +2414,10 @@ CREATE TABLE `vitals` (
 --
 
 INSERT INTO `vitals` (`VitalsID`, `AdmissionID`, `BP`, `BPD`, `PR`, `RR`, `Temperature`, `DateTimeChecked`) VALUES
-(299324, 2017845859, 150, 70, 40, 40, 40, '2018-02-28 23:02:42');
+(299324, 2017845859, 150, 70, 40, 40, 40, '2018-02-28 23:02:42'),
+(966261, 2017149302, 120, 80, 90, 20, 39, '2018-03-03 20:50:50'),
+(966261, 2017149302, 120, 80, 90, 20, 39, '2018-03-03 20:50:51'),
+(667139, 2017997560, 120, 80, 90, 20, 37, '2018-03-03 21:18:57');
 
 --
 -- Indexes for dumped tables
@@ -2489,7 +2534,7 @@ ALTER TABLE `cities`
 -- AUTO_INCREMENT for table `patients`
 --
 ALTER TABLE `patients`
-  MODIFY `AdmissionNo` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `AdmissionNo` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT for table `provinces`
