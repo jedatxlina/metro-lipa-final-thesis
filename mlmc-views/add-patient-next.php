@@ -129,60 +129,7 @@
                                                     </select>
                                                 
                                                 </div>
-                                                <!-- <div data-field-span="1">
-                                                    <label>With New Born Baby?</label>
-                                                    <input type="radio" ng-model="newborn" name="newborn"  id="newborn" value='Yes' class="tooltips" data-trigger="hover" data-original-title="Yes"> Yes &nbsp;
-                                                    
-                                                    <input type="radio" ng-model="newborn" name="newborn"  id="newborn" value='No' class="tooltips" data-trigger="hover" data-original-title="No"> No
-                                                </div> -->
                                             </div>
-                                            <br>
-                                            <!-- <div id="newborndiv">
-                                                <legend>New Born Review</legend>
-                                                <div data-row-span="4"> 
-                                                        <div data-field-span="2">
-                                                            <label>Mother Account</label>
-                                                            <input type="text" ng-model="otheradministeredmed" class="form-control tooltips" data-trigger="hover" data-original-title="Separate with , if more than 1">
-                                                        </div>
-                                                        <div data-field-span="2">
-                                                            <label>Admission ID</label>
-                                                            <input type="text" ng-model="otheradministeredmed" class="form-control tooltips" data-trigger="hover" data-original-title="Separate with , if more than 1">
-                                                        </div>
-                                                </div>
-                                                <div data-row-span="3">
-                                                    <div data-field-span="1">
-                                                        <label>First Name</label>
-                                                        <input type="text" ng-model="otheradministeredmed" class="form-control tooltips" data-trigger="hover" data-original-title="Separate with , if more than 1">
-                                                    
-                                                    </div>
-                                                    <div data-field-span="1">
-                                                        <label>Middle Name</label>
-                                                        <input type="text" ng-model="otheradministeredmed" class="form-control tooltips" data-trigger="hover" data-original-title="Separate with , if more than 1">
-                                                    
-                                                    </div>
-                                                    <div data-field-span="1">
-                                                        <label>Last Name</label>
-                                                        <input type="text" ng-model="otheradministeredmed" class="form-control tooltips" data-trigger="hover" data-original-title="Separate with , if more than 1">
-                                                    </div>
-                                                </div>
-                                                <div data-row-span="3">
-                                                    <div data-field-span="1">
-                                                        <label>Weight</label>
-                                                        <input type="text" ng-model="otheradministeredmed" class="form-control tooltips" data-trigger="hover" data-original-title="Separate with , if more than 1">
-                                                    
-                                                    </div>
-                                                    <div data-field-span="1">
-                                                        <label>Height</label>
-                                                        <input type="text" ng-model="otheradministeredmed" class="form-control tooltips" data-trigger="hover" data-original-title="Separate with , if more than 1">
-                                                    </div>
-                                                </div>
-                                                <div data-row-span="3">
-                                                    <div data-field-span="1">
-                                                        <label>Blood Type</label>
-                                                        <input type="text" ng-model="otheradministeredmed" class="form-control tooltips" data-trigger="hover" data-original-title="Separate with , if more than 1">
-                                                    </div>
-                                                </div>
-                                            </div> -->
                                             <br>
                                             <div class="clearfix pt-md">
                                                 <div class="pull-right">
@@ -196,7 +143,7 @@
                                 </div>
                             </div>
                         </div>
-                    </div>
+                    </div>  
                 </div>
             </div>
         </div>
@@ -394,13 +341,13 @@
 
                             $scope.parsedbp =  $scope.bp.split('/');
                       
-                            $http({
-                                method: 'GET',
-                                url: 'qr-generator/index.php',
-                                params: {medid: $scope.medid,
-                                        admissionid: $scope.admissionid,
-                                    }
-                            }).then(function(response) {
+                        $http({
+                            method: 'GET',
+                            url: 'qr-generator/index.php',
+                            params: {medid: $scope.medid,
+                                    admissionid: $scope.admissionid,
+                            }
+                        }).then(function(response) {
                             });
                       
          
