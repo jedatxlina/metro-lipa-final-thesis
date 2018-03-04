@@ -8,6 +8,27 @@ font-weight: bold;
 }
 </style>
 
+<!-- <script>
+  
+	  var pusher = new Pusher('c23d5c3be92c6ab27b7a', {
+		cluster: 'ap1',
+		encrypted: true
+	  });
+  
+	  var channel = pusher.subscribe('my-channel');
+	  channel.bind('my-event', function(data) {
+	
+		console.log(data.message);
+		swal({
+			icon: "success",
+			title: "New order notification!",
+			text: "Someone posted an order."
+			}).then(function () {
+		});
+	  });
+	  
+</script> -->
+
 <ol class="breadcrumb">
 <li><a href="#">Home</a></li>
 <li><a href="#">Patients</a></li>
@@ -29,7 +50,7 @@ font-weight: bold;
 				<div class="col-md-9">
 					<div class="panel panel-default">
 						<div class="panel-heading">
-							<h2>Inpatient Patients</h2>
+							<h2>Inpatient Patients</h2><a ng-click="viewReport()" class="pull-right">Print Report &nbsp;<i class="ti ti-printer"></i></a>
 							<div class="panel-ctrls"></div>
 						</div>
 						<div class="panel-body">
@@ -91,9 +112,9 @@ font-weight: bold;
 						<a href="#" role="tab" data-toggle="tab" class="list-group-item active">Actions Panel</a>
 						<a href="#" ng-click="viewPatient()" role="tab" data-toggle="tab" class="list-group-item"><i class="ti ti-user"></i> Patient Details</a>
                         <a href="#" ng-click="patientVitals()" role="tab" data-toggle="tab" class="list-group-item"><i class="fa fa-stethoscope"></i>Patient Vitals</a>
-						<a href="#" ng-click="viewPatientMedication()" role="tab" data-toggle="tab" class="list-group-item"><span class="badge badge-primary"  ng-if="order > 0">{{order}}</span> <i class="fa fa-medkit"></i>View Medication</a>
-						<a href="#" ng-click="medicineRequisition()" role="tab" data-toggle="tab" class="list-group-item"><span class="badge badge-primary"  ng-if="order > 0">{{order}}</span> <i class="fa fa-plus-square-o"></i>Medicine Requisition</a>
-						<a href="#" ng-click="postCharges()" role="tab" data-toggle="tab" class="list-group-item"><span class="badge badge-primary"  ng-if="order > 0">{{order}}</span> <i class="fa fa-plus-square-o"></i>Post Charges</a>
+						<a href="#" ng-click="viewPatientMedication()" role="tab" data-toggle="tab" class="list-group-item"><span class="badge badge-primary"></span> <i class="fa fa-medkit"></i>View Medication</a>
+						<a href="#" ng-click="medicineRequisition()" role="tab" data-toggle="tab" class="list-group-item"><span class="badge badge-primary"></span> <i class="fa fa-plus-square-o"></i>Medicine Requisition</a>
+						<a href="#" ng-click="postCharges()" role="tab" data-toggle="tab" class="list-group-item"><span class="badge badge-primary"></span> <i class="fa fa-plus-square-o"></i>Post Charges</a>
 						<a href="#" ng-click="viewOrder()" role="tab" data-toggle="tab" class="list-group-item"><span class="badge badge-primary"  ng-if="order > 0">{{order}}</span> <i class="ti ti-email"></i>Doctors Order</a>
                         <a href="#" ng-click="viewFlag()" role="tab" data-toggle="tab" class="list-group-item"><span class="badge badge-danger" ng-if="notif > 0">{{notif}}</span><i class="ti ti-bell"></i> Notifcations</a>
                     </div>
@@ -294,28 +315,24 @@ font-weight: bold;
 		$scope.clickedRow = 0;
 		$scope.new = {};
 		$scope.order = 0;
-		$scope.notif = 0;
+		$scope.notif = 'jed';
 
 		var pushalert = function (){
-			alert('jed');
+
+				// if($scope.order != $scope.state){
+		
+				// }
 		}	
+
 		var tick = function() {
 			$scope.clock = Date.now();
 			$scope.datetime = new Date().toLocaleTimeString('en-US', { hour: 'numeric', hour12: true, minute: 'numeric' });		
 			
-			$http({
-					method: 'get',
-					url: 'getData/get-inpatient-flags.php',
-					params:{id:$scope.selectedRow}
-				}).then(function(response) {
-					$scope.notif = response.data.length;
-					
-				});
-
 		}
 	
 		tick();
 		$interval(tick, 1000);
+
 
 		switch ($scope.at.charAt(0)) {
 			case '1':

@@ -1,4 +1,5 @@
-<?php include 'admin-header.php' ?>
+<?php 
+include 'admin-header.php' ?>
 <style>
 .selected {
 color: #800000;
@@ -6,6 +7,11 @@ background-color: #F5F5F5;
 font-weight: bold;
 }
 </style>
+
+  
+
+	  
+
 
 <ol class="breadcrumb">
 <li><a href="#">Home</a></li>
@@ -28,7 +34,7 @@ font-weight: bold;
 				<div class="col-md-9">
 					<div class="panel panel-default">
 						<div class="panel-heading">
-							<h2>Outpatient Patients</h2>
+							<h2>Outpatient Patients</h2><a ng-click="viewReport()" class="pull-right">Print Report &nbsp;<i class="ti ti-printer"></i></a>
 							<div class="panel-ctrls"></div>
 						</div>
 						<div class="panel-body">
@@ -91,7 +97,8 @@ font-weight: bold;
 						<a href="#" role="tab" data-toggle="tab" class="list-group-item active">Actions Panel</a>
 						<a href="#" ng-click="viewPatient()" role="tab" data-toggle="tab" class="list-group-item"><i class="ti ti-user"></i> Patient Details</a>
                         <a href="#" ng-click="movePatient()" role="tab" data-toggle="tab" class="list-group-item"><i class="fa fa-stethoscope"></i>Move to Emergency</a>
-                        <a href="#" ng-click="dischargePatient()" role="tab" data-toggle="tab" class="list-group-item"><i class="fa fa-check-square-o"></i>Discharge</a>
+						<a href="#" ng-click="viewOrder()" role="tab" data-toggle="tab" class="list-group-item"><span class="badge badge-primary"  ng-if="notifs > 0">{{notifs}}</span> <i class="ti ti-email"></i>Doctors Order</a>
+                        <a href="#" ng-click="dischargePatient()" role="tab" data-toggle="tab" class="list-group-item"><i class="fa fa-check-square-o"></i>Post Charge</a>
                     </div>
 				</div>
 				
@@ -117,7 +124,7 @@ font-weight: bold;
 				</div>
 				<!--/ Error modal -->
 
-				<!-- Patient Modal -->
+
 				<!-- Patient Modal -->
 				<div class="modal fade" id="patientModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
 					<form class="form-horizontal">
@@ -188,6 +195,53 @@ font-weight: bold;
 						</div>
 					</form>
 				</div>
+
+				<!-- Doctor Order Modal -->
+				<div class="modal fade" id="orderModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+				<form class="form-horizontal">
+						<div class="modal-dialog">
+							<div class="panel panel-danger" data-widget='{"draggable": "false"}'>
+								<div class="panel-heading">
+									<h2>Posted Physician Orders</h2>
+									
+									<div class="panel-ctrls" data-actions-container="" data-action-collapse='{"target": ".panel-body, .panel-footer"}'></div>
+								</div>
+								<div class="panel-body" style="height: 500px">
+									<center><span><strong>Physician Orders</strong></span></center>
+									<hr>
+									<table id="orders_table" class="table table-striped table-bordered" cellspacing="0" width="100%">
+										<thead>
+										<tr>
+											<th>Order ID</th>
+											<th>Admission ID</th>
+											<th>Physician ID</th>
+											<th>Task</th>
+											<th>Status</th>
+										</tr>
+										</thead>
+										<tbody>
+										<tr ng-repeat="order in orders" ng-class="{'selected': order.OrderID == selectedRow}" ng-click="setClickedRow(order.OrderID)">
+												<td>{{order.OrderID}}</td>
+												<td>{{order.AdmissionID}}</td>
+												<td>{{order.PhysicianID}}</td>
+												<td>{{order.Task}}</td>
+												<td>{{order.Status}}</td>
+												
+											</tr>
+										</tbody>
+									</table>
+
+								
+								</div>
+								<div class="panel-footer">
+								<button type="button" ng-click="#" class="btn btn-danger-alt pull-left">View Details</button>
+								<button type="button" data-dismiss="modal" class="btn btn-danger pull-right">Ok</button>
+								</div>
+							</div>
+						</div>
+					</form>
+				</div>
+				<!-- Doctor Order Modal -->
 
 				<div class="modal fade" id="moveInpatientModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
 					<form class="form-horizontal">
@@ -270,25 +324,61 @@ font-weight: bold;
 		$scope.clickedRow = 0;
 		$scope.new = {};
 		$scope.order = 0;
-		$scope.notif = 0;
+
+		$('#patient_table').on('search.dt', function() {
+			var value = $('.dataTables_filter input').val();
+			$scope.val = value;
+		});    
+
+		var pusher = new Pusher('c23d5c3be92c6ab27b7a', {
+		cluster: 'ap1',
+		encrypted: true
+	  	});
+  
+		var channel = pusher.subscribe('my-channel');
+		channel.bind('my-event', function(data) {
+		
+			console.log(data.message);
+			swal({
+				icon: "success",
+				title: "New Physician Order!",
+				text: data.message
+				}).then(function () {
+			});
+
+			$http({
+			method: 'get',
+			url: 'getData/get-order-details.php',
+			params:{id:$scope.at}
+			}).then(function(response) {
+				$scope.orders = response.data;	
+				angular.element(document).ready(function() {  
+				dTable = $('#orders_table')  
+				dTable.DataTable();  
+				});  
+			});
+
+	  	});
 
 		var pushalert = function (){
 			alert('jed');
 		}	
 		var tick = function() {
+			
 			$scope.clock = Date.now();
 			$scope.datetime = new Date().toLocaleTimeString('en-US', { hour: 'numeric', hour12: true, minute: 'numeric' });		
 			
 			$http({
-					method: 'get',
-					url: 'getData/get-inpatient-flags.php',
-					params:{id:$scope.selectedRow}
-				}).then(function(response) {
-					$scope.notif = response.data.length;
-					
-				});
-				
+				method: 'get',
+				url: 'getData/get-order-details.php',
+				params:{id:$scope.at}
+			}).then(function(response) {
+				$scope.notifs = response.data.length;	
+			});
+
 			
+		
+		   
 		}
 	
 		tick();
@@ -327,35 +417,37 @@ font-weight: bold;
 					break;
 			}
 
-       	$http({
-           method: 'get',
-           url: 'getData/get-outpatient-details.php'
-       	}).then(function(response) {
-		 	$scope.users = response.data;
+	
+
+		$http({
+			method: 'get',
+			url: 'getData/get-order-details.php',
+			params:{id:$scope.at}
+		}).then(function(response) {
+			$scope.orders = response.data;	
 			angular.element(document).ready(function() {  
-			dTable = $('#patient_table')  
+			dTable = $('#orders_table')  
 			dTable.DataTable();  
 			});  
 		});
-
-		
-       $http({
-            method: 'GET',
-            url: 'getData/get-bed-details.php',
-            contentType:"application/json; charset=utf-8",
-            dataType:"json"
-        }).then(function(response) {
-            $scope.bed = response.data;
-        });
 		   
+		$http({
+			method: 'get',
+			url: 'getData/get-outpatient-details.php',
+			params: {id: $scope.at}
+			}).then(function(response) {
+				$scope.users = response.data;
+				angular.element(document).ready(function() {  
+				dTable = $('#patient_table')  
+				dTable.DataTable();  
+				});  
+			});
+
 		$scope.setClickedRow = function(user) {
            $scope.selectedRow = ($scope.selectedRow == null) ? user : ($scope.selectedRow == user) ? null : user;
            $scope.clickedRow = ($scope.selectedRow == null) ? 0 : 1;
 	   	}
 
-		$scope.addPatient = function(){
-			window.location.href = 'add-patient.php?at=' + $scope.at + '&id=' + 0;
-		}
 	  
 		$scope.viewPatient = function(){
 			if($scope.selectedRow != null){
@@ -379,53 +471,18 @@ font-weight: bold;
 			window.location.href = 'view-patient-details.php?id=' + $scope.selectedRow;
 		}
 
-
-		$scope.confirmBtn = function(){
-			alert($scope.new.Firstname);
+		$scope.movePatient = function(){
+       
+       	}
+	   
+		$scope.viewOrder = function(){
+			
+				$('#orderModal').modal('show');
 		}
 
-		$scope.movePatient = function(){
-        	if($scope.selectedRow != null){
-				$scope.admissionid = $scope.selectedRow;
-				$http({
-						method: 'GET',
-						url: 'getData/get-patient-details.php',
-						params: {id: $scope.admissionid},
-						contentType:"application/json; charset=utf-8",
-						dataType:"json"
-						}).then(function(response) {
-						$scope.getdetails = response.data;
-					
-					});
-				$('#moveInpatientModal').modal('show');
-				
-          	}else{
-            	$('#errorModal').modal('show');
-           	}
-       };
-	
-        $scope.filterBed = function (param) {
-            return function (bed) {
-                if (bed.RoomType == param)
-                {
-                    if (bed.Status == 'Available')
-                    return true;
-                }
-                return false;
-            };
-        };
-
-
-       $scope.ConfirmInpatient = function(){
-			$http({
-				method: 'GET',
-				url: 'updateData/update-inpatient-details.php',
-				params: {AdmissionID: $scope.selectedRow,
-						BedID:$scope.bedno.BedID}
-				}).then(function(response) {
-					window.location.reload();
-				});
-		};
+		$scope.viewReport = function(){
+			$window.open('try.php', '_blank');
+		}
 
 		$scope.getPage = function(check){
 			

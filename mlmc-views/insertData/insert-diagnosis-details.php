@@ -4,6 +4,7 @@ $orderid =  rand(111111, 999999);
 $diagnosisid =  rand(111111, 999999);
 $medicationid = rand(111111,999999);
 $laboratoryid =  rand(111111, 999999);
+$pharmaid  =  rand(111111, 999999);
 
 $at = $_GET['at'];
 $admissionid = $_GET['id'];
@@ -11,6 +12,8 @@ $diagnosis = $_GET['diagnosis'];
 $order = $_GET['order'];
 $labs = isset($_GET['lab']) ? $_GET['lab'] : '';
 $meds = $_GET['meds'];
+
+
 
 date_default_timezone_set("Asia/Singapore");
 $date = date("Y-m-d");
@@ -31,7 +34,6 @@ if($labs != ''){
                 mysqli_query($con,$query);
 
                 $orderid =  rand(111111, 999999);         
-
             }
             else{
                 $value  = ucwords(strtolower($value));
@@ -77,24 +79,34 @@ if(preg_match("/[A-z]/i", $meds)){
         
         if(is_numeric($value)){
 
-          $query = "INSERT into diagnosis(DiagnosisID,AttendingID,Findings,DateDiagnosed,TimeDiagnosed,MedicationID) 
-                    VALUES('$diagnosisid','$at','$diagnosis','$date','$time','$medicationid')";
-            
-            mysqli_query($con,$query);  
-
-        }
-        else{
-            $value  = ucwords(strtolower($value));
-
-            $query= "INSERT into pharmaceuticals(MedicineID,MedicineName) VALUES ('$medicationid','$value')";
-            mysqli_query($con,$query);
-
             $query = "INSERT into diagnosis(DiagnosisID,AttendingID,Findings,DateDiagnosed,TimeDiagnosed,MedicationID) 
                     VALUES('$diagnosisid','$at','$diagnosis','$date','$time','$medicationid')";
             
             mysqli_query($con,$query);  
 
-            $medicationid =  rand(111111, 999999);          
+            $query = "INSERT into medication(MedicationID,AdmissionID,MedicineID,DateAdministered,TimeAdministered,PhysicianID) 
+                    VALUES('$medicationid','$admissionid','$value','$date','$time','$at')";
+
+            mysqli_query($con,$query);   
+        }
+        else{
+            $value  = ucwords(strtolower($value));
+
+            $query= "INSERT into pharmaceuticals(MedicineID,MedicineName) VALUES ('$pharmaid','$value')";
+            mysqli_query($con,$query);
+
+            $query = "INSERT into diagnosis(DiagnosisID,AttendingID,Findings,DateDiagnosed,TimeDiagnosed,MedicationID) 
+                    VALUES('$diagnosisid','$at','$diagnosis','$date','$time','$pharmaid')";
+            
+            mysqli_query($con,$query);  
+
+            $query = "INSERT into medication(MedicationID,AdmissionID,MedicineID,DateAdministered,TimeAdministered,PhysicianID) 
+                    VALUES('$medicationid','$admissionid','$value','$date','$time','$at')";
+
+            mysqli_query($con,$query);
+
+            $diagnosisid =  rand(111111, 999999);
+            $pharmaid =  rand(111111, 999999);          
         }
 
     }
@@ -108,8 +120,32 @@ else{
                     VALUES('$diagnosisid','$at','$diagnosis','$date','$time','$medicationid')";
             
             mysqli_query($con,$query);  
+
+        $query = "INSERT into medication(MedicationID,AdmissionID,MedicineID,DateAdministered,TimeAdministered,PhysicianID) 
+                    VALUES('$medicationid','$admissionid','$value','$date','$time','$at')";
+
+            mysqli_query($con,$query);
+
+            $diagnosisid =  rand(111111, 999999);          
     }
 }
     
-header("Location:../physician.php?at=$at");
+    require('../vendor/autoload.php');
+
+    $options = array(
+        'cluster' => 'ap1',
+        'encrypted' => true
+      );
+    
+      $pusher = new Pusher\Pusher(
+        'c23d5c3be92c6ab27b7a',
+        '296fc518f7ee23f7ee56',
+        '468021',
+        $options
+      );
+    
+    $data['message'] = $at . " posted a patient order.";
+    $pusher->trigger('my-channel', 'my-event', $data);
+
+header("Location:../post-medication.php?at=$at&medicationid=$medicationid&admissionid=$admissionid");
 

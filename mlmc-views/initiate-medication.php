@@ -8,23 +8,30 @@ $dosage = explode(',',$_GET['dosage']);
 $medid  = explode(',',$_GET['medid']);
 $notes  = explode(',',$_GET['notes']);
 
-$param = $_GET['param'];
+$param = isset($_GET['param']) ? $_GET['param'] : '';
 $cnt = count($medid);
 
 for($x = 0; $x < $cnt ; $x ++){
     $query = "UPDATE medication SET Quantity = '$qnty[$x]', Dosage = '$dosage[$x]', Notes = '$notes[$x]' WHERE MedicationID ='$id' AND MedicineID = '$medid[$x]'";
     mysqli_query($con,$query);
 } 
-
-switch ($param) {
-    case 'Emergency':
-        header("Location:emergency.php?at=$at");
-        break;
+if($param != ''){
+    switch ($param) {
+        case 'Emergency':
+            header("Location:emergency.php?at=$at");
+            break;
+        
     
-
-    default:
-        header("Location:outpatient.php?at=$at");
-        break;
+        default:
+            header("Location:outpatient.php?at=$at");
+            break;
+    }
 }
+else{
+
+
+header("Location:physician.php?at=$at");
+}
+
 
 

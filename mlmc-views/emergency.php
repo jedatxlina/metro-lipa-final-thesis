@@ -29,7 +29,7 @@ font-weight: bold;
 				<div class="col-md-9">
 					<div class="panel panel-default">
 						<div class="panel-heading">
-							<h2>Emergency Patients</h2>	<a ng-click="viewReport()"> <i class="ti ti-printer pull-right"></i></a>
+							<h2>Emergency Patients</h2>	<a ng-click="viewReport()" class="pull-right">Print Report &nbsp;<i class="ti ti-printer"></i></a>
 							<div class="panel-ctrls"></div>
 						</div>
 						<div class="panel-body">
