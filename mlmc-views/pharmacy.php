@@ -40,8 +40,18 @@
                                     <th>Re-Order Point</th>
                                 </tr>
                             </thead>
+                            <tbody ng-show="showData == true">
+                                <tr ng-repeat="med in meds track by $index" ng-class="{'selected': med.PharmaID == selectedRow}" ng-click="setClickedRow(med.PharmaID)" >
+                                    <td>{{med.PharmaID}}</td>
+                                    <td>{{med.PharmaName}}</td>
+                                    <td>{{med.Unit}}</td>
+                                    <td>{{med.Price}}</td>
+                                    <td style="color:red">{{med.Quantity}}</td>  
+                                    <td>{{med.ReOrder}}</td>
+                                </tr>
+                            </tbody>
                             <tbody>
-                                <tr ng-repeat="pharma in pharmacs" ng-class="{'selected': pharma.PharmaID == selectedRow}" ng-click="setClickedRow(pharma.PharmaID)" >
+                                <tr ng-repeat="pharma in pharmacs track by $index" ng-class="{'selected': pharma.PharmaID == selectedRow}" ng-click="setClickedRow(pharma.PharmaID)" >
                                     <td>{{pharma.PharmaID}}</td>
                                     <td>{{pharma.PharmaName}}</td>
                                     <td>{{pharma.Unit}}</td>
@@ -50,7 +60,33 @@
                                     <td>{{pharma.ReOrder}}</td>
                                 </tr>
                             </tbody>
+                           
                         </table>
+                    <!-- Table 2 -->
+                    <!-- <div class="panel-body">
+                        <table id="table_info" class="table table-striped table-bordered" cellspacing="0" width="100%">
+                            <thead>
+                                <tr>
+                                    <th>Medicine ID</th>
+                                    <th>Medicine Name </th>
+                                    <th>Unit</th>
+                                    <th>Price</th>
+                                    <th>Quantity</th>
+                                    <th>Re-Order Point</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr ng-repeat="pharma in pharmacs track by $index" ng-class="{'selected': pharma.PharmaID == selectedRow}" ng-click="setClickedRow(pharma.PharmaID)" >
+                                    <td>{{pharma.PharmaID}}</td>
+                                    <td>{{pharma.PharmaName}}</td>
+                                    <td>{{pharma.Unit}}</td>
+                                    <td>{{pharma.Price}}</td>
+                                    <td ng-style = "changeStyle(pharma.Quantity,pharmacs[$index])">{{pharma.Quantity}}</td>  
+                                    <td>{{pharma.ReOrder}}</td>
+                                </tr>
+                            </tbody>
+                        </table> -->
+                        <!-- Table 2 end -->
                     </div>
                     <div class="panel-footer"></div>
                 </div>
@@ -79,7 +115,7 @@
                                 </div>
                                 <div class="form-group">
                                     <label>Unit </label>
-                                    <input type="text" ng-model="unit" placeholder="500mg / tablet" class="form-control">
+                                    <input type="text" ng-model="unit" placeholder="500mg" class="form-control">
                                 </div>
                                 <div class="form-group">
                                     <label>Price </label>
@@ -200,7 +236,7 @@
             $scope.selectedStatus = null;
             $scope.clickedRow = 0;
             $scope.new = {};
-
+            $scope.showData = true;
            
 
                 switch ($scope.at.charAt(0)) {
@@ -234,7 +270,7 @@
 
             $http({
                 method: 'get',
-                url: 'getData/get-pharmaceutical-details.php'
+                url: 'getData/get-medicine-aboveorder.php'
             }).then(function(response) {
                 $scope.pharmacs = response.data;
                 angular.element(document).ready(function() {
@@ -242,7 +278,23 @@
                     dTable.DataTable();
                 });
             });
-
+         
+           
+            $http({
+                method: 'get',
+                url: 'getData/get-medicine-underorder.php'
+            }).then(function(response) {
+                $scope.meds = response.data;
+                $scope.count = response.data.length;
+                if ($scope.count == 0)
+                $scope.showData = false;
+                angular.element(document).ready(function() {
+                    dTable = $('#table_info')
+                    dTable.DataTable();
+                });
+            });
+          
+         
 
             $scope.setClickedRow = function(pharma) {
                 $scope.selectedRow = ($scope.selectedRow == null) ? pharma : ($scope.selectedRow == pharma) ? null : pharma;
