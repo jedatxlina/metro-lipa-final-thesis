@@ -302,13 +302,19 @@ font-weight: bold;
 										<div class="form-group">
 											<label for="focusedinput" class="col-sm-3 control-label">Room Type</label>
 											<div class="col-sm-5">
-												<select ng-model="RoomType" class="form-control" >
-													<option value="" disabled selected>Select Room Type</option>
-													<option value="Single Deluxe" >Single Deluxe</option>
-													<option value="Two-Bedded" >Two-Bedded</option>
-													<option value="Four-Bedded" >Four-Bedded</option>
-													<option value="Ward" >Ward</option>
-												</select>
+											<select ng-model="RoomType" class="form-control" >
+												<option value="" disabled selected>Select</option>
+												<option value="Ward">Ward</option>
+												<option value="OB-Ward">OB-Ward</option>
+												<option value="Female-Ward">Female-Ward</option>
+												<option value="Male-Ward">Male-Ward</option>
+												<option value="Pedia-Ward">Pedia-Ward</option>
+												<option value="Surgical-Ward">Surgical-Ward</option>
+												<option value="Semi-Private">Semi-Private</option>
+												<option value="Private">Private</option>
+												<option value="Suite">Suite</option>
+												<option value="Infectious">Infectious</option>
+										</select>
 											</div>
 										</div>
 									</div>
