@@ -114,7 +114,7 @@ font-weight: bold;
                         <a href="#" ng-click="patientVitals()" role="tab" data-toggle="tab" class="list-group-item"><i class="fa fa-stethoscope"></i>Patient Vitals</a>
 						<a href="#" ng-click="viewPatientMedication()" role="tab" data-toggle="tab" class="list-group-item"><span class="badge badge-primary"></span> <i class="fa fa-medkit"></i>View Medication</a>
 						<a href="#" ng-click="medicineRequisition()" role="tab" data-toggle="tab" class="list-group-item"><span class="badge badge-primary"></span> <i class="fa fa-plus-square-o"></i>Medicine Requisition</a>
-						<a href="#" ng-click="postCharges()" role="tab" data-toggle="tab" class="list-group-item"><span class="badge badge-primary"></span> <i class="fa fa-plus-square-o"></i>Post Charges</a>
+						<a href="#" ng-click="postMedication()" role="tab" data-toggle="tab" class="list-group-item"><span class="badge badge-primary"></span> <i class="fa fa-plus-square-o"></i>Post Medication</a>
 						<a href="#" ng-click="viewOrder()" role="tab" data-toggle="tab" class="list-group-item"><span class="badge badge-primary"  ng-if="order > 0">{{order}}</span> <i class="ti ti-email"></i>Doctors Order</a>
                         <a href="#" ng-click="viewFlag()" role="tab" data-toggle="tab" class="list-group-item"><span class="badge badge-danger" ng-if="notif > 0">{{notif}}</span><i class="ti ti-bell"></i> Notifcations</a>
                     </div>
@@ -253,7 +253,6 @@ font-weight: bold;
 				</div>
 
 				<!-- View Medication Modal -->
-					
 				<div class="modal fade" id="viewMedicationModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
 					<form class="form-horizontal">
 						<div class="modal-dialog">
@@ -301,6 +300,55 @@ font-weight: bold;
 					</form>
 				</div>
 				<!-- View Medication Modal -->
+
+				<!-- Post Medication Modal -->
+				<div class="modal fade" id="postMedicationModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+					<form class="form-horizontal">
+						<div class="modal-dialog">
+							<div class="panel panel-danger" data-widget='{"draggable": "false"}'>
+								<div class="panel-heading">
+									<h2>Newly Registered Inpatients</h2>	
+									<div class="panel-ctrls" data-actions-container="" data-action-collapse='{"target": ".panel-body, .panel-footer"}'></div>
+								</div>
+								<div class="panel-body" style="height: 500px">
+									<center><span><strong>Registry Information</strong></span></center>
+									<hr>
+									<table id="postmedication_table" class="table table-striped table-bordered" cellspacing="0" width="100%">
+										<thead>
+										<tr>
+											<th>Medicine ID</th>
+											<th>Date Administered</th>
+											<th>Time Administered</th>
+											<th>Medicine Name</th>
+											<th>Quantity</th>
+											<th>Dosage</th>
+										</tr>
+										</thead>
+										<tbody>
+										<tr ng-repeat="medication in medicationdetails" ng-class="{'selected': medication.MedicineID == selectedRow}" ng-click="setClickedRow(medication.MedicineID)">
+												<td>{{medication.MedicineID}}</td>
+												<td>{{medication.DateAdministered}}</td>
+												<td>{{medication.TimeAdministered}}</td>
+												<td>{{medication.MedicineName}}</td>
+												<td>{{medication.Quantity}}</td>
+												<td>{{medication.Dosage}}</td>
+										</tr>
+										</tbody>
+									</table>
+								</div>
+	  							<div ng-repeat="med in medicationdetails">
+	  								<input type="hidden" ng-model="$parent.medicationid" ng-init="$parent.medicationid = med.MedicationID">
+								</div>
+
+								<div class="panel-footer">
+										<button type="button" class="btn btn-default pull-right" data-dismiss="modal">Close</button>
+										<button type="button" ng-click="postMedicationConfirm()" class="btn btn-danger pull-right">Post Medication</button>
+								</div>
+							</div>
+						</div>
+					</form>
+				</div>
+				<!-- Post Medication Modal -->
 		</div>
 	</div>
 	
@@ -315,19 +363,19 @@ font-weight: bold;
 		$scope.clickedRow = 0;
 		$scope.new = {};
 		$scope.order = 0;
-		$scope.notif = 'jed';
-
-		var pushalert = function (){
-
-				// if($scope.order != $scope.state){
-		
-				// }
-		}	
+		$scope.notif = 0;
 
 		var tick = function() {
 			$scope.clock = Date.now();
-			$scope.datetime = new Date().toLocaleTimeString('en-US', { hour: 'numeric', hour12: true, minute: 'numeric' });		
+			$scope.time = new Date().toLocaleTimeString('en-US', { hour: 'numeric', hour12: true, minute: 'numeric' });		
 			
+			// $http({
+			// method: 'GET',
+			// url: 'getData/get-medication-alert.php'
+			// }).then(function(response) {
+			// 	$scope.medicationalert = response.data;
+			// });			
+
 		}
 	
 		tick();
@@ -372,6 +420,13 @@ font-weight: bold;
 			dTable = $('#patient_table')  
 			dTable.DataTable();  
 			});  
+		});
+
+		$http({
+			method: 'get',
+			url: 'getData/get-inpatient-flags.php'
+		}).then(function(response) {
+			$scope.notif = response.data.length;
 		});
 		   
 		$scope.addPatient = function(){
@@ -429,7 +484,8 @@ font-weight: bold;
 		}
 
 		$scope.viewMedicine = function(param){
-			alert($scope.selectedRow);
+			$scope.medid = $scope.selectedRow;
+			window.location.href = 'view-medication-details.php?at=' + $scope.at + '&id=' + $scope.admissionid + '&medid=' + $scope.medid;
 		}
 
 		$scope.viewProfile = function() { 
@@ -437,8 +493,31 @@ font-weight: bold;
 		}
 	
 
-		$scope.confirmBtn = function(){
-			alert($scope.new.Firstname);
+		$scope.postMedication = function(){
+			if($scope.selectedRow != null){
+				$scope.admissionid = $scope.selectedRow;
+				$http({
+					method: 'get',
+					url: 'getData/get-medication-details.php',
+					params: {id: $scope.admissionid}
+				}).then(function(response) {
+					$scope.medicationdetails = response.data;
+					angular.element(document).ready(function() {  
+					dTable = $('#postmedication_table')  
+					dTable.DataTable();  
+					});  
+				});
+				$('#postMedicationModal').modal('show');
+			
+			}
+			else{
+			$('#myModal').modal('show');
+			}
+		}
+
+		$scope.postMedicationConfirm = function(){
+			$scope.medicineid = $scope.selectedRow;
+			window.location.href = 'insertData/post-medication-details.php?at=' + $scope.at + '&id=' + $scope.admissionid + '&medicationid=' + $scope.medicationid + '&medid=' + $scope.medicineid;
 		}
 
         $scope.patientVitals = function(){
@@ -457,6 +536,7 @@ font-weight: bold;
 					params:{id:$scope.selectedRow}
 				}).then(function(response) {
 					$scope.flagPatients = response.data;
+			
 				});
 				$('#flagModal').modal('show');
 		}

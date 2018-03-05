@@ -20,7 +20,7 @@
                                 <div class="panel-heading">
                                     <h2>Patient Form</h2>
                                     &nbsp;&nbsp;
-                                    <small class='pull-right'>New Born: &emsp;
+                                    <small class='pull-right' ng-if="id != 0">New Born: &emsp;
                                         <input type="radio" ng-model="newborn" name="newborn"  id="newbornyes" value='Yes' class="tooltips" data-trigger="hover" data-original-title="Yes"> Yes &nbsp;
                                         <input type="radio" ng-model="newborn" name="newborn"  id="newborno" value='No' class="tooltips" data-trigger="hover" data-original-title="No" checked="checked"> No
                                     </small>
@@ -277,6 +277,7 @@
             var app = angular.module('myApp', ['ui.mask']);
                 app.controller('userCtrl', function($scope, $window, $http) {
                     $scope.at = "<?php echo $_GET['at'];?>";
+                    $scope.id = "<?php echo $_GET['id'];?>";
                     $scope.admissionid = "<?php echo "2017" .  rand(111111, 999999); ?>";
                     $scope.newborn = 'No';
 

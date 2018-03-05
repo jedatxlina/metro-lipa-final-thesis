@@ -8,11 +8,6 @@ font-weight: bold;
 }
 </style>
 
-  
-
-	  
-
-
 <ol class="breadcrumb">
 <li><a href="#">Home</a></li>
 <li><a href="#">Patients</a></li>
@@ -403,10 +398,7 @@ font-weight: bold;
 			}).then(function(response) {
 				$scope.notifs = response.data.length;	
 			});
-
 			
-		
-		   
 		}
 	
 		tick();
