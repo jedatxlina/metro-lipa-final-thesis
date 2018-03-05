@@ -341,37 +341,40 @@
 
                             $scope.parsedbp =  $scope.bp.split('/');
                       
-                        $http({
-                            method: 'GET',
-                            url: 'qr-generator/index.php',
-                            params: {medid: $scope.medid,
-                                    admissionid: $scope.admissionid,
+                            if($scope.param != 'Outpatient'){
+                                $http({
+                                method: 'GET',
+                                url: 'qr-generator/index.php',
+                                params: {medid: $scope.medid,
+                                        admissionid: $scope.admissionid,
+                                    }
+                                }).then(function(response) {
+                                });
                             }
-                        }).then(function(response) {
-                            });
-                      
+                     
+                           
          
-                        $http({
-                            method: 'GET',
-                            url: 'insertData/insert-medical-details.php',
-                            params: {medid: $scope.medid,
-                                    admissionid: $scope.admissionid,
-                                    vitalsid: $scope.vitalsid,
-                                    medicationid: $scope.medicationid,
-                                    diagnosisid: $scope.diagnosisid,
-                                    attendingid: $scope.attendingid,
-                                    surgery: $scope.surgery,
-                                    bp: JSON.stringify($scope.parsedbp),
-                                    pr: $scope.pr,
-                                    rr: $scope.rr,
-                                    temp: $scope.temp,
-                                    weight: $scope.weight,
-                                    height: $scope.height,
-                                    diagnosis: $scope.diagnosis,
-                                    attending: $scope.attendingphysician}
-                        }).then(function(response) {
-                            window.location.href = 'insertData/insert-medications-details.php?param=' + $scope.param + '&at=' + $scope.at + '&medicationid=' + $scope.medicationid + '&admissionid=' + $scope.admissionid + '&administered=' + $scope.administered + '&physicianid=' + $scope.attendingphysician + '&medication=' + $scope.medication + '&condition=' + $scope.condition;
-                        });
+                            $http({
+                                method: 'GET',
+                                url: 'insertData/insert-medical-details.php',
+                                params: {medid: $scope.medid,
+                                        admissionid: $scope.admissionid,
+                                        vitalsid: $scope.vitalsid,
+                                        medicationid: $scope.medicationid,
+                                        diagnosisid: $scope.diagnosisid,
+                                        attendingid: $scope.attendingid,
+                                        surgery: $scope.surgery,
+                                        bp: JSON.stringify($scope.parsedbp),
+                                        pr: $scope.pr,
+                                        rr: $scope.rr,
+                                        temp: $scope.temp,
+                                        weight: $scope.weight,
+                                        height: $scope.height,
+                                        diagnosis: $scope.diagnosis,
+                                        attending: $scope.attendingphysician}
+                            }).then(function(response) {
+                                window.location.href = 'insertData/insert-medications-details.php?param=' + $scope.param + '&at=' + $scope.at + '&medicationid=' + $scope.medicationid + '&admissionid=' + $scope.admissionid + '&administered=' + $scope.administered + '&physicianid=' + $scope.attendingphysician + '&medication=' + $scope.medication + '&condition=' + $scope.condition;
+                            });
                  
                     }
 

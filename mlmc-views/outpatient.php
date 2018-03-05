@@ -220,7 +220,7 @@ font-weight: bold;
 										</tr>
 										</thead>
 										<tbody>
-										<tr ng-repeat="order in orders" ng-class="{'selected': order.OrderID == selectedRow}" ng-click="setClickedRow(order.OrderID)">
+										<tr ng-repeat="order in orders" ng-class="{'selected': order.AdmissionID == selectedRow}" ng-click="setClickedRow(order.AdmissionID)">
 												<td>{{order.OrderID}}</td>
 												<td>{{order.AdmissionID}}</td>
 												<td>{{order.PhysicianID}}</td>
@@ -234,14 +234,42 @@ font-weight: bold;
 								
 								</div>
 								<div class="panel-footer">
-								<button type="button" ng-click="#" class="btn btn-danger-alt pull-left">View Details</button>
-								<button type="button" data-dismiss="modal" class="btn btn-danger pull-right">Ok</button>
+									<button type="button" ng-click="viewOrderDetails()" class="btn btn-danger-alt pull-left">View Details</button>
+									<button type="button" ng-click="acceptOrder()" data-dismiss="modal" class="btn btn-danger pull-right">Accept</button>
+									<button type="button" data-dismiss="modal" class="btn btn-default pull-right">Cancel</button>
 								</div>
 							</div>
 						</div>
 					</form>
 				</div>
 				<!-- Doctor Order Modal -->
+
+				<!-- Discharge Modal -->
+				<div class="modal fade" id="dischargeModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+				<form class="form-horizontal">
+						<div class="modal-dialog">
+							<div class="panel panel-danger" data-widget='{"draggable": "false"}'>
+								<div class="panel-heading">
+									<h2>Posted Physician Orders</h2>
+									
+									<div class="panel-ctrls" data-actions-container="" data-action-collapse='{"target": ".panel-body, .panel-footer"}'></div>
+								</div>
+								<div class="panel-body" style="height: auto">
+									<center><span><strong>Physician Orders</strong></span></center>
+									<hr>
+									
+
+								
+								</div>
+								<div class="panel-footer">
+									<button type="button" ng-click="dischargeConfirm()" data-dismiss="modal" class="btn btn-danger pull-right">Discharge</button>
+									<button type="button" data-dismiss="modal" class="btn btn-default pull-right">Cancel</button>
+								</div>
+							</div>
+						</div>
+					</form>
+				</div>
+				<!-- Discharge Modal -->
 
 				<div class="modal fade" id="moveInpatientModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
 					<form class="form-horizontal">
@@ -318,7 +346,7 @@ font-weight: bold;
 <script>
    var fetch = angular.module('myApp', []);
 
-   fetch.controller('userCtrl', ['$scope', '$http','$interval', function($scope, $http,$interval) {   
+   fetch.controller('userCtrl', ['$scope', '$http','$interval','$window', function($scope, $http,$interval,$window) {   
 		$scope.at = "<?php echo $_GET['at'];?>";
 		$scope.selectedRow = null;
 		$scope.clickedRow = 0;
@@ -443,6 +471,11 @@ font-weight: bold;
 				});  
 			});
 
+		$scope.addPatient = function(){
+			window.location.href = 'add-patient.php?at=' + $scope.at + '&id=' + 0;
+			
+		}
+
 		$scope.setClickedRow = function(user) {
            $scope.selectedRow = ($scope.selectedRow == null) ? user : ($scope.selectedRow == user) ? null : user;
            $scope.clickedRow = ($scope.selectedRow == null) ? 0 : 1;
@@ -476,12 +509,39 @@ font-weight: bold;
        	}
 	   
 		$scope.viewOrder = function(){
-			
-				$('#orderModal').modal('show');
+			$('#orderModal').modal('show');
+		}
+
+		$scope.acceptOrder = function(){
+			$scope.id = $scope.selectedRow;
+			$http({
+					method: 'get',
+					url: 'updateData/update-order-details.php',
+					params: {id: $scope.id}
+				}).then(function(response) {
+					console.log(response);
+					window.location.reload();
+				});
+		}
+
+		$scope.viewOrderDetails = function(){
+			$scope.id = $scope.selectedRow;
+			window.location.href = 'view-order-details.php?at=' + $scope.at + '&id=' + $scope.id;
+		}
+
+		$scope.dischargePatient = function(){
+		
+			if($scope.selectedRow != null){
+				$scope.patient = $scope.selectedRow;
+				$('#dischargeModal').modal('show');
+			}
+			else{
+			$('#errorModal').modal('show');
+			}
 		}
 
 		$scope.viewReport = function(){
-			$window.open('try.php', '_blank');
+			$window.open('try-report.php?param='+$scope.val+'&at='+$scope.at, '_blank');
 		}
 
 		$scope.getPage = function(check){
@@ -532,7 +592,7 @@ font-weight: bold;
 						window.location.href = 'bed.php?at=' + $scope.at;
 						break;
 
-				case 'Specialization':
+				case 'Specialization': 
 						window.location.href = 'specialization.php?at=' + $scope.at;
 						break;
 				

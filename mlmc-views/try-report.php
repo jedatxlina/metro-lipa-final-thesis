@@ -1,4 +1,5 @@
 <?php 
+require 'getData/connection.php';
 require_once 'dompdf/lib/html5lib/Parser.php';
 require_once 'dompdf/lib/php-font-lib/src/FontLib/Autoloader.php';
 require_once 'dompdf/lib/php-svg-lib/src/autoload.php';
@@ -9,6 +10,32 @@ use Dompdf\Dompdf;
 
 // instantiate and use the dompdf class
 $dompdf = new Dompdf();
+
+$param = isset($_GET['param']) ? $_GET['param'] : '';
+$id = $_GET['at'];
+
+$result = mysqli_query($con,"SELECT a.SecretaryID,b.*,c.*,d.* FROM secretary a, attending_physicians b, medical_details c, patients d WHERE a.SecretaryID = '$id' AND a.PhysicianID = b.PhysicianID AND c.AttendingID = b.AttendingID AND d.MedicalID = c.MedicalID AND d.AdmissionType = 'Outpatient' AND (d.AdmissionID LIKE '%$param%' OR d.AdmissionNo LIKE '%$param%' OR d.AdmissionDate LIKE '%$param%' OR d.AdmissionTime LIKE '%$param%' OR d.FirstName OR '%$param%' OR d.MiddleName OR '%$param%' OR d.LastName LIKE '%$param%' OR d.Admission LIKE '%$param%' OR d.AdmissionType LIKE '%$param%' OR d.Gender LIKE '%$param%')");
+
+// $html =  '<table>
+// <tr>
+//   <td>Date</td><td>Name</td><td>Name</td><td>Name</td>
+// </tr>';
+
+// // Query from mysql 
+// if (mysqli_num_rows($result) > 0) {
+//   while ($row = mysqli_fetch_assoc($result)) {
+//    $AdmissionID = $row['AdmissionID'];
+//    $Fname = $row['FirstName'];
+//    $Mname = $row['MiddleName'];
+//    $Lname = $row['LastName'];
+
+//    $html .= '<tr>
+//     <td>'. $AdmissionID  . '</td>
+//    </tr>';
+//   }
+// }
+
+// $html .= '</table>';
 
 $html = '
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
@@ -42,7 +69,7 @@ $html = '
     <head> 
 
     <img src="assets/img/report-header.jpg">
-    <h4><center>List of Emergency Patients</center></h4>
+    <h4><center>List of Outpatient Patients</center></h4>
     </head>
     <hr>
     <div class="container-fluid">
@@ -50,23 +77,31 @@ $html = '
         <table>
         <tr>
             <th>Admission ID</th>
-            <th>Last Name</th>
-            <th>First Name</th>
-            <th>Middle Name</th>
-            <th>Gender</th>
-        </tr>
-        <tr>
-            <td>Alfreds Futterkiste</td>
-            <td>Maria Anders</td>
-            <td>Germany</td>
-            <td>Germany</td>
-            <td>Germany</td> 
-        </tr>
+            <th>Full name</th>
+            <th>Admission</th>
+            <th>Admission Type</th>
+        </tr>';
+
+        // Query from mysql 
+if (mysqli_num_rows($result) > 0) {
+    while ($row = mysqli_fetch_assoc($result)) {
+     $admissionid = $row['AdmissionID'];
+     $fullname = $row['LastName'] .', '. $row['FirstName'] .' '.  $row['MiddleName'];
+     $admission = $row['Admission'];
+     $admissiontype = $row['AdmissionType'];
+  
+     $html .= '<tr>
+      <td> ' . $admissionid . ' </td><td>' . $fullname . '</td><td>' . $admission . '</td><td>' . $admissiontype . '</td>
+     </tr>';
+    }
+  }
+
  
-        </table>
+$html .= '</table>
 
     </div>
     ';
+
 
 
 

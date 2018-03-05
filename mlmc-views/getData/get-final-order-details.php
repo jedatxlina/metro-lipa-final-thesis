@@ -2,9 +2,10 @@
 
 require_once 'connection.php';
 
+$at = $_GET['at'];
 $id = $_GET['id'];
 
-$sel = mysqli_query($con,"SELECT a.SecretaryID,a.PhysicianID,b.*,c.* FROM secretary a, attending_physicians b, orders c WHERE a.SecretaryID = '$id' AND a.PhysicianID = b.PhysicianID AND c.PhysicianID = b.PhysicianID AND c.Status = 'Pending'");
+$sel = mysqli_query($con,"SELECT a.SecretaryID,a.PhysicianID,b.*,c.*,d.* FROM secretary a, attending_physicians b, orders c,physicians d WHERE a.SecretaryID = '$at' AND a.PhysicianID = b.PhysicianID AND c.PhysicianID = b.PhysicianID AND c.AdmissionID =  '$id' AND b.PhysicianID = d.PhysicianID");
 
 $data = array();
 
@@ -17,7 +18,10 @@ $data = array();
             "LaboratoryID"=>$row['LaboratoryID'],
             "DateOrder"=>$row['DateOrder'],
             "TimeOrder"=>$row['TimeOrder'],
-            "Status"=>$row['Status']);
+            "Status"=>$row['Status'],
+            "Lname"=>$row['LastName'],
+            "Fname"=>$row['FirstName'],
+            "Mname"=>$row['MiddleName']);
     }
     echo json_encode($data);
 
