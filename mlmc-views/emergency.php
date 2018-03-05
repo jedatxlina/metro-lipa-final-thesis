@@ -210,23 +210,36 @@ font-weight: bold;
 											</div>
 										</div>
 									</div>
+									<div class="row" data-ng-repeat="bill in medicinebill2">
+										<div class="form-group">
+											<label for="focusedinput" class="col-sm-3 control-label">Medicine Name</label>
+											<div class="col-sm-5">
+												<input type="text" class="form-control"  ng-value="bill.mediname" disabled>
+											</div>
+										</div>
+										<div class="form-group">
+											<label for="focusedinput" class="col-sm-3 control-label">Medicine Quantity</label>
+											<div class="col-sm-5">
+												<input type="text" class="form-control"  ng-value="bill.quantity" disabled>
+											</div>
+										</div>
+										<div class="form-group">
+											<label for="focusedinput" class="col-sm-3 control-label">Medicine Price</label>
+											<div class="col-sm-5">
+												<input type="text" class="form-control"  ng-value="bill.price" disabled>
+											</div>
+										</div>
+									</div>
 									<div class="row" data-ng-repeat="bill in medicinebill">
 										<div class="form-group">
-											<label for="focusedinput" class="col-sm-3 control-label">Admission ID</label>
+											<label for="focusedinput" class="col-sm-3 control-label">Medicine Bill Total</label>
 											<div class="col-sm-5">
-												<input type="text" class="form-control" ng-value="bill.totalbill * bill.price" disabled>
+												<input type="text" class="form-control" ng-value="bill.totalbill" disabled>
 											</div>
 										</div>
 									</div>
+									<br><br>
 									<!--
-									<div class="row">
-										<div class="form-group">
-											<label for="focusedinput" class="col-sm-3 control-label">Admission Date</label>
-											<div class="col-sm-5">
-												<input type="text" class="form-control"  ng-value="patient.AdmissionDate" disabled>
-											</div>
-										</div>
-									</div>
 									<div class="row">
 										<div class="form-group">
 											<label for="focusedinput" class="col-sm-3 control-label">Admission</label>
@@ -440,10 +453,17 @@ font-weight: bold;
 				});
 				$http({
 					method: 'get',
-					url: 'getData/get-medication-details.php',
+					url: 'getData/get-medication-bill.php',
 					params: {id: $scope.admissionid}
 				}).then(function(response) {
 					$scope.medicinebill = response.data;
+				});
+				$http({
+					method: 'get',
+					url: 'getData/get-medication-billdetailed.php',
+					params: {id: $scope.admissionid}
+				}).then(function(response) {
+					$scope.medicinebill2 = response.data;
 				});
 				$('#dischargeModal').modal('show');
 			}
