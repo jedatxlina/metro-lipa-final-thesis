@@ -1,15 +1,13 @@
 <?php
 require_once 'connection.php';
-
-$sel = mysqli_query($con,"select * from patients where AdmissionType = 'Inpatient'");
-
+$sel = mysqli_query($con,"select * from patients where AdmissionType = 'Pending' OR AdmissionType = 'Inpatient'");
 $data = array();
-
 while ($row = mysqli_fetch_array($sel)) {
     $data[] = array(
     	"AdmissionID"=>$row['AdmissionID'],
     	"AdmissionNo"=>$row['AdmissionNo'],
-    	"AdmissionDateTime"=>$row['AdmissionDateTime'],
+		"AdmissionDate"=>$row['AdmissionDate'],
+		"AdmissionTime"=>$row['AdmissionTime'],
     	"Fname"=>$row['FirstName'],
     	"Mname"=>$row['MiddleName'],
 		"Lname"=>$row['LastName'],

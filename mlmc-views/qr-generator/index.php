@@ -1,13 +1,10 @@
 <?php   
+    require_once '../insertData/connection.php';
 
-    // $postdata = file_get_contents("php://input");
-    // $request = json_decode($postdata);
-    
-    // $data = addslashes($request->data);
+    $medid = $_GET['medid'];
+    $data = $_GET['admissionid'];
 
-    $data = $_SESSION['data'];
-
-        //set it to writable location, a place for temp generated PNG files
+    //set it to writable location, a place for temp generated PNG files
     $PNG_TEMP_DIR = dirname(__FILE__).DIRECTORY_SEPARATOR.'temp'.DIRECTORY_SEPARATOR;
     
     //html PNG location prefix
@@ -29,6 +26,11 @@
     
     $filename = $PNG_TEMP_DIR.$data.'.png';
     QRcode::png($data, $filename, $errorCorrectionLevel, $matrixPointSize, 2); 
-    
-    session_destroy();
+
+    $qrpath = "qr-generator/temp/" . "$data" . ".png" ;
+
+    $query = "UPDATE medical_details SET QR_Path = '$qrpath' WHERE MedicalID = '$medid'";
+
+    mysqli_query($con,$query);
+
 ?>

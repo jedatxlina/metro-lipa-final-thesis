@@ -2,36 +2,60 @@
 require_once 'connection.php';
 
 
-$vitalsid = rand(111111, 999999);
-$medicationid = rand(111111, 999999);
-$diagnosisid = rand(111111, 999999);
+$vitalsid =  $_GET['vitalsid'];  
+$medicationid =  $_GET['medicationid'];  
+$diagnosisid =  $_GET['diagnosisid'];  
+$attendingid =  $_GET['attendingid'];  
+$admissionid =  $_GET['admissionid'];  
 $medicalid = $_GET['medid'];
-$admissionid = $_GET['admissionid'];
-$conditions = $_GET['conditions'];
+
 $surgery = $_GET['surgery'];
-$bp = $_GET['bp'];
+
+$variable = json_decode($_GET['bp'], true);
+$cnt = count($variable);
+
+foreach($variable as $key => $val) {
+    if($key == 0){
+        $sys = $val;
+    }else{
+        $dia = $val;
+    }
+}
+
 $pr = $_GET['pr'];
 $rr = $_GET['rr'];
 $temp = $_GET['temp'];
-$medications = $_GET['medications'];
-$weight = $_GET['weight'];
+
+$weight = $_GET['weight'];  
 $height = $_GET['height'];
 $diagnosis = $_GET['diagnosis'];
-$administered = $_GET['administered'];
-$admitting = $_GET['admitting'];
-$classification = $_GET['classification'];
 
-$query = "INSERT into medical_details(MedicalID,AdmissionID,AdmittingID,VitalsID,MedicationID,DiagnosisID,Conditions,CurrentMedication,PreviousSurgeries,Weight,Height) 
-VALUES('$medicalid','$admissionid','$admitting','$vitalsid','$medicationid','$diagnosisid','$conditions','$medications','$surgery','$weight','$height')";
+$attendingphysicianid = $_GET['attending'];
+$discount = '0.00';
+
+date_default_timezone_set("Asia/Singapore");
+$date = date("Y-m-d");
+$time = date("h:i A");
+$datetime = date("Y-m-d h:i A");
+
+$query = "INSERT into medical_details(MedicalID,AdmissionID,AttendingID,ArrivalDate,ArrivalTime,VitalsID,MedicationID,DiagnosisID,PreviousSurgeries,Weight,Height) 
+VALUES('$medicalid','$admissionid','$attendingid','$date','$time','$vitalsid','$medicationid','$diagnosisid','$surgery','$weight','$height')";
 
 mysqli_query($con,$query);  
 
-$query = "INSERT into vitals(VitalsID,AdmissionID,BP,PR,RR,Temperature,DateTimeChecked) 
-VALUES('$vitalsid','$admissionid','$bp','$pr','$rr','$temp',NOW())";
+$query = "INSERT into vitals(VitalsID,AdmissionID,BP,BPD,PR,RR,Temperature,DateTimeChecked) 
+VALUES('$vitalsid','$admissionid','$sys','$dia','$pr','$rr','$temp',NOW())";
 
 mysqli_query($con,$query);
 
-// session_start();
-// $_SESSION['data'] = $admissionid;
-// include 'qr-generator/index.php';
+$query = "INSERT into attending_physicians(AttendingID,PhysicianID,AdmissionID,DiagnosisID,Discount) 
+VALUES('$attendingid','$attendingphysicianid','$admissionid','$diagnosisid','$discount')";
+
+mysqli_query($con,$query);
+
+$query = "INSERT into diagnosis(DiagnosisID,AttendingID,Findings,DateDiagnosed,TimeDiagnosed,MedicationID) 
+VALUES('$diagnosisid','$attendingid','$diagnosis','$date','$time','$medicationid')";
+
+mysqli_query($con,$query);
+
 ?>

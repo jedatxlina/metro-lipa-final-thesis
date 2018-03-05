@@ -27,19 +27,10 @@
 	<link type="text/css" href="assets/plugins/switchery/switchery.css" rel="stylesheet">   							<!-- Switchery -->
 	<link type="text/css" href="assets/plugins/datatables/dataTables.bootstrap.css" rel="stylesheet">
 	<link type="text/css" href="assets/plugins/datatables/dataTables.themify.css" rel="stylesheet">
-	<link rel="stylesheet" href="components/angular-ui-notification.min.css">
-	
-  	<!-- <script type="text/javascript" src="assets/js/jquery-1.10.2.min.js"></script> 						
-    <script type="text/javascript" src="assets/js/jqueryui-1.10.3.min.js"></script> 						
-    <script src="//select2.github.io/select2/select2-3.4.1/select2.js"></script>
-    <link rel="stylesheet" type="text/css" href="//select2.github.io/select2/select2-3.4.1/select2.css"/> -->
+
 	
 	<script src="components/angular.min.js"></script>
-	<link rel="stylesheet" href="components/angular-ui-notification.min.css">
-	<script src="components/angular-ui-notification.min.js"></script> 
 	<script src="assets/js/mask.js"></script>
-	
-	<script src="components/angular-ui-notification.min.js"></script> 
 	<script src="assets/js/angular-autogrow.js"></script>
 	
     </head>
@@ -70,18 +61,6 @@
 	</div><!-- logo-area -->
 
 	<ul class="nav navbar-nav toolbar pull-right">
-
-		<li class="toolbar-icon-bg visible-xs-block" id="trigger-toolbar-search">
-			<a href="#"><span class="icon-bg"><i class="ti ti-search"></i></span></a>
-		</li>
-        
-		<li class="toolbar-icon-bg hidden-xs">
-            <a href="#"><span class="icon-bg"><i class="ti ti-world"></i></span></i></a>
-        </li>
-
-        <li class="toolbar-icon-bg hidden-xs">
-            <a href="#"><span class="icon-bg"><i class="ti ti-view-grid"></i></span></i></a>
-        </li>
 
         <li class="toolbar-icon-bg hidden-xs" id="trigger-fullscreen">
             <a href="#" class="toggle-fullscreen"><span class="icon-bg"><i class="ti ti-fullscreen"></i></span></i></a>
@@ -181,77 +160,7 @@
 			</div>
 		</li>
 		
-		<li class="dropdown toolbar-icon-bg">
-			<a href="#" class="hasnotifications dropdown-toggle" data-toggle='dropdown'><span class="icon-bg"><i class="ti ti-bell"></i></span><span class="badge badge-deeporange">2</span></a>
-			<div class="dropdown-menu notifications arrow">
-				<div class="topnav-dropdown-header">
-					<span>Notifications</span>
-				</div>
-				<div class="scroll-pane">
-					<ul class="media-list scroll-content">
-						<li class="media notification-success">
-							<a href="#">
-								<div class="media-left">
-									<span class="notification-icon"><i class="ti ti-check"></i></span>
-								</div>
-								<div class="media-body">
-									<h4 class="notification-heading">Update 1.0.4 successfully pushed</h4>
-									<span class="notification-time">8 mins ago</span>
-								</div>
-							</a>
-						</li>
-						<li class="media notification-info">
-							<a href="#">
-								<div class="media-left">
-									<span class="notification-icon"><i class="ti ti-check"></i></span>
-								</div>
-								<div class="media-body">
-									<h4 class="notification-heading">Update 1.0.3 successfully pushed</h4>
-									<span class="notification-time">24 mins ago</span>
-								</div>
-							</a>
-						</li>
-						<li class="media notification-teal">
-							<a href="#">
-								<div class="media-left">
-									<span class="notification-icon"><i class="ti ti-check"></i></span>
-								</div>
-								<div class="media-body">
-									<h4 class="notification-heading">Update 1.0.2 successfully pushed</h4>
-									<span class="notification-time">16 hours ago</span>
-								</div>
-							</a>
-						</li>
-						<li class="media notification-indigo">
-							<a href="#">
-								<div class="media-left">
-									<span class="notification-icon"><i class="ti ti-check"></i></span>
-								</div>
-								<div class="media-body">
-									<h4 class="notification-heading">Update 1.0.1 successfully pushed</h4>
-									<span class="notification-time">2 days ago</span>
-								</div>
-							</a>
-						</li>
-						<li class="media notification-danger">
-							<a href="#">
-								<div class="media-left">
-									<span class="notification-icon"><i class="ti ti-arrow-up"></i></span>
-								</div>
-								<div class="media-body">
-									<h4 class="notification-heading">Initial Release 1.0</h4>
-									<span class="notification-time">4 days ago</span>
-								</div>
-							</a>
-						</li>
-					</ul>
-				</div>
-				<div class="topnav-dropdown-footer">
-					<a href="#">See all notifications</a>
-				</div>
-			</div>
-		</li>
-
+	
 		<li class="dropdown toolbar-icon-bg">
 		<a href="#" class="hasnotifications dropdown-toggle" data-toggle='dropdown'><span class="icon-bg"><i class="fa fa-gear"></i></span><span class="badge badge-deeporange">2</span></a>
 			<ul class="dropdown-menu userinfo arrow">
@@ -279,7 +188,7 @@
                     <img src="http://meconstructionnews.com/wp-content/uploads/2016/05/Admin-logo.png" class="img-responsive img-circle"> 
                 </div>
                 <div class="info">
-                    <span class="username">Administrator</span>
+                    <span class="username">Admission Staff</span>
                     <span class="useremail">*username</span>
                 </div>
             </div>
@@ -287,9 +196,9 @@
     </div>
 	<div class="widget" id="widget-sidebar">
         <nav role="navigation" class="widget-body">
-	<ul class="acc-menu">
+		<ul class="acc-menu">
 		<li class="nav-separator"><span>Explore</span></li>
-		<li><a href="index.php"><i class="ti ti-home"></i><span>Dashboard</span></a></li>
+		<li><a href="index.php?id=2"><i class="ti ti-home"></i><span>Dashboard</span></a></li>
 		<li><a href="javascript:;"><i class="fa fa-users"></i><span>Patients</span></a>
 			<ul class="acc-menu">
 				<li><a href="emergency.php"><i class="fa fa-user"></i><span>&emsp;Emergency</span></a></li>
@@ -297,31 +206,10 @@
 				<li><a href="inpatient.php"><i class="fa fa-user"></i><span>&emsp;Inpatient</span></a></li>
 			</ul>
 		</li>
-		<li><a href="javascript:;"><i class="fa fa-stethoscope"></i><span>Nurse</span></a>
-			<ul class="acc-menu">
-				<li><a href="qr-scanner/index.php?type=addpatientvitals"><i class="fa fa-qrcode"></i><span>&emsp;Scan QR Code</span></a></li>
-				<li><a href="nurse-patient.php"><i class="fa fa-qrcode"></i><span>&emsp;Confined Patients</span></a></li>
-			</ul>
-		</li>
-		<li><a href="javascript:;"><i class="fa fa-user-md"></i><span>Doctors</span></a></li>
-		<li><a href="javascript:;"><i class="fa fa-medkit"></i><span>Pharmacy</span></a></li>
-		<li><a href="javascript:;"><i class="fa fa-money"></i><span>Billing</span></a></li>
-		<li><a href="javascript:;"><i class="fa fa-key"></i><span>Accounts</span></a>
-			<ul class="acc-menu">
-				<li><a href="#"><i class="fa fa-user-md"></i><span>&emsp;User</span></a></li>
-			</ul>
-		</li>
-		<li><a href="javascript:;"><i class="fa fa-gears"></i><span>Tools</span></a>
-			<ul class="acc-menu">
-				<li><a href="bed.php">Beds</a></li>
-				<li><a href="specialization.php">Medical Specializations</a></li>
-				<li><a href="laboratory.php">Laboratories</a></li>
-			</ul>
-		</li>
-		<li><a href="javascript:;"><i class="fa fa-file-archive-o"></i><span>Patient Archive</span></a></li>
 	</ul>
 </nav>
-    </div>
+    </div>	
+    
 </div>
 </div>
 </div>

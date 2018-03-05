@@ -1,4 +1,4 @@
-<?php include 'admission-header.php' ?>
+<?php include 'admin-header.php' ?>
 <style>
     .selected {
         color: #800000;
@@ -13,9 +13,7 @@
     <li class="active"> <a href="laboratory.php">Medical Laboratories</a>
     </li>
 </ol>
-
-
-
+<br><br>
 <div class="container-fluid" ng-app="myApp" ng-controller="userCtrl">
 
     <div class="row">
@@ -24,7 +22,7 @@
     <br>
     <div data-widget-group="group1">
         <div class="row">
-            <div class="col-md-9">
+            <div class="col-md-11">
                 <div class="panel panel-default">
                     <div class="panel-heading">
                         <h2>MEDICAL LABORATORY</h2>
@@ -48,96 +46,11 @@
                             </tbody>
                         </table>
                     </div>
+                    <div class="col-md-11">
+                    </div>
                     <div class="panel-footer"></div>
                 </div>
             </div>
-            <div class="col-md-3">
-                <div class="panel panel-default">
-                    <div class="panel-heading">
-                        <h2>Action Panel</h2>
-
-                    </div>
-                    <div class="panel-body">
-                        <a href="#" ng-click="AddLaboratory()" class="btn btn-default-alt btn-lg btn-block"><i class="fa fa-list-alt fa-fw"></i><span>&nbsp;&nbsp;Add Laboratory</span></a>
-                        <a href="#" ng-click="EditLaboratory()" class="btn btn-default-alt btn-lg btn-block"><i class="ti ti-info-alt"></i><span>&nbsp;&nbsp;Edit Laboratory</span></a>
-                    </div>
-                </div>
-            </div>
-
-            <div class="modal fade" id="EditModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
-                <div class="modal-dialog">
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                            <h4 class="modal-title" id="myModalLabel">Edit Laboratory</h4>
-                        </div>
-                        <div class="modal-body">
-                            <form ng-repeat="elab in editlab">
-                                <div class="form-group">
-                                    <label>Laboratory ID</label>
-                                    <input type="text" ng-model="$parent.laboratoryid" ng-init="$parent.laboratoryid=elab.LaboratoryID" class="form-control" readonly>
-                                </div>
-                                <div class="form-group">
-                                    <label>Description </label>
-                                    <input type="text" ng-model="$parent.description" ng-init="$parent.description=elab.Description" class="form-control">
-                                </div>
-                                <div class="form-group">
-                                    <label>Rate </label>
-                                    <input type="text" ng-model="$parent.rate" ng-init="$parent.rate=elab.Rate" class="form-control">
-                                </div>
-                                <div class="modal-footer">
-                                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                                    <button ng-click='Update()' class="btn btn-primary">Confirm</button>
-                                </div>
-                            </form>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-
-
-
-            <!-- Modal -->
-            <div class="modal fade" id="AddModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-                <div class="modal-dialog">
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                            <h4 class="modal-title" id="myModalLabel">Add Laboratory</h4>
-                        </div>
-                        <div class="modal-body">
-                            <form>
-                                <div class="form-group">
-                                    <label>Description</label>
-                                    <input type="text" ng-model="description" placeholder="XRAY" class="form-control">
-                                </div>
-                                <div class="form-group">
-                                    <label>Rate </label>
-                                    <input type="text" ng-model="rate" placeholder="5000" class="form-control">
-                                </div>
-                                <div class="modal-footer">
-                                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                                    <button ng-click='Add()' class="btn btn-primary">Confirm</button>
-                                </div>
-                            </form>
-                        </div>
-                    </div>
-                    <!-- /.modal-content -->
-                </div>
-            </div>
-
-            <div class="modal fade" id="ErrorModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
-                <div class="modal-dialog">
-                    <div class="alert alert-danger">
-                        Select Laboratory record that you would like to apply an <a href="#" class="alert-link">Action.</a>
-                    </div>
-                </div>
-            </div>
-
-
-
-
         </div>
     </div>
 
@@ -147,11 +60,40 @@
 
 
     fetch.controller('userCtrl', ['$scope', '$http', function($scope, $http) {
-
+        $scope.at = "<?php echo $_GET['at'];?>";
         $scope.selectedRow = null;
         $scope.selectedStatus = null;
         $scope.clickedRow = 0;
         $scope.new = {};
+
+            switch ($scope.at.charAt(0)) {
+				case '1':
+					$scope.User = "Administrator";
+					break;
+				
+				case '2':
+					$scope.User = "Admission Staff";
+					break;
+				
+				case '3':
+					$scope.User = "Nursing Staff";
+					break;
+				
+				case '4':
+					$scope.User = "Physician";
+					break;
+				
+				case '5':
+					$scope.User = "Pharmacy Staff";
+					break;
+
+				case '6':
+					$scope.User = "Billing Staff";
+					break;
+			
+				default:
+					break;
+			}
 
         $http({
             method: 'get',
@@ -170,57 +112,66 @@
             $scope.clickedRow = ($scope.selectedRow == null) ? 0 : 1;
         }
 
-        $scope.AddLaboratory = function() {
-            $('#AddModal').modal('show');
-        }
+        $scope.getPage = function(check){
+            switch (check) {
+                case 'Dashboard':
+                        window.location.href = 'index.php?at=' + $scope.at;
+                        break;
+                case 'Emergency':
+                        window.location.href = 'emergency.php?at=' + $scope.at;
+                        break;
+                case 'Outpatient':
+                        window.location.href = 'outpatient.php?at=' + $scope.at;
+                        break;
+                case 'Inpatient':
+                        window.location.href = 'inpatient.php?at=' + $scope.at;
+                        break;
+                        
+                case 'Confined':
+                        window.location.href = 'nurse-patient.php?at=' + $scope.at;
+                        break;
+                
+                case 'Physician':
+                        window.location.href = 'physician.php?at=' + $scope.at;
+                        break;
+                
+                case 'Pharmacy':
+                        window.location.href = 'medicine-requisition.php?at=' + $scope.at;
+                        break;
 
-        $scope.Add = function() {
+                case 'Pharmaceuticals':
+                        window.location.href = 'pharmacy.php?at=' + $scope.at;
+                        break; 
+                        
+                case 'Billing':
+                        window.location.href = 'billing.php?at=' + $scope.at;
+                        break;
 
-            $scope.laboratoryid = "<?php echo rand(1000, 1100); ?>"
-            $http({
-                method: 'GET',
-                url: 'insertData/insert-laboratory.php',
-                params: {
-                    laboratoryid: $scope.laboratoryid,
-                    description: $scope.description,
-                    rate: $scope.rate
-                }
-            }).then(function(response) {
-                window.location.href = 'laboratory.php'
-            });
-        }
+                case 'Cashier':
+                        window.location.href = 'cashier.php?at=' + $scope.at;
+                        break;
+                
+                case 'Accounts':
+                        window.location.href = 'user.php?at=' + $scope.at;
+                        break;
 
-        $scope.Update = function() {
-            $http({
-                method: 'GET',
-                url: 'updateData/update-laboratory-details.php',
-                params: {
-                    laboratoryid: $scope.laboratoryid,
-                    description: $scope.description,
-                    rate: $scope.rate
-                }
-            }).then(function(response) {
-                window.location.href = 'laboratory.php'
-            });
-        }
+                case 'Bed':
+                        window.location.href = 'bed.php?at=' + $scope.at;
+                        break;
 
-        $scope.EditLaboratory = function() {
-            if ($scope.selectedRow != null) {
-                $scope.laboratoryid = $scope.selectedRow;
-                $('#EditModal').modal('show');
-                $http({
-                    method: 'GET',
-                    url: 'getData/get-laboratory-id.php',
-                    params: {
-                        id: $scope.laboratoryid
-                    }
-                }).then(function(response) {
-                    $scope.editlab = response.data;
-                });
-            } else {
-                $('#ErrorModal').modal('show');
+                case 'Specialization':
+                        window.location.href = 'specialization.php?at=' + $scope.at;
+                        break;
+                
+                case 'Laboratory':
+                        window.location.href = 'laboratory.php?at=' + $scope.at;
+                        break;
+                
+                default:
+                    break;
             }
-        };
+				
+		}
 
     }]);
 </script>
