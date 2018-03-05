@@ -63,7 +63,7 @@ font-weight: bold;
 						<a href="#" ng-click="postDoctorFees()"role="tab" data-toggle="tab" class="list-group-item"><i class="fa fa-file-text-o"></i>Post Professional Fees</a>
 						<a href="#" ng-click="postDiscount()" role="tab" data-toggle="tab" class="list-group-item"><i class="fa fa-file-text-o"></i>Post Discounts</a>
 						<a href="#" ng-click="postTransfers()"role="tab" data-toggle="tab" class="list-group-item"><i class="fa fa-file-text-o"></i>Post A/R Transfers</a>
-						<a href="#" ng-click="postCharges()" role="tab" data-toggle="tab" class="list-group-item"><i class="fa fa-file-text-o"></i>Post Room Charges</a>
+						<a href="#" ng-click="postRoomCharges()" role="tab" data-toggle="tab" class="list-group-item"><i class="fa fa-file-text-o"></i>Post Room Charges</a>
                         <a href="#" ng-click="postStatement()"role="tab" data-toggle="tab" class="list-group-item"><i class="fa fa-file-text-o"></i>SOA/Billing Statement</a>
 						<a href="#" ng-click="postReceipt()"role="tab" data-toggle="tab" class="list-group-item"><i class="fa fa-file-text-o"></i>Post Receipt Details</a>
                         <a href="#" ng-click="reprintReceipt()"role="tab" data-toggle="tab" class="list-group-item"><i class="fa fa-file-text-o"></i>Re-Print Receipt Details</a>
@@ -99,14 +99,14 @@ font-weight: bold;
 									<h2>Patient Details</h2>
 									<div class="panel-ctrls" data-actions-container="" data-action-collapse='{"target": ".panel-body, .panel-footer"}'></div>
 								</div>
-								<div class="panel-body" style="height: 200px" data-ng-repeat="doctor in medicaldetails">
+								<div class="panel-body" style="height: auto" data-ng-repeat="doctor in medicaldetails">
 									<center><span><strong>Attending Doctor Information</strong></span></center>
 									<hr>
 									<div class="row">
 										<div class="form-group">
 											<label for="focusedinput" class="col-sm-3 control-label">Doctor ID</label>
 											<div class="col-sm-8">
-												<input type="text" class="form-control" ng-value="doctor.AttendingID" ng-model="doctorid"  disabled> 
+												<input type="text" class="form-control" ng-value="doctor.PhysicianID" ng-model="doctorid"  disabled> 
 											</div>
 										</div>
 									</div>
@@ -118,33 +118,60 @@ font-weight: bold;
 											</div>
 										</div>
 									</div>
-								</div>
-								<hr>
-								<div class="panel-body">
 									<div class="row">
 										<div class="form-group">
 											<label for="focusedinput" class="col-sm-3 control-label">Professional Fee</label>
 											<div class="col-sm-5">
-												<input type="text" class="form-control" ng-model="totalbill">
+												<input type="text" class="form-control" ng-value="doctor.ProfessionalFee" disable>
 											</div>
 										</div>
 									</div>
-									<!-- <div class="row">
+								</div>
+								<div class="panel-footer">
+								<button type="button" ng-click="#" class="btn btn-danger-alt pull-left">View Details</button>
+								<button type="button" ng-click="postFees()" class="btn btn-danger-alt pull-right">Ok</button>
+								<button type="button" data-dismiss="modal" class="btn btn-default-alt pull-right">Cancel</button>
+								</div>
+							</div>
+						</div>
+					</form>
+				</div>
+				<!-- Post Room Chage -->
+				<div class="modal fade" id="RoomChargeModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+					<form class="form-horizontal">
+						<div class="modal-dialog">
+							<div class="panel panel-danger" data-widget='{"draggable": "false"}'>
+								<div class="panel-heading">
+									<h2>Patient Details</h2>
+									<div class="panel-ctrls" data-actions-container="" data-action-collapse='{"target": ".panel-body, .panel-footer"}'></div>
+								</div>
+								<div class="panel-body" style="height: auto" data-ng-repeat="doctor in medicaldetails">
+									<center><span><strong>Attending Doctor Information</strong></span></center>
+									<hr>
+									<div class="row">
 										<div class="form-group">
-											<label for="focusedinput" class="col-sm-3 control-label">Admission</label>
-											<div class="col-sm-5">
-												<input type="text" class="form-control" ng-value="patient.Admission" disabled>
+											<label for="focusedinput" class="col-sm-3 control-label">Doctor ID</label>
+											<div class="col-sm-8">
+												<input type="text" class="form-control" ng-value="doctor.PhysicianID" ng-model="doctorid"  disabled> 
 											</div>
 										</div>
 									</div>
 									<div class="row">
 										<div class="form-group">
-											<label for="focusedinput" class="col-sm-3 control-label">Admission Type</label>
+											<label for="focusedinput" class="col-sm-3 control-label">Doctor Name</label>
 											<div class="col-sm-5">
-												<input type="text" class="form-control" ng-value="patient.AdmissionType" disabled>
+												<input type="text" class="form-control" ng-value="doctor.Firstname + ' ' + doctor.Middlename + ' ' + doctor.Lastname" disabled>
 											</div>
 										</div>
-									</div> -->
+									</div>
+									<div class="row">
+										<div class="form-group">
+											<label for="focusedinput" class="col-sm-3 control-label">Professional Fee</label>
+											<div class="col-sm-5">
+												<input type="text" class="form-control" ng-value="doctor.ProfessionalFee" disable>
+											</div>
+										</div>
+									</div>
 								</div>
 								<div class="panel-footer">
 								<button type="button" ng-click="#" class="btn btn-danger-alt pull-left">View Details</button>
@@ -391,6 +418,24 @@ font-weight: bold;
 					$scope.medicaldetails = response.data;
 				});
 				$('#patientModal2').modal('show');
+			
+			}
+			else{
+			$('#errorModal').modal('show');
+			}
+		}
+
+		$scope.postRoomCharges = function(){
+			if($scope.selectedRow != null){
+				$scope.admissionid = $scope.selectedRow;
+				$http({
+					method: 'get',
+					url: 'getData/get-medical-details.php',
+					params: {id: $scope.admissionid}
+				}).then(function(response) {
+					$scope.medicaldetails = response.data;
+				});
+				$('#RoomChargeModal').modal('show');
 			
 			}
 			else{
