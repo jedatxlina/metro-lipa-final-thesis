@@ -15,7 +15,6 @@ font-weight: bold;
 <br><br>
 <div class="container-fluid" ng-app="myApp" ng-controller="userCtrl">
 	
-
 	<br>
 	<div data-widget-group="group1">
 			<div class="row">

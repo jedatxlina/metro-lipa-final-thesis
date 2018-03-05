@@ -218,40 +218,6 @@ font-weight: bold;
 											</div>
 										</div>
 									</div>
-									<!--
-									<div class="row">
-										<div class="form-group">
-											<label for="focusedinput" class="col-sm-3 control-label">Admission Date</label>
-											<div class="col-sm-5">
-												<input type="text" class="form-control"  ng-value="patient.AdmissionDate" disabled>
-											</div>
-										</div>
-									</div>
-									<div class="row">
-										<div class="form-group">
-											<label for="focusedinput" class="col-sm-3 control-label">Admission</label>
-											<div class="col-sm-5">
-												<input type="text" class="form-control" ng-value="patient.Admission" disabled>
-											</div>
-										</div>
-									</div>
-									<div class="row">
-										<div class="form-group">
-											<label for="focusedinput" class="col-sm-3 control-label">Admission Type</label>
-											<div class="col-sm-5">
-												<input type="text" class="form-control" ng-value="patient.AdmissionType" disabled>
-											</div>
-										</div>
-									</div>
-									<div class="row">
-										<div class="form-group">
-											<label for="focusedinput" class="col-sm-3 control-label">QR Code</label>
-											<div class="col-sm-5">
-											<center> <img ng-src="{{patient.QRpath}}">
-											</div>
-										</div>
-									</div> -->
-								
 								</div>
 								<div class="panel-footer">
 								<button type="button" ng-click="viewPatientDetails()" class="btn btn-danger-alt pull-left">View Details</button>
