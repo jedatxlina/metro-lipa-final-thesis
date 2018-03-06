@@ -86,16 +86,16 @@
                             <div class="form-group">
                                 <label>Access Type  </label>
                                 <div class="col-sm-13 select">
-                                <select ng-model="accesstype" class="form-control" ng-change="accessType()">
-                                    <option value="" disabled>Select</option>
-                                    <!-- <option value="1">Type 1 - All Priviliges</option> -->
-                                    <option value="2">Type 2 - Admission Module</option>
-                                    <option value="3">Type 3 - Nurse Module</option>
-                                    <option value="4">Type 4 - Doctor Module</option>
-                                    <option value="5">Type 5 - Pharmacy Module</option>
-                                    <option value="6">Type 6 - Billing Module</option>
-                                    <option value="7">Type 7 - Secretary Module</option>
-                                </select>
+                                    <select ng-model="accesstype" class="form-control" ng-change="accessType()">
+                                        <option value="" disabled>Select</option>
+                                        <!-- <option value="1">Type 1 - All Priviliges</option> -->
+                                        <option value="2">Type 2 - Admission Module</option>
+                                        <option value="3">Type 3 - Nurse Module</option>
+                                        <option value="4">Type 4 - Doctor Module</option>
+                                        <option value="5">Type 5 - Pharmacy Module</option>
+                                        <option value="6">Type 6 - Billing Module</option>
+                                        <option value="7">Type 7 - Secretary Module</option>
+                                    </select>
                                 </div>
                             </div>
                             <div class="form-group">       
