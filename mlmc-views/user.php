@@ -56,7 +56,7 @@
 
                     <div class="list-group list-group-alternate mb-n nav nav-tabs">
 						<a href="#" role="tab" data-toggle="tab" class="list-group-item active">Actions Panel</a>
-						<a href="#" ng-click="Add()" role="tab" data-toggle="tab" class="list-group-item"><i class="fa fa-list-alt fa-fw"></i>Add User Account</a>
+						<a href="#" ng-click="Add()" role="tab" data-toggle="tab" class="list-group-item"><i class="fa fa-user-plus"></i></i>Add User Account</a>
 						<a href="#" ng-click="EditUser()"role="tab" data-toggle="tab" class="list-group-item"><i class="ti ti-info-alt"></i>Edit Account</a>
                         <a href="#" ng-click="ViewUser()"role="tab" data-toggle="tab" class="list-group-item"><i class="ti ti-info-alt"></i>Edit User Details</a>
                 	</div>
@@ -86,16 +86,16 @@
                             <div class="form-group">
                                 <label>Access Type  </label>
                                 <div class="col-sm-13 select">
-                                <select ng-model="accesstype" class="form-control" ng-change="accessType()">
-                                    <option value="" disabled>Select</option>
-                                    <!-- <option value="1">Type 1 - All Priviliges</option> -->
-                                    <option value="2">Type 2 - Admission Module</option>
-                                    <option value="3">Type 3 - Nurse Module</option>
-                                    <option value="4">Type 4 - Doctor Module</option>
-                                    <option value="5">Type 5 - Pharmacy Module</option>
-                                    <option value="6">Type 6 - Billing Module</option>
-                                    <option value="7">Type 7 - Secretary Module</option>
-                                </select>
+                                    <select ng-model="accesstype" class="form-control" ng-change="accessType()">
+                                        <option value="" disabled>Select</option>
+                                        <!-- <option value="1">Type 1 - All Priviliges</option> -->
+                                        <option value="2">Type 2 - Admission Module</option>
+                                        <option value="3">Type 3 - Nurse Module</option>
+                                        <option value="4">Type 4 - Doctor Module</option>
+                                        <option value="5">Type 5 - Pharmacy Module</option>
+                                        <option value="6">Type 6 - Billing Module</option>
+                                        <option value="7">Type 7 - Secretary Module</option>
+                                    </select>
                                 </div>
                             </div>
                             <div class="form-group">       
@@ -231,6 +231,7 @@
                                     <option value="5">Type 5 - Pharmacy Module</option>
                                     <option value="6">Type 6 - Billing Module</option>
                                     <option value="7">Type 7 - Secretary Module</option>
+                                    <option value="7">Type 8 - Laboratory Module</option>
                                 </select>
                             </div>
                         </div>
@@ -364,6 +365,10 @@
                         $scope.User = "Billing Staff";
                         break;
                 
+                    case '7':
+                        $scope.User = "Secretary";
+                        break;
+
                     default:
                         break;
                 }
@@ -400,7 +405,7 @@
                     case '7':
                             $http({
                                 method: 'GET',
-                                url: 'updateData/update-user-profile.php',
+                                url: 'insertData/insert-user-profile.php',
                                 params: {id: $scope.accountid,
                                         Lastname: $scope.lname,
                                         Firstname: $scope.fname,
@@ -420,7 +425,7 @@
                     case '4':
                             $http({
                                 method: 'GET',
-                                url: 'updateData/update-user-profile.php',
+                                url: 'insertData/insert-user-profile.php',
                                 params: {id: $scope.accountid,
                                     Lastname: $scope.lname,
                                     Firstname: $scope.fname,
@@ -442,7 +447,7 @@
                     default:
                             $http({
                             method: 'GET',
-                            url: 'updateData/update-user-profile.php',
+                            url: 'insertData/insert-user-profile.php',
                             params: {id: $scope.accountid,
                                     Lastname: $scope.lname,
                                     Firstname: $scope.fname,
@@ -479,7 +484,10 @@
                 $scope.accountid = "<?php echo "6" .  rand(10000, 99999); ?>"
               }if($scope.accesstype == 7){
                 $scope.accountid = "<?php echo "7" .  rand(10000, 99999); ?>"
+              }if($scope.accesstype == 8){
+                $scope.accountid = "<?php echo "8" .  rand(10000, 99999); ?>"
                 }
+                
           }
 
           $scope.setClickedRow = function(user) {
@@ -614,6 +622,16 @@
                                         $scope.getuser = response.data;
                                     });
                                 }
+                            else if ($scope.accountid[0] == 8)
+                                {
+                                    $http({
+                                            method: 'get',
+                                            params: {accid : $scope.accountid},
+                                            url: 'getData/get-labstaff-id.php'
+                                        }).then(function(response) {
+                                        $scope.getuser = response.data;
+                                    });
+                                }
                        
                         $('#ViewUser').modal('show');
             }
@@ -680,6 +698,10 @@
                     
                     case 'Laboratory':
                             window.location.href = 'laboratory.php?at=' + $scope.at;
+                            break;
+
+                    case 'LaboratoryDept':
+                            window.location.href = 'laboratorydept.php?at=' + $scope.at;
                             break;
                     
                     default:

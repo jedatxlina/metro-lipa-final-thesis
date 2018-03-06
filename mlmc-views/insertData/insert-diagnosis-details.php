@@ -5,6 +5,8 @@ $diagnosisid =  rand(111111, 999999);
 $medicationid = rand(111111,999999);
 $laboratoryid =  rand(111111, 999999);
 $pharmaid  =  rand(111111, 999999);
+$laborderid =  rand(111111, 999999);     
+
 
 $at = $_GET['at'];
 $admissionid = $_GET['id'];
@@ -33,7 +35,14 @@ if($labs != ''){
     
                 mysqli_query($con,$query);
 
-                $orderid =  rand(111111, 999999);         
+                $orderid =  rand(111111, 999999);     
+                
+                $query2 = "INSERT into laboratory_req(RequestID,LaboratoryID,AdmissionID,Status) 
+                VALUES('$laboratoryid','$value','$admissionid','Pending')";
+    
+                mysqli_query($con,$query2);
+
+                $laborderid =  rand(111111, 999999);     
             }
             else{
                 $value  = ucwords(strtolower($value));
@@ -46,7 +55,14 @@ if($labs != ''){
     
                 mysqli_query($con,$query);
 
-                $laboratoryid =  rand(111111, 999999);          
+                $laboratoryid =  rand(111111, 999999);     
+                
+                $query2 = "INSERT into laboratory_req(RequestID,LaboratoryID,AdmissionID,Status) 
+                VALUES('$laboratoryid','$value','$admissionid','Pending')";
+    
+                mysqli_query($con,$query2);
+
+                $laborderid =  rand(111111, 999999); 
             }
 
         }
@@ -62,6 +78,13 @@ if($labs != ''){
             mysqli_query($con,$query);
 
             $orderid =  rand(111111, 999999);   
+
+            $query2 = "INSERT into laboratory_req(RequestID,LaboratoryID,AdmissionID,Status) 
+            VALUES('$laboratoryid','$value','$admissionid','Pending')";
+
+            mysqli_query($con,$query2);
+
+            $laborderid =  rand(111111, 999999); 
         }
     }
 }else{
@@ -69,6 +92,13 @@ if($labs != ''){
     VALUES('$orderid','$admissionid','$at','$order','0','$date','$time','Pending')";
 
     mysqli_query($con,$query);
+
+    $query2 = "INSERT into laboratory_req(RequestID,LaboratoryID,AdmissionID,Status) 
+    VALUES('$laboratoryid','$value','$admissionid','Pending')";
+
+    mysqli_query($con,$query2);
+
+    $laborderid =  rand(111111, 999999); 
 }
     
 if(preg_match("/[A-z]/i", $meds)){

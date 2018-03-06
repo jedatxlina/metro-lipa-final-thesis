@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Mar 06, 2018 at 01:16 AM
+-- Generation Time: Mar 06, 2018 at 11:45 PM
 -- Server version: 10.1.28-MariaDB
 -- PHP Version: 7.1.10
 
@@ -133,6 +133,20 @@ INSERT INTO `beds` (`BedID`, `RoomType`, `Rate`, `Floor`, `Room`, `Status`) VALU
 ('409', 'Suite', 2500, '4', 409, 'Available'),
 ('411', 'Infectious', 2500, '4', 411, 'Available'),
 ('412', 'Infectious', 2500, '4', 412, 'Available');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `billing_opd`
+--
+
+CREATE TABLE `billing_opd` (
+  `BillingOpdID` int(6) NOT NULL,
+  `AdmissionID` int(10) NOT NULL,
+  `OpdRoom` int(6) NOT NULL,
+  `BillDesc` varchar(30) NOT NULL,
+  `TotalBill` decimal(15,2) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
 
@@ -1847,7 +1861,11 @@ CREATE TABLE `diagnosis` (
 --
 
 INSERT INTO `diagnosis` (`DiagnosisID`, `AttendingID`, `Findings`, `DateDiagnosed`, `TimeDiagnosed`, `MedicationID`) VALUES
+(113323, 456325, 'Latest Diagnosis', '2018-03-06', '01:33 PM', 157334),
+(290499, 456325, 'undefined', '2018-03-06', '11:16 PM', 952890),
+(430758, 456325, 'diagnosis', '2018-03-06', '11:40 PM', 429717),
 (492284, 197835, 'N/a', '2018-03-06', '12:53 AM', 450425),
+(525259, 456325, 'asd', '2018-03-06', '11:41 PM', 214095),
 (707712, 197549, 'N/a', '2018-03-06', '01:09 AM', 728843),
 (710276, 456325, 'Masakit pwet', '2018-03-06', '01:10 AM', 894431),
 (986060, 797818, 'N/a', '2018-03-05', '08:57 PM', 762884);
@@ -1873,6 +1891,44 @@ INSERT INTO `laboratories` (`LaboratoryID`, `Description`, `Rate`) VALUES
 (1056, 'Operation', 1000),
 (1075, 'CT-SCAN', 2500),
 (1087, 'XRAY', 500);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `laboratory_req`
+--
+
+CREATE TABLE `laboratory_req` (
+  `RequestID` int(6) NOT NULL,
+  `LaboratoryID` int(6) NOT NULL,
+  `AdmissionID` int(10) NOT NULL,
+  `Status` varchar(10) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `laboratory_req`
+--
+
+INSERT INTO `laboratory_req` (`RequestID`, `LaboratoryID`, `AdmissionID`, `Status`) VALUES
+(610375, 1008, 2017434224, 'Pending'),
+(610375, 1075, 2017434224, 'Pending');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `lab_staff`
+--
+
+CREATE TABLE `lab_staff` (
+  `LaboratoryStaffID` int(6) NOT NULL,
+  `LastName` varchar(25) NOT NULL,
+  `FirstName` varchar(25) NOT NULL,
+  `MiddleName` varchar(25) NOT NULL,
+  `Gender` varchar(10) NOT NULL,
+  `Address` varchar(50) NOT NULL,
+  `Birthdate` varchar(25) NOT NULL,
+  `Email` varchar(50) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
 
@@ -1971,7 +2027,11 @@ INSERT INTO `medication` (`MedicationID`, `AdmissionID`, `MedicalConditionID`, `
 (762884, 2017220505, 192013, 13339, 1, '2018-03-05', '08:57 PM', '250mg', 456325, 'Once', 'Q3,Q4', '', ''),
 (450425, 2017434224, 423546, 22741, 4, '2018-03-06', '12:53 AM', '500mg', 456325, 'Four a day', '', '', ''),
 (450425, 2017434224, 423546, 22741, 4, '2018-03-06', '12:53 AM', '500mg', 456325, 'Four a day', '', '', ''),
-(894431, 2017432299, 0, 22741, 5, '2018-03-06', '01:10 AM', '500mg', 456325, '5 a day', '', '', '');
+(894431, 2017432299, 0, 22741, 5, '2018-03-06', '01:10 AM', '500mg', 456325, '5 a day', '', '', ''),
+(157334, 2017432299, 0, 13339, 5, '2018-03-06', '01:33 PM', '250mg', 456325, 'Five a day', '', '', ''),
+(952890, 2017432299, 0, 13339, 1, '2018-03-06', '11:16 PM', '250mg', 456325, 'wqe', '', '', ''),
+(429717, 2017434224, 0, 13339, 1, '2018-03-06', '11:40 PM', '250mg', 456325, 'qwe', '', '', ''),
+(214095, 2017434224, 0, 718665, 5, '2018-03-06', '11:41 PM', '500mg', 456325, 'qwe', '', '', '');
 
 -- --------------------------------------------------------
 
@@ -1994,6 +2054,7 @@ CREATE TABLE `medication_timeline` (
 --
 
 INSERT INTO `medication_timeline` (`MedTimelineID`, `MedicationID`, `AdmissionID`, `MedicineID`, `NurseID`, `DateIntake`, `TimeIntake`) VALUES
+(43114, 762884, 2017220505, 13339, 146404, '2018-03-06', '10:54 PM'),
 (45516, 762884, 2017220505, 22741, 146404, '2018-03-06', '12:28 AM');
 
 -- --------------------------------------------------------
@@ -2062,7 +2123,13 @@ CREATE TABLE `orders` (
 --
 
 INSERT INTO `orders` (`OrderID`, `AdmissionID`, `PhysicianID`, `Task`, `LaboratoryID`, `DateOrder`, `TimeOrder`, `Status`) VALUES
-(760859, 2017432299, 456325, 'Order 1', 0, '2018-03-06', '01:10 AM', 'Pending');
+(155336, 2017434224, 456325, 'sdsa', 1075, '2018-03-06', '11:41 PM', 'Pending'),
+(177398, 2017434224, 456325, 'order', 1008, '2018-03-06', '11:40 PM', 'Pending'),
+(270570, 2017434224, 456325, 'sdsa', 1008, '2018-03-06', '11:41 PM', 'Pending'),
+(277351, 2017434224, 456325, 'order', 1075, '2018-03-06', '11:40 PM', 'Pending'),
+(419835, 2017432299, 456325, 'undefined', 1075, '2018-03-06', '11:16 PM', 'Pending'),
+(501563, 2017432299, 456325, 'Latest Order for you', 0, '2018-03-06', '01:33 PM', 'Accepted'),
+(760859, 2017432299, 456325, 'Order 1', 0, '2018-03-06', '01:10 AM', 'Accepted');
 
 -- --------------------------------------------------------
 

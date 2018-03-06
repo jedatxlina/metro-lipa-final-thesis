@@ -296,6 +296,10 @@
             window.location.href = 'laboratory.php?at=' + $scope.param;
             break;
 
+        case 'LaboratoryDept':
+            window.location.href = 'laboratorydept.php?at=' + $scope.param;
+            break;
+
         default:
             break;
     }

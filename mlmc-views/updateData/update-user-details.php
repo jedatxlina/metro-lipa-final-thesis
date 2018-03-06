@@ -35,7 +35,11 @@ switch ($accountid[0]) {
     case '7':
         $query= "UPDATE secretary SET Email = '$email' WHERE SecretaryID = '$accountid'";
         break; 
-        
+    
+    case '8':
+        $query= "UPDATE lab_staff SET Email = '$email' WHERE LaboratorySTaffID = '$accountid'";
+        break; 
+    
     default:
         break;
 }

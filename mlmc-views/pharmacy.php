@@ -40,7 +40,7 @@
                                     <th>Re-Order Point</th>
                                 </tr>
                             </thead>
-                            <tbody ng-show="showData == true">
+                            <tbody>
                                 <tr ng-repeat="med in meds track by $index" ng-class="{'selected': med.PharmaID == selectedRow}" ng-click="setClickedRow(med.PharmaID)" >
                                     <td>{{med.PharmaID}}</td>
                                     <td>{{med.PharmaName}}</td>
@@ -49,8 +49,6 @@
                                     <td style="color:red">{{med.Quantity}}</td>  
                                     <td>{{med.ReOrder}}</td>
                                 </tr>
-                            </tbody>
-                            <tbody>
                                 <tr ng-repeat="pharma in pharmacs track by $index" ng-class="{'selected': pharma.PharmaID == selectedRow}" ng-click="setClickedRow(pharma.PharmaID)" >
                                     <td>{{pharma.PharmaID}}</td>
                                     <td>{{pharma.PharmaName}}</td>
@@ -102,32 +100,47 @@
 
             <div class="modal fade" id="AddModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
                 <div class="modal-dialog">
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                            <h4 class="modal-title" id="myModalLabel">Add Medicine</h4>
-                        </div>
-                        <div class="modal-body">
+                <div class="panel panel-danger" data-widget='{"draggable": "false"}'>
+                <div class="panel-heading">
+                    <h2>Add Medicine</h2>
+                    <div class="panel-ctrls" data-actions-container="" data-action-collapse='{"target": ".panel-body, .panel-footer"}'></div>
+                </div>
+                <div class="panel-body" style="height: auto">
                             <form>
                                 <div class="form-group">
                                     <label>Medicine Name </label>
                                     <input type="text" ng-model="pharmaname" placeholder="Paracetamol" class="form-control">
                                 </div>
-                                <div class="form-group">
-                                    <label>Unit </label>
-                                    <input type="text" ng-model="unit" placeholder="500mg" class="form-control">
+
+                                
+                                    <div class="form-group">
+                                        <label>Unit </label>
+                                        <div class="row">
+                                 <div class="col-md-9">
+                                        <input type="text" ng-model="unit" placeholder="100" class="form-control" ng-keypress="filterValue($event)" style="width:480px" ng-disabled="measurement == null ">
+                                        </div>
+                                        <div class="col-md-3">
+                                        <select ng-model="measurement" class="form-control" style="width:130px">
+                                        <option value="" disabled>Select</option>
+                                        <option value="mg">mg</option>
+                                        <option value="mL">mL</option>
+                                        </select>
+                                        
+                                    </div>
+                                </div>
+
                                 </div>
                                 <div class="form-group">
                                     <label>Price </label>
-                                    <input type="text" ng-model="price" placeholder="100" class="form-control">
+                                    <input type="text" ng-model="price" placeholder="100"  ng-keypress="filterValue($event)" class="form-control">
                                 </div>
                                 <div class="form-group">
                                     <label>Quantity </label>
-                                    <input type="text" ng-model="quantity" placeholder="10" class="form-control">
+                                    <input type="text" ng-model="quantity" placeholder="10" ng-keypress="filterValue($event)" class="form-control">
                                 </div>
                                 <div class="form-group">
                                     <label>Re-Order Point </label>
-                                    <input type="text" ng-model="reorder" placeholder="5" class="form-control">
+                                    <input type="text" ng-model="reorder" placeholder="5" ng-keypress="filterValue($event)" class="form-control">
                                 </div>
                                 <div class="modal-footer">
                                     <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
@@ -156,7 +169,7 @@
                                 </forM>
                                 <div class="form-group">
                                     <label>Quantity </label>
-                                    <input type="text" ng-model="addqty" placeholder="10" class="form-control">
+                                    <input type="text" ng-model="addqty" placeholder="10" class="form-control" ng-keypress="filterValue($event)">
                                 </div>
                                 <div class="modal-footer">
                                     <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
@@ -203,7 +216,7 @@
                   </div>
                   <div class="form-group">       
                      <label>Price </label>
-                     <input type="text" ng-model="$parent.PPrice" ng-init="$parent.PPrice=ep.Price" class="form-control">
+                     <input type="text" ng-model="$parent.PPrice" ng-init="$parent.PPrice=ep.Price" class="form-control" ng-keypress="filterValue($event)">
                   </div>
                   <div class="form-group">       
                      <label>Quantity </label>
@@ -211,7 +224,7 @@
                   </div>
                   <div class="form-group">       
                      <label>Re-Order Point </label>
-                     <input type="text" ng-model="$parent.ROrder" ng-init="$parent.ROrder=ep.ReOrder" class="form-control">
+                     <input type="text" ng-model="$parent.ROrder" ng-init="$parent.ROrder=ep.ReOrder" class="form-control" ng-keypress="filterValue($event)">
                   </div>
                      <div class="modal-footer">
                         <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
@@ -237,7 +250,7 @@
             $scope.clickedRow = 0;
             $scope.new = {};
             $scope.showData = true;
-           
+            $scope.onlyNumbers = '\\d+';
 
                 switch ($scope.at.charAt(0)) {
                     case '1':
@@ -267,6 +280,12 @@
                     default:
                         break;
                 }
+
+                $scope.filterValue = function($event){
+                if(isNaN(String.fromCharCode($event.keyCode))){
+                $event.preventDefault();
+                }
+                };
 
             $http({
                 method: 'get',
@@ -307,6 +326,7 @@
 
             $scope.Add = function() {
                 $scope.pharmaid = "<?php echo rand(100000, 999999); ?>"
+                $scope.unit = $scope.unit + '' +  $scope.measurement;
                 $http({
                     method: 'GET',
                     url: 'insertData/insert-pharmaceutical.php',
@@ -444,6 +464,10 @@
                     
                     case 'Laboratory':
                             window.location.href = 'laboratory.php?at=' + $scope.at;
+                            break;
+
+                    case 'LaboratoryDept':
+                            window.location.href = 'laboratorydept.php?at=' + $scope.at;
                             break;
                     
                     default:

@@ -25,23 +25,25 @@
             <div class="col-md-11">
                 <div class="panel panel-default">
                     <div class="panel-heading">
-                        <h2>MEDICAL LABORATORY</h2>
+                        <h2>LABORATORY REQUESTS</h2>
                         <div class="panel-ctrls"></div>
                     </div>
                     <div class="panel-body">
                         <table id="table_info" class="table table-striped table-bordered" cellspacing="0" width="100%">
                             <thead>
                                 <tr>
-                                    <th>Laboratory ID</th>
+                                    <th>Admission ID</th>
+                                    <th>Fullname</th>
                                     <th>Description</th>
-                                    <th>Rate</th>
+                                    <th>Status</th>
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr ng-repeat="lab in labs" ng-class="{'selected': lab.LaboratoryID == selectedRow}" ng-click="setClickedRow(lab.LaboratoryID)">
-                                    <td>{{lab.LaboratoryID}}</td>
-                                    <td>{{lab.Description}}</td>
-                                    <td>{{lab.Rate}}</td>
+                                <tr ng-repeat="labreq in labsreq" ng-class="{'selected': labreq.RequestID == selectedRow}" ng-click="setClickedRow(labreq.RequestID)">
+                                    <td>{{labreq.AdmissionID}}</td>
+                                    <td>{{labreq.Fullname}}</td>
+                                    <td>{{labreq.Description}}</td>
+                                    <td>{{labreq.Status}}</td>
                                 </tr>
                             </tbody>
                         </table>
@@ -90,6 +92,14 @@
 				case '6':
 					$scope.User = "Billing Staff";
 					break;
+
+                case '7':
+					$scope.User = "Billing Staff";
+					break;
+
+                case '8':
+					$scope.User = "Laboratory Staff";
+					break;   
 			
 				default:
 					break;
@@ -97,9 +107,9 @@
 
         $http({
             method: 'get',
-            url: 'getData/get-laboratory-details.php'
+            url: 'getData/get-laboratory-requests.php'
         }).then(function(response) {
-            $scope.labs = response.data;
+            $scope.labsreq = response.data;
             angular.element(document).ready(function() {
                 dTable = $('#table_info')
                 dTable.DataTable();
@@ -107,8 +117,8 @@
         });
 
 
-        $scope.setClickedRow = function(lab) {
-            $scope.selectedRow = ($scope.selectedRow == null) ? lab : ($scope.selectedRow == lab) ? null : lab;
+        $scope.setClickedRow = function(labreq) {
+            $scope.selectedRow = ($scope.selectedRow == null) ? labreq : ($scope.selectedRow == labreq) ? null : labreq;
             $scope.clickedRow = ($scope.selectedRow == null) ? 0 : 1;
         }
 
