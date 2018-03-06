@@ -43,6 +43,10 @@ else if ($acctype == 7)
 {
     $query= "INSERT into secretary(SecretaryID,LastName,FirstName,MiddleName,Gender,Address,Birthdate,Email,PhysicianID) VALUES ('$accountid','$lastname','$firstname','$middlename','$gender','$address','$birthdate','$email','$assigned')";
 }
+else if ($acctype == 8)
+{
+    $query= "INSERT into lab_staff(LaboratoryStaffID,LastName,FirstName,MiddleName,Gender,Address,Birthdate,Email) VALUES ('$accountid','$lastname','$firstname','$middlename','$gender','$address','$birthdate','$email')";
+}
 
 mysqli_query($con,$query);  
 ?>
