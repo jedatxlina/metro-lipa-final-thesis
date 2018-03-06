@@ -21,8 +21,8 @@
                                     <h2>Patient Form</h2>
                                     &nbsp;&nbsp;
                                     <small class='pull-right' ng-if="id != 0">New Born: &emsp;
-                                        <input type="radio" ng-model="newborn" name="newborn"  id="newbornyes" value='Yes' class="tooltips" data-trigger="hover" data-original-title="Yes"> Yes &nbsp;
-                                        <input type="radio" ng-model="newborn" name="newborn"  id="newborno" value='No' class="tooltips" data-trigger="hover" data-original-title="No" checked="checked"> No
+                                        <input type="radio" ng-model="newborn" ng-click="newbornyes()" class="tooltips" data-trigger="hover" data-original-title="Yes"> Yes &nbsp;
+                                        <input type="radio" ng-model="newborn" name="newborn"  id="newborno" value='No' ng-click="newbornno()" class="tooltips" data-trigger="hover" data-original-title="No" checked="checked"> No
                                     </small>
                                 </div>
                                 <div class="panel-body"  id="notnewborndiv">
@@ -322,8 +322,11 @@
                     });
 
                     $('#newbornbabydiv').hide();
-                    
-                    $( "#newbornyes" ).click(function() {
+
+                  
+
+
+                    $scope.newbornyes = function(){
                         $('#newbornbabydiv').show();
                         $('#notnewborndiv').hide();
 
@@ -334,14 +337,14 @@
                             url: 'getData/get-emergency-details.php'
                         }).then(function(response) {
                             $scope.patients = response.data;
+                            alert($scope.patients);
                         });
+                    }
 
-                    });
-
-                    $( "#newborno" ).click(function() {
+                    $scope.newbornno = function(){
                         $('#newbornbabydiv').hide();
                         $('#notnewborndiv').show();
-                    });
+                    }
 
                     $scope.check = function(check){
                         $scope.param = check;
@@ -352,8 +355,6 @@
                             $scope.admissiontype = 'Outpatient';
                         }
                     }
-
-                   
 
                     $scope.newbornUpdate = function(){
                             $scope.babyadmission = $scope.mother.concat('-1');

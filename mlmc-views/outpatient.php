@@ -247,13 +247,15 @@ include 'admin-header.php' ?>
 										<div class="col-md-6">
 											<div class="form-group">
 												<label>Physician Name</label>
-												<input type="text" class="form-control" ng-model="namephysician" ng-init="namephysician = physician.Firstname + ' ' + physician.Middlename + ' ' + physician.Lastname" disabled="disabled">
+												<input type="text" class="form-control" ng-model="$parent.namephysician" ng-init="$parent.namephysician = physician.Firstname + ' ' + physician.Middlename + ' ' + physician.Lastname" disabled="disabled">
 											</div>
 										</div>
 										<div class="col-md-5">
 											<div class="form-group">
 												<label>Fee</label>
-												<input type="text" class="form-control" ng-model="fee" ng-init="fee = physician.Fee">	
+												<input type="text" class="form-control" ng-model="$parent.fee" ng-init="$parent.fee = physician.Fee">	
+												<small><input type="checkbox" ng-model="senior" ng-click="seniorClick()"> Senior Citizen </small>
+												<small><input type="checkbox" ng-model="hmo" ng-click="hmoClick()"> HMO </small>	
 											</div>
 										</div>
                                 </div>
@@ -262,15 +264,16 @@ include 'admin-header.php' ?>
 										<div class="col-md-6">
 											<div class="form-group">
 												<label>Patient Name</label>
-												<input type="text" class="form-control" ng-model="namepatient" ng-init="namepatient = patient.Fname + ' ' + patient.Mname + ' ' + patient	.Lname" disabled="disabled">
+												<input type="text" class="form-control" ng-model="$parent.namepatient" ng-init="$parent.namepatient = patient.Fname + ' ' + patient.Mname + ' ' + patient	.Lname" disabled="disabled">
 											</div>
 										</div>
 										<div class="col-md-5">
 											<div class="form-group">
 												<label>Admission Date-Time</label>
-												<input type="text" class="form-control" ng-model="admitdatetime" ng-init="admitdatetime = patient.AdmissionDate + ' ' + patient.AdmissionTime" disabled="disabled">	
+												<input type="text" class="form-control" ng-model="$parent.admitdatetime" ng-init="$parent.admitdatetime = patient.AdmissionDate + ' ' + patient.AdmissionTime" disabled="disabled">	
 											</div>
 										</div>
+										<input type="hidden" ng-model="$parent.idpatient" ng-init="$parent.idpatient = patient.AdmissionID">
                                 </div>
 
 								<div class="row">
@@ -286,6 +289,16 @@ include 'admin-header.php' ?>
 												<option value="5">5</option>
 												<option value="6">6</option>
                                             </select>
+										</div>
+									</div>
+                                </div>
+
+								
+								<div class="row" ng-if="senior == 'true'">
+									<div class="col-md-3">
+										<div class="form-group">
+											<label>Total Bill</label>
+											<input type="text" class="form-control" ng-model="totalfee" ng-value="totalfee = fee-(fee*.20)" ng-disabled="hmo == 'true'">	
 										</div>
 									</div>
                                 </div>
@@ -311,7 +324,9 @@ include 'admin-header.php' ?>
             		$scope.clickedRow = 0;
             		$scope.new = {};
             		$scope.order = 0;
-            
+					$scope.senior = 'false';
+					$scope.hmo = 'false';
+
             		$('#patient_table').on('search.dt', function() {
             			var value = $('.dataTables_filter input').val();
             			$scope.val = value;
@@ -328,7 +343,7 @@ include 'admin-header.php' ?>
             			console.log(data.message);
             			swal({
             				icon: "success",
-            				title: "New Physician Order!",
+            				title: "New Physicisan Order!",
             				text: data.message
             				}).then(function () {
             			});
@@ -513,6 +528,51 @@ include 'admin-header.php' ?>
             			$('#errorModal').modal('show');
             			}
             		}
+
+					$scope.seniorClick = function(){
+						if($scope.senior == 'true'){
+							$scope.senior = 'false';
+						}else{
+							$scope.senior = 'true';
+						}
+					}
+
+					$scope.hmoClick = function(){
+						if($scope.hmo == 'true'){
+							$scope.hmo = 'false';
+						}else{
+							$scope.hmo = 'true';
+						}
+					}
+
+					$scope.dischargeConfirm = function(){
+						if($scope.senior != 'true'){
+							$scope.totalfee = $scope.fee;
+						}else{
+							$scope.totalfee = $scope.fee - ($scope.fee*.20);
+						}
+						$http({
+            			method: 'GET',
+            			url: 'insertData/insert-discharged-outpatient.php',
+            			params: {at: $scope.at,
+								admissionid: $scope.idpatient,
+								opdroomno: $scope.opdroomno,
+								totalfee: $scope.totalfee}
+            			}).then(function(response) {
+							swal({
+                            icon: "success",
+                            title: "Successfully Added!",
+                            text: "Redirecting in 2..",
+                            timer: 2000
+							}).then(function () {
+									window.location.href = 'outpatient.php?at=' + $scope.at;
+								}, function (dismiss) {
+								if (dismiss === 'cancel') {
+									window.location.href = 'outpatient.php?at=' + $scope.at;
+								}
+							});
+            			});
+					}
             
             		$scope.viewReport = function(){
             			$window.open('try-report.php?param='+$scope.val+'&at='+$scope.at, '_blank');
