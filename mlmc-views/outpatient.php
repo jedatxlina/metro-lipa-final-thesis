@@ -573,6 +573,10 @@ include 'admin-header.php' ?>
             				case 'Laboratory':
             						window.location.href = 'laboratory.php?at=' + $scope.at;
             						break;
+
+							case 'LaboratoryDept':
+                                    window.location.href = 'laboratorydept.php?at=' + $scope.at;
+                                    break;
             				
             				default:
             					break;

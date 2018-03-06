@@ -25,6 +25,14 @@ switch ($accesstype) {
 	$query= "SELECT * FROM billing_staff JOIN user_account WHERE billing_staff.BillingStaffID = '$id' AND user_account.AccountID = '$id' ";
 	break;
 
+	case '7':
+	$query= "SELECT * FROM secretary JOIN user_account WHERE secretary.SecretaryID = '$id' AND user_account.AccountID = '$id' ";
+	break;
+
+	case '8':
+	$query= "SELECT * FROM lab_staff JOIN user_account WHERE lab_staff.LaboratoryStaffID = '$id' AND user_account.AccountID = '$id' ";
+	break;
+
    default:
 	break;
 
