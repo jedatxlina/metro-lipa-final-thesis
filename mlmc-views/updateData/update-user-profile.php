@@ -2,7 +2,7 @@
 require_once 'connection.php';
 
 
-$accountid = $_GET['id'];
+$id = $_GET['id'];
 $lastname = $_GET['Lastname'];
 $firstname = $_GET['Firstname'];
 $middlename = $_GET['Middlename'];
@@ -12,6 +12,7 @@ $address = $_GET['Address'];
 $fee = $_GET['ProfessionalFee']; 
 $contact = $_GET['Contact'];
 $email = $_GET['Email'];
+$specialization = $_GET['Specialization'];
 $acctype = $_GET['atype'];
 
 
