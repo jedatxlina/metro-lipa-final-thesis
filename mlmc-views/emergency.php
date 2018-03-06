@@ -29,7 +29,7 @@ font-weight: bold;
 				<div class="col-md-9">
 					<div class="panel panel-default">
 						<div class="panel-heading">
-							<h2>Emergency Patients</h2>	<a ng-click="viewReport()" class="pull-right">Print Report &nbsp;<i class="ti ti-printer"></i></a>
+							<h2>Emergency Patients</h2>	<a ng-click="viewReport()"> <i class="ti ti-printer pull-right"></i></a>
 							<div class="panel-ctrls"></div>
 						</div>
 						<div class="panel-body">
@@ -210,14 +210,61 @@ font-weight: bold;
 											</div>
 										</div>
 									</div>
-									<div class="row" data-ng-repeat="bill in medicinebill">
+									<div class="row" data-ng-repeat="bill in medicinebill2">
 										<div class="form-group">
-											<label for="focusedinput" class="col-sm-3 control-label">Admission ID</label>
+											<label for="focusedinput" class="col-sm-3 control-label">Medicine Name</label>
 											<div class="col-sm-5">
-												<input type="text" class="form-control" ng-value="bill.totalbill * bill.price" disabled>
+												<input type="text" class="form-control"  ng-value="bill.mediname" disabled>
+											</div>
+										</div>
+										<div class="form-group">
+											<label for="focusedinput" class="col-sm-3 control-label">Medicine Quantity</label>
+											<div class="col-sm-5">
+												<input type="text" class="form-control"  ng-value="bill.quantity" disabled>
+											</div>
+										</div>
+										<div class="form-group">
+											<label for="focusedinput" class="col-sm-3 control-label">Medicine Price</label>
+											<div class="col-sm-5">
+												<input type="text" class="form-control"  ng-value="bill.price" disabled>
 											</div>
 										</div>
 									</div>
+									<div class="row" data-ng-repeat="bill in medicinebill">
+										<div class="form-group">
+											<label for="focusedinput" class="col-sm-3 control-label">Medicine Bill Total</label>
+											<div class="col-sm-5">
+												<input type="text" class="form-control" ng-value="bill.totalbill" disabled>
+											</div>
+										</div>
+									</div>
+									<br><br>
+									<!--
+									<div class="row">
+										<div class="form-group">
+											<label for="focusedinput" class="col-sm-3 control-label">Admission</label>
+											<div class="col-sm-5">
+												<input type="text" class="form-control" ng-value="patient.Admission" disabled>
+											</div>
+										</div>
+									</div>
+									<div class="row">
+										<div class="form-group">
+											<label for="focusedinput" class="col-sm-3 control-label">Admission Type</label>
+											<div class="col-sm-5">
+												<input type="text" class="form-control" ng-value="patient.AdmissionType" disabled>
+											</div>
+										</div>
+									</div>
+									<div class="row">
+										<div class="form-group">
+											<label for="focusedinput" class="col-sm-3 control-label">QR Code</label>
+											<div class="col-sm-5">
+											<center> <img ng-src="{{patient.QRpath}}">
+											</div>
+										</div>
+									</div> -->
+								
 								</div>
 								<div class="panel-footer">
 								<button type="button" ng-click="viewPatientDetails()" class="btn btn-danger-alt pull-left">View Details</button>
@@ -268,19 +315,13 @@ font-weight: bold;
 										<div class="form-group">
 											<label for="focusedinput" class="col-sm-3 control-label">Room Type</label>
 											<div class="col-sm-5">
-											<select ng-model="RoomType" class="form-control" >
-												<option value="" disabled selected>Select</option>
-												<option value="Ward">Ward</option>
-												<option value="OB-Ward">OB-Ward</option>
-												<option value="Female-Ward">Female-Ward</option>
-												<option value="Male-Ward">Male-Ward</option>
-												<option value="Pedia-Ward">Pedia-Ward</option>
-												<option value="Surgical-Ward">Surgical-Ward</option>
-												<option value="Semi-Private">Semi-Private</option>
-												<option value="Private">Private</option>
-												<option value="Suite">Suite</option>
-												<option value="Infectious">Infectious</option>
-										</select>
+												<select ng-model="RoomType" class="form-control" >
+													<option value="" disabled selected>Select Room Type</option>
+													<option value="Single Deluxe" >Single Deluxe</option>
+													<option value="Two-Bedded" >Two-Bedded</option>
+													<option value="Four-Bedded" >Four-Bedded</option>
+													<option value="Ward" >Ward</option>
+												</select>
 											</div>
 										</div>
 									</div>
@@ -412,10 +453,17 @@ font-weight: bold;
 				});
 				$http({
 					method: 'get',
-					url: 'getData/get-medication-details.php',
+					url: 'getData/get-medication-bill.php',
 					params: {id: $scope.admissionid}
 				}).then(function(response) {
 					$scope.medicinebill = response.data;
+				});
+				$http({
+					method: 'get',
+					url: 'getData/get-medication-billdetailed.php',
+					params: {id: $scope.admissionid}
+				}).then(function(response) {
+					$scope.medicinebill2 = response.data;
 				});
 				$('#dischargeModal').modal('show');
 			}
