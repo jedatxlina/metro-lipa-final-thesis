@@ -116,7 +116,8 @@ font-weight: bold;
 						<a href="#" ng-click="medicineRequisition()" role="tab" data-toggle="tab" class="list-group-item"><span class="badge badge-primary"></span> <i class="fa fa-plus-square-o"></i>Medicine Requisition</a>
 						<a href="#" ng-click="postMedication()" role="tab" data-toggle="tab" class="list-group-item"><span class="badge badge-primary"></span> <i class="fa fa-plus-square-o"></i>Post Medication</a>
 						<a href="#" ng-click="viewOrder()" role="tab" data-toggle="tab" class="list-group-item"><span class="badge badge-primary"  ng-if="order > 0">{{order}}</span> <i class="ti ti-email"></i>Doctors Order</a>
-                        <a href="#" ng-click="viewFlag()" role="tab" data-toggle="tab" class="list-group-item"><span class="badge badge-danger" ng-if="notif > 0">{{notif}}</span><i class="ti ti-bell"></i> Notifcations</a>
+						<a href="#" ng-click="postBills()"role="tab" data-toggle="tab" class="list-group-item"><i class="fa fa-file-text-o"></i>Process Billing</a>
+                        <a href="#" ng-click="viewFlag()" role="tab" data-toggle="tab" class="list-group-item"><span class="badge badge-danger" ng-if="notif > 0">{{notif}}</span><i class="ti ti-bell"></i> Notifications</a>
                     </div>
 				</div>
 					
@@ -236,7 +237,6 @@ font-weight: bold;
 												<td>{{patient.AdmissionDate}}</td>
 												<td>{{patient.AdmissionTime}}</td>
 												<td>{{patient.BedID}}</td>
-												
 											</tr>
 										</tbody>
 									</table>
@@ -457,6 +457,21 @@ font-weight: bold;
 			}
 		}
 
+		$scope.postBills = function(){
+			if($scope.selectedRow != null){
+				$http({
+					method: 'get',
+					url: 'updateData/update-roomend-date.php',
+					params: {id: $scope.selectedRow}
+				}).then(function(response) {
+				});
+				window.location.href = 'view-patient-bill.php?at=' + $scope.at + '&id=' + $scope.selectedRow;
+			}
+			else{
+			$('#myModal').modal('show');
+			}
+		}
+
 		$scope.viewPatientDetails = function(){
 			window.location.href = 'view-patient-data.php?at=' + $scope.at + '&id=' + $scope.admissionid;
 		}
@@ -467,7 +482,10 @@ font-weight: bold;
 				$http({
 					method: 'get',
 					url: 'getData/get-medication-details.php',
-					params: {id: $scope.admissionid}
+					params: {id: $scope.admissionid,
+                            department: $scope.User,
+                            description: 'Doctor Fee',
+                            total: $scope.totalbill}
 				}).then(function(response) {
 					$scope.medicationdetails = response.data;
 					angular.element(document).ready(function() {  
@@ -536,7 +554,6 @@ font-weight: bold;
 					params:{id:$scope.selectedRow}
 				}).then(function(response) {
 					$scope.flagPatients = response.data;
-			
 				});
 				$('#flagModal').modal('show');
 		}
@@ -546,10 +563,16 @@ font-weight: bold;
 				$scope.admissionid = $scope.selectedRow;
 				$http({
 					method: 'get',
+					url: 'insertData/insert-roomstart-date.php',
+					params: {id: $scope.admissionid}
+				}).then(function(response) {
+				});
+				$http({
+					method: 'get',
 					url: 'updateData/update-inpatient-flag.php',
 					params: {id: $scope.admissionid}
 				}).then(function(response) {
-				window.location.reload();
+					window.location.reload();
 				});
 		}
 
