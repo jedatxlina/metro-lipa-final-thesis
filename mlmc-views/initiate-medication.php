@@ -28,8 +28,6 @@ if($param != ''){
     }
 }
 else{
-
-
 header("Location:physician.php?at=$at");
 }
 

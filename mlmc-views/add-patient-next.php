@@ -373,7 +373,12 @@
                                         diagnosis: $scope.diagnosis,
                                         attending: $scope.attendingphysician}
                             }).then(function(response) {
-                                window.location.href = 'insertData/insert-medications-details.php?param=' + $scope.param + '&at=' + $scope.at + '&medicationid=' + $scope.medicationid + '&admissionid=' + $scope.admissionid + '&administered=' + $scope.administered + '&physicianid=' + $scope.attendingphysician + '&medication=' + $scope.medication + '&condition=' + $scope.condition;
+                                if($scope.param != 'Outpatient'){
+                                    window.location.href = 'insertData/insert-medications-details.php?param=' + $scope.param + '&at=' + $scope.at + '&medicationid=' + $scope.medicationid + '&admissionid=' + $scope.admissionid + '&administered=' + $scope.administered + '&physicianid=' + $scope.attendingphysician + '&medication=' + $scope.medication + '&condition=' + $scope.condition;
+                                }else{
+                                    window.location.href = 'outpatient.php?at=' + $scope.at;
+                                }
+                                
                             });
                  
                     }

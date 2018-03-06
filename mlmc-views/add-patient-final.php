@@ -70,6 +70,7 @@
                                     </div>
                                     </fieldset>  
                                     <br>
+                              
                                     <fieldset data-ng-repeat="medication in medications track by $index">
                                         <legend>{{medication.MedicineName}} <h6>Medicine ID: {{medication.MedicineID}}</h6></legend>
                                         <div data-row-span="2">
@@ -91,13 +92,12 @@
                                         
                                         </div>
                                     <br><br>
+                                    
                                     </fieldset>
                                             <div class="pull-right">
                                                 <button ng-click="goBack()" class="btn-default btn">Cancel</button>
                                                 <button type="submit" class="btn-danger btn" ng-click="submitDetails(type)">Submit</button>
                                             </div>
-                            
-                                    
                                     </fieldset>
 
                                         
@@ -113,6 +113,14 @@
         </div>
     </div>
     <script>
+
+    $('.select2').select2({ placeholder : '' });
+
+    $('.select2-remote').select2({ data: [{id:'A', text:'A'}]});
+
+    $('button[data-select2-open]').click(function(){
+    $('#' + $(this).data('select2-open')).select2('open');
+    });
 
                 var app = angular.module('myApp', ['angular-autogrow','ui.mask']);
 
@@ -187,13 +195,14 @@
                             description: 'Room Fee',
                             total: $scope.totalbill}
                         });
+                      
                         swal({
                             icon: "success",
                             title: "Successfully Added!",
                             text: "Redirecting in 2..",
                             timer: 2000
                         }).then(function () {
-                            window.location.href = 'initiate-medication.php?quantity=' + $scope.Quantity + '&id=' + $scope.medicationid + '&at=' + $scope.at + '&dosage=' + $scope.Dosage + '&medid=' + $scope.MedID + '&param=' + $scope.param + '&notes=' + $scope.NoteID;
+                                window.location.href = 'initiate-medication.php?quantity=' + $scope.Quantity + '&id=' + $scope.medicationid + '&at=' + $scope.at + '&dosage=' + $scope.Dosage + '&medid=' + $scope.MedID + '&param=' + $scope.param + '&notes=' + $scope.NoteID;
                             }, function (dismiss) {
                             if (dismiss === 'cancel') {
                                 window.location.href = 'initiate-medication.php?quantity=' + $scope.Quantity + '&id=' + $scope.medicationid + '&at=' + $scope.at + '&dosage=' + $scope.Dosage + '&medid=' + $scope.MedID + '&param=' + $scope.param + '&notes=' + $scope.NoteID;

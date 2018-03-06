@@ -2,7 +2,7 @@
 
 date_default_timezone_set("Asia/Singapore");
 
-$timeadministered = '06:14 PM';
+$timeadministered = '12:28 AM';
 $time1  = date_create($timeadministered);
 $time 	= date_create(); // Current time and date
 
