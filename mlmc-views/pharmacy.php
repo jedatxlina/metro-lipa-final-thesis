@@ -40,7 +40,7 @@
                                     <th>Re-Order Point</th>
                                 </tr>
                             </thead>
-                            <tbody ng-show="showData == true">
+                            <tbody>
                                 <tr ng-repeat="med in meds track by $index" ng-class="{'selected': med.PharmaID == selectedRow}" ng-click="setClickedRow(med.PharmaID)" >
                                     <td>{{med.PharmaID}}</td>
                                     <td>{{med.PharmaName}}</td>
@@ -49,8 +49,6 @@
                                     <td style="color:red">{{med.Quantity}}</td>  
                                     <td>{{med.ReOrder}}</td>
                                 </tr>
-                            </tbody>
-                            <tbody>
                                 <tr ng-repeat="pharma in pharmacs track by $index" ng-class="{'selected': pharma.PharmaID == selectedRow}" ng-click="setClickedRow(pharma.PharmaID)" >
                                     <td>{{pharma.PharmaID}}</td>
                                     <td>{{pharma.PharmaName}}</td>
@@ -171,7 +169,7 @@
                                 </forM>
                                 <div class="form-group">
                                     <label>Quantity </label>
-                                    <input type="text" ng-model="addqty" placeholder="10" class="form-control">
+                                    <input type="text" ng-model="addqty" placeholder="10" class="form-control" ng-keypress="filterValue($event)">
                                 </div>
                                 <div class="modal-footer">
                                     <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
@@ -218,7 +216,7 @@
                   </div>
                   <div class="form-group">       
                      <label>Price </label>
-                     <input type="text" ng-model="$parent.PPrice" ng-init="$parent.PPrice=ep.Price" class="form-control">
+                     <input type="text" ng-model="$parent.PPrice" ng-init="$parent.PPrice=ep.Price" class="form-control" ng-keypress="filterValue($event)">
                   </div>
                   <div class="form-group">       
                      <label>Quantity </label>
@@ -226,7 +224,7 @@
                   </div>
                   <div class="form-group">       
                      <label>Re-Order Point </label>
-                     <input type="text" ng-model="$parent.ROrder" ng-init="$parent.ROrder=ep.ReOrder" class="form-control">
+                     <input type="text" ng-model="$parent.ROrder" ng-init="$parent.ROrder=ep.ReOrder" class="form-control" ng-keypress="filterValue($event)">
                   </div>
                      <div class="modal-footer">
                         <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>

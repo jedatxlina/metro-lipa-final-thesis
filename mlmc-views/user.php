@@ -400,7 +400,7 @@
                     case '7':
                             $http({
                                 method: 'GET',
-                                url: 'updateData/update-user-profile.php',
+                                url: 'insertData/insert-user-profile.php',
                                 params: {id: $scope.accountid,
                                         Lastname: $scope.lname,
                                         Firstname: $scope.fname,
@@ -420,7 +420,7 @@
                     case '4':
                             $http({
                                 method: 'GET',
-                                url: 'updateData/update-user-profile.php',
+                                url: 'insertData/insert-user-profile.php',
                                 params: {id: $scope.accountid,
                                     Lastname: $scope.lname,
                                     Firstname: $scope.fname,
@@ -442,7 +442,7 @@
                     default:
                             $http({
                             method: 'GET',
-                            url: 'updateData/update-user-profile.php',
+                            url: 'insertData/insert-user-profile.php',
                             params: {id: $scope.accountid,
                                     Lastname: $scope.lname,
                                     Firstname: $scope.fname,
