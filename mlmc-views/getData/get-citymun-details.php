@@ -2,7 +2,6 @@
 
 require_once 'connection.php';
 
-$id= $_GET['id'];
 
 $sel = mysqli_query($con,"SELECT * FROM cities WHERE province_id = '$id'");
 $data = array();

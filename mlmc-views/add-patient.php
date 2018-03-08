@@ -75,9 +75,9 @@
                                                 </div>
                                                 <div data-field-span="1">
                                                     <label>Nationality</label>
-                                                    <select class="form-control" ng-model="citizenship">  
-                                                            <option value="" disabled selected>Select</option>
-                                                            <option value="Philippines" title="Philippines">Filipino</option>
+                                                    <select class="form-control" ng-model="nationality">
+                                                        <option value="" disabled selected>Select Nationality</option>
+                                                         <option ng-repeat="nationality in cntntl" value="{{nationality.id}}">{{nationality.nationality}}</option>
                                                     </select>
                                                 </div>
                                             </div>
@@ -227,9 +227,9 @@
                                             <div data-row-span="2">
                                                 <div data-field-span="1">
                                                     <label>Nationality</label>
-                                                    <select class="form-control" ng-model="babycitizenship"  style="width:400px;">  
-                                                            <option value="" disabled selected>Select</option>
-                                                            <option value="Filipino">Filipino</option>
+                                                    <select class="form-control" ng-model="nationality">
+                                                        <option value="" disabled selected>Select Nationality</option>
+                                                         <option ng-repeat="nationality in cntntl" value="{{nationality.id}}">{{nationality.nationality}}</option>
                                                     </select>
                                                 </div>
                                             </div>
@@ -325,11 +325,17 @@
                         $scope.provinces = response.data;
                     });
 
+                   $http({
+                        method: 'GET',
+                        url: 'getData/get-nationality-details.php'
+                    }).then(function(response) {
+                        // $scope.countnat = response.data;
+                        // alert($scope.countnat);
+                    });
+        
                     $('#newbornbabydiv').hide();
 
-                  
-
-
+                
                     $scope.newbornyes = function(){
                         $('#newbornbabydiv').show();
                         $('#notnewborndiv').hide();
