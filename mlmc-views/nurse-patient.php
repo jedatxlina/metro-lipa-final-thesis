@@ -48,9 +48,9 @@ font-weight: bold;
 	<div data-widget-group="group1">
 			<div class="row">
 				<div class="col-md-9">
-					<div class="panel panel-default">
+					<div class="panel panel-danger">
 						<div class="panel-heading">
-							<h2>Inpatient Patients</h2><a ng-click="viewReport()" class="pull-right">Print Report &nbsp;<i class="ti ti-printer"></i></a>
+							<h2>Inpatient Patients</h2><a ng-click="viewReport()" class="pull-right"> &nbsp;<i class="ti ti-printer"></i></a>
 							<div class="panel-ctrls"></div>
 						</div>
 						<div class="panel-body">
@@ -83,7 +83,7 @@ font-weight: bold;
 					</div>
 				</div>
 				<div class="col-md-3">
-					<div class="panel panel-midnightblue widget-progress" data-widget='{"draggable": "false"}'>
+					<div class="panel panel-danger widget-progress" data-widget='{"draggable": "false"}'>
 						<div class="panel-heading">
 							<h2>Current Time</h2>
 							<div class="panel-ctrls button-icon-bg" 
@@ -633,6 +633,10 @@ font-weight: bold;
 
 				case 'LaboratoryDept':
                         window.location.href = 'laboratorydept.php?at=' + $scope.at;
+						break;
+						
+				case 'Logout':
+                        window.location.href = '../logout.php?at=' + $scope.at;
                         break;
 				
 				default:

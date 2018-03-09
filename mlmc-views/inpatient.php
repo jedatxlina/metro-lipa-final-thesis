@@ -21,84 +21,90 @@ font-weight: bold;
 		
 			<div class="row">
 				<div class="col-md-9">
-					
-				<div class="tab-container tab-midnightblue">
-									<ul class="nav nav-tabs">
-										<li class="active"><a href="#home1" data-toggle="tab"> Inpatient</a></li>
-										<li><a href="#profile1" data-toggle="tab">Nursery</a></li>
-										<li class="dropdown">
-											<a class="dropdown-toggle" data-toggle="dropdown" href="#">Dropdown<span class="caret"></span></a>
-											<ul class="dropdown-menu">
-												<li><a href="#">Something</a></li>
-												<li><a href="#">Something Else</a></li>
-												<li class="divider"></li>
-												<li><a href="#">And one more thing</a></li>
-											</ul>
-										</li>
-									
-									</ul>
-									<div class="tab-content">
-										<div class="tab-pane active" id="home1">
-											<table id="patient_table" class="table table-striped table-bordered" cellspacing="0" width="100%">
-												<thead>
-												<tr>
-													<th>Admission ID</th>
-													<th>Admission No</th>
-													<th>Admission Date</th>
-													<th>Admission Time</th>
-													<th>Full name</th>
-													<th>Admission</th>
-													<th>Admission Type</th>
-													<th>Gender</th>
-												</tr>
-												</thead>
-												<tbody>
-												<tr ng-repeat="user in users" ng-class="{'selected': user.AdmissionID == selectedRow}" ng-click="setClickedRow(user.AdmissionID)">
-													<td>{{user.AdmissionID}}</td>
-													<td>{{user.AdmissionNo}}</td>
-													<td>{{user.AdmissionDate}}</td>
-													<td>{{user.AdmissionTime}}</td>
-													<td>{{user.Lname}}, {{user.Fname}} {{user.Mname}} </td>
-													<td>{{user.Admission}}</td>
-													<td>{{user.AdmissionType}}</td>
-													<td>{{user.Gender}}</td>
-													</tr>
-												</tbody>
-											</table>
-										</div>
-										<a ng-click="viewReport()">Print Report &nbsp;<i class="ti ti-printer"></i></a>
-              							<div class="tab-pane" id="profile1">
-										  <table id="nursery_table" class="table table-striped table-bordered" cellspacing="0" width="100%">
-											<thead>
-											<tr>
-												<th>Nursery ID</th>
-												<th>Admission ID</th>
-												<th>Last name</th>
-												<th>First name</th>
-												<th>Middle name</th>
-												<th>Birthdate</th>
-												<th>Delivery Type</th>
-											</tr>
-											</thead>
-											<tbody>
-											<tr ng-repeat="patient in patients" ng-class="{'selected': patient.NurseryID == selectedRow}"  ng-click="setClickedRow(patient.NurseryID)">
-												<td>{{patient.NurseryID}}</td>
-												<td>{{patient.AdmissionID}}</td>
-												<td>{{patient.Lastname}}</td>
-												<td>{{patient.Firstname}}</td>
-												<td>{{patient.Middlename}}</td>
-												<td>{{patient.Birthdate}}</td>
-												<td>{{patient.Deliverytype}}</td>
-												</tr>
-											</tbody>
-										</table>
-										</div>
-				  					</div>
-								</div>
-				</div>
+					<div class="panel panel-danger">
+						<div class="panel-heading">
+							<h2>Currently Admitted</h2><a ng-click="viewReport()" class="pull-right"><i class="ti ti-printer"></i></a>
+							<div class="panel-ctrls"></div>
+						</div>
+						<div class="panel-body">
+							<div class="tab-container tab-midnightblue">
+												<ul class="nav nav-tabs">
+													<li class="active"><a href="#home1" data-toggle="tab"> Inpatient</a></li>
+													<li><a href="#profile1" data-toggle="tab">Nursery</a></li>
+													<li class="dropdown">
+														<a class="dropdown-toggle" data-toggle="dropdown" href="#">Dropdown<span class="caret"></span></a>
+														<ul class="dropdown-menu">
+															<li><a href="#">Something</a></li>
+															<li><a href="#">Something Else</a></li>
+															<li class="divider"></li>
+															<li><a href="#">And one more thing</a></li>
+														</ul>
+													</li>
+												
+												</ul>
+												<div class="tab-content">
+													<div class="tab-pane active" id="home1">
+														<table id="patient_table" class="table table-striped table-bordered" cellspacing="0" width="100%">
+															<thead>
+															<tr>
+																<th>Inpatient ID</th>
+																<th>Admission No</th>
+																<th>Admission Date</th>
+																<th>Admission Time</th>
+																<th>Full name</th>
+																<th>Admission</th>
+																<th>Admission Type</th>
+																<th>Gender</th>
+															</tr>
+															</thead>
+															<tbody>
+															<tr ng-repeat="user in users" ng-class="{'selected': user.AdmissionID == selectedRow}" ng-click="setClickedRow(user.AdmissionID)">
+																<td>{{user.AdmissionID}}</td>
+																<td>{{user.AdmissionNo}}</td>
+																<td>{{user.AdmissionDate}}</td>
+																<td>{{user.AdmissionTime}}</td>
+																<td>{{user.Lname}}, {{user.Fname}} {{user.Mname}} </td>
+																<td>{{user.Admission}}</td>
+																<td>{{user.AdmissionType}}</td>
+																<td>{{user.Gender}}</td>
+																</tr>
+															</tbody>
+														</table>
+													</div>
+													<a ng-click="viewReport()">Print Report &nbsp;<i class="ti ti-printer"></i></a>
+													<div class="tab-pane" id="profile1">
+													<table id="nursery_table" class="table table-striped table-bordered" cellspacing="0" width="100%">
+														<thead>
+														<tr>
+															<th>Nursery ID</th>
+															<th>Admission ID</th>
+															<th>Last name</th>
+															<th>First name</th>
+															<th>Middle name</th>
+															<th>Birthdate</th>
+															<th>Delivery Type</th>
+														</tr>
+														</thead>
+														<tbody>
+														<tr ng-repeat="patient in patients" ng-class="{'selected': patient.NurseryID == selectedRow}"  ng-click="setClickedRow(patient.NurseryID)">
+															<td>{{patient.NurseryID}}</td>
+															<td>{{patient.AdmissionID}}</td>
+															<td>{{patient.Lastname}}</td>
+															<td>{{patient.Firstname}}</td>
+															<td>{{patient.Middlename}}</td>
+															<td>{{patient.Birthdate}}</td>
+															<td>{{patient.Deliverytype}}</td>
+															</tr>
+														</tbody>
+													</table>
+													</div>
+												</div>
+											</div>
+							</div>
+						</div>
+					</div>
 				<div class="col-md-3">
-					<br><br>
-					<div class="panel panel-midnightblue widget-progress" data-widget='{"draggable": "false"}'>
+					<div class="panel panel-danger widget-progress" data-widget='{"draggable": "false"}'>
 						<div class="panel-heading">
 							<h2>Current Time</h2>
 							<div class="panel-ctrls button-icon-bg" 
@@ -609,6 +615,10 @@ font-weight: bold;
 				
 				case 'LaboratoryDept':
                     	window.location.href = 'laboratorydept.php?at=' + $scope.at;
+						break;
+						
+				case 'Logout':
+                        window.location.href = '../logout.php?at=' + $scope.at;
                         break;
 
 				default:

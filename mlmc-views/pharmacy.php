@@ -23,7 +23,7 @@
     <div data-widget-group="group1">
         <div class="row">
             <div class="col-md-9">
-                <div class="panel panel-default">
+                <div class="panel panel-danger">
                     <div class="panel-heading">
                         <h2>Pharmacy</h2>
                         <div class="panel-ctrls"></div>
@@ -60,31 +60,7 @@
                             </tbody>
                            
                         </table>
-                    <!-- Table 2 -->
-                    <!-- <div class="panel-body">
-                        <table id="table_info" class="table table-striped table-bordered" cellspacing="0" width="100%">
-                            <thead>
-                                <tr>
-                                    <th>Medicine ID</th>
-                                    <th>Medicine Name </th>
-                                    <th>Unit</th>
-                                    <th>Price</th>
-                                    <th>Quantity</th>
-                                    <th>Re-Order Point</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr ng-repeat="pharma in pharmacs track by $index" ng-class="{'selected': pharma.PharmaID == selectedRow}" ng-click="setClickedRow(pharma.PharmaID)" >
-                                    <td>{{pharma.PharmaID}}</td>
-                                    <td>{{pharma.PharmaName}}</td>
-                                    <td>{{pharma.Unit}}</td>
-                                    <td>{{pharma.Price}}</td>
-                                    <td ng-style = "changeStyle(pharma.Quantity,pharmacs[$index])">{{pharma.Quantity}}</td>  
-                                    <td>{{pharma.ReOrder}}</td>
-                                </tr>
-                            </tbody>
-                        </table> -->
-                        <!-- Table 2 end -->
+                   
                     </div>
                     <div class="panel-footer"></div>
                 </div>
@@ -468,6 +444,10 @@
 
                     case 'LaboratoryDept':
                             window.location.href = 'laboratorydept.php?at=' + $scope.at;
+                            break;
+
+                    case 'Logout':
+                            window.location.href = '../logout.php?at=' + $scope.at;
                             break;
                     
                     default:

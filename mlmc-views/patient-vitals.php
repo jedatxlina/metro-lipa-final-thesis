@@ -159,6 +159,10 @@ include '../mlmc-views/getData/get-inpatient-vitals.php';
                     case 'Laboratory':
                             window.location.href = 'laboratory.php?at=' + $scope.at;
                             break;
+
+                    case 'Logout':
+                            window.location.href = '../logout.php?at=' + $scope.at;
+                            break;
                     
                     default:
                         break;

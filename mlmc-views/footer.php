@@ -3,15 +3,25 @@
       <!-- .container-fluid -->
    </div>
    <!-- #page-content -->
+
+        <footer role="contentinfo">
+            <div class="clearfix">
+                <ul class="list-unstyled list-inline pull-left">
+                    <li><h6>&copy; 2018 Team MAD</h6></li>
+                </ul>
+            </div>
+        </footer>
+                </div>
+            </div>
+        </div>
 </div>
 
 
                 </div>
             </div>
         </div>
-        
     </div>
-
+  
 <script type="text/javascript" src="assets/js/jquery-1.10.2.min.js"></script> 							<!-- Load jQuery -->
 <script type="text/javascript" src="assets/js/jqueryui-1.10.3.min.js"></script> 							<!-- Load jQueryUI -->
 <script type="text/javascript" src="assets/js/bootstrap.min.js"></script> 								<!-- Load Bootstrap -->
@@ -37,20 +47,17 @@
 
 <!-- End loading site level scripts -->
     
-    <!-- Load page level scripts-->
+<!-- Load page level scripts-->
 
 
-	<script type="text/javascript" src="assets/plugins/form-daterangepicker/moment.min.js"></script>              			<!-- Moment.js for Date Range Picker -->
-	<script type="text/javascript" src="assets/plugins/form-daterangepicker/daterangepicker.js"></script>     				<!-- Date Range Picker -->
+<script type="text/javascript" src="assets/plugins/form-daterangepicker/moment.min.js"></script>              			<!-- Moment.js for Date Range Picker -->
+<script type="text/javascript" src="assets/plugins/form-daterangepicker/daterangepicker.js"></script>     				<!-- Date Range Picker -->
 	
 <script type="text/javascript" src="assets/plugins/form-colorpicker/js/bootstrap-colorpicker.min.js"></script> 			<!-- Color Picker -->
 
 <script type="text/javascript" src="assets/plugins/bootstrap-datepicker/bootstrap-datepicker.js"></script>      			<!-- Datepicker -->
 <script type="text/javascript" src="assets/plugins/bootstrap-timepicker/bootstrap-timepicker.js"></script>      			<!-- Timepicker -->
 <script type="text/javascript" src="assets/plugins/bootstrap-datetimepicker/js/bootstrap-datetimepicker.js"></script> <!-- DateTime Picker -->
-
-
-<script type="text/javascript" src="assets/plugins/clockface/js/clockface.js"></script>     								<!-- Clockface -->
 
 
 <script type="text/javascript" src="assets/demo/demo-pickers.js"></script>
@@ -67,9 +74,6 @@
 <script type="text/javascript" src="assets/plugins/charts-flot/jquery.flot.spline.js"></script> 				<!-- Flot Curved Lines -->
 
 <script type="text/javascript" src="assets/plugins/sparklines/jquery.sparklines.min.js"></script> 			 <!-- Sparkline -->
-
-<script type="text/javascript" src="assets/plugins/jvectormap/jquery-jvectormap-2.0.2.min.js"></script>       <!-- jVectorMap -->
-<script type="text/javascript" src="assets/plugins/jvectormap/jquery-jvectormap-world-mill-en.js"></script>   <!-- jVectorMap -->
 
 <script type="text/javascript" src="assets/plugins/switchery/switchery.js"></script>     					<!-- Switchery -->
 <script type="text/javascript" src="assets/plugins/easypiechart/jquery.easypiechart.js"></script>
@@ -100,8 +104,9 @@
 <script type="text/javascript" src="assets/demo/demo-formcomponents.js"></script>
 
 
+ <!-- End loading page level scripts-->
 
-    <!-- End loading page level scripts-->
+
 
     </body>
 </html>

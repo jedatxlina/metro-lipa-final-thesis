@@ -20,7 +20,7 @@ font-weight: bold;
 	<div data-widget-group="group1">
 			<div class="row">
 				<div class="col-md-9">
-					<div class="panel panel-default">
+					<div class="panel panel-danger">
 						<div class="panel-heading">
 							<h2>List of Patients</h2>
 							<div class="panel-ctrls"></div>
@@ -571,7 +571,11 @@ font-weight: bold;
 
                         case 'LaboratoryDept':
                                 window.location.href = 'laboratorydept.php?at=' + $scope.at;
-                                break;
+								break;
+								
+						case 'Logout':
+								window.location.href = '../logout.php?at=' + $scope.at;
+								break;
 
                         default:
                             break;

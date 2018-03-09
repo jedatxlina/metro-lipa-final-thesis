@@ -45,15 +45,16 @@
 			</form>
 			
 		</div>
+	</div>
 
 	</div>
 </div>
 
 <script>
+			var app = angular.module('myApp', []);
+			app.controller('userCtrl', function($scope, $http) {
 
-        var app = angular.module('myApp', []);
-        app.controller('userCtrl', function($scope, $http) {
-				$scope.at = "<?php echo $at;?>";
+			$scope.at = "<?php echo $at;?>";
 
 				angular.element(document).ready(function()
 				{
@@ -69,13 +70,14 @@
 				{
 					$scope.PW = 'admin';
 				}
+				
 				$http({
-								method: 'get',
-				 				params: {id : $scope.at},
-				 				url: 'getData/get-user-id.php'
-				 			}).then(function(response) {		
-								$scope.users = response.data;
-							});
+					method: 'get',
+				 	params: {id : $scope.at},
+				 	url: 'getData/get-user-id.php'
+				}).then(function(response) {		
+				$scope.users = response.data;
+				});
 				
 			switch ($scope.at.charAt(0)) {
 				case '1':
@@ -183,7 +185,12 @@
 
 					case 'LaboratoryDept':
                             window.location.href = 'laboratorydept.php?at=' + $scope.at;
+							break;
+							
+					case 'Logout':
+                            window.location.href = '../logout.php?at=' + $scope.at;
                             break;
+					
 					
 					default:
 						break;

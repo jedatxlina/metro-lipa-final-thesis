@@ -1,4 +1,4 @@
-<?php include 'admin-header.php';  $get = $_GET['id'];  ?>
+<?php include 'admin-header.php'; $get = $_GET['id'];?>
 <ol class="breadcrumb">
     <li><a href="index.php">Home</a>
     </li>
@@ -26,7 +26,6 @@
                                     </small>
                                 </div>
                                 <div class="panel-body"  id="notnewborndiv">
-
                                     <form class="grid-form" action="javascript:void(0)">
                                         <fieldset>
                                             <legend>Personal Detail</label>
@@ -77,12 +76,12 @@
                                                     <label>Nationality</label>
                                                     <select class="form-control" ng-model="nationality">
                                                         <option value="" disabled selected>Select Nationality</option>
-                                                         <option ng-repeat="nationality in cntntl" value="{{nationality.id}}">{{nationality.nationality}}</option>
+                                                         <option ng-repeat="nationality in cntntl" value="{{nationality.nationality}}">{{nationality.nationality}}</option>
                                                     </select>
                                                 </div>
                                             </div>
 
-                                            <div data-row-span="2">
+                                            <div data-row-span="3">
                                                 <div data-field-span="1">
                                                     <label>In case of a minor please provide details (Name of parent and natural guardian)</label>
                                                     <input type="text">
@@ -116,19 +115,11 @@
                                                             <input type="text" ng-model="address">
                                                         </div>
                                                     </div>
-                                                    <div data-row-span="1">
-                                                        <div data-field-span="1">
-                                                            <label>Telephone Residence</label>
-                                                            <input type="text" ng-model="telephone">
-                                                        </div>
-
-
-                                                    </div>
                                                 </fieldset>
                                                 <br>
                                                 <fieldset>
                                                     <legend>Personal Details</legend>
-                                                    <div data-row-span="1">
+                                                    <div data-row-span="2">
                                                         <div data-field-span="1">
                                                             <label>Occupation</label>
                                                             <label>
@@ -140,8 +131,6 @@
                                                             <label>
                                                                     <input type="radio" name="occupation" value="Unemployed" ng-model="occupation"> Unemployed</label>
                                                         </div>
-                                                    </div>
-                                                    <div data-row-span="2">
                                                         <div data-field-span="1">
                                                             <label>Education</label>
                                                             <label>
@@ -180,6 +169,144 @@
                                         </div>
                                     </div>
                                 </div>
+
+                                <div class="panel-body"  id="oldpatientdiv"  data-ng-repeat="patient in patientdetails"> 
+                                    <form class="grid-form" action="javascript:void(0)">
+                                        <fieldset>
+                                            <legend>Personal Detail</label>
+                                            </legend>
+                                            <div data-row-span="2">
+                                                <div data-field-span="1">
+                                                    <label>Admission ID</label>
+                                                    <input type="text" ng-model="admissionid" disabled>
+                                                </div>
+                                                <div data-field-span="1">
+                                                    <label>Admission Type</label>
+                                                    <input type="text" ng-model="admissiontype" disabled>
+                                                </div>
+                                            </div>
+                                            <div data-row-span="3">
+
+                                                <div data-field-span="1">
+                                                    <label>First Name</label>
+                                                    <input type="text" ng-model="patient.Firstname">
+                                                </div>
+                                                <div data-field-span="1">
+                                                    <label>Middle Name</label>
+                                                    <input type="text" ng-model="patient.Middlename">
+                                                </div>
+                                                <div data-field-span="1">
+                                                    <label>Last Name</label>
+                                                    <input type="text" ng-model="patient.Lastname">
+                                                </div>
+                                            </div>
+                                            <div data-row-span="4">
+                                                <div data-field-span="1">
+                                                    <label>Date of birth</label>
+                                                    <input type="text" class="form-control" ng-model="patient.Birthdate">
+                                                </div>
+                                                <div data-field-span="1">
+                                                    <label>Mobile No.</label>
+                                                    <input type="text" class="form-control" ng-model="patient.Contact" ui-mask="+63 999-999-9999" ui-mask-placeholder ui-mask-placeholder-char="-  " />
+                                                </div>
+                                                <div data-field-span="1">
+                                                    <label>Gender</label>
+                                                    <select class="form-control" ng-model="patient.Gender">  
+                                                            <option value="" disabled selected>Select</option>
+                                                            <option value="Male">Male</option>
+                                                            <option value="Female">Female</option>
+                                                        </select>
+                                                </div>
+                                                <div data-field-span="1">
+                                                    <label>Nationality</label>
+                                                    <select class="form-control" ng-model="patient.Nationality">
+                                                        <option value="" disabled selected>Select Nationality</option>
+                                                         <option ng-repeat="nationality in cntntl" value="{{nationality.nationality}}">{{nationality.nationality}}</option>
+                                                    </select>
+                                                </div>
+                                            </div>
+
+                                            <div data-row-span="3">
+                                                <div data-field-span="1">
+                                                    <label>In case of a minor please provide details (Name of parent and natural guardian)</label>
+                                                    <input type="text">
+                                                </div>
+                                                <div data-field-span="1">
+                                                    <label>Contact</label>
+                                                    <input type="text" class="form-control" ng-model="contact2" ui-mask="+63 999-999-9999" ui-mask-placeholder ui-mask-placeholder-char="-  " />
+                                                </div>
+                                            </div>
+
+                                            <br>
+                                            <div>
+                                                <fieldset>
+                                                    <legend>Residential address</legend>
+
+                                                    <div data-row-span="4">
+                                                        <div data-field-span="1">
+                                                            <label>Province</label>
+                                                            <select class="form-control" ng-options="data.provname for data in provinces | orderBy:'provname':false track by data.id" ng-model="province" ng-change="cityUpdate()">
+                                                                <option value="" disabled selected>Select Province</option>
+                                                            </select>
+                                                            
+                                                        </div>
+                                                        <div data-field-span="1">
+                                                            <label>City</label>
+                                                            <select class="form-control" ng-options="data.city for data in citymun | orderBy:'city':false track by data.id" ng-model="city">
+                                                                    <option value="" disabled selected>Select City</option>
+                                                                </select>
+                                                        </div>
+                                                        <div data-field-span="2">
+                                                            <label>Complete Address</label>
+                                                            <input type="text" ng-model="patient.CompleteAddress">
+                                                        </div>
+                                                    </div>
+                                                </fieldset>
+                                                <br>
+                                                <fieldset>
+                                                    <legend>Personal Details</legend>
+                                                    <div data-row-span="2">
+                                                        <div data-field-span="1">
+                                                            <label>Occupation</label>
+                                                            <label>
+                                                                    <input type="radio"  name="occupation" value="Employed" ng-model="patient.Occupation">Employed</label> &nbsp;
+                                                            <label>
+                                                                    <input type="radio" name="occupation" value="Retired" ng-model="patient.Occupation"> Retired</label> &nbsp;
+                                                            <label>
+                                                                    <input type="radio" name="occupation" value="Student" ng-model="patient.Occupation"> Student</label> &nbsp;
+                                                            <label>
+                                                                    <input type="radio" name="occupation" value="Unemployed" ng-model="patient.Occupation"> Unemployed</label>
+                                                        </div>
+                                                    </div>
+                                                    <div data-row-span="3">
+                                                        <div data-field-span="1">
+                                                            <label>Maritial Status</label>
+                                                            <select class="form-control" ng-model="patient.Status">  
+                                                                    <option value="" disabled selected>Select</option>
+                                                                    <option value="Single">Single</option>
+                                                                    <option value="Married">Married</option>
+                                                                    <option value="Widowed">Widowed</option>
+                                                                    <option value="Separated">Separated</option>
+                                                                </select>
+                                                        </div>
+                                                        <div data-field-span="2">
+                                                            <label>Spouse name</label>
+                                                            <input type="text" ng-model="spouse" ng-disabled="patient.Status != 'Married'">
+                                                        </div>
+                                                    </div>
+                                                </fieldset>
+                                            </div>
+                                    
+                                        <br>
+                                        <div class="clearfix pt-md">
+                                            <div class="pull-right">
+                                                <button ng-click="goBack()" class="btn-default btn">Cancel</button>
+                                                <button type="submit" class="btn-danger btn" ng-click="submitOldPatientForm(patient)">Next</button>
+                                            </div>
+                                        </div>
+                                    </form>
+                                </div>
+
                                 <div class="panel-body"  id="newbornbabydiv">
 
                                     <form class="grid-form" action="javascript:void(0)">
@@ -278,7 +405,10 @@
                 app.controller('userCtrl', function($scope, $window, $http) {
                     $scope.at = "<?php echo $_GET['at'];?>";
                     $scope.id = "<?php echo $_GET['id'];?>";
+                    $scope.chk = "<?php echo $chk =  isset($_GET['chk']) ? $_GET['chk'] : ''; ?>";
                     $scope.admissionid = "<?php echo "2017" .  rand(111111, 999999); ?>";
+                    $scope.medicalid = "<?php echo  rand(111111, 999999); ?>";
+
                     $scope.newborn = 'No';
 
                     switch ($scope.at.charAt(0)) {
@@ -329,17 +459,29 @@
                         method: 'GET',
                         url: 'getData/get-nationality-details.php'
                     }).then(function(response) {
-                        // $scope.countnat = response.data;
-                        // alert($scope.countnat);
+                        $scope.cntntl = response.data;
                     });
         
                     $('#newbornbabydiv').hide();
-
+                    
+                    if($scope.chk != ''){
+                        $('#notnewborndiv').hide();
+                        $('#oldpatientdiv').show();
+                        $http({
+                        method: 'GET',
+                        url: 'getData/get-search-details.php',
+                        params: {at:$scope.at,
+                                id: $scope.chk}
+                        }).then(function(response) {
+                            $scope.patientdetails = response.data;
+                        });
+                    }
                 
                     $scope.newbornyes = function(){
                         $('#newbornbabydiv').show();
                         $('#notnewborndiv').hide();
-
+                        $('#oldpatientdiv').hide();
+                        
                         $scope.param = '1';
                         
                         $http({
@@ -347,17 +489,23 @@
                             url: 'getData/get-emergency-details.php'
                         }).then(function(response) {
                             $scope.patients = response.data;
-                            alert($scope.patients);
                         });
                     }
 
                     $scope.newbornno = function(){
                         $('#newbornbabydiv').hide();
+                        if($scope.chk != ''){
+                        $('#notnewborndiv').hide();
+                        $('#oldpatientdiv').show();
+                        }else{
                         $('#notnewborndiv').show();
+                        $('#oldpatientdiv').hide();
+                        }
                     }
 
                     $scope.check = function(check){
                         $scope.param = check;
+                        
                         if($scope.param == 1){
                             $scope.admissiontype = 'Emergency';
                             
@@ -392,7 +540,9 @@
                         }).then(function(response) {
                             $scope.citymun = response.data;
                         });
-                    };
+                    }   
+
+
 
                     $scope.submitForm = function(check){
                         if($scope.newborn == 'Yes'){
@@ -406,17 +556,17 @@
                                     firstname: $scope.babyfirstname,
                                     birthdate: $scope.babybirthdate,
                                     birthtime: $scope.babybirthtime,
-                                    citizenship: $scope.babycitizenship,
+                                    nationality: $scope.nationality,
                                     bloodtype: $scope.babybloodtype,
                                     delivery: $scope.babydelivery}
                             }).then(function(response) {
-                                // window.location.href = 'add-baby-next.php?at=' + $scope.at + '&id=' + $scope.babyadmission;
+                                window.location.href = 'add-baby-next.php?at=' + $scope.at + '&id=' + $scope.babyadmission;
                                 alert('jed');
                             });
                             
                         }else{
+                            
                         $scope.birthdate =$("#datepicker").datepicker("option", "dateFormat", "yy-mm-dd" ).val();
-                        $scope.medicalid = "<?php echo  rand(111111, 999999); ?>";
                         
                         $http({
                             method: 'GET',
@@ -434,14 +584,38 @@
                                     birthdate: $scope.birthdate,
                                     contact: $scope.contact,
                                     occupation: $scope.occupation,
-                                    medicalid: $scope.medicalid}
+                                    medicalid: $scope.medicalid,
+                                    nationality: $scope.nationality}
                         }).then(function(response) {
                             window.location.href = 'add-patient-next.php?at=' + $scope.at + '&id=' + $scope.admissionid + '&medid=' + $scope.medicalid + '&param=' + $scope.admissiontype;
                         });
                      
                         }
-                       
-                     
+               
+                    }
+
+                     $scope.submitOldPatientForm = function(patient){
+                        // $http({
+                        //     method: 'GET',
+                        //     url: 'insertData/insert-emergency-details.php',
+                        //     params: {admissionid: $scope.admissionid,
+                        //             admissiontype: $scope.admissiontype,
+                        //             firstname: patient.Firstname,
+                        //             middlename: patient.Middlename,
+                        //             lastname: patient.Lastname,
+                        //             province: $scope.province.provname,
+                        //             city: $scope.city.city,
+                        //             address: patient.CompleteAddress,
+                        //             gender: patient.Gender,
+                        //             status: patient.Status,
+                        //             birthdate: patient.Birthdate,
+                        //             contact: patient.Contact,
+                        //             occupation: patient.Occupation,
+                        //             medicalid: $scope.medicalid,
+                        //             nationality: patient.Nationality}
+                        // }).then(function(response) {
+                        //     window.location.href = 'add-patient-next.php?at=' + $scope.at + '&id=' + $scope.admissionid + '&medid=' + $scope.medicalid + '&param=' + $scope.admissiontype;
+                        // });  
                     }
                     
                     $scope.goBack = function(){
@@ -501,6 +675,10 @@
                             
                             case 'Laboratory':
                                     window.location.href = 'laboratory.php?at=' + $scope.at;
+                                    break;
+
+                            case 'Logout':
+                                    window.location.href = '../logout.php?at=' + $scope.at;
                                     break;
                             
                             default:
