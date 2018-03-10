@@ -503,16 +503,6 @@
                         }
                     }
 
-                    $scope.check = function(check){
-                        $scope.param = check;
-                        
-                        if($scope.param == 1){
-                            $scope.admissiontype = 'Emergency';
-                            
-                        }else{
-                            $scope.admissiontype = 'Outpatient';
-                        }
-                    }
 
                     $scope.newbornUpdate = function(){
                             $scope.babyadmission = $scope.mother.concat('-1');
@@ -594,28 +584,16 @@
                
                     }
 
-                     $scope.submitOldPatientForm = function(patient){
-                        // $http({
-                        //     method: 'GET',
-                        //     url: 'insertData/insert-emergency-details.php',
-                        //     params: {admissionid: $scope.admissionid,
-                        //             admissiontype: $scope.admissiontype,
-                        //             firstname: patient.Firstname,
-                        //             middlename: patient.Middlename,
-                        //             lastname: patient.Lastname,
-                        //             province: $scope.province.provname,
-                        //             city: $scope.city.city,
-                        //             address: patient.CompleteAddress,
-                        //             gender: patient.Gender,
-                        //             status: patient.Status,
-                        //             birthdate: patient.Birthdate,
-                        //             contact: patient.Contact,
-                        //             occupation: patient.Occupation,
-                        //             medicalid: $scope.medicalid,
-                        //             nationality: patient.Nationality}
-                        // }).then(function(response) {
-                        //     window.location.href = 'add-patient-next.php?at=' + $scope.at + '&id=' + $scope.admissionid + '&medid=' + $scope.medicalid + '&param=' + $scope.admissiontype;
-                        // });  
+                    
+                    $scope.check = function(check){
+                        $scope.param = check;
+                        
+                        if($scope.param == 1){
+                            $scope.admissiontype = 'Emergency';
+                            
+                        }else{
+                            $scope.admissiontype = 'Outpatient';
+                        }
                     }
                     
                     $scope.goBack = function(){

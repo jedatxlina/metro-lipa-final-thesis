@@ -38,7 +38,6 @@ while ($row = mysqli_fetch_array($sel)) {
         "Birthdate"=>$row['Birthdate'],
         "Contact"=>$row['Contact'],
         "Occupation"=>$row['Occupation'],
-        "Religion"=>$row['Religion'],
         "Nationality"=>$row['Citizenship']);
 }
 echo json_encode($data);

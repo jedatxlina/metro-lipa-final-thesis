@@ -195,7 +195,7 @@ font-weight: bold;
                             <div class="panel-ctrls" data-actions-container="" data-action-collapse='{"target": ".panel-body, .panel-footer"}'></div>
                         </div>
                         <div class="panel-body" style="height: auto">
-						<center><span><strong>Search Registry Information Result</strong></span></center>
+						<button type="button" ng-click="newPatient()" class="btn btn-danger-alt pull-left">New</button><center><span class="'pull-left"><strong>Search Registry Information Result</strong></span></center>
 						<hr>
 							<table id="results_table" class="table table-striped table-bordered" cellspacing="0" width="100%">
                                     <thead>
@@ -578,6 +578,11 @@ font-weight: bold;
             else{
             	$('#errorModal').modal('show');
             }
+		}
+
+	
+		$scope.newPatient = function(){
+			window.location.href = 'add-patient.php?at=' + $scope.at + '&id=' + 1;		
 		}
 
 		$scope.searchPatientSelect = function(){
