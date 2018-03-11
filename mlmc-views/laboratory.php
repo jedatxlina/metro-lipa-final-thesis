@@ -23,7 +23,7 @@
     <div data-widget-group="group1">
         <div class="row">
             <div class="col-md-11">
-                <div class="panel panel-default">
+                <div class="panel panel-danger">
                     <div class="panel-heading">
                         <h2>MEDICAL LABORATORY</h2>
                         <div class="panel-ctrls"></div>
@@ -169,6 +169,10 @@
 
                 case 'LaboratoryDept':
                         window.location.href = 'laboratorydept.php?at=' + $scope.at;
+                        break;
+
+                case 'Logout':
+                        window.location.href = '../logout.php?at=' + $scope.at;
                         break;
                 
                 default:

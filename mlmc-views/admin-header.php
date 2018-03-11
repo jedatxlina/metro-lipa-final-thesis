@@ -10,7 +10,6 @@
     <meta name="apple-touch-fullscreen" content="yes">
     <meta name="description" content="Avenxo Admin Theme">
     <meta name="author" content="KaijuThemes">
-
     <link type='text/css' href='http://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400italic,600' rel='stylesheet'>
 
     <link type="text/css" href="assets/fonts/font-awesome/css/font-awesome.min.css" rel="stylesheet">
@@ -181,7 +180,7 @@
                         <li><a href="#" ng-click="viewProfile()"><i class="ti ti-user"></i><span>Profile</span></a></li>
                         <li><a href="#/"><i class="ti ti-settings"></i><span>Settings</span></a></li>
                         <li class="divider"></li>
-                        <li><a href="../logout.php"><i class="ti ti-shift-right"></i><span>Sign Out</span></a></li>
+                        <li><a ng-click="getPage('Logout')" href="javascript:void(0);"><i class="ti ti-shift-right"></i><span>Sign Out</span></a></li>
                     </ul>
                 </li>
 
@@ -192,7 +191,7 @@
 
         <div id="wrapper">
             <div id="layout-static">
-                <div class="static-sidebar-wrapper sidebar-default">
+                <div class="static-sidebar-wrapper sidebar-graylight">
                     <div class="static-sidebar">
                         <div class="sidebar">
                             <div class="widget">
@@ -246,6 +245,8 @@
                                             <?php } ?>><a ng-click="getPage('Specialization')" href="javascript:void(0);"><i class="fa fa-medkit"></i><span>List of Doctors</span> </a></li>
                                         <li <?php if ($id!=1){?>style="display:none"
                                             <?php } ?>><a ng-click="getPage('Laboratory')" href="javascript:void(0);"><i class="fa fa-search"></i><span>Laboratories</span></a></li>
+                                            <li <?php if ($id!=1){?>style="display:none"
+                                            <?php } ?>><a ng-click="getPage('Migrate')" href="javascript:void(0);"><i class="fa fa-database"></i><span>Migrate Data</span></a></li>
                                     </ul>
                                 </nav>
                             </div>

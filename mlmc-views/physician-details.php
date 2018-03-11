@@ -300,6 +300,10 @@
             window.location.href = 'laboratorydept.php?at=' + $scope.param;
             break;
 
+        case 'Logout':
+            window.location.href = '../logout.php?at=' + $scope.at;
+            break;
+
         default:
             break;
     }

@@ -1,4 +1,6 @@
 <?php
+require 'db.php';
+date_default_timezone_set("Asia/Singapore");
 /* Displays user information and some useful messages */
 session_start();
 
@@ -13,6 +15,14 @@ else {
     $accesstype = $_SESSION['accesstype'];
     $password = $_SESSION['password'];
     $email = $_SESSION['email'];
+    $logsid =  rand(111111, 999999);
+
+    $datetime = date("Y-m-d h:i A");
+
+    $query = "INSERT INTO user_logs VALUES ('$logsid','$id','$datetime','0')";
+
+    $mysqli->query($query);
+
 }
 ?>
 <!DOCTYPE html>
@@ -24,7 +34,7 @@ else {
 </head>
 
 <body>
-  <div class="form">
+  <div class="form" ng-app="myApp" ng-controller="userCtrl">
 
           <h1>Welcome!</h1>
   
@@ -36,10 +46,11 @@ else {
 
     </div>
     
-<script src='http://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js'></script>
+<script src='https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js'></script>
 <script src="js/index.js"></script>
 <script>
 var id = "<?php echo $id ?>";
+
 document.getElementById('dashboard').setAttribute('href', 'mlmc-views/index.php?at=' + id);
 
 </script>

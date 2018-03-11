@@ -2,51 +2,52 @@
 
 <ol class="breadcrumb">
 <li><a href="#">Home</a></li>
-<li class="active"><a href="#" ng-click="reSubmit()">Dashboard</a></li>
+<li class="active"><a href="#" ng-click="reSubmit()">Migrate Data</a></li>
 </ol>
-<br><br>
-<div class="container-fluid"  ng-app="myApp">
-	<div class="row">
-		<div class="col-md-3">
-			<div class="info-tile tile-warning">
-				<div class="tile-icon"><i class="ti ti-eye"></i></div>
-				<div class="tile-heading"><span>Page Views</span></div>
-				<div class="tile-body"><span>1600</span></div>
-				<div class="tile-footer"><span class="text-danger">-7.6%</span></div>
-			</div>
-		</div>
-		<div class="col-md-3">
-			<div class="info-tile tile-success">
-				<div class="tile-icon"><i class="ti ti-thumb-up"></i></div>
-				<div class="tile-heading"><span>Likes</span></div>
-				<div class="tile-body"><span>345</span></div>
-				<div class="tile-footer"><span class="text-success">+15.4%</span></div>
-			</div>
-		</div>
-		<div class="col-md-3">
-			<div class="info-tile tile-danger">
-				<div class="tile-icon"><i class="ti ti-check-box"></i></div>
-				<div class="tile-heading"><span>Bugs Fixed</span></div>
-				<div class="tile-body"><span>21</span></div>
-				<div class="tile-footer"><span class="text-success">+10.4%</span></div>
-			</div>
-		</div>
-		<div class="col-md-3">
-			<div class="info-tile tile-info">
-				<div class="tile-icon"><i class="ti ti-user"></i></div>
-				<div class="tile-heading"><span>New Members</span></div>
-				<div class="tile-body"><span>124</span></div>
-				<div class="tile-footer"><span class="text-danger">-25.4%</span></div>
-			</div>
-		</div>
 
-			<form ng-repeat="user in users">
-				<input type="hidden" ng-model="$parent.PW" ng-init="$parent.PW=user.Password" class="form-control">
-			</form>
-			
-		</div>
+<div class="container-fluid">
+    <div class="panel-body">
+		<h3>Migrate Data<small>Into Archive</small></h3>
 	</div>
-
+	<div class="row">
+    <div class="col-md-9">
+					<div class="panel panel-danger">
+						<div class="panel-heading">
+							<h2>Patient Archive</h2>	
+							<div class="panel-ctrls"></div>
+						</div>
+						<div class="panel-body">
+							<table id="patient_table" class="table table-striped table-bordered" cellspacing="0" width="100%">
+								<thead>
+								<tr>
+									<th>Archive No</th>
+									<th>Last name</th>
+                                    <th>First name</th>
+                                    <th>Middle name</th>
+									<th>Province</th>
+									<th>City</th>
+                                    <th>Address</th>
+									<th>Gender</th>
+								</tr>
+								</thead>
+								<tbody>
+								<tr>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                    </tr>
+								</tbody>
+							</table>
+							
+						</div>
+						<div class="panel-footer"></div>
+					</div>
+				</div>
 	</div>
 </div>
 
@@ -56,29 +57,7 @@
 
 			$scope.at = "<?php echo $at;?>";
 
-				angular.element(document).ready(function()
-				{
-					
-							if ($scope.PW == "mlmc")
-								{
-									window.location.href = 'user-details.php?at=' + $scope.at;
-								}
-							
-				});
 
-				if ($scope.at[0] == 1)
-				{
-					$scope.PW = 'admin';
-				}
-				
-				$http({
-					method: 'get',
-				 	params: {id : $scope.at},
-				 	url: 'getData/get-user-id.php'
-				}).then(function(response) {		
-				$scope.users = response.data;
-				});
-				
 			switch ($scope.at.charAt(0)) {
 				case '1':
 					$scope.User = "Administrator";
@@ -111,22 +90,8 @@
 					break;
 			}
 
-			$http({
-                method: 'GET',
-                 url: 'getData/get-emergency-details.php'
-            }).then(function(response) {
-                $scope.count = Object.keys(response.data).length;
-            });
 
-			$scope.buttonDisable = function() { 
-			  if($scope.param == '1')
-			  return true;
-			}
 
-			$scope.viewProfile = function() { 
-				window.location.href = 'user-profile.php?at=' + $scope.at;
-			}
-	
 			$scope.getPage = function(check){
 			
 				switch (check) {

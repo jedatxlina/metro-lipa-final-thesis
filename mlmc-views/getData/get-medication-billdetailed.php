@@ -14,5 +14,3 @@ while ($row = mysqli_fetch_array($sel)) {
 }
 echo json_encode($data);
 ?>
-
-									

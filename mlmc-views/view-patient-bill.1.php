@@ -9,7 +9,7 @@
     </li>
     <li><a href="#">Patients</a>
     </li>
-    <li class="active"><a href="index.php">Patient Bill Details</a>
+    <li class="active"><a href="index.php">Patient Medication Details</a>
     </li>
 </ol><br><br>
 
@@ -28,9 +28,8 @@
                     </div>
                     </div><!-- panel -->
                     <div class="list-group list-group-alternate mb-n nav nav-tabs">
-                        <a href="#tab-edit" 	role="tab" data-toggle="tab" class="list-group-item active"><i class="ti ti-view-list-alt"></i> Summary Of Bills</a>
-                        <a href="#tab-edit" ng-click="Redirect()" 	role="tab" data-toggle="tab" class="list-group-item active"><i class="ti ti-view-list-alt"></i> Detailed Bill</a>
-                        
+                    <a href="#tab-edit" ng-click="Redirect()" 	role="tab" data-toggle="tab" class="list-group-item active"><i class="ti ti-view-list-alt"></i> Summary Of Bills</a>
+                        <a href="#tab-edit"role="tab" data-toggle="tab" class="list-group-item active"><i class="ti ti-view-list-alt"></i> Detailed Bill</a>
                     </div>
                 </div><!-- col-sm-3 -->
                 <div class="col-sm-9">
@@ -76,44 +75,94 @@
                                     <fieldset  data-ng-repeat="medicine in medicinedetails">
                                         <input type="hidden" ng-model='MedicineBill[$index]' ng-init='MedicineBill[$index] = medicine.totalbill'>
                                     </fieldset>
-                                    <fieldset  data-ng-repeat="room in roomdetails track by $index">
-                                        <input type="hidden" ng-model='RoomBill[$index]' ng-init='RoomBill[$index] = room.bedbill'>
-                                    </fieldset>
                                         <h2>Summary Of Bills</h2>
-                                        <div class="row" >
-                                            <div class="col-md-2">
-                                                <h4>Room Bill</h4>
-                                            </div>
-                                            <div class="col-md-8" style="text-align: center;">
-                                                <h4>---------------------------------------------------------------</h4>
-                                            </div>
-                                            <div class="col-md-2">
-                                                <h4>{{ subtotalroom }}</h4>
+                                        <div class="panel panel-white" style="padding: 10px;">
+                                            <div class="row" data-ng-repeat="room in roomdetails track by $index">
+                                                <div class="col-md-12">
+                                                    <h4 style="font-size:30px;font-weight:bold;">Room Bill</h4>
+                                                </div>
+                                                <div class="col-md-6">
+                                                    <h4>Room Number</h4>
+                                                </div>
+                                                <div class="col-md-6">
+                                                    <h4>{{room.BedID}}</h4>
+                                                </div>
+                                                <div class="col-md-6">
+                                                    <h4>Arrival Date</h4>
+                                                </div>
+                                                <div class="col-md-6">
+                                                    <h4>{{room.ArrivalDate}}</h4>
+                                                </div>
+                                                <div class="col-md-6">
+                                                    <h4>Discharged Date</h4>
+                                                </div>
+                                                <div class="col-md-6">
+                                                    <h4>{{room.DischargeDate}}</h4>
+                                                </div>
+                                                <div class="col-md-6">
+                                                    <h4>Duration of Stay</h4>
+                                                </div>
+                                                <div class="col-md-6">
+                                                    <h4>{{room.Duration}}</h4>
+                                                </div>
+                                                <div class="col-md-6">
+                                                    <h4>Room Sub Total</h4>
+                                                </div>
+                                                <div class="col-md-6">
+                                                    <h4 style="font-size:20px;font-weight:bold;">{{room.bedbill}}</h4>
+                                                </div>
                                             </div>
                                         </div>
-                                        <div class="row">
+                                        <div class="panel panel-white" style="padding: 10px;">
+                                        
+                                        <h4 style="font-size:30px;font-weight:bold;">Medicine Bill</h4>
+                                            <div class="row" data-ng-repeat="medicine in medicinedetails track by $index">
+                                                <div class="col-md-6">
+                                                    <h4>Medicine Name</h4>
+                                                </div>
+                                                <div class="col-md-6">
+                                                    <h4>{{medicine.mediname}}</h4>
+                                                </div>
+                                                <div class="col-md-6">
+                                                    <h4>Medicine Dosage</h4>
+                                                </div>
+                                                <div class="col-md-6">
+                                                    <h4>{{medicine.Dosage}}</h4>
+                                                </div>
+                                                <div class="col-md-6">
+                                                    <h4>Medicine Quantity</h4>
+                                                </div>
+                                                <div class="col-md-6">
+                                                    <h4>{{medicine.quantity}}</h4>
+                                                </div>
+                                                <div class="col-md-6">
+                                                    <h4>Medicine Price</h4>
+                                                </div>
+                                                <div class="col-md-6">
+                                                    <h4>{{medicine.price}}</h4>
+                                                </div>
+                                                <div class="col-md-6">
+                                                    <h4>Medicine Total</h4>
+                                                </div>
+                                                <div class="col-md-6">
+                                                    <h4 style="font-size:20px;font-weight:bold;">{{medicine.totalbill}}</h4>
+                                                </div>
+                                                <div class="col-md-12">
+                                                <hr style="font-size:100px;">
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <!-- <div class="row">
                                             <div class="col-md-2">
                                                 <h4>Medicine Bill</h4>
                                             </div>
-                                            <div class="col-md-8" style="text-align: center;">
+                                            <div class="col-md-4">
                                                 <h4>---------------------------------------------------------------</h4>
                                             </div>
-                                            <div class="col-md-2">
-                                                <h4>{{ subtotalmedi }}</h4>
+                                            <div class="col-md-4">
+                                                <h4>{{ subtotal }}</h4>
                                             </div>
-                                        </div>
-                                        <hr size="30">
-                                        <div class="row">
-                                            <div class="col-md-2">
-                                                <h4 style="font-size: 30px;">Sub Total</h4>
-                                            </div>
-                                            <div class="col-md-8" style="text-align: center;">
-                                                <h4 style="font-weight: bold;">---------------------------------------------------------------</h4>
-                                            </div>
-                                            <div class="col-md-2">
-                                                <b><h4 style="font-size: 20px;font-weight: bold;">{{ subtotal }}</h4></b>
-                                            </div>
-                                        </div>
+                                        </div> -->
                                             <div class="pull-right">
                                                 <button ng-click="goBack()" class="btn-default btn">Cancel</button>
                                                 <button class="btn-primary btn" ng-click="">Save</button>
@@ -149,15 +198,12 @@
                     $scope.at = "<?php echo $_GET['at'];?>";
                     $scope.id = "<?php echo $_GET['id']; ?>";
                     $scope.MedicineBill = [];
-                    $scope.RoomBill = [];
-                    $scope.subtotalmedi = 0;
-                    $scope.subtotalroom = 0;
+                    $scope.subtotal = 0;
                     $scope.MedID = [];
                     $scope.Quantity = [];
                     $scope.Dosage = [];
                     $scope.NoteID = [];
                     var total = 0;
-                    var total1 = 0;
                     
                     switch ($scope.at.charAt(0)) {
                         case '1':
@@ -226,13 +272,7 @@
                             var product = $scope.MedicineBill[i];
                             total = total + product;
                         }
-                        $scope.subtotalmedi=total;
-                        for(var i = 0; i < $scope.RoomBill.length; i++){
-                            var product1 = $scope.RoomBill[i];
-                            total1 = total1 + product1;
-                        }
-                        $scope.subtotalroom=total1;
-                        $scope.subtotal = $scope.subtotalroom+$scope.subtotalmedi;
+                        $scope.subtotal=total;
                     });
                     $scope.submitDetails = function(type){
                         $scope.totalbill = 5000;
@@ -269,8 +309,9 @@
                             });
                     }
 
+                    
                     $scope.Redirect = function(){
-                            window.location.href = 'view-patient-bill.1.php?at=' + $scope.at + '&id=' + $scope.id;
+                            window.location.href = 'view-patient-bill.php?at=' + $scope.at + '&id=' + $scope.id;
                     }
 
                     $scope.getPage = function(check){

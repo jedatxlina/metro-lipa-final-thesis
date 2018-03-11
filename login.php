@@ -20,7 +20,7 @@ else { // User exists
         $_SESSION['email'] = $user['Email'];
         
         $_SESSION['logged_in'] = true;
-
+        
         header("location: profile.php");
     }
     else {

@@ -856,7 +856,7 @@ body {
   font-family: 'Source Sans Pro', 'Segoe UI', 'Droid Sans', Tahoma, Arial, sans-serif;
   font-size: 14px;
   line-height: 1.45;
-  color: #616161;
+  color: #000000;
   background-color: #f5f5f5;
 }
 input,
@@ -2008,7 +2008,8 @@ pre code {
   }
 }
 table {
-  background-color: transparent;
+  background-color: #ffffff;
+  color: #000000;
 }
 caption {
   padding-top: 10px 10px;
@@ -2086,7 +2087,7 @@ th {
   border-bottom-width: 1px;
 }
 .table-striped > tbody > tr:nth-child(odd) {
-  background-color: #fcfcfc;
+  background-color: rgb(255, 255, 255);
 }
 .table-hover > tbody > tr:hover {
   background-color: #fafafa;
@@ -23787,7 +23788,7 @@ span[data-style="panel-brown"] {
 .widget-progress .panel-footer {
   margin: 0;
   padding: 16px 0;
-  background-color: #263238;
+  background-color: #FFFFFF;
   border-bottom-left-radius: 2px;
   border-bottom-right-radius: 2px;
 }
@@ -23807,13 +23808,13 @@ span[data-style="panel-brown"] {
   height: 16px;
 }
 .widget-progress .panel-footer .tabular-cell span.status-total {
-  color: #78909c;
+  color: #000000;
 }
 .widget-progress .panel-footer .tabular-cell span.status-pending {
-  color: #78909c;
+  color: #000000;
 }
 .widget-progress .panel-footer .tabular-cell span.status-value {
-  color: #fff;
+  color: #616161;
   font-size: 24px;
   height: 32px;
 }

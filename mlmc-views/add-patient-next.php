@@ -94,40 +94,41 @@
                                                         <input type="text" ng-model="height"class="form-control tooltips" data-trigger="hover" data-original-title="(Cm)">
                                                     </div>
                                             </div>
-                                           
-                                            <legend>Review of System</legend>
-                                            <div data-row-span="4"> 
-                                                    <div data-field-span="2">
-                                                        <label>Impression/Admitting Diagnosis</label>
-                                                        <textarea autogrow ng-model="diagnosis"></textarea>
-                                                    </div>
-                                                    <div data-field-span="2">
-                                                        <label>Administered Medications</label>
-                                                        <div class="controls">
-                                                        
-                                                            <select id="administered" class="select2" multiple="multiple" style="width:400px;">
-                                                                <optgroup label="List of Medicines">
-                                                                     <option ng-repeat="medicine in medicines" value="{{medicine.MedicineID}}">{{medicine.MedicineName}}</option>
-                                                                </optgroup>
-                                                                <option ng-value="Others">Others</option>
-                                                            </select>
-                                                            <a href="#">&nbsp;<i class="ti ti-close" ng-click="reset('administeredmed')"></i></a><br><br>
-                                                            <div id="otheradministeredmed">
-                                                                <label>Other Administered Medication</label>
-                                                                <input type="text" ng-model="otheradministeredmed" class="form-control tooltips" data-trigger="hover" data-original-title="Separate with , if more than 1">
+                                            <div>
+                                                <legend>Review of System</legend>
+                                                <div data-row-span="4"> 
+                                                        <div data-field-span="2">
+                                                            <label>Impression/Admitting Diagnosis</label>
+                                                            <textarea autogrow ng-model="diagnosis"></textarea>
+                                                        </div>
+                                                        <div data-field-span="2">
+                                                            <label>Administered Medications</label>
+                                                            <div class="controls">
+                                                            
+                                                                <select id="administered" class="select2" multiple="multiple" style="width:400px;">
+                                                                    <optgroup label="List of Medicines">
+                                                                        <option ng-repeat="medicine in medicines" value="{{medicine.MedicineID}}">{{medicine.MedicineName}}</option>
+                                                                    </optgroup>
+                                                                    <option ng-value="Others">Others</option>
+                                                                </select>
+                                                                <a href="#">&nbsp;<i class="ti ti-close" ng-click="reset('administeredmed')"></i></a><br><br>
+                                                                <div id="otheradministeredmed">
+                                                                    <label>Other Administered Medication</label>
+                                                                    <input type="text" ng-model="otheradministeredmed" class="form-control tooltips" data-trigger="hover" data-original-title="Separate with , if more than 1">
+                                                                </div>
                                                             </div>
                                                         </div>
+                                                </div>
+                                                <div data-row-span="2">
+                                                    <div data-field-span="1">
+                                                        <label>Attending Physician</label>
+                                                        <select class="form-control" ng-model="attendingphysician" style="width:395px;">
+                                                            <option value="" disabled selected>Select Physician</option>
+                                                            <option ng-repeat="physician in physicians" value="{{physician.AccountID}}">{{physician.Fullname}}</option>
+                                                        
+                                                        </select>
+                                                    
                                                     </div>
-                                            </div>
-                                            <div data-row-span="2">
-                                                <div data-field-span="1">
-                                                    <label>Attending Physician</label>
-                                                    <select class="form-control" ng-model="attendingphysician" style="width:395px;">
-                                                        <option value="" disabled selected>Select Physician</option>
-                                                         <option ng-repeat="physician in physicians" value="{{physician.AccountID}}">{{physician.Fullname}}</option>
-                                                       
-                                                    </select>
-                                                
                                                 </div>
                                             </div>
                                             <br>
@@ -239,6 +240,7 @@
                     $scope.otherconditions = '';
                     $scope.othercurrentmed = '';
                     $scope.otheradministeredmed = '';
+                    
                     $('#otherconditions').hide();
                     $('#othercurrentmed').hide();
                     $('#otheradministeredmed').hide();
@@ -451,6 +453,10 @@
                             
                             case 'LaboratoryDept':
                                     window.location.href = 'laboratorydept.php?at=' + $scope.at;
+                                    break;
+
+                            case 'Logout':
+                                    window.location.href = '../logout.php?at=' + $scope.at;
                                     break;
                             
                             default:

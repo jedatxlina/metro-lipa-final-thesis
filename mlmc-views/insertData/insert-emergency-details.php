@@ -10,6 +10,7 @@ $lastname = $_GET['lastname'];
 $admissiontype = $_GET['admissiontype'];
 $province = $_GET['province'];
 $city = $_GET['city'];
+$brgy = $_GET['brgy'];
 $address = $_GET['address'];
 $gender = $_GET['gender'];
 // $age = $_GET['age'];
@@ -17,9 +18,9 @@ $status = $_GET['status'];
 $date = $_GET['birthdate'];
 $birthdate = date("Y-m-d", strtotime($date));
 $contact = $_GET['contact'];
-$class = $_GET['classification'];
 $occupation = $_GET['occupation'];
 $medicalid = $_GET['medicalid'];
+$nationality = $_GET['nationality'];
 
 $parameterage  = date_create($birthdate);
 $currentdatetime 	= date_create(); // Current time and date
@@ -44,8 +45,8 @@ if($rows >= 1){
 }
 
 
-$query = "INSERT into patients(AdmissionID,AdmissionDate,AdmissionTime,AdmissionType,FirstName,MiddleName,LastName,Admission,Province,City,CompleteAddress,Gender,Age,CivilStatus,Birthdate,Contact,Occupation,MedicalID) 
-VALUES('$admissionid','$date','$time','$admissiontype','$firstname','$middlename','$lastname','$admission','$province','$city','$address','$gender','$exactage','$status','$birthdate','$contact','$occupation','$medicalid')";
+$query = "INSERT into patients(AdmissionID,AdmissionDate,AdmissionTime,AdmissionType,FirstName,MiddleName,LastName,Admission,Province,City,Brgy,CompleteAddress,Gender,Age,CivilStatus,Birthdate,Contact,Occupation,Citizenship,MedicalID) 
+VALUES('$admissionid','$date','$time','$admissiontype','$firstname','$middlename','$lastname','$admission','$province','$city','$brgy','$address','$gender','$exactage','$status','$birthdate','$contact','$occupation','$nationality','$medicalid')";
 
 mysqli_query($con,$query);  
 

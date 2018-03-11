@@ -27,9 +27,9 @@ include 'admin-header.php' ?>
     <div data-widget-group="group1">
         <div class="row">
             <div class="col-md-9">
-                <div class="panel panel-default">
+                <div class="panel panel-danger">
                     <div class="panel-heading">
-                        <h2>Outpatient Patients</h2><a ng-click="viewReport()" class="pull-right">Print Report &nbsp;<i class="ti ti-printer"></i></a>
+                        <h2>Outpatient Patients</h2><a ng-click="viewReport()" class="pull-right"><i class="ti ti-printer"></i></a>
                         <div class="panel-ctrls"></div>
                     </div>
                     <div class="panel-body">
@@ -65,7 +65,7 @@ include 'admin-header.php' ?>
             </div>
 
             <div class="col-md-3">
-                <div class="panel panel-midnightblue widget-progress" data-widget='{"draggable": "false"}'>
+                <div class="panel panel-danger widget-progress" data-widget='{"draggable": "false"}'>
                     <div class="panel-heading">
                         <h2>Current Time</h2>
                         <div class="panel-ctrls button-icon-bg" data-actions-container="" data-action-refresh-demo='{"type": "circular"}'>
@@ -111,6 +111,113 @@ include 'admin-header.php' ?>
             </div>
             <!--/ Error modal -->
 
+			  <!-- Search modal -->
+			  <div class="modal fade" id="searchPatientModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+                <div class="modal-dialog">
+                    <div class="panel panel-danger" data-widget='{"draggable": "false"}'>
+                        <div class="panel-heading">
+                            <h2>Patient Database Lookup</h2>
+                            <div class="panel-ctrls" data-actions-container="" data-action-collapse='{"target": ".panel-body, .panel-footer"}'></div>
+                        </div>
+                        <div class="panel-body" style="height: auto">
+						<center><span><strong>Search Registry Information</strong></span></center>
+                                <hr>
+                                <div class="row">
+                                    <div class="form-group">
+                                        <label for="focusedinput" class="col-sm-3 control-label">
+										&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+										&nbsp;&nbsp;&nbsp;&nbsp;Last Name</label>
+                                        <div class="col-sm-7">
+                                            <input type="text" ng-model='lastname' class="form-control">
+                                        </div>
+									</div>
+								</div>
+								<br>
+								<div class="row">
+                                    <div class="form-group">
+										<label for="focusedinput" class="col-sm-3 control-label">
+										&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+										&nbsp;&nbsp;&nbsp;&nbsp;First Name</label>
+                                        <div class="col-sm-7">
+                                            <input type="text" ng-model='firstname' class="form-control">
+                                        </div>
+									</div>
+								</div>
+								<br>
+								<div class="row">
+                                    <div class="form-group">
+                                        <label for="focusedinput" class="col-sm-3 control-label">
+										&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+										&nbsp;&nbsp;&nbsp;&nbsp;Middle Name</label>
+                                        <div class="col-sm-7">
+                                            <input type="text" ng-model='middlename' class="form-control">
+                                        </div>
+									</div>
+								</div>
+								<br>
+								<div class="row">
+                                    <div class="form-group">
+                                        <label for="focusedinput" class="col-sm-3 control-label">
+										&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+										&nbsp;&nbsp;&nbsp;&nbsp;Birthdate</label>
+                                        <div class="col-sm-7">
+											<input type="text" ng-model="" id="datepicker" class="form-control">
+                                        </div>
+									</div>
+								</div>
+								
+						</div>
+						<div class="panel-footer">
+                            <button type="button" ng-click="searchPatient()" data-dismiss="modal" class="btn btn-danger pull-right">Search</button>
+                                <button type="button" data-dismiss="modal" class="btn btn-default pull-right">Cancel</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+			<!--/ Search modal -->
+			
+			  <!-- Search Result modal -->
+			  <div class="modal fade" id="searchResultPatientModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+                <div class="modal-dialog">
+                    <div class="panel panel-danger" data-widget='{"draggable": "false"}'>
+                        <div class="panel-heading">
+                            <h2>Patient Database Lookup</h2>
+                            <div class="panel-ctrls" data-actions-container="" data-action-collapse='{"target": ".panel-body, .panel-footer"}'></div>
+                        </div>
+                        <div class="panel-body" style="height: auto">
+						<button type="button" ng-click="newPatient()" class="btn btn-danger-alt pull-left">New</button><center><span class="'pull-left"><strong>Search Registry Information Result</strong></span></center>
+						<hr>
+							<table id="results_table" class="table table-striped table-bordered" cellspacing="0" width="100%">
+                                    <thead>
+                                        <tr>
+                                            <th>Last Name</th>
+                                            <th>First Name</th>
+                                            <th>Middle Name</th>
+                                            <th>Birthdate</th>
+                                            <th>Gender</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr ng-repeat="res in searchres" ng-class="{'selected': res.ArchiveID == selectedRow}" ng-click="setClickedRow(res.ArchiveID)">
+                                            <td>{{res.Lastname}}</td>
+                                            <td>{{res.Firstname}}</td>
+                                            <td>{{res.Middlename}}</td>
+                                            <td>{{res.Birthdate}}</td>
+                                            <td>{{res.Gender}}</td>
+
+                                        </tr>
+                                    </tbody>
+                            </table>
+						</div>
+						<div class="panel-footer">
+						<button type="button" ng-click="searchResultView()" class="btn btn-danger-alt pull-left">View Details</button>
+                            <button type="button" ng-click="searchPatientSelect()" data-dismiss="modal" class="btn btn-danger pull-right">Select</button>
+                            <button type="button" data-dismiss="modal" class="btn btn-default pull-right">Cancel</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!--/ Search Result modal -->
 
             <!-- Patient Modal -->
             <div class="modal fade" id="patientModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
@@ -190,7 +297,6 @@ include 'admin-header.php' ?>
                         <div class="panel panel-danger" data-widget='{"draggable": "false"}'>
                             <div class="panel-heading">
                                 <h2>Posted Physician Orders</h2>
-
                                 <div class="panel-ctrls" data-actions-container="" data-action-collapse='{"target": ".panel-body, .panel-footer"}'></div>
                             </div>
                             <div class="panel-body" style="height: 500px">
@@ -443,10 +549,56 @@ include 'admin-header.php' ?>
             		});
             
             		$scope.addPatient = function(){
-            			window.location.href = 'add-patient.php?at=' + $scope.at + '&id=' + 0;
-            			
+            			// window.location.href = 'add-patient.php?at=' + $scope.at + '&id=' + 0;
+            			$('#searchPatientModal').modal('show');
+						
             		}
+
+				
+					$scope.searchPatient = function(){
+						$scope.birthdate =$("#datepicker").datepicker("option", "dateFormat", "yy-mm-dd" ).val();
+						$('#searchPatientModal').modal('hide');
+						$http({
+							method: 'get',
+							url: 'getData/get-search-details.php',
+							params: {firstname: $scope.firstname,
+									middlename: $scope.middlename,
+									lastname: $scope.lastname,
+									birthdate: $scope.birthdate}
+							}).then(function(response) {
+								$scope.searchres = response.data
+								angular.element(document).ready(function() {  
+								dTable = $('#results_table')  
+								dTable.DataTable();  
+								});  
+						});
+						$('#searchResultPatientModal').modal('show');
+					}
             
+					$scope.searchResultView = function(){
+						if($scope.selectedRow != null){
+            				$scope.archiveid = $scope.selectedRow;
+							window.location.href = 'view-patient-data-archive.php?at=' + $scope.at + '&id=' + $scope.archiveid;
+            			}
+            			else{
+            			$('#errorModal').modal('show');
+            			}
+					}
+
+					$scope.newPatient = function(){
+						window.location.href = 'add-patient.php?at=' + $scope.at + '&id=' + 0;		
+					}
+
+					$scope.searchPatientSelect = function(){
+						if($scope.selectedRow != null){
+            				$scope.archiveid = $scope.selectedRow;
+							window.location.href = 'add-patient.php?at=' + $scope.at + '&id=' + 0 + '&chk=' + $scope.archiveid;
+            			}
+            			else{
+            			$('#errorModal').modal('show');
+            			}
+					}
+
             		$scope.setClickedRow = function(user) {
                        $scope.selectedRow = ($scope.selectedRow == null) ? user : ($scope.selectedRow == user) ? null : user;
                        $scope.clickedRow = ($scope.selectedRow == null) ? 0 : 1;
@@ -636,7 +788,11 @@ include 'admin-header.php' ?>
 
 							case 'LaboratoryDept':
                                     window.location.href = 'laboratorydept.php?at=' + $scope.at;
-                                    break;
+									break;
+									
+							case 'Logout':
+									window.location.href = '../logout.php?at=' + $scope.at;
+									break;
             				
             				default:
             					break;
