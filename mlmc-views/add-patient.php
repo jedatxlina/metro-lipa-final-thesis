@@ -1,4 +1,4 @@
-<?php include 'admin-header.php'; $get = $_GET['id'];?>
+<?php include 'admin-header.php'?>
 <ol class="breadcrumb">
     <li><a href="index.php">Home</a>
     </li>
@@ -9,7 +9,7 @@
 </ol>
 <br>
 <br>
-<div ng-app="myApp" ng-controller="userCtrl" ng-init="check('<?php echo $get; ?>')">
+<div>
     <div class="container-fluid">
         <div class="row">
             <div class="col-md-12">
@@ -81,7 +81,7 @@
                                                 </div>
                                             </div>
 
-                                            <div data-row-span="3">
+                                            <div data-row-span="4">
                                                 <div data-field-span="1">
                                                     <label>In case of a minor please provide details (Name of parent and natural guardian)</label>
                                                     <input type="text">
@@ -479,18 +479,16 @@
         
                     $('#newbornbabydiv').hide();
                     
+                    if($scope.param == '1'){
+                        $scope.admissiontype = 'Emergency';    
+                    }else{
+                        $scope.admissiontype = 'Outpatient';
+                    }
+                    
                     if($scope.chk != ''){
                         $('#notnewborndiv').hide();
                         $('#oldpatientdiv').show();
-                         
-                        $http({
-                        method: 'GET',
-                        url: 'getData/get-search-details.php',
-                        params: {at:$scope.at,
-                                id: $scope.chk}
-                        }).then(function(response) {
-                            $scope.patientdetails = response.data;
-                        });
+                        window.location.href = 'insertData/insert-oldpatient-details.php?at=' + $scope.at + '&chk=' + $scope.chk + '&admissionid=' + $scope.admissionid + '&admissiontype=' + $scope.admissiontype + '&medicalid=' + $scope.medicalid;
                     }
                 
                     $scope.newbornyes = function(){
@@ -610,18 +608,6 @@
                      
                         }
                
-                    }
-
-                    
-                    $scope.check = function(check){
-                        $scope.param = check;
-                        
-                        if($scope.param == 1){
-                            $scope.admissiontype = 'Emergency';
-                            
-                        }else{
-                            $scope.admissiontype = 'Outpatient';
-                        }
                     }
                     
                     $scope.goBack = function(){

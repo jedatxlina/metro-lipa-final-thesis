@@ -1,5 +1,10 @@
 <?php include 'admin-header.php'?>
-
+<!--  -->
+<style>
+      #map {
+		height: 50%;
+      }
+</style>
 <ol class="breadcrumb">
 <li><a href="#">Home</a></li>
 <li class="active"><a href="#" ng-click="reSubmit()">Dashboard</a></li>
@@ -43,14 +48,120 @@
 			<form ng-repeat="user in users">
 				<input type="hidden" ng-model="$parent.PW" ng-init="$parent.PW=user.Password" class="form-control">
 			</form>
-			
+	</div>
+    <div class="row" >
+        <div class="col-md-8">
+            <div class="panel panel-transparent">
+                <div class="panel-heading">
+                    <h2>Latest Graph of Inpatient Cases</h2>
+                </div>
+                <div class="panel-body">
+                 	<div id="map"  style="height: 450px;"></div>
+                </div>
+            </div>
 		</div>
-	</div>
-
-	</div>
+		<br><br><br>
+		<div class="col-md-4">
+			<div class="panel panel-danger" data-widget='{"draggable": "false"}'>
+				<div class="panel-heading">
+					<h2>Common Illnesses</h2>
+					<div class="panel-ctrls button-icon-bg">
+					</div>
+				</div>
+				<div class="panel-body no-padding">
+					<table class="table browsers m-n">
+						<tbody>
+							<tr>
+								<td>Google Chrome</td>
+								<td class="text-right">43.7%</td>
+								<td class="vam" style="width: 56px;">
+									<div class="progress m-n">
+	                                  <div class="progress-bar progress-bar-teal" style="width: 100%"></div>
+	                                </div>
+	                            </td>
+							</tr>
+							<tr>
+								<td>Firefox</td>
+								<td class="text-right">20.5%</td>
+								<td class="vam">
+									<div class="progress m-n">
+	                                  <div class="progress-bar progress-bar-teal" style="width: 50%"></div>
+	                                </div>
+	                            </td>
+							</tr>
+						
+						</tbody>
+					</table>
+				</div>
+			</div>
+		</div>
+    </div>
 </div>
 
 <script>
+	
+var marker;
+var metro =  {lat: 13.968371, lng: 121.166547};
+	
+function initMap() {
+    var map = new google.maps.Map(document.getElementById('map'), {
+    center: metro,
+    zoom: 11
+	});
+	
+	var infoWind = new google.maps.InfoWindow;
+	$.ajax({
+		type: "GET",
+		async: true,
+		url: "getList.php",
+		dataType: "xml",
+		success:
+		function (xml) {
+
+			var markers = xml.documentElement.getElementsByTagName("marker"),
+
+			markerArray=[];
+			var contents = [];
+
+				for (var i=0; i < markers.length; i++) {
+					
+					var strong = document.createElement('strong');
+					strong.textContent = markers[i].getAttribute('address');
+			
+					contents.push(strong);
+
+					var lat = markers[i].getAttribute('lat');
+					var long = markers[i].getAttribute('lng');
+					var latLng = new google.maps.LatLng(lat,long);
+			
+					var marker = new google.maps.Marker({
+						position:  latLng,
+						map: map,	
+						animation: google.maps.Animation.DROP
+					});
+					
+					google.maps.event.addListener(marker, 'mouseover', (function(marker,i) {
+						return function() {
+						infoWind.setContent(contents[i]);
+						infoWind.open(map, marker);
+						}
+					})(marker, i));
+
+					google.maps.event.addListener(marker, 'mouseout', (function(marker,i) {
+						return function() {
+						infoWind.close(contents[i]);
+						infoWind.close(map,marker);
+						}
+					})(marker, i));
+
+					markerArray.push(marker);
+			}
+			var markerCluster = new MarkerClusterer(map, markerArray);
+		}
+	});
+}
+
+
 			var app = angular.module('myApp', []);
 			app.controller('userCtrl', function($scope, $http) {
 
@@ -58,11 +169,10 @@
 
 				angular.element(document).ready(function()
 				{
-					
-							if ($scope.PW == "mlmc")
-								{
-									window.location.href = 'user-details.php?at=' + $scope.at;
-								}
+					if ($scope.PW == "mlmc")
+					{
+						window.location.href = 'user-details.php?at=' + $scope.at;
+					}
 							
 				});
 

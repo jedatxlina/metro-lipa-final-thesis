@@ -308,7 +308,7 @@ font-weight: bold;
 									<h2>Patient Details</h2>
 									<div class="panel-ctrls" data-actions-container="" data-action-collapse='{"target": ".panel-body, .panel-footer"}'></div>
 								</div>
-								<div class="panel-body" style="height: 550px">
+								<div class="panel-body" style="height: auto">
 									<center><span><strong>Patient Bill</strong></span></center>
 									<hr>
 									<div class="row" data-ng-repeat="bill in billdetails">
@@ -376,8 +376,8 @@ font-weight: bold;
 								
 								</div>
 								<div class="panel-footer">
-								<button type="button" ng-click="viewPatientDetails()" class="btn btn-danger-alt pull-left">View Details</button>
-								<button type="button" data-dismiss="modal" class="btn btn-danger pull-right">Ok</button>
+									<button type="button" ng-click="viewPatientDetails()" class="btn btn-danger-alt pull-left">View Details</button>
+									<button type="button" data-dismiss="modal" class="btn btn-danger pull-right">Ok</button>
 								</div>
 							</div>
 						</div>

@@ -11,7 +11,7 @@
     </li>
     <li class="active"><a href="index.php">Patient Medical Details</a>
     </li>
-</ol><br><br>
+</ol>
 
 <div ng-app="myApp" ng-controller="userCtrl">
     <div class="container-fluid">
@@ -96,7 +96,7 @@
                                             </div>
                                             <div>
                                                 <legend>Review of System</legend>
-                                                <div data-row-span="4"> 
+                                                <div data-row-span="4"  ng-show="param != 'Outpatient'"> 
                                                         <div data-field-span="2">
                                                             <label>Impression/Admitting Diagnosis</label>
                                                             <textarea autogrow ng-model="diagnosis"></textarea>
@@ -124,7 +124,7 @@
                                                         <label>Attending Physician</label>
                                                         <select class="form-control" ng-model="attendingphysician" style="width:395px;">
                                                             <option value="" disabled selected>Select Physician</option>
-                                                            <option ng-repeat="physician in physicians" value="{{physician.AccountID}}">{{physician.Fullname}}</option>
+                                                            <option ng-repeat="physician in physicians" value="{{physician.PhysicianID}}">{{physician.Fullname}}</option>
                                                         
                                                         </select>
                                                     
@@ -299,9 +299,14 @@
 
                     $scope.submitDetails = function(){
 
-                             $scope.condition = $("#conditions").val();
-                             $scope.medication =$("#medications").val();
-                             $scope.administered =$("#administered").val();
+                            $scope.condition = $("#conditions").val();
+                            $scope.medication =$("#medications").val();
+                            $scope.vitalsid =     "<?php echo rand(111111, 999999);?>"; 
+                            $scope.medicationid = "<?php echo rand(111111, 999999);?>"; 
+                            $scope.diagnosisid =  "<?php echo rand(111111, 999999);?>"; 
+                            $scope.attendingid =  "<?php echo rand(111111, 999999);?>"; 
+
+                            $scope.parsedbp =  $scope.bp.split('/');
 
                             $scope.found = $scope.condition.indexOf('Others');
                             while ($scope.found !== -1) {
@@ -323,40 +328,32 @@
                             if($scope.othercurrentmed != ''){
                                 $scope.medication = $scope.medication.concat($scope.othercurrentmed);
                             }
+
+                            if($scope.param != 'Outpatient'){
                            
-                            
-                            $scope.found2 = $scope.administered.indexOf('Others');
-                            while ($scope.found2 !== -1) {
-                                $scope.administered.splice($scope.found2, 1);
+                                $scope.administered =$("#administered").val();
+                                
                                 $scope.found2 = $scope.administered.indexOf('Others');
-                             
+                                while ($scope.found2 !== -1) {
+                                    $scope.administered.splice($scope.found2, 1);
+                                    $scope.found2 = $scope.administered.indexOf('Others');
+                                
+                                }
+                                if($scope.otheradministeredmed != ''){
+                                    $scope.administered = $scope.administered.concat($scope.otheradministeredmed);
+                                }
+                                    $http({
+                                    method: 'GET',
+                                    url: 'qr-generator/index.php',
+                                    params: {medid: $scope.medid,
+                                            admissionid: $scope.admissionid,
+                                        }
+                                    }).then(function(response) {
+                                    });
                             }
-                            if($scope.otheradministeredmed != ''){
-                                $scope.administered = $scope.administered.concat($scope.otheradministeredmed);
-                            }
-                
-
-                            $scope.vitalsid =     "<?php echo rand(111111, 999999);?>"; 
-                            $scope.medicationid = "<?php echo rand(111111, 999999);?>"; 
-                            $scope.diagnosisid =  "<?php echo rand(111111, 999999);?>"; 
-                            $scope.attendingid =  "<?php echo rand(111111, 999999);?>"; 
-
-                            $scope.parsedbp =  $scope.bp.split('/');
-                      
+                           
                             if($scope.param != 'Outpatient'){
                                 $http({
-                                method: 'GET',
-                                url: 'qr-generator/index.php',
-                                params: {medid: $scope.medid,
-                                        admissionid: $scope.admissionid,
-                                    }
-                                }).then(function(response) {
-                                });
-                            }
-                     
-                           
-         
-                            $http({
                                 method: 'GET',
                                 url: 'insertData/insert-medical-details.php',
                                 params: {medid: $scope.medid,
@@ -374,15 +371,33 @@
                                         height: $scope.height,
                                         diagnosis: $scope.diagnosis,
                                         attending: $scope.attendingphysician}
-                            }).then(function(response) {
-                                if($scope.param != 'Outpatient'){
+
+                                }).then(function(response) {
                                     window.location.href = 'insertData/insert-medications-details.php?param=' + $scope.param + '&at=' + $scope.at + '&medicationid=' + $scope.medicationid + '&admissionid=' + $scope.admissionid + '&administered=' + $scope.administered + '&physicianid=' + $scope.attendingphysician + '&medication=' + $scope.medication + '&condition=' + $scope.condition;
-                                }else{
-                                    window.location.href = 'outpatient.php?at=' + $scope.at;
-                                }
-                                
-                            });
-                 
+                                });      
+                            }else{
+                                $http({
+                                method: 'GET',
+                                url: 'insertData/insert-medicalopd-details.php',
+                                params: {medid: $scope.medid,
+                                        admissionid: $scope.admissionid,
+                                        vitalsid: $scope.vitalsid,
+                                        medicationid: $scope.medicationid,
+                                        diagnosisid: $scope.diagnosisid,
+                                        attendingid: $scope.attendingid,
+                                        surgery: $scope.surgery,
+                                        bp: JSON.stringify($scope.parsedbp),
+                                        pr: $scope.pr,
+                                        rr: $scope.rr,
+                                        temp: $scope.temp,
+                                        weight: $scope.weight,
+                                        height: $scope.height,
+                                        attending: $scope.attendingphysician}
+                                }).then(function(response) {
+                                    window.location.href = 'insertData/insert-condition-details.php?param=' + $scope.param + '&at=' + $scope.at + '&admissionid=' + $scope.admissionid + '&condition=' + $scope.condition;
+                                  
+                                });   
+                            }
                     }
 
                     $scope.goBack = function(){
