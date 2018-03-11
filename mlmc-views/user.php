@@ -25,7 +25,7 @@
             <div class="col-md-9">
                 <div class="panel panel-danger">
                     <div class="panel-heading">
-                        <h2>BED</h2>
+                        <h2>USERS</h2>
                         <div class="panel-ctrls"></div>
                     </div>
                     <div class="panel-body">
@@ -33,16 +33,16 @@
                         <thead>
                         <tr>
                            <th>Account ID</th>
-                           <th>Access Type</th>
-                           <th>Password</th>
+                           <th>Fullname</th>
+                           <th>Access Module </th>
                            <th>Email</th>
                         </tr>
                      </thead>
                      <tbody>
                         <tr ng-repeat="user in users" ng-class="{'selected': user.AccountID == selectedRow}" ng-click="setClickedRow(user.AccountID)">
                            <td>{{user.AccountID}}</td>
-                           <td>{{user.AccessType}}</td>
-                           <td>{{user.Password}}</td>
+                           <td>{{user.Fullname}}</td>
+                           <th>{{user.AccessType}}</th>
                            <td>{{user.Email}}</td>
                         </tr>
                      </tbody>
@@ -95,6 +95,7 @@
                                         <option value="5">Type 5 - Pharmacy Module</option>
                                         <option value="6">Type 6 - Billing Module</option>
                                         <option value="7">Type 7 - Secretary Module</option>
+                                        <option value="8">Type 8 - Laboratory Module</option>
                                     </select>
                                 </div>
                             </div>
@@ -375,7 +376,7 @@
                 
             $http({
                 method: 'get',
-                url: 'getData/get-user-accounts.php'
+                url: 'getData/get-all-users.php'
             }).then(function(response) {
                 $scope.users = response.data;
                 angular.element(document).ready(function() {
@@ -383,6 +384,8 @@
                     dTable.DataTable();
                 });
             });
+           
+            
 
                 $http({
                         method: 'get',

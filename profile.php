@@ -23,6 +23,22 @@ else {
 
     $mysqli->query($query);
 
+    if ($accesstype == 1)
+    $user = ' Administrator';
+    else if ($accesstype == 2)
+    $user = ' Admission Staff';
+    else if ($accesstype == 3)
+    $user = ' Nurse';
+    else if ($accesstype == 4)
+    $user = ' Physician';
+    else if ($accesstype == 5)
+    $user = ' Pharmacy';
+    else if ($accesstype == 6)
+    $user = ' Billing';
+    else if ($accesstype == 7)
+    $user = ' Secretary';
+    else if ($accesstype == 8)
+    $user = ' Laboratory Staff';
 }
 ?>
 <!DOCTYPE html>
@@ -39,7 +55,7 @@ else {
           <h1>Welcome!</h1>
   
           
-          <h2><?php echo $id . '<br>' . '<p>Access Type:' . $accesstype;?></h2>
+          <h2><?php echo $id . '<br>' . '<p>Access Type:' . $user;?></h2>
           <p><?= $email ?></p>
           
           <a href="mlmc-views/index.php" id="dashboard"><button class="button button-block" name="logout"/>Continue</button></a>

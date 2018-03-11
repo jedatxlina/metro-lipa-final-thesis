@@ -107,6 +107,10 @@
 				case '7':
 					$scope.User = "Secretary";
 			
+				case '8':
+					$scope.User = "Laboratory Staff";
+					break;
+
 				default:
 					break;
 			}
