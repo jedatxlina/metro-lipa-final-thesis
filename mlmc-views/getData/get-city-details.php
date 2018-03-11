@@ -4,14 +4,14 @@ require_once 'connection.php';
 
 $id= $_GET['id'];
 
-$sel = mysqli_query($con,"SELECT * FROM cities WHERE province_id = '$id'");
+$sel = mysqli_query($con,"SELECT * FROM refcitymun WHERE provCode = '$id'");
 $data = array();
 
 while ($row = mysqli_fetch_array($sel)) {
         $data[] = array(
-        "id"=>$row['id'],
-        "city"=>$row['name'],
-        "provid"=>$row['province_id']);
+        "id"=>$row['citymunCode'],
+        "city"=>$row['citymunDesc'],
+        "provid"=>$row['provCode']);
 }
 header('Content-type: application/json');
 echo json_encode($data);

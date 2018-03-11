@@ -106,11 +106,19 @@
                                                         </div>
                                                         <div data-field-span="1">
                                                             <label>City</label>
-                                                            <select class="form-control" ng-options="data.city for data in citymun | orderBy:'city':false track by data.id" ng-model="city">
-                                                                    <option value="" disabled selected>Select City</option>
-                                                                </select>
+                                                            <select class="form-control" ng-options="data.city for data in citymun | orderBy:'city':false track by data.id" ng-model="city" ng-change="brgyUpdate()">
+                                                                <option value="" disabled selected>Select City</option>
+                                                            </select>
                                                         </div>
-                                                        <div data-field-span="2">
+                                                        <div data-field-span="1">
+                                                            <label>Brgy</label>
+                                                            <select class="form-control" ng-options="data.brgy for data in brgydetails | orderBy:'brgy':false track by data.id" ng-model="brgy">
+                                                                <option value="" disabled selected>Select Brgy</option>
+                                                            </select>
+                                                        </div>
+                                                    </div>
+                                                    <div data-row-span='4'>
+                                                        <div data-field-span="1">
                                                             <label>Complete Address</label>
                                                             <input type="text" ng-model="address">
                                                         </div>
@@ -248,17 +256,24 @@
                                                             <select class="form-control" ng-options="data.provname for data in provinces | orderBy:'provname':false track by data.id" ng-model="province" ng-change="cityUpdate()">
                                                                 <option value="" disabled selected>Select Province</option>
                                                             </select>
-                                                            
                                                         </div>
                                                         <div data-field-span="1">
                                                             <label>City</label>
-                                                            <select class="form-control" ng-options="data.city for data in citymun | orderBy:'city':false track by data.id" ng-model="city">
-                                                                    <option value="" disabled selected>Select City</option>
-                                                                </select>
+                                                            <select class="form-control" ng-options="data.city for data in citymun | orderBy:'city':false track by data.id" ng-model="city" ng-change="brgyUpdate()">
+                                                                <option value="" disabled selected>Select City</option>
+                                                            </select>
                                                         </div>
-                                                        <div data-field-span="2">
+                                                        <div data-field-span="1">
+                                                            <label>Brgy</label>
+                                                            <select class="form-control" ng-options="data.brgy for data in brgydetails | orderBy:'brgy':false track by data.id" ng-model="brgy">
+                                                                <option value="" disabled selected>Select Brgy</option>
+                                                            </select>
+                                                        </div>
+                                                    </div>
+                                                    <div data-row-span='4'>
+                                                        <div data-field-span="1">
                                                             <label>Complete Address</label>
-                                                            <input type="text" ng-model="patient.CompleteAddress">
+                                                            <input type="text" ng-model="address">
                                                         </div>
                                                     </div>
                                                 </fieldset>
@@ -467,6 +482,7 @@
                     if($scope.chk != ''){
                         $('#notnewborndiv').hide();
                         $('#oldpatientdiv').show();
+                         
                         $http({
                         method: 'GET',
                         url: 'getData/get-search-details.php',
@@ -530,7 +546,18 @@
                         }).then(function(response) {
                             $scope.citymun = response.data;
                         });
+                
                     }   
+
+                     $scope.brgyUpdate = function(){
+                        $http({
+                            method: 'GET',
+                            url: 'getData/get-brgy-details.php',
+                            params: {id: $scope.city.id}
+                        }).then(function(response) {
+                            $scope.brgydetails = response.data;
+                        });
+                    }  
 
 
 
@@ -568,6 +595,7 @@
                                     lastname: $scope.lastname,
                                     province: $scope.province.provname,
                                     city: $scope.city.city,
+                                    brgy: $scope.brgy.brgy,
                                     address:$scope.address,
                                     gender: $scope.gender,
                                     status: $scope.status,

@@ -247,7 +247,7 @@
                                         <li <?php if ($id!=1){?>style="display:none"
                                             <?php } ?>><a ng-click="getPage('Laboratory')" href="javascript:void(0);"><i class="fa fa-search"></i><span>Laboratories</span></a></li>
                                             <li <?php if ($id!=1){?>style="display:none"
-                                            <?php } ?>><a ng-click="getPage('Laboratory')" href="javascript:void(0);"><i class="fa fa-database"></i><span>Migrate Data</span></a></li>
+                                            <?php } ?>><a ng-click="getPage('Migrate')" href="javascript:void(0);"><i class="fa fa-database"></i><span>Migrate Data</span></a></li>
                                     </ul>
                                 </nav>
                             </div>
