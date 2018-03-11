@@ -10,7 +10,6 @@
     <meta name="apple-touch-fullscreen" content="yes">
     <meta name="description" content="Avenxo Admin Theme">
     <meta name="author" content="KaijuThemes">
-
     <link type='text/css' href='http://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400italic,600' rel='stylesheet'>
 
     <link type="text/css" href="assets/fonts/font-awesome/css/font-awesome.min.css" rel="stylesheet">

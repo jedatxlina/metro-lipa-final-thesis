@@ -11,15 +11,15 @@ include '../mlmc-views/getData/get-inpatient-vitals.php';
     <br>
     <br>
 
-    <div class="col-sm-3" >
-        <div class="panel panel-profile">
+    <div class="col-sm-3">
+        <div class="panel-profile">
             <div class="panel-body"  >
                 <img ng-src="{{patient.QRpath}}">
                 <div class="name">{{patient.Lastname}}, {{patient.Firstname}}{{patient.Middlename}}</div>
                 <div class="info">{{patient.AdmissionID}}</div>
                 
             </div>
-        </div><!-- panel -->
+        </div>
     </div>
     <div class="container-fluid">
         <div class="row">
@@ -27,7 +27,7 @@ include '../mlmc-views/getData/get-inpatient-vitals.php';
                 <div data-widget-group="group1">
                     <div class="row">
                         <div class="col-md-12">
-                            <div class="panel panel-white" data-widget='{"draggable": "false"}'>
+                            <div class="panel-white" data-widget='{"draggable": "false"}'>
                                 <div class="panel-heading">
                                     <h2>Patient Vitals</h2>
                                 </div>
@@ -201,9 +201,9 @@ include '../mlmc-views/getData/get-inpatient-vitals.php';
                     datasets : [
                         {
                             label: 'Temperature',
-                            backgroundColor: 'rgba(229,28,35,0.10)',
+                            backgroundColor: 'rgba(178,34,34,0.10)',
                             borderColor: 'rgba(167, 12, 12, 0.75)',
-                            hoverBackgroundColor: 'rgba(12, 23, 45, 1)',
+                            hoverBackgroundColor: 'rgba(178,34,34, 1)',
                             hoverBorderColor: 'rgba(123, 43, 55, 1)',
                             data: temp
                         }
@@ -214,10 +214,10 @@ include '../mlmc-views/getData/get-inpatient-vitals.php';
                     datasets : [
                         {
                             label: 'Pulse Rate',
-                            backgroundColor: 'rgba(229,28,35,0.75)',
-                            borderColor: 'rgba(167, 12, 12, 0.75)',
-                            hoverBackgroundColor: 'rgba(12, 23, 45, 1)',
-                            hoverBorderColor: 'rgba(123, 43, 55, 1)',
+                            backgroundColor: 'rgba(178,34,34,0.10)',
+                            borderColor: 'rgba(178,34,34,1)',
+                            hoverBackgroundColor: 'rgba(178,34,34,0.5)',
+                            hoverBorderColor: 'rgba(178,34,34,1)',
                             data: pulse
                         }
                     ]
@@ -287,15 +287,17 @@ include '../mlmc-views/getData/get-inpatient-vitals.php';
                 datasets: [{
                     type: 'bar',
                     label: 'Systolic',
-                    backgroundColor: window.chartColors.red,
+                    backgroundColor: 'rgba(178,34,34,0.10)',
                     data: bloodp,
-                    borderColor: 'white',
+                    borderColor: 'rgba(178,34,34,1)',
                     borderWidth: 2
                 }, {
                     type: 'bar',
                     label: 'Diastolic',
-                    backgroundColor: window.chartColors.green,
-                    data: bloodpd
+                    backgroundColor: 'rgba(0,191,255,0.10)',
+                    data: bloodpd,
+                    borderColor: 'rgba(0,191,255,1)',
+                    borderWidth: 2
                 }]
             };
             var chartdata4 = {
@@ -303,9 +305,9 @@ include '../mlmc-views/getData/get-inpatient-vitals.php';
                 datasets: [{
                     type: 'line',
                     label: 'Respiration Rate',
-                    backgroundColor: window.chartColors.red,
+                    backgroundColor: 'rgba(178,34,34,0.10)',
                     data: respi,
-                    borderColor: 'white',
+                    borderColor: 'red',
                     borderWidth: 2
                 }]
             };
