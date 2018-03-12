@@ -10,8 +10,7 @@ $parnode = $dom->appendChild($node);
 
 
 // Select all the rows in the markers table
-
-$query = "SELECT * FROM patients WHERE 1";
+$query = "SELECT a.*,b.*,c.* FROM patients a,medical_conditions b, conditions c WHERE a.AdmissionID = b.AdmissionID AND c.ConditionID = b.ConditionID";
 $result = mysqli_query($con,$query);
 if (!$result) {
   die('Invalid query: ' . mysqli_error());
@@ -29,6 +28,7 @@ while ($row = @mysqli_fetch_assoc($result)){
     $newnode->setAttribute("admissionid",$row['AdmissionID']);
     $newnode->setAttribute("firstname",$row['FirstName']);
     $newnode->setAttribute("address", $row['CompleteAddress']);
+    $newnode->setAttribute("conditions", $row['Conditions']);
     $newnode->setAttribute("lat", $row['latcoor']);
     $newnode->setAttribute("lng", $row['longcoor']);
   }

@@ -68,7 +68,19 @@
 					<div class="panel-ctrls button-icon-bg">
 					</div>
 				</div>
-				<div class="panel-body no-padding">
+				<div data-ng-repeat="list in illnesses">
+	  				<a href="#" ng-click="customIllness(list.Condition)" role="tab" data-toggle="tab" class="list-group-item">{{list.Condition}}
+					<!-- <td class="text-right">20.5%</td> -->
+						<td class="vam">
+							<div class="progress m-n">
+	  							
+	                            <div class="progress-bar progress-bar-danger" style="width: 10%"></div>
+	                        </div>
+	                    </td>
+					</a>
+				</div>
+				
+				<!-- <div class="panel-body no-padding">
 					<table class="table browsers m-n">
 						<tbody>
 							<tr>
@@ -92,14 +104,13 @@
 						
 						</tbody>
 					</table>
-				</div>
+				</div> -->
 			</div>
 		</div>
     </div>
 </div>
 
 <script>
-	
 var marker;
 var metro =  {lat: 13.968371, lng: 121.166547};
 	
@@ -110,6 +121,7 @@ function initMap() {
 	});
 	
 	var infoWind = new google.maps.InfoWindow;
+
 	$.ajax({
 		type: "GET",
 		async: true,
@@ -119,15 +131,17 @@ function initMap() {
 		function (xml) {
 
 			var markers = xml.documentElement.getElementsByTagName("marker"),
-
 			markerArray=[];
 			var contents = [];
 
 				for (var i=0; i < markers.length; i++) {
 					
 					var strong = document.createElement('strong');
+					var condition = document.createElement('br');
+					
 					strong.textContent = markers[i].getAttribute('address');
-			
+					strong.textContent += markers[i].getAttribute('conditions');
+					
 					contents.push(strong);
 
 					var lat = markers[i].getAttribute('lat');
@@ -164,7 +178,6 @@ function initMap() {
 
 			var app = angular.module('myApp', []);
 			app.controller('userCtrl', function($scope, $http) {
-
 			$scope.at = "<?php echo $at;?>";
 
 				angular.element(document).ready(function()
@@ -188,7 +201,7 @@ function initMap() {
 				}).then(function(response) {		
 				$scope.users = response.data;
 				});
-				
+
 			switch ($scope.at.charAt(0)) {
 				case '1':
 					$scope.User = "Administrator";
@@ -223,10 +236,15 @@ function initMap() {
 
 			$http({
                 method: 'GET',
-                 url: 'getData/get-emergency-details.php'
+                 url: 'getData/get-common-illnesses.php'
             }).then(function(response) {
-                $scope.count = Object.keys(response.data).length;
+                $scope.illnesses = response.data;
             });
+
+			$scope.customIllness = function(param){
+				$scope.param = param;
+				alert($scope.param);
+			}
 
 			$scope.buttonDisable = function() { 
 			  if($scope.param == '1')
