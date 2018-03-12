@@ -267,6 +267,20 @@
                            
                         });
 
+
+                        $http({
+                            method: 'GET',
+                            params: {
+                                patientid: labreq.AdmissionID,
+                                laboratoryid: labreq.LaboratoryID
+                            },
+                            url: 'inesrtData/insert-laboratory-bill.php'
+                        }).then(function(response) {
+                           
+                        });
+
+
+
                     swal("Patient Cleared! Refreshing page...", {
                         icon: "success",
                         timer: 2000

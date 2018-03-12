@@ -18,7 +18,8 @@ while ($row = mysqli_fetch_array($sel)) {
     "ArrivalDate"=>$row['ArrivalDate'],
     "DischargeDate"=>$date,
     "RoomType"=>$row['RoomType'],
-    "BedID"=>$row['BedID']);
+    "BedID"=>$row['BedID'],
+    "Duration"=>$yearage);
 }
 echo json_encode($data);
 ?>
