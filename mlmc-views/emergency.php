@@ -425,11 +425,18 @@ font-weight: bold;
 											<label for="focusedinput" class="col-sm-3 control-label">Room Type</label>
 											<div class="col-sm-5">
 												<select ng-model="RoomType" class="form-control" >
-													<option value="" disabled selected>Select Room Type</option>
-													<option value="Single Deluxe" >Single Deluxe</option>
-													<option value="Two-Bedded" >Two-Bedded</option>
-													<option value="Four-Bedded" >Four-Bedded</option>
-													<option value="Ward" >Ward</option>
+												<option value="" disabled selected>Select Room Type</option>
+												<option value="Ward">Ward</option>
+												<option value="OB-Ward">OB-Ward</option>
+												<option value="Female-Ward">Female-Ward</option>
+												<option value="Male-Ward">Male-Ward</option>
+												<option value="Pedia-Ward">Pedia-Ward</option>
+												<option value="Surgical-Ward">Surgical-Ward</option>
+												<option value="Semi-Private">Semi-Private</option>
+												<option value="Private">Private</option>
+												<option value="Suite">Suite</option>
+												<option value="Infectious">Infectious</option>
+											</select>
 												</select>
 											</div>
 										</div>
@@ -438,7 +445,7 @@ font-weight: bold;
 										<div class="form-group">
 											<label for="focusedinput" class="col-sm-3 control-label">Bed Number</label>
 											<div class="col-sm-5">
-												<select class="form-control" ng-options="data.BedID for data in bed |  filter:filterBed(RoomType)"  ng-model="$parent.bedno" ng-disabled="RoomType!='Single Deluxe' && RoomType!='Two-Bedded' && RoomType!='Four-Bedded' && RoomType!='Ward'">
+												<select class="form-control" ng-options="data.BedID for data in bed |  filter:filterBed(RoomType)"  ng-model="$parent.bedno" ng-disabled="RoomType==''">
 													<option value="" disabled selected>Select Bed Number</option>
 												</select>
 											</div>
