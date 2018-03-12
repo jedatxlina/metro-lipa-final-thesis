@@ -137,11 +137,10 @@ function initMap() {
 				for (var i=0; i < markers.length; i++) {
 					
 					var strong = document.createElement('strong');
-					var condition = document.createElement('br');
-					
-					strong.textContent = markers[i].getAttribute('address');
-					strong.textContent += markers[i].getAttribute('conditions');
-					
+					var br = document.createElement("br");
+
+					strong.innerHTML = markers[i].getAttribute('address') + "<br><br>";
+					strong.innerHTML += markers[i].getAttribute('conditions');
 					contents.push(strong);
 
 					var lat = markers[i].getAttribute('lat');
