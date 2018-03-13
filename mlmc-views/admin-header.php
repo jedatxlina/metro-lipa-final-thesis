@@ -228,7 +228,7 @@
 										<li <?php if ($id!=1 && $id!=4){?>style="display:none"<?php } ?>><a ng-click="getPage('Physician')" href="javascript:void(0);"><i class="fa fa-user-md"></i><span>Physician Services</span></a></li>
 										<li <?php if ($id!=1 && $id!=5){?>style="display:none"<?php } ?>><a  href="javascript:void(0);"><i class="fa fa-cubes"></i><span>Pharmacy Department</span></a>
                                             <ul class="acc-menu">
-											<li><a ng-click="getPage('Pharmacy')" href="javascript:void(0);"><i class="fa fa-users"></i><span>&emsp;Medicine Requests</span></a></li>
+											<li><a ng-click="getPage('Pharmacy')" href="javascript:void(0);"><i class="fa fa-users"></i><span>&emsp;Patient Services</span></a></li>
 											<li><a ng-click="getPage('Pharmaceuticals')" href="javascript:void(0);"><i class="ti ti-support"></i><span>&emsp;Medicines</span></a></li>
                                             </ul>
                                         </li>

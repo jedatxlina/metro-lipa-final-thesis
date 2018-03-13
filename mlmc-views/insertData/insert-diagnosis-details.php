@@ -6,7 +6,6 @@ $medicationid = rand(111111,999999);
 $laboratoryid =  rand(111111, 999999);
 $pharmaid  =  rand(111111, 999999);
 $laborderid =  rand(111111, 999999);     
-$medorderid =  rand(111111, 999999);    
 
 
 $at = $_GET['at'];
@@ -118,14 +117,7 @@ if(preg_match("/[A-z]/i", $meds)){
             $query = "INSERT into medication(MedicationID,AdmissionID,MedicineID,DateAdministered,TimeAdministered,PhysicianID) 
                     VALUES('$medicationid','$admissionid','$value','$date','$time','$at')";
 
-            mysqli_query($con,$query); 
-            
-            $query3 = "INSERT into medicine_req(RequestID,MedicineID,AdmissionID,Status) 
-            VALUES('$medorderid','$value','$admissionid','Pending')";
-
-            mysqli_query($con,$query3);
-
-            $medorderid =  rand(111111, 999999);
+            mysqli_query($con,$query);   
         }
         else{
             $value  = ucwords(strtolower($value));
@@ -142,13 +134,6 @@ if(preg_match("/[A-z]/i", $meds)){
                     VALUES('$medicationid','$admissionid','$value','$date','$time','$at')";
 
             mysqli_query($con,$query);
-
-            $query3 = "INSERT into medicine_req(RequestID,MedicineID,AdmissionID,Status) 
-            VALUES('$medorderid','$value','$admissionid','Pending')";
-
-            mysqli_query($con,$query3);
-
-            $medorderid =  rand(111111, 999999);
 
             $diagnosisid =  rand(111111, 999999);
             $pharmaid =  rand(111111, 999999);          
@@ -171,14 +156,7 @@ else{
 
             mysqli_query($con,$query);
 
-            $diagnosisid =  rand(111111, 999999);  
-            
-            $query3 = "INSERT into medicine_req(RequestID,MedicineID,AdmissionID,Status) 
-            VALUES('$medorderid','$value','$admissionid','Pending')";
-
-            mysqli_query($con,$query3);
-
-            $medorderid =  rand(111111, 999999);
+            $diagnosisid =  rand(111111, 999999);          
     }
 }
     

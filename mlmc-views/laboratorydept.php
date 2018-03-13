@@ -39,7 +39,7 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr ng-repeat="labreq in labsreq" ng-class="{'selected': labreq.RequestID == selectedRow}" ng-click="setClickedRow(labreq.RequestID,labreq.AdmissionID,labreq.Description,labreq.LaboratoryID)">
+                                <tr ng-repeat="labreq in labsreq" ng-class="{'selected': labreq.RequestID == selectedRow}" ng-click="setClickedRow(labreq.RequestID,labreq.AdmissionID)">
                                     <td>{{labreq.AdmissionID}}</td>
                                     <td>{{labreq.Fullname}}</td>
                                     <td>{{labreq.Description}}</td>
@@ -237,16 +237,13 @@
         });
 
 
-        $scope.description = '';
-        $scope.labid = '';
+        
 
 
-        $scope.setClickedRow = function(labreq,pid,desc,lid) {
+        $scope.setClickedRow = function(labreq,pid) {
             $scope.selectedRow = ($scope.selectedRow == null) ? labreq : ($scope.selectedRow == labreq) ? null : labreq;
             $scope.selectedid = ($scope.selectedid == null) ? pid : ($scope.selectedid == pid) ? null : pid;
             $scope.clickedRow = ($scope.selectedRow == null) ? 0 : 1;
-            $scope.description = desc;
-            $scope.labid = lid;
         }
 
         $scope.ClearRequest = function(){
@@ -269,20 +266,19 @@
                         }).then(function(response) {
                            
                         });
-                        
-                        
+
+
                         $http({
                             method: 'GET',
                             params: {
-                                admissionid: $scope.selectedid,
-                                laboratoryid: $scope.labid,
-                                description: $scope.description
-
+                                patientid: labreq.AdmissionID,
+                                laboratoryid: labreq.LaboratoryID
                             },
-                            url: 'insertData/insert-laboratory-bill.php'
+                            url: 'inesrtData/insert-laboratory-bill.php'
                         }).then(function(response) {
                            
                         });
+
 
 
                     swal("Patient Cleared! Refreshing page...", {
@@ -290,7 +286,6 @@
                         timer: 2000
                     });
                     window.setTimeout(function(){
-                        
                     // Move to a new location or you can do something else
                         window.location.href = 'laboratorydept.php?at=' + $scope.at;
                     }, 2000);
