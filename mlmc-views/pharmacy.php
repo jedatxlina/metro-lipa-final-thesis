@@ -281,8 +281,6 @@
             }).then(function(response) {
                 $scope.meds = response.data;
                 $scope.count = response.data.length;
-                if ($scope.count == 0)
-                $scope.showData = false;
                 angular.element(document).ready(function() {
                     dTable = $('#table_info')
                     dTable.DataTable();

@@ -22,33 +22,27 @@ font-weight: bold;
 				<div class="col-md-9">
 					<div class="panel panel-danger">
 						<div class="panel-heading">
-							<h2>Emergency Patients</h2>
+							<h2>Medicine Requests</h2>
 							<div class="panel-ctrls"></div>
 						</div>
 						<div class="panel-body">
 							<table id="patient_table" class="table table-striped table-bordered" cellspacing="0" width="100%">
 								<thead>
 								<tr>
+								<tr>
 									<th>Admission ID</th>
-									<th>Admission No</th>
-									<th>Admission Date-Time</th>
-									<th>Full name</th>
-									<th>Admission</th>
-									<th>Admission Type</th>
-									<th>Gender</th>
-									<th>Province</th>
+									<th>Fullname</th>
+									<th>Medicine Name</th>
+									<th>Status</th>
+								</tr>
 								</tr>
 								</thead>
 								<tbody>
 								<tr ng-repeat="user in users" ng-class="{'selected': user.AdmissionID == selectedRow}" ng-click="setClickedRow(user.AdmissionID)">
                                         <td>{{user.AdmissionID}}</td>
-                                        <td>{{user.AdmissionNo}}</td>
-                                        <td>{{user.AdmissionDateTime}}</td>
                                         <td>{{user.Lname}}, {{user.Fname}} {{user.Mname}} </td>
-                                        <td>{{user.Admission}}</td>
-                                        <td>{{user.AdmissionType}}</td>
                                         <td>{{user.Gender}}</td>
-                                        <td>{{user.Province}}</td>
+                                        <td>{{user.Admission}}</td>
                                     </tr>
 								</tbody>
 							</table>

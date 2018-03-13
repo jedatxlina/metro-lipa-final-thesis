@@ -119,7 +119,7 @@ if(preg_match("/[A-z]/i", $meds)){
             $query = "INSERT into medication(MedicationID,AdmissionID,MedicineID,DateAdministered,TimeAdministered,PhysicianID) 
                     VALUES('$medicationid','$admissionid','$value','$date','$time','$at')";
 
-            mysqli_query($con,$query);   
+            mysqli_query($con,$query); 
         }
         else{
             $value  = ucwords(strtolower($value));
@@ -137,6 +137,7 @@ if(preg_match("/[A-z]/i", $meds)){
 
             mysqli_query($con,$query);
 
+          
             $diagnosisid =  rand(111111, 999999);
             $pharmaid =  rand(111111, 999999);          
         }
@@ -158,7 +159,7 @@ else{
 
             mysqli_query($con,$query);
 
-            $diagnosisid =  rand(111111, 999999);          
+            $diagnosisid =  rand(111111, 999999);  
     }
 }
 
