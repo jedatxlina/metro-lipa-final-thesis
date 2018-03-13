@@ -66,7 +66,7 @@
                                                 </div>
                                                 <div data-field-span="1">
                                                     <label>Temperature</label>
-                                                    <input type="text" class="form-control" ng-model="temp" ui-mask="99°"  ui-mask-placeholder ui-mask-placeholder-char="-  "/>
+                                                    <input type="text" class="form-control" ng-model="temp" ui-mask="99.9°"  ui-mask-placeholder ui-mask-placeholder-char="-  "/>
                                                 </div>
                                             </div>
                                             <div data-row-span="3">
@@ -125,7 +125,6 @@
                                                         <select class="form-control" ng-model="attendingphysician" style="width:395px;">
                                                             <option value="" disabled selected>Select Physician</option>
                                                             <option ng-repeat="physician in physicians" value="{{physician.PhysicianID}}">{{physician.Fullname}}</option>
-                                                        
                                                         </select>
                                                     
                                                     </div>

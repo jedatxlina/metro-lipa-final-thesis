@@ -7,12 +7,19 @@ $qnty = explode(',',$_GET['quantity']);
 $dosage = explode(',',$_GET['dosage']);
 $medid  = explode(',',$_GET['medid']);
 $notes  = explode(',',$_GET['notes']);
+$interval = explode(',',$_GET['interval']); 
 
 $param = isset($_GET['param']) ? $_GET['param'] : '';
 $cnt = count($medid);
 
+$result = mysqli_query($con,"SELECT CONCAT(Firstname, ' ' ,MiddleName, ' ', LastName) AS Fullname FROM physicians WHERE PhysicianID = '$at'");
+while($row = mysqli_fetch_assoc($result))
+{
+    $fullname = $row['Fullname'];
+}
+
 for($x = 0; $x < $cnt ; $x ++){
-    $query = "UPDATE medication SET Quantity = '$qnty[$x]', Dosage = '$dosage[$x]', Notes = '$notes[$x]' WHERE MedicationID ='$id' AND MedicineID = '$medid[$x]'";
+    $query = "UPDATE medication SET Quantity = '$qnty[$x]', Dosage = '$dosage[$x]', Notes = '$notes[$x]', DosingID = '$interval[$x]' WHERE MedicationID ='$id' AND MedicineID = '$medid[$x]'";
     mysqli_query($con,$query);
 } 
 if($param != ''){
@@ -23,12 +30,47 @@ if($param != ''){
         
     
         default:
+            require('vendor/autoload.php');
+
+            $options = array(
+                'cluster' => 'ap1',
+                'encrypted' => true
+            );
+            
+            $pusher = new Pusher\Pusher(
+                'c23d5c3be92c6ab27b7a',
+                '296fc518f7ee23f7ee56',
+                '468021',
+                $options
+            );
+            
+            $data['message'] = "Dr. " . $fullname . " posted a patient order.";
+            $pusher->trigger('my-channel', 'my-event', $data);
+
             header("Location:outpatient.php?at=$at");
             break;
     }
 }
 else{
-header("Location:physician.php?at=$at");
+    require('vendor/autoload.php');
+
+    $options = array(
+        'cluster' => 'ap1',
+        'encrypted' => true
+      );
+    
+      $pusher = new Pusher\Pusher(
+        'c23d5c3be92c6ab27b7a',
+        '296fc518f7ee23f7ee56',
+        '468021',
+        $options
+      );
+    
+    $data['message'] = "Dr. " . $fullname . " posted a patient order.";
+    $pusher->trigger('my-channel-inpatient', 'my-event-inpatient', $data);
+
+
+    header("Location:physician.php?at=$at");
 }
 
 

@@ -137,6 +137,102 @@ font-weight: bold;
 				</div>
 				<!--/ Error modal -->
 
+				<!-- Requisition Modal -->
+				<div class="modal fade" id="medicineRequisitionModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+					<form class="form-horizontal">
+						<div class="modal-dialog">
+							<div class="panel panel-danger" data-widget='{"draggable": "false"}'>
+								<div class="panel-heading">
+									<h2>Medicine Requisition</h2>
+									<div class="panel-ctrls" data-actions-container="" data-action-collapse='{"target": ".panel-body, .panel-footer"}'></div>
+								</div>
+								<div class="panel-body" style="height: 500px">
+									<center><span><strong>Physician Orders</strong></span></center>
+									<hr>
+									<table id="requisition_table" class="table table-striped table-bordered" cellspacing="0" width="100%">
+										<thead>
+										<tr>
+	  										<th>Medication ID</th>
+											<th>Medicine ID</th>
+											<th>Date Administered</th>
+											<th>Time Administered</th>
+											<th>Medicine Name</th>
+											<th>Quantity</th>
+											<th>Dosage</th>
+										</tr>
+										</thead>
+										<tbody>
+										<tr ng-repeat="medication in medicationdetails">
+	  											<td>{{medication.MedicationID}}</td>
+												<td>{{medication.MedicineID}}</td>
+												<td>{{medication.DateAdministered}}</td>
+												<td>{{medication.TimeAdministered}}</td>
+												<td>{{medication.MedicineName}}</td>
+												<td>{{medication.Quantity}}</td>
+												<td>{{medication.Dosage}}</td>
+												
+											</tr>
+										</tbody>
+									</table>
+								</div>
+								<div class="panel-footer">
+									<button type="button" ng-click="sendRequisition()" data-dismiss="modal" class="btn btn-danger pull-right">Request Medicine</button>
+									<button type="button" data-dismiss="modal" class="btn btn-default pull-right">Cancel</button>
+								</div>
+							</div>
+						</div>
+					</form>
+				</div>
+            <!-- Requisition Modal -->
+
+
+	  			  <!-- Doctor Order Modal -->
+				<div class="modal fade" id="orderModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+					<form class="form-horizontal">
+						<div class="modal-dialog">
+							<div class="panel panel-danger" data-widget='{"draggable": "false"}'>
+								<div class="panel-heading">
+									<h2>Posted Physician Orders</h2>
+									<div class="panel-ctrls" data-actions-container="" data-action-collapse='{"target": ".panel-body, .panel-footer"}'></div>
+								</div>
+								<div class="panel-body" style="height: 500px">
+									<center><span><strong>Physician Orders</strong></span></center>
+									<hr>
+									<table id="orders_table" class="table table-striped table-bordered" cellspacing="0" width="100%">
+										<thead>
+											<tr>
+												<th>Order ID</th>
+												<th>Admission ID</th>
+												<th>Physician ID</th>
+												<th>Task</th>
+												<th>Status</th>
+											</tr>
+										</thead>
+										<tbody>
+											<tr ng-repeat="order in orders" ng-class="{'selected': order.OrderID == selectedRow}" ng-click="setClickedRow(order.OrderID,order.AdmissionID)">
+												<td>{{order.OrderID}}</td>
+												<td>{{order.AdmissionID}}</td>
+												<td>{{order.PhysicianID}}</td>
+												<td>{{order.Task}}</td>
+												<td>{{order.Status}}</td>
+
+											</tr>
+										</tbody>
+									</table>
+
+
+								</div>
+								<div class="panel-footer">
+									<button type="button" ng-click="viewOrderDetails()" class="btn btn-danger-alt pull-left">View Details</button>
+									<button type="button" ng-click="acceptOrder()" data-dismiss="modal" class="btn btn-danger pull-right">Accept</button>
+									<button type="button" data-dismiss="modal" class="btn btn-default pull-right">Cancel</button>
+								</div>
+							</div>
+						</div>
+					</form>
+				</div>
+            <!-- Doctor Order Modal -->
+
 				<!-- Patient Modal -->
 				<div class="modal fade" id="patientModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
 					<form class="form-horizontal">
@@ -267,6 +363,7 @@ font-weight: bold;
 									<table id="medication_table" class="table table-striped table-bordered" cellspacing="0" width="100%">
 										<thead>
 										<tr>
+	  										<th>Medication ID</th>
 											<th>Medicine ID</th>
 											<th>Date Administered</th>
 											<th>Time Administered</th>
@@ -276,7 +373,8 @@ font-weight: bold;
 										</tr>
 										</thead>
 										<tbody>
-										<tr ng-repeat="medication in medicationdetails" ng-class="{'selected': medication.MedicineID == selectedRow}" ng-click="setClickedRow(medication.MedicineID)">
+										<tr ng-repeat="medication in medicationdetails" ng-class="{'selected': medication.MedicationID == selectedRow}" ng-click="setClickedRow(medication.MedicationID)">
+	  											<td>{{medication.MedicationID}}</td>
 												<td>{{medication.MedicineID}}</td>
 												<td>{{medication.DateAdministered}}</td>
 												<td>{{medication.TimeAdministered}}</td>
@@ -316,6 +414,7 @@ font-weight: bold;
 									<table id="postmedication_table" class="table table-striped table-bordered" cellspacing="0" width="100%">
 										<thead>
 										<tr>
+											<th>Medication ID</th>
 											<th>Medicine ID</th>
 											<th>Date Administered</th>
 											<th>Time Administered</th>
@@ -325,7 +424,8 @@ font-weight: bold;
 										</tr>
 										</thead>
 										<tbody>
-										<tr ng-repeat="medication in medicationdetails" ng-class="{'selected': medication.MedicineID == selectedRow}" ng-click="setClickedRow(medication.MedicineID)">
+										<tr ng-repeat="medication in medicationdetails" ng-class="{'selected': medication.MedicationID == selectedRow}" ng-click="setClickedRow(medication.MedicationID)">
+												<td>{{medication.MedicationID}}</td>
 												<td>{{medication.MedicineID}}</td>
 												<td>{{medication.DateAdministered}}</td>
 												<td>{{medication.TimeAdministered}}</td>
@@ -362,20 +462,55 @@ font-weight: bold;
 		$scope.selectedRow = null;
 		$scope.clickedRow = 0;
 		$scope.new = {};
-		$scope.order = 0;
-		$scope.notif = 0;
+
+		var pusher = new Pusher('c23d5c3be92c6ab27b7a', {
+            		cluster: 'ap1',
+            		encrypted: true
+            	  	});
+              
+            		var channel = pusher.subscribe('my-channel-inpatient');
+            		channel.bind('my-event-inpatient', function(data) {
+            		
+            			console.log(data.message);
+						console.log(data.message1);
+            			swal({
+            				icon: "success",
+            				title: data.message,
+            				text: data.message1
+            				}).then(function () {
+            			});
+            
+            			$http({
+            			method: 'get',
+            			url: 'getData/get-order-details.php',
+            			params:{id:$scope.at}
+            			}).then(function(response) {
+            				$scope.orders = response.data;	
+            				angular.element(document).ready(function() {  
+            				dTable = $('#orders_table')  
+            				dTable.DataTable();  
+            				});  
+            			});
+            
+            	  	});
 
 		var tick = function() {
 			$scope.clock = Date.now();
 			$scope.time = new Date().toLocaleTimeString('en-US', { hour: 'numeric', hour12: true, minute: 'numeric' });		
 			
-			// $http({
-			// method: 'GET',
-			// url: 'getData/get-medication-alert.php'
-			// }).then(function(response) {
-			// 	$scope.medicationalert = response.data;
-			// });			
+			$http({
+            	method: 'get',
+            	url: 'getData/get-order-details.php'
+            }).then(function(response) {
+            	$scope.order = response.data.length;	
+            });		
 
+			$http({
+            	method: 'get',
+            	url: 'getData/get-medication-notif.php'
+            }).then(function(response) {
+            	// $scope.order = response.data.length;
+            });	
 		}
 	
 		tick();
@@ -428,14 +563,26 @@ font-weight: bold;
 		}).then(function(response) {
 			$scope.notif = response.data.length;
 		});
+
+		$http({
+            method: 'get',
+            url: 'getData/get-order-details.php'
+        }).then(function(response) {
+            $scope.orders = response.data;	
+            angular.element(document).ready(function() {  
+            dTable = $('#orders_table')  
+            dTable.DataTable();  
+            });  
+        });
 		   
 		$scope.addPatient = function(){
 			window.location.href = 'add-patient.php?id=' + 1;
 		}
 
-		$scope.setClickedRow = function(user) {
+		$scope.setClickedRow = function(user,param) {
            $scope.selectedRow = ($scope.selectedRow == null) ? user : ($scope.selectedRow == user) ? null : user;
            $scope.clickedRow = ($scope.selectedRow == null) ? 0 : 1;
+		   $scope.orderadmissionid = param;
 	   }
 	   
 	  
@@ -506,6 +653,38 @@ font-weight: bold;
 			window.location.href = 'view-medication-details.php?at=' + $scope.at + '&id=' + $scope.admissionid + '&medid=' + $scope.medid;
 		}
 
+		$scope.medicineRequisition = function(){
+			if($scope.selectedRow != null){
+				$scope.admissionid = $scope.selectedRow;
+				$http({
+					method: 'get',
+					url: 'getData/get-medication-details.php',
+					params: {id: $scope.admissionid}
+				}).then(function(response) {
+					$scope.medicationdetails = response.data;
+					angular.element(document).ready(function() {  
+					dTable = $('#requisition_table')  
+					dTable.DataTable();  
+					});  
+				});
+				$('#medicineRequisitionModal').modal('show');
+			}
+			else{
+			$('#myModal').modal('show');
+			}
+		}
+
+		$scope.sendRequisition = function(){
+			$http({
+					method: 'get',
+					url: 'getData/insert-medicine-request.php',
+					params: {id: $scope.admissionid,
+							at: $scope.at}
+				}).then(function(response) {
+					console.log(response);
+				});			
+		}
+
 		$scope.viewProfile = function() { 
 				window.location.href = 'user-profile.php?at=' + $scope.at;
 		}
@@ -535,8 +714,40 @@ font-weight: bold;
 
 		$scope.postMedicationConfirm = function(){
 			$scope.medicineid = $scope.selectedRow;
-			window.location.href = 'insertData/post-medication-details.php?at=' + $scope.at + '&id=' + $scope.admissionid + '&medicationid=' + $scope.medicationid + '&medid=' + $scope.medicineid;
+			window.location.href = 'insertData/post-medication-details.php?at=' + $scope.at + '&id=' + $scope.admissionid + '&medicationid=' + $scope.medicineid;
 		}
+
+		$scope.viewOrder = function(){
+			$('#orderModal').modal('show');
+		}
+
+		$scope.viewOrderDetails = function(){
+			alert($scope.orderadmissionid);
+		}
+
+		$scope.acceptOrder = function(){
+            $scope.id = $scope.selectedRow;
+            $http({
+            	method: 'get',
+            	url: 'updateData/update-order-details.php',
+            	params: {id: $scope.id}
+            }).then(function(response) {
+				swal({
+                            icon: "success",
+                            title: "Order Accepted!",
+                            text: "Refreshing in 2..",
+                            timer: 2000
+                        }).then(function () {
+								console.log(response);
+								window.location.reload();
+                            }, function (dismiss) {
+                            if (dismiss === 'cancel') {
+								console.log(response);
+								window.location.reload();
+                            }
+                        });
+            });
+        }
 
         $scope.patientVitals = function(){
             if($scope.selectedRow != null){

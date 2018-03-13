@@ -313,7 +313,7 @@ include 'admin-header.php' ?>
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        <tr ng-repeat="order in orders" ng-class="{'selected': order.AdmissionID == selectedRow}" ng-click="setClickedRow(order.AdmissionID)">
+                                        <tr ng-repeat="order in orders" ng-class="{'selected': order.OrderID == selectedRow}" ng-click="setClickedRow(order.OrderID,order.OrderID)">
                                             <td>{{order.OrderID}}</td>
                                             <td>{{order.AdmissionID}}</td>
                                             <td>{{order.PhysicianID}}</td>
@@ -599,9 +599,11 @@ include 'admin-header.php' ?>
             			}
 					}
 
-            		$scope.setClickedRow = function(user) {
+            		$scope.setClickedRow = function(user,param) {
                        $scope.selectedRow = ($scope.selectedRow == null) ? user : ($scope.selectedRow == user) ? null : user;
                        $scope.clickedRow = ($scope.selectedRow == null) ? 0 : 1;
+
+					   $scope.orderadmissionid = param;
             	   	}
             
             	  

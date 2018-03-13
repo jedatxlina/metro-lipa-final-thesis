@@ -138,9 +138,10 @@ function initMap() {
 					
 					var strong = document.createElement('strong');
 					var br = document.createElement("br");
-
-					strong.innerHTML = markers[i].getAttribute('address') + "<br><br>";
-					strong.innerHTML += markers[i].getAttribute('conditions');
+					
+					strong.innerHTML = "Case: " + (markers.length - i) +  "<br><br>";
+					strong.innerHTML += "Address: " + markers[i].getAttribute('address') + "<br><br>";
+					strong.innerHTML +="Condition: " + markers[i].getAttribute('conditions');
 					contents.push(strong);
 
 					var lat = markers[i].getAttribute('lat');
@@ -228,6 +229,7 @@ function initMap() {
 
 				case '7':
 					$scope.User = "Secretary";
+					break;
 			
 				case '8':
 					$scope.User = "Laboratory Staff";

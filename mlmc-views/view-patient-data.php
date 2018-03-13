@@ -196,8 +196,6 @@
                                                 <tr>
                                                     <th>City</th>
                                                     <td>{{patient.City}}</td>
-                                                    <th>Religion</th>
-                                                    <td>{{patient.Religion}}</td>
                                                 </tr>
                                                 <tr>
                                                     <th>Address</th>
@@ -365,8 +363,7 @@
                                                     <tr>
                                                         <th>Province</th>
                                                         <td><input type="text" class="form-control" ng-model="patient.Province"></td>
-                                                        <th>Religion</th>
-                                                        <td><input type="text" class="form-control" ng-model="patient.Religion"></td>
+                                                      
                                                     </tr>
                                                     <tr>
                                                         <th>City</th>
@@ -478,7 +475,6 @@
                         CivilStatus: patient.CivilStatus,
                         Contact: patient.Contact,
                         Occupation: patient.Occupation,
-                        Religion: patient.Religion,
                         Citizenship: patient.Citizenship}
                 }).then(function(response) {
                     window.location.href = 'view-patient-data.php?at=' + $scope.at + '&id=' + $scope.id;

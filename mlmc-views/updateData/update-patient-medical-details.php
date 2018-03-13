@@ -15,7 +15,6 @@ $age = $_GET['Age'];
 $civilstatus = $_GET['CivilStatus'];
 $contact = $_GET['Contact'];
 $occupation = $_GET['Occupation'];
-$religion = $_GET['Religion'];
 $citizenship = $_GET['Citizenship'];
 
 $query= "UPDATE patients SET LastName = '$lastname', FirstName = '$firstname', MiddleName = '$middlename', 

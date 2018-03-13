@@ -66,10 +66,22 @@
                                                 <input type="text" class="form-control" ng-value="patient.Attending" disabled="disabled">
                                             </div>
                                         </div>
+                                    </fieldset>
+                                     <fieldset>
                                         <div data-row-span="2">
                                             <div data-field-span="1">
                                                 <label>Post-Diagnosis</label><br>
-                                                <textarea autogrow ng-model="$parent.diagnosis"></textarea>
+                                                <select id="conditions" class="select2" multiple="multiple" style="width:420px;">
+                                                        <optgroup label="List of Medicines">
+                                                            <option ng-repeat="condition in conditions" value="{{condition.ConditionID}}">{{condition.Conditions}}</option>
+                                                        </optgroup>
+                                                        <option ng-value="Others">Others</option>
+                                                </select>  
+                                                <a href="#">&nbsp;<i class="ti ti-close" ng-click="reset('condition')"></i></a><br><br>
+                                                    <div id="otherconditions">
+                                                        <label>Other Conditions</label>
+                                                        <input type="text" ng-model="otherconditions" class="form-control tooltips" data-trigger="hover" data-original-title="Separate with , if more than 1">
+                                                    </div>   
                                             </div>
                                             <div data-field-span="1">
                                                 <label>Post-Order</label><br>
@@ -200,12 +212,30 @@
                         }).then(function(response) {
                             $scope.medicines = response.data;
                     });
-    
+
+                    $http({
+                        method: 'GET',
+                        url: 'getData/get-conditions-details.php'
+                    }).then(function(response) {
+                        $scope.conditions = response.data;
+                    });
+                    $scope.otherconditions = '';
                     $scope.otherlabs = ''; 
                     $scope.othermeds = ''; 
+                    
+                    $('#otherconditions').hide();
                     $('#otherlabs').hide();
                     $('#othermeds').hide();
-    
+                    
+                    $( "#conditions" ).click(function() {
+                        $scope.condition = $("#conditions").val();
+
+                        if( $scope.condition.indexOf('Others') >= 0){
+                            $('#otherconditions').show();
+                        }
+                   
+                    });
+
                     $("#laboratories").click(function() {
                             $scope.lab = $("#laboratories").val();
                             if( $scope.lab.indexOf('Others') >= 0){
@@ -224,6 +254,11 @@
                     $scope.reset = function(val){
                             $scope.chck = val;
                             switch ($scope.chck) {
+                                case 'condition':
+                                $('#conditions').removeAttr('disabled');
+                                $('#otherconditions').hide();
+                                break;
+
                                 case 'labs':
                                 $('#otherlabs').hide();
                                     break;
@@ -239,7 +274,18 @@
                     }
     
                     $scope.confirmDiagnosis = function(){
-                   
+                        
+                        $scope.condition = $("#conditions").val();
+                        $scope.found2 = $scope.condition.indexOf('Others');
+                            while ($scope.found2 !== -1) {
+                                $scope.condition.splice($scope.found2, 1);
+                                $scope.found2 = $scope.condition.indexOf('Others');
+                             
+                            }
+                            if($scope.otherconditions != ''){
+                                $scope.condition = $scope.condition.concat($scope.otherconditions);
+                            }
+
                         if($scope.lab === 'Yes'){
                             $scope.lab = $("#laboratories").val();
                             $scope.found = $scope.lab.indexOf('Others');

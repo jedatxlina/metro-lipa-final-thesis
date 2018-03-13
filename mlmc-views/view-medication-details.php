@@ -75,7 +75,7 @@
                                                 <div data-row-span="2"  data-ng-repeat="med in medications">
                                                     <div data-field-span="1">
                                                         <label>Dosage</label>
-                                                        <input type="text" ng-model="med.Unit"  disabled="disabled"> 
+                                                        <input type="text" ng-model="med.Dosage"  disabled="disabled"> 
                                                     </div>
                                                     <div data-field-span="1">
                                                         <label>Quantity</label>
@@ -94,9 +94,9 @@
                                                 <div data-field-span="1">
                                                     </div>
                                                 <div data-field-span="1"  data-ng-repeat="med in medications">
-                                                    <label>Intake(Q1,Q2,Q3,Q4)</label>
+                                                    <label>Intake per day</label>
                                                         
-                                                    <input type="text" ng-model="med.Intake" disabled="disabled"> 
+                                                    <input type="text" ng-model="med.DosingID" disabled="disabled"> 
                                                 </div>
                                                 <br><br>
                                         </fieldset>

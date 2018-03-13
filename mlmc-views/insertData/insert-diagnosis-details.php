@@ -10,6 +10,8 @@ $laborderid =  rand(111111, 999999);
 
 $at = $_GET['at'];
 $admissionid = $_GET['id'];
+$conditions = $_GET['conditions'];
+
 $diagnosis = $_GET['diagnosis'];
 $order = $_GET['order'];
 $labs = isset($_GET['lab']) ? $_GET['lab'] : '';
@@ -37,8 +39,8 @@ if($labs != ''){
 
                 $orderid =  rand(111111, 999999);     
                 
-                $query2 = "INSERT into laboratory_req(RequestID,LaboratoryID,AdmissionID,Status) 
-                VALUES('$laborderid','$value','$admissionid','Pending')";
+                $query2 = "INSERT into laboratory_req(RequestID,LaboratoryID,AdmissionID,Status,DateRequest,TimeRequest) 
+                VALUES('$laborderid','$value','$admissionid','Pending','$date','$time')";
     
                 mysqli_query($con,$query2);
 
@@ -57,8 +59,8 @@ if($labs != ''){
 
                 $laboratoryid =  rand(111111, 999999);     
                 
-                $query2 = "INSERT into laboratory_req(RequestID,LaboratoryID,AdmissionID,Status) 
-                VALUES('$laborderid','$value','$admissionid','Pending')";
+                $query2 = "INSERT into laboratory_req(RequestID,LaboratoryID,AdmissionID,Status,DateRequest,TimeRequest) 
+                VALUES('$laborderid','$value','$admissionid','Pending','$date','$time')";
                 
                 mysqli_query($con,$query2);
 
@@ -79,8 +81,8 @@ if($labs != ''){
 
             $orderid =  rand(111111, 999999);   
 
-            $query2 = "INSERT into laboratory_req(RequestID,LaboratoryID,AdmissionID,Status) 
-            VALUES('$laborderid','$value','$admissionid','Pending')";
+            $query2 = "INSERT into laboratory_req(RequestID,LaboratoryID,AdmissionID,Status,DateRequest,TimeRequest) 
+            VALUES('$laborderid','$value','$admissionid','Pending','$date','$time')";
 
             mysqli_query($con,$query2);
 
@@ -93,8 +95,8 @@ if($labs != ''){
 
     mysqli_query($con,$query);
 
-    $query2 = "INSERT into laboratory_req(RequestID,LaboratoryID,AdmissionID,Status) 
-            VALUES('$laborderid','$value','$admissionid','Pending')";
+    $query2 = "INSERT into laboratory_req(RequestID,LaboratoryID,AdmissionID,Status,DateRequest,TimeRequest) 
+            VALUES('$laborderid','$value','$admissionid','Pending','$date','$time')";
             
     mysqli_query($con,$query2);
 
@@ -159,23 +161,6 @@ else{
             $diagnosisid =  rand(111111, 999999);          
     }
 }
-    
-    require('../vendor/autoload.php');
-
-    $options = array(
-        'cluster' => 'ap1',
-        'encrypted' => true
-      );
-    
-      $pusher = new Pusher\Pusher(
-        'c23d5c3be92c6ab27b7a',
-        '296fc518f7ee23f7ee56',
-        '468021',
-        $options
-      );
-    
-    $data['message'] = $at . " posted a patient order.";
-    $pusher->trigger('my-channel', 'my-event', $data);
 
 header("Location:../post-medication.php?at=$at&medicationid=$medicationid&admissionid=$admissionid");
 

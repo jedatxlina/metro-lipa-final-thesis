@@ -419,7 +419,9 @@
             var app = angular.module('myApp', ['ui.mask']);
                 app.controller('userCtrl', function($scope, $window, $http) {
                     $scope.at = "<?php echo $_GET['at'];?>";
+
                     $scope.id = "<?php echo $_GET['id'];?>";
+
                     $scope.chk = "<?php echo $chk =  isset($_GET['chk']) ? $_GET['chk'] : ''; ?>";
                     $scope.admissionid = "<?php echo "2017" .  rand(111111, 999999); ?>";
                     $scope.medicalid = "<?php echo  rand(111111, 999999); ?>";
@@ -462,7 +464,7 @@
                         default:
                             break;
                     }
-                    
+              
                     $http({
                         method: 'GET',
                         url: 'getData/get-province-details.php'
@@ -479,7 +481,7 @@
         
                     $('#newbornbabydiv').hide();
                     
-                    if($scope.param == '1'){
+                    if($scope.id == 1){
                         $scope.admissiontype = 'Emergency';    
                     }else{
                         $scope.admissiontype = 'Outpatient';

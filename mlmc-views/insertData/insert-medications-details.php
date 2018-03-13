@@ -124,7 +124,7 @@ while($row = mysqli_fetch_assoc($sel))
             
             if(is_numeric($value)){
 
-                $query= "INSERT into medical_conditions(MedicalConditionID,ConditionID) VALUES ('$conditionid','$value')";
+                $query= "INSERT into medical_conditions(MedicalConditionID,AdmissionID,ConditionID) VALUES ('$conditionid','$admissionid','$value')";
 
                 mysqli_query($con,$query);
 
@@ -137,7 +137,7 @@ while($row = mysqli_fetch_assoc($sel))
                 mysqli_query($con,$query);
 
                 
-                $query= "INSERT into medical_conditions(MedicalConditionID,ConditionID) VALUES ('$conditionid','$newconditionid')";
+                $query= "INSERT into medical_conditions(MedicalConditionID,AdmissionID,ConditionID) VALUES ('$conditionid','$admissionid','$newconditionid')";
 
                 mysqli_query($con,$query);
 
@@ -156,7 +156,7 @@ while($row = mysqli_fetch_assoc($sel))
 
         foreach($condition AS $value) {
             
-            $query= "INSERT into medical_conditions(MedicalConditionID,ConditionID) VALUES ('$conditionid','$value')";
+            $query= "INSERT into medical_conditions(MedicalConditionID,AdmissionID,ConditionID) VALUES ('$conditionid','$admissionid','$value')";
             mysqli_query($con,$query);
         
         }

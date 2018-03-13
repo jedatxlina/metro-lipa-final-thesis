@@ -11,7 +11,7 @@ if($at == '' && $admissionid == ''){
     $sel = mysqli_query($con,"SELECT PhysicianID, CONCAT(Firstname, ' ' ,MiddleName, ' ', LastName) AS Fullname FROM physicians");
     while ($row = mysqli_fetch_array($sel)) {
         $data[] = array(
-            "AccountID"=>$row['PhysicianID'],
+            "PhysicianID"=>$row['PhysicianID'],
             "Fullname"=>$row['Fullname']);
     }
 }else{

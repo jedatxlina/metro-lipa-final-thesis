@@ -79,21 +79,27 @@
                                                 <input type="text" ng-model="Dosage[$index]" ng-init="Dosage[$index] = medication.Unit" disabled="disabled"> 
                                             </div>
                                             <div data-field-span="1">
-                                                <label>Quantity</label>
+                                                <label>Days Intake</label>
                                                 <input type="text" ng-model="Quantity[$index]" ng-init="Quantity[$index] = medication.Quantity">
                                                 <input type="hidden" ng-model="MedID[$index]" ng-init="MedID[$index] = medication.MedicineID"> 
                                             </div>
                                         </div>
-                                        <div data-row-span="1">
+                                        <div data-row-span="2">
                                             <div data-field-span="1">
                                                 <label>Notes</label>
                                                 <input type="text" ng-model="NoteID[$index]" placeholder="Notes here"> 
                                             </div>
-                                        
+                                            <div data-field-span="1">
+                                                <label>Medication Interval</label>
+                                                <select class="form-control" ng-model="$parent.Intakeinterval[$index]">
+                                                    <option value="" disabled selected>Select Interval</option>
+                                                    <option ng-repeat="intrvl in interval" value="{{intrvl.DosingID}}">{{intrvl.Intake}} a day </option>
+                                                </select>
+                                            </div>
                                         </div>
                                     <br><br>
-                                    
                                     </fieldset>
+                                    <div data-row-span="1">
                                             <div class="pull-right">
                                                 <button ng-click="goBack()" class="btn-default btn">Cancel</button>
                                                 <button type="submit" class="btn-danger btn" ng-click="submitDetails(type)">Submit</button>
@@ -135,7 +141,8 @@
                     $scope.Quantity = [];
                     $scope.Dosage = [];
                     $scope.NoteID = [];
-                    
+                    $scope.Intakeinterval = [];
+
                     switch ($scope.at.charAt(0)) {
                         case '1':
                             $scope.User = "Administrator";
@@ -177,14 +184,22 @@
                     }).then(function(response) {
                         $scope.medications = response.data;
                     });
+
                     $http({
                         method: 'get',
                         url: 'getData/get-patient-details.php',
                         params: {id: $scope.admissionid}
                     }).then(function(response) {
                         $scope.patientdetails = response.data;
-             
                     });
+
+                    $http({
+                        method: 'GET',
+                        url: 'getData/get-dosing-interval.php'
+                    }).then(function(response) {
+                        $scope.interval = response.data;
+                    });
+
                     $scope.submitDetails = function(type){
                         $scope.totalbill = 5000;
                         $http({
@@ -202,12 +217,13 @@
                             text: "Redirecting in 2..",
                             timer: 2000
                         }).then(function () {
-                                window.location.href = 'initiate-medication.php?quantity=' + $scope.Quantity + '&id=' + $scope.medicationid + '&at=' + $scope.at + '&dosage=' + $scope.Dosage + '&medid=' + $scope.MedID + '&param=' + $scope.param + '&notes=' + $scope.NoteID;
+                                window.location.href = 'initiate-medication.php?quantity=' + $scope.Quantity + '&id=' + $scope.medicationid + '&at=' + $scope.at + '&dosage=' + $scope.Dosage + '&medid=' + $scope.MedID + '&param=' + $scope.param + '&notes=' + $scope.NoteID + '&interval=' + $scope.Intakeinterval;
                             }, function (dismiss) {
                             if (dismiss === 'cancel') {
-                                window.location.href = 'initiate-medication.php?quantity=' + $scope.Quantity + '&id=' + $scope.medicationid + '&at=' + $scope.at + '&dosage=' + $scope.Dosage + '&medid=' + $scope.MedID + '&param=' + $scope.param + '&notes=' + $scope.NoteID;
+                                window.location.href = 'initiate-medication.php?quantity=' + $scope.Quantity + '&id=' + $scope.medicationid + '&at=' + $scope.at + '&dosage=' + $scope.Dosage + '&medid=' + $scope.MedID + '&param=' + $scope.param + '&notes=' + $scope.NoteID + '&interval=' + $scope.Intakeinterval;
                             }
                         });
+       
                     }
 
                     $scope.goBack = function(){
