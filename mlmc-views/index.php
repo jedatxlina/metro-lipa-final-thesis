@@ -228,6 +228,7 @@ function initMap() {
 
 				case '7':
 					$scope.User = "Secretary";
+					break;
 			
 				case '8':
 					$scope.User = "Laboratory Staff";

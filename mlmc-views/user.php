@@ -292,12 +292,12 @@
 
                         <div class="form-group">
                             <label>Birthdate</label>
-                            <input type="text" class="form-control" ng-model="$parent.bdate" id="datepicker" ng-init="$parent.bdate=acc.Birthdate">
+                            <input type="text" class="form-control" ng-model="$parent.bdate" id="datepicker" ng-init="$parent.bdate=acc.Birthdate" disabled>
                         </div>
 
                         <div class="form-group">
                             <label>Gender</label>
-                            <select ng-model="$parent.ggender" ng-init="$parent.ggender=acc.Gender" class="form-control">
+                            <select ng-model="$parent.ggender" ng-init="$parent.ggender=acc.Gender" class="form-control" disabled>
                                     <option value="" disabled>Select Gender</option>
                                     <option value="Male">Male</option>
                                     <option value="Female">Female</option>
