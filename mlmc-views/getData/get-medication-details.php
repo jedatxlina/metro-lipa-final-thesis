@@ -4,7 +4,7 @@ require_once 'connection.php';
 if(isset($_GET['medicationid']) && isset($_GET['admissionid'])) {
     $medicationid = $_GET['medicationid'];
     $admissionid = $_GET['admissionid'];
-    $sel = mysqli_query($con,"SELECT a.MedicineID,a.MedicineName,a.Unit,b.* FROM pharmaceuticals a,medication b WHERE b.MedicationID = '$medicationid' AND a.MedicineID = b.MedicineID  ");
+    $sel = mysqli_query($con,"SELECT a.MedicineID,a.MedicineName,a.Unit,b.* FROM pharmaceuticals a,medication b WHERE b.AdmissionID = 2017332722 AND a.MedicineID = b.MedicineID");
     $data = array();
     while ($row = mysqli_fetch_array($sel)) {
         $data[] = array(

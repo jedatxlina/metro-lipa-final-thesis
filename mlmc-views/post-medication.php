@@ -168,6 +168,7 @@
                     }).then(function(response) {
                         $scope.medications = response.data;
                     });
+                    
                     $http({
                         method: 'get',
                         url: 'getData/get-patient-details.php',
@@ -184,10 +185,10 @@
                             text: "Redirecting in 2..",
                             timer: 2000
                         }).then(function () {
-                            window.location.href = 'initiate-medication.php?quantity=' + $scope.Quantity + '&id=' + $scope.medicationid + '&at=' + $scope.at + '&dosage=' + $scope.Dosage + '&medid=' + $scope.MedID + '&notes=' + $scope.NoteID;
+                            window.location.href = 'initiate-medication.php?quantity=' + $scope.Quantity + '&id=' + $scope.medicationid + '&at=' + $scope.at + '&dosage=' + $scope.Dosage + '&medid=' + $scope.MedID + '&notes=' + $scope.NoteID  + '&admissionid=' + $scope.admissionid;
                             }, function (dismiss) {
                             if (dismiss === 'cancel') {
-                                window.location.href = 'initiate-medication.php?quantity=' + $scope.Quantity + '&id=' + $scope.medicationid + '&at=' + $scope.at + '&dosage=' + $scope.Dosage + '&medid=' + $scope.MedID +  '&notes=' + $scope.NoteID;
+                                window.location.href = 'initiate-medication.php?quantity=' + $scope.Quantity + '&id=' + $scope.medicationid + '&at=' + $scope.at + '&dosage=' + $scope.Dosage + '&medid=' + $scope.MedID +  '&notes=' + $scope.NoteID + '&admissionid=' + $scope.admissionid;
                             }
                         });
                     }

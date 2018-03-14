@@ -33,44 +33,44 @@ while($row = mysqli_fetch_assoc($sel))
         
         $medication = explode(',',$medication);
 
-        // foreach($medication AS $value){
+        foreach($medication AS $value){
             
-        //     if(is_numeric($value)){
+            if(is_numeric($value)){
 
-        //         $query = "INSERT into medication(MedicationID,AdmissionID,MedicineID,DateAdministered,TimeAdministered,PhysicianID) 
-        //         VALUES('$medicationid','$admissionid','$value','$date','$time','$physicianid')";
+                $query = "INSERT into medication(MedicationID,AdmissionID,MedicineID,DateAdministered,TimeAdministered,PhysicianID) 
+                VALUES('$medicationid','$admissionid','$value','$date','$time','$physicianid')";
     
-        //         mysqli_query($con,$query);
+                mysqli_query($con,$query);
 
-        //     }
-        //     else{
-        //         $value  = ucwords(strtolower($value));
+            }
+            else{
+                $value  = ucwords(strtolower($value));
 
-        //         $query= "INSERT into pharmaceuticals(MedicineID,MedicineName) VALUES ('$newpharmaid','$value')";
-        //         mysqli_query($con,$query);
+                $query= "INSERT into pharmaceuticals(MedicineID,MedicineName) VALUES ('$newpharmaid','$value')";
+                mysqli_query($con,$query);
 
-        //         $query = "INSERT into medication(MedicationID,AdmissionID,MedicineID,DateAdministered,TimeAdministered,PhysicianID) 
-        //         VALUES('$medicationid','$admissionid','$newpharmaid','$date','$time','$physicianid')";
+                $query = "INSERT into medication(MedicationID,AdmissionID,MedicineID,DateAdministered,TimeAdministered,PhysicianID) 
+                VALUES('$medicationid','$admissionid','$newpharmaid','$date','$time','$physicianid')";
     
-        //         mysqli_query($con,$query);
+                mysqli_query($con,$query);
 
-        //         $newpharmaid =  rand(111111, 999999);          
-        //     }
+                $newpharmaid =  rand(111111, 999999);          
+            }
 
-        // }
+        }
 
     }
     else{
         
         $medication = explode(',',$_GET['medication']);
 
-        // foreach($medication AS $value) {
+        foreach($medication AS $value) {
 
-        //     $query = "INSERT into medication(MedicationID,AdmissionID,MedicineID,DateAdministered,TimeAdministered,PhysicianID) 
-        //     VALUES('$medicationid','$admissionid','$value','$date','$time','$physicianid')";
+            $query = "INSERT into medication(MedicationID,AdmissionID,MedicineID,DateAdministered,TimeAdministered,PhysicianID) 
+            VALUES('$medicationid','$admissionid','$value','$date','$time','$physicianid')";
         
-        //     mysqli_query($con,$query);
-        // }
+            mysqli_query($con,$query);
+        }
 
     }
 
@@ -87,6 +87,7 @@ while($row = mysqli_fetch_assoc($sel))
     
                 mysqli_query($con,$query);
 
+                $medicationid =  rand(111111, 999999);     
             }
             else{
                 $value  = ucwords(strtolower($value));
@@ -99,6 +100,9 @@ while($row = mysqli_fetch_assoc($sel))
     
                 mysqli_query($con,$query);
 
+                
+                $medicationid =  rand(111111, 999999);     
+
                 $newadministeredid =  rand(111111, 999999);          
             }
 
@@ -106,13 +110,17 @@ while($row = mysqli_fetch_assoc($sel))
 
     }else{
         $administered = explode(',',$_GET['administered']);
-        foreach($administered AS $value) {
 
+        foreach($administered AS $value) {
+        
             $query = "INSERT into medication(MedicationID,AdmissionID,MedicineID,DateAdministered,TimeAdministered,PhysicianID) 
             VALUES('$medicationid','$admissionid','$value','$date','$time','$physicianid')";
-        
+
             mysqli_query($con,$query);
-        
+            
+            $medicationid =  rand(111111, 999999);     
+
+            echo $value;
         }
     }
 

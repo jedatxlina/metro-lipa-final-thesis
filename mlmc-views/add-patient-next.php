@@ -297,7 +297,6 @@
                     $scope.parsedbp = [];
 
                     $scope.submitDetails = function(){
-
                             $scope.condition = $("#conditions").val();
                             $scope.medication =$("#medications").val();
                             $scope.vitalsid =     "<?php echo rand(111111, 999999);?>"; 

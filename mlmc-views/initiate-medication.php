@@ -2,12 +2,12 @@
 require_once 'insertData/connection.php';
 $at = $_GET['at'];
 $id= $_GET['id'];
-
+$admmissionid = $_GET['admissionid'];
 $qnty = explode(',',$_GET['quantity']);
 $dosage = explode(',',$_GET['dosage']);
 $medid  = explode(',',$_GET['medid']);
 $notes  = explode(',',$_GET['notes']);
-$interval = explode(',',$_GET['interval']); 
+$interval =$interval =isset($_GET['interval']) ? explode(',',$_GET['interval']) : '';
 
 $param = isset($_GET['param']) ? $_GET['param'] : '';
 $cnt = count($medid);
@@ -19,7 +19,12 @@ while($row = mysqli_fetch_assoc($result))
 }
 
 for($x = 0; $x < $cnt ; $x ++){
-    $query = "UPDATE medication SET Quantity = '$qnty[$x]', Dosage = '$dosage[$x]', Notes = '$notes[$x]', DosingID = '$interval[$x]' WHERE MedicationID ='$id' AND MedicineID = '$medid[$x]'";
+    if($interval != ''){
+    $query = "UPDATE medication SET Quantity = '$qnty[$x]', Dosage = '$dosage[$x]', Notes = '$notes[$x]' WHERE AdmissionID = '$admmissionid' AND MedicineID = '$medid[$x]'";       
+    }else{
+    $query = "UPDATE medication SET Quantity = '$qnty[$x]', Dosage = '$dosage[$x]', Notes = '$notes[$x]', DosingID = '$interval[$x]' WHERE AdmissionID = '$admmissionid' AND MedicineID = '$medid[$x]'";
+    }
+
     mysqli_query($con,$query);
 } 
 if($param != ''){

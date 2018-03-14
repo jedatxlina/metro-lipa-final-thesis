@@ -120,6 +120,8 @@ if(preg_match("/[A-z]/i", $meds)){
                     VALUES('$medicationid','$admissionid','$value','$date','$time','$at')";
 
             mysqli_query($con,$query);   
+
+            $medicationid =  rand(111111, 999999);
         }
         else{
             $value  = ucwords(strtolower($value));
@@ -137,6 +139,7 @@ if(preg_match("/[A-z]/i", $meds)){
 
             mysqli_query($con,$query);
 
+            $medicationid =  rand(111111, 999999);
             $diagnosisid =  rand(111111, 999999);
             $pharmaid =  rand(111111, 999999);          
         }
@@ -158,7 +161,8 @@ else{
 
             mysqli_query($con,$query);
 
-            $diagnosisid =  rand(111111, 999999);          
+            $diagnosisid =  rand(111111, 999999); 
+            $medicationid =  rand(111111, 999999);         
     }
 }
 
