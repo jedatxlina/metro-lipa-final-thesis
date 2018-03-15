@@ -373,7 +373,7 @@ font-weight: bold;
 										</tr>
 										</thead>
 										<tbody>
-										<tr ng-repeat="medication in medicationdetails" ng-class="{'selected': medication.MedicationID == selectedRow}" ng-click="setClickedRow(medication.MedicationID)">
+										<tr ng-repeat="medication in medicationdetails" ng-class="{'selected': medication.ID == selectedRow}" ng-click="setClickedRow(medication.ID)">
 	  											<td>{{medication.MedicationID}}</td>
 												<td>{{medication.MedicineID}}</td>
 												<td>{{medication.DateAdministered}}</td>
@@ -390,8 +390,7 @@ font-weight: bold;
 								</div>
 								<div class="panel-footer">
 										<button type="button" ng-click="viewMedicine()" class="btn btn-default pull-left" data-dismiss="modal">View Details</button>
-										<button type="button" class="btn btn-default pull-right" data-dismiss="modal">Close</button>
-										<button type="button" ng-click="confirmBtn()" class="btn btn-danger pull-right">Confirm</button>
+										<button type="button" class="btn btn-danger-alt pull-right" data-dismiss="modal">Close</button>
 								</div>
 							</div>
 						</div>
@@ -424,7 +423,7 @@ font-weight: bold;
 										</tr>
 										</thead>
 										<tbody>
-										<tr ng-repeat="medication in medicationdetails" ng-class="{'selected': medication.MedicationID == selectedRow}" ng-click="setClickedRow(medication.MedicationID)">
+										<tr ng-repeat="medication in medicationdetails" ng-class="{'selected': medication.ID == selectedRow}" ng-click="setClickedRow(medication.ID)">
 												<td>{{medication.MedicationID}}</td>
 												<td>{{medication.MedicineID}}</td>
 												<td>{{medication.DateAdministered}}</td>
@@ -629,10 +628,7 @@ font-weight: bold;
 				$http({
 					method: 'get',
 					url: 'getData/get-medication-details.php',
-					params: {id: $scope.admissionid,
-                            department: $scope.User,
-                            description: 'Doctor Fee',
-                            total: $scope.totalbill}
+					params: {id: $scope.admissionid}
 				}).then(function(response) {
 					$scope.medicationdetails = response.data;
 					angular.element(document).ready(function() {  
@@ -675,14 +671,14 @@ font-weight: bold;
 		}
 
 		$scope.sendRequisition = function(){
-			$http({
-					method: 'get',
-					url: 'getData/insert-medicine-request.php',
-					params: {id: $scope.admissionid,
-							at: $scope.at}
-				}).then(function(response) {
-					console.log(response);
-				});			
+			// $http({
+			// 		method: 'get',
+			// 		url: 'getData/insert-medicine-request.php',
+			// 		params: {id: $scope.admissionid,
+			// 				at: $scope.at}
+			// 	}).then(function(response) {
+			// 		console.log(response);
+			// 	});		
 		}
 
 		$scope.viewProfile = function() { 
@@ -714,7 +710,21 @@ font-weight: bold;
 
 		$scope.postMedicationConfirm = function(){
 			$scope.medicineid = $scope.selectedRow;
-			window.location.href = 'insertData/post-medication-details.php?at=' + $scope.at + '&id=' + $scope.admissionid + '&medicationid=' + $scope.medicineid;
+
+			swal({
+                icon: "success",
+                title: "Medication Updated!",
+                text: "Redirecting in 2..",
+                timer: 2000
+            }).then(function () {
+				window.location.href = 'insertData/post-medication-details.php?at=' + $scope.at + '&id=' + $scope.admissionid + '&medicationid=' + $scope.medicineid;
+                }, function (dismiss) {
+                if (dismiss === 'cancel') {
+				window.location.href = 'insertData/post-medication-details.php?at=' + $scope.at + '&id=' + $scope.admissionid + '&medicationid=' + $scope.medicineid;
+            }
+            });
+
+			
 		}
 
 		$scope.viewOrder = function(){

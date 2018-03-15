@@ -78,15 +78,22 @@
                                                 <input type="text" ng-model="Dosage[$index]" ng-init="Dosage[$index] = medication.Unit" disabled="disabled"> 
                                             </div>
                                             <div data-field-span="1">
-                                                <label>Quantity</label>
+                                                <label>Intake Days</label>
                                                 <input type="text" ng-model="Quantity[$index]" ng-init="Quantity[$index] = medication.Quantity">
                                                 <input type="hidden" ng-model="MedID[$index]" ng-init="MedID[$index] = medication.MedicineID"> 
                                             </div>
                                         </div>
-                                        <div data-row-span="1">
+                                        <div data-row-span="2">
                                             <div data-field-span="1">
                                                 <label>Notes</label>
                                                 <input type="text" ng-model="NoteID[$index]" placeholder="Notes here"> 
+                                            </div>
+                                            <div data-field-span="1">
+                                                <label>Intake Inerval</label>
+                                                <select class="form-control" ng-model="IntakeInterval[$index]" style="width:395px;">
+                                                    <option value="" disabled selected>Select Interval</option>
+                                                    <option ng-repeat="intrvl in interval" value="{{intrvl.DosingID}}">{{intrvl.Intake}} a day</option>
+                                                </select>
                                             </div>
                                         
                                         </div>
@@ -126,6 +133,7 @@
                     $scope.Quantity = [];
                     $scope.Dosage = [];
                     $scope.NoteID = [];
+                    $scope.IntakeInterval = [];
                     
                     switch ($scope.at.charAt(0)) {
                         case '1':
@@ -175,20 +183,26 @@
                         params: {id: $scope.admissionid}
                     }).then(function(response) {
                         $scope.patientdetails = response.data;
-             
                     });
+
+                     $http({
+                        method: 'get',
+                        url: 'getData/get-dosing-interval.php'
+                    }).then(function(response) {
+                        $scope.interval = response.data;
+                    });
+
                     $scope.submitDetails = function(type){
-                 
                         swal({
                             icon: "success",
                             title: "Successfully Added!",
                             text: "Redirecting in 2..",
                             timer: 2000
                         }).then(function () {
-                            window.location.href = 'initiate-medication.php?quantity=' + $scope.Quantity + '&id=' + $scope.medicationid + '&at=' + $scope.at + '&dosage=' + $scope.Dosage + '&medid=' + $scope.MedID + '&notes=' + $scope.NoteID  + '&admissionid=' + $scope.admissionid;
+                            window.location.href = 'initiate-medication.php?quantity=' + $scope.Quantity + '&id=' + $scope.medicationid + '&at=' + $scope.at + '&dosage=' + $scope.Dosage + '&medid=' + $scope.MedID + '&notes=' + $scope.NoteID  + '&admissionid=' + $scope.admissionid + '&intakeinterval=' + $scope.IntakeInterval;
                             }, function (dismiss) {
                             if (dismiss === 'cancel') {
-                                window.location.href = 'initiate-medication.php?quantity=' + $scope.Quantity + '&id=' + $scope.medicationid + '&at=' + $scope.at + '&dosage=' + $scope.Dosage + '&medid=' + $scope.MedID +  '&notes=' + $scope.NoteID + '&admissionid=' + $scope.admissionid;
+                                window.location.href = 'initiate-medication.php?quantity=' + $scope.Quantity + '&id=' + $scope.medicationid + '&at=' + $scope.at + '&dosage=' + $scope.Dosage + '&medid=' + $scope.MedID +  '&notes=' + $scope.NoteID + '&admissionid=' + $scope.admissionid + '&intakeinterval=' + $scope.IntakeInterval;
                             }
                         });
                     }

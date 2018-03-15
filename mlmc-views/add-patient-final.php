@@ -193,12 +193,12 @@
                         $scope.patientdetails = response.data;
                     });
 
-                    $http({
-                        method: 'GET',
-                        url: 'getData/get-dosing-interval.php'
-                    }).then(function(response) {
-                        $scope.interval = response.data;
-                    });
+                    // $http({
+                    //     method: 'GET',
+                    //     url: 'getData/get-dosing-interval.php'
+                    // }).then(function(response) {
+                    //     $scope.interval = response.data;
+                    // });
 
                     $scope.submitDetails = function(type){
                         $scope.totalbill = 5000;

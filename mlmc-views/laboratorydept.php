@@ -13,12 +13,13 @@
     <li class="active"> <a href="">Medical Laboratories</a>
     </li>
 </ol>
-<br><br>
 <div class="container-fluid" ng-app="myApp" ng-controller="userCtrl">
 
-    <div class="row">
-
-    </div>
+   	<div class="row">
+		<div class="col-md-9">
+				<button type="button" ng-click="externalRequest()" class="btn btn-danger-alt pull-left"><i class="fa fa-external-link"></i>&nbsp; External Requests</button>
+		</div>
+	</div>
     <br>
     <div data-widget-group="group1">
         <div class="row">
@@ -61,7 +62,8 @@
                     
                     </div>
                     <div class="panel-footer"></div>
-                         <!-- Patient Modal -->
+                
+                 <!-- Patient Modal -->
 				<div class="modal fade" id="patientModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
 					<form class="form-horizontal">
 						<div class="modal-dialog">
@@ -130,7 +132,9 @@
 						</div>
 					</form>
 				</div>
+                <!-- PATIENT MODAL -->
 
+                <!-- CLEAR REQUEST MODAL -->
                 <div class="modal fade" id="ClearModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
 					<form class="form-horizontal">
 						<div class="modal-dialog">
@@ -149,6 +153,61 @@
 					</form>
                 </div>
             </div>
+            <!-- CLEAR REQUEST MODAL -->
+
+            <!-- External Request Modal -->
+			<div class="modal fade" id="externalRequestModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+					<div class="modal-dialog">
+						<div class="panel panel-danger" data-widget='{"draggable": "false"}'>
+							<div class="panel-heading">
+								<h2>External Laboratory Requests</h2>
+								<div class="panel-ctrls" data-actions-container="" data-action-collapse='{"target": ".panel-body, .panel-footer"}'></div>
+							</div>
+							<div class="panel-body" style="height: auto">
+							<center><span><strong>Search Registry Information</strong></span></center>
+									<hr>
+									<div class="row">
+										<div class="form-group">
+											<label for="focusedinput" class="col-sm-3 control-label">
+											&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+											&nbsp;&nbsp;&nbsp;&nbsp;Last Name</label>
+											<div class="col-sm-7">
+												<input type="text" ng-model='lastname' class="form-control">
+											</div>
+										</div>
+									</div>
+									<br>
+									<div class="row">
+										<div class="form-group">
+											<label for="focusedinput" class="col-sm-3 control-label">
+											&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+											&nbsp;&nbsp;&nbsp;&nbsp;First Name</label>
+											<div class="col-sm-7">
+												<input type="text" ng-model='firstname' class="form-control">
+											</div>
+										</div>
+									</div>
+									<br>
+									<div class="row">
+										<div class="form-group">
+											<label for="focusedinput" class="col-sm-3 control-label">
+											&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+											&nbsp;&nbsp;&nbsp;&nbsp;Middle Name</label>
+											<div class="col-sm-7">
+												<input type="text" ng-model='middlename' class="form-control">
+											</div>
+										</div>
+									</div>
+									<br>
+							</div>
+							<div class="panel-footer">
+								<button type="button" ng-click="#" data-dismiss="modal" class="btn btn-danger pull-right">Search</button>
+									<button type="button" data-dismiss="modal" class="btn btn-default pull-right">Cancel</button>
+							</div>
+						</div>
+					</div>
+           	 	</div>
+			<!--/ External Request Modal -->
 
                 <!-- Error modal -->
                 <div class="modal fade" id="ErrorModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
@@ -247,6 +306,10 @@
             $scope.clickedRow = ($scope.selectedRow == null) ? 0 : 1;
             $scope.description = desc;
             $scope.labid = lid;
+        }
+
+        $scope.externalRequest = function(){
+            $('#externalRequestModal').modal('show');
         }
 
         $scope.ClearRequest = function(){

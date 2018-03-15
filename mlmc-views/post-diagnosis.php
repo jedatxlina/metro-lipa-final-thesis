@@ -64,6 +64,7 @@
                                             <div data-field-span="1">
                                                 <label>Attending ID</label>
                                                 <input type="text" class="form-control" ng-value="patient.Attending" disabled="disabled">
+                                                <input type="hidden" ng-model="$parent.attendingid" ng-init="$parent.attendingid = patient.Attending">
                                             </div>
                                         </div>
                                     </fieldset>
@@ -71,16 +72,16 @@
                                         <div data-row-span="2">
                                             <div data-field-span="1">
                                                 <label>Post-Diagnosis</label><br>
-                                                <select id="conditions" class="select2" multiple="multiple" style="width:420px;">
+                                                <select id="diagnosis" class="select2" multiple="multiple" style="width:420px;">
                                                         <optgroup label="List of Medicines">
                                                             <option ng-repeat="condition in conditions" value="{{condition.ConditionID}}">{{condition.Conditions}}</option>
                                                         </optgroup>
                                                         <option ng-value="Others">Others</option>
                                                 </select>  
-                                                <a href="#">&nbsp;<i class="ti ti-close" ng-click="reset('condition')"></i></a><br><br>
-                                                    <div id="otherconditions">
+                                                <a href="#">&nbsp;<i class="ti ti-close" ng-click="reset('diagnosis')"></i></a><br><br>
+                                                    <div id="otherdiagnosis">
                                                         <label>Other Conditions</label>
-                                                        <input type="text" ng-model="otherconditions" class="form-control tooltips" data-trigger="hover" data-original-title="Separate with , if more than 1">
+                                                        <input type="text" ng-model="otherdiagnosis" class="form-control tooltips" data-trigger="hover" data-original-title="Separate with , if more than 1">
                                                     </div>   
                                             </div>
                                             <div data-field-span="1">
@@ -219,19 +220,19 @@
                     }).then(function(response) {
                         $scope.conditions = response.data;
                     });
-                    $scope.otherconditions = '';
+                    $scope.otherdiagnosis = '';
                     $scope.otherlabs = ''; 
                     $scope.othermeds = ''; 
                     
-                    $('#otherconditions').hide();
+                    $('#otherdiagnosis').hide();
                     $('#otherlabs').hide();
                     $('#othermeds').hide();
                     
-                    $( "#conditions" ).click(function() {
-                        $scope.condition = $("#conditions").val();
+                    $( "#diagnosis" ).click(function() {
+                        $scope.diagnosis = $("#diagnosis").val();
 
-                        if( $scope.condition.indexOf('Others') >= 0){
-                            $('#otherconditions').show();
+                        if( $scope.diagnosis.indexOf('Others') >= 0){
+                            $('#otherdiagnosis').show();
                         }
                    
                     });
@@ -254,9 +255,9 @@
                     $scope.reset = function(val){
                             $scope.chck = val;
                             switch ($scope.chck) {
-                                case 'condition':
-                                $('#conditions').removeAttr('disabled');
-                                $('#otherconditions').hide();
+                                case 'diagnosis':
+                                $('#diagnosis').removeAttr('disabled');
+                                $('#otherdiagnosis').hide();
                                 break;
 
                                 case 'labs':
@@ -274,16 +275,16 @@
                     }
     
                     $scope.confirmDiagnosis = function(){
+                        $scope.diagnosis = $("#diagnosis").val();
                         
-                        $scope.condition = $("#conditions").val();
-                        $scope.found2 = $scope.condition.indexOf('Others');
+                        $scope.found2 = $scope.diagnosis.indexOf('Others');
                             while ($scope.found2 !== -1) {
-                                $scope.condition.splice($scope.found2, 1);
-                                $scope.found2 = $scope.condition.indexOf('Others');
+                                $scope.diagnosis.splice($scope.found2, 1);
+                                $scope.found2 = $scope.diagnosis.indexOf('Others');
                              
                             }
-                            if($scope.otherconditions != ''){
-                                $scope.condition = $scope.condition.concat($scope.otherconditions);
+                            if($scope.otherdiagnosis != ''){
+                                $scope.diagnosis = $scope.diagnosis.concat($scope.otherdiagnosis);
                             }
 
                         if($scope.lab === 'Yes'){
@@ -310,10 +311,11 @@
                             }
                  
                         if($scope.lab != 'No'){
-                            window.location.href = 'insertData/insert-diagnosis-details.php?at=' + $scope.at + '&id=' + $scope.admissionid + '&diagnosis=' + $scope.diagnosis + '&order=' + $scope.order + '&lab=' + $scope.lab + '&meds=' + $scope.meds;        
+                            window.location.href = 'insertData/insert-diagnosis-details.php?at=' + $scope.at + '&id=' + $scope.admissionid + '&diagnosis=' + $scope.diagnosis + '&order=' + $scope.order + '&lab=' + $scope.lab + '&meds=' + $scope.meds + '&attendingid=' + $scope.attendingid;        
                         }else{
-                            window.location.href = 'insertData/insert-diagnosis-details.php?at=' + $scope.at + '&id=' + $scope.admissionid + '&diagnosis=' + $scope.diagnosis + '&order=' + $scope.order + '&meds=' + $scope.meds;        
+                            window.location.href = 'insertData/insert-diagnosis-details.php?at=' + $scope.at + '&id=' + $scope.admissionid + '&diagnosis=' + $scope.diagnosis + '&order=' + $scope.order + '&meds=' + $scope.meds + '&attendingid=' + $scope.attendingid;        
                         }
+             
                     }
              
                     $scope.getPage = function(check){

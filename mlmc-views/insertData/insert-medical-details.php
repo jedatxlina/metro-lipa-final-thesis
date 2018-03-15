@@ -4,9 +4,9 @@ require_once 'connection.php';
 
 $vitalsid =  $_GET['vitalsid'];  
 $medicationid =  $_GET['medicationid'];  
-$diagnosisid =  $_GET['diagnosisid'];  
 $attendingid =  $_GET['attendingid'];  
 $admissionid =  $_GET['admissionid'];  
+$diagnosisid =  $_GET['diagnosisid'];  
 $medicalid = $_GET['medid'];
 
 $surgery = $_GET['surgery'];
@@ -53,9 +53,4 @@ VALUES('$attendingid','$attendingphysicianid','$admissionid','$diagnosisid','$di
 
 mysqli_query($con,$query);
 
-$query = "INSERT into diagnosis(DiagnosisID,AttendingID,Findings,DateDiagnosed,TimeDiagnosed,MedicationID) 
-VALUES('$diagnosisid','$attendingid','$diagnosis','$date','$time','$medicationid')";
 
-mysqli_query($con,$query);
-
-?>

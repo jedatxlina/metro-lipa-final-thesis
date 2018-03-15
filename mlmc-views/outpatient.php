@@ -89,9 +89,9 @@ include 'admin-header.php' ?>
                 <div class="list-group list-group-alternate mb-n nav nav-tabs">
                     <a href="#" role="tab" data-toggle="tab" class="list-group-item active">Actions Panel</a>
                     <a href="#" ng-click="viewPatient()" role="tab" data-toggle="tab" class="list-group-item"><i class="ti ti-user"></i> Patient Details</a>
-                    <a href="#" ng-click="movePatient()" role="tab" data-toggle="tab" class="list-group-item"><i class="fa fa-stethoscope"></i>Move to Emergency</a>
+                    <a href="#" ng-click="dischargePatient('move')" role="tab" data-toggle="tab" class="list-group-item"><i class="fa fa-stethoscope"></i>Move to Emergency</a>
                     <a href="#" ng-click="viewOrder()" role="tab" data-toggle="tab" class="list-group-item"><span class="badge badge-primary"  ng-if="notifs > 0">{{notifs}}</span> <i class="ti ti-email"></i>Doctors Order</a>
-                    <a href="#" ng-click="dischargePatient()" role="tab" data-toggle="tab" class="list-group-item"><i class="fa fa-check-square-o"></i>Post Charge</a>
+                    <a href="#" ng-click="dischargePatient('pay')" role="tab" data-toggle="tab" class="list-group-item"><i class="fa fa-check-square-o"></i>Post Charge</a>
                 </div>
             </div>
 
@@ -654,7 +654,9 @@ include 'admin-header.php' ?>
             			window.location.href = 'view-order-details.php?at=' + $scope.at + '&id=' + $scope.id;
             		}
             
-            		$scope.dischargePatient = function(){
+            		$scope.dischargePatient = function(param){
+						$scope.redirect = param;
+						
             			if($scope.selectedRow != null){
 
             				$scope.patient = $scope.selectedRow;
@@ -681,6 +683,7 @@ include 'admin-header.php' ?>
             			else{
             			$('#errorModal').modal('show');
             			}
+			
             		}
 
 					$scope.seniorClick = function(){
@@ -705,13 +708,15 @@ include 'admin-header.php' ?>
 						}else{
 							$scope.totalfee = $scope.fee - ($scope.fee*.20);
 						}
+
 						$http({
             			method: 'GET',
             			url: 'insertData/insert-discharged-outpatient.php',
             			params: {at: $scope.at,
-								admissionid: $scope.idpatient,
+								admissionid: $scope.patient,
 								opdroomno: $scope.opdroomno,
-								totalfee: $scope.totalfee}
+								totalfee: $scope.totalfee,
+								re: $scope.redirect}
             			}).then(function(response) {
 							swal({
                             icon: "success",

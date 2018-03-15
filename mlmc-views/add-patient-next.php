@@ -33,7 +33,7 @@
                                                     
                                                     <label>Conditions</label>
                                                     <select id="conditions" class="select2" multiple="multiple" style="width:550px;">
-                                                        <optgroup label="List of Medicines">
+                                                        <optgroup label="List of Conditions">
                                                             <option ng-repeat="condition in conditions" value="{{condition.ConditionID}}">{{condition.Conditions}}</option>
                                                         </optgroup>
                                                         <option ng-value="Others">Others</option>
@@ -99,7 +99,17 @@
                                                 <div data-row-span="4"  ng-show="param != 'Outpatient'"> 
                                                         <div data-field-span="2">
                                                             <label>Impression/Admitting Diagnosis</label>
-                                                            <textarea autogrow ng-model="diagnosis"></textarea>
+                                                            <select id="diagnosis" class="select2" multiple="multiple" style="width:550px;">
+                                                                    <optgroup label="List of Impression/Diagnosis">
+                                                                        <option ng-repeat="condition in conditions" value="{{condition.ConditionID}}">{{condition.Conditions}}</option>
+                                                                    </optgroup>
+                                                                    <option ng-value="Others">Others</option>
+                                                                </select>
+                                                                <a href="#">&nbsp;<i class="ti ti-close" ng-click="reset('administeredmed')"></i></a><br><br>
+                                                                <div id="otherdiagnosis">
+                                                                    <label>Other Impression/Diagnosis</label>
+                                                                    <input type="text" ng-model="otherdiagnosis" class="form-control tooltips" data-trigger="hover" data-original-title="Separate with , if more than 1">
+                                                                </div>
                                                         </div>
                                                         <div data-field-span="2">
                                                             <label>Administered Medications</label>
@@ -219,8 +229,6 @@
                             });
                             break;
                     }
-                   
-
                     
                     $http({
                         method: 'GET',
@@ -238,10 +246,12 @@
 
                     $scope.otherconditions = '';
                     $scope.othercurrentmed = '';
+                    $scope.otherdiagnosis = '';
                     $scope.otheradministeredmed = '';
                     
                     $('#otherconditions').hide();
                     $('#othercurrentmed').hide();
+                    $('#otherdiagnosis').hide();
                     $('#otheradministeredmed').hide();
                 
                     $( "#conditions" ).click(function() {
@@ -257,6 +267,14 @@
                         $scope.medication = $("#medications").val();
                         if( $scope.medication.indexOf('Others') >= 0){
                             $('#othercurrentmed').show();
+                        }
+                   
+                    });
+
+                    $( "#diagnosis" ).click(function() {
+                        $scope.medication = $("#diagnosis").val();
+                        if( $scope.medication.indexOf('Others') >= 0){
+                            $('#otherdiagnosis').show();
                         }
                    
                     });
@@ -284,6 +302,11 @@
                             $('#othercurrentmed').hide();
                                 break;
 
+                            case 'diagnosis':
+                            $('#diagnosis').removeAttr('disabled');
+                            $('#otherdiagnosis').hide();
+                                break;
+
                             case 'administeredmed':
                             $('#administered').removeAttr('disabled');
                             $('#otheradministeredmed').hide();
@@ -299,10 +322,11 @@
                     $scope.submitDetails = function(){
                             $scope.condition = $("#conditions").val();
                             $scope.medication =$("#medications").val();
+
                             $scope.vitalsid =     "<?php echo rand(111111, 999999);?>"; 
                             $scope.medicationid = "<?php echo rand(111111, 999999);?>"; 
-                            $scope.diagnosisid =  "<?php echo rand(111111, 999999);?>"; 
                             $scope.attendingid =  "<?php echo rand(111111, 999999);?>"; 
+                            $scope.diagnosisid =  "<?php echo rand(111111, 999999);?>"; 
 
                             $scope.parsedbp =  $scope.bp.split('/');
 
@@ -326,20 +350,30 @@
                             if($scope.othercurrentmed != ''){
                                 $scope.medication = $scope.medication.concat($scope.othercurrentmed);
                             }
-
+                              
                             if($scope.param != 'Outpatient'){
+                                    $scope.diagnosis =$("#diagnosis").val();
+                                    $scope.found3 = $scope.diagnosis.indexOf('Others');
+                                    while ($scope.found3 !== -1) {
+                                        $scope.diagnosis.splice($scope.found3, 1);
+                                        $scope.found3 = $scope.diagnosis.indexOf('Others');
+                                    
+                                    }
+                                    if($scope.otherdiagnosis != ''){
+                                        $scope.diagnosis = $scope.diagnosis.concat($scope.otherdiagnosis);
+                                    }
                            
-                                $scope.administered =$("#administered").val();
-                                
-                                $scope.found2 = $scope.administered.indexOf('Others');
-                                while ($scope.found2 !== -1) {
-                                    $scope.administered.splice($scope.found2, 1);
+                                    $scope.administered =$("#administered").val();
                                     $scope.found2 = $scope.administered.indexOf('Others');
-                                
-                                }
-                                if($scope.otheradministeredmed != ''){
-                                    $scope.administered = $scope.administered.concat($scope.otheradministeredmed);
-                                }
+                                    while ($scope.found2 !== -1) {
+                                        $scope.administered.splice($scope.found2, 1);
+                                        $scope.found2 = $scope.administered.indexOf('Others');
+                                    
+                                    }
+                                    if($scope.otheradministeredmed != ''){
+                                        $scope.administered = $scope.administered.concat($scope.otheradministeredmed);
+                                    }
+
                                     $http({
                                     method: 'GET',
                                     url: 'qr-generator/index.php',
@@ -348,9 +382,7 @@
                                         }
                                     }).then(function(response) {
                                     });
-                            }
-                           
-                            if($scope.param != 'Outpatient'){
+
                                 $http({
                                 method: 'GET',
                                 url: 'insertData/insert-medical-details.php',
@@ -358,8 +390,8 @@
                                         admissionid: $scope.admissionid,
                                         vitalsid: $scope.vitalsid,
                                         medicationid: $scope.medicationid,
-                                        diagnosisid: $scope.diagnosisid,
                                         attendingid: $scope.attendingid,
+                                        diagnosisid: $scope.diagnosisid,
                                         surgery: $scope.surgery,
                                         bp: JSON.stringify($scope.parsedbp),
                                         pr: $scope.pr,
@@ -367,11 +399,9 @@
                                         temp: $scope.temp,
                                         weight: $scope.weight,
                                         height: $scope.height,
-                                        diagnosis: $scope.diagnosis,
                                         attending: $scope.attendingphysician}
-
                                 }).then(function(response) {
-                                    window.location.href = 'insertData/insert-medications-details.php?param=' + $scope.param + '&at=' + $scope.at + '&medicationid=' + $scope.medicationid + '&admissionid=' + $scope.admissionid + '&administered=' + $scope.administered + '&physicianid=' + $scope.attendingphysician + '&medication=' + $scope.medication + '&condition=' + $scope.condition;
+                                    window.location.href = 'insertData/insert-medications-details.php?param=' + $scope.param + '&at=' + $scope.at + '&medicationid=' + $scope.medicationid + '&admissionid=' + $scope.admissionid + '&administered=' + $scope.administered + '&physicianid=' + $scope.attendingphysician + '&medication=' + $scope.medication + '&condition=' + $scope.condition + '&diagnosis=' + $scope.diagnosis + '&attendingid=' + $scope.attendingid + '&diagnosisid=' + $scope.diagnosisid;
                                 });      
                             }else{
                                 $http({
@@ -380,8 +410,6 @@
                                 params: {medid: $scope.medid,
                                         admissionid: $scope.admissionid,
                                         vitalsid: $scope.vitalsid,
-                                        medicationid: $scope.medicationid,
-                                        diagnosisid: $scope.diagnosisid,
                                         attendingid: $scope.attendingid,
                                         surgery: $scope.surgery,
                                         bp: JSON.stringify($scope.parsedbp),
@@ -393,7 +421,6 @@
                                         attending: $scope.attendingphysician}
                                 }).then(function(response) {
                                     window.location.href = 'insertData/insert-condition-details.php?param=' + $scope.param + '&at=' + $scope.at + '&admissionid=' + $scope.admissionid + '&condition=' + $scope.condition;
-                                  
                                 });   
                             }
                     }

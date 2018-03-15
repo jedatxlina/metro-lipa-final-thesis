@@ -61,7 +61,7 @@
 <script type="text/javascript" src="assets/plugins/bootstrap-datepicker/bootstrap-datepicker.js"></script>      			<!-- Datepicker -->
 <script type="text/javascript" src="assets/plugins/bootstrap-timepicker/bootstrap-timepicker.js"></script>      			<!-- Timepicker -->
 <script type="text/javascript" src="assets/plugins/bootstrap-datetimepicker/js/bootstrap-datetimepicker.js"></script> <!-- DateTime Picker -->
-
+<script type="text/javascript" src="assets/plugins/dropzone/dropzone.min.js"></script>   	<!-- Dropzone Plugin -->
 
 <script type="text/javascript" src="assets/demo/demo-pickers.js"></script>
 <script type="text/javascript" src="assets/plugins/datatables/jquery.dataTables.js"></script>
