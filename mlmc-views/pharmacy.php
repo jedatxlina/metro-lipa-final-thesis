@@ -85,7 +85,7 @@
                             <form>
                                 <div class="form-group">
                                     <label>Medicine Name </label>
-                                    <input type="text" ng-model="pharmaname" placeholder="Paracetamol" class="form-control">
+                                    <input type="text" ng-model="pharmaname" placeholder="Paracetamol" class="form-control" ng-keypress="filterValueCharacter($event)">
                                 </div>
 
                                 
@@ -98,8 +98,10 @@
                                         <div class="col-md-3">
                                         <select ng-model="measurement" class="form-control" style="width:130px">
                                         <option value="" disabled>Select</option>
+                                        <option value="g">g</option>
                                         <option value="mg">mg</option>
                                         <option value="mL">mL</option>
+                                        <option value="L">L</option>
                                         </select>
                                         
                                     </div>
@@ -225,8 +227,6 @@
             $scope.selectedStatus = null;
             $scope.clickedRow = 0;
             $scope.new = {};
-            $scope.showData = true;
-            $scope.onlyNumbers = '\\d+';
 
                 switch ($scope.at.charAt(0)) {
                     case '1':
@@ -261,6 +261,14 @@
                 if(isNaN(String.fromCharCode($event.keyCode))){
                 $event.preventDefault();
                 }
+                };
+
+                $scope.filterValueCharacter = function($event){
+                if(isNaN(String.fromCharCode($event.keyCode))){
+                
+                }
+                else
+                $event.preventDefault();
                 };
 
             $http({

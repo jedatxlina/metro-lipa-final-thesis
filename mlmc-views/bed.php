@@ -70,7 +70,7 @@
                             <h2>Edit Bed</h2>
                             <div class="panel-ctrls" data-actions-container="" data-action-collapse='{"target": ".panel-body, .panel-footer"}'></div>
                         </div>
-                        <div class="panel-body" style="height: 620px">
+                        <div class="panel-body" style="height: auto">
                         <form ng-repeat="getbed in getbedid">
                                 <div class="form-group">
                                     <label>Bed ID </label>
