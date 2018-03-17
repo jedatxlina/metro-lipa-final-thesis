@@ -56,25 +56,52 @@ font-weight: bold;
 						<div class="panel-body">
 							<table id="patient_table" class="table table-striped table-bordered" cellspacing="0" width="100%">
 								<thead>
-								<tr>
-									<th>Admission ID</th>
-									<th>Admission No</th>
-									<th>Admission Date</th>
-									<th>Full name</th>
-									<th>Admission</th>
-									<th>Admission Type</th>
-									<th>Gender</th>
+								<tr>								
+									<th>Room & Bed No.</th>
+									<th>Patient Name</th>
+									<th>Blood Pressure</th>
+									<th>Pulse Rate</th>
+									<th>Respiratory Rate</th>
+									<th>Temperature</th>
+									<th>Date Time Checked</th>
 								</tr>
 								</thead>
 								<tbody>
+								<tr ng-repeat="user in users2" ng-class="{'selected': user.AdmissionID == selectedRow}" ng-click="setClickedRow(user.AdmissionID)">	  									
+										<td>{{user.BedID}}</td>
+                                        <td>{{user.Fullname}}</td>
+                                        <td style="color:red">{{user.BP}}/{{user.BPD}}</td>
+                                        <td>{{user.PR}}</td>
+                                        <td>{{user.RR}}</td>
+                                        <td style="color:red">{{user.Temperature}}</td>
+										<td>{{user.DateTimeChecked}}</td>
+                                    </tr>
+									<tr ng-repeat="user in users3" ng-class="{'selected': user.AdmissionID == selectedRow}" ng-click="setClickedRow(user.AdmissionID)">	  									
+										<td>{{user.BedID}}</td>
+                                        <td>{{user.Fullname}}</td>
+                                        <td style="color:red">{{user.BP}}/{{user.BPD}}</td>
+                                        <td>{{user.PR}}</td>
+                                        <td>{{user.RR}}</td>
+                                        <td>{{user.Temperature}}</td>
+										<td>{{user.DateTimeChecked}}</td>
+                                    </tr>
+								<tr ng-repeat="user in users4" ng-class="{'selected': user.AdmissionID == selectedRow}" ng-click="setClickedRow(user.AdmissionID)">	  									
+										<td>{{user.BedID}}</td>
+                                        <td>{{user.Fullname}}</td>
+                                        <td>{{user.BP}}/{{user.BPD}}</td>
+                                        <td>{{user.PR}}</td>
+                                        <td>{{user.RR}}</td>
+                                        <td style="color:red">{{user.Temperature}}</td>
+										<td>{{user.DateTimeChecked}}</td>
+                                    </tr>
 								<tr ng-repeat="user in users" ng-class="{'selected': user.AdmissionID == selectedRow}" ng-click="setClickedRow(user.AdmissionID)">
-                                        <td>{{user.AdmissionID}}</td>
-                                        <td>{{user.AdmissionNo}}</td>
-                                        <td>{{user.AdmissionDate}}</td>
-                                        <td>{{user.Lname}}, {{user.Fname}} {{user.Mname}} </td>
-                                        <td>{{user.Admission}}</td>
-                                        <td>{{user.AdmissionType}}</td>
-                                        <td>{{user.Gender}}</td>
+										<td>{{user.BedID}}</td>
+										<td>{{user.Fullname}}</td>
+										<td>{{user.BP}}/{{user.BPD}}</td>
+										<td>{{user.PR}}</td>
+										<td>{{user.RR}}</td>
+										<td>{{user.Temperature}}</td>
+										<td>{{user.DateTimeChecked}}</td>
                                     </tr>
 								</tbody>
 							</table>
@@ -130,7 +157,7 @@ font-weight: bold;
 								<div class="panel-ctrls" data-actions-container="" data-action-collapse='{"target": ".panel-body, .panel-footer"}'></div>
 							</div>
 							<div class="panel-body" style="height: 60px">
-							Select Emergency record that you would like to apply an <a href="#" class="alert-link">Action.</a>
+							Select Inpatient record that you would like to apply an <a href="#" class="alert-link">Action.</a>
 							</div>
 						</div>
 					</div>
@@ -545,11 +572,55 @@ font-weight: bold;
 				break;
 		}
 
-       	$http({
+       	// $http({
+        //    method: 'get',
+        //    url: 'getData/get-inpatient-details.php'
+       	// }).then(function(response) {
+		//  	$scope.users = response.data;
+		// 	angular.element(document).ready(function() {  
+		// 	dTable = $('#patient_table')  
+		// 	dTable.DataTable();  
+		// 	});  
+		// });
+
+		$http({
            method: 'get',
-           url: 'getData/get-inpatient-details.php'
+           url: 'getData/get-inpatient-normal-vitals.php'
        	}).then(function(response) {
 		 	$scope.users = response.data;
+			angular.element(document).ready(function() {  
+			dTable = $('#patient_table')  
+			dTable.DataTable();  
+			});  
+		});
+
+		$http({
+           method: 'get',
+           url: 'getData/get-inpatient-fever-hb.php'
+       	}).then(function(response) {
+		 	$scope.users2 = response.data;
+			angular.element(document).ready(function() {  
+			dTable = $('#patient_table')  
+			dTable.DataTable();  
+			});  
+		});
+
+		$http({
+           method: 'get',
+           url: 'getData/get-inpatient-nonfever-hb.php'
+       	}).then(function(response) {
+		 	$scope.users3 = response.data;
+			angular.element(document).ready(function() {  
+			dTable = $('#patient_table')  
+			dTable.DataTable();  
+			});  
+		});
+
+		$http({
+           method: 'get',
+           url: 'getData/get-inpatient-fever-nonhb.php'
+       	}).then(function(response) {
+		 	$scope.users4 = response.data;
 			angular.element(document).ready(function() {  
 			dTable = $('#patient_table')  
 			dTable.DataTable();  
