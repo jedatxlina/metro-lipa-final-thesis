@@ -12,6 +12,13 @@ font-weight: bold;
 <li><a href="#">Patients</a></li>
 <li class="active"><a href="#">Outpatient</a></li>
 </ol>
+<div class="clearfix">
+        <div class="pull-left">
+            &emsp;
+            <button ng-click="goBack()" class="btn-danger-alt btn">Back</button>
+        </div>
+</div>
+<br>
 <div class="container-fluid">
 <div data-widget-group="group1">
             
@@ -25,188 +32,122 @@ font-weight: bold;
                     </div>
                     </div><!-- panel -->
                     <div class="list-group list-group-alternate mb-n nav nav-tabs">
-                        <a href="#tab-about" 	role="tab" data-toggle="tab" class="list-group-item active"><i class="ti ti-user"></i> About </a>
-                        <a href="#tab-diagnosis" role="tab" data-toggle="tab" class="list-group-item"><i class="fa fa-stethoscope"></i>Diagnosis Details</a>
-                        <a href="#tab-order" role="tab" data-toggle="tab" class="list-group-item"><i class="ti ti-time"></i>Order Details</a>
-                      
+                        <a href="#tab-about" 	role="tab" data-toggle="tab" class="list-group-item active"><i class="fa fa-stethoscope"></i>Order Details</a>  
                     </div>
                 </div><!-- col-sm-3 -->
                 <div class="col-sm-8">
                     <div class="tab-content">
                         <div class="tab-pane active" id="tab-about">
-                            <div class="panel panel-default">
+                            <div class="panel panel-white" data-widget='{"draggable": "false"}'>
                                 <div class="panel-heading">
-                                    <h2>Profile</h2>
+                                    <h2>Patient Details</h2>
                                 </div>
                                 <div class="panel-body">
-                                    <div class="about-area">
-                                        <h4>Personal Information</h4>
-                                            <div class="table-responsive">
-                                            <table class="table" data-ng-repeat="patient in patients">
-                                                <tbody>
-                                                <tr>
-                                                    <th>Admission ID</th>
-                                                    <td>{{patient.AdmissionID}}</td>
-                                                </tr>
-                                                <tr>
-                                                    <th>Admission No</th>
-                                                    <td>{{patient.AdmissionNo}}</td>
-                                                </tr>
-                                                <tr>
-                                                    <th>Admisison Date</th>
-                                                    <td>{{patient.AdmissionDate}}</td>
-                                                </tr>
-                                                <tr>
-                                                    <th>Admisison Time</th>
-                                                    <td>{{patient.AdmissionTime}}</td>
-                                                </tr>
-                                                <tr>
-                                                    <th>Admission</th>
-                                                    <td>{{patient.Admission}}</td>
-                                                </tr>
-                                                <tr>
-                                                    <th>Admission Type</th>
-                                                    <td>{{patient.AdmissionType}}</td>
-                                                </tr>
-                                                </tbody>
-                                            </table>
+                                    <form class="grid-form" action="javascript:void(0)">  
+                                        <fieldset data-ng-repeat="patient in patients">
+                                            <div data-row-span="3">
+                                                    <div data-field-span="1">
+                                                        <label>Admission ID<br></label>
+                                                        <input type="text" ng-model="patient.AdmissionID" ng-disabled='true'>
+                                                    </div>
+                                                    <div data-field-span="1">
+                                                        <label>Gender<br></label>
+                                                        <input type="text" ng-model="patient.Gender" ng-disabled='true'>
+                                                    </div>
+                                                </div>
+                                            <div data-row-span="4">
+                                                    <div data-field-span="1">
+                                                        <label>Last Name</label>
+                                                        <input type="text" ng-value="patient.Lastname" ng-disabled='true'>
+                                                    </div>
+                                                    <div data-field-span="1">
+                                                        <label>First Name</label>
+                                                        <input type="text" ng-value="patient.Firstname" ng-disabled='true'>
+                                                    </div>
+                                                    <div data-field-span="1">
+                                                        <label>Middle Name</label>
+                                                        <input type="text" ng-value="patient.Middlename" ng-disabled='true'>
+                                                    </div>
                                             </div>
-                                    </div>
-                                   
+                                            <div data-row-span="2">
+                                                    <div data-field-span="1">
+                                                        <label>Admission Type<br></label>
+                                                        <input type="text" ng-model="patient.AdmissionType" ng-disabled='true'>
+                                                    </div>
+                                                    <div data-field-span="1">
+                                                        <label>Admission<br></label>
+                                                        <input type="text" ng-model="patient.Admission" ng-disabled='true'>
+                                                    </div>
+                                            </div>
+                                        </fieldset>  
+                                        <br>
+                                    </form>
+                                </div>
+                            </div>
+                            <br>
+                            <div class="panel panel-white" data-widget='{"draggable": "false"}'>
+                                <div class="panel-heading">
+                                    <h2>Patient Order Details</h2> 	<a class="pull-right"ng-click="viewReport()">Print Report &nbsp;<i class="ti ti-printer"></i></a>
+                                    <!-- <div class="panel-ctrls" data-actions-container="" data-action-collapse='{"target": ".panel-body"}'></div> -->
+                                </div>
+                                <div class="panel-body">
+                                    <form class="grid-form" action="javascript:void(0)">  
+                                        <fieldset data-ng-repeat="order in orders">
+                                            <div data-row-span="3">
+                                                    <div data-field-span="1">
+                                                        <label>Order ID<br></label>
+                                                        <input type="text" ng-model="order.OrderID" ng-disabled='true'>
+                                                    </div>
+                                                    <div data-field-span="1">
+                                                        <label>Physician Name<br></label>
+                                                        <input type="text" ng-model="order.Dname" ng-disabled='true'>
+                                                    </div>
+                                                </div>
+                                            <div data-row-span="4">
+                                                    <div data-field-span="1">
+                                                        <label>Findings </label>
+                                                        <textarea autogrow ng-model="order.Find" ng-disabled='true'></textarea>
+                                                    </div>
+                                            </div>
+                                        </fieldset>  
+                                        <fieldset data-ng-repeat='medication in medications'>
+                                            <div data-row-span="4">
+                                                    <div data-field-span="1">
+                                                        <label>Medicine NAme<br></label>
+                                                        <input type="text" ng-model="medication.MedicineName + ' ' + medication.Dosage " ng-disabled='true'>
+                                                    </div>
+                                                    <div data-field-span="1">
+                                                            <label>Interval<br></label>
+                                                            <input type="text" ng-model="medication.Intake" ng-disabled='true'>
+                                                        </div>
+                                                    <div data-field-span="1">
+                                                        <label>Quantity<br></label>
+                                                        <input type="text" ng-model="medication.Quantity" ng-disabled='true'>
+                                                    </div>
+                                             </div>
+                                             <div>
+                                             <div data-row-span="2">
+                                             
+                                                </div>
+                                            </div>
+                                        </fieldset>
+                                    </form>
                                 </div>
                             </div>
                         </div>
-                        <div class="tab-pane" id="tab-diagnosis">
-                            <div class="panel panel-default">
-                                <div class="panel-heading">
-                                    <h2>Diagnosis</h2><a ng-click="viewReport()" class="pull-right">Print Report &nbsp;<i class="ti ti-printer"></i></a>
-                                </div>
-                                <div class="panel-body">
-                                    <div class="about-area">
-                                        <h4>Diagnosis Details</h4>
-                                            <div class="table-responsive">
-                                            <table class="table" data-ng-repeat="diag in diagnosis">
-                                                <tbody>
-                                                <tr>
-                                                    <th>Diagnosis ID</th>
-                                                    <td>{{diag.DiagnosisID}}</td>
-                                                </tr>
-                                                <tr>
-                                                    <th>Attending Physician</th>
-                                                    <td>{{diag.Lname}}, {{diag.Fname}} {{diag.Mname}}</td>
-                                                </tr>
-                                                <tr>
-                                                    <th>Date Diagnosed</th>
-                                                    <td>{{diag.DateDiagnosed}}</td>
-                                                </tr>
-                                                <tr>
-                                                    <th>Time Diagnosed</th>
-                                                    <td>{{diag.TimeDiagnosed}}</td>
-                                                </tr>
-                                                <tr>
-                                                    <th>Findings</th>
-                                                    <td>{{diag.Findings}}</td>
-                                                </tr>
-                                                </tbody>
-                                            </table>
-                                            </div>
-                                    </div>
-                                   
-                                </div>
-                            </div>
-                        </div>
-                        <div class="tab-pane" id="tab-order">
-                            <div class="panel panel-default">
-                                <div class="panel-heading">
-                                    <h2>Order</h2><a ng-click="viewReport()" class="pull-right">Print Report &nbsp;<i class="ti ti-printer"></i></a>
-                                </div>
-                                <div class="panel-body">
-                                    <div class="about-area">
-                                        <h4>Order Details</h4>
-                                            <div class="table-responsive">
-                                            <table class="table" data-ng-repeat="order in orders">
-                                                <tbody>
-                                                <tr>
-                                                    <th>Order ID</th>
-                                                    <td>{{order.OrderID}}</td>
-                                                </tr>
-                                                <tr>
-                                                    <th>Admission ID</th>
-                                                    <td>{{order.AdmissionID}}</td>
-                                                </tr>
-                                                <tr>
-                                                    <th>Attending Physician</th>
-                                                    <td>{{order.Lname}}, {{order.Fname}} {{order.Mname}}</td>
-                                                </tr>
-                                                <tr>
-                                                    <th>Task</th>
-                                                    <td>{{order.Task}}</td>
-                                                </tr>
-                                                <tr>
-                                                    <th>Laboratory</th>
-                                                    <td>{{order.LaboratoryID}}</td>
-                                                </tr>
-                                                <tr>
-                                                    <th>Date Order</th>
-                                                    <td>{{order.DateOrder}}</td>
-                                                </tr>
-                                                <tr>
-                                                    <th>Time Order</th>
-                                                    <td>{{order.TimeOrder}}</td>
-                                                </tr>
-                                                <tr>
-                                                    <th>Status</th>
-                                                    <td>{{order.Status}}</td>
-                                                </tr>
-                                                </tbody>
-                                            </table>
-                                            </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
+                      
                     </div><!-- .tab-content -->
                 </div><!-- col-sm-8 -->
             </div>
         </div>
 	
 <script>
-   var fetch = angular.module('myApp', []);
+   var fetch = angular.module('myApp', ['angular-autogrow']);
 
    fetch.controller('userCtrl', ['$scope', '$http','$interval','$window', function($scope, $http,$interval,$window) {   
 		$scope.at = "<?php echo $_GET['at'];?>";
-        $scope.id = "<?php echo $_GET['id'];?>";
-  
-
-		// var pusher = new Pusher('c23d5c3be92c6ab27b7a', {
-		// cluster: 'ap1',
-		// encrypted: true
-	  	// });
-  
-		// var channel = pusher.subscribe('my-channel');
-		// channel.bind('my-event', function(data) {
-		
-		// 	console.log(data.message);
-		// 	swal({
-		// 		icon: "success",
-		// 		title: "New Physician Order!",
-		// 		text: data.message
-		// 		}).then(function () {
-		// 	});
-
-			// $http({
-			// method: 'get',
-			// url: 'getData/get-order-details.php',
-			// params:{id:$scope.at}
-			// }).then(function(response) {
-			// 	$scope.orders = response.data;	
-			// 	angular.element(document).ready(function() {  
-			// 	dTable = $('#orders_table')  
-			// 	dTable.DataTable();  
-			// 	});  
-			// });
-
-	  	// });
+        $scope.orderid = "<?php echo $_GET['orderid'];?>";
+        $scope.id =  "<?php echo $_GET['id'];?>";
 
 			switch ($scope.at.charAt(0)) {
 				case '1':
@@ -246,23 +187,23 @@ font-weight: bold;
 			url: 'getData/get-patient-details.php',
 			params:{id: $scope.id}
 		}).then(function(response) {
-			$scope.patients = response.data;	
+			$scope.patients = response.data;
 		});
 
         $http({
 			method: 'get',
-			url: 'getData/get-diagnosis-details.php',
-			params:{at: $scope.at,
-                    id: $scope.id}
+			url: 'getData/get-medication-details.php',
+			params:{id: $scope.id}
 		}).then(function(response) {
-			$scope.diagnosis = response.data;	
+			$scope.medications = response.data;	
 		});
 
         $http({
 			method: 'get',
 			url: 'getData/get-final-order-details.php',
 			params:{at: $scope.at,
-                    id: $scope.id}
+                    id: $scope.id,
+                    orderid: $scope.orderid}
 		}).then(function(response) {
 			$scope.orders = response.data;
 		});
@@ -335,6 +276,10 @@ font-weight: bold;
 					break;
 			}
 		}
+        $scope.goBack = function() {
+                window.history.back();
+            }
+
 		
 		
 

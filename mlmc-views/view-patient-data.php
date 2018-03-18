@@ -29,11 +29,11 @@
             <div class="row">
                 <div class="col-sm-3">
                     <div class="panel panel-profile">
-                    <div class="panel-body"  data-ng-repeat="patient in patientdetails">
-                        <img ng-src="{{patient.QRpath}}">
-                        <div class="name">{{patient.Lastname}}, {{patient.Firstname}} {{patient.Middlename}}</div>
-                        <div class="info">{{patient.AdmissionID}}</div>
-                    </div>
+                        <div class="panel-body"  data-ng-repeat="patient in patientdetails">
+                            <img ng-src="{{patient.QRpath}}">
+                            <div class="name">{{patient.Lastname}}, {{patient.Firstname}} {{patient.Middlename}}</div>
+                            <div class="info">{{patient.AdmissionID}}</div>
+                        </div>
                     </div><!-- panel -->
                     <div class="list-group list-group-alternate mb-n nav nav-tabs">
                         <a href="#tab-about" 	role="tab" data-toggle="tab" class="list-group-item active"><i class="ti ti-user"></i> About </a>

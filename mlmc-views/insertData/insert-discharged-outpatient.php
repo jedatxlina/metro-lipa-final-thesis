@@ -4,11 +4,11 @@ require_once 'connection.php';
 $billingid =  rand (11111,99999);
 $at = $_GET['at'];
 $admissionid = $_GET['admissionid'];
-$opdroomno = $_GET['opdroomno'];
+// $opdroomno = $_GET['opdroomno'];
 $totalfee = $_GET['totalfee'];
 $re = $_GET['re'];
 
-$query= "INSERT into billing_opd(BillingOpdID,AdmissionID,OpdRoom,TotalBill,Status) VALUES ('$billingid','$admissionid','$opdroomno','$totalfee','Paid')";
+$query= "INSERT into billing_opd(BillingOpdID,AdmissionID,TotalBill,Status) VALUES ('$billingid','$admissionid','$totalfee','Paid')";
 
 mysqli_query($con,$query);  
 

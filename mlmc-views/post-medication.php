@@ -185,7 +185,7 @@
                         $scope.patientdetails = response.data;
                     });
 
-                     $http({
+                    $http({
                         method: 'get',
                         url: 'getData/get-dosing-interval.php'
                     }).then(function(response) {

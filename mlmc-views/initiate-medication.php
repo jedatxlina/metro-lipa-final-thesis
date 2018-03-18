@@ -41,8 +41,6 @@ if($param != ''){
         case 'Emergency':
             header("Location:emergency.php?at=$at");
             break;
-        
-    
         default:
             require('vendor/autoload.php');
 
@@ -82,7 +80,7 @@ else{
     
     $data['message'] = "Dr. " . $fullname . " posted a patient order.";
     $pusher->trigger('my-channel-inpatient', 'my-event-inpatient', $data);
-
+    $pusher->trigger('my-channel', 'my-event', $data);
 
     header("Location:physician.php?at=$at");
 }

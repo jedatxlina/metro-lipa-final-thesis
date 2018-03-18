@@ -1,5 +1,6 @@
 <?php 
 require_once 'connection.php';
+$diagnosisid = rand(111111,999999);
 $orderid =  rand(111111, 999999);     
 $conditionid = rand(111111,999999);
 $medicationid = rand(111111,999999);
@@ -15,19 +16,14 @@ $diagnosis = $_GET['diagnosis'];
 $order = $_GET['order'];
 $labs = isset($_GET['lab']) ? $_GET['lab'] : '';
 $meds = $_GET['meds'];
-
+$date = isset($_GET['appointment']) ? $_GET['appointment'] : '';
+$appointment = date("Y-m-d", strtotime($date));
 
 
 date_default_timezone_set("Asia/Singapore");
 $date = date("Y-m-d");
 $time = date("h:i A");  
 
-
-$sel = mysqli_query($con,"SELECT DiagnosisID,AttendingID FROM diagnosis WHERE AttendingID='$attendingid'");
-
-while ($row = mysqli_fetch_assoc($sel)) {
-    $diagnosisid = $row['DiagnosisID'];
-}
 
 if($labs != ''){
     if(preg_match("/[A-z]/i", $labs)){
@@ -164,9 +160,13 @@ if(preg_match("/[A-z]/i", $diagnosis)){
             while ($row = mysqli_fetch_assoc($sel)) {
                 $val = $row['Conditions'];
             }
-
-            $query = "INSERT into diagnosis(DiagnosisID,AdmissionID,AttendingID,Findings,DateDiagnosed,TimeDiagnosed) 
-            VALUES('$diagnosisid','$admissionid','$attendingid','$val','$date','$time')";
+            if(isset($appointment)){
+                $query = "INSERT into diagnosis(DiagnosisID,AdmissionID,AttendingID,Findings,DateDiagnosed,TimeDiagnosed,NextDateAppointment) 
+                VALUES('$diagnosisid','$admissionid','$attendingid','$val','$date','$time','$appointment')";
+            }else{
+                $query = "INSERT into diagnosis(DiagnosisID,AdmissionID,AttendingID,Findings,DateDiagnosed,TimeDiagnosed) 
+                VALUES('$diagnosisid','$admissionid','$attendingid','$val','$date','$time')";
+            }
     
             mysqli_query($con,$query);  
 
@@ -182,9 +182,14 @@ if(preg_match("/[A-z]/i", $diagnosis)){
 
             $conditionid =  rand(111111, 999999);          
 
-            $query = "INSERT into diagnosis(DiagnosisID,AdmissionID,AttendingID,Findings,DateDiagnosed,TimeDiagnosed) 
-            VALUES('$diagnosisid','$admissionid','$attendingid','$value','$date','$time')";
-    
+            if(isset($appointment)){
+                $query = "INSERT into diagnosis(DiagnosisID,AdmissionID,AttendingID,Findings,DateDiagnosed,TimeDiagnosed,NextDateAppointment) 
+                VALUES('$diagnosisid','$admissionid','$attendingid','$val','$date','$time','$appointment')";
+            }else{
+                $query = "INSERT into diagnosis(DiagnosisID,AdmissionID,AttendingID,Findings,DateDiagnosed,TimeDiagnosed) 
+                VALUES('$diagnosisid','$admissionid','$attendingid','$val','$date','$time')";
+            }
+
             mysqli_query($con,$query);  
 
 
@@ -203,13 +208,18 @@ else{
             $val = $row['Conditions'];
         }
 
-        $query = "INSERT into diagnosis(DiagnosisID,AdmissionID,AttendingID,Findings,DateDiagnosed,TimeDiagnosed) 
-                VALUES('$diagnosisid','$admissionid','$attendingid','$val','$date','$time')";
-        
+        if(isset($appointment)){
+            $query = "INSERT into diagnosis(DiagnosisID,AdmissionID,AttendingID,Findings,DateDiagnosed,TimeDiagnosed,NextDateAppointment) 
+             VALUES('$diagnosisid','$admissionid','$attendingid','$val','$date','$time','$appointment')";
+        }else{
+            $query = "INSERT into diagnosis(DiagnosisID,AdmissionID,AttendingID,Findings,DateDiagnosed,TimeDiagnosed) 
+            VALUES('$diagnosisid','$admissionid','$attendingid','$val','$date','$time')";
+        }
+
         mysqli_query($con,$query);  
 
     }
 }
 
-header("Location:../post-medication.php?at=$at&medicationid=$medicationid&admissionid=$admissionid");
+header("Location:../post-diagnosis.php?at=$at&medicationid=$medicationid&id=$admissionid");
 

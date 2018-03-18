@@ -23,10 +23,10 @@ if(isset($_GET['medicationid']) && isset($_GET['admissionid'])) {
 
 if(isset($_GET['id'])){
     $id = $_GET['id'];
-    $sel = mysqli_query($con,"SELECT a.MedicineID, a.MedicineName,b.* FROM pharmaceuticals a, medication b WHERE b.AdmissionID = '$id' AND b.MedicineID = a.MedicineID AND b.DosingID != 0");
+    $sel = mysqli_query($con,"SELECT a.MedicineID, a.MedicineName,b.*,c.DosingID,c.Intake FROM pharmaceuticals a, medication b,dosing_time c WHERE b.AdmissionID = '$id' AND b.MedicineID = a.MedicineID AND b.DosingID != 0 AND c.DosingID = b.DosingID");
     $data = array();
     while ($row = mysqli_fetch_array($sel)) {
-        $data[] = array(
+            $data[] = array(
             "ID"=>$row['ID'],
             "MedicationID"=>$row['MedicationID'],
             "AdmissionID"=>$row['AdmissionID'],
@@ -38,7 +38,8 @@ if(isset($_GET['id'])){
             "Quantity"=>$row['Quantity'],
             "DateStart"=>$row['DateStart'],
             "TimeStart"=>$row['TimeStart'],
-            "MedicineName"=>$row['MedicineName']);
+            "MedicineName"=>$row['MedicineName'],
+            "Intake"=>$row['Intake']);
     }
 }
 
