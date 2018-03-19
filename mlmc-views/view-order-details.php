@@ -106,7 +106,7 @@ font-weight: bold;
                                             <div data-row-span="4">
                                                     <div data-field-span="1">
                                                         <label>Findings </label>
-                                                        <textarea autogrow ng-model="order.Find" ng-disabled='true'></textarea>
+                                                        <textarea autogrow ng-model="order.Findings" ng-disabled='true'></textarea>
                                                     </div>
                                             </div>
                                         </fieldset>  

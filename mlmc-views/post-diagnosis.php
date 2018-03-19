@@ -138,10 +138,14 @@
                                                         </div>
                                                     </div>
                                                 </div>
-                                                <div data-row-span="1">
+                                                <div data-row-span="2">
                                                     <div data-field-span="1">
                                                         <label>Next appointment date</label>
                                                         <input type="text" class="form-control" ng-model="" id="datepicker">
+                                                    </div>
+                                                    <div data-field-span="1">
+                                                        <label>Rate</label>
+                                                        <input type="text" class="form-control" ng-model="rate">
                                                     </div>
                                                 </div>
                                         </div>
@@ -259,7 +263,7 @@
             $('#' + $(this).data('select2-open')).select2('open');
         });
 
-        var fetch = angular.module('myApp', ['angular-autogrow']);
+        var fetch = angular.module('myApp', ['angular-autogrow','ui.mask']);
 
         fetch.controller('userCtrl', ['$scope', '$http', '$interval', function($scope, $http, $interval) {
             $scope.at = "<?php echo $_GET['at'];?>";
