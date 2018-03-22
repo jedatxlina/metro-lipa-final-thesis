@@ -8,7 +8,7 @@ $orderid = $_GET['orderid'];
 
 $sel = mysqli_query($con,"SELECT * FROM Medication WHERE AdmissionID = '$id");
 
-    $data = array();
+$data = array();
 
     while ($row = mysqli_fetch_array($sel)) {
         $data[] = array(

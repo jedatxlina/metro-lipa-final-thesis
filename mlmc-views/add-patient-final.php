@@ -72,7 +72,7 @@
                                     <br>
                               
                                     <fieldset data-ng-repeat="medication in medications track by $index">
-                                        <legend>{{medication.MedicineName}} <h6>Medicine ID: {{medication.MedicineID}}</h6></legend>
+                                        <legend>{{medication.MedicineName}}</legend>
                                         <div data-row-span="2">
                                             <div data-field-span="1">
                                                 <label>Dosage</label>

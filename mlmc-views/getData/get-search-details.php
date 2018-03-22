@@ -3,7 +3,6 @@
 require_once 'connection.php';
 
 if(isset($_GET['id'])){
-$at = $_GET['at'];
 $id =  $_GET['id'];
 
 $sel = mysqli_query($con,"SELECT * FROM patients_archive  WHERE ArchiveID = '$id' ");
@@ -14,7 +13,6 @@ $firstname = $_GET['firstname'];
 $middlename = $_GET['middlename'];
 $lastname = $_GET['lastname'];
 $date = $_GET['birthdate'];
-
 $birthdate = date("Y-m-d", strtotime($date));
 
 $sel = mysqli_query($con,"SELECT * FROM patients_archive  WHERE (FirstName LIKE '%$firstname%' AND MiddleName LIKE '%$middlename' AND LastName LIKE '%$lastname')");

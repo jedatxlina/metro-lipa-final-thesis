@@ -36,8 +36,8 @@ $date = date("Y-m-d");
 $time = date("h:i A");
 $datetime = date("Y-m-d h:i A");
 
-$query = "INSERT into medical_details(MedicalID,AdmissionID,AttendingID,ArrivalDate,ArrivalTime,VitalsID,DiagnosisID,PreviousSurgeries,Weight,Height) 
-VALUES('$medicalid','$admissionid','$attendingid','$date','$time','$vitalsid','$diagnosisid','$surgery','$weight','$height')";
+$query = "INSERT into medical_details(MedicalID,AdmissionID,AttendingID,ArrivalDate,ArrivalTime,VitalsID,PreviousSurgeries,Weight,Height) 
+VALUES('$medicalid','$admissionid','$attendingid','$date','$time','$vitalsid','$surgery','$weight','$height')";
 
 mysqli_query($con,$query);  
 

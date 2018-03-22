@@ -278,7 +278,7 @@
             $scope.Dosage = [];
             $scope.NoteID = [];
             $scope.IntakeInterval = [];
-
+            $scope.rate = '';
             if ($scope.medicationid != '' && $scope.id != '') {
                 $('#diagstepone').hide();
                 $('#diagsteptwo').show();
@@ -463,9 +463,9 @@
                 }
 
                 if ($scope.lab != 'No') {
-                    window.location.href = 'insertData/insert-diagnosis-details.php?at=' + $scope.at + '&id=' + $scope.admissionid + '&diagnosis=' + $scope.diagnosis + '&order=' + $scope.order + '&lab=' + $scope.lab + '&meds=' + $scope.meds + '&attendingid=' + $scope.attendingid + '&appointment=' + $scope.appointment;
+                    window.location.href = 'insertData/insert-diagnosis-details.php?at=' + $scope.at + '&id=' + $scope.admissionid + '&diagnosis=' + $scope.diagnosis + '&order=' + $scope.order + '&lab=' + $scope.lab + '&meds=' + $scope.meds + '&attendingid=' + $scope.attendingid + '&appointment=' + $scope.appointment + '&rate=' + $scope.rate;
                 } else {
-                    window.location.href = 'insertData/insert-diagnosis-details.php?at=' + $scope.at + '&id=' + $scope.admissionid + '&diagnosis=' + $scope.diagnosis + '&order=' + $scope.order + '&meds=' + $scope.meds + '&attendingid=' + $scope.attendingid + '&appointment=' + $scope.appointment;
+                    window.location.href = 'insertData/insert-diagnosis-details.php?at=' + $scope.at + '&id=' + $scope.admissionid + '&diagnosis=' + $scope.diagnosis + '&order=' + $scope.order + '&meds=' + $scope.meds + '&attendingid=' + $scope.attendingid + '&appointment=' + $scope.appointment + '&rate=' + $scope.rate;
                 }
 
             }

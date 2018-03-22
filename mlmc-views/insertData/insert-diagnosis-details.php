@@ -18,12 +18,17 @@ $labs = isset($_GET['lab']) ? $_GET['lab'] : '';
 $meds = $_GET['meds'];
 $date = isset($_GET['appointment']) ? $_GET['appointment'] : '';
 $appointment = date("Y-m-d", strtotime($date));
-
+$rate =  isset($_GET['rate']) ? $_GET['rate'] : '';
 
 date_default_timezone_set("Asia/Singapore");
 $date = date("Y-m-d");
 $time = date("h:i A");  
 
+$sel = mysqli_query($con,"SELECT MedicalID FROM medical_details WHERE AdmissionID ='$admissionid'");
+
+while ($row = mysqli_fetch_assoc($sel)) {
+    $medicalid = $row['MedicalID'];
+}
 
 if($labs != ''){
     if(preg_match("/[A-z]/i", $labs)){
@@ -160,12 +165,13 @@ if(preg_match("/[A-z]/i", $diagnosis)){
             while ($row = mysqli_fetch_assoc($sel)) {
                 $val = $row['Conditions'];
             }
+            
             if(isset($appointment)){
-                $query = "INSERT into diagnosis(DiagnosisID,AdmissionID,AttendingID,Findings,DateDiagnosed,TimeDiagnosed,NextDateAppointment) 
-                VALUES('$diagnosisid','$admissionid','$attendingid','$val','$date','$time','$appointment')";
+                $query = "INSERT into diagnosis(DiagnosisID,MedicalID,AdmissionID,AttendingID,Findings,DateDiagnosed,TimeDiagnosed,NextDateAppointment) 
+                VALUES('$diagnosisid','$medicalid','$admissionid','$attendingid','$val','$date','$time','$appointment')";
             }else{
-                $query = "INSERT into diagnosis(DiagnosisID,AdmissionID,AttendingID,Findings,DateDiagnosed,TimeDiagnosed) 
-                VALUES('$diagnosisid','$admissionid','$attendingid','$val','$date','$time')";
+                $query = "INSERT into diagnosis(DiagnosisID,MedicalID,AdmissionID,AttendingID,Findings,DateDiagnosed,TimeDiagnosed) 
+                VALUES('$diagnosisid','$medicalid','$admissionid','$attendingid','$val','$date','$time')";
             }
     
             mysqli_query($con,$query);  
@@ -183,11 +189,11 @@ if(preg_match("/[A-z]/i", $diagnosis)){
             $conditionid =  rand(111111, 999999);          
 
             if(isset($appointment)){
-                $query = "INSERT into diagnosis(DiagnosisID,AdmissionID,AttendingID,Findings,DateDiagnosed,TimeDiagnosed,NextDateAppointment) 
-                VALUES('$diagnosisid','$admissionid','$attendingid','$val','$date','$time','$appointment')";
+                $query = "INSERT into diagnosis(DiagnosisID,MedicalID,AdmissionID,AttendingID,Findings,DateDiagnosed,TimeDiagnosed,NextDateAppointment) 
+                VALUES('$diagnosisid','$medicalid','$admissionid','$attendingid','$val','$date','$time','$appointment')";
             }else{
-                $query = "INSERT into diagnosis(DiagnosisID,AdmissionID,AttendingID,Findings,DateDiagnosed,TimeDiagnosed) 
-                VALUES('$diagnosisid','$admissionid','$attendingid','$val','$date','$time')";
+                $query = "INSERT into diagnosis(DiagnosisID,MedicalID,AdmissionID,AttendingID,Findings,DateDiagnosed,TimeDiagnosed) 
+                VALUES('$diagnosisid','$medicalid',s'$admissionid','$attendingid','$val','$date','$time')";
             }
 
             mysqli_query($con,$query);  
@@ -196,8 +202,7 @@ if(preg_match("/[A-z]/i", $diagnosis)){
         }
 
     }
-}
-else{
+}else{
     $diagnosis = explode(',',$diagnosis);
 
     foreach($diagnosis AS $value) {
@@ -209,17 +214,32 @@ else{
         }
 
         if(isset($appointment)){
-            $query = "INSERT into diagnosis(DiagnosisID,AdmissionID,AttendingID,Findings,DateDiagnosed,TimeDiagnosed,NextDateAppointment) 
-             VALUES('$diagnosisid','$admissionid','$attendingid','$val','$date','$time','$appointment')";
+            $query = "INSERT into diagnosis(DiagnosisID,MedicalID,AdmissionID,AttendingID,Findings,DateDiagnosed,TimeDiagnosed,NextDateAppointment) 
+             VALUES('$diagnosisid','$medicalid','$admissionid','$attendingid','$val','$date','$time','$appointment')";
         }else{
-            $query = "INSERT into diagnosis(DiagnosisID,AdmissionID,AttendingID,Findings,DateDiagnosed,TimeDiagnosed) 
-            VALUES('$diagnosisid','$admissionid','$attendingid','$val','$date','$time')";
+            $query = "INSERT into diagnosis(DiagnosisID,MedicalID,AdmissionID,AttendingID,Findings,DateDiagnosed,TimeDiagnosed) 
+            VALUES('$diagnosisid','$medicalid','$admissionid','$attendingid','$val','$date','$time')";
         }
 
         mysqli_query($con,$query);  
 
     }
 }
+if($rate != ''){
+    $fee = $rate;
+}else{
+    $sel = mysqli_query($con,"SELECT ProfessionalFee FROM physicians WHERE PhysicianID='$at'");
+
+    while ($row = mysqli_fetch_assoc($sel)) {
+        $fee = $row['ProfessionalFee'];
+    }
+}
+
+
+
+$query= "UPDATE attending_physicians SET DiagnosisID = '$diagnosisid', Rate='$fee' WHERE AdmissionID = '$admissionid' AND AttendingID ='$attendingid' ";
+
+mysqli_query($con,$query);  
 
 header("Location:../post-diagnosis.php?at=$at&medicationid=$medicationid&id=$admissionid");
 

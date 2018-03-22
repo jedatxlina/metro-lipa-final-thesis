@@ -302,8 +302,8 @@ include 'admin-header.php' ?>
                                     <thead>
                                         <tr>
                                             <th>Order ID</th>
-                                            <th>Full Name</th>
-                                            <th>Physician ID</th>
+                                            <th>Patient Name</th>
+                                            <th>Physician Name</th>
                                             <th>Task</th>
                                             <th>Status</th>
                                         </tr>
@@ -356,7 +356,7 @@ include 'admin-header.php' ?>
 										<div class="col-md-5">
 											<div class="form-group">
 												<label>Fee</label>
-												<input type="text" class="form-control" ng-model="$parent.fee" ng-init="$parent.fee = physician.Fee">	
+												<input type="text" class="form-control" ng-model="$parent.fee" ng-init="$parent.fee = physician.Rate">	
 												<small><input type="checkbox" ng-model="senior" ng-click="seniorClick()"> Senior Citizen </small>
 												<small><input type="checkbox" ng-model="hmo" ng-click="hmoClick()"> HMO </small>	
 											</div>
@@ -378,24 +378,6 @@ include 'admin-header.php' ?>
 										</div>
 										<input type="hidden" ng-model="$parent.idpatient" ng-init="$parent.idpatient = patient.AdmissionID">
                                 </div>
-
-								<!-- <div class="row">
-									<div class="col-md-6">
-										<div class="form-group">
-											<label>OPD Room No</label>
-											<select class="form-control" ng-model="opdroomno">
-                                                <option value="" disabled selected>Select Room No</option>
-												<option value="1">1</option>
-												<option value="2">2</option>
-												<option value="3">3</option>
-												<option value="4">4</option>
-												<option value="5">5</option>
-												<option value="6">6</option>
-                                            </select>
-										</div>
-									</div>
-                                </div> -->
-
 								
 								<div class="row" ng-if="senior == 'true'">
 									<div class="col-md-3">
@@ -675,7 +657,6 @@ include 'admin-header.php' ?>
             				}).then(function(response) {
 								$scope.outpatientdetails = response.data;
             				});
-            			
 							$('#dischargeModal').modal('show');	
             			}
             			else{
@@ -706,7 +687,6 @@ include 'admin-header.php' ?>
 						}else{
 							$scope.totalfee = $scope.fee - ($scope.fee*.20);
 						}
-
 						$http({
             			method: 'GET',
             			url: 'insertData/insert-discharged-outpatient.php',

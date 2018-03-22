@@ -57,11 +57,11 @@
                                                     <input type="text" ng-model="bp" class="form-control tooltips" data-trigger="hover" data-original-title="Separate with /">
                                                 </div>
                                                 <div data-field-span="1">
-                                                    <label>PR</label>
+                                                    <label>Pulse Rate</label>
                                                     <input type="text" ng-model="pr">
                                                 </div>
                                                 <div data-field-span="1">
-                                                    <label>RR</label>
+                                                    <label>Respiratory Rate</label>
                                                     <input type="text" class="form-control" ng-model="rr" ui-mask="99"  ui-mask-placeholder ui-mask-placeholder-char="-  "/>
                                                 </div>
                                                 <div data-field-span="1">

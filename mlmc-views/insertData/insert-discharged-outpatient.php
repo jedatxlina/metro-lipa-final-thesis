@@ -19,9 +19,6 @@ WHERE a.AdmissionID = '$admissionid'";
 
 mysqli_query($con,$querydischarge);  
 
-$querydelete = "DELETE FROM patients WHERE AdmissionID = '$admissionid'";
-
-mysqli_query($con,$querydelete);  
 
 if($re == 'move'){
 require('../vendor/autoload.php');
@@ -50,6 +47,14 @@ $options = array(
 $data['message'] = 'Patient '.$admissionid.' will be transferred to emergency in a moment';
 $data['transfer'] = $admissionid;
 $pusher->trigger('my-channel-emergency', 'my-event-emergency', $data);
+
+$query = "UPDATE patients SET AdmissionType = 'Transfering' WHERE AdmissionID = '$admissionid'";
+mysqli_query($con,$query);  
+
+}else{
+
+$querydelete = "DELETE FROM patients WHERE AdmissionID = '$admissionid'";
+mysqli_query($con,$querydelete);  
 }
 
 

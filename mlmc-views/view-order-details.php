@@ -103,10 +103,14 @@ font-weight: bold;
                                                         <input type="text" ng-model="order.Dname" ng-disabled='true'>
                                                     </div>
                                                 </div>
-                                            <div data-row-span="4">
+                                            <div data-row-span="2">
                                                     <div data-field-span="1">
                                                         <label>Findings </label>
                                                         <textarea autogrow ng-model="order.Findings" ng-disabled='true'></textarea>
+                                                    </div>
+                                                    <div data-field-span="1">
+                                                        <label>Task/Orders</label>
+                                                        <textarea autogrow ng-model="order.Task" ng-disabled='true'></textarea>
                                                     </div>
                                             </div>
                                         </fieldset>  
@@ -207,7 +211,11 @@ font-weight: bold;
 		}).then(function(response) {
 			$scope.orders = response.data;
 		});
-		   
+        
+        $scope.viewReport = function(){
+            $window.open('opd-diagnosis-report.php?at='+$scope.at+'&id='+$scope.id+'&orderid='+$scope.orderid, '_blank');
+        }
+
 		$scope.getPage = function(check){
 			
 			switch (check) {
