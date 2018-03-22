@@ -273,6 +273,66 @@ font-weight: bold;
             </div>
     			  <!-- OPD Transfers modal -->
 
+			      <!-- External Request Modal -->
+				  <div class="modal fade" id="attendingModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+					<div class="modal-dialog">
+						<div class="panel panel-danger" data-widget='{"draggable": "false"}'>
+							<div class="panel-heading">
+								<h2>Attending physician</h2>
+								<div class="panel-ctrls" data-actions-container="" data-action-collapse='{"target": ".panel-body, .panel-footer"}'></div>
+							</div>
+							<div class="panel-body" style="height: auto">
+							<center><span><strong>Select Attending Physician</strong></span></center>
+									<hr>
+									<div class="row">
+										<div class="form-group">
+											<label for="focusedinput" class="col-sm-3 control-label">
+											&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+											Select Physician</label>
+											<div class="col-sm-7">
+                                            <select class="form-control" ng-model="physician" style="width:350px;">
+                                                            <option value="" disabled selected>Select Physician</option>
+                                                            <option ng-repeat="physician in physicians" value="{{physician.PhysicianID}}">{{physician.Fullname}}</option>
+                                                        </select>
+											</div>
+										</div>
+									</div>
+									<br>
+                                    <div data-ng-repeat="patient in patientdetails">
+                                   
+                                        <div class="row">
+                                            <div class="form-group">
+                                                <label for="focusedinput" class="col-sm-3 control-label">
+                                                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                                &nbsp;&nbsp;&nbsp;&nbsp;Patient Name</label>
+                                                <div class="col-sm-7">
+                                                    <input type="text" class="form-control" ng-value="patient.Lastname + ', ' + patient.Firstname + ' ' + patient.Middlename"  disabled>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <br>
+                                        <div class="row">
+                                            <div class="form-group">
+                                                <label for="focusedinput" class="col-sm-3 control-label">
+                                                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                                &nbsp;&nbsp;&nbsp;&nbsp;Admission No</label>
+                                                <div class="col-sm-7">
+                                                    <input type="text" class="form-control" ng-value="patient.AdmissionID" disabled>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+									<br>
+							</div>
+							<div class="panel-footer">
+								<button type="button" ng-click="admitOpdConfirm()" data-dismiss="modal" class="btn btn-danger pull-right">Confirm</button>
+								<button type="button" data-dismiss="modal" class="btn btn-default pull-right">Cancel</button>
+							</div>
+						</div>
+					</div>
+           	 	</div>
+			<!--/ External Request Modal -->
+
 			<!-- Patient Modal -->
 				<div class="modal fade" id="patientModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
 					<form class="form-horizontal">
@@ -580,6 +640,13 @@ font-weight: bold;
         }).then(function(response) {
             $scope.bed = response.data;
         });
+
+		$http({
+            method: 'GET',
+            url: 'getData/get-physician-details.php'
+        }).then(function(response) {
+            $scope.physicians = response.data;
+        });
 		   
 		$scope.setClickedRow = function(user) {
            $scope.selectedRow = ($scope.selectedRow == null) ? user : ($scope.selectedRow == user) ? null : user;
@@ -710,7 +777,24 @@ font-weight: bold;
 		}
 
 		$scope.admitopdTransfer = function(){
-			alert($scope.selectedRow);
+			if($scope.selectedRow != null){
+                $scope.admissionid = $scope.selectedRow;
+            	$http({
+                	method: 'get',
+                    url: 'getData/get-patient-details.php',
+                    params: {id: $scope.admissionid}
+                }).then(function(response) {
+                    $scope.patientdetails = response.data;
+                });
+                    $('#attendingModal').modal('show');
+                }
+                else{
+                $('#errorModal').modal('show');
+                }
+		}
+
+		$scope.admitOpdConfirm = function(){
+			
 		}
 
 		$scope.movePatient = function(){
