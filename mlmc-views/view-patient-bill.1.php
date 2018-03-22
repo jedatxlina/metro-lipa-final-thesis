@@ -114,38 +114,43 @@
                                             </div>
                                         </div>
                                         <div class="panel panel-white" style="padding: 10px;">
-                                        
                                         <h4 style="font-size:30px;font-weight:bold;">Medicine Bill</h4>
+                                            <div class="row">
+                                                <div class="col-md-6">
+                                                    <h3 style="font-weight:bold;">Details</h3>
+                                                </div>
+                                                <div class="col-md-6">
+                                                     <h3 style="font-weight:bold;">Total</h3>
+                                                </div>
+                                            </div>
                                             <div class="row" data-ng-repeat="medicine in medicinedetails track by $index">
                                                 <div class="col-md-6">
-                                                    <h4>Medicine Name</h4>
+                                                <h4>{{medicine.mediname}} {{medicine.Dosage}} x {{medicine.quantity}}</h4>
                                                 </div>
                                                 <div class="col-md-6">
-                                                    <h4>{{medicine.mediname}}</h4>
+                                                     <h4 style="font-size:20px;font-weight:bold;">{{medicine.totalbill}}</h4>
+                                                </div>
+                                                <div class="col-md-12">
+                                                <hr style="font-size:100px;">
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="panel panel-white" style="padding: 10px;">
+                                        <h4 style="font-size:30px;font-weight:bold;">Laboratory Bill</h4>
+                                            <div class="row">
+                                                <div class="col-md-6">
+                                                    <h3 style="font-weight:bold;">Details</h3>
                                                 </div>
                                                 <div class="col-md-6">
-                                                    <h4>Medicine Dosage</h4>
+                                                     <h3 style="font-weight:bold;">Total</h3>
+                                                </div>
+                                            </div>
+                                            <div class="row" data-ng-repeat="lab in labdetails track by $index">
+                                                <div class="col-md-6">
+                                                <h4>{{lab.Desc}}</h4>
                                                 </div>
                                                 <div class="col-md-6">
-                                                    <h4>{{medicine.Dosage}}</h4>
-                                                </div>
-                                                <div class="col-md-6">
-                                                    <h4>Medicine Quantity</h4>
-                                                </div>
-                                                <div class="col-md-6">
-                                                    <h4>{{medicine.quantity}}</h4>
-                                                </div>
-                                                <div class="col-md-6">
-                                                    <h4>Medicine Price</h4>
-                                                </div>
-                                                <div class="col-md-6">
-                                                    <h4>{{medicine.price}}</h4>
-                                                </div>
-                                                <div class="col-md-6">
-                                                    <h4>Medicine Total</h4>
-                                                </div>
-                                                <div class="col-md-6">
-                                                    <h4 style="font-size:20px;font-weight:bold;">{{medicine.totalbill}}</h4>
+                                                     <h4 style="font-size:20px;font-weight:bold;">{{lab.Rate}}</h4>
                                                 </div>
                                                 <div class="col-md-12">
                                                 <hr style="font-size:100px;">
@@ -253,6 +258,15 @@
                     }).then(function(response) {
                         $scope.medicinedetails = response.data;
                     });
+
+                    $http({
+                    method: 'GET',
+                    url: 'getData/get-laboratory-billdetailed.php',
+                    params: {id: $scope.id}
+                    }).then(function(response) {
+                        $scope.labdetails = response.data;
+                    });
+
                     $http({
                         method: 'get',
                         url: 'getData/get-patient-details.php',

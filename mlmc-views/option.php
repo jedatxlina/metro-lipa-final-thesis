@@ -91,7 +91,7 @@ font-weight: bold;
 			alert($scope.new.Firstname);
 		}
         $scope.patientVitals = function(){
-            window.location.href = 'patient-vitals.php?id=<?php echo $_GET['result'] ?>&at=<?php echo $_GET['at']; ?>';
+            window.location.href = 'add-patient-vitals.php?id=<?php echo $_GET['result'] ?>&at=<?php echo $_GET['at']; ?>';
        	};
    }]);
 </script>		

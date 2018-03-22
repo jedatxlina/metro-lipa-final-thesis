@@ -392,7 +392,7 @@ font-weight: bold;
 									<h2>Patient Details</h2>
 									<div class="panel-ctrls" data-actions-container="" data-action-collapse='{"target": ".panel-body, .panel-footer"}'></div>
 								</div>
-								<div class="panel-body" style="height: 400px" ng-repeat="patient in getdetails">
+								<div class="panel-body" style="height: auto" ng-repeat="patient in getdetails">
 									<center><span><strong>Registry Information</strong></span>
 									<p><small>Data below will be moved to Inpatient section permanently</small></p></center>
 									<hr>
@@ -451,7 +451,16 @@ font-weight: bold;
 											</div>
 										</div>
 									</div>
+									<hr>
 								</div>
+								<div class="row">
+										<div class="form-group">
+											<label for="focusedinput" class="col-sm-3 control-label">Advance Payments</label>
+											<div class="col-sm-5">
+												<input type="text" class="form-control" ng-model="advancepayment">
+											</div>
+										</div>
+									</div>
 								<div class="panel-footer">
 								<button type="button" ng-click="ConfirmInpatient()" class="btn btn-danger-alt pull-right">Confirm</button>
 								<button type="button" data-dismiss="modal" class="btn btn-default-alt pull-right">Cancel</button>
@@ -706,7 +715,16 @@ font-weight: bold;
 						BedID:$scope.bedno.BedID}
 				}).then(function(response) {
 					window.location.reload();
-				});
+			});
+
+			$http({
+				method: 'GET',
+				url: 'insertData/insert-advpayment-details.php',
+				params: {admissionid: $scope.selectedRow,
+						payment:$scope.advancepayment}
+				}).then(function(response) {
+					window.location.reload();
+			});
 
 		}
 		

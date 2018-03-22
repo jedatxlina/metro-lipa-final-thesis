@@ -79,6 +79,9 @@
                                     <fieldset  data-ng-repeat="room in roomdetails track by $index">
                                         <input type="hidden" ng-model='RoomBill[$index]' ng-init='RoomBill[$index] = room.bedbill'>
                                     </fieldset>
+                                    <fieldset  data-ng-repeat="lab in labdetails track by $index">
+                                        <input type="hidden" ng-model='LabBill[$index]' ng-init='LabBill[$index] = lab.TotalBill'>
+                                    </fieldset>
                                         <h2>Summary Of Bills</h2>
                                         <div class="row" >
                                             <div class="col-md-2">
@@ -100,6 +103,17 @@
                                             </div>
                                             <div class="col-md-2">
                                                 <h4>{{ subtotalmedi }}</h4>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-md-2">
+                                                <h4>Laboratory Bill</h4>
+                                            </div>
+                                            <div class="col-md-8" style="text-align: center;">
+                                                <h4>---------------------------------------------------------------</h4>
+                                            </div>
+                                            <div class="col-md-2">
+                                                <h4>{{ subtotallab }}</h4>
                                             </div>
                                         </div>
                                         <hr size="30">
@@ -150,14 +164,17 @@
                     $scope.id = "<?php echo $_GET['id']; ?>";
                     $scope.MedicineBill = [];
                     $scope.RoomBill = [];
+                    $scope.LabBill = [];
                     $scope.subtotalmedi = 0;
                     $scope.subtotalroom = 0;
+                    $scope.subtotallab = 0;
                     $scope.MedID = [];
                     $scope.Quantity = [];
                     $scope.Dosage = [];
                     $scope.NoteID = [];
                     var total = 0;
                     var total1 = 0;
+                    var total2 = 0;
                     
                     switch ($scope.at.charAt(0)) {
                         case '1':
@@ -207,21 +224,21 @@
                     }).then(function(response) {
                         $scope.medicinedetails = response.data;
                     });
+
+                    $http({
+                    method: 'GET',
+                    url: 'getData/get-laboratory-billdetailed.php',
+                    params: {id: $scope.id}
+                    }).then(function(response) {
+                        $scope.labdetails = response.data;
+                    });
+                    
                     $http({
                         method: 'get',
                         url: 'getData/get-patient-details.php',
                         params: {id: $scope.id}
                     }).then(function(response) {
                         $scope.patientdetails = response.data;
-             
-                    });
-                    $http({
-                        method: 'GET',
-                        url: 'getData/get-medication-details.php',
-                        params: {medicationid: $scope.medicationid,
-                        admissionid: $scope.admissionid}
-                    }).then(function(response) {
-                        $scope.medications = response.data;
                         for(var i = 0; i < $scope.MedicineBill.length; i++){
                             var product = $scope.MedicineBill[i];
                             total = total + product;
@@ -232,7 +249,21 @@
                             total1 = total1 + product1;
                         }
                         $scope.subtotalroom=total1;
-                        $scope.subtotal = $scope.subtotalroom+$scope.subtotalmedi;
+                        for(var i = 0; i < $scope.LabBill.length; i++){
+                            var product2 = $scope.LabBill[i];
+                            total2 = total2 + product2;
+                        }
+                        $scope.subtotallab=total2;
+                        $scope.subtotal = $scope.subtotalroom+$scope.subtotalmedi+$scope.subtotallab;
+                    });
+                    $http({
+                        method: 'GET',
+                        url: 'getData/get-medication-details.php',
+                        params: {medicationid: $scope.medicationid,
+                        admissionid: $scope.admissionid}
+                    }).then(function(response) {
+                        $scope.medications = response.data;
+                        
                     });
                     $scope.submitDetails = function(type){
                         $scope.totalbill = 5000;
