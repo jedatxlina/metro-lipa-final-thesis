@@ -41,198 +41,294 @@
                         </div>
                         <!-- panel -->
                         <div class="list-group list-group-alternate mb-n nav nav-tabs">
-                            <a href="#tab-diagnosis" role="tab" data-toggle="tab" class="list-group-item active"><i class="fa fa-stethoscope"></i> Diagnosis </a>
+                            <a href="#tab-diagnosis" role="tab" data-toggle="tab" class="list-group-item active"><i class="fa fa-stethoscope"></i> Diagnosis</a>
+                            <a href="#tab-laboratory" role="tab" data-toggle="tab" class="list-group-item"><i class="fa fa-stethoscope"></i> Laboratory</a>
+                            <a href="#tab-medications" role="tab" data-toggle="tab" class="list-group-item"><i class="fa fa-stethoscope"></i> Medications</a>
                             <a href="#tab-details" role="tab" data-toggle="tab" class="list-group-item"><i class="fa fa-stethoscope"></i>Medical Details</a>
                             <a href="#tab-historys" role="tab" data-toggle="tab" class="list-group-item"><i class="ti ti-view-list-alt"></i> Medical History</a>
                         </div>
                     </div>
                     <div class="col-md-9">
-                        <div class="panel panel-default">
-                            <div class="panel-heading">
-                                <h2>Post Diagnosis</h2>
-                                <div class="panel-ctrls"></div>
+                        <div class="tab-content">
+                            <div class="tab-pane active" id="tab-diagnosis">
+                                <div class="panel panel-default">
+                                    <div class="panel-heading">
+                                        <h2>Post Diagnosis</h2>
+                                        <div class="panel-ctrls"></div>
+                                    </div>
+                                    <div class="panel-body">
+                                        <div id="diagstepone">
+                                            <form class="grid-form">
+                                                <div class="row">
+                                                    <fieldset data-ng-repeat="patient in patientdetails">
+                                                        <div data-row-span="2">
+                                                            <div data-field-span="1">
+                                                                <label>Admission ID
+                                                                    <br>
+                                                                </label>
+                                                                <input type="text" ng-model="admissionid" ng-disabled='true'>
+                                                            </div>
+                                                            <div data-field-span="1">
+                                                                <label>Patient Name
+                                                                    <br>
+                                                                </label>
+                                                                <input type="text" class="form-control" ng-value="patient.Firstname + ' ' + patient.Middlename + ' ' + patient.Lastname" disabled="disabled">
+                                                            </div>
+                                                            <input type="hidden" ng-model="$parent.attendingid" ng-init="$parent.attendingid = patient.Attending">
+                                                        </div>
+                                                    </fieldset>
+                                                    <fieldset>
+                                                        <div data-row-span="2">
+                                                            <div data-field-span="1">
+                                                                <label>Post-Diagnosis</label>
+                                                                <br>
+                                                                <select id="diagnosis" class="select2" multiple="multiple" style="width:420px;">
+                                                                    <optgroup label="List of Medicines">
+                                                                        <option ng-repeat="condition in conditions" value="{{condition.ConditionID}}">{{condition.Conditions}}</option>
+                                                                    </optgroup>
+                                                                    <option ng-value="Others">Others</option>
+                                                                </select>
+                                                                <a href="#">&nbsp;<i class="ti ti-close" ng-click="reset('diagnosis')"></i></a>
+                                                                <br>
+                                                                <br>
+                                                                <div id="otherdiagnosis">
+                                                                    <label>Other Conditions</label>
+                                                                    <input type="text" ng-model="otherdiagnosis" class="form-control tooltips" data-trigger="hover" data-original-title="Separate with , if more than 1">
+                                                                </div>
+                                                            </div>
+                                                            <div data-field-span="1">
+                                                                <label>Post-Order</label>
+                                                                <br>
+                                                                <textarea autogrow ng-model="$parent.order"></textarea>
+                                                            </div>
+                                                        </div>
+                                                    </fieldset>
+                                                    <fieldset>
+                                                        <div data-row-span="2">
+                                                            <div data-field-span="1">
+                                                                <label>Laboratory: </label>
+                                                                <input type="radio" ng-model="lab" name="lab" value='Yes' class="tooltips" data-trigger="hover" data-original-title="Yes"> Yes &nbsp;
+                                                                <input type="radio" ng-model="lab" name="lab" value='No' class="tooltips" data-trigger="hover" data-original-title="No" selected> No
+                                                                <br>
+                                                                <select id="laboratories" class="select2" multiple="multiple" style="width:370px;" ng-disabled="lab != 'Yes'">
+                                                                    <optgroup label="List of Laboratories">
+                                                                        <option ng-repeat="lab in labs" value="{{lab.LaboratoryID}}">{{lab.Description}}</option>
+                                                                    </optgroup>
+                                                                    <option ng-value="Others">Others</option>
+                                                                </select>
+                                                                <a href="#">&nbsp;<i class="ti ti-close" ng-click="reset('labs')"></i></a>
+                                                                <br>
+                                                                <br>
+                                                                <div id="otherlabs">
+                                                                    <label>Other Laboratories</label>
+                                                                    <input type="text" ng-model="otherlabs" class="form-control tooltips" data-trigger="hover" data-original-title="Separate with , if more than 1">
+                                                                </div>
+                                                            </div>
+
+                                                            <div data-field-span="1">
+                                                                <label>Medications: </label>
+                                                                <select id="medications" class="select2" multiple="multiple" style="width:370px;">
+                                                                    <optgroup label="List of Medicines">
+                                                                        <option ng-repeat="meds in medicines" value="{{meds.MedicineID}}">{{meds.MedicineName}}</option>
+                                                                    </optgroup>
+                                                                    <option ng-value="Others">Others</option>
+                                                                </select>
+                                                                <a href="#">&nbsp;<i class="ti ti-close" ng-click="reset('meds')"></i></a>
+                                                                <br>
+                                                                <br>
+                                                                <div id="othermeds">
+                                                                    <label>Other Medicines</label>
+                                                                    <input type="text" ng-model="othermeds" class="form-control tooltips" data-trigger="hover" data-original-title="Separate with , if more than 1">
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div data-row-span="2">
+                                                            <div data-field-span="1">
+                                                                <label>Next appointment date</label>
+                                                                <input type="text" class="form-control" ng-model="" id="datepicker">
+                                                            </div>
+                                                            <div data-field-span="1">
+                                                                <label>Rate</label>
+                                                                <input type="text" class="form-control" ng-model="rate">
+                                                            </div>
+                                                        </div>
+                                                </div>
+                                                </fieldset>
+                                                
+                                            <button type="button" class="btn btn-defualt pull-right" data-dismiss="modal">Close</button>
+                                            <button ng-click='confirmDiagnosis()' class="btn btn-danger pull-right">Next</button>
+                                            </form>
+                                        </div>
+                                        <div id="diagsteptwo">
+                                        <form class="grid-form" action="javascript:void(0)">
+                                                <fieldset data-ng-repeat="patient in patientdetails">
+                                                    <div data-row-span="3">
+                                                        <div data-field-span="1">
+                                                            <label>Admission ID
+                                                                <br>
+                                                            </label>
+                                                            <input type="text" ng-model="admissionid" ng-disabled='true'>
+                                                        </div>
+                                                        <div data-field-span="1">
+                                                            <label>Admission No
+                                                                <br>
+                                                            </label>
+                                                            <input type="text" ng-model="patient.AdmissionNo" ng-disabled='true'>
+
+                                                        </div>
+                                                    </div>
+                                                    <div data-row-span="4">
+                                                        <div data-field-span="1">
+                                                            <label>Last Name</label>
+                                                            <input type="text" ng-value="patient.Lastname" ng-disabled='true'>
+                                                        </div>
+                                                        <div data-field-span="1">
+                                                            <label>First Name</label>
+                                                            <input type="text" ng-value="patient.Firstname" ng-disabled='true'>
+                                                        </div>
+                                                        <div data-field-span="1">
+                                                            <label>Middle Name</label>
+                                                            <input type="text" ng-value="patient.Middlename" ng-disabled='true'>
+                                                        </div>
+                                                    </div>
+                                                </fieldset>
+                                                <br>
+                                                <fieldset data-ng-repeat="medication in medications track by $index">
+                                                    <legend>{{medication.MedicineName}}
+                                                        <h6>Medicine ID: {{medication.MedicineID}}</h6></legend>
+                                                    <div data-row-span="2">
+                                                        <div data-field-span="1">
+                                                            <label>Dosage</label>
+                                                            <input type="text" ng-model="Dosage[$index]" ng-init="Dosage[$index] = medication.Unit" disabled="disabled">
+                                                        </div>
+                                                        <div data-field-span="1">
+                                                            <label>Intake Days</label>
+                                                            <input type="text" ng-model="Quantity[$index]" ng-init="Quantity[$index] = medication.Quantity">
+                                                            <input type="hidden" ng-model="MedID[$index]" ng-init="MedID[$index] = medication.MedicineID">
+                                                        </div>
+                                                    </div>
+                                                    <div data-row-span="2">
+                                                        <div data-field-span="1">
+                                                            <label>Notes</label>
+                                                            <input type="text" ng-model="NoteID[$index]" placeholder="Notes here">
+                                                        </div>
+                                                        <div data-field-span="1">
+                                                            <label>Intake Inerval</label>
+                                                            <select class="form-control" ng-model="IntakeInterval[$index]" style="width:395px;">
+                                                                <option value="" disabled selected>Select Interval</option>
+                                                                <option ng-repeat="intrvl in interval" value="{{intrvl.DosingID}}">{{intrvl.Intake}} a day</option>
+                                                            </select>
+                                                        </div>
+
+                                                    </div>
+                                                    <br>
+                                                    <br>
+                                                </fieldset>
+                                                <div class="pull-right">
+                                                    <button ng-click="goBack()" class="btn-default btn">Cancel</button>
+                                                    <button type="submit" class="btn-danger btn" ng-click="submitDetails(type)">Submit</button>
+                                                </div>
+
+                                                </fieldset>
+                                            </form>
+                                        </div>
+                                    </div>
+                                    <div class="panel-footer"></div>
+                                </div>
                             </div>
-                            <div class="panel-body">
-                                <div id="diagstepone">
+                            <div class="tab-pane" id="tab-laboratory">
+                                <div class="panel panel-default">
+                                    <div class="panel-heading">
+                                        <h2>Medical History</h2>
+                                    </div>
+                                    <div class="panel-body">
                                     <form class="grid-form">
-                                        <div class="row">
-                                            <fieldset data-ng-repeat="patient in patientdetails">
-                                                <div data-row-span="2">
-                                                    <div data-field-span="1">
-                                                        <label>Admission ID
-                                                            <br>
-                                                        </label>
-                                                        <input type="text" ng-model="admissionid" ng-disabled='true'>
-                                                    </div>
-                                                    <div data-field-span="1">
-                                                        <label>Patient Name
-                                                            <br>
-                                                        </label>
-                                                        <input type="text" class="form-control" ng-value="patient.Firstname + ' ' + patient.Middlename + ' ' + patient.Lastname" disabled="disabled">
-                                                    </div>
-                                                    <input type="hidden" ng-model="$parent.attendingid" ng-init="$parent.attendingid = patient.Attending">
-                                                </div>
-                                            </fieldset>
-                                            <fieldset>
-                                                <div data-row-span="2">
-                                                    <div data-field-span="1">
-                                                        <label>Post-Diagnosis</label>
-                                                        <br>
-                                                        <select id="diagnosis" class="select2" multiple="multiple" style="width:420px;">
-                                                            <optgroup label="List of Medicines">
-                                                                <option ng-repeat="condition in conditions" value="{{condition.ConditionID}}">{{condition.Conditions}}</option>
-                                                            </optgroup>
-                                                            <option ng-value="Others">Others</option>
-                                                        </select>
-                                                        <a href="#">&nbsp;<i class="ti ti-close" ng-click="reset('diagnosis')"></i></a>
-                                                        <br>
-                                                        <br>
-                                                        <div id="otherdiagnosis">
-                                                            <label>Other Conditions</label>
-                                                            <input type="text" ng-model="otherdiagnosis" class="form-control tooltips" data-trigger="hover" data-original-title="Separate with , if more than 1">
+                                                <div class="row">
+                                                    <fieldset data-ng-repeat="patient in patientdetails">
+                                                        <div data-row-span="2">
+                                                            <div data-field-span="1">
+                                                                <label>Admission ID
+                                                                    <br>
+                                                                </label>
+                                                                <input type="text" ng-model="admissionid" ng-disabled='true'>
+                                                            </div>
+                                                            <div data-field-span="1">
+                                                                <label>Patient Name
+                                                                    <br>
+                                                                </label>
+                                                                <input type="text" class="form-control" ng-value="patient.Firstname + ' ' + patient.Middlename + ' ' + patient.Lastname" disabled="disabled">
+                                                            </div>
+                                                            <input type="hidden" ng-model="$parent.attendingid" ng-init="$parent.attendingid = patient.Attending">
                                                         </div>
-                                                    </div>
-                                                    <div data-field-span="1">
-                                                        <label>Post-Order</label>
-                                                        <br>
-                                                        <textarea autogrow ng-model="$parent.order"></textarea>
-                                                    </div>
-                                                </div>
-                                            </fieldset>
-                                            <fieldset>
-                                                <div data-row-span="2">
-                                                    <div data-field-span="1">
-                                                        <label>Laboratory: </label>
-                                                        <input type="radio" ng-model="lab" name="lab" value='Yes' class="tooltips" data-trigger="hover" data-original-title="Yes"> Yes &nbsp;
-                                                        <input type="radio" ng-model="lab" name="lab" value='No' class="tooltips" data-trigger="hover" data-original-title="No" selected> No
-                                                        <br>
-                                                        <select id="laboratories" class="select2" multiple="multiple" style="width:370px;" ng-disabled="lab != 'Yes'">
-                                                            <optgroup label="List of Laboratories">
-                                                                <option ng-repeat="lab in labs" value="{{lab.LaboratoryID}}">{{lab.Description}}</option>
-                                                            </optgroup>
-                                                            <option ng-value="Others">Others</option>
-                                                        </select>
-                                                        <a href="#">&nbsp;<i class="ti ti-close" ng-click="reset('labs')"></i></a>
-                                                        <br>
-                                                        <br>
-                                                        <div id="otherlabs">
-                                                            <label>Other Laboratories</label>
-                                                            <input type="text" ng-model="otherlabs" class="form-control tooltips" data-trigger="hover" data-original-title="Separate with , if more than 1">
+                                                    </fieldset>
+                                                    <fieldset>
+                                                        <div data-row-span="2">
+                                                        
                                                         </div>
-                                                    </div>
-
-                                                    <div data-field-span="1">
-                                                        <label>Medications: </label>
-                                                        <select id="medications" class="select2" multiple="multiple" style="width:370px;">
-                                                            <optgroup label="List of Medicines">
-                                                                <option ng-repeat="meds in medicines" value="{{meds.MedicineID}}">{{meds.MedicineName}}</option>
-                                                            </optgroup>
-                                                            <option ng-value="Others">Others</option>
-                                                        </select>
-                                                        <a href="#">&nbsp;<i class="ti ti-close" ng-click="reset('meds')"></i></a>
-                                                        <br>
-                                                        <br>
-                                                        <div id="othermeds">
-                                                            <label>Other Medicines</label>
-                                                            <input type="text" ng-model="othermeds" class="form-control tooltips" data-trigger="hover" data-original-title="Separate with , if more than 1">
+                                                    </fieldset>
+                                                    <fieldset>
+                                                        <div data-row-span="2">
+                                                            <div data-field-span="1">
+                                                                <label>Laboratory: </label>
+                                                          
+                                                                <select id="laboratories" class="select2" multiple="multiple" style="width:500px;" >
+                                                                    <optgroup label="List of Laboratories">
+                                                                        <option ng-repeat="lab in labs" value="{{lab.LaboratoryID}}">{{lab.Description}}</option>
+                                                                    </optgroup>
+                                                                    <option ng-value="Others">Others</option>
+                                                                </select>
+                                                            </div>
+                                                            <div data-field-span="1">
+                                                                <label>Special Requests </label>
+                                                                <br>
+                                                                <input type="text" ng-model="requests">
+                                                            </div>
                                                         </div>
-                                                    </div>
                                                 </div>
-                                                <div data-row-span="2">
-                                                    <div data-field-span="1">
-                                                        <label>Next appointment date</label>
-                                                        <input type="text" class="form-control" ng-model="" id="datepicker">
-                                                    </div>
-                                                    <div data-field-span="1">
-                                                        <label>Rate</label>
-                                                        <input type="text" class="form-control" ng-model="rate">
-                                                    </div>
-                                                </div>
-                                        </div>
-                                        </fieldset>
-                                        
-                                    <button type="button" class="btn btn-defualt pull-right" data-dismiss="modal">Close</button>
-                                    <button ng-click='confirmDiagnosis()' class="btn btn-danger pull-right">Next</button>
-                                    </form>
+                                                </fieldset>
+                                                
+                                            <button type="button" class="btn btn-defualt pull-right" data-dismiss="modal">Close</button>
+                                            <button ng-click='confirmLaboratory()' class="btn btn-danger pull-right">Confirm</button>
+                                            </form>
+                                    </div> 
                                 </div>
-                                <div id="diagsteptwo">
-                                <form class="grid-form" action="javascript:void(0)">
-                                        <fieldset data-ng-repeat="patient in patientdetails">
-                                            <div data-row-span="3">
-                                                <div data-field-span="1">
-                                                    <label>Admission ID
-                                                        <br>
-                                                    </label>
-                                                    <input type="text" ng-model="admissionid" ng-disabled='true'>
-                                                </div>
-                                                <div data-field-span="1">
-                                                    <label>Admission No
-                                                        <br>
-                                                    </label>
-                                                    <input type="text" ng-model="patient.AdmissionNo" ng-disabled='true'>
-
-                                                </div>
-                                            </div>
-                                            <div data-row-span="4">
-                                                <div data-field-span="1">
-                                                    <label>Last Name</label>
-                                                    <input type="text" ng-value="patient.Lastname" ng-disabled='true'>
-                                                </div>
-                                                <div data-field-span="1">
-                                                    <label>First Name</label>
-                                                    <input type="text" ng-value="patient.Firstname" ng-disabled='true'>
-                                                </div>
-                                                <div data-field-span="1">
-                                                    <label>Middle Name</label>
-                                                    <input type="text" ng-value="patient.Middlename" ng-disabled='true'>
-                                                </div>
-                                            </div>
-                                        </fieldset>
-                                        <br>
-                                        <fieldset data-ng-repeat="medication in medications track by $index">
-                                            <legend>{{medication.MedicineName}}
-                                                <h6>Medicine ID: {{medication.MedicineID}}</h6></legend>
-                                            <div data-row-span="2">
-                                                <div data-field-span="1">
-                                                    <label>Dosage</label>
-                                                    <input type="text" ng-model="Dosage[$index]" ng-init="Dosage[$index] = medication.Unit" disabled="disabled">
-                                                </div>
-                                                <div data-field-span="1">
-                                                    <label>Intake Days</label>
-                                                    <input type="text" ng-model="Quantity[$index]" ng-init="Quantity[$index] = medication.Quantity">
-                                                    <input type="hidden" ng-model="MedID[$index]" ng-init="MedID[$index] = medication.MedicineID">
-                                                </div>
-                                            </div>
-                                            <div data-row-span="2">
-                                                <div data-field-span="1">
-                                                    <label>Notes</label>
-                                                    <input type="text" ng-model="NoteID[$index]" placeholder="Notes here">
-                                                </div>
-                                                <div data-field-span="1">
-                                                    <label>Intake Inerval</label>
-                                                    <select class="form-control" ng-model="IntakeInterval[$index]" style="width:395px;">
-                                                        <option value="" disabled selected>Select Interval</option>
-                                                        <option ng-repeat="intrvl in interval" value="{{intrvl.DosingID}}">{{intrvl.Intake}} a day</option>
-                                                    </select>
-                                                </div>
-
-                                            </div>
-                                            <br>
-                                            <br>
-                                        </fieldset>
-                                        <div class="pull-right">
-                                            <button ng-click="goBack()" class="btn-default btn">Cancel</button>
-                                            <button type="submit" class="btn-danger btn" ng-click="submitDetails(type)">Submit</button>
-                                        </div>
-
-                                        </fieldset>
-                                    </form>
+                            </div> 
+                            <div class="tab-pane" id="tab-details">
+                                <div class="panel panel-default">
+                                    <div class="panel-heading">
+                                        <h2>Medical History</h2>
+                                    </div>
+                                    <div class="panel-body">
+                                        <div class="table-responsive"  data-ng-repeat="patient in patientdetails">
+                                            <table id="patient_table" class="table table-striped table-bordered" cellspacing="0" width="80%">
+                                                <thead>
+                                                <tr>
+                                                    <th>Patients Name</th>
+                                                    <th>Admission ID</th>
+                                                    <th>Admission Date</th>
+                                                    <th>Admission Time</th>
+                                                    <th>Bed ID</th>
+                                                    <th>Medical ID</th>
+                                                </tr>
+                                                </thead>
+                                                <tbody>
+                                                <tr ng-repeat="" ng-class="{'selected': patient.AdmissionID == selectedRow}" ng-click="setClickedRow(patient.AdmissionID)">
+                                                        <td>{{patient.Lname}}, {{patient.Fname}} {{patient.Mname}}</td>
+                                                        <td>{{patient.AdmissionID}}</td>
+                                                        <td>{{patient.AdmissionDate}}</td>
+                                                        <td>{{patient.AdmissionTime}}</td>
+                                                        <td>{{patient.BedID}}</td>
+                                                        <td>{{patient.MedicalID}}</td>
+                                                        <td></td>
+                                                    </tr>
+                                                </tbody>
+                                            </table>
+                                        </div><!-- /.table-responsive -->
+                                    </div> <!-- /.panel-body -->
                                 </div>
-                            </div>
-                            <div class="panel-footer"></div>
+                            </div> <!-- #tab-details -->
                         </div>
                     </div>
-
                     <div class="panel-footer"></div>
                 </div>
             </div>
