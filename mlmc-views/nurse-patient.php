@@ -742,14 +742,18 @@ font-weight: bold;
 		}
 
 		$scope.sendRequisition = function(){
-			// $http({
-			// 		method: 'get',
-			// 		url: 'getData/insert-medicine-request.php',
-			// 		params: {id: $scope.admissionid,
-			// 				at: $scope.at}
-			// 	}).then(function(response) {
-			// 		console.log(response);
-			// 	});		
+			swal({
+                icon: "success",
+                title: "Medicine Requested!",
+                text: "Redirecting in 2..",
+                timer: 2000
+            }).then(function () {
+				window.location.href = 'insertData/insert-medicine-request.php?at=' + $scope.at + '&id=' + $scope.admissionid;
+                }, function (dismiss) {
+                if (dismiss === 'cancel') {
+					window.location.href = 'insertData/insert-medicine-request.php?at=' + $scope.at + '&id=' + $scope.admissionid;
+            }
+            });
 		}
 
 		$scope.viewProfile = function() { 

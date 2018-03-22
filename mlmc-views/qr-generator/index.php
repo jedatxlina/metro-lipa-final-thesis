@@ -1,8 +1,12 @@
 <?php   
     require_once '../insertData/connection.php';
 
-    $medid = $_GET['medid'];
-    $data = $_GET['admissionid'];
+    if(isset($_GET['admissionid']) && isset($_GET['medid'])){
+        $medid = $_GET['medid'];
+        $data = $_GET['admissionid'];
+    }else{
+        $data = $_GET['admissionid'];
+    }
 
     //set it to writable location, a place for temp generated PNG files
     $PNG_TEMP_DIR = dirname(__FILE__).DIRECTORY_SEPARATOR.'temp'.DIRECTORY_SEPARATOR;
@@ -29,8 +33,20 @@
 
     $qrpath = "qr-generator/temp/" . "$data" . ".png" ;
 
-    $query = "UPDATE medical_details SET QR_Path = '$qrpath' WHERE MedicalID = '$medid'";
+ 
 
-    mysqli_query($con,$query);
+    if(isset($_GET['admissionid']) && isset($_GET['medid'])){
+        $query = "UPDATE medical_details SET QR_Path = '$qrpath' WHERE MedicalID = '$medid'";
+        mysqli_query($con,$query);
+    }else{
+        $sel = mysqli_query($con,"SELECT MedicalID FROM medical_details WHERE AdmissionID = '$data'");
+
+        while ($row = mysqli_fetch_assoc($sel)) {
+        $medid = $row['MedicalID'];
+        }
+        
+        $query = "UPDATE medical_details SET QR_Path = '$qrpath' WHERE MedicalID = '$medid'";
+        mysqli_query($con,$query);
+    }
 
 ?>

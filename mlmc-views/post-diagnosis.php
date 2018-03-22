@@ -239,7 +239,7 @@
                             <div class="tab-pane" id="tab-laboratory">
                                 <div class="panel panel-default">
                                     <div class="panel-heading">
-                                        <h2>Medical History</h2>
+                                        <h2>Post Laboratory</h2>
                                     </div>
                                     <div class="panel-body">
                                     <form class="grid-form">
@@ -271,7 +271,7 @@
                                                             <div data-field-span="1">
                                                                 <label>Laboratory: </label>
                                                           
-                                                                <select id="laboratories" class="select2" multiple="multiple" style="width:500px;" >
+                                                                <select id="separatelaboratories" class="select2" multiple="multiple" style="width:400px;" >
                                                                     <optgroup label="List of Laboratories">
                                                                         <option ng-repeat="lab in labs" value="{{lab.LaboratoryID}}">{{lab.Description}}</option>
                                                                     </optgroup>
@@ -375,6 +375,7 @@
             $scope.NoteID = [];
             $scope.IntakeInterval = [];
             $scope.rate = '';
+
             if ($scope.medicationid != '' && $scope.id != '') {
                 $('#diagstepone').hide();
                 $('#diagsteptwo').show();
@@ -580,6 +581,24 @@
                     }
                 });
             }
+
+            $scope.confirmLaboratory = function() {
+                $scope.lab = $("#separatelaboratories").val();
+                swal({
+                    icon: "success",
+                    title: "Successfully Requested!",
+                    text: "Redirecting in 2..",
+                    timer: 2000
+                }).then(function() {
+                    window.location.href = 'insertData/insert-laboratory-request.php?at=' + $scope.at + '&id=' + $scope.admissionid + '&lab=' + $scope.lab + '&request=' + $scope.requests;
+                }, function(dismiss) {
+                    if (dismiss === 'cancel') {
+                    window.location.href = 'insertData/insert-laboratory-request.php?at=' + $scope.at + '&id=' + $scope.admissionid + '&lab=' + $scope.lab + '&request=' + $scope.requests;
+                    }
+                });
+            }
+
+
 
             $scope.getPage = function(check) {
                 switch (check) {

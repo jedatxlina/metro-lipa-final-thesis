@@ -273,7 +273,7 @@ font-weight: bold;
             </div>
     			  <!-- OPD Transfers modal -->
 
-			      <!-- External Request Modal -->
+			<!-- Attending Physician Transfer Modal -->
 				  <div class="modal fade" id="attendingModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
 					<div class="modal-dialog">
 						<div class="panel panel-danger" data-widget='{"draggable": "false"}'>
@@ -290,7 +290,7 @@ font-weight: bold;
 											&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 											Select Physician</label>
 											<div class="col-sm-7">
-                                            <select class="form-control" ng-model="physician" style="width:350px;">
+                                            <select class="form-control" ng-model="attendingphysician" style="width:350px;">
                                                             <option value="" disabled selected>Select Physician</option>
                                                             <option ng-repeat="physician in physicians" value="{{physician.PhysicianID}}">{{physician.Fullname}}</option>
                                                         </select>
@@ -331,7 +331,7 @@ font-weight: bold;
 						</div>
 					</div>
            	 	</div>
-			<!--/ External Request Modal -->
+		<!-- Attending Physician Transfer Modal -->
 
 			<!-- Patient Modal -->
 				<div class="modal fade" id="patientModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
@@ -794,7 +794,7 @@ font-weight: bold;
 		}
 
 		$scope.admitOpdConfirm = function(){
-			
+			window.location.href = 'add-patient-fromopd.php?at=' + $scope.at + '&id=' + $scope.admissionid + '&physicianid=' + $scope.attendingphysician;s
 		}
 
 		$scope.movePatient = function(){

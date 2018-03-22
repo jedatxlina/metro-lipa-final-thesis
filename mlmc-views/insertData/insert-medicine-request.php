@@ -24,3 +24,5 @@ while($row = mysqli_fetch_assoc($sel)){
 }
 
 
+header("Location:../nurse-patient.php?at=$at");
+
