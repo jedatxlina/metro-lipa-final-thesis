@@ -23,6 +23,7 @@ if($at == '' && $admissionid == ''){
             "Firstname"=>$row['FirstName'],
             "Middlename"=>$row['MiddleName'],
             "Address"=>$row['Address'],
+            "Rate"=>$row['Rate'],
             "Fee"=>$row['ProfessionalFee']);
     }
 }

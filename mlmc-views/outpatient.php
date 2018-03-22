@@ -36,10 +36,8 @@ include 'admin-header.php' ?>
                         <table id="patient_table" class="table table-striped table-bordered" cellspacing="0" width="100%">
                             <thead>
                                 <tr>
-                                    <th>Admission ID</th>
-                                    <th>Admission No</th>
-                                    <th>Admission Date</th>
-                                    <th>Admission Time</th>
+                                    <th>Outpatient ID</th>
+                                    <th>Admission Date/Time</th>
                                     <th>Full name</th>
                                     <th>Admission</th>
                                     <th>Admission Type</th>
@@ -49,9 +47,7 @@ include 'admin-header.php' ?>
                             <tbody>
                                 <tr ng-repeat="user in users" ng-class="{'selected': user.AdmissionID == selectedRow}" ng-click="setClickedRow(user.AdmissionID)">
                                     <td>{{user.AdmissionID}}</td>
-                                    <td>{{user.AdmissionNo}}</td>
-                                    <td>{{user.AdmissionDate}}</td>
-                                    <td>{{user.AdmissionTime}}</td>
+                                    <td>{{user.AdmissionDate}} {{user.AdmissionTime}}</td>
                                     <td>{{user.Lname}}, {{user.Fname}} {{user.Mname}} </td>
                                     <td>{{user.Admission}}</td>
                                     <td>{{user.AdmissionType}}</td>
@@ -89,9 +85,9 @@ include 'admin-header.php' ?>
                 <div class="list-group list-group-alternate mb-n nav nav-tabs">
                     <a href="#" role="tab" data-toggle="tab" class="list-group-item active">Actions Panel</a>
                     <a href="#" ng-click="viewPatient()" role="tab" data-toggle="tab" class="list-group-item"><i class="ti ti-user"></i> Patient Details</a>
-                    <a href="#" ng-click="movePatient()" role="tab" data-toggle="tab" class="list-group-item"><i class="fa fa-stethoscope"></i>Move to Emergency</a>
+                    <a href="#" ng-click="dischargePatient('move')" role="tab" data-toggle="tab" class="list-group-item"><i class="fa fa-stethoscope"></i>Move to Emergency</a>
                     <a href="#" ng-click="viewOrder()" role="tab" data-toggle="tab" class="list-group-item"><span class="badge badge-primary"  ng-if="notifs > 0">{{notifs}}</span> <i class="ti ti-email"></i>Doctors Order</a>
-                    <a href="#" ng-click="dischargePatient()" role="tab" data-toggle="tab" class="list-group-item"><i class="fa fa-check-square-o"></i>Post Charge</a>
+                    <a href="#" ng-click="dischargePatient('pay')" role="tab" data-toggle="tab" class="list-group-item"><i class="fa fa-check-square-o"></i>Post Charge</a>
                 </div>
             </div>
 
@@ -306,17 +302,18 @@ include 'admin-header.php' ?>
                                     <thead>
                                         <tr>
                                             <th>Order ID</th>
-                                            <th>Admission ID</th>
-                                            <th>Physician ID</th>
+                                            <th>Patient Name</th>
+                                            <th>Physician Name</th>
                                             <th>Task</th>
                                             <th>Status</th>
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        <tr ng-repeat="order in orders" ng-class="{'selected': order.OrderID == selectedRow}" ng-click="setClickedRow(order.OrderID,order.OrderID)">
-                                            <td>{{order.OrderID}}</td>
-                                            <td>{{order.AdmissionID}}</td>
-                                            <td>{{order.PhysicianID}}</td>
+                                        <tr ng-repeat="order in orders" ng-class="{'selected': order.OrderID == selectedRow}" ng-click="setClickedRow(order.OrderID,order.AdmissionID)">
+											<td>{{order.OrderID}}</td>
+											
+                                            <td>{{order.Dname}}</td>
+                                            <td>{{order.Pname}}</td>
                                             <td>{{order.Task}}</td>
                                             <td>{{order.Status}}</td>
 
@@ -359,7 +356,7 @@ include 'admin-header.php' ?>
 										<div class="col-md-5">
 											<div class="form-group">
 												<label>Fee</label>
-												<input type="text" class="form-control" ng-model="$parent.fee" ng-init="$parent.fee = physician.Fee">	
+												<input type="text" class="form-control" ng-model="$parent.fee" ng-init="$parent.fee = physician.Rate">	
 												<small><input type="checkbox" ng-model="senior" ng-click="seniorClick()"> Senior Citizen </small>
 												<small><input type="checkbox" ng-model="hmo" ng-click="hmoClick()"> HMO </small>	
 											</div>
@@ -381,24 +378,6 @@ include 'admin-header.php' ?>
 										</div>
 										<input type="hidden" ng-model="$parent.idpatient" ng-init="$parent.idpatient = patient.AdmissionID">
                                 </div>
-
-								<div class="row">
-									<div class="col-md-6">
-										<div class="form-group">
-											<label>OPD Room No</label>
-											<select class="form-control" ng-model="opdroomno">
-                                                <option value="" disabled selected>Select Room No</option>
-												<option value="1">1</option>
-												<option value="2">2</option>
-												<option value="3">3</option>
-												<option value="4">4</option>
-												<option value="5">5</option>
-												<option value="6">6</option>
-                                            </select>
-										</div>
-									</div>
-                                </div>
-
 								
 								<div class="row" ng-if="senior == 'true'">
 									<div class="col-md-3">
@@ -651,10 +630,13 @@ include 'admin-header.php' ?>
             
             		$scope.viewOrderDetails = function(){
             			$scope.id = $scope.selectedRow;
-            			window.location.href = 'view-order-details.php?at=' + $scope.at + '&id=' + $scope.id;
+            			window.location.href = 'view-order-details.php?at=' + $scope.at + '&id=' + $scope.orderadmissionid + '&orderid=' + $scope.id;
+					
             		}
             
-            		$scope.dischargePatient = function(){
+            		$scope.dischargePatient = function(param){
+						$scope.redirect = param;
+						
             			if($scope.selectedRow != null){
 
             				$scope.patient = $scope.selectedRow;
@@ -675,12 +657,12 @@ include 'admin-header.php' ?>
             				}).then(function(response) {
 								$scope.outpatientdetails = response.data;
             				});
-            			
 							$('#dischargeModal').modal('show');	
             			}
             			else{
             			$('#errorModal').modal('show');
             			}
+			
             		}
 
 					$scope.seniorClick = function(){
@@ -709,9 +691,9 @@ include 'admin-header.php' ?>
             			method: 'GET',
             			url: 'insertData/insert-discharged-outpatient.php',
             			params: {at: $scope.at,
-								admissionid: $scope.idpatient,
-								opdroomno: $scope.opdroomno,
-								totalfee: $scope.totalfee}
+								admissionid: $scope.patient,
+								totalfee: $scope.totalfee,
+								re: $scope.redirect}
             			}).then(function(response) {
 							swal({
                             icon: "success",

@@ -12,39 +12,16 @@
 	<div class="row">
     <div class="col-md-9">
 					<div class="panel panel-danger">
-						<div class="panel-heading">
-							<h2>Patient Archive</h2>	
-							<div class="panel-ctrls"></div>
-						</div>
-						<div class="panel-body">
-							<table id="patient_table" class="table table-striped table-bordered" cellspacing="0" width="100%">
-								<thead>
-								<tr>
-									<th>Archive No</th>
-									<th>Last name</th>
-                                    <th>First name</th>
-                                    <th>Middle name</th>
-									<th>Province</th>
-									<th>City</th>
-                                    <th>Address</th>
-									<th>Gender</th>
-								</tr>
-								</thead>
-								<tbody>
-								<tr>
-                                        <td></td>
-                                        <td></td>
-                                        <td></td>
-                                        <td></td>
-                                        <td></td>
-                                        <td></td>
-                                        <td></td>
-                                        <td></td>
-                                    </tr>
-								</tbody>
-							</table>
-							
-						</div>
+					<div class="panel-heading">
+                    <h2>File Upload</h2>
+                    <div class="panel-ctrls" data-actions-container="" data-action-collapse='{"target": ".panel-body"}'></div>
+                    <div class="options">
+
+                    </div>
+                </div>
+                <div class="panel-body">
+                    <form action="upload.php" class="dropzone"></form>
+                </div>
 						<div class="panel-footer"></div>
 					</div>
 				</div>

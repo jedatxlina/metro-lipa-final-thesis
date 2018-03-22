@@ -1,12 +1,14 @@
 <?php
 
 require_once 'connection.php';
+
 $at = $_GET['at'];
 $id = $_GET['id'];
+$orderid = $_GET['orderid'];
 
-$sel = mysqli_query($con,"SELECT a.AdmissionID,b.*,c.*,d.*,e.* FROM patients a, medical_details b, diagnosis c,attending_physicians d,physicians e WHERE a.AdmissionID = '$id' AND b.AdmissionID = a.AdmissionID AND c.DiagnosisID = b.DiagnosisID AND d.AttendingID = c.AttendingID AND e.PhysicianID = d.PhysicianID");
+$sel = mysqli_query($con,"SELECT * FROM Medication WHERE AdmissionID = '$id");
 
-    $data = array();
+$data = array();
 
     while ($row = mysqli_fetch_array($sel)) {
         $data[] = array(

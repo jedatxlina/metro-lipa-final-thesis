@@ -10,7 +10,7 @@ $parnode = $dom->appendChild($node);
 
 
 // Select all the rows in the markers table
-$query = "SELECT a.*,b.*,c.* FROM patients a,medical_conditions b, conditions c WHERE a.AdmissionID = b.AdmissionID AND c.ConditionID = b.ConditionID";
+$query = "SELECT a.*,b.*,c.* FROM patients a,diagnosis b, conditions c WHERE c.Conditions = b.Findings AND b.AdmissionID = a.AdmissionID";
 $result = mysqli_query($con,$query);
 if (!$result) {
   die('Invalid query: ' . mysqli_error());

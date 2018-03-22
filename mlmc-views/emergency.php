@@ -95,8 +95,9 @@ font-weight: bold;
                         <a href="#" ng-click="movePatient()" role="tab" data-toggle="tab" class="list-group-item"><i class="fa fa-stethoscope"></i>Move to Inpatient</a>
 						<a href="#" ng-click="movePatient()" role="tab" data-toggle="tab" class="list-group-item"><i class="fa fa-file-o"></i>Move to Outpatient</a>
                         <a href="#" ng-click="dischargePatient()" role="tab" data-toggle="tab" class="list-group-item"><i class="fa fa-check-square-o"></i>Discharge</a>
-                        <a href="#" ng-click="ReAdmitPatient()" role="tab" data-toggle="tab" class="list-group-item"><i class="fa fa-check-square-o"></i> Re-Admit</a>
-                    </div>
+                        <!-- <a href="#" ng-click="ReAdmitPatient()" role="tab" data-toggle="tab" class="list-group-item"><i class="fa fa-check-square-o"></i> Re-Admit</a> -->
+						<a href="#" ng-click="opdTransfer()" role="tab" data-toggle="tab" class="list-group-item"><span class="badge badge-primary"  ng-if="notifs > 0">{{notifs}}</span><i class="fa fa-check-square-o"></i>Outpatient Transfers</a>
+				    </div>
 				</div>
 				
 				<!-- Error modal -->
@@ -122,68 +123,68 @@ font-weight: bold;
 				<!--/ Error modal -->
 
 				  <!-- Search modal -->
-				  <div class="modal fade" id="searchPatientModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
-                <div class="modal-dialog">
-                    <div class="panel panel-danger" data-widget='{"draggable": "false"}'>
-                        <div class="panel-heading">
-                            <h2>Patient Database Lookup</h2>
-                            <div class="panel-ctrls" data-actions-container="" data-action-collapse='{"target": ".panel-body, .panel-footer"}'></div>
-                        </div>
-                        <div class="panel-body" style="height: auto">
-						<center><span><strong>Search Registry Information</strong></span></center>
-                                <hr>
-                                <div class="row">
-                                    <div class="form-group">
-                                        <label for="focusedinput" class="col-sm-3 control-label">
-										&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-										&nbsp;&nbsp;&nbsp;&nbsp;Last Name</label>
-                                        <div class="col-sm-7">
-                                            <input type="text" ng-model='lastname' class="form-control">
-                                        </div>
+				<div class="modal fade" id="searchPatientModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+					<div class="modal-dialog">
+						<div class="panel panel-danger" data-widget='{"draggable": "false"}'>
+							<div class="panel-heading">
+								<h2>Patient Database Lookup</h2>
+								<div class="panel-ctrls" data-actions-container="" data-action-collapse='{"target": ".panel-body, .panel-footer"}'></div>
+							</div>
+							<div class="panel-body" style="height: auto">
+							<center><span><strong>Search Registry Information</strong></span></center>
+									<hr>
+									<div class="row">
+										<div class="form-group">
+											<label for="focusedinput" class="col-sm-3 control-label">
+											&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+											&nbsp;&nbsp;&nbsp;&nbsp;Last Name</label>
+											<div class="col-sm-7">
+												<input type="text" ng-model='lastname' class="form-control">
+											</div>
+										</div>
 									</div>
-								</div>
-								<br>
-								<div class="row">
-                                    <div class="form-group">
-										<label for="focusedinput" class="col-sm-3 control-label">
-										&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-										&nbsp;&nbsp;&nbsp;&nbsp;First Name</label>
-                                        <div class="col-sm-7">
-                                            <input type="text" ng-model='firstname' class="form-control">
-                                        </div>
+									<br>
+									<div class="row">
+										<div class="form-group">
+											<label for="focusedinput" class="col-sm-3 control-label">
+											&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+											&nbsp;&nbsp;&nbsp;&nbsp;First Name</label>
+											<div class="col-sm-7">
+												<input type="text" ng-model='firstname' class="form-control">
+											</div>
+										</div>
 									</div>
-								</div>
-								<br>
-								<div class="row">
-                                    <div class="form-group">
-                                        <label for="focusedinput" class="col-sm-3 control-label">
-										&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-										&nbsp;&nbsp;&nbsp;&nbsp;Middle Name</label>
-                                        <div class="col-sm-7">
-                                            <input type="text" ng-model='middlename' class="form-control">
-                                        </div>
+									<br>
+									<div class="row">
+										<div class="form-group">
+											<label for="focusedinput" class="col-sm-3 control-label">
+											&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+											&nbsp;&nbsp;&nbsp;&nbsp;Middle Name</label>
+											<div class="col-sm-7">
+												<input type="text" ng-model='middlename' class="form-control">
+											</div>
+										</div>
 									</div>
-								</div>
-								<br>
-								<div class="row">
-                                    <div class="form-group">
-                                        <label for="focusedinput" class="col-sm-3 control-label">
-										&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-										&nbsp;&nbsp;&nbsp;&nbsp;Birthdate</label>
-                                        <div class="col-sm-7">
-											<input type="text" ng-model="" id="datepicker" class="form-control">
-                                        </div>
+									<br>
+									<div class="row">
+										<div class="form-group">
+											<label for="focusedinput" class="col-sm-3 control-label">
+											&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+											&nbsp;&nbsp;&nbsp;&nbsp;Birthdate</label>
+											<div class="col-sm-7">
+												<input type="text" ng-model="" id="datepicker" class="form-control">
+											</div>
+										</div>
 									</div>
-								</div>
-								
+									
+							</div>
+							<div class="panel-footer">
+								<button type="button" ng-click="searchPatient()" data-dismiss="modal" class="btn btn-danger pull-right">Search</button>
+									<button type="button" data-dismiss="modal" class="btn btn-default pull-right">Cancel</button>
+							</div>
 						</div>
-						<div class="panel-footer">
-                            <button type="button" ng-click="searchPatient()" data-dismiss="modal" class="btn btn-danger pull-right">Search</button>
-                                <button type="button" data-dismiss="modal" class="btn btn-default pull-right">Cancel</button>
-                        </div>
-                    </div>
-                </div>
-            </div>
+					</div>
+           	 	</div>
 			<!--/ Search modal -->
 			
 			  <!-- Search Result modal -->
@@ -229,7 +230,110 @@ font-weight: bold;
             </div>
             <!--/ Search Result modal -->
 
-				<!-- Patient Modal -->
+					
+			  <!-- OPD Transfers modal -->
+			  <div class="modal fade" id="opdTransferModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+                <div class="modal-dialog">
+                    <div class="panel panel-danger" data-widget='{"draggable": "false"}'>
+                        <div class="panel-heading">
+                            <h2>Outpatient Transfers</h2>
+                            <div class="panel-ctrls" data-actions-container="" data-action-collapse='{"target": ".panel-body, .panel-footer"}'></div>
+                        </div>
+                        <div class="panel-body" style="height: auto">
+						<center><span class="'pull-left"><strong>Search Registry Information Result</strong></span></center>
+						<hr>
+							<table id="opdtransfer_table" class="table table-striped table-bordered" cellspacing="0" width="100%">
+                                    <thead>
+                                        <tr>
+                                            <th>AdmissionID</th>
+                                            <th>Patient Name</th>
+                                            <th>Gender</th>
+                                            <th>Admission Type</th>
+                                            <th>Admission</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr data-ng-repeat='trans in transfers'  ng-class="{'selected': trans.AdmissionID == selectedRow}" ng-click="setClickedRow(trans.AdmissionID)">
+                                            <td>{{trans.AdmissionID}}</td>
+                                            <td>{{trans.Firstname}} {{trans.Middlename}} {{trans.Lastname}}</td>
+                                            <td>{{trans.Gender}}</td>
+                                            <td>{{trans.AdmissionType}}</td>
+                                            <td>{{trans.Admission}}</td>
+                                        </tr>
+                                    </tbody>
+                            </table>
+						</div>
+						<div class="panel-footer">
+							<button type="button" ng-click="searchResultView()" class="btn btn-danger-alt pull-left">View Details</button>
+                            <button type="button" ng-click="admitopdTransfer()" data-dismiss="modal" class="btn btn-danger pull-right">Admit</button>
+                            <button type="button" data-dismiss="modal" class="btn btn-default pull-right">Cancel</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+    			  <!-- OPD Transfers modal -->
+
+			      <!-- External Request Modal -->
+				  <div class="modal fade" id="attendingModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+					<div class="modal-dialog">
+						<div class="panel panel-danger" data-widget='{"draggable": "false"}'>
+							<div class="panel-heading">
+								<h2>Attending physician</h2>
+								<div class="panel-ctrls" data-actions-container="" data-action-collapse='{"target": ".panel-body, .panel-footer"}'></div>
+							</div>
+							<div class="panel-body" style="height: auto">
+							<center><span><strong>Select Attending Physician</strong></span></center>
+									<hr>
+									<div class="row">
+										<div class="form-group">
+											<label for="focusedinput" class="col-sm-3 control-label">
+											&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+											Select Physician</label>
+											<div class="col-sm-7">
+                                            <select class="form-control" ng-model="physician" style="width:350px;">
+                                                            <option value="" disabled selected>Select Physician</option>
+                                                            <option ng-repeat="physician in physicians" value="{{physician.PhysicianID}}">{{physician.Fullname}}</option>
+                                                        </select>
+											</div>
+										</div>
+									</div>
+									<br>
+                                    <div data-ng-repeat="patient in patientdetails">
+                                   
+                                        <div class="row">
+                                            <div class="form-group">
+                                                <label for="focusedinput" class="col-sm-3 control-label">
+                                                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                                &nbsp;&nbsp;&nbsp;&nbsp;Patient Name</label>
+                                                <div class="col-sm-7">
+                                                    <input type="text" class="form-control" ng-value="patient.Lastname + ', ' + patient.Firstname + ' ' + patient.Middlename"  disabled>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <br>
+                                        <div class="row">
+                                            <div class="form-group">
+                                                <label for="focusedinput" class="col-sm-3 control-label">
+                                                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                                &nbsp;&nbsp;&nbsp;&nbsp;Admission No</label>
+                                                <div class="col-sm-7">
+                                                    <input type="text" class="form-control" ng-value="patient.AdmissionID" disabled>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+									<br>
+							</div>
+							<div class="panel-footer">
+								<button type="button" ng-click="admitOpdConfirm()" data-dismiss="modal" class="btn btn-danger pull-right">Confirm</button>
+								<button type="button" data-dismiss="modal" class="btn btn-default pull-right">Cancel</button>
+							</div>
+						</div>
+					</div>
+           	 	</div>
+			<!--/ External Request Modal -->
+
+			<!-- Patient Modal -->
 				<div class="modal fade" id="patientModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
 					<form class="form-horizontal">
 						<div class="modal-dialog">
@@ -347,33 +451,7 @@ font-weight: bold;
 											</div>
 										</div>
 									</div>
-									<br><br>
-									<!--
-									<div class="row">
-										<div class="form-group">
-											<label for="focusedinput" class="col-sm-3 control-label">Admission</label>
-											<div class="col-sm-5">
-												<input type="text" class="form-control" ng-value="patient.Admission" disabled>
-											</div>
-										</div>
-									</div>
-									<div class="row">
-										<div class="form-group">
-											<label for="focusedinput" class="col-sm-3 control-label">Admission Type</label>
-											<div class="col-sm-5">
-												<input type="text" class="form-control" ng-value="patient.AdmissionType" disabled>
-											</div>
-										</div>
-									</div>
-									<div class="row">
-										<div class="form-group">
-											<label for="focusedinput" class="col-sm-3 control-label">QR Code</label>
-											<div class="col-sm-5">
-											<center> <img ng-src="{{patient.QRpath}}">
-											</div>
-										</div>
-									</div> -->
-								
+									<br>
 								</div>
 								<div class="panel-footer">
 									<button type="button" ng-click="viewPatientDetails()" class="btn btn-danger-alt pull-left">View Details</button>
@@ -483,23 +561,39 @@ font-weight: bold;
 		$scope.clickedRow = 0;
 		$scope.new = {};
 		$scope.order = 0;
-		$scope.notif = 0;
+		$scope.notifs = 1;
 
-		var pushalert = function (){
-			alert('jed');
-		}	
+		var pusher = new Pusher('c23d5c3be92c6ab27b7a', {
+            		cluster: 'ap1',
+            		encrypted: true
+            	  	});
+              
+            		var channel = pusher.subscribe('my-channel-emergency');
+            		channel.bind('my-event-emergency', function(data) {
+            		
+            			console.log(data.message);
+						console.log(data.transfer);
+						$scope.transferopdid = data.transfer;
+            			swal({
+            				icon: "success",
+            				title: "New Notification!",
+            				text: data.message
+            				}).then(function () {
+            			});
+            	  	});
+	
+
 		var tick = function() {
 			$scope.clock = Date.now();
 			$scope.datetime = new Date().toLocaleTimeString('en-US', { hour: 'numeric', hour12: true, minute: 'numeric' });		
 			
 			$http({
-					method: 'get',
-					url: 'getData/get-inpatient-flags.php',
-					params:{id:$scope.selectedRow}
-				}).then(function(response) {
-					$scope.notif = response.data.length;
-					
-				});
+            	method: 'get',
+            	url: 'getData/get-transfering-opd.php',
+            	params:{id:$scope.at}
+            }).then(function(response) {
+            	$scope.notifs = response.data.length;	
+            });
 				
 			
 		}
@@ -554,6 +648,13 @@ font-weight: bold;
             dataType:"json"
         }).then(function(response) {
             $scope.bed = response.data;
+        });
+
+		$http({
+            method: 'GET',
+            url: 'getData/get-physician-details.php'
+        }).then(function(response) {
+            $scope.physicians = response.data;
         });
 		   
 		$scope.setClickedRow = function(user) {
@@ -670,8 +771,39 @@ font-weight: bold;
 		}
 		
 
-		$scope.confirmBtn = function(){
-			alert($scope.new.Firstname);
+		$scope.opdTransfer = function(){
+			$http({
+				method: 'get',
+				url: 'getData/get-transfering-opd.php'
+			}).then(function(response) {
+				$scope.transfers = response.data;
+				angular.element(document).ready(function() {  
+				dTable = $('#opdtransfer_table')  
+				dTable.DataTable();  
+				});  
+			});
+			$('#opdTransferModal').modal('show');
+		}
+
+		$scope.admitopdTransfer = function(){
+			if($scope.selectedRow != null){
+                $scope.admissionid = $scope.selectedRow;
+            	$http({
+                	method: 'get',
+                    url: 'getData/get-patient-details.php',
+                    params: {id: $scope.admissionid}
+                }).then(function(response) {
+                    $scope.patientdetails = response.data;
+                });
+                    $('#attendingModal').modal('show');
+                }
+                else{
+                $('#errorModal').modal('show');
+                }
+		}
+
+		$scope.admitOpdConfirm = function(){
+			
 		}
 
 		$scope.movePatient = function(){

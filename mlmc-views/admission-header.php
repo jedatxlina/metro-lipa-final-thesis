@@ -27,11 +27,12 @@
 	<link type="text/css" href="assets/plugins/switchery/switchery.css" rel="stylesheet">   							<!-- Switchery -->
 	<link type="text/css" href="assets/plugins/datatables/dataTables.bootstrap.css" rel="stylesheet">
 	<link type="text/css" href="assets/plugins/datatables/dataTables.themify.css" rel="stylesheet">
-
+	<link type="text/css" href="assets/plugins/dropzone/css/dropzone.css" rel="stylesheet"> <!-- Dropzone Plugin -->
 	
 	<script src="components/angular.min.js"></script>
 	<script src="assets/js/mask.js"></script>
 	<script src="assets/js/angular-autogrow.js"></script>
+
 	
     </head>
 

@@ -94,6 +94,7 @@
                         <a href="#" ng-click="viewPatient()" role="tab" data-toggle="tab" class="list-group-item"><i class="ti ti-user"></i> Patient Details</a>
                         <a href="#" ng-click="post()" role="tab" data-toggle="tab" class="list-group-item"><i class="fa fa-stethoscope"></i>View Patient Condition</a>
                         <a href="#" ng-click="postDiagnosis()" role="tab" data-toggle="tab" class="list-group-item"><i class="fa fa-stethoscope"></i>Post Diagnosis</a>
+                        <a href="#" ng-click="postReferral()" role="tab" data-toggle="tab" class="list-group-item"><i class="fa fa-stethoscope"></i>Post Referral</a>
                     </div>
                 </div>
             </div>
@@ -169,6 +170,66 @@
 						</div>
 					</form>
 				</div>
+
+                   <!-- External Request Modal -->
+			<div class="modal fade" id="referralModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+					<div class="modal-dialog">
+						<div class="panel panel-danger" data-widget='{"draggable": "false"}'>
+							<div class="panel-heading">
+								<h2>Reffer a physician</h2>
+								<div class="panel-ctrls" data-actions-container="" data-action-collapse='{"target": ".panel-body, .panel-footer"}'></div>
+							</div>
+							<div class="panel-body" style="height: auto">
+							<center><span><strong>Reffer to a physician</strong></span></center>
+									<hr>
+									<div class="row">
+										<div class="form-group">
+											<label for="focusedinput" class="col-sm-3 control-label">
+											&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+											Select Physician</label>
+											<div class="col-sm-7">
+                                            <select class="form-control" ng-model="physician" style="width:350px;">
+                                                            <option value="" disabled selected>Select Physician</option>
+                                                            <option ng-repeat="physician in physicians" value="{{physician.PhysicianID}}">{{physician.Fullname}}</option>
+                                                        </select>
+											</div>
+										</div>
+									</div>
+									<br>
+                                    <div data-ng-repeat="patient in patientdetails">
+                                   
+                                        <div class="row">
+                                            <div class="form-group">
+                                                <label for="focusedinput" class="col-sm-3 control-label">
+                                                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                                &nbsp;&nbsp;&nbsp;&nbsp;Patient Name</label>
+                                                <div class="col-sm-7">
+                                                    <input type="text" class="form-control" ng-value="patient.Lastname + ', ' + patient.Firstname + ' ' + patient.Middlename"  disabled>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <br>
+                                        <div class="row">
+                                            <div class="form-group">
+                                                <label for="focusedinput" class="col-sm-3 control-label">
+                                                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                                &nbsp;&nbsp;&nbsp;&nbsp;Admission No</label>
+                                                <div class="col-sm-7">
+                                                    <input type="text" class="form-control" ng-value="patient.AdmissionID" disabled>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+									<br>
+							</div>
+							<div class="panel-footer">
+								<button type="button" ng-click="#" data-dismiss="modal" class="btn btn-danger pull-right">Reffer</button>
+									<button type="button" data-dismiss="modal" class="btn btn-default pull-right">Cancel</button>
+							</div>
+						</div>
+					</div>
+           	 	</div>
+			<!--/ External Request Modal -->
                                            
                 <!-- Error modal -->
 				<div class="modal fade" id="errorModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
@@ -271,6 +332,13 @@
                         });  
                 });
 
+                $http({
+                        method: 'GET',
+                        url: 'getData/get-physician-details.php'
+                }).then(function(response) {
+                        $scope.physicians = response.data;
+                });
+
                 $scope.viewPatientDetails = function(){
                     window.location.href = 'view-patient-data.php?at=' + $scope.at + '&id=' + $scope.admissionid;
                 }
@@ -311,6 +379,24 @@
                 
                 $scope.confirmDiagnosis = function(){
                     alert($scope.laboratory);
+                }
+
+                  $scope.postReferral = function(){
+                      
+                    if($scope.selectedRow != null){
+                        $scope.admissionid = $scope.selectedRow;
+                        $http({
+                            method: 'get',
+                            url: 'getData/get-patient-details.php',
+                            params: {id: $scope.admissionid}
+                        }).then(function(response) {
+                            $scope.patientdetails = response.data;
+                        });
+                        $('#referralModal').modal('show');
+                    }
+                    else{
+                    $('#errorModal').modal('show');
+                    }
                 }
          
                 $scope.getPage = function(check){
