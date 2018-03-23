@@ -30,7 +30,6 @@ font-weight: bold;
 								<thead>
 								<tr>
 								<tr>
-									<th>Admission ID</th>
 									<th>Fullname</th>
 									<th>Medicine Name</th>
 									<th>Status</th>
@@ -38,11 +37,11 @@ font-weight: bold;
 								</tr>
 								</thead>
 								<tbody>
-								<tr ng-repeat="user in users" ng-class="{'selected': user.AdmissionID == selectedRow}" ng-click="setClickedRow(user.AdmissionID)">
-                                        <td>{{user.AdmissionID}}</td>
-                                        <td>{{user.Lname}}, {{user.Fname}} {{user.Mname}} </td>
-                                        <td>{{user.Gender}}</td>
-                                        <td>{{user.Admission}}</td>
+								<tr ng-repeat="user in users" ng-class="{'selected': user.MedRequestID == selectedRow}" ng-click="setClickedRow(user.MedRequestID,user.Status)">
+                                       
+                                        <td>{{user.Fullname}}</td>
+                                        <td>{{user.Medicine}}</td>
+                                        <td>{{user.Status}}</td>
                                     </tr>
 								</tbody>
 							</table>
@@ -53,8 +52,8 @@ font-weight: bold;
 				<div class="col-md-3">
 					<div class="list-group list-group-alternate mb-n nav nav-tabs">
 						<a href="#" role="tab" data-toggle="tab" class="list-group-item active">Actions Panel</a>
-						<a href="#" ng-click="viewPatient()" role="tab" data-toggle="tab" class="list-group-item"><i class="ti ti-user"></i> Patient Details</a>
-                        <a href="#" ng-click="relocatePatient()" role="tab" data-toggle="tab" class="list-group-item"><i class="fa fa-file-text-o"></i>Medicine Requisition</a>
+						<a href="#" ng-click="readyMedicine()" role="tab" data-toggle="tab" class="list-group-item"><i class="ti ti-user"></i> Set Medicine Ready (for PickUp)</a>
+                        <a href="#" ng-click="clearMedicine()" role="tab" data-toggle="tab" class="list-group-item"><i class="fa fa-file-text-o"></i>Clear Medicine Request</a>
                     </div>
 				</div>
 				
@@ -67,7 +66,7 @@ font-weight: bold;
 								<div class="panel-ctrls" data-actions-container="" data-action-collapse='{"target": ".panel-body, .panel-footer"}'></div>
 							</div>
 							<div class="panel-body" style="height: 60px">
-							Select Emergency record that you would like to apply an <a href="#" class="alert-link">Action.</a>
+							Select Patient record that you would like to apply an <a href="#" class="alert-link">Action.</a>
 							</div>
 							<!-- <div class="panel-footer">
 								<span class="text-gray"><em>Footer</em></span>
@@ -80,138 +79,28 @@ font-weight: bold;
 				</div>
 				<!--/ Error modal -->
 
-				<!-- Patient Modal -->
-				<div class="modal fade" id="patientModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
-					<form class="form-horizontal">
-						<div class="modal-dialog">
-							<div class="panel panel-danger" data-widget='{"draggable": "false"}'>
-								<div class="panel-heading">
-									<h2>Patient Details</h2>
-									<div class="panel-ctrls" data-actions-container="" data-action-collapse='{"target": ".panel-body, .panel-footer"}'></div>
-								</div>
-								<div class="panel-body" style="height: 400px" data-ng-repeat="patient in patientdetails">
-									<center><span><strong>Registry Information</strong></span></center>
-									<hr>
-									<div class="row">
-										<div class="form-group">
-											<label for="focusedinput" class="col-sm-3 control-label">Patient name</label>
-											<div class="col-sm-8">
-												<input type="text" class="form-control" ng-value="patient.Lastname + ', ' + patient.Firstname + ' ' + patient.Middlename"  disabled>
-											</div>
-										</div>
-									</div>
-									<div class="row">
-										<div class="form-group">
-											<label for="focusedinput" class="col-sm-3 control-label">Admission ID</label>
-											<div class="col-sm-5">
-												<input type="text" class="form-control" ng-value="patient.AdmissionID" disabled>
-											</div>
-										</div>
-									</div>
-									<div class="row">
-										<div class="form-group">
-											<label for="focusedinput" class="col-sm-3 control-label">Admission Date Time</label>
-											<div class="col-sm-5">
-												<input type="text" class="form-control"  ng-value="patient.AdmissionDateTime" disabled>
-											</div>
-										</div>
-									</div>
-									<div class="row">
-										<div class="form-group">
-											<label for="focusedinput" class="col-sm-3 control-label">Admission</label>
-											<div class="col-sm-5">
-												<input type="text" class="form-control" ng-value="patient.Admission" disabled>
-											</div>
-										</div>
-									</div>
-									<div class="row">
-										<div class="form-group">
-											<label for="focusedinput" class="col-sm-3 control-label">Admission Type</label>
-											<div class="col-sm-5">
-												<input type="text" class="form-control" ng-value="patient.AdmissionType" disabled>
-											</div>
-										</div>
-									</div>
-								</div>
-								<div class="panel-footer">
-								<button type="button" ng-click="#" class="btn btn-danger-alt pull-left">View Details</button>
-								<button type="button" ng-click="#" class="btn btn-danger-alt pull-right">Ok</button>
-								<button type="button" data-dismiss="modal" class="btn btn-default-alt pull-right">Cancel</button>
-								</div>
+				<!-- Error modal -->
+				<div class="modal fade" id="pendingModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+					<div class="modal-dialog">
+						<div class="panel panel-danger" data-widget='{"draggable": "false"}'>
+							<div class="panel-heading">
+								<h2>Error:</h2>
+								<div class="panel-ctrls" data-actions-container="" data-action-collapse='{"target": ".panel-body, .panel-footer"}'></div>
 							</div>
-						</div>
-					</form>
-				</div>
-
-				<div class="modal fade" id="moveInpatientModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
-					<form class="form-horizontal">
-						<div class="modal-dialog">
-							<div class="panel panel-danger" data-widget='{"draggable": "false"}'>
-								<div class="panel-heading">
-									<h2>Patient Details</h2>
-									<div class="panel-ctrls" data-actions-container="" data-action-collapse='{"target": ".panel-body, .panel-footer"}'></div>
-								</div>
-								<div class="panel-body" style="height: 400px" ng-repeat="patient in getdetails">
-									<center><span><strong>Registry Information</strong></span>
-									<p><small>Data below will be moved to Inpatient section permanently</small></p></center>
-									<hr>
-									<div class="row">
-										<div class="form-group">
-											<label for="focusedinput" class="col-sm-3 control-label">Patient name</label>
-											<div class="col-sm-8">
-											<input type="text" class="form-control" ng-value="patient.Firstname + ' ' + patient.Middlename + ' ' + patient.Lastname" ng-model="new.Fullname" disabled>
-											</div>
-										</div>
-									</div>
-									<div class="row">
-										<div class="form-group">
-											<label for="focusedinput" class="col-sm-3 control-label">Admission ID</label>
-											<div class="col-sm-5">
-												<input type="text" class="form-control" ng-value="patient.AdmissionID" disabled>
-											</div>
-										</div>
-									</div>
-									<div class="row">
-										<div class="form-group">
-											<label for="focusedinput" class="col-sm-3 control-label">Admission Date Time</label>
-											<div class="col-sm-5">
-												<input type="text" class="form-control"  ng-value="patient.AdmissionDateTime" disabled>
-											</div>
-										</div>
-									</div>
-									<div class="row">
-										<div class="form-group">
-											<label for="focusedinput" class="col-sm-3 control-label">Room Type</label>
-											<div class="col-sm-5">
-												<select ng-model="RoomType" class="form-control" >
-													<option value="" disabled selected>Select Room Type</option>
-													<option value="Single Deluxe" >Single Deluxe</option>
-													<option value="Two-Bedded" >Two-Bedded</option>
-													<option value="Four-Bedded" >Four-Bedded</option>
-													<option value="Ward" >Ward</option>
-												</select>
-											</div>
-										</div>
-									</div>
-									<div class="row">
-										<div class="form-group">
-											<label for="focusedinput" class="col-sm-3 control-label">Bed Number</label>
-											<div class="col-sm-5">
-												<select class="form-control" ng-options="data.BedID for data in bed |  filter:filterBed(RoomType)"  ng-model="$parent.bedno" ng-disabled="RoomType!='Single Deluxe' && RoomType!='Two-Bedded' && RoomType!='Four-Bedded' && RoomType!='Ward'">
-													<option value="" disabled selected>Select Bed Number</option>
-												</select>
-											</div>
-										</div>
-									</div>
-								</div>
-								<div class="panel-footer">
-								<button type="button" ng-click="ConfirmInpatient()" class="btn btn-danger-alt pull-right">Confirm</button>
-								<button type="button" data-dismiss="modal" class="btn btn-default-alt pull-right">Cancel</button>
-								</div>
+							<div class="panel-body" style="height: 60px">
+							Pending Medicines should be ready before applying <a href="#" class="alert-link">Clear Medicine Request.</a>
 							</div>
+							<!-- <div class="panel-footer">
+								<span class="text-gray"><em>Footer</em></span>
+							</div> -->
 						</div>
-					</form>
+						<!-- <div class="alert alert-danger">
+							Select Emergency record that you would like to apply an <a href="#" class="alert-link">Action.</a>
+						</div> -->
+					</div>
 				</div>
+				<!--/ Error modal -->
+			
 		</div>
 	</div>
 	
@@ -224,7 +113,7 @@ font-weight: bold;
 		$scope.selectedRow = null;
 		$scope.clickedRow = 0;
 		$scope.new = {};
-
+		$scope.selectedStatus = null;
 			switch ($scope.at.charAt(0)) {
 				case '1':
 					$scope.User = "Administrator";
@@ -256,41 +145,117 @@ font-weight: bold;
 
        	$http({
            method: 'get',
-           url: 'getData/get-emergency-details.php'
+           url: 'getData/get-medicine-request.php'
        	}).then(function(response) {
 		 	$scope.users = response.data;
 			angular.element(document).ready(function() {  
 			dTable = $('#patient_table')  
 			dTable.DataTable();  
-			});  
-		});
+				});  
+			});
 
 		   
-		$scope.setClickedRow = function(user) {
+		$scope.setClickedRow = function(user,stat) {
            $scope.selectedRow = ($scope.selectedRow == null) ? user : ($scope.selectedRow == user) ? null : user;
            $scope.clickedRow = ($scope.selectedRow == null) ? 0 : 1;
+		   $scope.selectedStatus= ($scope.selectedStatus == null) ? stat : ($scope.selectedStatus == stat) ? null : stat;
+		 
 	   	}
 
 	
 		
-	   
-	  
-		$scope.viewPatient = function(){
+		   $scope.clearMedicine = function(){
 			if($scope.selectedRow != null){
-				$scope.admissionid = $scope.selectedRow;
-				$http({
-					method: 'get',
-					url: 'getData/get-patient-details.php',
-					params: {id: $scope.admissionid}
-				}).then(function(response) {
-					$scope.patientdetails = response.data;
-				});
-				$('#patientModal').modal('show');
-			
-			}
-			else{
-			$('#errorModal').modal('show');
-			}
+				if ($scope.selectedStatus == 'Pending')
+				 {
+				 	$('#pendingModal').modal('show');
+				 }
+				 else
+				 {
+						swal({
+							title: "Are you sure you want to set this medicine to Claimed?",
+							text: "Claimed Medicine Requests are cleared upon claimed by the nurses!",
+							icon: "warning",
+							buttons: true,
+							dangerMode: true,
+						})
+						.then((willDelete) => {
+							if (willDelete) {
+								$http({
+									method: 'GET',
+									params: {
+										requestid: $scope.selectedRow,
+										status: $scope.selectedStatus
+									},
+									url: 'updateData/update-medicine-request.php'
+								}).then(function(response) {
+								
+								});
+
+							swal("Medicine Request Cleared! Refreshing page...", {
+								icon: "success",
+								timer: 2000
+							});
+							window.setTimeout(function(){
+								
+							// Move to a new location or you can do something else
+								window.location.href = 'medicine-requisition.php?at=' + $scope.at;
+							}, 2000);
+							} else {
+							swal("Action Cancelled");
+							}
+						});
+					
+					}
+					
+                }
+				else{
+			    $('#ErrorModal').modal('show');
+			    }
+              
+		}
+     
+	  
+		$scope.readyMedicine = function(){
+			if($scope.selectedRow != null){
+                swal({
+                    title: "Are you sure you want to set this medicine to Ready?",
+                    text: "Once Ready, the nurses will be notified that this medicine is ready for claim!",
+                    icon: "warning",
+                    buttons: true,
+                    dangerMode: true,
+                })
+                .then((willDelete) => {
+                    if (willDelete) {
+                        $http({
+                            method: 'GET',
+                            params: {
+                                requestid: $scope.selectedRow,
+								status: $scope.selectedStatus
+                            },
+                            url: 'updateData/update-medicine-request.php'
+                        }).then(function(response) {
+                           
+                        });
+
+                    swal("Medicine Request Updated! Refreshing page...", {
+                        icon: "success",
+                        timer: 2000
+                    });
+                    window.setTimeout(function(){
+                        
+                    // Move to a new location or you can do something else
+                        window.location.href = 'medicine-requisition.php?at=' + $scope.at;
+                    }, 2000);
+                    } else {
+                    swal("Action Cancelled");
+                    }
+                });
+
+                }
+                else{
+			    $('#ErrorModal').modal('show');
+			    }
 		}
      
 		$scope.getPage = function(check){

@@ -216,7 +216,7 @@
                                                             <label>Intake Inerval</label>
                                                             <select class="form-control" ng-model="IntakeInterval[$index]" style="width:395px;">
                                                                 <option value="" disabled selected>Select Interval</option>
-                                                                <option ng-repeat="intrvl in interval" value="{{intrvl.DosingID}}">{{intrvl.Intake}} a day</option>
+                                                                <option ng-repeat="intrvl in interval" value="{{intrvl.DosingID}}">{{intrvl.Intake}}</option>
                                                             </select>
                                                         </div>
 
