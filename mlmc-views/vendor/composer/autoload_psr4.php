@@ -6,5 +6,6 @@ $vendorDir = dirname(dirname(__FILE__));
 $baseDir = dirname($vendorDir);
 
 return array(
+    'SendGrid\\' => array($vendorDir . '/sendgrid/php-http-client/lib'),
     'Pusher\\' => array($vendorDir . '/pusher/pusher-php-server/src'),
 );

@@ -383,7 +383,7 @@ include 'admin-header.php' ?>
 									<div class="col-md-3">
 										<div class="form-group">
 											<label>Total Bill</label>
-											<input type="text" class="form-control" ng-model="totalfee" ng-value="totalfee = fee-(fee*.20)" ng-disabled="hmo == 'true'">	
+											<input type="text" class="form-control" ng-model="totalfee" ng-disabled="hmo == 'true'">	
 										</div>
 									</div>
                                 </div>
@@ -670,15 +670,21 @@ include 'admin-header.php' ?>
 							$scope.senior = 'false';
 						}else{
 							$scope.senior = 'true';
+							$scope.totalfee = $scope.fee - ($scope.fee*.20);
 						}
+					
 					}
 
 					$scope.hmoClick = function(){
+
 						if($scope.hmo == 'true'){
 							$scope.hmo = 'false';
+							$scope.totalfee = $scope.fee - ($scope.fee*.20);
 						}else{
 							$scope.hmo = 'true';
+							$scope.totalfee = 0;
 						}
+				
 					}
 
 					$scope.dischargeConfirm = function(){

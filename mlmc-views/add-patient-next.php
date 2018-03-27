@@ -66,7 +66,7 @@
                                                 </div>
                                                 <div data-field-span="1">
                                                     <label>Temperature</label>
-                                                    <input type="text" class="form-control" ng-model="temp" ui-mask="99.9°"  ui-mask-placeholder ui-mask-placeholder-char="-  "/>
+                                                    <input type="text" class="form-control" ng-model="temp">
                                                 </div>
                                             </div>
                                             <div data-row-span="3">

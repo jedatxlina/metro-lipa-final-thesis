@@ -4,7 +4,7 @@ date_default_timezone_set("Asia/Singapore");
 // $datee = date("Y-m-d");
 // $timee = '2:00 AM';
 
-$timeadministered = '12:30 AM'; 
+$timeadministered = '1:20 AM'; 
 
 $time1  = date_create($timeadministered);
 $time 	= date_create(); 
@@ -15,12 +15,10 @@ $monthdiff = $diff->m;
 
 $hours = $diff->h;
 $minutes = $diff->i;
-
-if($hours == 1){
-    if($minutes > 15){
-        echo 'not yet';
-    }
-}
+ 
+echo $hours;
+echo '<br>';
+echo $minutes;
 
 // echo 'The difference is ';
 // echo  $diff->y . ' years, ';

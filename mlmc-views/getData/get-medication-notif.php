@@ -24,51 +24,54 @@ while ($row = mysqli_fetch_array($sel)) {
     $minutes = $diff->i;
 
     if($hours == 0){
-        if($alert == 0){
-            $query= "UPDATE medication_timeline SET Alert = '$minutes' WHERE MedTimelineID = '$medtimelineid'";
-
-            mysqli_query($con,$query);  
-
-            require('../vendor/autoload.php');
-
-            $options = array(
-                'cluster' => 'ap1',
-                'encrypted' => true
-              );
-            
-              $pusher = new Pusher\Pusher(
-                'c23d5c3be92c6ab27b7a',
-                '296fc518f7ee23f7ee56',
-                '468021',   
-                $options
-              );
-            
-            $data['message'] = "Medication Alert!";
-            $pusher->trigger('my-channel-inpatient', 'my-event-inpatient', $data);
+        if($minutes <= 15){
+            if($alert == 0){
+                $query= "UPDATE medication_timeline SET Alert = '$minutes' WHERE MedTimelineID = '$medtimelineid'";
+    
+                mysqli_query($con,$query);  
+    
+                require('../vendor/autoload.php');
+    
+                $options = array(
+                    'cluster' => 'ap1',
+                    'encrypted' => true
+                  );
+                
+                  $pusher = new Pusher\Pusher(
+                    'c23d5c3be92c6ab27b7a',
+                    '296fc518f7ee23f7ee56',
+                    '468021',   
+                    $options
+                  );
+                
+                $data['message'] = "Medication Alert!";
+                $pusher->trigger('my-channel-inpatient', 'my-event-inpatient', $data);
+            }
+            if($alert != $minutes){
+             
+                $query= "UPDATE medication_timeline SET Alert = '$minutes' WHERE MedTimelineID = '$medtimelineid'";
+                mysqli_query($con,$query);  
+    
+                require('../vendor/autoload.php');
+    
+                $options = array(
+                    'cluster' => 'ap1',
+                    'encrypted' => true
+                  );
+                
+                  $pusher = new Pusher\Pusher(
+                    'c23d5c3be92c6ab27b7a',
+                    '296fc518f7ee23f7ee56',
+                    '468021',   
+                    $options
+                  );
+                
+                $data['message'] = "Medication Alert!";
+                $data['message1'] = "Medication Update for Patient: " . $admissionid;
+                $pusher->trigger('my-channel-inpatient', 'my-event-inpatient', $data);
+            }
         }
-        if($alert != $minutes){
-         
-            // $query= "UPDATE medication_timeline SET Alert = '$minutes' WHERE MedTimelineID = '$medtimelineid'";
-            // mysqli_query($con,$query);  
-
-            // require('../vendor/autoload.php');
-
-            // $options = array(
-            //     'cluster' => 'ap1',
-            //     'encrypted' => true
-            //   );
-            
-            //   $pusher = new Pusher\Pusher(
-            //     'c23d5c3be92c6ab27b7a',
-            //     '296fc518f7ee23f7ee56',
-            //     '468021',   
-            //     $options
-            //   );
-            
-            // $data['message'] = "Medication Alert!";
-            // $data['message1'] = "Medication Update for Patient: " . $admissionid;
-            // $pusher->trigger('my-channel-inpatient', 'my-event-inpatient', $data);
-        }
+       
     
     }
 }

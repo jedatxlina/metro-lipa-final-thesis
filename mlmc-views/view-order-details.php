@@ -17,6 +17,7 @@ font-weight: bold;
             &emsp;
             <button ng-click="goBack()" class="btn-danger-alt btn">Back</button>
         </div>
+        
 </div>
 <br>
 <div class="container-fluid">
@@ -41,6 +42,7 @@ font-weight: bold;
                             <div class="panel panel-white" data-widget='{"draggable": "false"}'>
                                 <div class="panel-heading">
                                     <h2>Patient Details</h2>
+                                     
                                 </div>
                                 <div class="panel-body">
                                     <form class="grid-form" action="javascript:void(0)">  
@@ -85,12 +87,37 @@ font-weight: bold;
                                 </div>
                             </div>
                             <br>
+                            
                             <div class="panel panel-white" data-widget='{"draggable": "false"}'>
+                                   
                                 <div class="panel-heading">
-                                    <h2>Patient Order Details</h2> 	<a class="pull-right"ng-click="viewReport()">Print Report &nbsp;<i class="ti ti-printer"></i></a>
-                                    <!-- <div class="panel-ctrls" data-actions-container="" data-action-collapse='{"target": ".panel-body"}'></div> -->
+                                    <h2>Patient Order Details</h2>
+                                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                    &nbsp;&nbsp;
+                                    <div class="btn-group">
+                                        <button type="button" class="btn btn-danger-alt dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
+                                            Report <span class="caret"></span>
+                                        </button>
+                                        <ul class="dropdown-menu" role="menu">
+                                            <li><a ng-click="viewReport()"><i class="ti ti-printer pull-right"></i> View</a></li>
+                                            <li><a ng-click="viewReportToEmail()"><i class="ti ti-email pull-right"></i>Email to</a></li>
+                                            <li class="divider"></li>
+                                            <li><a ng-click="viewReport()"><i class="ti ti-download pull-right"></i>Download</a></li>
+                                        </ul>
+                                    </div>
                                 </div>
+                                
                                 <div class="panel-body">
+                                    
                                     <form class="grid-form" action="javascript:void(0)">  
                                         <fieldset data-ng-repeat="order in orders">
                                             <div data-row-span="3">
@@ -135,11 +162,11 @@ font-weight: bold;
                                                 </div>
                                             </div>
                                         </fieldset>
+                                     
                                     </form>
                                 </div>
                             </div>
                         </div>
-                      
                     </div><!-- .tab-content -->
                 </div><!-- col-sm-8 -->
             </div>
@@ -214,6 +241,10 @@ font-weight: bold;
         
         $scope.viewReport = function(){
             $window.open('opd-diagnosis-report.php?at='+$scope.at+'&id='+$scope.id+'&orderid='+$scope.orderid, '_blank');
+        }
+
+        $scope.viewReportToEmail = function(){
+            $window.open('send-opdreport-email.php?at='+$scope.at+'&id='+$scope.id+'&orderid='+$scope.orderid, '_blank');
         }
 
 		$scope.getPage = function(check){

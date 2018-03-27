@@ -1106,7 +1106,7 @@ mark,
   color: #bdbdbd;
 }
 .text-primary {
-  color: #03a9f4;
+  color:#e51c23;
 }
 a.text-primary:hover {
   color: #0286c2;
@@ -20499,8 +20499,8 @@ body.sidebar-collapsed .sidebar nav.widget-body > ul.acc-menu li.hasChild:hover 
   }
 }
 .static-content-wrapper {
-  /* background: #f5f5f5; */
-    background-image: url("../img/backdrop-logo.jpg");
+  background: #f5f5f5;
+    /* background-image: url("../img/backdrop-logo.jpg"); */
 }
 @media screen and (min-width: 768px) {
   body.sidebar-collapsed .sidebar .widget:not(.stay-on-collapse) {

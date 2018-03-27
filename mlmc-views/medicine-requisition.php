@@ -33,6 +33,7 @@ font-weight: bold;
 									<th>Fullname</th>
 									<th>Medicine Name</th>
 									<th>Status</th>
+									<th>Qnty</th>
 								</tr>
 								</tr>
 								</thead>
@@ -42,6 +43,7 @@ font-weight: bold;
                                         <td>{{user.Fullname}}</td>
                                         <td>{{user.Medicine}}</td>
                                         <td>{{user.Status}}</td>
+										<th>{{user.Quantity}}</th>
                                     </tr>
 								</tbody>
 							</table>

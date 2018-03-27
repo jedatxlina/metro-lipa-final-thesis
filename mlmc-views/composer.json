@@ -1,5 +1,6 @@
 {
     "require": {
-        "pusher/pusher-php-server": "^3.0"
+        "pusher/pusher-php-server": "^3.0",
+        "sendgrid/sendgrid": "^6.0"
     }
 }
