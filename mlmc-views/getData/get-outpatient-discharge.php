@@ -4,7 +4,7 @@ require_once 'connection.php';
 $at = $_GET['id'];
 $admissionid = $_GET['admissionid'];
 
-$sel = mysqli_query($con,"SELECT a.SecretaryID,b.*,c.*,d.* FROM secretary a, attending_physicians b, medical_details c, patients d WHERE a.SecretaryID = '$at' AND a.PhysicianID = b.PhysicianID AND c.AttendingID = b.AttendingID AND d.MedicalID = c.MedicalID AND d.AdmissionType = 'Outpatient' AND d.AdmissionID = '$admissionid'");
+$sel = mysqli_query($conn,"SELECT a.SecretaryID,b.*,c.*,d.* FROM secretary a, attending_physicians b, medical_details c, patients d WHERE a.SecretaryID = '$at' AND a.PhysicianID = b.PhysicianID AND c.AttendingID = b.AttendingID AND d.MedicalID = c.MedicalID AND d.AdmissionType = 'Outpatient' AND d.AdmissionID = '$admissionid'");
 
 
 $data = array();

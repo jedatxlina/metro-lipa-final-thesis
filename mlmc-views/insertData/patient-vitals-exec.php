@@ -15,6 +15,6 @@ $pulserate = addslashes($request->pulserate);
 $query = "INSERT into vitals(VitalsID,AdmissionID,BP,BPD,PR,RR,Temperature,DateTimeChecked) 
 VALUES('588895','$admissionid','$bloodpressure','$bloodpressuredia','$pulserate','$respiratoryrate','$temperature',NOW())";
 
-mysqli_query($con,$query);  
+mysqli_query($conn,$query);  
 
 ?>

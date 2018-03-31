@@ -48,5 +48,5 @@ else if ($acctype == 8)
     $query= "INSERT into lab_staff(LaboratoryStaffID,LastName,FirstName,MiddleName,Gender,Address,Birthdate,Email) VALUES ('$accountid','$lastname','$firstname','$middlename','$gender','$address','$birthdate','$email')";
 }
 
-mysqli_query($con,$query);  
+mysqli_query($conn,$query);  
 ?>

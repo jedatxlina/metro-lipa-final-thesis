@@ -46,9 +46,10 @@
 
 <!-- End loading site level scripts -->
 <!-- Load page level scripts-->
+
 <script async defer
     src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCLfminQLvZltEX8k-JYWgfi0lmOn1vAXk&callback=initMap">
-    </script>
+</script>
 <!-- <script src="http://maps.google.com/maps/api/js?sensor=true&key=AIzaSyBnYLV11sfAvjC_sNfI_yDymsmGZBWaEvI"></script>
 <script type="text/javascript" src="assets/plugins/gmaps/gmaps.js"></script>
 <script type="text/javascript" src="assets/demo/demo-gmaps.js"></script> -->

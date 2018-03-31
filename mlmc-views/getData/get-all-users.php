@@ -1,7 +1,7 @@
 <?php
 
 require_once 'connection.php';
-$sel = mysqli_query($con,"SELECT *, CONCAT(Firstname, ' ' ,MiddleName, ' ', LastName) AS Fullname FROM billing_staff");
+$sel = mysqli_query($conn,"SELECT *, CONCAT(Firstname, ' ' ,MiddleName, ' ', LastName) AS Fullname FROM billing_staff");
 
 $data = array();
 
@@ -19,7 +19,7 @@ while ($row = mysqli_fetch_array($sel)) {
         "Email"=>$row['Email']);
 }
 
-$sel = mysqli_query($con,"SELECT *, CONCAT(Firstname, ' ' ,MiddleName, ' ', LastName) AS Fullname FROM lab_staff");
+$sel = mysqli_query($conn,"SELECT *, CONCAT(Firstname, ' ' ,MiddleName, ' ', LastName) AS Fullname FROM lab_staff");
 
 
 while ($row = mysqli_fetch_array($sel)) {
@@ -36,7 +36,7 @@ while ($row = mysqli_fetch_array($sel)) {
         "Email"=>$row['Email']);
 }
 
-$sel = mysqli_query($con,"SELECT *, CONCAT(Firstname, ' ' ,MiddleName, ' ', LastName) AS Fullname FROM physicians");
+$sel = mysqli_query($conn,"SELECT *, CONCAT(Firstname, ' ' ,MiddleName, ' ', LastName) AS Fullname FROM physicians");
 
 
 while ($row = mysqli_fetch_array($sel)) {
@@ -53,7 +53,7 @@ while ($row = mysqli_fetch_array($sel)) {
         "Email"=>$row['Email']);
 }
 
-$sel = mysqli_query($con,"SELECT *, CONCAT(Firstname, ' ' ,MiddleName, ' ', LastName) AS Fullname FROM nurses");
+$sel = mysqli_query($conn,"SELECT *, CONCAT(Firstname, ' ' ,MiddleName, ' ', LastName) AS Fullname FROM nurses");
 
 
 while ($row = mysqli_fetch_array($sel)) {
@@ -71,7 +71,7 @@ while ($row = mysqli_fetch_array($sel)) {
 }
 
 
-$sel = mysqli_query($con,"SELECT *, CONCAT(Firstname, ' ' ,MiddleName, ' ', LastName) AS Fullname FROM secretary");
+$sel = mysqli_query($conn,"SELECT *, CONCAT(Firstname, ' ' ,MiddleName, ' ', LastName) AS Fullname FROM secretary");
 
 
 while ($row = mysqli_fetch_array($sel)) {
@@ -88,7 +88,7 @@ while ($row = mysqli_fetch_array($sel)) {
         "Email"=>$row['Email']);
 }
 
-$sel = mysqli_query($con,"SELECT *, CONCAT(Firstname, ' ' ,MiddleName, ' ', LastName) AS Fullname FROM pharmacy_staff");
+$sel = mysqli_query($conn,"SELECT *, CONCAT(Firstname, ' ' ,MiddleName, ' ', LastName) AS Fullname FROM pharmacy_staff");
 
 
 while ($row = mysqli_fetch_array($sel)) {
@@ -105,7 +105,7 @@ while ($row = mysqli_fetch_array($sel)) {
         "Email"=>$row['Email']);
 }
 
-$sel = mysqli_query($con,"SELECT *, CONCAT(Firstname, ' ' ,MiddleName, ' ', LastName) AS Fullname FROM admission_staffs");
+$sel = mysqli_query($conn,"SELECT *, CONCAT(Firstname, ' ' ,MiddleName, ' ', LastName) AS Fullname FROM admission_staffs");
 
 
 while ($row = mysqli_fetch_array($sel)) {

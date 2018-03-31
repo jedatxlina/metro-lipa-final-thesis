@@ -3,7 +3,7 @@
 require_once 'connection.php';
 
 $id= $_GET['id'];
-$sel = mysqli_query($con,"SELECT * FROM beds WHERE BedID = '$id'");
+$sel = mysqli_query($conn,"SELECT * FROM beds WHERE BedID = '$id'");
 
 $data = array();
 

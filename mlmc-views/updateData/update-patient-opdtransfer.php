@@ -8,9 +8,9 @@ $newconditionid =  rand(111111, 999999);
 
 $query = "UPDATE patients SET AdmissionType = 'Emergency' WHERE AdmissionID = '$id'";
 
-mysqli_query($con,$query);  
+mysqli_query($conn,$query);  
 
-$sel = mysqli_query($con,"SELECT AttendingID FROM attending_physicians WHERE AdmissionID = '$id' LIMIT 1");
+$sel = mysqli_query($conn,"SELECT AttendingID FROM attending_physicians WHERE AdmissionID = '$id' LIMIT 1");
 
 while ($row = mysqli_fetch_assoc($sel)) {
     $attendingid = $row['AttendingID'];
@@ -19,7 +19,7 @@ while ($row = mysqli_fetch_assoc($sel)) {
 $query = "INSERT into attending_physicians(AttendingID,PhysicianID,AdmissionID) 
 VALUES('$attendingid','$physicianid','$id')";
 
-mysqli_query($con,$query);
+mysqli_query($conn,$query);
 
 
 header("Location:../emergency.php?at=$at");

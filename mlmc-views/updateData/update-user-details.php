@@ -9,7 +9,7 @@ $email = $_GET['email'];
 
 $query= "UPDATE user_account SET AccountID = '$accountid' , AccessType = '$accountid[0]', Passwordd = '$password' , Email = '$email' WHERE AccountID = '$accountid'";
 
-mysqli_query($con,$query);  
+mysqli_query($conn,$query);  
 
 switch ($accountid[0]) {
     case '2':
@@ -43,7 +43,7 @@ switch ($accountid[0]) {
     default:
         break;
 }
-mysqli_query($con,$query);  
+mysqli_query($conn,$query);  
 if(isset($_GET['at'])){
     header("Location: ../user.php?at=$account");
 }else{

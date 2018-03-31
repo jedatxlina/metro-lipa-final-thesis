@@ -1,7 +1,7 @@
 <?php
 require_once 'connection.php';
 
-$sel = mysqli_query($con,"SELECT * FROM conditions");
+$sel = mysqli_query($conn,"SELECT * FROM conditions");
 $data = array();
 
 

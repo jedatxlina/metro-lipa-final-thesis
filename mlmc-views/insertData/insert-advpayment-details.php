@@ -8,5 +8,5 @@ $payment =  $_GET['payment'];
 $date = date("Y-m-d");
 $query = "INSERT into advance_payments(PaymentID,AdmissionID,Adv_Payment,DatePaid) 
 VALUES('$id','$admissionid','$payment','$date')";
-mysqli_query($con,$query);  
+mysqli_query($conn,$query);  
 ?>

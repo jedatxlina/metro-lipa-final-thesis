@@ -6,5 +6,5 @@ $Status = $_GET['status'];
 
 $query= "UPDATE beds SET Status = '$Status' WHERE BedID = '$id'";
 
-mysqli_query($con,$query);  
+mysqli_query($conn,$query);  
 ?>

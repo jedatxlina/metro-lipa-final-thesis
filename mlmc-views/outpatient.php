@@ -378,7 +378,19 @@ include 'admin-header.php' ?>
 										</div>
 										<input type="hidden" ng-model="$parent.idpatient" ng-init="$parent.idpatient = patient.AdmissionID">
                                 </div>
-								
+
+								<div class="row" ng-if="hmo == 'true'">
+									<div class="col-md-6">
+										<div class="form-group">
+											<label>Accredited Providers</label>
+											<select class="form-control" ng-model="$parent.hmoprovider">
+                                                <option value="" disabled selected>Select Guarantor</option>
+                                            	<option ng-repeat="hmo in hmolist" value="{{hmo.Provider}}" ng-init="$parent.hmoprovider = hmo.Provider">{{hmo.Provider}}</option>
+                                            </select>
+										</div>
+									</div>
+                                </div>
+
 								<div class="row" ng-if="senior == 'true'">
 									<div class="col-md-3">
 										<div class="form-group">
@@ -411,6 +423,7 @@ include 'admin-header.php' ?>
             		$scope.order = 0;
 					$scope.senior = 'false';
 					$scope.hmo = 'false';
+					$scope.hmoprovider = '';	
 
             		$('#patient_table').on('search.dt', function() {
             			var value = $('.dataTables_filter input').val();
@@ -526,6 +539,24 @@ include 'admin-header.php' ?>
             				dTable.DataTable();  
             				});  
             		});
+
+					   
+					   $http({
+            			method: 'get',
+            			url: 'getData/get-hmo-providers.php'
+            			}).then(function(response) {
+            				$scope.hmolist = response.data;
+            		});
+
+					$scope.accesstype = $scope.at[0];
+					$http({
+						method: 'GET',
+						url: 'getData/get-user-profile.php',
+						params: {id: $scope.at,
+							atype : $scope.accesstype}
+					}).then(function(response) {
+						$scope.userdetails = response.data;
+					});				
             
             		$scope.addPatient = function(){
             			// window.location.href = 'add-patient.php?at=' + $scope.at + '&id=' + 0;
@@ -666,13 +697,25 @@ include 'admin-header.php' ?>
             		}
 
 					$scope.seniorClick = function(){
-						if($scope.senior == 'true'){
-							$scope.senior = 'false';
-						}else{
-							$scope.senior = 'true';
-							$scope.totalfee = $scope.fee - ($scope.fee*.20);
-						}
 					
+						$http({
+            				method: 'GET',
+            				url: 'getData/get-discount-details.php'
+            			}).then(function(response) {
+							$scope.scdiscount = JSON.parse(response.data);
+
+							$scope.disc = '.' + $scope.scdiscount;
+
+							$scope.discount = parseFloat($scope.disc);
+
+							if($scope.senior == 'true'){
+							$scope.senior = 'false';
+							}else{
+								$scope.senior = 'true';
+								$scope.totalfee = $scope.fee - ($scope.fee*$scope.discount);
+							}
+						});
+						
 					}
 
 					$scope.hmoClick = function(){
@@ -699,6 +742,7 @@ include 'admin-header.php' ?>
             			params: {at: $scope.at,
 								admissionid: $scope.patient,
 								totalfee: $scope.totalfee,
+								hmo: $scope.hmoprovider,
 								re: $scope.redirect}
             			}).then(function(response) {
 							swal({

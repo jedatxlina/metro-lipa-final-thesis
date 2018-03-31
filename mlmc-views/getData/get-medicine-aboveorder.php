@@ -2,7 +2,7 @@
 
 require_once 'connection.php';
 
-$sel = mysqli_query($con,"SELECT * FROM pharmaceuticals WHERE Quantity > ReOrder");
+$sel = mysqli_query($conn,"SELECT * FROM pharmaceuticals WHERE Quantity > ReOrder");
 
 $data = array();
 

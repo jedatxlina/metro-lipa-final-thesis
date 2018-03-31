@@ -9,6 +9,6 @@ $firstname = addslashes($request->FirstName);
 
 $sql = "UPDATE patients SET FirstName='$firstname' WHERE AdmissionID='$id'";
 
-mysqli_query($con,$sql);  
+mysqli_query($conn,$sql);  
 
 ?>

@@ -1,7 +1,7 @@
 <?php
 require_once 'connection.php';
 
-$sel = mysqli_query($con,"select * from nursery");
+$sel = mysqli_query($conn,"select * from nursery");
     
 $data = array();
 

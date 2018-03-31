@@ -37,7 +37,7 @@ $output= json_decode($geocode);
 $latcoor = $output->results[0]->geometry->location->lat;
 $longcoor = $output->results[0]->geometry->location->lng;
 
-$sel = mysqli_query($con,"SELECT * FROM patients_archive WHERE FirstName='$firstname' AND MiddleName='$middlename' AND LastName = '$lastname' AND Birthdate='$date'");
+$sel = mysqli_query($conn,"SELECT * FROM patients_archive WHERE FirstName='$firstname' AND MiddleName='$middlename' AND LastName = '$lastname' AND Birthdate='$date'");
 
 $rows = mysqli_num_rows($sel);
 if($rows >= 1){
@@ -50,6 +50,6 @@ if($rows >= 1){
 $query = "INSERT into patients(AdmissionID,AdmissionDate,AdmissionTime,AdmissionType,FirstName,MiddleName,LastName,Admission,Province,City,Brgy,CompleteAddress,latcoor,longcoor,Gender,Age,CivilStatus,Birthdate,Contact,Occupation,Citizenship,MedicalID) 
 VALUES('$admissionid','$date','$time','$admissiontype','$firstname','$middlename','$lastname','$admission','$province','$city','$brgy','$address','$latcoor','$longcoor','$gender','$exactage','$status','$birthdate','$contact','$occupation','$nationality','$medicalid')";
 
-mysqli_query($con,$query);  
+mysqli_query($conn,$query);  
 
 ?>

@@ -23,5 +23,5 @@ Birthdate = '$birthdate', Gender = '$gender', Province = '$province', City = '$c
 Age = '$age', CivilStatus = '$civilstatus', Contact = '$contact', Occupation = '$occupation', Religion = '$religion',
 Citizenship = '$citizenship' WHERE ArchiveID = '$id'";
 
-mysqli_query($con,$query);  
+mysqli_query($conn,$query);  
 

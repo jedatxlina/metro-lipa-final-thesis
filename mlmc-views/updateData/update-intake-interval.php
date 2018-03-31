@@ -8,6 +8,6 @@ $interval = $_GET['interval'];
 
 $query = "UPDATE medication SET Intake = '$interval' WHERE AdmissionID = '$id' AND MedicineID = '$medid'";
 
-mysqli_query($con,$query);  
+mysqli_query($conn,$query);  
 
 header("Location: ../nurse-patient.php?at=$at");

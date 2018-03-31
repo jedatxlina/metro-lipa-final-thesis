@@ -8,5 +8,5 @@ $rate = $_GET['rate'];
 
 $query= "UPDATE laboratories SET Description = '$description', Rate = '$rate' WHERE LaboratoryID = '$laboratoryid'";
 
-mysqli_query($con,$query);  
+mysqli_query($conn,$query);  
 ?>

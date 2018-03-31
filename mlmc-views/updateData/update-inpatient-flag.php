@@ -5,10 +5,10 @@ $id =  $_GET['id'];
 
 $sql = "UPDATE patients SET AdmissionType='Inpatient' WHERE AdmissionID='$id'";
 
-mysqli_query($con,$sql);  
+mysqli_query($conn,$sql);  
 
 $query = "UPDATE patients SET ArrivalDateTime = NOW() WHERE AdmissionID ='$id'";
 
-mysqli_query($con,$query);
+mysqli_query($conn,$query);
  
 ?>

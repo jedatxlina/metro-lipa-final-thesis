@@ -17,7 +17,7 @@
 <br>
   <div class="clearfix">
         <div class="pull-left">
-            <!-- &emsp;<button ng-click="goBack()" class="btn-danger-alt btn">Back</button> -->
+            &emsp;<button ng-click="goBack()" class="btn-danger-alt btn">Back</button>
         </div>
     </div>
 <br>
@@ -28,9 +28,15 @@
             <div class="col-sm-3">
                 <div class="panel panel-profile">
                     <div class="panel-body" ng-repeat="user in userdetails">
-                        <img src="assets/img/defaultphoto.png">
+                        <div ng-if="user.pathPhoto != ''">
+                            <img class="img-responsive img-circle" src="{{user.pathPhoto}}">
+                        </div>
+                        <div ng-if="user.pathPhoto == ''">
+                            <img src="assets/img/defaultphoto.png" class="img-responsive img-circle">
+                        </div>
                                 <div class="name">{{user.Lastname}}, {{user.Firstname}} {{user.Middlename}}</div>
                                 <div class="info">{{user.AccountID}}</div>
+
                             <!-- <div class="col-sm-8">
                                 <div class="fileinput fileinput-new" data-provides="fileinput">
                                     <span class="btn btn-default btn-file">
@@ -84,7 +90,7 @@
                                                 <th>Address</th>
                                                 <td>{{user.Address}}</td>
                                             </tr>
-                                            <tr>
+                                            <tr>    
                                                 <th>Birthdate</th>
                                                 <td>{{user.Birthdate}}</td>
                                             </tr>
@@ -95,15 +101,23 @@
                                             <tr>
                                             <th>Change Photo</th>
                                             <td>
-                                            <div class="fileinput fileinput-new" data-provides="fileinput">
-                                                <span class="btn btn-default btn-file">
-                                                     <span class="fileinput-new">Upload a photo</span>
-                                                     <span class="fileinput-exists">Change</span>
-                                                         <input type="file" ng-model="photo">
-                                                </span>
-                                                     <span class="fileinput-filename"></span>
-                                                 <a href="#" class="close fileinput-exists" data-dismiss="fileinput" style="float: none">&times;</a>
-                                            </div>
+                                            <form action="upload.php" method="post" enctype="multipart/form-data">
+                                                <input type="hidden" name="at" value="<?php if(isset($_GET['at'])) { echo $_GET['at']; } ?>">
+                                                <div class="fileinput fileinput-new" data-provides="fileinput">
+                                                    <span class="btn btn-default btn-file">
+                                                        <span class="fileinput-new">Upload a photo</span>
+                                                        <span class="fileinput-exists">Change</span>
+                                                            <input type="file" name="photo"/>
+                                                    </span>
+                                                    <span class="fileinput-filename"></span>
+                                                    <a href="#" class="close fileinput-exists" data-dismiss="fileinput" style="float: none">&times;</a>
+                                                    <span class="fileinput-exists">
+                                                        <br><br>
+                                                       <input type="submit" value="Upload" class="btn-default btn" >
+                                                    </span>
+                                                </div>
+                                            </form>
+                                           
                                             </td>
                                             </tr>
                                             </tbody>
@@ -180,9 +194,13 @@
 var fetch = angular.module('myApp', ['ui.mask']);
    
    fetch.controller('userCtrl', ['$scope', '$http', function($scope, $http) {
-       $scope.at = "<?php echo $_GET['at'];?>";
-       $scope.new = {};
-        
+        $scope.at = "<?php echo $_GET['at'];?>";
+        $scope.new = {};
+        $scope.uploadme = {};
+        $scope.uploadme.src = "";
+
+
+
         switch ($scope.at.charAt(0)) {
             case '1':
                 $scope.User = "Administrator";
@@ -212,7 +230,6 @@ var fetch = angular.module('myApp', ['ui.mask']);
                 break;
         }
             $scope.accesstype = $scope.at[0];
-            
             $http({
             method: 'GET',
             url: 'getData/get-user-profile.php',
@@ -225,7 +242,7 @@ var fetch = angular.module('myApp', ['ui.mask']);
       
 
         $scope.uploadPhoto = function(){
-            alert($scope.file);
+            window.location.href = 'upload.php?image=' + $scope.uploadme;
         }
 
         $scope.Update = function() {
@@ -324,9 +341,6 @@ var fetch = angular.module('myApp', ['ui.mask']);
         $('#qrModal').modal('show');
         }
 
-        // $scope.viewQRcode = function(){
-        // $('#qrModal').modal('show');
-        // }
 
        $scope.goBack = function(){
                     window.history.back();

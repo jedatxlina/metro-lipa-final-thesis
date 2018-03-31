@@ -5,9 +5,9 @@ $user = "root";
 $password = "";
 $dbname = "metro_lipa_db"; 
 
-$con = mysqli_connect($host, $user, $password,$dbname);
+$conn = mysqli_connect($host, $user, $password,$dbname);
 
-if (!$con) {
+if (!$conn) {
  die("Connection failed: " . mysqli_connect_error());
 }
 

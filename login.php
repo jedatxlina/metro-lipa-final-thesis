@@ -2,8 +2,8 @@
 /* User login process, checks if user exists and password is correct */
 
 // Escape id to protect against SQL injections
-$id = $mysqli->escape_string($_POST['id']);
-$result = $mysqli->query("SELECT * FROM user_account WHERE AccountID='$id'");
+$id = $conn->escape_string($_POST['id']);
+$result = $conn->query("SELECT * FROM user_account WHERE AccountID='$id'");
 
 if ( $result->num_rows == 0 ){ // User doesn't exist
     $_SESSION['message'] = "User with that Account ID doesn't exist!";

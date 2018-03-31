@@ -2,7 +2,7 @@
 
 require_once 'connection.php';
 $accid = $_GET['accid'];
-$sel = mysqli_query($con,"SELECT * FROM billing_staff WHERE BillingStaffID='$accid'");
+$sel = mysqli_query($conn,"SELECT * FROM billing_staff WHERE BillingStaffID='$accid'");
 
 $data = array();
 

@@ -10,5 +10,5 @@ else if ($status == 'Pending')
 $status = 'Ready';
 $query= "UPDATE medicine_req SET Status = '$status' WHERE MedRequestID = '$requestid'";
 
-mysqli_query($con,$query);  
+mysqli_query($conn,$query);  
 ?>

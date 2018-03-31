@@ -1,30 +1,30 @@
 <?php
 require_once 'insertData/connection.php';
 
-$sel = mysqli_query($con,"SELECT Conditions FROM conditions");
-$data = array();
-$flag=0;   
-$params = $_GET['val'];
+// $sel = mysqli_query($con,"SELECT Conditions FROM conditions");
+// $data = array();
+// $flag=0;   
+// $params = $_GET['val'];
 
-while($row = mysqli_fetch_assoc($sel))
-{
-    $data[] = $row['Conditions'];
-}
+// while($row = mysqli_fetch_assoc($sel))
+// {
+//     $data[] = $row['Conditions'];
+// }
 
-if(preg_match("/[A-z]/i", $params)){
+// if(preg_match("/[A-z]/i", $params)){
     
-    $params = explode(',',$params);
+//     $params = explode(',',$params);
 
-    foreach($params AS $val){
+//     foreach($params AS $val){
 
-        if(is_numeric($val)){
+//         if(is_numeric($val)){
         
-        }
-        else{
-            $value  = ucwords(strtolower($val));
-            echo $value;
-        }
+//         }
+//         else{
+//             $value  = ucwords(strtolower($val));
+//             echo $value;
+//         }
         
-    }
+//     }
 
-}
+// }

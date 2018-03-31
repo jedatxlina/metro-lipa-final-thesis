@@ -9,7 +9,7 @@ $at = $_GET['at'];
 $admissionid = $_GET['id'];
 $medreqid = rand(111111, 999999);
 
-$sel = mysqli_query($con,"SELECT MedicineID FROM medication WHERE AdmissionID = '$admissionid'");
+$sel = mysqli_query($conn,"SELECT MedicineID FROM medication WHERE AdmissionID = '$admissionid'");
 
 
 while($row = mysqli_fetch_assoc($sel)){
@@ -18,7 +18,7 @@ while($row = mysqli_fetch_assoc($sel)){
     $query2 = "INSERT into medicine_req(MedRequestID,MedicineID,AdmissionID,Status,DateRequested,TimeRequested) VALUES
     ('$medreqid','$medicineid','$admissionid','Pending','$date','$time')";
     
-    mysqli_query($con,$query2);  
+    mysqli_query($conn,$query2);  
 
     $medreqid = rand(111111, 999999);
 }

@@ -1,12 +1,14 @@
 <?php include 'admin-header.php'?>
+<link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/angularjs-slider/6.5.1/rzslider.min.css"/>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/angularjs-slider/6.5.1/rzslider.min.js"></script>
 
 <ol class="breadcrumb">
 <li><a href="#">Home</a></li>
-<li class="active"><a href="#" ng-click="reSubmit()">Migrate Data</a></li>
+<li class="active"><a href="#" ng-click="#">Others</a></li>
 </ol>
 
 <div class="container-fluid">
-    <div class="panel-body">
+    <!-- <div class="panel-body">
 		<h3>Migrate Data<small>Into Archive</small></h3>
 	</div>
 	<div class="row">
@@ -25,16 +27,104 @@
 						<div class="panel-footer"></div>
 					</div>
 				</div>
-	</div>
+	</div> -->
+	<div data-widget-group="group1">
+            <div class="row">
+                <div class="col-sm-3">
+                    <div class="list-group list-group-alternate mb-n nav nav-tabs">
+                        <a href="#tab-settings" 	role="tab" data-toggle="tab" class="list-group-item active"><i class="fa fa-gear"></i> Settings </a>
+                        <a href="#tab-migrate" role="tab" data-toggle="tab" class="list-group-item"><i class="fa fa-database"></i>Migrate Data</a>
+                    </div>
+                </div><!-- col-sm-3 -->
+                <div class="col-sm-9">
+                    <div class="tab-content">
+                        <div class="tab-pane active" id="tab-settings">
+							<div class="panel panel-danger" data-widget='{"draggable": "false"}'>
+								<div class="panel-heading">
+									<h2>Settings</h2>
+								</div>
+								<div class="panel-body">
+									<div class="form-horizontal row-border">
+										<div class="form-group">
+											<div class="col-xs-4">Senior Citizen Discount <br><span class="text-muted">Currently at {{discount}}%</span></div>
+											<div class="col-xs-8">
+												<div>
+												<div>
+												<rzslider rz-slider-model="slider.value"
+												rz-slider-options="slider.options"></rzslider>
+												</div>
+																								
+												</div>
+											</div>
+										</div>
+									</div>
+								</div>
+								<div class="panel-footer">
+									<div class="row">
+										<div class="col-md-12">
+												<button type="button" ng-click="checkValue()" class="btn btn-danger-alt pull-right">&nbsp;Save Changes</button>
+										</div>
+									</div>
+								</div>
+							</div>
+                        </div> <!-- #tab-projects -->
+
+                        <div class="tab-pane" id="tab-migrate">
+                           		<div class="panel panel-danger" data-widget='{"draggable": "false"}'>
+									<div class="panel-heading">
+										<h2>Data Migration</h2>
+										<!-- <div class="panel-ctrls" data-actions-container="" data-action-collapse='{"target": ".panel-body, .panel-footer"}'></div> -->
+										<div class="options">
+											<ul class="nav nav-tabs">
+											<li><a href="#migrate-form" data-toggle="tab">Migrate</a></li>
+											<li class="active"><a href="#template-form" data-toggle="tab">Templates</a></li>
+											</ul>
+										</div>
+									</div>
+									<div class="panel-body">
+										<div class="tab-content">
+											<div class="tab-pane active" id="horizontal-form">
+
+											</div>
+										</div>
+									</div>
+								</div>
+                        </div> <!-- #tab-projects -->
+					</div><!-- .tab-content -->
+
+                </div><!-- col-sm-8 -->
+            </div>
+        </div>
 </div>
 
 <script>
-			var app = angular.module('myApp', []);
+	
+			var app = angular.module('myApp', ['rzModule']);
 			app.controller('userCtrl', function($scope, $http) {
 
 			$scope.at = "<?php echo $at;?>";
 
-
+					
+			$http({
+                method: 'GET',
+                url: 'getData/get-discount-details.php'
+            }).then(function(response) {
+				$scope.discount = JSON.parse(response.data);
+				$scope.slider = {
+				value: $scope.discount,
+				options: {
+					floor: 0,
+					ceil: 100,
+					translate: function(value) {
+					return value + '%';
+					},
+					getPointerColor: function(value) {
+					return '#c14949';
+					}
+				}
+				};
+            });
+			
 			switch ($scope.at.charAt(0)) {
 				case '1':
 					$scope.User = "Administrator";
@@ -67,7 +157,16 @@
 					break;
 			}
 
-
+			$scope.checkValue = function(){
+				$http({
+                method: 'GET',
+				url: 'updateData/update-discount-details.php',
+				params: {discount: $scope.slider.value}
+				}).then(function(response) {
+					alert('Success');
+					window.location.reload(false); 
+				});
+			}
 
 			$scope.getPage = function(check){
 			

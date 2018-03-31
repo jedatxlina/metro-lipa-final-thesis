@@ -8,14 +8,14 @@ $admissionid =  isset($_GET['admissionid']) ? $_GET['admissionid'] : '';
 $data = array();
 
 if($at == '' && $admissionid == ''){
-    $sel = mysqli_query($con,"SELECT PhysicianID, CONCAT(Firstname, ' ' ,MiddleName, ' ', LastName) AS Fullname FROM physicians");
+    $sel = mysqli_query($conn,"SELECT PhysicianID, CONCAT(Firstname, ' ' ,MiddleName, ' ', LastName) AS Fullname FROM physicians");
     while ($row = mysqli_fetch_array($sel)) {
         $data[] = array(
             "PhysicianID"=>$row['PhysicianID'],
             "Fullname"=>$row['Fullname']);
     }
 }else{
-    $sel = mysqli_query($con,"SELECT * FROM physicians JOIN attending_physicians WHERE attending_physicians.AdmissionID = '$admissionid' AND attending_physicians.PhysicianID = physicians.PhysicianID");
+    $sel = mysqli_query($conn,"SELECT * FROM physicians JOIN attending_physicians WHERE attending_physicians.AdmissionID = '$admissionid' AND attending_physicians.PhysicianID = physicians.PhysicianID");
     while ($row = mysqli_fetch_array($sel)) {
         $data[] = array(
             "PhysicianID"=>$row['PhysicianID'],

@@ -12,5 +12,5 @@ $item = '123123123';
 
 $query = "INSERT into billing(BillID,AdmissionID,Department,ItemID,BillDes,TotalBill) 
 VALUES('$billid','$admissionid','$department','$item','$des','$total')";
-mysqli_query($con,$query);  
+mysqli_query($conn,$query);  
 ?>

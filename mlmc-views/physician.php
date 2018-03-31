@@ -37,24 +37,19 @@
                                     <thead>
                                     <tr>
                                         <th>Admission ID</th>
-                                        <th>Last Name</th>
-                                        <th>First Name</th>
-                                        <th>Middle Name</th>
+                                        <th>Patient Name</th>
                                         <th>Gender</th>
-                                        <th>Age</th>
                                         <th>Admission</th>
-                                        
+                                        <th>AdmissionType</th>
                                     </tr>
                                     </thead>
                                     <tbody>
                                     <tr ng-repeat="patient in administered" ng-class="{'selected': patient.AdmissionID == selectedRow}" ng-click="setClickedRow(patient.AdmissionID)">
                                             <td>{{patient.AdmissionID}}</td>
-                                            <td>{{patient.Lastname}}</td>
-                                            <td>{{patient.Firstname}}</td>
-                                            <td>{{patient.Middlename}}</td>
+                                            <td>{{patient.Lastname}} {{patient.Firstname}} {{patient.Middlename}}</td>
                                             <td>{{patient.Gender}}</td>
-                                            <td>{{patient.Age}}</td>
                                             <td>{{patient.Admission}}</td>
+                                            <td>{{patient.AdmissionType}}</td>
                                         </tr>
                                     </tbody>
                                 </table>
@@ -154,7 +149,7 @@
 									</div>
 									<div class="row">
 										<div class="form-group">
-											<label for="focusedinput" class="col-sm-3 control-label">QR Code</label>
+											<label for="focusedinput" class="col-sm-3 control-label">QR Code: </label>
 											<div class="col-sm-5">
 											<center> <img ng-src="{{patient.QRpath}}">
 											</div>
@@ -311,13 +306,22 @@
                         default:
                             break;
                     }
+                $scope.accesstype = $scope.at[0];
+                $http({
+                method: 'GET',
+                url: 'getData/get-user-profile.php',
+                params: {id: $scope.at,
+                    atype : $scope.accesstype}
+                }).then(function(response) {
+                    $scope.userdetails = response.data;
+                });
             
-                        $http({
-                            method: 'GET',
-                            url: 'getData/get-laboratory-details.php'
-                        }).then(function(response) {
-                            $scope.labs = response.data;
-                        });
+                $http({
+                        method: 'GET',
+                        url: 'getData/get-laboratory-details.php'
+                    }).then(function(response) {
+                        $scope.labs = response.data;
+                    });
            
                 
                 $http({

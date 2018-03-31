@@ -14,7 +14,7 @@ switch ($accesstype) {
 	break;
 
    case '4':
-   $query = "SELECT * FROM physicians JOIN user_account WHERE physicians.PhysicianID = '$id' AND user_account.AccountID = '$id' ";
+   $query = "SELECT * FROM physicians JOIN user_account WHERE physicians.PhysicianID = '$id' AND user_account.AccountID = '$id'";
 	break;
 
    case '5':
@@ -56,7 +56,8 @@ $data = array();
 				"Specialization"=>$row['Specialization'],
 				"AccessType"=>$row['AccessType'],
 				"Passwordd"=>$row['Passwordd'],
-				"Email"=>$row['Email']);
+				"Email"=>$row['Email'],
+				"pathPhoto"=>$row['pathPhoto']);
 		}
 	}
 	 else 
@@ -71,7 +72,8 @@ $data = array();
 	 			"Birthdate"=>$row['Birthdate'],
 	 			"AccessType"=>$row['AccessType'],
 	 			"Passwordd"=>$row['Passwordd'],
-				"Email"=>$row['Email']);
+				"Email"=>$row['Email'],
+				"pathPhoto"=>$row['pathPhoto']);
 	 	}
 	 }
 echo json_encode($data);

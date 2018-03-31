@@ -6,5 +6,5 @@ $specialization = $_GET['specialization'];
 
 $query= "UPDATE specialization SET SpecializationName = '$specialization' WHERE SpecializationID = '$id'";
 
-mysqli_query($con,$query);  
+mysqli_query($conn,$query);  
 ?>

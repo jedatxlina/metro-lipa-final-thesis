@@ -4,7 +4,7 @@ require_once 'connection.php';
 
 $id= $_GET['id'];
 
-$sel = mysqli_query($con,"SELECT * FROM refbrgy WHERE citymunCode = '$id'");
+$sel = mysqli_query($conn,"SELECT * FROM refbrgy WHERE citymunCode = '$id'");
 
 $data = array();
 

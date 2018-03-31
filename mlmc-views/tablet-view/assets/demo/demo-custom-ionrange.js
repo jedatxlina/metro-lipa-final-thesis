@@ -11,13 +11,11 @@ $(function () {
 	});
 
 	$("#range-step").ionRangeSlider({
-	    min: 10000,
-	    max: 100000,
-	    step: 1000,
-	    postfix: " miles",
-	    from: 55000,
-	    hideMinMax: false,
-	    hideFromTo: true
+		min: 0,
+		max: 100,
+		postfix: "%",
+	    prettify: false,
+	    hasGrid: true
 	});
 
 

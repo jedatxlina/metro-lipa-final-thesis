@@ -4,9 +4,9 @@ require_once 'connection.php';
 $id = $_GET['id'];
 
 if($id[0] != '7'){
-	$sel = mysqli_query($con,"SELECT * FROM patients WHERE AdmissionType = 'Outpatient'");
+	$sel = mysqli_query($conn,"SELECT * FROM patients WHERE AdmissionType = 'Outpatient'");
 }else{
-	$sel = mysqli_query($con,"SELECT a.SecretaryID,b.*,c.*,d.* FROM secretary a, attending_physicians b, medical_details c, patients d WHERE a.SecretaryID = '$id' AND a.PhysicianID = b.PhysicianID AND c.AttendingID = b.AttendingID AND d.MedicalID = c.MedicalID AND d.AdmissionType = 'Outpatient'");
+	$sel = mysqli_query($conn,"SELECT a.SecretaryID,b.*,c.*,d.* FROM secretary a, attending_physicians b, medical_details c, patients d WHERE a.SecretaryID = '$id' AND a.PhysicianID = b.PhysicianID AND c.AttendingID = b.AttendingID AND d.MedicalID = c.MedicalID AND d.AdmissionType = 'Outpatient'");
 }
 
 $data = array();

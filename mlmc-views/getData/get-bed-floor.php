@@ -3,7 +3,7 @@
 require_once 'connection.php';
 $floor = $_GET['floor'];
 
-$sel = mysqli_query($con,"SELECT * FROM beds WHERE Floor = '$floor'");
+$sel = mysqli_query($conn,"SELECT * FROM beds WHERE Floor = '$floor'");
 
 $data = array();
 

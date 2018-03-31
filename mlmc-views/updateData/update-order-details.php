@@ -5,5 +5,5 @@ $id = $_GET['id'];
 
 $query= "UPDATE orders SET Status = 'Accepted' WHERE OrderID = '$id'";
 
-mysqli_query($con,$query);  
+mysqli_query($conn,$query);  
 ?>

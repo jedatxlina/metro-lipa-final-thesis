@@ -28,7 +28,7 @@ foreach($condition AS $value){
         $value  = ucwords(strtolower($value));
 
         $query= "INSERT into conditions(ConditionID,Conditions) VALUES ('$newconditionid','$value')";
-        mysqli_query($con,$query);
+        mysqli_query($conn,$query);
      
     }
 

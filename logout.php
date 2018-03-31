@@ -7,7 +7,7 @@ $datetime = date("Y-m-d h:i A");
 
 $query = "UPDATE user_logs SET DateTimeOut='$datetime' WHERE AccountID='$at' AND DateTimeOut= '0'";
 
-$mysqli->query($query);
+$conn->query($query);
 /* Log out process, unsets and destroys session variables */
 session_start();
 session_unset();

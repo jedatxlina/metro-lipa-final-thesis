@@ -14,7 +14,7 @@ $hash = $con->escape_string( md5( rand(0,1000) ) );
 
 $query= "INSERT into user_account(AccountID,AccessType,Passwordd,hash,Email) VALUES ('$accountid','$accesstype','$password','$hash','$email')";
 
-mysqli_query($con,$query);  
+mysqli_query($conn,$query);  
 
 header("Location: ../user.php?at=$at");
 ?>

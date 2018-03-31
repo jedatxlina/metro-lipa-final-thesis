@@ -53,7 +53,7 @@
         <div class="col-md-8">
             <div class="panel panel-transparent">
                 <div class="panel-heading">
-                    <h2>Latest Graph of Inpatient Cases</h2>
+                    <h2>Latest Graph of Common Illnesses</h2> 
                 </div>
                 <div class="panel-body">
                  	<div id="map"  style="height: 450px;"></div>
@@ -63,14 +63,13 @@
 		<br><br><br>
 		<div class="col-md-4">
 			<div class="panel panel-danger" data-widget='{"draggable": "false"}'>
-				<div class="panel-heading">
+				<!-- <div class="panel-heading">
 					<h2>Common Illnesses</h2>
 					<div class="panel-ctrls button-icon-bg">
 					</div>
-				</div>
-				<div data-ng-repeat="list in illnesses">
+				</div> -->
+				<!-- <div data-ng-repeat="list in illnesses">
 	  				<a href="#" ng-click="customIllness(list.Condition)" role="tab" data-toggle="tab" class="list-group-item">{{list.Condition}}
-					<!-- <td class="text-right">20.5%</td> -->
 						<td class="vam">
 							<div class="progress m-n">
 	  							
@@ -79,7 +78,7 @@
 	                    </td>
 					</a>
 				</div>
-				
+				 -->
 				<!-- <div class="panel-body no-padding">
 					<table class="table browsers m-n">
 						<tbody>
@@ -148,9 +147,17 @@ function initMap() {
 					var long = markers[i].getAttribute('lng');
 					var latLng = new google.maps.LatLng(lat,long);
 			
+					var icon = {
+						url: "https://www.clker.com/cliparts/B/B/1/E/y/r/marker-pin-google.svg", // url
+						scaledSize: new google.maps.Size(50, 50), // scaled size
+						origin: new google.maps.Point(0,0), // origin
+						anchor: new google.maps.Point(0, 0) // anchor
+					};
+	
 					var marker = new google.maps.Marker({
 						position:  latLng,
 						map: map,	
+						icon: icon,
 						animation: google.maps.Animation.DROP
 					});
 					
@@ -200,6 +207,16 @@ function initMap() {
 				 	url: 'getData/get-user-id.php'
 				}).then(function(response) {		
 				$scope.users = response.data;
+				});
+
+				$scope.accesstype = $scope.at[0];
+				$http({
+				method: 'GET',
+				url: 'getData/get-user-profile.php',
+				params: {id: $scope.at,
+					atype : $scope.accesstype}
+				}).then(function(response) {
+					$scope.userdetails = response.data;
 				});
 
 			switch ($scope.at.charAt(0)) {
@@ -324,7 +341,7 @@ function initMap() {
                             window.location.href = '../logout.php?at=' + $scope.at;
                             break;
 					
-					case 'Migrate':
+					case 'Others':
                             window.location.href = 'migrate.php?at=' + $scope.at;
                             break;
 					

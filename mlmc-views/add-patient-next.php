@@ -229,6 +229,16 @@
                             });
                             break;
                     }
+
+                    $scope.accesstype = $scope.at[0];
+                    $http({
+                    method: 'GET',
+                    url: 'getData/get-user-profile.php',
+                    params: {id: $scope.at,
+                        atype : $scope.accesstype}
+                    }).then(function(response) {
+                        $scope.userdetails = response.data;
+                    });
                     
                     $http({
                         method: 'GET',
@@ -285,9 +295,6 @@
                             $('#otheradministeredmed').show();
                         }
                     });
-
-
-                  
 
                     $scope.reset = function(val){
                         $scope.chck = val;
@@ -401,7 +408,7 @@
                                         height: $scope.height,
                                         attending: $scope.attendingphysician}
                                 }).then(function(response) {
-                                    window.location.href = 'insertData/insert-medications-details.php?param=' + $scope.param + '&at=' + $scope.at + '&medicationid=' + $scope.medicationid + '&admissionid=' + $scope.admissionid + '&administered=' + $scope.administered + '&physicianid=' + $scope.attendingphysician + '&medication=' + $scope.medication + '&condition=' + $scope.condition + '&diagnosis=' + $scope.diagnosis + '&attendingid=' + $scope.attendingid + '&diagnosisid=' + $scope.diagnosisid;
+                                    window.location.href = 'insertData/insert-medications-details.php?param=' + $scope.param + '&at=' + $scope.at + '&medicationid=' + $scope.medicationid + '&admissionid=' + $scope.admissionid + '&administered=' + $scope.administered + '&physicianid=' + $scope.attendingphysician + '&medication=' + $scope.medication + '&condition=' + $scope.condition + '&diagnosis=' + $scope.diagnosis + '&attendingid=' + $scope.attendingid + '&diagnosisid=' + $scope.diagnosisid  + '&medid=' + $scope.medid;
                                 });      
                             }else{
                                 $http({
@@ -420,7 +427,7 @@
                                         height: $scope.height,
                                         attending: $scope.attendingphysician}
                                 }).then(function(response) {
-                                    window.location.href = 'insertData/insert-condition-details.php?param=' + $scope.param + '&at=' + $scope.at + '&admissionid=' + $scope.admissionid + '&condition=' + $scope.condition;
+                                    window.location.href = 'insertData/insert-condition-details.php?param=' + $scope.param + '&at=' + $scope.at + '&admissionid=' + $scope.admissionid + '&condition=' + $scope.condition + '&medid=' + $scope.medid;
                                 });   
                             }
                     }

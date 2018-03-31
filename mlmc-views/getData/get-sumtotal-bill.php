@@ -2,7 +2,7 @@
 require_once 'connection.php';
 $yearage = '0';
 $id = $_GET['id'];
-$sel = mysqli_query($con,"SELECT a.BedID,a.ArrivalDate ,b.Rate,c.Quantity,d.Price FROM duration a, beds b, medication c, pharmaceuticals d WHERE b.BedID = a.BedID AND c.MedicineID = d.MedicineID AND a.AdmissionID = '$id' AND c.AdmissionID = '$id'
+$sel = mysqli_query($conn,"SELECT a.BedID,a.ArrivalDate ,b.Rate,c.Quantity,d.Price FROM duration a, beds b, medication c, pharmaceuticals d WHERE b.BedID = a.BedID AND c.MedicineID = d.MedicineID AND a.AdmissionID = '$id' AND c.AdmissionID = '$id'
 ");
 $data = array();
 $date = date("Y-m-d");

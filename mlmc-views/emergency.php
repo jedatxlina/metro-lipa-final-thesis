@@ -529,6 +529,17 @@ font-weight: bold;
 											</div>
 										</div>
 									</div>
+									<div class="row">
+										<div class="form-group">
+											<label for="focusedinput" class="col-sm-3 control-label">Diet Plan</label>
+											<div class="col-sm-5">
+												<select class="form-control" ng-model="dietplan">
+                                                    <option value="" disabled selected>Select Diet Plan</option>
+                                                    <option ng-repeat="diet in diets" value="{{diet.DietOrder}}">{{diet.DietOrder}}</option>
+                                                </select>   
+											</div>
+										</div>
+									</div>
 									<hr>
 								</div>
 								<div class="row">
@@ -630,6 +641,18 @@ font-weight: bold;
 					break;
 			}
 
+		$scope.accesstype = $scope.at[0];
+        $http({
+        	method: 'GET',
+            url: 'getData/get-user-profile.php',
+            params: {id: $scope.at,
+                atype : $scope.accesstype}
+        }).then(function(response) {
+            $scope.userdetails = response.data;
+        });		
+
+		
+
        	$http({
            method: 'get',
            url: 'getData/get-emergency-details.php'
@@ -640,6 +663,8 @@ font-weight: bold;
 			dTable.DataTable();  
 			});  
 		});
+
+		
 		
        $http({
             method: 'GET',
@@ -809,7 +834,13 @@ font-weight: bold;
 		$scope.movePatient = function(){
         	if($scope.selectedRow != null){
 				$scope.admissionid = $scope.selectedRow;
-				$http({
+					$http({
+						method: 'GET',
+						url: 'getData/get-diet-plans.php'
+					}).then(function(response) {
+						$scope.diets = response.data;
+					});
+					$http({
 						method: 'GET',
 						url: 'getData/get-patient-details.php',
 						params: {id: $scope.admissionid},

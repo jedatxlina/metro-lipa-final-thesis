@@ -6,5 +6,5 @@ $quantity = $_GET['qty'];
 
 $query = "UPDATE pharmaceuticals SET Quantity = Quantity + '$quantity' WHERE MedicineID = '$pharmaid'";
 
-mysqli_query($con,$query);  
+mysqli_query($conn,$query);  
 ?>

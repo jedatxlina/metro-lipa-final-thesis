@@ -443,6 +443,16 @@ font-weight: bold;
 			dTable.DataTable();  
 			});  
 		});
+
+		$scope.accesstype = $scope.at[0];
+        $http({
+        	method: 'GET',
+            url: 'getData/get-user-profile.php',
+            params: {id: $scope.at,
+                atype : $scope.accesstype}
+        }).then(function(response) {
+            $scope.userdetails = response.data;
+        });
 		   
 		$http({
             method: 'GET',

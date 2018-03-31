@@ -25,15 +25,18 @@
     <br>
     <div class="container-fluid">
         <div data-widget-group="group1">
-            
             <div class="row">
                 <div class="col-sm-3">
                     <div class="panel panel-profile">
                         <div class="panel-body"  data-ng-repeat="patient in patientdetails">
                             <img ng-src="{{patient.QRpath}}">
                             <div class="name">{{patient.Lastname}}, {{patient.Firstname}} {{patient.Middlename}}</div>
-                            <div class="info">{{patient.AdmissionID}}</div>
+                            <div class="info">{{patient.AdmissionID}}</div>  
+                            <br>
+                            <a ng-click="printQR()"><i class="ti ti-printer"></i>&nbsp; Print QR Code</a>
                         </div>
+                        <center>
+                     
                     </div><!-- panel -->
                     <div class="list-group list-group-alternate mb-n nav nav-tabs">
                         <a href="#tab-about" 	role="tab" data-toggle="tab" class="list-group-item active"><i class="ti ti-user"></i> About </a>
@@ -47,51 +50,87 @@
                     <div class="tab-content">
 
                         <div class="tab-pane" id="tab-details">
-                            <div class="panel panel-default">
+                            <div class="panel panel-danger">
                                 <div class="panel-heading">
-                                    <h2>Details</h2>
+                                    <h2>Medical Details</h2>
                                 </div>
                                 <div class="panel-body">
-                                <div class="about-area">
-                                    <h4>Medical Details</h4>
-                                    <div class="col-md-6">
-                                        <div class="table-responsive">
-                                            <table class="table"  data-ng-repeat="patient in patientdetails">
-                                                <tbody>
-                                                <tr>
-                                                    <th>Admission ID</th>
-                                                    <td>{{patient.AdmissionID}}</td>
-                                                </tr>
-                                                <tr>
-                                                    <th>Admission No</th>
-                                                    <td>{{patient.AdmissionNo}}</td>
-                                                </tr>
-                                                <tr>
-                                                    <th>Admisison Date</th>
-                                                    <td>{{patient.AdmissionDate}}</td>
-                                                </tr>
-                                                <tr>
-                                                    <th>Admisison Time</th>
-                                                    <td>{{patient.AdmissionTime}}</td>
-                                                </tr>
-                                                <tr>
-                                                    <th>Admission</th>
-                                                    <td>{{patient.Admission}}</td>
-                                                </tr>
-                                                <tr>
-                                                    <th>Admission Type</th>
-                                                    <td>{{patient.AdmissionType}}</td>
-                                                </tr>
-                                                </tbody>
-                                            </table>
+                                    <div class="about-area">
+                                        <div class="grid-form">
+                                            <div class="row">
+                                                <fieldset data-ng-repeat="patient in patientdetails">
+                                                        <div data-row-span="2">
+                                                            <div data-field-span="1">
+                                                                <label>Patient ID</label>
+                                                                <input type="text" class="form-control" ng-model="patient.AdmissionID"  ng-disabled='true'>
+                                                            </div>
+                                                            <div data-field-span="1">
+                                                                <label>Admission No</label>
+                                                                <input type="text" ng-model="patient.AdmissionNo" ng-disabled='true'>
+                                                            </div>
+                                                        </div>
+                                                        <div data-row-span="3">
+                                                            <div data-field-span="1">
+                                                                <label>Admission Date</label>
+                                                                <input type="text" class="form-control" ng-model="patient.AdmissionDate"  ng-disabled='true'>
+                                                            </div>
+                                                            <div data-field-span="1">
+                                                                <label>Admission Time</label>
+                                                                <input type="text" ng-model="patient.AdmissionTime" ng-disabled='true'>
+                                                            </div>
+                                                          
+                                                        </div>
+                                                        <div data-row-span="2">
+                                                            <div data-field-span="1">
+                                                                <label>Admission</label>
+                                                                <input type="text" class="form-control" ng-model="patient.Admission"  ng-disabled='true'>
+                                                            </div>
+                                                            <div data-field-span="1">
+                                                                <label>Admission Type</label>
+                                                                <input type="text" ng-model="patient.AdmissionType" ng-disabled='true'>
+                                                            </div>
+                                                        </div>
+                                                </fieldset>
+                                            </div>
                                         </div>
-                                    </div>
-                                    <div class="row">
-                                    
                                     </div>
                                 </div>
                             </div>
-                            </div>
+                                <div class="panel panel-danger">
+                                    <div class="panel-heading">
+                                        <h2>Patient Medications</h2><a ng-click="viewMedicationReport()" class="pull-right"><i class="ti ti-printer"></i></a>
+                                        <div class="panel-ctrls"></div>
+                                    </div>
+                                        <div class="panel-body">
+                                            <div class="table-responsive">
+                                                <table id="medications_table" class="table table-striped table-bordered" cellspacing="0" width="100%">
+                                                        <thead>
+                                                            <tr>
+                                                                <th>#</th>
+                                                                <th>Medicine Name</th>
+                                                                <th>Dosage</th>
+                                                                <th>Quantity</th>
+                                                            </tr>
+                                                        </thead>
+                                                        <tbody>
+                                                            <tr  ng-repeat="med in medications track by $index" ng-class="{'selected': med.MedicationID == selectedRow}" ng-click="setClickedRow(med.MedicationID)">
+                                                                <td>{{$index}}</td>
+                                                                <td>{{med.MedicineName}}</td>
+                                                                <td>{{med.Dosage}}</td>
+                                                                <td>{{med.Quantity}}</td>
+                                                            </tr>
+                                                        </tbody>
+                                                </table>
+                                            </div>
+                                        </div>
+                                    <div class="panel-footer">
+                                    </div>
+                                </div>
+                                            <!-- </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div> -->
                         </div> <!-- #tab-projects -->
 
                         <div class="tab-pane" id="tab-projects">
@@ -130,90 +169,67 @@
                         </div> <!-- #tab-projects -->
 
                         <div class="tab-pane active" id="tab-about">
-                            <div class="panel panel-default">
+                            <div class="panel panel-danger">
                                 <div class="panel-heading">
-                                    <h2>Profile</h2>
+                                    <h2>Personal Information</h2>
                                 </div>
                                 <div class="panel-body">
+                                    
                                     <div class="about-area">
-                                        <h4>Medical Information</h4>
-                                            <div class="col-md-6">
-                                                <div class="table-responsive">
-                                                    <table class="table"  data-ng-repeat="patient in patientdetails">
-                                                        <tbody>
-                                                        <tr>
-                                                            <th>Admission ID</th>
-                                                            <td>{{patient.AdmissionID}}</td>
-                                                        </tr>   
-                                                        <tr>
-                                                            <th>Admisison Date</th>
-                                                            <td>{{patient.AdmissionDate}}</td>
-                                                        </tr>
-                                                        <tr>
-                                                            <th>Admisison Time</th>
-                                                            <td>{{patient.AdmissionTime}}</td>
-                                                        </tr>
-                                                        <tr>
-                                                            <th>Admission</th>
-                                                            <td>{{patient.Admission}}</td>
-                                                        </tr>
-                                                        <tr>
-                                                            <th>Admission Type</th>
-                                                            <td>{{patient.AdmissionType}}</td>
-                                                        </tr>
-                                                        </tbody>
-                                                    </table>
-                                                </div>
+                                            <div class="grid-form">
+                                                <div class="row">
+                                                <fieldset data-ng-repeat="patient in patientdetails">
+                                                        <div data-row-span="2">
+                                                            <div data-field-span="1">
+                                                                <label>Patient Name</label>
+                                                                <input type="text" class="form-control" ng-value="patient.Firstname + ' ' + patient.Middlename + ' ' + patient.Lastname" disabled="disabled">
+                                                            </div>
+                                                            <div data-field-span="1">
+                                                                <label>Age</label>
+                                                                <input type="text" ng-model="patient.Age" ng-disabled='true'>
+                                                            </div>
+                                                        </div>
+                                                        <div data-row-span="3">
+                                                            <div data-field-span="1">
+                                                                <label>Gender</label>
+                                                                <input type="text" ng-model="patient.Gender" ng-disabled='true'>
+                                                            </div>
+                                                            <div data-field-span="1">
+                                                                <label>Birthdate</label>
+                                                                <input type="text" ng-model="patient.Birthdate" ng-disabled='true'>
+                                                            </div>
+                                                            <div data-field-span="1">
+                                                                <label>Civil Status</label>
+                                                                <input type="text" ng-model="patient.CivilStatus" ng-disabled='true'>
+                                                            </div>
+                                                        </div>
+                                                        <div data-row-span="3">
+                                                            <div data-field-span="1">
+                                                                <label>Contact</label>
+                                                                <input type="text" ng-model="patient.Contact" ng-disabled='true'>
+                                                            </div>
+                                                            <div data-field-span="1">
+                                                                <label>Province</label>
+                                                                <input type="text" ng-model="patient.Province" ng-disabled='true'>
+                                                            </div>
+                                                            <div data-field-span="1">
+                                                                <label>City</label>
+                                                                <input type="text" ng-model="patient.City" ng-disabled='true'>
+                                                            </div>
+                                                        </div>
+                                                        <div data-row-span="2">
+                                                            <div data-field-span="1">
+                                                                <label>Complete Address</label>
+                                                                <input type="text" ng-model="patient.CompleteAddress" ng-disabled='true'>
+                                                            </div>
+                                                            <div data-field-span="1">
+                                                                <label>Citizenship</label>
+                                                                <input type="text" ng-model="patient.Citizenship" ng-disabled='true'>
+                                                            </div>
+                                                        </div>
+                                                </fieldset>
                                             </div>
-                                    </div>
-                                    <div class="row">
-                                
-                                    </div>
-                                    <br><br>
-                                    <div class="about-area">
-                                        <h4>Personal Information</h4>
-                                            <div class="table-responsive">
-                                            <table class="table about-table"  data-ng-repeat="patient in patientdetails">
-                                                <tbody>
-                                                <tr>
-                                                    <th>Full Name</th>
-                                                    <td>{{patient.Lastname}}, {{patient.Firstname}} {{patient.Middlename}}</td>
-                                                    <th>Age</th>
-                                                    <td>{{patient.Age}}</td>
-                                                    
-                                                </tr>
-                                                <tr>
-                                                    <th>Birth Date</th>
-                                                    <td>{{patient.Birthdate}}</td>
-                                                    <th>Civil Status</th>
-                                                    <td>{{patient.CivilStatus}}</td>
-                                                </tr>
-                                                <tr>
-                                                    <th>Gender</th>
-                                                    <td>{{patient.Gender}}</td>
-                                                    <th>Contact</th>
-                                                    <td>{{patient.Contact}}</td>
-                                                </tr>
-                                                <tr>
-                                                    <th>Province</th>
-                                                    <td>{{patient.Province}}</td>
-                                                    <th>Occupation</th>
-                                                    <td>{{patient.Occupation}}</td>
-                                                </tr>
-                                                <tr>
-                                                    <th>City</th>
-                                                    <td>{{patient.City}}</td>
-                                                </tr>
-                                                <tr>
-                                                    <th>Address</th>
-                                                    <td>{{patient.CompleteAddress}}</td>
-                                                    <th>Citizenship</th>
-                                                    <td>Citizenship</td>
-                                                </tr>
-                                           
-                                                </tbody>
-                                            </table>
-                                            </div>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
@@ -403,7 +419,7 @@
 <script>
     var fetch = angular.module('myApp', ['ui.mask']);
        
-       fetch.controller('userCtrl', ['$scope', '$http', function($scope, $http) {
+       fetch.controller('userCtrl', ['$scope', '$http','$window', function($scope, $http,$window) {
            $scope.at = "<?php echo $_GET['at'];?>";
            $scope.id = "<?php echo $_GET['id'];?>";
            $scope.selectedRow = null;
@@ -443,6 +459,15 @@
                     break;
             }
        
+            $scope.accesstype = $scope.at[0];
+				$http({
+				method: 'GET',
+				url: 'getData/get-user-profile.php',
+				params: {id: $scope.at,
+					atype : $scope.accesstype}
+				}).then(function(response) {
+					$scope.userdetails = response.data;
+				});
     
             $http({
             method: 'GET',
@@ -452,18 +477,36 @@
                 $scope.patientdetails = response.data;
             });
 
-            // $http({
-            // method: 'GET',
-            // url: 'getData/get-patient-details.php',
-            // params: {id: $scope.id}
-            // }).then(function(response) {
-            //     $scope.editpatientdetails = response.data;
-            // });
+            $http({
+            method: 'GET',
+            url: 'getData/get-medication-details.php',
+            params: {id: $scope.id}
+            }).then(function(response) {
+                $scope.medications = response.data;
+                angular.element(document).ready(function() {  
+            				dTable = $('#medications_table')  
+            				dTable.DataTable();  
+            				});  
+            });
+
+           	$('#medications_table').on('search.dt', function() {
+            	var value = $('.dataTables_filter input').val();
+            	$scope.val = value;
+            });    
 
            $scope.setClickedRow = function(lab) {
                $scope.selectedRow = ($scope.selectedRow == null) ? lab : ($scope.selectedRow == lab) ? null : lab;
                $scope.clickedRow = ($scope.selectedRow == null) ? 0 : 1;
            }
+
+           $scope.viewMedicationReport = function(){
+               if($scope.val == ''){
+                $window.open('view-medication-report.php?at='+$scope.at+'&id='+$scope.id, '_blank');+'&searchparam='+$scope.val
+               }else{
+                $window.open('view-medication-report.php?at='+$scope.at+'&id='+$scope.id+'&searchparam='+$scope.val, '_blank');
+               }
+            }
+           
            
            $scope.saveDetails = function(patient){
                 $http({

@@ -2,7 +2,7 @@
 
 require_once 'connection.php';
 
-$sel = mysqli_query($con,"SELECT PhysicianID, Specialization, CONCAT( FirstName, ' ', MiddleName , ' ' ,LastName) AS Fullname FROM physicians");
+$sel = mysqli_query($conn,"SELECT PhysicianID, Specialization, CONCAT( FirstName, ' ', MiddleName , ' ' ,LastName) AS Fullname FROM physicians");
 
 $data = array();
 

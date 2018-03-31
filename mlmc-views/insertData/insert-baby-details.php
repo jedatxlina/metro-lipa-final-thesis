@@ -20,5 +20,5 @@ $birthdate = date("Y-m-d", strtotime($birthdate));
 $query = "INSERT into nursery(NurseryID,AdmissionID,LastName,FirstName,MiddleName,Birthdate,Birthtime,Citizenship,BloodType,DeliveryType) 
 VALUES('$babyadmission','$admissionnid','$lastname','$firstname','$middlename','$birthdate','$birthtime','$citizenship','$bloodtype','$delivery')";
 
-mysqli_query($con,$query);  
+mysqli_query($conn,$query);  
 

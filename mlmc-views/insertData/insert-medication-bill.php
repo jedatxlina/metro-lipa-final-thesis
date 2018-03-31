@@ -8,7 +8,7 @@ $medicineid = $_GET['medicineid'];
 $desc =  $_GET['medicinename'];
 $department = 'Pharmacy';
 
-$sel = mysqli_query($con,"SELECT Price FROM Pharmaceuticals WHERE MedicineID = '$medicineid' ");
+$sel = mysqli_query($conn,"SELECT Price FROM Pharmaceuticals WHERE MedicineID = '$medicineid' ");
 
 $rate = '';
 
@@ -19,5 +19,5 @@ while($row = mysqli_fetch_assoc($sel))
 
 $query = "INSERT into billing(BillID,AdmissionID,Department,ItemID,BillDes,TotalBill) 
 VALUES('$billid','$admissionid','$department','$medicineid','$des','$rate')";
-mysqli_query($con,$query);  
+mysqli_query($conn,$query);  
 ?>

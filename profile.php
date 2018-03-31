@@ -21,7 +21,7 @@ else {
 
     $query = "INSERT INTO user_logs VALUES ('$logsid','$id','$datetime','0')";
 
-    $mysqli->query($query);
+    $conn->query($query);
 
     if ($accesstype == 1)
     $user = ' Administrator';

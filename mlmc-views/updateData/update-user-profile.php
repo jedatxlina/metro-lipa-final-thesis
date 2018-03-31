@@ -40,7 +40,7 @@ else if ($acctype == 7)
 {
     $query= "UPDATE secretary SET LastName = '$lastname', FirstName = '$firstname', MiddleName = '$middlename', Gender = '$gender', Birthdate = '$birthdate', Address = '$address' , Email = '$email' WHERE SecretaryID = '$id'";
 }
-mysqli_query($con,$query);  
+mysqli_query($conn,$query);  
 $query2 = "UPDATE user_account SET Email = '$email' WHERE AccountID = '$id' ";
-mysqli_query($con,$query2);
+mysqli_query($conn,$query2);
 ?>

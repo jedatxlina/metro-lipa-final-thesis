@@ -6,5 +6,5 @@ $specialization = $_GET['specialization'];
 
 $query= "INSERT into specialization(SpecializationID,SpecializationName) VALUES ('$specializationid','$specialization')";
 
-mysqli_query($con,$query);  
+mysqli_query($conn,$query);  
 ?>

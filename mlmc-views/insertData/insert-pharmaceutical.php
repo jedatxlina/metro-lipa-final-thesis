@@ -11,5 +11,5 @@ $reorder = $_GET['reorder'];
 $query= "INSERT into pharmaceuticals(MedicineID,MedicineName,Unit,Price,Quantity,ReOrder) 
 VALUES ('$pharmaid','$pharmaname','$unit','$price','$quantity','$reorder')";
 
-mysqli_query($con,$query);  
+mysqli_query($conn,$query);  
 ?>

@@ -1,7 +1,7 @@
 <?php
 require_once 'connection.php';
 $id = $_GET['id'];
-$sel = mysqli_query($con,"SELECT medication.Quantity, pharmaceuticals.Price FROM medication INNER JOIN pharmaceuticals ON medication.MedicineID=pharmaceuticals.MedicineID WHERE medication.AdmissionID='$id'");
+$sel = mysqli_query($conn,"SELECT medication.Quantity, pharmaceuticals.Price FROM medication INNER JOIN pharmaceuticals ON medication.MedicineID=pharmaceuticals.MedicineID WHERE medication.AdmissionID='$id'");
 $data = array();
 while ($row = mysqli_fetch_array($sel)) {
     $data[] = array(

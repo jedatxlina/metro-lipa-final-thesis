@@ -1,7 +1,7 @@
 <?php
 require_once 'connection.php';
 
-$sel = mysqli_query($con,"SELECT MedicineID, CONCAT(MedicineName, ' ' ,Unit) AS MedicineName FROM pharmaceuticals");
+$sel = mysqli_query($conn,"SELECT MedicineID, CONCAT(MedicineName, ' ' ,Unit) AS MedicineName FROM pharmaceuticals");
 
 $data = array();
 

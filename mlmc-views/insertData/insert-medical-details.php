@@ -41,16 +41,16 @@ $datetime = date("Y-m-d h:i A");
 $query = "INSERT into medical_details(MedicalID,AdmissionID,AttendingID,ArrivalDate,ArrivalTime,VitalsID,MedicationID,PreviousSurgeries,Weight,Height) 
 VALUES('$medicalid','$admissionid','$attendingid','$date','$time','$vitalsid','$medicationid','$surgery','$weight','$height')";
 
-mysqli_query($con,$query);  
+mysqli_query($conn,$query);  
 
 $query = "INSERT into vitals(VitalsID,AdmissionID,BP,BPD,PR,RR,Temperature,DateTimeChecked) 
 VALUES('$vitalsid','$admissionid','$sys','$dia','$pr','$rr','$temp',NOW())";
 
-mysqli_query($con,$query);
+mysqli_query($conn,$query);
 
 $query = "INSERT into attending_physicians(AttendingID,PhysicianID,AdmissionID,DiagnosisID,Discount) 
 VALUES('$attendingid','$attendingphysicianid','$admissionid','$diagnosisid','$discount')";
 
-mysqli_query($con,$query);
+mysqli_query($conn,$query);
 
 

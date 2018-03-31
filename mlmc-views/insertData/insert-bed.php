@@ -12,7 +12,7 @@ if ($RoomType == 'Single Deluxe')
 { 
     $bedid = $room; 
     $query= "INSERT into beds(BedID,RoomType,Rate,Floor,Room,Status) VALUES ('$bedid','$RoomType','$rate','$floor','$room','Available')";
-    mysqli_query($con,$query); 
+    mysqli_query($conn,$query); 
 }
 else if ($RoomType == 'Two-Bedded')
 { 
@@ -20,7 +20,7 @@ else if ($RoomType == 'Two-Bedded')
     {
         $bedid = $room."-".$i; 
         $query= "INSERT into beds(BedID,RoomType,Rate,Floor,Room,Status) VALUES ('$bedid','$RoomType','$rate','$floor','$room','Available')";
-        mysqli_query($con,$query); 
+        mysqli_query($conn,$query); 
     }
 }
 else if ($RoomType == 'Four-Bedded')
@@ -29,7 +29,7 @@ else if ($RoomType == 'Four-Bedded')
     {
         $bedid = $room.'-'.$i; 
         $query= "INSERT into beds(BedID,RoomType,Rate,Floor,Room,Status) VALUES ('$bedid','$RoomType','$rate','$floor','$room','Available')";
-        mysqli_query($con,$query); 
+        mysqli_query($conn,$query); 
     }
 }
 else if ($RoomType == 'Ward')
@@ -38,7 +38,7 @@ else if ($RoomType == 'Ward')
     {
         $bedid = $room.'-'.$i; 
         $query= "INSERT into beds(BedID,RoomType,Rate,Floor,Room,Status) VALUES ('$bedid','$RoomType','$rate','$floor','$room','Available')";
-        mysqli_query($con,$query); 
+        mysqli_query($conn,$query); 
     }
 }
 

@@ -19658,6 +19658,10 @@ body {
 .static-sidebar-wrapper,
 .static-sidebar {
   width: 256px;
+/*   
+  background: url("../img/backdrop-logo.jpg");
+  background-repeat: no-repeat;
+  background-size: auto; */
 }
 .static-content-wrapper {
   display: table-cell;
@@ -20500,7 +20504,6 @@ body.sidebar-collapsed .sidebar nav.widget-body > ul.acc-menu li.hasChild:hover 
 }
 .static-content-wrapper {
   background: #f5f5f5;
-    /* background-image: url("../img/backdrop-logo.jpg"); */
 }
 @media screen and (min-width: 768px) {
   body.sidebar-collapsed .sidebar .widget:not(.stay-on-collapse) {

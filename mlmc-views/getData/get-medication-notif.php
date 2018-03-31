@@ -4,7 +4,7 @@ require_once 'connection.php';
 
 date_default_timezone_set("Asia/Singapore");
 
-$sel = mysqli_query($con,"SELECT * FROM medication_timeline");
+$sel = mysqli_query($conn,"SELECT * FROM medication_timeline");
 
 $data = array();
 

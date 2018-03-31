@@ -5,7 +5,7 @@ require_once 'connection.php';
 if(isset($_GET['id'])){
 $id =  $_GET['id'];
 
-$sel = mysqli_query($con,"SELECT * FROM patients_archive  WHERE ArchiveID = '$id' ");
+$sel = mysqli_query($conn,"SELECT * FROM patients_archive  WHERE ArchiveID = '$id' ");
 
 }else{
 
@@ -15,7 +15,7 @@ $lastname = $_GET['lastname'];
 $date = $_GET['birthdate'];
 $birthdate = date("Y-m-d", strtotime($date));
 
-$sel = mysqli_query($con,"SELECT * FROM patients_archive  WHERE (FirstName LIKE '%$firstname%' AND MiddleName LIKE '%$middlename' AND LastName LIKE '%$lastname')");
+$sel = mysqli_query($conn,"SELECT * FROM patients_archive  WHERE (FirstName LIKE '%$firstname%' AND MiddleName LIKE '%$middlename' AND LastName LIKE '%$lastname')");
 
 }
 

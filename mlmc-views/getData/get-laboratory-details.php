@@ -2,7 +2,7 @@
 
 require_once 'connection.php';
 
-$sel = mysqli_query($con,"SELECT * FROM laboratories");
+$sel = mysqli_query($conn,"SELECT * FROM laboratories");
 
 $data = array();
 

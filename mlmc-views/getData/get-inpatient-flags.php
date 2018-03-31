@@ -2,7 +2,7 @@
 require_once 'connection.php';
 
 
-$sel = mysqli_query($con,"SELECT a.AdmissionID, a.AdmissionDate, a.AdmissionTime, a.FirstName, a.MiddleName, a.LastName, b.MedicalID, b.BedID FROM patients a, medical_details b WHERE a.AdmissionType = 'Pending' AND b.AdmissionID = a.AdmissionID");
+$sel = mysqli_query($conn,"SELECT a.AdmissionID, a.AdmissionDate, a.AdmissionTime, a.FirstName, a.MiddleName, a.LastName, b.MedicalID, b.BedID FROM patients a, medical_details b WHERE a.AdmissionType = 'Pending' AND b.AdmissionID = a.AdmissionID");
 
 $data = array();
 

@@ -3,7 +3,7 @@ require_once 'connection.php';
 
 $id=$_GET['id'];
 
-$sel = mysqli_query($con,"SELECT a.RelocateID, a.AdmissionID, a. FROM patients a, medical_details b, beds c WHERE a.AdmissionID='$id' AND b.AdmissionID ='$id' AND c.BedID = b.BedID");
+$sel = mysqli_query($conn,"SELECT a.RelocateID, a.AdmissionID, a. FROM patients a, medical_details b, beds c WHERE a.AdmissionID='$id' AND b.AdmissionID ='$id' AND c.BedID = b.BedID");
 
 $data = array();
 

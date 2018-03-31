@@ -2,7 +2,7 @@
 
 require_once 'connection.php';
 
-$sel = mysqli_query($con,"SELECT a.*,b.*,c.* FROM patients a,diagnosis b, conditions c WHERE c.Conditions = b.Findings AND b.AdmissionID = a.AdmissionID");
+$sel = mysqli_query($conn,"SELECT a.*,b.*,c.* FROM patients a,diagnosis b, conditions c WHERE c.Conditions = b.Findings AND b.AdmissionID = a.AdmissionID");
 
 $data = array();
 

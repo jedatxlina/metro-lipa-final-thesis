@@ -13,8 +13,12 @@
         </li>
     </ol>
     <br>
+    <div class="clearfix">
+            <div class="pull-left">
+                &emsp;<button ng-click="goBack()" class="btn-danger-alt btn">Back</button>
+            </div>
+        </div>
     <br>
-
     <div ng-app="myApp" ng-controller="userCtrl">
         <div class="container-fluid">
             <div class="row">
@@ -225,6 +229,15 @@
                 default:
                     break;
             }
+            $scope.accesstype = $scope.at[0];
+            $http({
+            method: 'GET',
+            url: 'getData/get-user-profile.php',
+            params: {id: $scope.at,
+                   atype : $scope.accesstype}
+            }).then(function(response) {
+                $scope.userdetails = response.data;
+            });
 
             $http({
                 method: 'GET',
@@ -410,6 +423,9 @@
                     default:
                         break;
                 }
+            }
+            $scope.goBack = function(){
+                    window.history.back();
             }
         });
     </script>

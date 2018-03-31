@@ -2,7 +2,7 @@
 
 require_once 'connection.php';
 header('Content-type: application/json');
-$sel = mysqli_query($con,"SELECT * FROM refprovince");
+$sel = mysqli_query($conn,"SELECT * FROM refprovince");
 
 $data = array();
 

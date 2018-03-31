@@ -10,5 +10,5 @@ $reorder = $_GET['reorder'];
 
 $query = "UPDATE pharmaceuticals SET MedicineID = '$pharmaid' , MedicineName = '$pharmaname' , Unit = '$unit' , Price = '$price', Quantity = '$quantity' , ReOrder = '$reorder' WHERE MedicineID = '$pharmaid'";
 
-mysqli_query($con,$query);  
+mysqli_query($conn,$query);  
 ?>

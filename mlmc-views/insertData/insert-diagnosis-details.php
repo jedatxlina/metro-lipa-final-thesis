@@ -24,7 +24,7 @@ date_default_timezone_set("Asia/Singapore");
 $date = date("Y-m-d");
 $time = date("h:i A");  
 
-$sel = mysqli_query($con,"SELECT MedicalID FROM medical_details WHERE AdmissionID ='$admissionid'");
+$sel = mysqli_query($conn,"SELECT MedicalID FROM medical_details WHERE AdmissionID ='$admissionid'");
 
 while ($row = mysqli_fetch_assoc($sel)) {
     $medicalid = $row['MedicalID'];
@@ -42,14 +42,14 @@ if($labs != ''){
                 $query = "INSERT into orders(OrderID,AdmissionID,PhysicianID,Task,LaboratoryID,DateOrder,TimeOrder,Status) 
                 VALUES('$orderid','$admissionid','$at','$order','$value','$date','$time','Pending')";
     
-                mysqli_query($con,$query);
+                mysqli_query($conn,$query);
 
                 $orderid =  rand(111111, 999999);     
                 
                 $query2 = "INSERT into laboratory_req(RequestID,LaboratoryID,AdmissionID,Status,DateRequest,TimeRequest) 
                 VALUES('$laborderid','$value','$admissionid','Pending','$date','$time')";
     
-                mysqli_query($con,$query2);
+                mysqli_query($conn,$query2);
 
                 $laborderid =  rand(111111, 999999);     
             }
@@ -57,19 +57,19 @@ if($labs != ''){
                 $value  = ucwords(strtolower($value));
 
                 $query= "INSERT into laboratories(LaboratoryID,Description) VALUES ('$laboratoryid','$value')";
-                mysqli_query($con,$query);
+                mysqli_query($conn,$query);
 
                 $query = "INSERT into orders(OrderID,AdmissionID,PhysicianID,Task,LaboratoryID,DateOrder,TimeOrder,Status) 
                 VALUES('$orderid','$admissionid','$at','$order','$value','$date','$time','Pending')";
     
-                mysqli_query($con,$query);
+                mysqli_query($conn,$query);
 
                 $laboratoryid =  rand(111111, 999999);     
                 
                 $query2 = "INSERT into laboratory_req(RequestID,LaboratoryID,AdmissionID,Status,DateRequest,TimeRequest) 
                 VALUES('$laborderid','$value','$admissionid','Pending','$date','$time')";
                 
-                mysqli_query($con,$query2);
+                mysqli_query($conn,$query2);
 
                 $laborderid =  rand(111111, 999999); 
             }
@@ -84,14 +84,14 @@ if($labs != ''){
             $query = "INSERT into orders(OrderID,AdmissionID,PhysicianID,Task,LaboratoryID,DateOrder,TimeOrder,Status) 
                 VALUES('$orderid','$admissionid','$at','$order','$value','$date','$time','Pending')";
     
-            mysqli_query($con,$query);
+            mysqli_query($conn,$query);
 
             $orderid =  rand(111111, 999999);   
 
             $query2 = "INSERT into laboratory_req(RequestID,LaboratoryID,AdmissionID,Status,DateRequest,TimeRequest) 
             VALUES('$laborderid','$value','$admissionid','Pending','$date','$time')";
 
-            mysqli_query($con,$query2);
+            mysqli_query($conn,$query2);
 
             $laborderid =  rand(111111, 999999); 
         }
@@ -100,12 +100,12 @@ if($labs != ''){
     $query = "INSERT into orders(OrderID,AdmissionID,PhysicianID,Task,LaboratoryID,DateOrder,TimeOrder,Status) 
     VALUES('$orderid','$admissionid','$at','$order','0','$date','$time','Pending')";
 
-    mysqli_query($con,$query);
+    mysqli_query($conn,$query);
 
     $query2 = "INSERT into laboratory_req(RequestID,LaboratoryID,AdmissionID,Status,DateRequest,TimeRequest) 
             VALUES('$laborderid','$value','$admissionid','Pending','$date','$time')";
             
-    mysqli_query($con,$query2);
+    mysqli_query($conn,$query2);
 
     $laborderid =  rand(111111, 999999); 
 }
@@ -121,19 +121,19 @@ if(preg_match("/[A-z]/i", $meds)){
             $query = "INSERT into medication(MedicationID,AdmissionID,MedicineID,DateAdministered,TimeAdministered,PhysicianID) 
                     VALUES('$medicationid','$admissionid','$value','$date','$time','$at')";
 
-            mysqli_query($con,$query);   
+            mysqli_query($conn,$query);   
 
         }
         else{
             $value  = ucwords(strtolower($value));
 
             $query= "INSERT into pharmaceuticals(MedicineID,MedicineName) VALUES ('$pharmaid','$value')";
-            mysqli_query($con,$query);
+            mysqli_query($conn,$query);
 
             $query = "INSERT into medication(MedicationID,AdmissionID,MedicineID,DateAdministered,TimeAdministered,PhysicianID) 
                     VALUES('$medicationid','$admissionid','$value','$date','$time','$at')";
 
-            mysqli_query($con,$query);
+            mysqli_query($conn,$query);
 
             $pharmaid =  rand(111111, 999999);          
         }
@@ -148,7 +148,7 @@ else{
         $query = "INSERT into medication(MedicationID,AdmissionID,MedicineID,DateAdministered,TimeAdministered,PhysicianID) 
                     VALUES('$medicationid','$admissionid','$value','$date','$time','$at')";
 
-        mysqli_query($con,$query);
+        mysqli_query($conn,$query);
     }
 }
 
@@ -160,7 +160,7 @@ if(preg_match("/[A-z]/i", $diagnosis)){
         
         if(is_numeric($value)){
             
-            $sel = mysqli_query($con,"SELECT Conditions FROM conditions WHERE ConditionID='$value'");
+            $sel = mysqli_query($conn,"SELECT Conditions FROM conditions WHERE ConditionID='$value'");
 
             while ($row = mysqli_fetch_assoc($sel)) {
                 $val = $row['Conditions'];
@@ -174,7 +174,7 @@ if(preg_match("/[A-z]/i", $diagnosis)){
                 VALUES('$diagnosisid','$medicalid','$admissionid','$attendingid','$val','$date','$time')";
             }
     
-            mysqli_query($con,$query);  
+            mysqli_query($conn,$query);  
 
 
 
@@ -184,7 +184,7 @@ if(preg_match("/[A-z]/i", $diagnosis)){
 
             $query= "INSERT into conditions(ConditionID,Conditions) VALUES ('$conditionid','$value')";
             
-            mysqli_query($con,$query);
+            mysqli_query($conn,$query);
 
             $conditionid =  rand(111111, 999999);          
 
@@ -196,7 +196,7 @@ if(preg_match("/[A-z]/i", $diagnosis)){
                 VALUES('$diagnosisid','$medicalid',s'$admissionid','$attendingid','$val','$date','$time')";
             }
 
-            mysqli_query($con,$query);  
+            mysqli_query($conn,$query);  
 
 
         }
@@ -207,7 +207,7 @@ if(preg_match("/[A-z]/i", $diagnosis)){
 
     foreach($diagnosis AS $value) {
 
-        $sel = mysqli_query($con,"SELECT Conditions FROM conditions WHERE ConditionID='$value'");
+        $sel = mysqli_query($conn,"SELECT Conditions FROM conditions WHERE ConditionID='$value'");
 
         while ($row = mysqli_fetch_assoc($sel)) {
             $val = $row['Conditions'];
@@ -221,14 +221,14 @@ if(preg_match("/[A-z]/i", $diagnosis)){
             VALUES('$diagnosisid','$medicalid','$admissionid','$attendingid','$val','$date','$time')";
         }
 
-        mysqli_query($con,$query);  
+        mysqli_query($conn,$query);  
 
     }
 }
 if($rate != ''){
     $fee = $rate;
 }else{
-    $sel = mysqli_query($con,"SELECT ProfessionalFee FROM physicians WHERE PhysicianID='$at'");
+    $sel = mysqli_query($conn,"SELECT ProfessionalFee FROM physicians WHERE PhysicianID='$at'");
 
     while ($row = mysqli_fetch_assoc($sel)) {
         $fee = $row['ProfessionalFee'];
@@ -239,7 +239,7 @@ if($rate != ''){
 
 $query= "UPDATE attending_physicians SET DiagnosisID = '$diagnosisid', Rate='$fee' WHERE AdmissionID = '$admissionid' AND AttendingID ='$attendingid' ";
 
-mysqli_query($con,$query);  
+mysqli_query($conn,$query);  
 
 header("Location:../post-diagnosis.php?at=$at&medicationid=$medicationid&id=$admissionid");
 

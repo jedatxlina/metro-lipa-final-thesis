@@ -7,5 +7,5 @@ $rate = $_GET['rate'];
 
 $query= "INSERT into laboratories(LaboratoryID,Description,Rate) VALUES ('$laboratoryid','$description','$rate')";
 
-mysqli_query($con,$query);  
+mysqli_query($conn,$query);  
 ?>
