@@ -14,7 +14,7 @@ $dompdf = new Dompdf();
 $param = isset($_GET['param']) ? $_GET['param'] : '';
 $id = $_GET['at'];
 
-$result = mysqli_query($con,"SELECT a.SecretaryID,b.*,c.*,d.* FROM secretary a, attending_physicians b, medical_details c, patients d WHERE a.SecretaryID = '$id' AND a.PhysicianID = b.PhysicianID AND c.AttendingID = b.AttendingID AND d.MedicalID = c.MedicalID AND d.AdmissionType = 'Outpatient' AND (d.AdmissionID LIKE '%$param%' OR d.AdmissionNo LIKE '%$param%' OR d.AdmissionDate LIKE '%$param%' OR d.AdmissionTime LIKE '%$param%' OR d.FirstName OR '%$param%' OR d.MiddleName OR '%$param%' OR d.LastName LIKE '%$param%' OR d.Admission LIKE '%$param%' OR d.AdmissionType LIKE '%$param%' OR d.Gender LIKE '%$param%')");
+$result = mysqli_query($conn,"SELECT a.SecretaryID,b.*,c.*,d.* FROM secretary a, attending_physicians b, medical_details c, patients d WHERE a.SecretaryID = '$id' AND a.PhysicianID = b.PhysicianID AND c.AttendingID = b.AttendingID AND d.MedicalID = c.MedicalID AND d.AdmissionType = 'Outpatient' AND (d.AdmissionID LIKE '%$param%' OR d.AdmissionNo LIKE '%$param%' OR d.AdmissionDate LIKE '%$param%' OR d.AdmissionTime LIKE '%$param%' OR d.FirstName OR '%$param%' OR d.MiddleName OR '%$param%' OR d.LastName LIKE '%$param%' OR d.Admission LIKE '%$param%' OR d.AdmissionType LIKE '%$param%' OR d.Gender LIKE '%$param%')");
 
 // $html =  '<table>
 // <tr>
