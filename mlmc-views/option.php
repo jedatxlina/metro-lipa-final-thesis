@@ -7,11 +7,11 @@ font-weight: bold;
 }
 </style>
 
-<ol class="breadcrumb">
+<!-- <ol class="breadcrumb">
 <li><a href="index.php">Home</a></li>
 <li><a href="index.php">Patients</a></li>
 <li class="active"><a href="emergency.php">Emergency</a></li>
-</ol>
+</ol> -->
 
 <div class="container-fluid" ng-app="myApp" ng-controller="userCtrl">
   <!-- Modal -->

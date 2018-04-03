@@ -26,34 +26,37 @@
                         </div>
                         <div class="col-lg-3">
                             <div class="panel-body">
-
-                                <div class="form-group">
-                                    <label>Blood Pressure</label>
-                                    <input type="text" ng-model="BP" maxlength="6" class="form-control">
-                                    </select>
-                                </div>
-                                
-      
-                                <div class="form-group">
-                                    <label>Temperature</label>
-                                    <input type="text" ng-model="TEMP" maxlength="5" class="form-control">
-                                    </select>
-                                </div>
-                                <div class="form-group">
-                                    <label>Respiratory Rate</label>
-                                    <input type="text" ng-model="RP" maxlength="3" class="form-control">
-                                    </select>
-                                </div>
-                                <div class="form-group">
-                                    <label>Pulse Rate</label>
-                                    <input type="text" ng-model="PR" maxlength="3" class="form-control">
-                                    </select>
-                                </div>
-
+                                <form class="grid-form" action="javascript:void(0)">
+                                <fieldset>
+                                </fieldset>
+                                </form>
                             </div>
                         </div>
-
                     </div>
+                    <div class="panel-body">
+                                    <form class="grid-form" action="javascript:void(0)">
+                                        <fieldset>
+                                            <div data-row-span="4">
+                                                <div data-field-span="1">
+                                                    <label>BP</label>
+                                                    <input type="text" ng-model="bp" class="form-control tooltips" data-trigger="hover" data-original-title="Separate with /">
+                                                </div>
+                                                <div data-field-span="1">
+                                                    <label>Pulse Rate</label>
+                                                    <input type="text" ng-model="pr">
+                                                </div>
+                                                <div data-field-span="1">
+                                                    <label>Respiratory Rate</label>
+                                                    <input type="text" class="form-control" ng-model="rr" ui-mask="99"  ui-mask-placeholder ui-mask-placeholder-char="-  "/>
+                                                </div>
+                                                <div data-field-span="1">
+                                                    <label>Temperature</label>
+                                                    <input type="text" class="form-control" ng-model="temp">
+                                                </div>
+                                            </div>
+                                        </fieldset>
+                                    </form>
+                                </div>
                     <div class="col-lg-4">
                         <input type="button" class="btn btn-default" value="Cancel" onclick="goBack()">
                         <button ng-click='AddVitals()' class="btn btn-primary">Confirm</button>
@@ -63,6 +66,7 @@
                 </form>
             </div>
         </div>
+        
     </div>
     <?php 
     include '../mlmc-views/getData/get-inpatient-vitals.php';
@@ -73,22 +77,22 @@
             $scope.admissionid = "<?php echo $AdID; ?>"
             $scope.patientname = "<?php echo $Fname.' '.$Mname.' '.$Lname; ?>"
             $scope.AddVitals = function() {
-                    const input = $scope.BP;
+                    const input = $scope.bp;
                     const [sys,dia] = input.split('/');
                     var sys1 = sys;
                     var dia1 = dia;
                     $http.post("../mlmc-views/insertData/patient-vitals-exec.php", {
                         'admissionid': $scope.admissionid,
+                        'nurid': <?php echo $_GET['at'] ?>,
                         'patientname': $scope.patientname,
                         'bloodpressure': sys1,
                         'bloodpressuredia': dia1,
-                        'temperature': $scope.TEMP,
-                        'respiratoryrate': $scope.RP,
-                        'pulserate': $scope.PR
+                        'temperature': $scope.temp,
+                        'respiratoryrate': $scope.rr,
+                        'pulserate': $scope.pr
                     }).then(function(response){
                         window.location.href = 'nurse-patient.php?at=<?php echo $_GET['at'] ?>';
                     });
-
                 };
         });
     </script>
