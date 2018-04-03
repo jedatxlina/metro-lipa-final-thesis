@@ -761,7 +761,11 @@ include 'admin-header.php' ?>
 					}
             
             		$scope.viewReport = function(){
-            			$window.open('try-report.php?param='+$scope.val+'&at='+$scope.at, '_blank');
+						if($scope.val == ''){
+							$window.open('outpatient-list-report.php?at='+$scope.at, '_blank');
+						}else{
+							$window.open('outpatient-list-report.php?at='+$scope.at+'&searchparam='+$scope.val, '_blank');
+						}
             		}
             
             		$scope.getPage = function(check){

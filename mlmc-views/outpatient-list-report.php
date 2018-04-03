@@ -13,16 +13,24 @@
     $at = $_GET['at'];
     $datetime = date("Y-m-d h:i A");
 
-    $sel = mysqli_query($conn,"SELECT *, CONCAT(Firstname, ' ' ,MiddleName, ' ', LastName) AS Fullname FROM admission_staffs WHERE AdmissionStaffID ='$at'");
-
+    switch ($at[0]) {
+        case '2':
+            $sel = mysqli_query($conn,"SELECT *, CONCAT(Firstname, ' ' ,MiddleName, ' ', LastName) AS Fullname FROM admission_staffs WHERE AdmissionStaffID ='$at'");
+            break;
+        
+        default:
+            $sel = mysqli_query($conn,"SELECT *, CONCAT(Firstname, ' ' ,MiddleName, ' ', LastName) AS Fullname FROM secretary WHERE SecretaryID ='$at'");
+            break;
+    }
+   
     while ($row = mysqli_fetch_assoc($sel)) {
         $genfullname = $row['Fullname'];
     }
 
-    if(isset($searchparam)){
-        $query = mysqli_query($conn,"SELECT * FROM patients JOIN medical_details WHERE patients.AdmissionType = 'Emergency' AND patients.MedicalID = medical_details.MedicalID AND (patients.AdmissionID LIKE '%$searchparam%' OR patients.AdmissionNo LIKE '%$searchparam%' OR patients.AdmissionDate LIKE '%$searchparam%' OR patients.AdmissionTime LIKE '%$searchparam%' OR patients.Admission LIKE '%$searchparam%' OR patients.AdmissionType LIKE '%$searchparam%' OR patients.Gender LIKE '%$searchparam%')");
+    if(isset($_GET['searchparam'])){
+        $query = mysqli_query($conn,"SELECT * FROM patients JOIN medical_details WHERE patients.AdmissionType = 'Outpatient' AND patients.MedicalID = medical_details.MedicalID AND (patients.AdmissionID LIKE '%$searchparam%' OR patients.AdmissionNo LIKE '%$searchparam%' OR patients.AdmissionDate LIKE '%$searchparam%' OR patients.AdmissionTime LIKE '%$searchparam%' OR patients.Admission LIKE '%$searchparam%' OR patients.AdmissionType LIKE '%$searchparam%' OR patients.Gender LIKE '%$searchparam%')");
     }else{
-        $query = mysqli_query($conn,"SELECT * FROM patients JOIN medical_details WHERE patients.AdmissionType = 'Emergency' AND patients.MedicalID = medical_details.MedicalID");
+        $query = mysqli_query($conn,"SELECT * FROM patients JOIN medical_details WHERE patients.AdmissionType = 'Outpatient' AND patients.MedicalID = medical_details.MedicalID");
     }
     
     $html = '<link type="text/css" href="assets/plugins/gridforms/gridforms/gridforms.css" rel="stylesheet">

@@ -357,7 +357,7 @@
                             if($scope.othercurrentmed != ''){
                                 $scope.medication = $scope.medication.concat($scope.othercurrentmed);
                             }
-                              
+
                             if($scope.param != 'Outpatient'){
                                     $scope.diagnosis =$("#diagnosis").val();
                                     $scope.found3 = $scope.diagnosis.indexOf('Others');
@@ -427,7 +427,7 @@
                                         height: $scope.height,
                                         attending: $scope.attendingphysician}
                                 }).then(function(response) {
-                                    window.location.href = 'insertData/insert-condition-details.php?param=' + $scope.param + '&at=' + $scope.at + '&admissionid=' + $scope.admissionid + '&condition=' + $scope.condition + '&medid=' + $scope.medid;
+                                    window.location.href = 'insertData/insert-condition-details.php?param=' + $scope.param + '&at=' + $scope.at + '&admissionid=' + $scope.admissionid + '&condition=' + $scope.condition + '&medid=' + $scope.medid + '&medication=' + $scope.medication;
                                 });   
                             }
                     }
