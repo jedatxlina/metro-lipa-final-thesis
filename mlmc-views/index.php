@@ -192,8 +192,7 @@ function initMap() {
 					if ($scope.PW == "mlmc")
 					{
 						window.location.href = 'user-details.php?at=' + $scope.at;
-					}
-							
+					}		
 				});
 
 				if ($scope.at[0] == 1)

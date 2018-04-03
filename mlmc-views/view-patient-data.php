@@ -27,13 +27,13 @@
         <div data-widget-group="group1">
             <div class="row">
                 <div class="col-sm-3">
-                    <div class="panel panel-profile">
+                    <div class="panel panel-profile">   
                         <div class="panel-body"  data-ng-repeat="patient in patientdetails">
                             <img ng-src="{{patient.QRpath}}">
                             <div class="name">{{patient.Lastname}}, {{patient.Firstname}} {{patient.Middlename}}</div>
                             <div class="info">{{patient.AdmissionID}}</div>  
                             <br>
-                            <a ng-click="printQR()"><i class="ti ti-printer"></i>&nbsp; Print QR Code</a>
+                            <a ng-click="printQR()" ng-if="chckval != 7"><i class="ti ti-printer"></i>&nbsp; Print QR Code</a>
                         </div>
                         <center>
                      
@@ -41,7 +41,6 @@
                     <div class="list-group list-group-alternate mb-n nav nav-tabs">
                         <a href="#tab-about" 	role="tab" data-toggle="tab" class="list-group-item active"><i class="ti ti-user"></i> About </a>
                         <a href="#tab-details" role="tab" data-toggle="tab" class="list-group-item"><i class="fa fa-stethoscope"></i>Medical Details</a>
-                        <a href="#tab-timeline" role="tab" data-toggle="tab" class="list-group-item"><i class="ti ti-time"></i>Medical  Activities</a>
                         <a href="#tab-projects" role="tab" data-toggle="tab" class="list-group-item"><i class="ti ti-view-list-alt"></i> Medical History</a>
                         <a href="#tab-edit" 	role="tab" data-toggle="tab" class="list-group-item"><i class="ti ti-pencil"></i> Edit</a>
                     </div>
@@ -134,7 +133,39 @@
                         </div> <!-- #tab-projects -->
 
                         <div class="tab-pane" id="tab-projects">
-                            <div class="panel panel-default">
+                                <div class="panel panel-danger">
+                                    <div class="panel-heading">
+                                        <h2>Medical History</h2><a ng-click="viewMedicationReport()" class="pull-right"><i class="ti ti-printer"></i></a>
+                                        <div class="panel-ctrls"></div>
+                                    </div>
+                                        <div class="panel-body">
+                                            <div class="table-responsive"  data-ng-repeat="patient in patientdetails">
+                                                <table id="medhistory_table" class="table table-striped table-bordered" cellspacing="0" width="100%">
+                                                    <thead>
+                                                    <tr>
+                                                        <th>Patient Name</th>
+                                                        <th>Admission ID</th>
+                                                        <th>Admission Date</th>
+                                                        <th>Admission Time</th>
+                                                        <th>Medical ID</th>
+                                                    </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                    <tr ng-repeat="history in patienthistory" ng-class="{'selected': history.ArchiveID == selectedRow}" ng-click="setClickedRow(history.ArchiveID)">
+                                                        <td>{{history.Firstname}} {{history.Middlename}} {{history.Lastname}}</td>
+                                                        <td>{{history.ArchiveID}}</td>
+                                                        <td>{{history.AdmissionDate}}</td>
+                                                        <td>{{history.AdmissionTime}}</td>
+                                                         <td>{{history.MedicalID}}</td>
+                                                        </tr>
+                                                    </tbody>
+                                                </table>
+                                            </div>
+                                        </div>
+                                    <div class="panel-footer">
+                                    </div>
+                                </div>       
+                           <!-- <div class="panel panel-default">
                                 <div class="panel-heading">
                                     <h2>Medical History</h2>
                                 </div>
@@ -163,10 +194,10 @@
                                                 </tr>
                                             </tbody>
                                         </table>
-                                    </div><!-- /.table-responsive -->
-                                </div> <!-- /.panel-body -->
-                            </div>
-                        </div> <!-- #tab-projects -->
+                                    </div>
+                                </div>
+                            </div> -->
+                        </div>
 
                         <div class="tab-pane active" id="tab-about">
                             <div class="panel panel-danger">
@@ -229,77 +260,6 @@
                                                         </div>
                                                 </fieldset>
                                             </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="tab-pane" id="tab-timeline">
-                            <div class="panel">
-                                <div class="panel-heading">
-                                    <h2>Activity Timeline</h2>
-                                </div>
-                                <div class="panel-body">
-                                    <div class="row">
-                                        <div class="col-md-12">
-                                            <ul class="timeline">
-                                                <li class="timeline-primary">
-                                                    <div class="timeline-icon"><i class="ti ti-pencil"></i></div>
-                                                    <div class="timeline-body">
-                                                        <div class="timeline-header">
-                                                            <span class="author">Posted by <a href="#">David Tennant</a></span>
-                                                            <span class="date">Monday, November 21, 2013</span>
-                                                        </div>
-                                                        <div class="timeline-content">
-                                                            <h4>Consectetur Adipisicing Elit</h4>
-                                                            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Officia, officiis, molestiae, deserunt asperiores architecto ut vel repudiandae dolore inventore nesciunt necessitatibus doloribus ratione facere consectetur suscipit!</p>
-                                                        </div>
-                                                    </div>
-                                                </li>
-                                                <li class="timeline-info">
-                                                    <div class="timeline-icon"><i class="ti ti-heart"></i></div>
-                                                    <div class="timeline-body">
-                                                        <div class="timeline-header">
-                                                            <span class="author">Posted by <a href="#">David Tennant</a></span>
-                                                            <span class="date">Monday, November 21, 2013</span>
-                                                        </div>
-                                                        <div class="timeline-content">
-                                                            <h4>Consectetur Adipisicing Elit</h4>
-                                                            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Officia, officiis, molestiae, deserunt asperiores architecto ut vel repudiandae dolore inventore nesciunt necessitatibus doloribus ratione facere consectetur suscipit!</p>
-                                                        </div>
-                                                    </div>
-                                                </li>
-                                                <li class="timeline-warning">
-                                                    <div class="timeline-icon"><i class="ti ti-camera"></i></div>
-                                                    <div class="timeline-body">
-                                                        <div class="timeline-header">
-                                                            <span class="author">Posted by <a href="#">David Tennant</a></span>
-                                                            <span class="date">Monday, November 21, 2013</span>
-                                                        </div>
-                                                        <div class="timeline-content">
-                                                            <h4>Consectetur Adipisicing Elit</h4>
-                                                            <ul class="list-inline">
-                                                                <li><img src="http://placehold.it/300&text=Placeholder" alt="" class="pull-left img-thumbnail img-responsive clearfix" width="200"></li>
-                                                                <li><img src="http://placehold.it/300&text=Placeholder" alt="" class="pull-left img-thumbnail img-responsive clearfix" width="200"></li>
-                                                            </ul>
-                                                        </div>
-                                                    </div>
-                                                </li>
-                                                <li class="timeline-danger">
-                                                    <div class="timeline-icon"><i class="ti ti-home"></i></div>
-                                                    <div class="timeline-body">
-                                                        <div class="timeline-header">
-                                                            <span class="author">Posted by <a href="#">David Tennant</a></span>
-                                                            <span class="date">Monday, November 21, 2013</span>
-                                                        </div>
-                                                        <div class="timeline-content">
-                                                            <h4>Consectetur Adipisicing Elit</h4>
-                                                            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Officia, officiis, molestiae, deserunt asperiores architecto ut vel repudiandae dolore inventore nesciunt necessitatibus doloribus ratione facere consectetur suscipit!</p>
-                                                        </div>
-                                                    </div>
-                                                </li>
-                                            </ul>
                                         </div>
                                     </div>
                                 </div>
@@ -422,11 +382,12 @@
        fetch.controller('userCtrl', ['$scope', '$http','$window', function($scope, $http,$window) {
            $scope.at = "<?php echo $_GET['at'];?>";
            $scope.id = "<?php echo $_GET['id'];?>";
+           $scope.chckval = $scope.at.charAt(0);
            $scope.selectedRow = null;
            $scope.selectedStatus = null;
            $scope.clickedRow = 0;
            $scope.new = {};
-       
+            
             switch ($scope.at.charAt(0)) {
                 case '1':
                     $scope.User = "Administrator";
@@ -470,11 +431,23 @@
 				});
     
             $http({
-            method: 'GET',
-            url: 'getData/get-patient-details.php',
-            params: {id: $scope.id}
+                method: 'GET',
+                url: 'getData/get-patient-details.php',
+                params: {id: $scope.id}
             }).then(function(response) {
                 $scope.patientdetails = response.data;
+            });
+
+            $http({
+                method: 'GET',
+                url: 'getData/get-history-details.php',
+                params: {id: $scope.id}
+            }).then(function(response) {
+                $scope.patienthistory = response.data;
+                angular.element(document).ready(function() {  
+                dTable = $('#medhistory_table')  
+                dTable.DataTable();  
+            	});  
             });
 
             $http({
@@ -501,7 +474,8 @@
 
            $scope.viewMedicationReport = function(){
                if($scope.val == ''){
-                $window.open('view-medication-report.php?at='+$scope.at+'&id='+$scope.id, '_blank');+'&searchparam='+$scope.val
+            
+                $window.open('view-medication-report.php?at='+$scope.at+'&id='+$scope.id, '_blank');
                }else{
                 $window.open('view-medication-report.php?at='+$scope.at+'&id='+$scope.id+'&searchparam='+$scope.val, '_blank');
                }

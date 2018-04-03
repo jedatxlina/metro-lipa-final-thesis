@@ -15,7 +15,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         $email = $conn->escape_string($_POST['email']);
         $hash = $conn->escape_string($_POST['hash']);
         
-        $sql = "UPDATE users SET password='$new_password', hash='$hash' WHERE email='$email'";
+        $sql = "UPDATE user_account SET Passwordd='$new_password', hash='$hash' WHERE Email='$email'";
 
         if ( $conn->query($sql) ) {
 

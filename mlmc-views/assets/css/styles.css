@@ -23785,7 +23785,7 @@ span[data-style="panel-brown"] {
   font-size: 14px;
 }
 .widget-progress .panel-body {
-  background-color: #37474f;
+  background-color: #FFFFFF;
   border-bottom-left-radius: 0;
   border-bottom-right-radius: 0;
 }
@@ -24597,7 +24597,7 @@ textarea.tt-hint:focus {
   content: '%';
 }
 .easypiechart .percent-non {
-  color: #fff;
+  color: rgb(3, 3, 3);
   font-weight: normal;
   font-size: 36px;
 }

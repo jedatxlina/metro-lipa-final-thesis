@@ -3,15 +3,22 @@ require_once 'getData/connection.php';
 $at = $_POST['at'];
 
 switch ($at[0]) {
+    case '1':
+        $sel = mysqli_query($conn,"SELECT pathPhoto FROM admin WHERE AdminID = '$at'");
+        while ($row = mysqli_fetch_assoc($sel)) {
+            $pathPhoto = $row['pathPhoto'];
+        }
+        break;
+
     case '2':
-        $sel = mysqli_query($con,"SELECT pathPhoto FROM admission_staffs WHERE AdmissionStaffID = '$at'");
+        $sel = mysqli_query($conn,"SELECT pathPhoto FROM admission_staffs WHERE AdmissionStaffID = '$at'");
         while ($row = mysqli_fetch_assoc($sel)) {
             $pathPhoto = $row['pathPhoto'];
         }
         break;
 
     case '3':
-        $sel = mysqli_query($con,"SELECT pathPhoto FROM nurses WHERE NurseID = '$at'");
+        $sel = mysqli_query($conn,"SELECT pathPhoto FROM nurses WHERE NurseID = '$at'");
         while ($row = mysqli_fetch_assoc($sel)) {
             $pathPhoto = $row['pathPhoto'];
         }
@@ -19,14 +26,14 @@ switch ($at[0]) {
 
 
     case '4':
-        $sel = mysqli_query($con,"SELECT pathPhoto FROM physicians WHERE PhysicianID = '$at'");
+        $sel = mysqli_query($conn,"SELECT pathPhoto FROM physicians WHERE PhysicianID = '$at'");
         while ($row = mysqli_fetch_assoc($sel)) {
             $pathPhoto = $row['pathPhoto'];
         }
         break;
 
     case '7':
-        $sel = mysqli_query($con,"SELECT pathPhoto FROM secretary WHERE SecretaryID = '$at'");
+        $sel = mysqli_query($conn,"SELECT pathPhoto FROM secretary WHERE SecretaryID = '$at'");
         while ($row = mysqli_fetch_assoc($sel)) {
             $pathPhoto = $row['pathPhoto'];
         }
@@ -64,24 +71,29 @@ switch ($at[0]) {
                     if(move_uploaded_file($file_tmp,$file_destionation)){
 
                         switch ($at[0]) {
+                            case '1':
+                                $query = "UPDATE admin SET pathPhoto = '$file_destionation' WHERE AdminID='$at'";
+                                mysqli_query($conn,$query); 
+                                break;
+
                             case '2':
                                 $query = "UPDATE admission_staffs SET pathPhoto = '$file_destionation' WHERE AdmissionStaffID='$at'";
-                                mysqli_query($con,$query); 
+                                mysqli_query($conn,$query); 
                                 break;
 
                             case '3':
                                 $query = "UPDATE nurses SET pathPhoto = '$file_destionation' WHERE NurseID='$at'";
-                                mysqli_query($con,$query); 
+                                mysqli_query($conn,$query); 
                                 break;
 
                             case '4':
                                 $query = "UPDATE physicians SET pathPhoto = '$file_destionation' WHERE PhysicianID='$at'";
-                                mysqli_query($con,$query); 
+                                mysqli_query($conn,$query); 
                                 break;
 
                              case '7':
                                 $query = "UPDATE secretary SET pathPhoto = '$file_destionation' WHERE SecretaryID='$at'";
-                                mysqli_query($con,$query); 
+                                mysqli_query($conn,$query); 
                                 break;
                             
                             default:

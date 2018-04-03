@@ -682,6 +682,11 @@ font-weight: bold;
             $scope.physicians = response.data;
         });
 		   
+		$('#patient_table').on('search.dt', function() {
+            var value = $('.dataTables_filter input').val();
+            $scope.val = value;
+        });    
+
 		$scope.setClickedRow = function(user) {
            $scope.selectedRow = ($scope.selectedRow == null) ? user : ($scope.selectedRow == user) ? null : user;
            $scope.clickedRow = ($scope.selectedRow == null) ? 0 : 1;
@@ -788,7 +793,11 @@ font-weight: bold;
 		}
 
 		$scope.viewReport = function(){
-			$window.open('try-report.php', '_blank');
+			if($scope.val == ''){
+				$window.open('emergency-list-report.php?at='+$scope.at, '_blank');
+		   	}else{
+				$window.open('emergency-list-report.php?at='+$scope.at+'&searchparam='+$scope.val, '_blank');
+		   	}
 		}
 
 		$scope.viewPatientDetails = function(){

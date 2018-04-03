@@ -9,7 +9,7 @@ if($id != ''){
 }else{
     $query = "SELECT b.PhysicianID,b.AdmissionID,c.*, CONCAT(d.Firstname, ' ' ,d.MiddleName, ' ', d.LastName) AS Pname,e.PhysicianID, CONCAT(e.Firstname, ' ' ,e.MiddleName, ' ', e.LastName) AS Dname FROM attending_physicians b, orders c, patients d, physicians e WHERE c.PhysicianID = b.PhysicianID AND b.AdmissionID = c.AdmissionID AND c.Status = 'Pending' AND d.AdmissionID = b.AdmissionID AND b.PhysicianID = e.PhysicianID AND d.AdmissionType = 'Inpatient'";
 }
-$sel = mysqli_query($con,$query);
+$sel = mysqli_query($conn,$query);
 
 $data = array();
 
