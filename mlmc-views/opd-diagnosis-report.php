@@ -16,14 +16,14 @@ $orderid = $_GET['orderid'];
 $date = date("Y-m-d");
 $datetime = date("Y-m-d h:i A");
 
-$sel = mysqli_query($con,"SELECT *, CONCAT(Firstname, ' ' ,MiddleName, ' ', LastName) AS Fullname FROM secretary WHERE SecretaryID ='$at'");
+$sel = mysqli_query($conn,"SELECT *, CONCAT(Firstname, ' ' ,MiddleName, ' ', LastName) AS Fullname FROM secretary WHERE SecretaryID ='$at'");
 
 
 while ($row = mysqli_fetch_assoc($sel)) {
     $fullname = $row['Fullname'];
 }
 
-$result = mysqli_query($con,"SELECT a.SecretaryID,a.PhysicianID,b.PhysicianID,b.AdmissionID,b.AttendingID,c.*,d.Gender,d.AdmissionType, CONCAT(d.Firstname, ' ' ,d.MiddleName, ' ', d.LastName) AS Pname,e.PhysicianID, CONCAT(e.Firstname, ' ' ,e.MiddleName, ' ', e.LastName) AS Dname,f.AdmissionID, GROUP_CONCAT(f.Findings SEPARATOR ', ') AS Findings FROM secretary a, attending_physicians b, orders c, patients d, physicians e, diagnosis f WHERE a.SecretaryID = '$at' AND a.PhysicianID = b.PhysicianID AND c.PhysicianID = b.PhysicianID AND b.AdmissionID = c.AdmissionID AND c.Status = 'Pending' AND d.AdmissionID = b.AdmissionID AND b.PhysicianID = e.PhysicianID AND c.OrderID = '$orderid' AND f.AdmissionID ='$id'");
+$result = mysqli_query($conn,"SELECT a.SecretaryID,a.PhysicianID,b.PhysicianID,b.AdmissionID,b.AttendingID,c.*,d.Gender,d.AdmissionType, CONCAT(d.Firstname, ' ' ,d.MiddleName, ' ', d.LastName) AS Pname,e.PhysicianID, CONCAT(e.Firstname, ' ' ,e.MiddleName, ' ', e.LastName) AS Dname,f.AdmissionID, GROUP_CONCAT(f.Findings SEPARATOR ', ') AS Findings FROM secretary a, attending_physicians b, orders c, patients d, physicians e, diagnosis f WHERE a.SecretaryID = '$at' AND a.PhysicianID = b.PhysicianID AND c.PhysicianID = b.PhysicianID AND b.AdmissionID = c.AdmissionID AND c.Status = 'Pending' AND d.AdmissionID = b.AdmissionID AND b.PhysicianID = e.PhysicianID AND c.OrderID = '$orderid' AND f.AdmissionID ='$id'");
 
 while ($row = mysqli_fetch_assoc($result)) {   
     $admissionid = $row['AdmissionID'];
@@ -35,7 +35,7 @@ while ($row = mysqli_fetch_assoc($result)) {
     $task = $row['Task'];
 }
 
-$sel = mysqli_query($con,"SELECT a.MedicineID, a.MedicineName,b.*,c.DosingID,c.Intake FROM pharmaceuticals a, medication b,dosing_time c WHERE b.AdmissionID = '$id' AND b.MedicineID = a.MedicineID AND b.DosingID != 0 AND c.DosingID = b.DosingID");
+$sel = mysqli_query($conn,"SELECT a.MedicineID, a.MedicineName,b.*,c.DosingID,c.Intake FROM pharmaceuticals a, medication b,dosing_time c WHERE b.AdmissionID = '$id' AND b.MedicineID = a.MedicineID AND b.DosingID != 0 AND c.DosingID = b.DosingID");
 
 
 

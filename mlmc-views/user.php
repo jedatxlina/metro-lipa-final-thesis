@@ -156,7 +156,7 @@
                                 <label>Select Physician</label>
                                 <select class="form-control" ng-model="assignedphysician" style="width:620px;">
                                     <optgroup label="List of Doctors">
-                                        <option ng-repeat="physician in physicians" value="{{physician.AccountID}}">Dr. {{physician.Fullname}}</option>
+                                        <option ng-repeat="physician in physicians" value="{{physician.PhysicianID}}">Dr. {{physician.Fullname}}</option>
                                     </optgroup>    
                                 </select>
                             </div>
@@ -490,16 +490,15 @@
               }if($scope.accesstype == 8){
                 $scope.accountid = "<?php echo "8" .  rand(10000, 99999); ?>"
                 }
-                
-          }
+            }
 
-          $scope.setClickedRow = function(user) {
-              $scope.selectedRow = user;
-          }
+            $scope.setClickedRow = function(user) {
+                $scope.selectedRow = user;
+            }
    
-          $scope.setClickedRow = function (index) {
-          $scope.selectedRow = ($scope.selectedRow == index) ? null : index;
-          }
+            $scope.setClickedRow = function (index) {
+                $scope.selectedRow = ($scope.selectedRow == index) ? null : index;
+            }
 
             $scope.Add = function() {
                 $scope.password="mlmc";
@@ -507,11 +506,8 @@
             }
 
             $scope.Update = function() {
-                
                 window.location.href = 'updateData/update-user-details.php?at=' + $scope.at + '&accountid=' + $scope.accid + '&password=' + $scope.pword + '&email=' + $scope.mail;
-         
-        
-               }
+            }
 
             $scope.UpdateDetails = function() {
 

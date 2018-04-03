@@ -5,6 +5,10 @@ $id = $_GET['id'];
 $accesstype = $_GET['atype'];
 
 switch ($accesstype) {
+	case '1':
+	$query= "SELECT * FROM admin JOIN user_account WHERE admin.AdminID = '$id' AND user_account.AccountID = '$id'";
+	break;
+
 	case '2':
 	$query= "SELECT * FROM admission_staffs JOIN user_account WHERE admission_staffs.AdmissionStaffID = '$id' AND user_account.AccountID = '$id' ";
 	break;
@@ -38,7 +42,7 @@ switch ($accesstype) {
 
 }
 
-$sel = mysqli_query($con,$query);
+$sel = mysqli_query($conn,$query);
 $data = array();
 
 	if ($accesstype == 4)

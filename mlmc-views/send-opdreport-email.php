@@ -7,13 +7,14 @@
     Dompdf\Autoloader::register();
     
     use Dompdf\Dompdf;
-	// You need to install the sendgrid client library so run: composer require sendgrid/sendgrid
-	require './vendor/autoload.php';
-	// contains a variable called: $API_KEY that is the API Key.
-	// You need this API_KEY created on the Sendgrid website.
+    // You need to install the sendgrid client library so run: composer require sendgrid/sendgrid
+    require './vendor/autoload.php';
+    // contains a variable called: $API_KEY that is the API Key.
+    // You need this API_KEY created on the Sendgrid website.
     include_once('./credentials.php');
     
     $dompdf = new Dompdf();
+
     $at = $_GET['at'];
     $id = $_GET['id'];
     $orderid = $_GET['orderid'];
@@ -21,14 +22,14 @@
     $date = date("Y-m-d");
     $datetime = date("Y-m-d h:i A");
     
-    $sel = mysqli_query($con,"SELECT *, CONCAT(Firstname, ' ' ,MiddleName, ' ', LastName) AS Fullname FROM secretary WHERE SecretaryID ='$at'");
+    $sel = mysqli_query($conn,"SELECT *, CONCAT(Firstname, ' ' ,MiddleName, ' ', LastName) AS Fullname FROM secretary WHERE SecretaryID ='$at'");
 
 
     while ($row = mysqli_fetch_assoc($sel)) {
         $fullname = $row['Fullname'];
     }
 
-    $result = mysqli_query($con,"SELECT a.SecretaryID,a.PhysicianID,b.PhysicianID,b.AdmissionID,b.AttendingID,c.*,d.Gender,d.AdmissionType, CONCAT(d.Firstname, ' ' ,d.MiddleName, ' ', d.LastName) AS Pname,e.PhysicianID, CONCAT(e.Firstname, ' ' ,e.MiddleName, ' ', e.LastName) AS Dname,f.AdmissionID, GROUP_CONCAT(f.Findings SEPARATOR ', ') AS Findings FROM secretary a, attending_physicians b, orders c, patients d, physicians e, diagnosis f WHERE a.SecretaryID = '$at' AND a.PhysicianID = b.PhysicianID AND c.PhysicianID = b.PhysicianID AND b.AdmissionID = c.AdmissionID AND c.Status = 'Pending' AND d.AdmissionID = b.AdmissionID AND b.PhysicianID = e.PhysicianID AND c.OrderID = '$orderid' AND f.AdmissionID ='$id'");
+    $result = mysqli_query($conn,"SELECT a.SecretaryID,a.PhysicianID,b.PhysicianID,b.AdmissionID,b.AttendingID,c.*,d.Gender,d.AdmissionType, CONCAT(d.Firstname, ' ' ,d.MiddleName, ' ', d.LastName) AS Pname,e.PhysicianID, CONCAT(e.Firstname, ' ' ,e.MiddleName, ' ', e.LastName) AS Dname,f.AdmissionID, GROUP_CONCAT(f.Findings SEPARATOR ', ') AS Findings FROM secretary a, attending_physicians b, orders c, patients d, physicians e, diagnosis f WHERE a.SecretaryID = '$at' AND a.PhysicianID = b.PhysicianID AND c.PhysicianID = b.PhysicianID AND b.AdmissionID = c.AdmissionID AND c.Status = 'Pending' AND d.AdmissionID = b.AdmissionID AND b.PhysicianID = e.PhysicianID AND c.OrderID = '$orderid' AND f.AdmissionID ='$id'");
 
     while ($row = mysqli_fetch_assoc($result)) {   
         $admissionid = $row['AdmissionID'];
@@ -40,7 +41,7 @@
         $task = $row['Task'];
     }
 
-    $sel = mysqli_query($con,"SELECT a.MedicineID, a.MedicineName,b.*,c.DosingID,c.Intake FROM pharmaceuticals a, medication b,dosing_time c WHERE b.AdmissionID = '$id' AND b.MedicineID = a.MedicineID AND b.DosingID != 0 AND c.DosingID = b.DosingID");
+    $sel = mysqli_query($conn,"SELECT a.MedicineID, a.MedicineName,b.*,c.DosingID,c.Intake FROM pharmaceuticals a, medication b,dosing_time c WHERE b.AdmissionID = '$id' AND b.MedicineID = a.MedicineID AND b.DosingID != 0 AND c.DosingID = b.DosingID");
 
 
 	$FROM_EMAIL = 'jmatthewatx.lina@gmail.com';
@@ -48,12 +49,12 @@
 	$TO_EMAIL = 'jmatthewatx.lina@gmail.com';
 	// Try to be nice. Take a look at the anti spam laws. In most cases, you must
 	// have an unsubscribe. You also cannot be misleading.
-    $subject = "Diagnosis Report";
+   $subject = "Diagnosis Report";
     
 	$from = new SendGrid\Email(null, $FROM_EMAIL);
-    $to = new SendGrid\Email(null, $TO_EMAIL);
+  $to = new SendGrid\Email(null, $TO_EMAIL);
     
-    $htmlContent = "<!DOCTYPE html PUBLIC '-//W3C//DTD XHTML 1.0 Transitional //EN' 'http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd'><!--[if IE]><html xmlns='http://www.w3.org/1999/xhtml' class='ie'><![endif]--><!--[if !IE]><!--><html style='margin: 0;padding: 0;' xmlns='http://www.w3.org/1999/xhtml'><!--<![endif]--><head>
+  $htmlContent = "<!DOCTYPE html PUBLIC '-//W3C//DTD XHTML 1.0 Transitional //EN' 'http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd'><!--[if IE]><html xmlns='http://www.w3.org/1999/xhtml' class='ie'><![endif]--><!--[if !IE]><!--><html style='margin: 0;padding: 0;' xmlns='http://www.w3.org/1999/xhtml'><!--<![endif]--><head>
         <meta http-equiv='Content-Type' content='text/html; charset=utf-8' />
         <title></title>
         <!--[if !mso]><!--><meta http-equiv='X-UA-Compatible' content='IE=edge' /><!--<![endif]-->
@@ -830,15 +831,15 @@
     $mail = new SendGrid\Mail($from, $subject, $to, $content);
     $mail->addAttachment($attachment);
 	
-	$sg = new \SendGrid($API_KEY);
-	$response = $sg->client->mail()->send()->post($mail);
+    $sg = new \SendGrid($API_KEY);
+    $response = $sg->client->mail()->send()->post($mail);
 			
-	if ($response->statusCode() == 202) {
-		// Successfully sent
-        // echo 'done';
-        echo '<script> window.setTimeout("window.close()", 100); </script>';
-	} else {
-		echo 'false';
-	}
+    if ($response->statusCode() == 202) {
+      // Successfully sent
+          // echo 'done';
+          echo '<script> window.setTimeout("window.close()", 100); </script>';
+    } else {
+      echo 'false';
+    }
 
    

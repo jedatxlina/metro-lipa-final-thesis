@@ -47,6 +47,7 @@
 <!-- End loading site level scripts -->
 <!-- Load page level scripts-->
 
+<script type="text/javascript" src="assets/plugins/easypiechart/jquery.easypiechart.js"></script>
 <script async defer
     src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCLfminQLvZltEX8k-JYWgfi0lmOn1vAXk&callback=initMap">
 </script>
@@ -78,7 +79,6 @@
 <script type="text/javascript" src="assets/plugins/sparklines/jquery.sparklines.min.js"></script> 			 <!-- Sparkline -->
 
 <script type="text/javascript" src="assets/plugins/switchery/switchery.js"></script>     					<!-- Switchery -->
-<script type="text/javascript" src="assets/plugins/easypiechart/jquery.easypiechart.js"></script>
 
 <script type="text/javascript" src="assets/plugins/fullcalendar/moment.min.js"></script> 		 			<!-- Moment.js Dependency -->
 <script type="text/javascript" src="assets/plugins/fullcalendar/fullcalendar.min.js"></script>   			<!-- Calendar Plugin -->

@@ -37,16 +37,16 @@
 
     if(isset($_GET['admissionid']) && isset($_GET['medid'])){
         $query = "UPDATE medical_details SET QR_Path = '$qrpath' WHERE MedicalID = '$medid'";
-        mysqli_query($con,$query);
+        mysqli_query($conn,$query);
     }else{
-        $sel = mysqli_query($con,"SELECT MedicalID FROM medical_details WHERE AdmissionID = '$data'");
+        $sel = mysqli_query($conn,"SELECT MedicalID FROM medical_details WHERE AdmissionID = '$data'");
 
         while ($row = mysqli_fetch_assoc($sel)) {
         $medid = $row['MedicalID'];
         }
         
         $query = "UPDATE medical_details SET QR_Path = '$qrpath' WHERE MedicalID = '$medid'";
-        mysqli_query($con,$query);
+        mysqli_query($conn,$query);
     }
 
 ?>
