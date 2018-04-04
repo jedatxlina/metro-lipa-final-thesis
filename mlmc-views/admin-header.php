@@ -128,7 +128,7 @@
 										<li     <?php if ($id!=1 && $id!=3){?>style="display:none"<?php } ?>><a href="javascript:;"><i class="fa fa-stethoscope"></i><span>Nursing Services</span></a>
                                             <ul class="acc-menu" <?php if ($activeMenu =="nurse") {?> style="display:block;" class="active" <?php } ?> >
 											<li><a ng-click="getPage('Confined')" href="javascript:void(0);"><i class="fa fa-medkit"></i><span>&emsp;Confined Patients</span></a></li>
-											<li <?php if ($id!=1){?>style="display:none"<?php } ?>><a ng-click="getPage('Bed')" href="javascript:void(0);"><i class="fa fa-bed"></i><span>&emsp;Beds</span></a></li>
+											<li <?php if ($id!=1 && $id!=3){?>style="display:none"<?php } ?>><a ng-click="getPage('Bed')" href="javascript:void(0);"><i class="fa fa-bed"></i><span>&emsp;Beds</span></a></li>
                                             </ul>
                                         </li>
 										<li <?php if ($activeMenu =="physician") {?> style="display:block;" class="active" <?php } ?>   <?php if ($id!=1 && $id!=4){?>style="display:none"<?php } ?>><a ng-click="getPage('Physician')" href="javascript:void(0);"><i class="fa fa-user-md"></i><span>Physician Services</span></a></li>
