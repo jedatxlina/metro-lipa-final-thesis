@@ -1,11 +1,11 @@
 
-      <footer role="contentinfo">
+      <!-- <footer role="contentinfo">
             <div class="clearfix">
                 <ul class="list-unstyled list-inline pull-left">
                     <li><h6>&copy; 2018 Team MAD</h6></li>
                 </ul>
             </div>
-        </footer>
+        </footer> -->
       </div>
       <!-- .container-fluid -->
    </div>
@@ -16,11 +16,6 @@
 </div>
 
 
-                </div>
-            </div>
-        </div>
-    </div>
-  
 <script type="text/javascript" src="assets/js/jquery-1.10.2.min.js"></script> 							<!-- Load jQuery -->
 <script type="text/javascript" src="assets/js/jqueryui-1.10.3.min.js"></script> 							<!-- Load jQueryUI -->
 <script type="text/javascript" src="assets/js/bootstrap.min.js"></script> 								<!-- Load Bootstrap -->

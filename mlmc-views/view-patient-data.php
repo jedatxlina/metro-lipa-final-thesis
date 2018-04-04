@@ -42,7 +42,7 @@
                         <a href="#tab-about" 	role="tab" data-toggle="tab" class="list-group-item active"><i class="ti ti-user"></i> About </a>
                         <a href="#tab-details" role="tab" data-toggle="tab" class="list-group-item"><i class="fa fa-stethoscope"></i>Medical Details</a>
                         <a href="#tab-projects" role="tab" data-toggle="tab" class="list-group-item"><i class="ti ti-view-list-alt"></i> Medical History</a>
-                        <a href="#tab-edit" 	role="tab" data-toggle="tab" class="list-group-item"><i class="ti ti-pencil"></i> Edit</a>
+                        <a href="#tab-edit" 	role="tab" data-toggle="tab" clata-toggle="tab" class="list-group-item" ng-if="chckval != 1"> <i class="ti ti-pencil"></i> Edit</a>
                     </div>
                 </div><!-- col-sm-3 -->
                 <div class="col-sm-9">
@@ -112,11 +112,11 @@
                                                             </tr>
                                                         </thead>
                                                         <tbody>
-                                                            <tr  ng-repeat="med in medications track by $index" ng-class="{'selected': med.MedicationID == selectedRow}" ng-click="setClickedRow(med.MedicationID)">
+                                                            <tr  ng-repeat="med in medications track by $index">
                                                                 <td>{{$index}}</td>
                                                                 <td>{{med.MedicineName}}</td>
-                                                                <td>{{med.Dosage}}</td>
-                                                                <td>{{med.Quantity}}</td>
+                                                                <td>{{med.Unit}}</td>
+                                                                <td>{{med.Intake}}</td>
                                                             </tr>
                                                         </tbody>
                                                 </table>
@@ -346,13 +346,13 @@
                                                     <tr>
                                                         <th>Province</th>
                                                         <td><input type="text" class="form-control" ng-model="patient.Province"></td>
-                                                      
+                                                        <th>Citizenship</th>
+                                                        <td><input type="text" class="form-control" ng-model="patient.Citizenship"></td>
                                                     </tr>
                                                     <tr>
                                                         <th>City</th>
                                                         <td><input type="text" class="form-control" ng-model="patient.City"></td>
-                                                        <th>Citizenship</th>
-                                                        <td><input type="text" class="form-control" ng-model="patient.Citizenship"></td>
+                                                   
                                                     </tr>
                                                     </tbody>
                                                     
@@ -456,29 +456,23 @@
             params: {id: $scope.id}
             }).then(function(response) {
                 $scope.medications = response.data;
-                angular.element(document).ready(function() {  
-            				dTable = $('#medications_table')  
-            				dTable.DataTable();  
-            				});  
+                // angular.element(document).ready(function() {  
+            	// 			dTable = $('#medications_table')  
+            	// 			dTable.DataTable();  
+            	// 			});  
             });
 
-           	$('#medications_table').on('search.dt', function() {
-            	var value = $('.dataTables_filter input').val();
-            	$scope.val = value;
-            });    
+           
 
            $scope.setClickedRow = function(lab) {
                $scope.selectedRow = ($scope.selectedRow == null) ? lab : ($scope.selectedRow == lab) ? null : lab;
                $scope.clickedRow = ($scope.selectedRow == null) ? 0 : 1;
            }
 
-           $scope.viewMedicationReport = function(){
-               if($scope.val == ''){
-            
+           $scope.viewMedicationReport = function(){    
+           
                 $window.open('view-medication-report.php?at='+$scope.at+'&id='+$scope.id, '_blank');
-               }else{
-                $window.open('view-medication-report.php?at='+$scope.at+'&id='+$scope.id+'&searchparam='+$scope.val, '_blank');
-               }
+             
             }
            
            

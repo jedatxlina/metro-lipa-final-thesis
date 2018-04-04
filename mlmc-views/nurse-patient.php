@@ -40,12 +40,12 @@ font-weight: bold;
 </ol>
 
 <div class="container-fluid" ng-app="myApp" ng-controller="userCtrl">
+	<div class="panel-body">
+		<h3>Inpatient<small> Section</small></h3>
+	</div>	
 	<div class="row">
 		<div class="col-md-9">
-                <br>
 				<a href="qr-scanner/index.php?at=<?php echo $_GET['at']?>" class="btn btn-danger-alt pull-left"><i class="fa fa-qrcode"></i>&nbsp;&nbsp;Scan</a>
-				
-	
 		</div>
 	</div>
 	<br>

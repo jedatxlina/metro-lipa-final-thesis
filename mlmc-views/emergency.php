@@ -91,8 +91,8 @@ font-weight: bold;
 						<a href="#" role="tab" data-toggle="tab" class="list-group-item active">Actions Panel</a>
 						<a href="#" ng-click="viewPatient()" role="tab" data-toggle="tab" class="list-group-item"><i class="ti ti-user"></i> Patient Details</a>
                         <a href="#" ng-click="movePatient()" role="tab" data-toggle="tab" class="list-group-item"><i class="fa fa-stethoscope"></i>Move to Inpatient</a>
-                        <a href="#" ng-click="dischargePatient()" role="tab" data-toggle="tab" class="list-group-item"><i class="fa fa-check-square-o"></i>Discharge</a>
-                        <!-- <a href="#" ng-click="ReAdmitPatient()" role="tab" data-toggle="tab" class="list-group-item"><i class="fa fa-check-square-o"></i> Re-Admit</a> -->
+                        <a href="#" ng-click="processBilling()" role="tab" data-toggle="tab" class="list-group-item"><i class="fa fa-check-square-o"></i>Process Billing</a>
+                        <a href="#" ng-click="dischargePatient()" role="tab" data-toggle="tab" class="list-group-item"><i class="fa fa-check-square-o"></i> Discharge</a>
 						<a href="#" ng-click="opdTransfer()" role="tab" data-toggle="tab" class="list-group-item"><span class="badge badge-primary"  ng-if="notifs > 0">{{notifs}}</span><i class="fa fa-check-square-o"></i>Outpatient Transfers</a>
 				    </div>
 				</div>
@@ -741,35 +741,70 @@ font-weight: bold;
 		}
 
 
-		$scope.dischargePatient = function(){
-			if($scope.selectedRow != null){
+		$scope.processBilling = function(){
+			//  if($scope.selectedRow != null){
 				$scope.admissionid = $scope.selectedRow;
-				$http({
-					method: 'get',
-					url: 'getData/get-bill-details.php',
-					params: {id: $scope.admissionid}
-				}).then(function(response) {
-					$scope.billdetails = response.data;
-				});
-				$http({
-					method: 'get',
-					url: 'getData/get-medication-bill.php',
-					params: {id: $scope.admissionid}
-				}).then(function(response) {
-					$scope.medicinebill = response.data;
-				});
-				$http({
-					method: 'get',
-					url: 'getData/get-medication-billdetailed.php',
-					params: {id: $scope.admissionid}
-				}).then(function(response) {
-					$scope.medicinebill2 = response.data;
-				});
-				$('#dischargeModal').modal('show');
-			}
-			else{
-			$('#errorModal').modal('show');
-			}
+				// $http({
+				// 	method: 'get',
+				// 	url: 'getData/get-bill-details.php',
+				// 	params: {id: $scope.admissionid}
+				// }).then(function(response) {
+				// 	$scope.billdetails = response.data;
+				// });
+				// $http({
+				// 	method: 'get',
+				// 	url: 'getData/get-medication-bill.php',
+				// 	params: {id: $scope.admissionid}
+				// }).then(function(response) {
+				// 	$scope.medicinebill = response.data;
+				// });
+				// $http({
+				// 	method: 'get',
+				// 	url: 'getData/get-medication-billdetailed.php',
+				// 	params: {id: $scope.admissionid}
+				// }).then(function(response) {
+				// 	$scope.medicinebill2 = response.data;
+				// });
+			// 	$('#dischargeModal').modal('show');
+			// }
+			// else{
+			// $('#errorModal').modal('show');
+			//  }
+			window.location.href = 'view-emergency-bill.php?at=' + $scope.at + '&id=' + $scope.admissionid;
+		}
+
+		$scope.dischargePatient = function(){
+				 if($scope.selectedRow != null){
+					$scope.admissionid = $scope.selectedRow;
+
+					$http({
+						method: 'get',
+						url: 'getData/get-bill-details.php',
+						params: {id: $scope.admissionid}
+					}).then(function(response) {
+						$scope.billdetails = response.data;
+					});
+
+					$http({
+						method: 'get',
+						url: 'getData/get-medication-bill.php',
+						params: {id: $scope.admissionid}
+					}).then(function(response) {
+						$scope.medicinebill = response.data;
+					});
+					
+					$http({
+						method: 'get',
+						url: 'getData/get-medication-billdetailed.php',
+						params: {id: $scope.admissionid}
+					}).then(function(response) {
+						$scope.medicinebill2 = response.data;
+					});
+					$('#dischargeModal').modal('show');
+				}
+				else{
+					$('#errorModal').modal('show');
+				}
 		}
 
 		$scope.viewPatient = function(){
