@@ -1,3 +1,6 @@
+<?php 
+	  $activeMenu = "laboratories";	
+?>
 <?php include 'admin-header.php' ?>
 <style>
     .selected {
