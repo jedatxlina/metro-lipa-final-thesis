@@ -37,9 +37,7 @@ font-weight: bold;
 								<thead>
 								<tr>
 									<th>Admission ID</th>
-									<th>Admission No</th>
-									<th>Admission Date</th>
-									<th>Admission Time</th>
+									<th>Admission Date Time</th>
 									<th>Full name</th>
 									<th>Admission</th>
 									<th>Admission Type</th>
@@ -49,9 +47,7 @@ font-weight: bold;
 								<tbody>
 								<tr ng-repeat="user in users" ng-class="{'selected': user.AdmissionID == selectedRow}" ng-click="setClickedRow(user.AdmissionID)">
                                         <td>{{user.AdmissionID}}</td>
-                                        <td>{{user.AdmissionNo}}</td>
-                                        <td>{{user.AdmissionDate}}</td>
-                                        <td>{{user.AdmissionTime}}</td>
+                                        <td>{{user.AdmissionDate}} {{user.AdmissionTime}}</td>
                                         <td>{{user.Lname}}, {{user.Fname}} {{user.Mname}} </td>
                                         <td>{{user.Admission}}</td>
                                         <td>{{user.AdmissionType}}</td>
@@ -540,8 +536,7 @@ font-weight: bold;
 										</div>
 									</div>
 									<hr>
-								</div>
-								<div class="row">
+									<div class="row">
 										<div class="form-group">
 											<label for="focusedinput" class="col-sm-3 control-label">Advance Payments</label>
 											<div class="col-sm-5">
@@ -549,6 +544,8 @@ font-weight: bold;
 											</div>
 										</div>
 									</div>
+								</div>
+								
 								<div class="panel-footer">
 								<button type="button" ng-click="ConfirmInpatient()" class="btn btn-danger-alt pull-right">Confirm</button>
 								<button type="button" data-dismiss="modal" class="btn btn-default-alt pull-right">Cancel</button>
