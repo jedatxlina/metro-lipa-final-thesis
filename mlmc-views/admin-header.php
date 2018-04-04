@@ -108,7 +108,7 @@
                                         </div>
                                         <div class="info"  ng-repeat="user in userdetails">
                                             <span class="username">{{User}}</span><br>
-                                            <span class="text-default">{{user.Firstname}} {{user.Middlename}} {{user.Lastname}}</span>
+                                            <span class="text-default" style="color: white;">{{user.Firstname}} {{user.Middlename}} {{user.Lastname}}</span>
                                         </div>
                                     </div>
                                 </div>

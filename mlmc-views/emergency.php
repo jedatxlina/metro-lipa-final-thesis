@@ -93,7 +93,6 @@ font-weight: bold;
 						<a href="#" role="tab" data-toggle="tab" class="list-group-item active">Actions Panel</a>
 						<a href="#" ng-click="viewPatient()" role="tab" data-toggle="tab" class="list-group-item"><i class="ti ti-user"></i> Patient Details</a>
                         <a href="#" ng-click="movePatient()" role="tab" data-toggle="tab" class="list-group-item"><i class="fa fa-stethoscope"></i>Move to Inpatient</a>
-						<a href="#" ng-click="movePatient()" role="tab" data-toggle="tab" class="list-group-item"><i class="fa fa-file-o"></i>Move to Outpatient</a>
                         <a href="#" ng-click="dischargePatient()" role="tab" data-toggle="tab" class="list-group-item"><i class="fa fa-check-square-o"></i>Discharge</a>
                         <!-- <a href="#" ng-click="ReAdmitPatient()" role="tab" data-toggle="tab" class="list-group-item"><i class="fa fa-check-square-o"></i> Re-Admit</a> -->
 						<a href="#" ng-click="opdTransfer()" role="tab" data-toggle="tab" class="list-group-item"><span class="badge badge-primary"  ng-if="notifs > 0">{{notifs}}</span><i class="fa fa-check-square-o"></i>Outpatient Transfers</a>
@@ -533,9 +532,9 @@ font-weight: bold;
 										<div class="form-group">
 											<label for="focusedinput" class="col-sm-3 control-label">Diet Plan</label>
 											<div class="col-sm-5">
-												<select class="form-control" ng-model="dietplan">
+												<select class="form-control" ng-model="$parent.dietplan">
                                                     <option value="" disabled selected>Select Diet Plan</option>
-                                                    <option ng-repeat="diet in diets" value="{{diet.DietOrder}}">{{diet.DietOrder}}</option>
+                                                    <option ng-repeat="diet in diets" value="{{diet.DietOrder}}" ng-init="$parent.dietplan = diet.DietOrder">{{diet.DietOrder}}</option>
                                                 </select>   
 											</div>
 										</div>
@@ -879,12 +878,12 @@ font-weight: bold;
 
 
        $scope.ConfirmInpatient = function(){
-
 			$http({
 				method: 'GET',
 				url: 'updateData/update-inpatient-details.php',
 				params: {AdmissionID: $scope.selectedRow,
-						BedID:$scope.bedno.BedID}
+						BedID:$scope.bedno.BedID,
+						Dietplan: $scope.dietplan}
 				}).then(function(response) {
 					window.location.reload();
 			});
