@@ -314,10 +314,16 @@
                                 <label >Select Specialization</label>
                                 <select class="form-control" ng-model="$parent.sspecialization" ng-init="$parent.sspecialization=acc.Specialization" style="width:620px">
                                 <option ng-repeat="special in spec" value="{{special.SpecializationName}}">{{special.SpecializationName}}</option>
+                                <option value="others"> Others </option>
                                 </select>
                                 
                         </div>
 
+                        <div class="form-group" ng-show = "sspecialization == 'others'">
+                        <label >Other Specialization</label>
+                        <input type="text" class="form-control" ng-model="otherspecialization">
+                        </div>
+                        </div>
                         <button type="button" class="btn btn-default pull-right" data-dismiss="modal">Close</button>
                         <button ng-click='UpdateDetails()' class="btn btn-danger pull-right">Update</button>
                     

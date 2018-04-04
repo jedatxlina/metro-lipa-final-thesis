@@ -52,11 +52,11 @@ include '../mlmc-views/getData/get-inpatient-vitals.php';
                                                 <div class="tabular-row">
                                                     <div class="tabular-cell">
                                                         <span class="status-total">Systolic</span>
-                                                        <span class="status-value">	{{vitals.BP}}</span>
+                                                        <span class="status-value" ng-style="{ 'color' : (vitals.BP > 120) ? 'red' : 'black' }">	{{vitals.BP}}</span>
                                                     </div>
                                                     <div class="tabular-cell">
-                                                        <span class="status-pending">Diastolic</span>
-                                                        <span class="status-value">	{{vitals.BPD}}</span>
+                                                        <span class="status-pending" >Diastolic</span>
+                                                        <span class="status-value" ng-style="{ 'color' : (vitals.BPD > 80) ? 'red' : 'black' }">	{{vitals.BPD}}</span>
                                                     </div>
                                                 </div>
                                             
@@ -74,7 +74,7 @@ include '../mlmc-views/getData/get-inpatient-vitals.php';
                                             </div>
                                         </div>
                                         <div class="panel-footer">
-                                            <center><span ><h1>{{vitals.Temperature}}°</h1></span></center>
+                                            <center><span><h1  ng-style="{ 'color' : (vitals.Temperature >= 38) ? 'red' : 'black' }" >{{vitals.Temperature}}°</h1></span></center>
                                             <center><span >As of {{vitals.DateTimeChecked}} </span></center>
                                         </div>  
                                     </div>
@@ -437,7 +437,7 @@ include '../mlmc-views/getData/get-inpatient-vitals.php';
                                 yAxes: [{
                                         display: true,
                                         ticks: {
-                                            beginAtZero: true,
+                                            beginAtZero: false,
                                             steps: 10,
                                             stepValue: 5,
                                             max: 50
@@ -479,7 +479,7 @@ include '../mlmc-views/getData/get-inpatient-vitals.php';
                         type: 'bar',
                         label: 'Systolic',
                         backgroundColor: 'rgba(178,34,34,0.10)',
-                        data: bloodp,
+                        data: bloodp, 
                         borderColor: 'rgba(178,34,34,1)',
                         borderWidth: 2
                     }, {

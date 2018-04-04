@@ -67,7 +67,7 @@ font-weight: bold;
 								</tr>
 								</thead>
 								<tbody>
-								<tr ng-repeat="user in users2" ng-class="{'selected': user.AdmissionID == selectedRow}" ng-click="setClickedRow(user.AdmissionID)">	  									
+								<!-- <tr ng-repeat="user in users2" ng-class="{'selected': user.AdmissionID == selectedRow}" ng-click="setClickedRow(user.AdmissionID)">	  									
 										<td>{{user.BedID}}</td>
                                         <td>{{user.Fullname}}</td>
                                         <td style="color:red">{{user.BP}}/{{user.BPD}}</td>
@@ -93,7 +93,7 @@ font-weight: bold;
                                         <td>{{user.RR}}</td>
                                         <td style="color:red">{{user.Temperature}}</td>
 										<td>{{user.DateTimeChecked}}</td>
-                                    </tr>
+                                    </tr> -->
 								<tr ng-repeat="user in users" ng-class="{'selected': user.AdmissionID == selectedRow}" ng-click="setClickedRow(user.AdmissionID)">
 										<td>{{user.BedID}}</td>
 										<td>{{user.Fullname}}</td>
@@ -595,7 +595,7 @@ font-weight: bold;
 
 		$http({
            method: 'get',
-           url: 'getData/get-inpatient-normal-vitals.php'
+           url: 'getData/get-all-inpatient-vitals.php'
        	}).then(function(response) {
 		 	$scope.users = response.data;
 			angular.element(document).ready(function() {  
@@ -604,38 +604,38 @@ font-weight: bold;
 			});  
 		});
 
-		$http({
-           method: 'get',
-           url: 'getData/get-inpatient-fever-hb.php'
-       	}).then(function(response) {
-		 	$scope.users2 = response.data;
-			angular.element(document).ready(function() {  
-			dTable = $('#patient_table')  
-			dTable.DataTable();  
-			});  
-		});
+		// $http({
+        //    method: 'get',
+        //    url: 'getData/get-inpatient-fever-hb.php'
+       	// }).then(function(response) {
+		//  	$scope.users2 = response.data;
+		// 	angular.element(document).ready(function() {  
+		// 	dTable = $('#patient_table')  
+		// 	dTable.DataTable();  
+		// 	});  
+		// });
 
-		$http({
-           method: 'get',
-           url: 'getData/get-inpatient-nonfever-hb.php'
-       	}).then(function(response) {
-		 	$scope.users3 = response.data;
-			angular.element(document).ready(function() {  
-			dTable = $('#patient_table')  
-			dTable.DataTable();  
-			});  
-		});
+		// $http({
+        //    method: 'get',
+        //    url: 'getData/get-inpatient-nonfever-hb.php'
+       	// }).then(function(response) {
+		//  	$scope.users3 = response.data;
+		// 	angular.element(document).ready(function() {  
+		// 	dTable = $('#patient_table')  
+		// 	dTable.DataTable();  
+		// 	});  
+		// });
 
-		$http({
-           method: 'get',
-           url: 'getData/get-inpatient-fever-nonhb.php'
-       	}).then(function(response) {
-		 	$scope.users4 = response.data;
-			angular.element(document).ready(function() {  
-			dTable = $('#patient_table')  
-			dTable.DataTable();  
-			});  
-		});
+		// $http({
+        //    method: 'get',
+        //    url: 'getData/get-inpatient-fever-nonhb.php'
+       	// }).then(function(response) {
+		//  	$scope.users4 = response.data;
+		// 	angular.element(document).ready(function() {  
+		// 	dTable = $('#patient_table')  
+		// 	dTable.DataTable();  
+		// 	});  
+		// });
 
 		$http({
 			method: 'get',

@@ -25,7 +25,7 @@
             <div class="col-md-9">
                 <div class="panel panel-danger">
                     <div class="panel-heading">
-                        <h2>List of Doctors</h2>
+                        <h2>List of Doctors</h2><a ng-click="ListOfDoctors()"> <i class="ti ti-printer pull-right"></i></a> 
                         <div class="panel-ctrls"></div>
                     </div>
                     <div class="panel-body">
@@ -38,8 +38,8 @@
                             </thead>
                             <tbody>
                                 <tr ng-repeat="spec in specs" >
-                                    <td><i class="fa fa-stethoscope"> Dr. {{spec.Fullname}}</td>
-                                    <td><i class="fa fa-medkit"> {{spec.Specialization}}</td>
+                                    <td> Dr. {{spec.Fullname}}</td>
+                                    <td> {{spec.Specialization}}</td>
                                 </tr>
                             </tbody>
                         </table>
@@ -58,7 +58,7 @@
             var fetch = angular.module('myApp', ['ui.mask']);
 
 
-            fetch.controller('userCtrl', ['$scope', '$http', function($scope, $http) {
+            fetch.controller('userCtrl', ['$scope', '$http', '$window', function($scope, $http, $window) {
                 $scope.at = "<?php echo $_GET['at'];?>";
                 $scope.selectedRow = null;
                 $scope.selectedStatus = null;
@@ -105,6 +105,14 @@
                     });
                 });
 
+                
+                $scope.ListOfDoctors = function(){
+                    if($scope.val == ''){
+                        $window.open('list-of-doctors.php?at='+$scope.at, '_blank');
+                    }else{
+                        $window.open('list-of-doctors.php?at='+$scope.at+'&searchparam='+$scope.val, '_blank');
+                    }
+                }
 
                 $scope.setClickedRow = function(spec) {
                     $scope.selectedRow = ($scope.selectedRow == null) ? spec : ($scope.selectedRow == spec) ? null : spec;
