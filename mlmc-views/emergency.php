@@ -1,4 +1,7 @@
-<?php include 'admin-header.php' ?>
+<?php 
+	  $activeMenu = "patients";	
+?>
+<?php include 'admin-header.php'  ?>
 <style>
 .selected {
 color: #800000;
@@ -12,7 +15,6 @@ font-weight: bold;
 		<li><a href="#">Patients</a></li>
 		<li class="active"><a href="#">Emergency</a></li>
 	</ol>
-	
 <div class="container-fluid">	
 	
 	<div class="panel-body">

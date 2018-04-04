@@ -1,3 +1,7 @@
+
+<?php 
+	  $activeMenu = "nurse";	
+?>
 <?php 
 include 'admin-header.php' ?>
 <style>

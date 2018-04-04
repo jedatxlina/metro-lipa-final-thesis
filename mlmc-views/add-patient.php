@@ -1,3 +1,6 @@
+<?php 
+	  $activeMenu = "patients";	
+?>
 <?php include 'admin-header.php'?>
 <ol class="breadcrumb">
     <li><a href="index.php">Home</a>

@@ -1,3 +1,6 @@
+<?php 
+	  $activeMenu = "accounts";	
+?>
 <?php include 'admin-header.php' ?>
 <style>
     .selected {
