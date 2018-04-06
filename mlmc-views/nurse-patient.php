@@ -492,7 +492,7 @@ font-weight: bold;
    var fetch = angular.module('myApp', []);
   
 
-   fetch.controller('userCtrl', ['$scope', '$http','$interval', function($scope, $http,$interval) {   
+   fetch.controller('userCtrl', ['$scope', '$http','$interval', '$window' , function($scope, $http,$interval,$window) {   
 		$scope.at = "<?php echo $_GET['at'];?>";
 		$scope.selectedRow = null;
 		$scope.clickedRow = 0;

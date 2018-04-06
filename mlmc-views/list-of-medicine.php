@@ -7,7 +7,7 @@
     Dompdf\Autoloader::register();
     // reference the Dompdf namespace
     use Dompdf\Dompdf;
-
+    date_default_timezone_set("Asia/Singapore");
     // instantiate and use the dompdf class
     $dompdf = new Dompdf();
     $at = $_GET['at'];
