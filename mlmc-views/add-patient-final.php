@@ -95,14 +95,14 @@
                                         </fieldset>
                                         
                                         <fieldset data-ng-repeat="medication in medications track by $index">
-                                            <legend>Administered Medications</legend>
+                                            <legend>Required Medicine Intake</legend>
                                             <div data-row-span="2">
                                                 <div data-field-span="1">
                                                     <label>Medicine</label>
                                                     <input type="text" ng-model="Dosage[$index]" ng-init="Dosage[$index] = medication.MedicineName + ' ' + medication.Unit" disabled="disabled"> 
                                                 </div>
                                                 <div data-field-span="1">
-                                                    <label>Quantity Administered</label>
+                                                    <label>Required Quantity</label>
                                                     <input type="text" ng-model="Quantity[$index]" ng-init="Quantity[$index] = medication.Quantity">
                                                     <input type="hidden" ng-model="MedID[$index]" ng-init="MedID[$index] = medication.MedicineID"> 
                                                 </div>
