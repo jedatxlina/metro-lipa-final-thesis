@@ -171,8 +171,8 @@
                                                             <tbody>
                                                                 <tr ng-repeat="lab in labdetails track by $index">
                                                                     <td>{{$index}}</td>
-                                                                    <td>{{lab.Desc}}</td>
-                                                                    <td>{{lab.Rate}}</td>
+                                                                    <td>{{lab.Description}}</td>
+                                                                    <td class="text-right">{{lab.Rate}}</td>
                                                                 </tr>
                                                             </tbody>
                                                         </table>

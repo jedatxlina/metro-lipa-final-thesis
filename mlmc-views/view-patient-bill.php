@@ -52,7 +52,7 @@
                                         <input type="hidden" ng-model='RoomBill[$index]' ng-init='RoomBill[$index] = room.bedbill'>
                                     </fieldset>
                                     <fieldset data-ng-repeat="lab in labdetails track by $index">
-                                        <input type="hidden" ng-model='LabBill[$index]' ng-init='LabBill[$index] = lab.TotalBill'>
+                                        <input type="hidden" ng-model='LabBill[$index]' ng-init='LabBill[$index] = lab.Price'>
                                     </fieldset>
 
                                 </div>
@@ -289,10 +289,11 @@
                 $scope.subtotalroom = total1;
                 for (var i = 0; i < $scope.LabBill.length; i++) {
                     var product2 = $scope.LabBill[i];
+                    total2 = parseInt(total2);
                     total2 = total2 + product2;
                 }
                 $scope.subtotallab = total2;
-                $scope.subtotal = $scope.subtotalroom + $scope.subtotalmedi + $scope.subtotallab;
+                $scope.subtotal = $scope.subtotalroom + $scope.subtotalmedi;
             });
             $http({
                 method: 'GET',
@@ -303,7 +304,6 @@
                 }
             }).then(function(response) {
                 $scope.medications = response.data;
-
             });
             $scope.submitDetails = function(type) {
                 $scope.totalbill = 5000;
