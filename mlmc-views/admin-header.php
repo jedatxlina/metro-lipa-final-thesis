@@ -89,7 +89,6 @@
 
         </header>
 
-
         <div id="wrapper">
             <div id="layout-static">
                 <div class="static-sidebar-wrapper sidebar-graylight">
@@ -108,52 +107,56 @@
                                         </div>
                                         <div class="info"  ng-repeat="user in userdetails">
                                             <span class="username">{{User}}</span><br>
-                                            <span class="text-default">{{user.Firstname}} {{user.Middlename}} {{user.Lastname}}</span>
+                                            <span class="text-default" style="color: white;">{{user.Firstname}} {{user.Middlename}} {{user.Lastname}}</span>
                                         </div>
                                     </div>
                                 </div>
                             </div>
+                            <?php $activeMenu = isset($activeMenu) ? $activeMenu : ''; ?>
                             <div class="widget stay-on-collapse" id="widget-sidebar">
                                 <nav role="navigation" class="widget-body">
                                     <ul class="acc-menu">
                                         <li class="nav-separator"><span>Explore</span></li>
 										<li ><a ng-click="getPage('Dashboard')" href="javascript:void(0);"><i class="ti ti-home"></i><span>Dashboard</span></a></li>
-										<li <?php if ($id!=1 && $id!=2 && $id !=7){?>style="display:none"<?php } ?>><a href="javascript:;"><i class="fa fa-users"></i><span>Patients</span></a>
-											<ul class="acc-menu">
+										<li  <?php if ($id!=1 && $id!=2 && $id !=7){?>style="display:none"<?php } ?>><a href="javascript:;"><i class="fa fa-users"></i><span>Patients</span></a>
+											<ul class="acc-menu"  <?php if ($activeMenu =="patients") {?> style="display:block;" class="active" <?php } ?> >
 												<li <?php if ($id == 7){?>style="display:none"<?php } ?>><a ng-click="getPage('Emergency')" href="javascript:void(0);"><i class="fa fa-user"></i><span>&emsp;Emergency</span></a></li>
 												<li><a ng-click="getPage('Outpatient')" href="javascript:void(0);"><i class="fa fa-user"></i><span>&emsp;Outpatient</span></a></li>
 												<li <?php if ($id == 7){?>style="display:none"<?php } ?>><a ng-click="getPage('Inpatient')" href="javascript:void(0);"><i class="fa fa-user"></i><span>&emsp;Inpatient</span></a></li>
 											</ul>
 										</li>
-										<li <?php if ($id!=1 && $id!=3){?>style="display:none"<?php } ?>><a href="javascript:;"><i class="fa fa-stethoscope"></i><span>Nursing Services</span></a>
-                                            <ul class="acc-menu">
+										<li     <?php if ($id!=1 && $id!=3){?>style="display:none"<?php } ?>><a href="javascript:;"><i class="fa fa-stethoscope"></i><span>Nursing Services</span></a>
+                                            <ul class="acc-menu" <?php if ($activeMenu =="nurse") {?> style="display:block;" class="active" <?php } ?> >
 											<li><a ng-click="getPage('Confined')" href="javascript:void(0);"><i class="fa fa-medkit"></i><span>&emsp;Confined Patients</span></a></li>
-											<li <?php if ($id!=1){?>style="display:none"<?php } ?>><a ng-click="getPage('Bed')" href="javascript:void(0);"><i class="fa fa-bed"></i><span>&emsp;Beds</span></a></li>
+											<li <?php if ($id!=1 && $id!=3){?>style="display:none"<?php } ?>><a ng-click="getPage('Bed')" href="javascript:void(0);"><i class="fa fa-bed"></i><span>&emsp;Beds</span></a></li>
                                             </ul>
                                         </li>
-										<li <?php if ($id!=1 && $id!=4){?>style="display:none"<?php } ?>><a ng-click="getPage('Physician')" href="javascript:void(0);"><i class="fa fa-user-md"></i><span>Physician Services</span></a></li>
+										<li <?php if ($activeMenu =="physician") {?> style="display:block;" class="active" <?php } ?>   <?php if ($id!=1 && $id!=4){?>style="display:none"<?php } ?>><a ng-click="getPage('Physician')" href="javascript:void(0);"><i class="fa fa-user-md"></i><span>Physician Services</span></a></li>
 										<li <?php if ($id!=1 && $id!=5){?>style="display:none"<?php } ?>><a  href="javascript:void(0);"><i class="fa fa-cubes"></i><span>Pharmacy Department</span></a>
-                                            <ul class="acc-menu">
+                                            <ul class="acc-menu" <?php if ($activeMenu =="pharmacy") {?> style="display:block;" class="active" <?php } ?> >
 											<li><a ng-click="getPage('Pharmacy')" href="javascript:void(0);"><i class="fa fa-users"></i><span>&emsp;Medicine Requests</span></a></li>
 											<li><a ng-click="getPage('Pharmaceuticals')" href="javascript:void(0);"><i class="ti ti-support"></i><span>&emsp;Medicines</span></a></li>
                                             </ul>
                                         </li>
-										<li <?php if ($id!=1 && $id!=6){?>style="display:none"<?php } ?>><a href="javascript:;"><i class="fa fa-file-text-o"></i><span>Billing Department</span></a>
-											<ul class="acc-menu">
+										<li    <?php if ($id!=1 && $id!=6){?>style="display:none"<?php } ?>><a href="javascript:;"><i class="fa fa-file-text-o"></i><span>Billing Department</span></a>
+											<ul class="acc-menu"  <?php if ($activeMenu =="billing") {?> style="display:block;" class="active" <?php } ?>>
 												<li><a ng-click="getPage('Billing')" href="javascript:void(0);"><i class="fa fa-user"></i><span>&emsp;Patients</span></a></li>
 											</ul>
 										</li>
-                                        <li <?php if ($id!=1 && $id!=8){?>style="display:none"<?php } ?>><a ng-click="getPage('LaboratoryDept')" href="javascript:void(0);"><i class="fa fa-flask"></i></i><span>Laboratory Department</span></a></li>
+                                        <li <?php if ($activeMenu =="laboratory") {?> style="display:block;" class="active" <?php } ?>   <?php if ($id!=1 && $id!=8){?>style="display:none"<?php } ?>><a ng-click="getPage('LaboratoryDept')" href="javascript:void(0);"><i class="fa fa-flask"></i></i><span>Laboratory Department</span></a></li>
                                         <li class="nav-separator"><span>Extras</span></li>
-                                        <li <?php if ($id!=1){?>style="display:none"
+                                        <li <?php if ($activeMenu =="accounts") {?> style="display:block;" class="active" <?php } ?>        <?php if ($id!=1){?>style="display:none"
                                             <?php } ?>><a ng-click="getPage('Accounts')" href="javascript:void(0);"><i class="fa fa-key"></i><span>Accounts</span></a></li>
-                                        <li <?php if ($id!=1){?>style="display:none"
+                                        <li <?php if ($activeMenu =="ListOfDoctors") {?> style="display:block;" class="active" <?php } ?>         <?php if ($id!=1){?>style="display:none"
                                             <?php } ?>><a ng-click="getPage('Specialization')" href="javascript:void(0);"><i class="fa fa-medkit"></i><span>List of Doctors</span> </a></li>
-                                        <li <?php if ($id!=1){?>style="display:none"
+                                        <li <?php if ($activeMenu =="laboratories") {?> style="display:block;" class="active" <?php } ?>       <?php if ($id!=1){?>style="display:none"
                                             <?php } ?>><a ng-click="getPage('Laboratory')" href="javascript:void(0);"><i class="fa fa-search"></i><span>Laboratories</span></a></li>
-                                            <li <?php if ($id!=1){?>style="display:none"
+                                        <li <?php if ($activeMenu =="others") {?> style="display:block;" class="active" <?php } ?>       <?php if ($id!=1){?>style="display:none"
                                             <?php } ?>><a ng-click="getPage('Others')" href="javascript:void(0);"><i class="fa fa-gears"></i><span>Others</span></a></li>
                                     </ul>
+
+                                    <?php $activePage = "patient"; ?>
+
                                 </nav>
                             </div>
                         </div>

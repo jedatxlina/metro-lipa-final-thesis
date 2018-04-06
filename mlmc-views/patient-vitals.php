@@ -1,4 +1,7 @@
 <?php 
+	  $activeMenu = "patients";	
+?>
+<?php 
 include 'admin-header.php';
 include '../mlmc-views/getData/get-inpatient-vitals.php';
 ?>
@@ -39,7 +42,74 @@ include '../mlmc-views/getData/get-inpatient-vitals.php';
                     <div class="tab-content">
 
                         <div class="tab-pane active" id="tab-details">
-                            <div class="panel panel-default">
+                            <div class="row">
+                                <div class="col-sm-4">
+                                    <div class="panel panel-danger widget-progress" data-widget='{"draggable": "false"}'  data-ng-repeat="vitals in latestvitals">
+                                        <div class="panel-heading">
+                                            <h2>Latest Blood Pressure</h2>
+                                            <div class="panel-ctrls button-icon-bg" data-actions-container="" data-action-refresh-demo='{"type": "circular"}'>
+                                            </div>
+                                        </div>
+                                        <div class="panel-footer">
+                                            <div class="tabular">
+                                                <div class="tabular-row">
+                                                    <div class="tabular-cell">
+                                                        <span class="status-total">Systolic</span>
+                                                        <span class="status-value" ng-style="{ 'color' : (vitals.BP > 120) ? 'red' : 'black' }">	{{vitals.BP}}</span>
+                                                    </div>
+                                                    <div class="tabular-cell">
+                                                        <span class="status-pending" >Diastolic</span>
+                                                        <span class="status-value" ng-style="{ 'color' : (vitals.BPD > 80) ? 'red' : 'black' }">	{{vitals.BPD}}</span>
+                                                    </div>
+                                                </div>
+                                            
+                                            </div>
+                                            <br>
+                                            <center><span >As of {{vitals.DateTimeChecked}} </span></center>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-sm-4">
+                                    <div class="panel panel-danger widget-progress" data-widget='{"draggable": "false"}'  data-ng-repeat="vitals in latestvitals">
+                                        <div class="panel-heading">
+                                            <h2>Latest Temperature</h2>
+                                            <div class="panel-ctrls button-icon-bg" data-actions-container="" data-action-refresh-demo='{"type": "circular"}'>
+                                            </div>
+                                        </div>
+                                        <div class="panel-footer">
+                                            <center><span><h1  ng-style="{ 'color' : (vitals.Temperature >= 38) ? 'red' : 'black' }" >{{vitals.Temperature}}°</h1></span></center>
+                                            <center><span >As of {{vitals.DateTimeChecked}} </span></center>
+                                        </div>  
+                                    </div>
+                                </div>
+                                <div class="col-sm-4">
+                                    <div class="panel panel-danger widget-progress" data-widget='{"draggable": "false"}' data-ng-repeat="vitals in latestvitals">
+                                        <div class="panel-heading">
+                                            <h2>Latest Pulse Rate/Respiratory Rate</h2>
+                                            <div class="panel-ctrls button-icon-bg" data-actions-container="" data-action-refresh-demo='{"type": "circular"}'>
+                                            </div>
+                                        </div>
+                                        <div class="panel-footer">
+                                            <div class="tabular">
+                                                <div class="tabular-row">
+                                                    <div class="tabular-cell">
+                                                        <span class="status-total">PR</span>
+                                                        <span class="status-value">	{{vitals.PR}}</span>
+                                                    </div>
+                                                    <div class="tabular-cell">
+                                                        <span class="status-pending">RR</span>
+                                                        <span class="status-value">	{{vitals.RR}}</span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            
+                                            <br>
+                                            <center><span >As of {{vitals.DateTimeChecked}} </span></center>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- <div class="panel panel-default">
                                 <div class="panel-heading">
                                     <h2>Medical Details</h2>
                                 </div>
@@ -84,11 +154,11 @@ include '../mlmc-views/getData/get-inpatient-vitals.php';
                                         </div>
                                     </div>
                                 </div>
-                            </div>
-                            <div class="panel panel-default">
+                            </div> -->
+                            <div class="panel panel-danger">
                                 <div class="panel-heading">
                                     <h2>Patient Vitals</h2>
-                                    <button ng-click="try()" class="btn-danger-alt btn">Next</button>
+                                    <!-- <button ng-click="try()" class="btn-danger-alt btn">Next</button> -->
            
                                 </div>
                                 <div class="panel-body">
@@ -151,6 +221,15 @@ include '../mlmc-views/getData/get-inpatient-vitals.php';
                 $scope.patientdetails = response.data;
             });
 
+            
+            $http({
+            method: 'GET',
+            url: 'getData/get-latestvitals-details.php',
+            params: {id: $scope.admissionid}
+            }).then(function(response) {
+                $scope.latestvitals = response.data;
+            });
+
             switch ($scope.at.charAt(0)) {
 				case '1':
 					$scope.User = "Administrator";
@@ -201,7 +280,7 @@ include '../mlmc-views/getData/get-inpatient-vitals.php';
                 $scope.image = url_base64;
 
                 // $http({
-                // method: 'POST',
+                // method: 'POST',  
                 // url: baseUrl,
                 // data: $httpParamSerializerJQLike({
                 //     "user":{
@@ -361,7 +440,7 @@ include '../mlmc-views/getData/get-inpatient-vitals.php';
                                 yAxes: [{
                                         display: true,
                                         ticks: {
-                                            beginAtZero: true,
+                                            beginAtZero: false,
                                             steps: 10,
                                             stepValue: 5,
                                             max: 50
@@ -403,7 +482,7 @@ include '../mlmc-views/getData/get-inpatient-vitals.php';
                         type: 'bar',
                         label: 'Systolic',
                         backgroundColor: 'rgba(178,34,34,0.10)',
-                        data: bloodp,
+                        data: bloodp, 
                         borderColor: 'rgba(178,34,34,1)',
                         borderWidth: 2
                     }, {

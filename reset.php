@@ -12,7 +12,7 @@ if( isset($_GET['email']) && !empty($_GET['email']) AND isset($_GET['hash']) && 
     $hash = $conn->escape_string($_GET['hash']); 
 
     // Make sure user email with matching hash exist
-    $result = $conn->query("SELECT * FROM users WHERE email='$email' AND hash='$hash'");
+    $result = $conn->query("SELECT * FROM user_account WHERE email='$email' AND hash='$hash'");
 
     if ( $result->num_rows == 0 )
     { 
@@ -40,25 +40,25 @@ else {
           
           <form action="reset_password.php" method="post">
               
-          <div class="field-wrap">
-            <label>
-              New Password<span class="req">*</span>
-            </label>
-            <input type="password"required name="newpassword" autocomplete="off"/>
-          </div>
-              
-          <div class="field-wrap">
-            <label>
-              Confirm New Password<span class="req">*</span>
-            </label>
-            <input type="password"required name="confirmpassword" autocomplete="off"/>
-          </div>
-          
-          <!-- This input field is needed, to get the email of the user -->
-          <input type="hidden" name="email" value="<?= $email ?>">    
-          <input type="hidden" name="hash" value="<?= $hash ?>">    
-              
-          <button class="button button-block"/>Apply</button>
+            <div class="field-wrap">
+              <label>
+                New Password<span class="req">*</span>
+              </label>
+              <input type="password"required name="newpassword" autocomplete="off"/>
+            </div>
+                
+            <div class="field-wrap">
+              <label>
+                Confirm New Password<span class="req">*</span>
+              </label>
+              <input type="password"required name="confirmpassword" autocomplete="off"/>
+            </div>
+            
+            <!-- This input field is needed, to get the email of the user -->
+            <input type="hidden" name="email" value="<?= $email ?>">    
+            <input type="hidden" name="hash" value="<?= $hash ?>">    
+                  
+            <button class="button button-block"/>Apply</button>
           
           </form>
 

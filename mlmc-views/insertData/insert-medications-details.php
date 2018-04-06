@@ -14,7 +14,7 @@ $admissionid = $_GET['admissionid'];
 $physicianid = $_GET['physicianid'];
 $attendingid = $_GET['attendingid'];
 $diagnosisid = $_GET['diagnosisid'];
-$medid = $_GET['medid'];
+$medid = $_GET['medid'];    
 
 $condition = $_GET['condition'];
 $medication = $_GET['medication'];

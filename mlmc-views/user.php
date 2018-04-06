@@ -1,3 +1,6 @@
+<?php 
+	  $activeMenu = "accounts";	
+?>
 <?php include 'admin-header.php' ?>
 <style>
     .selected {
@@ -156,7 +159,7 @@
                                 <label>Select Physician</label>
                                 <select class="form-control" ng-model="assignedphysician" style="width:620px;">
                                     <optgroup label="List of Doctors">
-                                        <option ng-repeat="physician in physicians" value="{{physician.AccountID}}">Dr. {{physician.Fullname}}</option>
+                                        <option ng-repeat="physician in physicians" value="{{physician.PhysicianID}}">Dr. {{physician.Fullname}}</option>
                                     </optgroup>    
                                 </select>
                             </div>
@@ -314,10 +317,16 @@
                                 <label >Select Specialization</label>
                                 <select class="form-control" ng-model="$parent.sspecialization" ng-init="$parent.sspecialization=acc.Specialization" style="width:620px">
                                 <option ng-repeat="special in spec" value="{{special.SpecializationName}}">{{special.SpecializationName}}</option>
+                                <option value="others"> Others </option>
                                 </select>
                                 
                         </div>
 
+                        <div class="form-group" ng-show = "sspecialization == 'others'">
+                        <label >Other Specialization</label>
+                        <input type="text" class="form-control" ng-model="otherspecialization">
+                        </div>
+                        </div>
                         <button type="button" class="btn btn-default pull-right" data-dismiss="modal">Close</button>
                         <button ng-click='UpdateDetails()' class="btn btn-danger pull-right">Update</button>
                     
@@ -490,16 +499,15 @@
               }if($scope.accesstype == 8){
                 $scope.accountid = "<?php echo "8" .  rand(10000, 99999); ?>"
                 }
-                
-          }
+            }
 
-          $scope.setClickedRow = function(user) {
-              $scope.selectedRow = user;
-          }
+            $scope.setClickedRow = function(user) {
+                $scope.selectedRow = user;
+            }
    
-          $scope.setClickedRow = function (index) {
-          $scope.selectedRow = ($scope.selectedRow == index) ? null : index;
-          }
+            $scope.setClickedRow = function (index) {
+                $scope.selectedRow = ($scope.selectedRow == index) ? null : index;
+            }
 
             $scope.Add = function() {
                 $scope.password="mlmc";
@@ -507,11 +515,8 @@
             }
 
             $scope.Update = function() {
-                
                 window.location.href = 'updateData/update-user-details.php?at=' + $scope.at + '&accountid=' + $scope.accid + '&password=' + $scope.pword + '&email=' + $scope.mail;
-         
-        
-               }
+            }
 
             $scope.UpdateDetails = function() {
 

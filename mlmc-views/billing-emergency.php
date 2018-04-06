@@ -1,3 +1,6 @@
+<?php 
+	  $activeMenu = "billing";	
+?>
 <?php include 'billing-header.php' ?>
 <style>
 .selected {

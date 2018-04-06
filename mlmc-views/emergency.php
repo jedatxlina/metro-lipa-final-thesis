@@ -1,4 +1,7 @@
-<?php include 'admin-header.php' ?>
+<?php 
+	  $activeMenu = "patients";	
+?>
+<?php include 'admin-header.php'  ?>
 <style>
 .selected {
 color: #800000;
@@ -12,7 +15,6 @@ font-weight: bold;
 		<li><a href="#">Patients</a></li>
 		<li class="active"><a href="#">Emergency</a></li>
 	</ol>
-	
 <div class="container-fluid">	
 	
 	<div class="panel-body">
@@ -37,9 +39,7 @@ font-weight: bold;
 								<thead>
 								<tr>
 									<th>Admission ID</th>
-									<th>Admission No</th>
-									<th>Admission Date</th>
-									<th>Admission Time</th>
+									<th>Admission Date Time</th>
 									<th>Full name</th>
 									<th>Admission</th>
 									<th>Admission Type</th>
@@ -49,9 +49,7 @@ font-weight: bold;
 								<tbody>
 								<tr ng-repeat="user in users" ng-class="{'selected': user.AdmissionID == selectedRow}" ng-click="setClickedRow(user.AdmissionID)">
                                         <td>{{user.AdmissionID}}</td>
-                                        <td>{{user.AdmissionNo}}</td>
-                                        <td>{{user.AdmissionDate}}</td>
-                                        <td>{{user.AdmissionTime}}</td>
+                                        <td>{{user.AdmissionDate}} {{user.AdmissionTime}}</td>
                                         <td>{{user.Lname}}, {{user.Fname}} {{user.Mname}} </td>
                                         <td>{{user.Admission}}</td>
                                         <td>{{user.AdmissionType}}</td>
@@ -93,7 +91,6 @@ font-weight: bold;
 						<a href="#" role="tab" data-toggle="tab" class="list-group-item active">Actions Panel</a>
 						<a href="#" ng-click="viewPatient()" role="tab" data-toggle="tab" class="list-group-item"><i class="ti ti-user"></i> Patient Details</a>
                         <a href="#" ng-click="movePatient()" role="tab" data-toggle="tab" class="list-group-item"><i class="fa fa-stethoscope"></i>Move to Inpatient</a>
-						<a href="#" ng-click="movePatient()" role="tab" data-toggle="tab" class="list-group-item"><i class="fa fa-file-o"></i>Move to Outpatient</a>
                         <a href="#" ng-click="dischargePatient()" role="tab" data-toggle="tab" class="list-group-item"><i class="fa fa-check-square-o"></i>Discharge</a>
                         <!-- <a href="#" ng-click="ReAdmitPatient()" role="tab" data-toggle="tab" class="list-group-item"><i class="fa fa-check-square-o"></i> Re-Admit</a> -->
 						<a href="#" ng-click="opdTransfer()" role="tab" data-toggle="tab" class="list-group-item"><span class="badge badge-primary"  ng-if="notifs > 0">{{notifs}}</span><i class="fa fa-check-square-o"></i>Outpatient Transfers</a>
@@ -533,16 +530,15 @@ font-weight: bold;
 										<div class="form-group">
 											<label for="focusedinput" class="col-sm-3 control-label">Diet Plan</label>
 											<div class="col-sm-5">
-												<select class="form-control" ng-model="dietplan">
+												<select class="form-control" ng-model="$parent.dietplan">
                                                     <option value="" disabled selected>Select Diet Plan</option>
-                                                    <option ng-repeat="diet in diets" value="{{diet.DietOrder}}">{{diet.DietOrder}}</option>
+                                                    <option ng-repeat="diet in diets" value="{{diet.DietOrder}}" ng-init="$parent.dietplan = diet.DietOrder">{{diet.DietOrder}}</option>
                                                 </select>   
 											</div>
 										</div>
 									</div>
 									<hr>
-								</div>
-								<div class="row">
+									<div class="row">
 										<div class="form-group">
 											<label for="focusedinput" class="col-sm-3 control-label">Advance Payments</label>
 											<div class="col-sm-5">
@@ -550,6 +546,8 @@ font-weight: bold;
 											</div>
 										</div>
 									</div>
+								</div>
+								
 								<div class="panel-footer">
 								<button type="button" ng-click="ConfirmInpatient()" class="btn btn-danger-alt pull-right">Confirm</button>
 								<button type="button" data-dismiss="modal" class="btn btn-default-alt pull-right">Cancel</button>
@@ -682,6 +680,11 @@ font-weight: bold;
             $scope.physicians = response.data;
         });
 		   
+		$('#patient_table').on('search.dt', function() {
+            var value = $('.dataTables_filter input').val();
+            $scope.val = value;
+        });    
+
 		$scope.setClickedRow = function(user) {
            $scope.selectedRow = ($scope.selectedRow == null) ? user : ($scope.selectedRow == user) ? null : user;
            $scope.clickedRow = ($scope.selectedRow == null) ? 0 : 1;
@@ -788,7 +791,11 @@ font-weight: bold;
 		}
 
 		$scope.viewReport = function(){
-			$window.open('try-report.php', '_blank');
+			if($scope.val == ''){
+				$window.open('emergency-list-report.php?at='+$scope.at, '_blank');
+		   	}else{
+				$window.open('emergency-list-report.php?at='+$scope.at+'&searchparam='+$scope.val, '_blank');
+		   	}
 		}
 
 		$scope.viewPatientDetails = function(){
@@ -870,12 +877,12 @@ font-weight: bold;
 
 
        $scope.ConfirmInpatient = function(){
-
 			$http({
 				method: 'GET',
 				url: 'updateData/update-inpatient-details.php',
 				params: {AdmissionID: $scope.selectedRow,
-						BedID:$scope.bedno.BedID}
+						BedID:$scope.bedno.BedID,
+						Dietplan: $scope.dietplan}
 				}).then(function(response) {
 					window.location.reload();
 			});

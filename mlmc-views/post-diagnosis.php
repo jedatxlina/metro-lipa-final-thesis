@@ -1,3 +1,6 @@
+<?php 
+	  $activeMenu = "physician";	
+?>
 <?php include 'admin-header.php' ?>
     <script type="text/javascript" src="assets/js/jquery-1.10.2.min.js"></script>
     <script src="//select2.github.io/select2/select2-3.4.1/select2.js"></script>

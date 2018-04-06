@@ -1,3 +1,6 @@
+<?php 
+	  $activeMenu = "patients";	
+?>
 <?php include 'admin-header.php'; $id = $_GET['id']; ?>
 <style>
 .selected {

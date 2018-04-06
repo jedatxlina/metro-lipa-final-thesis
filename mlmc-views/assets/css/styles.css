@@ -15021,14 +15021,15 @@ body.topnav-collapsed header.navbar.navbar-default .navbar-collapse .open .tt-dr
 }
 .sidebar-graylight.static-sidebar-wrapper,
 .sidebar-graylight.fixed-sidebar {
-  background-color: #fafafa;
+  /* background-color: #fafafa; */
+  background-color: #AF2729;
 }
 .sidebar-graylight .sidebar .widget .widget-heading {
   color: #bdbdbd;
   background-color: #fafafa;
 }
 .sidebar-graylight .sidebar .widget .widget-body .userinfo .username {
-  color: #212121;
+  color: #ffffff;
 }
 .sidebar-graylight .sidebar .widget .widget-body .userinfo .useremail {
   color: #bdbdbd;
@@ -15044,23 +15045,24 @@ body.topnav-collapsed header.navbar.navbar-default .navbar-collapse .open .tt-dr
 }
 .sidebar-graylight nav.widget-body > ul.acc-menu ul,
 .sidebar-graylight nav.widget-body > ul.acc-menu ul li a {
-  background-color: #ededed;
-  color: #616161;
+  background-color: rgb(202, 59, 61);
+  color: #ffffff;
 }
 .sidebar-graylight nav.widget-body > ul.acc-menu li a {
-  color: #616161;
-  background-color: #fafafa;
+  color: #ffffff;
+  /* background-color: #fafafa; */
+  background-color: #AF2729;
 }
 .sidebar-graylight nav.widget-body > ul.acc-menu > li:hover > a {
-  background-color: #f5f5f5;
-  color: #212121;
+  background-color: rgb(202, 59, 61);
+  color: #ffffff;
 }
 .sidebar-graylight nav.widget-body > ul.acc-menu > li.active > a {
-  background-color: #eeeeee;
-  color: #212121;
+  background-color: rgb(202, 59, 61);
+  color: #ffffff;
 }
 .sidebar-graylight nav.widget-body > ul.acc-menu > li > a > i {
-  color: #616161;
+  color: #ffffff;
 }
 .sidebar-graylight nav.widget-body > ul.acc-menu > li > a:hover > i {
   color: #212121;
@@ -18776,7 +18778,8 @@ body.topnav-collapsed header.navbar.navbar-default .navbar-collapse .open .tt-dr
   color: rgba(189, 189, 189, 0.5);
 }
 #topnav.navbar-graylight {
-  background: #fafafa;
+  /* background: #fafafa; */  
+  background: #AF2729;
 }
 #topnav.navbar-graylight .logo-area .toolbar-trigger a span.icon-bg {
   background-color: #f5f5f5;
@@ -21602,7 +21605,7 @@ ul .panel .panel-heading h2 {
 }
 .panel.panel-danger .panel-heading {
   color: #fde0dc;
-  background-color: #e51c23;
+  background-color: #b43439;
   border-color: #dd191d;
 }
 .panel.panel-danger .panel-heading h2 {
@@ -23785,7 +23788,7 @@ span[data-style="panel-brown"] {
   font-size: 14px;
 }
 .widget-progress .panel-body {
-  background-color: #37474f;
+  background-color: #FFFFFF;
   border-bottom-left-radius: 0;
   border-bottom-right-radius: 0;
 }
@@ -24597,7 +24600,7 @@ textarea.tt-hint:focus {
   content: '%';
 }
 .easypiechart .percent-non {
-  color: #fff;
+  color: rgb(3, 3, 3);
   font-weight: normal;
   font-size: 36px;
 }

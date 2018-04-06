@@ -28,7 +28,7 @@ while ($row = mysqli_fetch_array($sel)) {
             if($alert == 0){
                 $query= "UPDATE medication_timeline SET Alert = '$minutes' WHERE MedTimelineID = '$medtimelineid'";
     
-                mysqli_query($con,$query);  
+                mysqli_query($conn,$query);  
     
                 require('../vendor/autoload.php');
     
@@ -50,7 +50,7 @@ while ($row = mysqli_fetch_array($sel)) {
             if($alert != $minutes){
              
                 $query= "UPDATE medication_timeline SET Alert = '$minutes' WHERE MedTimelineID = '$medtimelineid'";
-                mysqli_query($con,$query);  
+                mysqli_query($conn,$query);  
     
                 require('../vendor/autoload.php');
     

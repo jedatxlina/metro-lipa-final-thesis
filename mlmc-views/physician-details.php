@@ -1,3 +1,6 @@
+<?php 
+	  $activeMenu = "physician";	
+?>
 <?php include 'admin-header.php' ?>
 <style>
     .selected {

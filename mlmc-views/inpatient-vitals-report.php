@@ -15,7 +15,7 @@
     $date = date("Y-m-d");
     $datetime = date("Y-m-d h:i A");
 
-    $sel = mysqli_query($con,"SELECT * FROM patients JOIN medical_details WHERE patients.AdmissionID = '$id' AND medical_details.AdmissionID = '$id'");
+    $sel = mysqli_query($conn,"SELECT * FROM patients JOIN medical_details WHERE patients.AdmissionID = '$id' AND medical_details.AdmissionID = '$id'");
     while ($row = mysqli_fetch_assoc($sel)) {
                 $admissionid=$row['AdmissionID'];
                 $admissionno=$row['AdmissionNo'];

@@ -1,3 +1,6 @@
+<?php 
+	  $activeMenu = "others";	
+?>
 <?php include 'admin-header.php'?>
 <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/angularjs-slider/6.5.1/rzslider.min.css"/>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/angularjs-slider/6.5.1/rzslider.min.js"></script>

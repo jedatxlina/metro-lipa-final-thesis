@@ -17,7 +17,7 @@ $param = isset($_GET['param']) ? $_GET['param'] : '';
 
 $cnt = count($medid);
 
-$result = mysqli_query($con,"SELECT CONCAT(Firstname, ' ' ,MiddleName, ' ', LastName) AS Fullname FROM physicians WHERE PhysicianID = '$at'");
+$result = mysqli_query($conn,"SELECT CONCAT(Firstname, ' ' ,MiddleName, ' ', LastName) AS Fullname FROM physicians WHERE PhysicianID = '$at'");
 while($row = mysqli_fetch_assoc($result))
 {
     $fullname = $row['Fullname'];
@@ -34,7 +34,7 @@ for($x = 0; $x < $cnt ; $x ++){
     $query = "UPDATE medication SET Quantity = '$qnty[$x]', Dosage = '$dosage[$x]', Notes = '$notes[$x]', DosingID = '$interval[$x]', Days = '$days[$x]' WHERE AdmissionID = '$admmissionid' AND MedicineID = '$medid[$x]'";
     }
 
-    mysqli_query($con,$query);
+    mysqli_query($conn,$query);
 } 
 if($param != ''){
     switch ($param) {

@@ -1,4 +1,7 @@
 <?php 
+	  $activeMenu = "patients";	
+?>
+<?php 
 include 'admin-header.php' ?>
 <style>
     .selected {
@@ -14,7 +17,7 @@ include 'admin-header.php' ?>
     <li class="active"><a href="#">Outpatient</a></li>
 </ol>
 
-<div class="container-fluid">
+<div class="container-fluid" >
     <div class="panel-body">
         <h3>Outpatient<small> Section</small></h3>
     </div>
@@ -24,7 +27,7 @@ include 'admin-header.php' ?>
         </div>
     </div>
     <br>
-    <div data-widget-group="group1">
+    <div data-widget-group="group1" >
         <div class="row">
             <div class="col-md-9">
                 <div class="panel panel-danger">
@@ -100,7 +103,7 @@ include 'admin-header.php' ?>
                             <div class="panel-ctrls" data-actions-container="" data-action-collapse='{"target": ".panel-body, .panel-footer"}'></div>
                         </div>
                         <div class="panel-body" style="height: 60px">
-                            Select Emergency record that you would like to apply an <a href="#" class="alert-link">Action.</a>
+                            Select Outpatient record that you would like to apply an <a href="#" class="alert-link">Action.</a>
                         </div>
                     </div>
                 </div>
@@ -278,7 +281,7 @@ include 'admin-header.php' ?>
 
                             </div>
                             <div class="panel-footer">
-                                <button type="button" ng-click="#" class="btn btn-danger-alt pull-left">View Details</button>
+                                <button type="button" ng-click="viewPatientDetails()" class="btn btn-danger-alt pull-left">View Details</button>
                                 <button type="button" data-dismiss="modal" class="btn btn-danger pull-right">Ok</button>
                             </div>
                         </div>
@@ -335,7 +338,7 @@ include 'admin-header.php' ?>
             <!-- Doctor Order Modal -->
 
             <!-- Discharge Modal -->
-            <div class="modal fade" id="dischargeModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+            <div class="modal fade" id="dischargeModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"  data-backdrop="static">
                 <form>
                     <div class="modal-dialog">
                         <div class="panel panel-danger" data-widget='{"draggable": "false"}'>
@@ -356,8 +359,8 @@ include 'admin-header.php' ?>
 										<div class="col-md-5">
 											<div class="form-group">
 												<label>Fee</label>
-												<input type="text" class="form-control" ng-model="$parent.fee" ng-init="$parent.fee = physician.Rate">	
-												<small><input type="checkbox" ng-model="senior" ng-click="seniorClick()"> Senior Citizen </small>
+												<input type="text" class="form-control" ng-model="$parent.fee" ng-init="$parent.fee = physician.Rate" disabled>	
+												<small><input type="checkbox" ng-model="senior" ng-click="seniorClick()" ng-disabled="$parent.fee == 0"> Senior Citizen </small>
 												<small><input type="checkbox" ng-model="hmo" ng-click="hmoClick()"> HMO </small>	
 											</div>
 										</div>
@@ -395,14 +398,14 @@ include 'admin-header.php' ?>
 									<div class="col-md-3">
 										<div class="form-group">
 											<label>Total Bill</label>
-											<input type="text" class="form-control" ng-model="totalfee" ng-disabled="hmo == 'true'">	
+											<input type="text" class="form-control" ng-model="totalfee" ng-disabled="hmo == 'true'" disabled>	
 										</div>
 									</div>
                                 </div>
 
                                 <div class="panel-footer">
                                     <button type="button" ng-click="dischargeConfirm()" data-dismiss="modal" class="btn btn-danger pull-right">Discharge</button>
-                                    <button type="button" data-dismiss="modal" class="btn btn-default pull-right">Cancel</button>
+                                    <button type="button" ng-click="clearCheckBox()" data-dismiss="modal" class="btn btn-default pull-right">Cancel</button>
                                 </div>
                             </div>
                         </div>
@@ -636,7 +639,7 @@ include 'admin-header.php' ?>
             		}
             		
             		$scope.viewPatientDetails = function(){
-            			window.location.href = 'view-patient-details.php?id=' + $scope.selectedRow;
+						window.location.href = 'view-patient-data.php?at=' + $scope.at + '&id=' + $scope.admissionid;
             		}
             
             		$scope.movePatient = function(){
@@ -718,16 +721,33 @@ include 'admin-header.php' ?>
 						
 					}
 
+					$scope.clearCheckBox = function(){
+						
+						$scope.senior = 'false';
+						$scope.hmo = 'false';
+					}
+
 					$scope.hmoClick = function(){
+						$http({
+            				method: 'GET',
+            				url: 'getData/get-discount-details.php'
+            			}).then(function(response) {
+							$scope.scdiscount = JSON.parse(response.data);
+
+							$scope.disc = '.' + $scope.scdiscount;
+
+							$scope.discount = parseFloat($scope.disc);
 
 						if($scope.hmo == 'true'){
+							
+
 							$scope.hmo = 'false';
-							$scope.totalfee = $scope.fee - ($scope.fee*.20);
+							$scope.totalfee = $scope.fee - ($scope.fee*$scope.discount);
 						}else{
 							$scope.hmo = 'true';
 							$scope.totalfee = 0;
 						}
-				
+						});
 					}
 
 					$scope.dischargeConfirm = function(){
@@ -761,7 +781,11 @@ include 'admin-header.php' ?>
 					}
             
             		$scope.viewReport = function(){
-            			$window.open('try-report.php?param='+$scope.val+'&at='+$scope.at, '_blank');
+						if($scope.val == ''){
+							$window.open('outpatient-list-report.php?at='+$scope.at, '_blank');
+						}else{
+							$window.open('outpatient-list-report.php?at='+$scope.at+'&searchparam='+$scope.val, '_blank');
+						}
             		}
             
             		$scope.getPage = function(check){
