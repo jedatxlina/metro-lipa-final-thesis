@@ -6,7 +6,6 @@ $medhistoryid =  rand(111111, 999999);
 $newpharmaid =  rand(111111, 999999);
 $newadministeredid =  rand(111111, 999999);
 
-
 $at = $_GET['at'];
 $param = $_GET['param'];
 $medicationid = $_GET['medicationid'];
@@ -152,8 +151,8 @@ $sel = mysqli_query($conn,"SELECT MedicineName FROM pharmaceuticals");
                     $val = $row['Conditions'];
                 }
                 
-                $query = "INSERT into diagnosis(DiagnosisID,AdmissionID,AttendingID,Findings,DateDiagnosed,TimeDiagnosed) 
-                VALUES('$diagnosisid','$admissionid','$attendingid','$val','$date','$time')";
+                $query = "INSERT into diagnosis(DiagnosisID,MedicalID,AdmissionID,AttendingID,Findings,DateDiagnosed,TimeDiagnosed) 
+                VALUES('$diagnosisid','$medid','$admissionid','$attendingid','$val','$date','$time')";
         
                 mysqli_query($conn,$query);  
             }
@@ -165,8 +164,8 @@ $sel = mysqli_query($conn,"SELECT MedicineName FROM pharmaceuticals");
 
                 $conditionid =  rand(111111, 999999);
                                 
-                $query = "INSERT into diagnosis(DiagnosisID,AdmissionID,AttendingID,Findings,DateDiagnosed,TimeDiagnosed) 
-                VALUES('$diagnosisid','$admissionid','$attendingid','$value','$date','$time')";
+                $query = "INSERT into diagnosis(DiagnosisID,MedicalID,AdmissionID,AttendingID,Findings,DateDiagnosed,TimeDiagnosed) 
+                VALUES('$diagnosisid','$medid','$admissionid','$attendingid','$value','$date','$time')";
         
                 mysqli_query($conn,$query);  
             }
@@ -186,8 +185,8 @@ $sel = mysqli_query($conn,"SELECT MedicineName FROM pharmaceuticals");
                 $val = $row['Conditions'];
             }
             
-            $query = "INSERT into diagnosis(DiagnosisID,AdmissionID,AttendingID,Findings,DateDiagnosed,TimeDiagnosed) 
-            VALUES('$diagnosisid','$admissionid','$attendingid','$val','$date','$time')";
+            $query = "INSERT into diagnosis(DiagnosisID,MedicalID,AdmissionID,AttendingID,Findings,DateDiagnosed,TimeDiagnosed) 
+            VALUES('$diagnosisid','$medid','$admissionid','$attendingid','$val','$date','$time')";
     
             mysqli_query($conn,$query);  
         }

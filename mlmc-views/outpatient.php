@@ -637,7 +637,7 @@ include 'admin-header.php' ?>
             			$('#errorModal').modal('show');
             			}
             		}
-            		
+					
             		$scope.viewPatientDetails = function(){
 						window.location.href = 'view-patient-data.php?at=' + $scope.at + '&id=' + $scope.admissionid;
             		}

@@ -1,11 +1,7 @@
 
-      <!-- <footer role="contentinfo">
-            <div class="clearfix">
-                <ul class="list-unstyled list-inline pull-left">
-                    <li><h6>&copy; 2018 Team MAD</h6></li>
-                </ul>
+       <div id="custom-footer">
+            
             </div>
-        </footer> -->
       </div>
       <!-- .container-fluid -->
    </div>
@@ -13,6 +9,7 @@
                 </div>
             </div>
         </div>
+        
 </div>
 
 
