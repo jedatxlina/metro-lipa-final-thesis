@@ -35,8 +35,9 @@
             <div class="row">
                 <div class="col-sm-3">
                     <div class="list-group list-group-alternate mb-n nav nav-tabs">
-                        <a href="#tab-settings" 	role="tab" data-toggle="tab" class="list-group-item active"><i class="fa fa-gear"></i> Settings </a>
+                        <a href="#tab-settings" role="tab" data-toggle="tab" class="list-group-item"><i class="fa fa-gear"></i> Settings </a>
                         <a href="#tab-migrate" role="tab" data-toggle="tab" class="list-group-item"><i class="fa fa-database"></i>Migrate Data</a>
+						<a href="#tab-reports" role="tab" data-toggle="tab" class="list-group-item"><i class="fa fa-database"></i>Reports</a>
                     </div>
                 </div><!-- col-sm-3 -->
                 <div class="col-sm-9">
@@ -93,9 +94,37 @@
 									</div>
 								</div>
                         </div> <!-- #tab-projects -->
+
+						<div class="tab-pane" id="tab-reports">
+                           		<div class="panel panel-danger" data-widget='{"draggable": "false"}'>
+									<div class="panel-heading">
+										<h2>Reports</h2>
+										<!-- <div class="panel-ctrls" data-actions-container="" data-action-collapse='{"target": ".panel-body, .panel-footer"}'></div> -->
+										<div class="options">
+											<ul class="nav nav-tabs">
+											<li><a href="#migrate-form" data-toggle="tab">Patients</a></li>
+											<li class="active"><a href="#template-form" data-toggle="tab">Doctors</a></li>
+											</ul>
+										</div>
+									</div>
+									<div class="panel-body">
+										<div class="tab-content">
+											<div class="tab-pane active" id="horizontal-form">
+											<input type="text" class="form-control" ng-value="admission">
+											</div>
+										</div>
+									</div>
+								</div>
+                        </div> <!-- #tab-projects -->
+
+
 					</div><!-- .tab-content -->
 
+				
+
                 </div><!-- col-sm-8 -->
+
+				
             </div>
         </div>
 </div>

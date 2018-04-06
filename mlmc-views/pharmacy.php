@@ -28,7 +28,7 @@
             <div class="col-md-9">
                 <div class="panel panel-danger">
                     <div class="panel-heading">
-                        <h2>Pharmacy</h2>
+                        <h2>Pharmacy</h2><a ng-click="ListOfMedicine()"> <i class="ti ti-printer pull-right"></i></a> 
                         <div class="panel-ctrls"></div>
                     </div>
                     <div class="panel-body">
@@ -224,7 +224,7 @@
         var fetch = angular.module('myApp', ['ui.mask']);
 
 
-        fetch.controller('userCtrl', ['$scope', '$http', function($scope, $http) {
+        fetch.controller('userCtrl', ['$scope', '$http', '$window', function($scope, $http, $window) {
             $scope.at = "<?php echo $_GET['at'];?>";
             $scope.selectedRow = null;
             $scope.selectedStatus = null;
@@ -273,6 +273,14 @@
                 else
                 $event.preventDefault();
                 };
+
+                $scope.ListOfMedicine = function(){
+                    if($scope.val == ''){
+                        $window.open('list-of-medicine.php?at='+$scope.at, '_blank');
+                    }else{
+                        $window.open('list-of-medicine.php?at='+$scope.at+'&searchparam='+$scope.val, '_blank');
+                    }
+                }
 
             $http({
                 method: 'get',

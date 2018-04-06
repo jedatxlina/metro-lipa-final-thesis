@@ -36,7 +36,7 @@ font-weight: bold;
 									<th>Fullname</th>
 									<th>Medicine Name</th>
 									<th>Status</th>
-									<th>Qnty</th>
+									<th>Quantity Requested</th>
 								</tr>
 								</tr>
 								</thead>
@@ -167,7 +167,7 @@ font-weight: bold;
 		 
 	   	}
 
-	
+		  
 		
 		   $scope.clearMedicine = function(){
 			if($scope.selectedRow != null){
