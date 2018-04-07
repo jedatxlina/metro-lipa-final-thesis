@@ -345,7 +345,7 @@
             }
 
             $scope.viewReport = function() {
-                $window.open('inpatient-billing-report.php?at=' + $scope.at + '&id=' + $scope.id, '_blank');
+                $window.open('billing-report.php?at=' + $scope.at + '&id=' + $scope.id, '_blank');
             }
             
             $scope.notifyPatient = function(){

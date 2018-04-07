@@ -14,7 +14,7 @@ $dompdf = new Dompdf();
 $param = isset($_GET['param']) ? $_GET['param'] : '';
 $id = $_GET['at'];
 $yearage = '0';
-$adid = $_GET['adid'];
+$adid = $_GET['id'];
 $sel = mysqli_query($conn,"SELECT a.* ,b.Rate,b.RoomType FROM duration a, beds b WHERE b.BedID = a.BedID AND a.AdmissionID = '$adid'");
 $patd = mysqli_query($conn,"SELECT * FROM patients WHERE AdmissionID = '$adid'");
 $sel2 = mysqli_query($conn,"SELECT medication.Quantity,pharmaceuticals.Unit,pharmaceuticals.Price,pharmaceuticals.MedicineID, pharmaceuticals.MedicineName FROM medication INNER JOIN pharmaceuticals ON medication.MedicineID=pharmaceuticals.MedicineID WHERE medication.AdmissionID='$adid'");
