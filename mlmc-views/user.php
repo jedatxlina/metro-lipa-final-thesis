@@ -17,7 +17,7 @@
     </li>
 </ol>
 <br><br>
-<div class="container-fluid" ng-app="myApp" ng-controller="userCtrl" >
+<div class="container-fluid" ng-app="myApp" ng-controller="userCtrl" ng-form="Form">
 
     <div class="row">
 
@@ -89,7 +89,7 @@
                             <div class="form-group">
                                 <label>Access Type  </label>
                                 <div class="col-sm-13 select">
-                                    <select ng-model="accesstype" class="form-control" ng-change="accessType()">
+                                    <select ng-model="accesstype" class="form-control" ng-change="accessType()" required>
                                         <option value="" disabled>Select</option>
                                         <!-- <option value="1">Type 1 - All Priviliges</option> -->
                                         <option value="2">Type 2 - Admission Module</option>
@@ -106,9 +106,9 @@
                                 <label>Password </label>
                                 <input type="text" ng-model="password" class="form-control" disabled>
                             </div>
-                            <div class="form-group">       
+                            <div class="form-group" ng-class="{'has-error':submitted && Form.email.$error.required}">       
                                 <label>Email </label>
-                                <input type="email" ng-model="email" placeholder="youremail@yahoo.com" class="form-control">
+                                <input type="email" name="email" ng-model="email" placeholder="youremail@yahoo.com" class="form-control" >
                             </div>
                             
                             </div>
@@ -116,19 +116,22 @@
 
                             <div class="form-group">       
                                 <label>First Name </label>
-                                <input type="text" ng-model="fname" placeholder="Juan" class="form-control">
+                                <input type="text" ng-model="fname" name="fname" placeholder="Juan" class="form-control" ng-keypress="filterValueCharacter($event)" required  ng-class="{'has-error':submitted && Form.fname.$error.required}">
+                                <p ng-show="submitted && Form.fname.$error.required" class="help-block">This field is required.</p>
                             </div>
-                            <div class="form-group">       
+                            <div class="form-group" ng-class="{'has-error':submitted && Form.mname.$error.required}">       
                                 <label>Middle Name </label>
-                                <input type="text" ng-model="mname" placeholder="Dela" class="form-control">
+                                <input type="text" name="mname" ng-model="mname" placeholder="Dela" class="form-control" ng-keypress="filterValueCharacter($event)" required>
+                                <p ng-show="submitted && Form.mname.$error.required" class="help-block">This field is required.</p>
                             </div>
-                            <div class="form-group">       
+                            <div class="form-group" ng-class="{'has-error':submitted && Form.lname.$error.required}">       
                                 <label>Last Name </label>
-                                <input type="text" ng-model="lname" placeholder="Cruz" class="form-control">
+                                <input type="text" ng-model="lname" name="lname" placeholder="Cruz" class="form-control" ng-keypress="filterValueCharacter($event)" required>
+                                <p ng-show="submitted && Form.lname.$error.required" class="help-block">This field is required.</p>
                             </div>
-                            <div class="form-group">       
+                            <div class="form-group" >       
                                 <label>Gender </label>
-                                <select ng-model="gender" class="form-control">
+                                <select ng-model="gender" class="form-control" required> 
                                     <option value="" selected disabled>Select Gender</option>
                                     <option value="Male">Male</option>
                                     <option value="Female">Female</option>
@@ -169,15 +172,20 @@
                                 <select class="form-control" ng-model="specialization" style="width:620px">
                                 <optgroup label="List of Specializations">
                                 <option ng-repeat="special in spec" value="{{special.SpecializationName}}">{{special.SpecializationName}}</option>
+                                <option value="others"> Others </option>
                                 </optgroup>
                                 </select>
                                 
                             </div>
-
+                            
+                            <div class="form-group" ng-show = "specialization == 'others'">
+                            <label >Other Specialization</label>
+                            <input type="text" class="form-control" ng-model="otherspecialization">
+                            </div>
 
                             <button type="button" class="btn btn-defualt pull-right" data-dismiss="modal">Close</button>
                             &emsp;
-                            <button ng-click='Confirm()' class="btn btn-danger pull-right">Confirm</button>
+                            <button ng-click='Confirm(); submitted=true' formnovalidate class="btn btn-danger pull-right">Confirm</button>
                         </form>
                     </div>
                 </div>
@@ -317,15 +325,12 @@
                                 <label >Select Specialization</label>
                                 <select class="form-control" ng-model="$parent.sspecialization" ng-init="$parent.sspecialization=acc.Specialization" style="width:620px">
                                 <option ng-repeat="special in spec" value="{{special.SpecializationName}}">{{special.SpecializationName}}</option>
-                                <option value="others"> Others </option>
+                                
                                 </select>
                                 
                         </div>
 
-                        <div class="form-group" ng-show = "sspecialization == 'others'">
-                        <label >Other Specialization</label>
-                        <input type="text" class="form-control" ng-model="otherspecialization">
-                        </div>
+                       
                         </div>
                         <button type="button" class="btn btn-default pull-right" data-dismiss="modal">Close</button>
                         <button ng-click='UpdateDetails()' class="btn btn-danger pull-right">Update</button>
@@ -394,7 +399,20 @@
                 });
             });
            
-            
+             $scope.filterValue = function($event){
+                if(isNaN(String.fromCharCode($event.keyCode))){
+                $event.preventDefault();
+                }
+                };
+
+            $scope.filterValueCharacter = function($event){
+                if(isNaN(String.fromCharCode($event.keyCode))){
+                
+                }
+                else
+                $event.preventDefault();
+                };
+
 
                 $http({
                         method: 'get',
@@ -412,10 +430,73 @@
 
 
             $scope.Confirm = function() { 
-                $scope.birthdate =$("#datepicker").datepicker("option", "dateFormat", "yy-mm-dd" ).val();
-                switch ($scope.accesstype) {
-                    case '7':
-                            $http({
+                if ($scope.email == null || $scope.fname == null || $scope.mname == null || $scope.lname == null)
+                {
+
+                }
+                else
+                {
+                    $scope.birthdate =$("#datepicker").datepicker("option", "dateFormat", "yy-mm-dd" ).val();
+                    switch ($scope.accesstype) {
+                        case '7':
+                                $http({
+                                    method: 'GET',
+                                    url: 'insertData/insert-user-profile.php',
+                                    params: {id: $scope.accountid,
+                                            Lastname: $scope.lname,
+                                            Firstname: $scope.fname,
+                                            Middlename: $scope.mname,
+                                            Gender: $scope.gender,
+                                            Birthdate: $scope.birthdate,
+                                            Address: $scope.address,
+                                            Contact: $scope.contact,
+                                            Email: $scope.email,
+                                            atype: $scope.accesstype,
+                                            Assigned: $scope.assignedphysician
+                                            }
+                                    }).then(function(response) {
+                                        window.location.href = 'insertData/insert-user.php?at=' + $scope.at + '&accountid=' + $scope.accountid + '&accesstype=' + $scope.accesstype + '&password=' + $scope.password + '&email=' + $scope.email;
+                                    });
+                            break;
+                        case '4':
+                                if($scope.specialization == 'others') 
+                                $scope.specialization = $scope.otherspecialization;   
+                                $http({
+                                    method: 'GET',
+                                    url: 'insertData/insert-user-profile.php',
+                                    params: {id: $scope.accountid,
+                                        Lastname: $scope.lname,
+                                        Firstname: $scope.fname,
+                                        Middlename: $scope.mname,
+                                        Gender: $scope.gender,
+                                        Birthdate: $scope.birthdate,
+                                        Specialization: $scope.specialization,
+                                        Address: $scope.address,
+                                        Contact: $scope.contact,
+                                        Email: $scope.email,
+                                        atype: $scope.accesstype
+                                        }
+                                    }).then(function(response) {
+                                        if ($scope.otherspecialization != null)  
+                                        {
+                                            $http({
+                                            method: 'GET',
+                                            url: 'insertData/insert-specialization.php',
+                                            params: {specialization: $scope.otherspecialization}
+                                            }).then(function(response) {
+
+                                            });
+                                        }  
+                                        window.location.href = 'insertData/insert-user.php?at=' + $scope.at + '&accountid=' + $scope.accountid + '&accesstype=' + $scope.accesstype + '&password=' + $scope.password + '&email=' + $scope.email;
+                                
+                                    });
+
+                                
+                    
+                            break;
+
+                        default:
+                                $http({
                                 method: 'GET',
                                 url: 'insertData/insert-user-profile.php',
                                 params: {id: $scope.accountid,
@@ -427,57 +508,15 @@
                                         Address: $scope.address,
                                         Contact: $scope.contact,
                                         Email: $scope.email,
-                                        atype: $scope.accesstype,
-                                        Assigned: $scope.assignedphysician
+                                        atype: $scope.accesstype
                                         }
                                 }).then(function(response) {
-                                    window.location.href = 'insertData/insert-user.php?at=' + $scope.at + '&accountid=' + $scope.accountid + '&accesstype=' + $scope.accesstype + '&password=' + $scope.password + '&email=' + $scope.email;
+                                window.location.href = 'insertData/insert-user.php?at=' + $scope.at + '&accountid=' + $scope.accountid + '&accesstype=' + $scope.accesstype + '&password=' + $scope.password + '&email=' + $scope.email;
                                 });
-                        break;
-                    case '4':
-                            $http({
-                                method: 'GET',
-                                url: 'insertData/insert-user-profile.php',
-                                params: {id: $scope.accountid,
-                                    Lastname: $scope.lname,
-                                    Firstname: $scope.fname,
-                                    Middlename: $scope.mname,
-                                    Gender: $scope.gender,
-                                    Birthdate: $scope.birthdate,
-                                    Specialization: $scope.specialization,
-                                    Address: $scope.address,
-                                    Contact: $scope.contact,
-                                    Email: $scope.email,
-                                    atype: $scope.accesstype
-                                    }
-                                }).then(function(response) {
-                                    window.location.href = 'insertData/insert-user.php?at=' + $scope.at + '&accountid=' + $scope.accountid + '&accesstype=' + $scope.accesstype + '&password=' + $scope.password + '&email=' + $scope.email;
-                                });
-                   
-                        break;
+                            break;
+                    }
 
-                    default:
-                            $http({
-                            method: 'GET',
-                            url: 'insertData/insert-user-profile.php',
-                            params: {id: $scope.accountid,
-                                    Lastname: $scope.lname,
-                                    Firstname: $scope.fname,
-                                    Middlename: $scope.mname,
-                                    Gender: $scope.gender,
-                                    Birthdate: $scope.birthdate,
-                                    Address: $scope.address,
-                                    Contact: $scope.contact,
-                                    Email: $scope.email,
-                                    atype: $scope.accesstype
-                                    }
-                            }).then(function(response) {
-                            window.location.href = 'insertData/insert-user.php?at=' + $scope.at + '&accountid=' + $scope.accountid + '&accesstype=' + $scope.accesstype + '&password=' + $scope.password + '&email=' + $scope.email;
-                            });
-                        break;
                 }
-
-                    
             }
 
 

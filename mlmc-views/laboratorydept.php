@@ -56,6 +56,30 @@
                 </div>
             </div>
                  <div class="col-md-3">
+                 <div class="panel panel-danger widget-progress" data-widget='{"draggable": "false"}'>
+                            <div class="panel-heading">
+                                <h2>Current Time</h2>
+                                <div class="panel-ctrls button-icon-bg" 
+                                    data-actions-container="" 
+                                    data-action-refresh-demo='{"type": "circular"}'
+                                    >
+                                </div>
+                            </div>
+                            <div class="panel-footer">
+                                <div class="tabular">
+                                    <div class="tabular-row">
+                                        <div class="tabular-cell">
+                                            <span class="status-total">Date</span>
+                                            <span class="status-value">	{{ clock | date:'MMM d, y'}}</span>
+                                        </div>
+                                        <div class="tabular-cell">
+                                            <span class="status-pending">Time</span>
+                                            <span class="status-value">	{{ clock | date:'h:m:s a'}}</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                     <div class="list-group list-group-alternate mb-n nav nav-tabs">
 						<a href="#" role="tab" data-toggle="tab" class="list-group-item active">Actions Panel</a>
 						<a href="#" ng-click="viewPatient()" role="tab" data-toggle="tab" class="list-group-item"><i class="ti ti-user"></i> Patient Details</a>
@@ -242,7 +266,7 @@
     var fetch = angular.module('myApp', ['ui.mask']);
 
 
-    fetch.controller('userCtrl', ['$scope', '$http', function($scope, $http) {
+    fetch.controller('userCtrl', ['$scope', '$http','$interval', function($scope, $http,$interval) {
         $scope.at = "<?php echo $_GET['at'];?>";
         $scope.selectedRow = null;
         $scope.selectedStatus = null;
@@ -250,6 +274,16 @@
         $scope.selectedid = null;
         $scope.new = {};
 
+            var tick = function() {
+                $scope.clock = Date.now();
+                $scope.datetime = new Date().toLocaleTimeString('en-US', { hour: 'numeric', hour12: true, minute: 'numeric' });		
+			
+
+                }
+	
+                tick();
+                $interval(tick, 1000);
+                
             switch ($scope.at.charAt(0)) {
 				case '1':
 					$scope.User = "Administrator";
