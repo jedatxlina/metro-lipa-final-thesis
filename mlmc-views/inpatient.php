@@ -647,6 +647,9 @@ font-weight: bold;
 		}
 
    }]);
-</script>		
+</script>	
+<div id="custom-footer">
+            
+			</div>			
 </div>
 <?php include 'footer.php'?>

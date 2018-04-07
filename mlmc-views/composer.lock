@@ -4,8 +4,52 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "7c19a66326f9d38f2904ad372b269249",
+    "content-hash": "ace3870977049c41ee2be7ebddf20604",
     "packages": [
+        {
+            "name": "koolphp/koolreport",
+            "version": "2.42.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/koolphp/koolreport.git",
+                "reference": "8ae0551fa5ffe69d313d06b65729890c8d00d549"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/koolphp/koolreport/zipball/8ae0551fa5ffe69d313d06b65729890c8d00d549",
+                "reference": "8ae0551fa5ffe69d313d06b65729890c8d00d549",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.4"
+            },
+            "type": "library",
+            "autoload": {
+                "files": [
+                    "koolreport/autoload.php"
+                ]
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "KoolPHP Inc",
+                    "homepage": "https://www.koolphp.net"
+                }
+            ],
+            "description": "An Open Source PHP Reporting Framework for easier and faster report delivery.",
+            "homepage": "https://www.koolreport.com",
+            "keywords": [
+                "PHP Reporting Framework",
+                "PHP Reporting Tools",
+                "charts and graphs",
+                "data processing",
+                "data visualization"
+            ],
+            "time": "2018-03-19T07:32:01+00:00"
+        },
         {
             "name": "pusher/pusher-php-server",
             "version": "v3.0.1",

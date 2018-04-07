@@ -95,6 +95,38 @@
                                     </div>
                                 </div>
                             </div>
+                            <div class="panel panel-danger">
+                                    <div class="panel-heading">
+                                        <h2>Diagnosis</h2><a ng-click="viewMedicationReport()" class="pull-right"><i class="ti ti-printer"></i></a>
+                                        <div class="panel-ctrls"></div>
+                                    </div>
+                                        <div class="panel-body">
+                                            <div class="table-responsive">
+                                                <table id="findings_table" class="table table-striped table-bordered" cellspacing="0" width="100%">
+                                                        <thead>
+                                                            <tr>
+                                                                <th>#</th>
+                                                                <th>Findings</th>
+                                                                <th>DateDiagnosed</th>
+                                                                <th>TimeDiagnosed</th>
+                                                                <th>Administered By</th>
+                                                            </tr>
+                                                        </thead>
+                                                        <tbody>
+                                                            <tr  ng-repeat="finding in findings track by $index">
+                                                                <td>{{$index}}</td>
+                                                                <td>{{finding.Findings}}</td>
+                                                                <td>{{finding.DateDiagnosed}}</td>
+                                                                <td>{{finding.TimeDiagnosed}}</td>
+                                                                <td>Dr. {{finding.PhysicianFirstname}} {{finding.PhysicianMiddlename}} {{finding.PhysicianLastname}}</td>
+                                                            </tr>
+                                                        </tbody>
+                                                </table>
+                                            </div>
+                                        </div>
+                                    <div class="panel-footer">
+                                    </div>
+                                </div>
                                 <div class="panel panel-danger">
                                     <div class="panel-heading">
                                         <h2>Patient Medications</h2><a ng-click="viewMedicationReport()" class="pull-right"><i class="ti ti-printer"></i></a>
@@ -109,6 +141,7 @@
                                                                 <th>Medicine Name</th>
                                                                 <th>Dosage</th>
                                                                 <th>Quantity</th>
+                                                                <th>Administered By</th>
                                                             </tr>
                                                         </thead>
                                                         <tbody>
@@ -117,6 +150,7 @@
                                                                 <td>{{med.MedicineName}}</td>
                                                                 <td>{{med.Unit}}</td>
                                                                 <td>{{med.Intake}}</td>
+                                                                <td>Dr. {{med.PhysicianFirstname}} {{med.PhysicianFirstname}} {{med.PhysicianFirstname}}</td>
                                                             </tr>
                                                         </tbody>
                                                 </table>
@@ -374,6 +408,7 @@
                 </div><!-- col-sm-8 -->
             </div>
         </div>
+        
     </div>
 
 <script>
@@ -438,6 +473,18 @@
                 $scope.patientdetails = response.data;
             });
 
+              $http({
+                method: 'GET',
+                url: 'getData/get-findings-details.php',
+                params: {id: $scope.id}
+            }).then(function(response) {
+                $scope.findings = response.data;
+                angular.element(document).ready(function() {  
+                dTable = $('#findings_table')  
+                dTable.DataTable();  
+            	});  
+            });
+
             $http({
                 method: 'GET',
                 url: 'getData/get-history-details.php',
@@ -456,10 +503,10 @@
             params: {id: $scope.id}
             }).then(function(response) {
                 $scope.medications = response.data;
-                // angular.element(document).ready(function() {  
-            	// 			dTable = $('#medications_table')  
-            	// 			dTable.DataTable();  
-            	// 			});  
+                angular.element(document).ready(function() {  
+            	dTable = $('#medications_table')  
+            	dTable.DataTable();  
+            	});  
             });
 
            

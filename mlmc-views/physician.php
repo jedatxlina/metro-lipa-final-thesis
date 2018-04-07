@@ -186,7 +186,7 @@
 											&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 											Select Physician</label>
 											<div class="col-sm-7">
-                                            <select class="form-control" ng-model="physician" style="width:350px;">
+                                                        <select class="form-control" ng-model="physicianrefer" style="width:350px;">
                                                             <option value="" disabled selected>Select Physician</option>
                                                             <option ng-repeat="physician in physicians" value="{{physician.PhysicianID}}">{{physician.Fullname}}</option>
                                                         </select>
@@ -221,7 +221,7 @@
 									<br>
 							</div>
 							<div class="panel-footer">
-								<button type="button" ng-click="#" data-dismiss="modal" class="btn btn-danger pull-right">Reffer</button>
+								<button type="button" ng-click="referPatient()" data-dismiss="modal" class="btn btn-danger pull-right">Reffer</button>
 									<button type="button" data-dismiss="modal" class="btn btn-default pull-right">Cancel</button>
 							</div>
 						</div>
@@ -271,11 +271,8 @@
                 $scope.lab = 'No';
 
                 var tick = function() {
-
-                $scope.clock = Date.now();
-                $scope.datetime = new Date().toLocaleTimeString('en-US', { hour: 'numeric', hour12: true, minute: 'numeric' });		
-			
-
+                    $scope.clock = Date.now();
+                    $scope.datetime = new Date().toLocaleTimeString('en-US', { hour: 'numeric', hour12: true, minute: 'numeric' });		
                 }
 	
                 tick();
@@ -309,41 +306,43 @@
                         default:
                             break;
                     }
+
                 $scope.accesstype = $scope.at[0];
                 $http({
-                method: 'GET',
-                url: 'getData/get-user-profile.php',
-                params: {id: $scope.at,
+                    method: 'GET',
+                    url: 'getData/get-user-profile.php',
+                    params: {id: $scope.at,
                     atype : $scope.accesstype}
                 }).then(function(response) {
                     $scope.userdetails = response.data;
                 });
             
                 $http({
-                        method: 'GET',
-                        url: 'getData/get-laboratory-details.php'
-                    }).then(function(response) {
-                        $scope.labs = response.data;
-                    });
+                     method: 'GET',
+                    url: 'getData/get-laboratory-details.php'
+                }).then(function(response) {
+                    $scope.labs = response.data;
+                });
            
                 
                 $http({
-                        method: 'GET',
-                        url: 'getData/get-administered-patients.php',
-                        params:{id:$scope.at}
+                    method: 'GET',
+                    url: 'getData/get-administered-patients.php',
+                    params:{id:$scope.at}
                 }).then(function(response) {
-                        $scope.administered = response.data;
-                        angular.element(document).ready(function() {  
-                        dTable = $('#patient_table')  
-                        dTable.DataTable();  
-                        });  
+                    $scope.administered = response.data;
+                    angular.element(document).ready(function() {  
+                    dTable = $('#patient_table')  
+                    dTable.DataTable();  
+                    });  
                 });
 
                 $http({
-                        method: 'GET',
-                        url: 'getData/get-physician-details.php'
+                    method: 'GET',
+                    url: 'getData/get-physician-details.php',
+                    params:{at: $scope.at}
                 }).then(function(response) {
-                        $scope.physicians = response.data;
+                    $scope.physicians = response.data;
                 });
 
                 $scope.viewPatientDetails = function(){
@@ -388,7 +387,31 @@
                     alert($scope.laboratory);
                 }
 
-                  $scope.postReferral = function(){
+                 
+                $scope.referPatient = function(){
+                    $http({
+                        method: 'get',
+                        url: 'insertData/insert-referral-details.php',
+                        params: {id: $scope.admissionid,
+                                at: $scope.at,
+                                physicianid: $scope.physicianrefer }
+                    }).then(function(response) {
+                        swal({
+                            icon: "success",
+                            title: "Successfully Referred!",
+                            text: "Redirecting in 2..",
+                            timer: 2000
+                        }).then(function () {
+                                window.location.href = 'physician.php?at=' + $scope.at;
+                            }, function (dismiss) {
+                            if (dismiss === 'cancel') {
+                                window.location.href = 'physician.php?at=' + $scope.at;
+                            }
+                        });
+                    });
+                }
+
+                $scope.postReferral = function(){
                       
                     if($scope.selectedRow != null){
                         $scope.admissionid = $scope.selectedRow;
@@ -474,5 +497,8 @@
 
             }]);
         </script>
+        	<div id="custom-footer">
+            
+			</div>		
     </div>
     <?php include 'footer.php'?>

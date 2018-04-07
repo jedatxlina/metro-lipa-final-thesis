@@ -88,7 +88,7 @@
             </ul>
 
         </header>
-
+        
         <div id="wrapper">
             <div id="layout-static">
                 <div class="static-sidebar-wrapper sidebar-graylight">
@@ -162,6 +162,8 @@
                         </div>
                     </div>
                 </div>
+                
                 <div class="static-content-wrapper">
                     <div class="static-content">
                         <div class="page-content">
+                      

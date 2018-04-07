@@ -1,7 +1,5 @@
 
-       <div id="custom-footer">
-            
-            </div>
+         
       </div>
       <!-- .container-fluid -->
    </div>

@@ -183,25 +183,20 @@ font-weight: bold;
 									<table id="requisition_table" class="table table-striped table-bordered" cellspacing="0" width="100%">
 										<thead>
 										<tr>
-	  										<th>Medication ID</th>
-											<th>Medicine ID</th>
+											<th>Medicine Name</th>
 											<th>Date Administered</th>
 											<th>Time Administered</th>
-											<th>Medicine Name</th>
-											<th>Quantity</th>
+											<th>Required Intake</th>
 											<th>Dosage</th>
 										</tr>
 										</thead>
 										<tbody>
-										<tr ng-repeat="medication in medicationdetails">
-	  											<td>{{medication.MedicationID}}</td>
-												<td>{{medication.MedicineID}}</td>
+										<tr ng-repeat="medication in medications">
+												<td>{{medication.MedicineName}}</td>
 												<td>{{medication.DateAdministered}}</td>
 												<td>{{medication.TimeAdministered}}</td>
-												<td>{{medication.MedicineName}}</td>
 												<td>{{medication.Quantity}}</td>
-												<td>{{medication.Dosage}}</td>
-												
+												<td>{{medication.Unit}}</td>
 											</tr>
 										</tbody>
 									</table>
@@ -385,7 +380,7 @@ font-weight: bold;
 						<div class="modal-dialog">
 							<div class="panel panel-danger" data-widget='{"draggable": "false"}'>
 								<div class="panel-heading">
-									<h2>Newly Registered Inpatients</h2>	
+									<h2>Patient Administered Medications</h2>	
 									<div class="panel-ctrls" data-actions-container="" data-action-collapse='{"target": ".panel-body, .panel-footer"}'></div>
 								</div>
 								<div class="panel-body" style="height: 500px">
@@ -394,24 +389,20 @@ font-weight: bold;
 									<table id="medication_table" class="table table-striped table-bordered" cellspacing="0" width="100%">
 										<thead>
 										<tr>
-	  										<th>Medication ID</th>
-											<th>Medicine ID</th>
-											<th>Date Administered</th>
-											<th>Time Administered</th>
 											<th>Medicine Name</th>
-											<th>Quantity</th>
+											<th>Date Time Administered</th>
 											<th>Dosage</th>
+											<th>Intake</th>
+											<th>Administered By</th>
 										</tr>
 										</thead>
 										<tbody>
 										<tr ng-repeat="medication in medicationdetails" ng-class="{'selected': medication.ID == selectedRow}" ng-click="setClickedRow(medication.ID)">
-	  											<td>{{medication.MedicationID}}</td>
-												<td>{{medication.MedicineID}}</td>
-												<td>{{medication.DateAdministered}}</td>
-												<td>{{medication.TimeAdministered}}</td>
-												<td>{{medication.MedicineName}}</td>
-												<td>{{medication.Quantity}}</td>
-												<td>{{medication.Dosage}}</td>
+	  											<td>{{medication.MedicineName}}</td>
+												<td>{{medication.DateAdministered}} {{medication.TimeAdministered}}</td>
+												<td>{{medication.Unit}}</td>
+												<td>{{medication.Intake}}</td>
+												<td>Dr. {{medication.PhysicianFirstname}} {{medication.PhysicianMiddlename}} {{medication.PhysicianLastname}}</td>
 												
 											</tr>
 										</tbody>
@@ -420,7 +411,6 @@ font-weight: bold;
 								
 								</div>
 								<div class="panel-footer">
-										<button type="button" ng-click="viewMedicine()" class="btn btn-default pull-left" data-dismiss="modal">View Details</button>
 										<button type="button" class="btn btn-danger-alt pull-right" data-dismiss="modal">Close</button>
 								</div>
 							</div>
@@ -442,28 +432,24 @@ font-weight: bold;
 									<center><span><strong>Registry Information</strong></span></center>
 									<hr>
 									<table id="postmedication_table" class="table table-striped table-bordered" cellspacing="0" width="100%">
-										<thead>
-										<tr>
-											<th>Medication ID</th>
-											<th>Medicine ID</th>
-											<th>Date Administered</th>
-											<th>Time Administered</th>
-											<th>Medicine Name</th>
-											<th>Quantity</th>
-											<th>Dosage</th>
-										</tr>
-										</thead>
-										<tbody>
-										<tr ng-repeat="medication in medicationdetails" ng-class="{'selected': medication.ID == selectedRow}" ng-click="setClickedRow(medication.ID)">
-												<td>{{medication.MedicationID}}</td>
-												<td>{{medication.MedicineID}}</td>
-												<td>{{medication.DateAdministered}}</td>
-												<td>{{medication.TimeAdministered}}</td>
-												<td>{{medication.MedicineName}}</td>
-												<td>{{medication.Quantity}}</td>
-												<td>{{medication.Dosage}}</td>
-										</tr>
-										</tbody>
+									<thead>
+											<tr>
+												<th>Medicine Name</th>
+												<th>Date Administered</th>
+												<th>Time Administered</th>
+												<th>Required Intake</th>
+												<th>Dosage</th>
+											</tr>
+											</thead>
+											<tbody>
+											<tr ng-repeat="medication in medicationdetails"  ng-class="{'selected': medication.ID == selectedRow}" ng-click="setClickedRow(medication.ID)">
+													<td>{{medication.MedicineName}}</td>
+													<td>{{medication.DateAdministered}}</td>
+													<td>{{medication.TimeAdministered}}</td>
+													<td>{{medication.Quantity}}</td>
+													<td>{{medication.Unit}}</td>
+												</tr>
+											</tbody>
 									</table>
 								</div>
 	  							<div ng-repeat="med in medicationdetails">
@@ -493,36 +479,35 @@ font-weight: bold;
 		$scope.clickedRow = 0;
 		$scope.new = {};
 
-		var pusher = new Pusher('c23d5c3be92c6ab27b7a', {
+				var pusher = new Pusher('c23d5c3be92c6ab27b7a', {
             		cluster: 'ap1',
             		encrypted: true
             	  	});
               
-            		var channel = pusher.subscribe('my-channel-inpatient');
+            	var channel = pusher.subscribe('my-channel-inpatient');
             		channel.bind('my-event-inpatient', function(data) {
             		
             			console.log(data.message);
 						console.log(data.message1);
             			swal({
-            				icon: "success",
+            				icon: "warning",
             				title: data.message,
             				text: data.message1
             				}).then(function () {
             			});
             
-            			$http({
-            			method: 'get',
-            			url: 'getData/get-order-details.php',
-            			params:{id:$scope.at}
-            			}).then(function(response) {
-            				$scope.orders = response.data;	
-            				angular.element(document).ready(function() {  
-            				dTable = $('#orders_table')  
-            				dTable.DataTable();  
-            				});  
-            			});
-            
-            	  	});
+            			// $http({
+            			// method: 'get',
+            			// url: 'getData/get-order-details.php',
+            			// params:{id:$scope.at}
+            			// }).then(function(response) {
+            			// 	$scope.orders = response.data;	
+            			// 	angular.element(document).ready(function() {  
+            			// 	dTable = $('#orders_table')  
+            			// 	dTable.DataTable();  
+            			// 	});  
+            			// });
+            	});
 
 		var tick = function() {
 			$scope.clock = Date.now();
@@ -729,10 +714,10 @@ font-weight: bold;
 			}
 		}
 
-		$scope.viewMedicine = function(param){
-			$scope.medid = $scope.selectedRow;
-			window.location.href = 'view-medication-details.php?at=' + $scope.at + '&id=' + $scope.admissionid + '&medid=' + $scope.medid;
-		}
+		// $scope.viewMedicine = function(param){
+		// 	$scope.medid = $scope.selectedRow;
+		// 	window.location.href = 'view-medication-details.php?at=' + $scope.at + '&id=' + $scope.admissionid + '&medid=' + $scope.medid;
+		// }
 
 		$scope.medicineRequisition = function(){
 			if($scope.selectedRow != null){
@@ -740,9 +725,9 @@ font-weight: bold;
 				$http({
 					method: 'get',
 					url: 'getData/get-medication-details.php',
-					params: {id: $scope.admissionid}
+					params: {admissionid: $scope.admissionid}
 				}).then(function(response) {
-					$scope.medicationdetails = response.data;
+					$scope.medications = response.data;
 					angular.element(document).ready(function() {  
 					dTable = $('#requisition_table')  
 					dTable.DataTable();  
@@ -756,18 +741,32 @@ font-weight: bold;
 		}
 
 		$scope.sendRequisition = function(){
-			swal({
-                icon: "success",
-                title: "Medicine Requested!",
-                text: "Redirecting in 2..",
-                timer: 2000
-            }).then(function () {
-				window.location.href = 'insertData/insert-medicine-request.php?at=' + $scope.at + '&id=' + $scope.admissionid;
-                }, function (dismiss) {
-                if (dismiss === 'cancel') {
-					window.location.href = 'insertData/insert-medicine-request.php?at=' + $scope.at + '&id=' + $scope.admissionid;
-            }
-            });
+			$http({
+				method: 'get',
+				url: 'getData/check-medication-requests.php',
+				params:{at: $scope.at,
+					id: $scope.admissionid}
+			}).then(function(response) {
+				$scope.chk = response.data;
+				if($scope.chk == 1){
+					swal ( "Oops..Something went wrong! " ,  "Medicine for the day already requested!" ,  "warning" )
+				}else{
+						swal({
+						    icon: "success",
+						    title: "Medicine Requested!",
+						    text: "Redirecting in 2..",
+						    timer: 2000
+						}).then(function () {
+							window.location.href = 'insertData/insert-medicine-request.php?at=' + $scope.at + '&id=' + $scope.admissionid;
+						    }, function (dismiss) {
+						    if (dismiss === 'cancel') {
+								window.location.href = 'insertData/insert-medicine-request.php?at=' + $scope.at + '&id=' + $scope.admissionid;
+						}
+						});
+				}
+			});
+
+		
 		}
 
 		$scope.viewProfile = function() { 
@@ -781,7 +780,7 @@ font-weight: bold;
 				$http({
 					method: 'get',
 					url: 'getData/get-medication-details.php',
-					params: {id: $scope.admissionid}
+					params: {admissionid: $scope.admissionid}
 				}).then(function(response) {
 					$scope.medicationdetails = response.data;
 					angular.element(document).ready(function() {  
@@ -798,22 +797,19 @@ font-weight: bold;
 		}
 
 		$scope.postMedicationConfirm = function(){
-			$scope.medicineid = $scope.selectedRow;
-
+			$scope.medicationid = $scope.selectedRow;
 			swal({
                 icon: "success",
                 title: "Medication Updated!",
                 text: "Redirecting in 2..",
                 timer: 2000
             }).then(function () {
-				window.location.href = 'insertData/post-medication-details.php?at=' + $scope.at + '&id=' + $scope.admissionid + '&medicationid=' + $scope.medicineid;
+				window.location.href = 'insertData/post-medication-details.php?at=' + $scope.at + '&id=' + $scope.admissionid + '&medicationid=' + $scope.medicationid;
                 }, function (dismiss) {
                 if (dismiss === 'cancel') {
-				window.location.href = 'insertData/post-medication-details.php?at=' + $scope.at + '&id=' + $scope.admissionid + '&medicationid=' + $scope.medicineid;
+				window.location.href = 'insertData/post-medication-details.php?at=' + $scope.at + '&id=' + $scope.admissionid + '&medicationid=' + $scope.medicationid;
             }
             });
-
-			
 		}
 
 		$scope.viewOrder = function(){
@@ -957,5 +953,9 @@ font-weight: bold;
 
    }]);
 </script>		
+<div id="custom-footer">
+            
+</div>		
+
 </div>
 <?php include 'footer.php'?>

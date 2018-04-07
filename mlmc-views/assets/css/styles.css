@@ -19683,11 +19683,11 @@ footer ul {
 }
 #custom-footer {
   position:fixed;
-  right:18;
+  right:13;
   bottom:0;
   margin:0;
-  width:15%;
-  height:15%;
+  width:25%;
+  height:25%;
   background:url('../img/header-logo.png') no-repeat bottom right;
   background-size:100%;
   z-index: 1;
