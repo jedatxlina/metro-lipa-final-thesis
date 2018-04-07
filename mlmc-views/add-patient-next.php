@@ -74,7 +74,7 @@
                                             </div>
                                             <div data-row-span="3">
                                                 <div data-field-span="1">
-                                                    <label>Current Medications</label>
+                                                    <label>Administered Medicines</label>
                                                     <select id="medications" class="select2" multiple="multiple" style="width:350px;">
                                                         <optgroup label="List of Medicines">
                                                              <option ng-repeat="medicine in medicines" value="{{medicine.MedicineID}}">{{medicine.MedicineName}}</option>
@@ -84,7 +84,7 @@
 
                                                      <a href="#">&nbsp;<i class="ti ti-close" ng-click="reset('currentmed')"></i></a><br><br>
                                                     <div id="othercurrentmedication">
-                                                        <label>Other Current Medication</label>
+                                                        <label>Other Administered Medicines</label>
                                                         <input type="text" ng-model="othercurrentmed" class="form-control tooltips" data-trigger="hover" data-original-title="Separate with , if more than 1">
                                                     </div>
                                                 </div>
@@ -115,7 +115,7 @@
                                                                 </div>
                                                         </div>
                                                         <div data-field-span="2">
-                                                            <label>Administered Medications</label>
+                                                            <label>Required Medicine Intake</label>
                                                             <div class="controls">
                                                             
                                                                 <select id="administered" class="select2" multiple="multiple" style="width:400px;">
@@ -126,7 +126,7 @@
                                                                 </select>
                                                                 <a href="#">&nbsp;<i class="ti ti-close" ng-click="reset('administeredmed')"></i></a><br><br>
                                                                 <div id="otheradministeredmed">
-                                                                    <label>Other Administered Medication</label>
+                                                                    <label>Other Required Medicine Intake</label>
                                                                     <input type="text" ng-model="otheradministeredmed" class="form-control tooltips" data-trigger="hover" data-original-title="Separate with , if more than 1">
                                                                 </div>
                                                             </div>
