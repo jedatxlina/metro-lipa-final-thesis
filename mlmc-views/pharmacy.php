@@ -36,8 +36,7 @@
                             <thead>
                                 <tr>
                                     <th>Medicine ID</th>
-                                    <th>Medicine Name </th>
-                                    <th>Unit</th>
+                                    <th>Medicine </th>
                                     <th>Price</th>
                                     <th>Quantity</th>
                                     <th>Re-Order Point</th>
@@ -46,16 +45,14 @@
                             <tbody>
                                 <tr ng-repeat="med in meds track by $index" ng-class="{'selected': med.PharmaID == selectedRow}" ng-click="setClickedRow(med.PharmaID)" >
                                     <td>{{med.PharmaID}}</td>
-                                    <td>{{med.PharmaName}}</td>
-                                    <td>{{med.Unit}}</td>
+                                    <td>{{med.PharmaName}} {{med.Unit}}</td>
                                     <td>{{med.Price}}</td>
                                     <td style="color:red">{{med.Quantity}}</td>  
                                     <td>{{med.ReOrder}}</td>
                                 </tr>
                                 <tr ng-repeat="pharma in pharmacs track by $index" ng-class="{'selected': pharma.PharmaID == selectedRow}" ng-click="setClickedRow(pharma.PharmaID)" >
                                     <td>{{pharma.PharmaID}}</td>
-                                    <td>{{pharma.PharmaName}}</td>
-                                    <td>{{pharma.Unit}}</td>
+                                    <td>{{pharma.PharmaName}} {{pharma.Unit}}</td>
                                     <td>{{pharma.Price}}</td>
                                     <td>{{pharma.Quantity}}</td>  
                                     <td>{{pharma.ReOrder}}</td>
