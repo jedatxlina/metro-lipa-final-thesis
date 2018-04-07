@@ -2,8 +2,21 @@
 	  $activeMenu = "others";	
 ?>
 <?php include 'admin-header.php'?>
+
+<style>
+.resize {
+    width: 50px;
+    height: auto;
+}
+</style>
+
 <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/angularjs-slider/6.5.1/rzslider.min.css"/>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/angularjs-slider/6.5.1/rzslider.min.js"></script>
+
+<!-- <script src="assets/js/report/webix.js" type="text/javascript"></script>
+<script type="text/javascript" src="assets/js/report/querybuilder.js"></script>
+<link rel="stylesheet" type="text/css" href="assets/js/report/webix.css">
+<link rel="stylesheet" type="text/css" href="assets/js/report/querybuilder.css"> -->
 
 <ol class="breadcrumb">
 <li><a href="#">Home</a></li>
@@ -11,26 +24,6 @@
 </ol>
 
 <div class="container-fluid">
-    <!-- <div class="panel-body">
-		<h3>Migrate Data<small>Into Archive</small></h3>
-	</div>
-	<div class="row">
-    <div class="col-md-9">
-					<div class="panel panel-danger">
-					<div class="panel-heading">
-                    <h2>File Upload</h2>
-                    <div class="panel-ctrls" data-actions-container="" data-action-collapse='{"target": ".panel-body"}'></div>
-                    <div class="options">
-
-                    </div>
-                </div>
-                <div class="panel-body">
-                    <form action="upload.php" class="dropzone"></form>
-                </div>
-						<div class="panel-footer"></div>
-					</div>
-				</div>
-	</div> -->
 	<div data-widget-group="group1">
             <div class="row">
                 <div class="col-sm-3">
@@ -87,8 +80,18 @@
 									</div>
 									<div class="panel-body">
 										<div class="tab-content">
-											<div class="tab-pane active" id="horizontal-form">
-
+											<div class="tab-pane" id="migrate-form">
+												<form action="migrate-patient-archive.php" enctype='multipart/form-data' method="POST">
+													<input type="hidden" name="at" value="<?php if(isset($_GET['at'])) { echo $_GET['at']; } ?>">
+													<div align="center">
+															<p>Upload CSV: <input type="file" name="file"></p>
+															<p><input type="submit" value="Import" name="submit"></p>
+													</div>
+												</form>
+											</div>
+											<div class="tab-pane active" id="template-form">
+												<span>
+												<a href="patientArchiveCsv/sample-patient-archive.csv">&emsp;&emsp;&emsp;<img src="assets/img/2000px-Microsoft_Excel_2013_logo.svg.png"  class="resize"><br>Patient Archive Template</a></span>
 											</div>
 										</div>
 									</div>
@@ -102,15 +105,22 @@
 										<!-- <div class="panel-ctrls" data-actions-container="" data-action-collapse='{"target": ".panel-body, .panel-footer"}'></div> -->
 										<div class="options">
 											<ul class="nav nav-tabs">
-											<li><a href="#migrate-form" data-toggle="tab">Patients</a></li>
-											<li class="active"><a href="#template-form" data-toggle="tab">Doctors</a></li>
+											<li><a href="#patients-form" data-toggle="tab">Patients</a></li>
+											<li class="active"><a href="#doctors-form" data-toggle="tab">Doctors</a></li>
+											<li><a href="#custom-form" data-toggle="tab">Custom</a></li>
 											</ul>
 										</div>
 									</div>
 									<div class="panel-body">
 										<div class="tab-content">
-											<div class="tab-pane active" id="horizontal-form">
-											<input type="text" class="form-control" ng-value="admission">
+											<div class="tab-pane" id="patients-form">
+											asd
+											</div>
+											<div class="tab-pane active" id="doctors-form">
+											ss
+											</div>
+											<div class="tab-pane" id="custom-form">
+											
 											</div>
 										</div>
 									</div>
@@ -130,7 +140,6 @@
 </div>
 
 <script>
-	
 			var app = angular.module('myApp', ['rzModule']);
 			app.controller('userCtrl', function($scope, $http) {
 
@@ -188,6 +197,16 @@
 				default:
 					break;
 			}
+
+			$scope.accesstype = $scope.at[0];
+			$http({
+				method: 'GET',
+				url: 'getData/get-user-profile.php',
+				params: {id: $scope.at,
+					atype : $scope.accesstype}
+			}).then(function(response) {
+				$scope.userdetails = response.data;
+			});				
 
 			$scope.checkValue = function(){
 				$http({

@@ -33,6 +33,7 @@
     <link type="text/css" href="assets/plugins/switchery/switchery.css" rel="stylesheet">
     <!-- Switchery -->
     <link type="text/css" href="assets/plugins/datatables/dataTables.bootstrap.css" rel="stylesheet">
+    
     <style>
         .disabled {
         	color: #ccc;
