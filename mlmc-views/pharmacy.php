@@ -17,7 +17,7 @@
 </ol>
 
 <br><br>
-<div class="container-fluid" ng-app="myApp" ng-controller="userCtrl">
+<div class="container-fluid" ng-app="myApp" ng-controller="userCtrl" ng-form="Form">
 
     <div class="row">
 
@@ -135,26 +135,27 @@
             </div>
 
             <div class="modal fade" id="AddStock" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-                <div class="modal-dialog">
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                            <h4 class="modal-title" id="myModalLabel">Add Stock</h4>
-                        </div>
-                        <div class="modal-body">
+            <div class="modal-dialog">
+            <div class="panel panel-danger" data-widget='{"draggable": "false"}'>
+            <div class="panel-heading">
+                <h2>Add Stock</h2>
+                <div class="panel-ctrls" data-actions-container="" data-action-collapse='{"target": ".panel-body, .panel-footer"}'></div>
+            </div>
+            <div class="panel-body" style="height: auto">
                             <form ng-repeat="stock in stocks">
                                 <div class="form-group">
                                     <label>Medicine Name </label>
                                     <input type="text" ng-model="$parent.medname" ng-init="$parent.medname=stock.PharmaName" class="form-control" disabled>
                                 </div>
                                 </forM>
-                                <div class="form-group">
+                                <div class="form-group"  ng-class="{'has-error':submitted && Form.addqty.$error.required}" >
                                     <label>Quantity </label>
-                                    <input type="text" ng-model="addqty" placeholder="10" class="form-control" ng-keypress="filterValue($event)">
+                                    <input type="text" name="addqty" ng-model="addqty" class="form-control" ng-keypress="filterValue($event)" required>
+                                    <p ng-show="submitted && Form.addqty.$error.required" class="help-block">This field is required.</p>
                                 </div>
                                 <div class="modal-footer">
                                     <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                                    <button ng-click='UpdateStock()' class="btn btn-primary">Confirm</button>
+                                    <button ng-click='UpdateStock(); submitted=true' class="btn btn-primary">Confirm</button>
                                 </div>
                             
                         </div>
@@ -176,12 +177,12 @@
          
             <div class="modal fade" id="EditPharmaceutical" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
             <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                    <h4 class="modal-title" id="myModalLabel">Edit Medicine</h4>
-                </div>
-                <div class="modal-body">
+            <div class="panel panel-danger" data-widget='{"draggable": "false"}'>
+            <div class="panel-heading">
+                <h2>Edit Medicine</h2>
+                <div class="panel-ctrls" data-actions-container="" data-action-collapse='{"target": ".panel-body, .panel-footer"}'></div>
+            </div>
+            <div class="panel-body" style="height: auto">
                 <form ng-repeat="ep in editpharmac">
                 <div class="form-group">       
                         <label>Medicine ID</label>
@@ -355,17 +356,24 @@
             }
 
             $scope.UpdateStock = function() {
-                $scope.medid = $scope.selectedRow;
-                $http({
-                    method: 'GET',
-                    url: 'updateData/update-pharmaceutical-stock.php',
-                    params: {
-                        pharmaid: $scope.medid,
-                        qty: $scope.addqty
-                    }
-                }).then(function(response) {
-                    window.location.href = 'pharmacy.php?at=' + $scope.at;
-                });
+                if ($scope.addqty == null)
+                {
+
+                }
+                else
+                {
+                    $scope.medid = $scope.selectedRow;
+                    $http({
+                        method: 'GET',
+                        url: 'updateData/update-pharmaceutical-stock.php',
+                        params: {
+                            pharmaid: $scope.medid,
+                            qty: $scope.addqty
+                        }
+                    }).then(function(response) {
+                        window.location.href = 'pharmacy.php?at=' + $scope.at;
+                    });
+                }
             }
 
             $scope.EditPharmaceutical = function() {
