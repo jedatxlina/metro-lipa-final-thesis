@@ -7,8 +7,8 @@ session_start();
 <!DOCTYPE html>
 <html>
 <head>
-<title>Metro Lipa Medical Center Patient Management Systemmmmm</title>
-  <?php include 'css/css.html'; ?>
+<title>Metro Lipa Medical Center Patient Management Systemmmmm  </title>
+  <?php include 'css/css.html'; ?>  
   <script src="mlmc-views/components/angular.min.js"></script>
 	<script src="mlmc-views/assets/js/mask.js"></script>
 </head>
