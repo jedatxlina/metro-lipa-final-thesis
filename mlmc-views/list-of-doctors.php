@@ -13,6 +13,7 @@
     $at = $_GET['at'];
     $datetime = date("Y-m-d h:i A");
 
+    
     $sel = mysqli_query($conn,"SELECT *, CONCAT(Firstname, ' ' ,MiddleName, ' ', LastName) AS Fullname FROM admin WHERE AdminID ='$at'");
 
     while ($row = mysqli_fetch_assoc($sel)) {

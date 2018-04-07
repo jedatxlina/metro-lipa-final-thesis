@@ -36,8 +36,7 @@
                             <thead>
                                 <tr>
                                     <th>Medicine ID</th>
-                                    <th>Medicine Name </th>
-                                    <th>Unit</th>
+                                    <th>Medicine </th>
                                     <th>Price</th>
                                     <th>Quantity</th>
                                     <th>Re-Order Point</th>
@@ -46,16 +45,14 @@
                             <tbody>
                                 <tr ng-repeat="med in meds track by $index" ng-class="{'selected': med.PharmaID == selectedRow}" ng-click="setClickedRow(med.PharmaID)" >
                                     <td>{{med.PharmaID}}</td>
-                                    <td>{{med.PharmaName}}</td>
-                                    <td>{{med.Unit}}</td>
+                                    <td>{{med.PharmaName}} {{med.Unit}}</td>
                                     <td>{{med.Price}}</td>
                                     <td style="color:red">{{med.Quantity}}</td>  
                                     <td>{{med.ReOrder}}</td>
                                 </tr>
                                 <tr ng-repeat="pharma in pharmacs track by $index" ng-class="{'selected': pharma.PharmaID == selectedRow}" ng-click="setClickedRow(pharma.PharmaID)" >
                                     <td>{{pharma.PharmaID}}</td>
-                                    <td>{{pharma.PharmaName}}</td>
-                                    <td>{{pharma.Unit}}</td>
+                                    <td>{{pharma.PharmaName}} {{pharma.Unit}}</td>
                                     <td>{{pharma.Price}}</td>
                                     <td>{{pharma.Quantity}}</td>  
                                     <td>{{pharma.ReOrder}}</td>
@@ -69,6 +66,30 @@
                 </div>
             </div>
             <div class="col-md-3">
+            <div class="panel panel-danger widget-progress" data-widget='{"draggable": "false"}'>
+                            <div class="panel-heading">
+                                <h2>Current Time</h2>
+                                <div class="panel-ctrls button-icon-bg" 
+                                    data-actions-container="" 
+                                    data-action-refresh-demo='{"type": "circular"}'
+                                    >
+                                </div>
+                            </div>
+                            <div class="panel-footer">
+                                <div class="tabular">
+                                    <div class="tabular-row">
+                                        <div class="tabular-cell">
+                                            <span class="status-total">Date</span>
+                                            <span class="status-value">	{{ clock | date:'MMM d, y'}}</span>
+                                        </div>
+                                        <div class="tabular-cell">
+                                            <span class="status-pending">Time</span>
+                                            <span class="status-value">	{{ clock | date:'h:m:s a'}}</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                 <div class="list-group list-group-alternate mb-n nav nav-tabs">
 						<a href="#" role="tab" data-toggle="tab" class="list-group-item active">Actions Panel</a>
 						<a href="#" ng-click="AddPharmaceutical()" role="tab" data-toggle="tab" class="list-group-item"><i class="fa fa-list-alt fa-fw"></i>Add Medicine</a>
@@ -155,7 +176,7 @@
                                 </div>
                                 <div class="modal-footer">
                                     <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                                    <button ng-click='UpdateStock(); submitted=true' class="btn btn-primary">Confirm</button>
+                                    <button ng-click='UpdateStock(); submitted=true' formnovalidate class="btn btn-primary">Confirm</button>
                                 </div>
                             
                         </div>
@@ -225,12 +246,22 @@
         var fetch = angular.module('myApp', ['ui.mask']);
 
 
-        fetch.controller('userCtrl', ['$scope', '$http', '$window', function($scope, $http, $window) {
+        fetch.controller('userCtrl', ['$scope', '$http', '$window', '$interval', function($scope, $http, $window, $interval) {
             $scope.at = "<?php echo $_GET['at'];?>";
             $scope.selectedRow = null;
             $scope.selectedStatus = null;
             $scope.clickedRow = 0;
             $scope.new = {};
+
+                var tick = function() {
+                $scope.clock = Date.now();
+                $scope.datetime = new Date().toLocaleTimeString('en-US', { hour: 'numeric', hour12: true, minute: 'numeric' });		
+			
+
+                }
+	
+                tick();
+                $interval(tick, 1000);
 
                 switch ($scope.at.charAt(0)) {
                     case '1':

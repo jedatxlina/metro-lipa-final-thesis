@@ -13,7 +13,10 @@
     $at = $_GET['at'];
     $datetime = date("Y-m-d h:i A");
 
+    if ($at[0] == 1)
     $sel = mysqli_query($conn,"SELECT *, CONCAT(Firstname, ' ' ,MiddleName, ' ', LastName) AS Fullname FROM admin WHERE AdminID ='$at'");
+    else if ($at[0] == 5)
+    $sel = mysqli_query($conn,"SELECT *, CONCAT(Firstname, ' ' ,MiddleName, ' ', LastName) AS Fullname FROM pharmacy_staff WHERE PharmacyStaffID ='$at'");
 
     while ($row = mysqli_fetch_assoc($sel)) {
         $genfullname = $row['Fullname'];
