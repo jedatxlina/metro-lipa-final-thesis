@@ -17,7 +17,7 @@
 </ol>
 
 <br><br>
-<div class="container-fluid" ng-app="myApp" ng-controller="userCtrl">
+<div class="container-fluid" ng-app="myApp" ng-controller="userCtrl" ng-form="Form">
 
     <div class="row">
 
@@ -28,7 +28,7 @@
             <div class="col-md-9">
                 <div class="panel panel-danger">
                     <div class="panel-heading">
-                        <h2>Pharmacy</h2>
+                        <h2>Pharmacy</h2><a ng-click="ListOfMedicine()"> <i class="ti ti-printer pull-right"></i></a> 
                         <div class="panel-ctrls"></div>
                     </div>
                     <div class="panel-body">
@@ -36,8 +36,7 @@
                             <thead>
                                 <tr>
                                     <th>Medicine ID</th>
-                                    <th>Medicine Name </th>
-                                    <th>Unit</th>
+                                    <th>Medicine </th>
                                     <th>Price</th>
                                     <th>Quantity</th>
                                     <th>Re-Order Point</th>
@@ -46,16 +45,14 @@
                             <tbody>
                                 <tr ng-repeat="med in meds track by $index" ng-class="{'selected': med.PharmaID == selectedRow}" ng-click="setClickedRow(med.PharmaID)" >
                                     <td>{{med.PharmaID}}</td>
-                                    <td>{{med.PharmaName}}</td>
-                                    <td>{{med.Unit}}</td>
+                                    <td>{{med.PharmaName}} {{med.Unit}}</td>
                                     <td>{{med.Price}}</td>
                                     <td style="color:red">{{med.Quantity}}</td>  
                                     <td>{{med.ReOrder}}</td>
                                 </tr>
                                 <tr ng-repeat="pharma in pharmacs track by $index" ng-class="{'selected': pharma.PharmaID == selectedRow}" ng-click="setClickedRow(pharma.PharmaID)" >
                                     <td>{{pharma.PharmaID}}</td>
-                                    <td>{{pharma.PharmaName}}</td>
-                                    <td>{{pharma.Unit}}</td>
+                                    <td>{{pharma.PharmaName}} {{pharma.Unit}}</td>
                                     <td>{{pharma.Price}}</td>
                                     <td>{{pharma.Quantity}}</td>  
                                     <td>{{pharma.ReOrder}}</td>
@@ -69,6 +66,30 @@
                 </div>
             </div>
             <div class="col-md-3">
+            <div class="panel panel-danger widget-progress" data-widget='{"draggable": "false"}'>
+                            <div class="panel-heading">
+                                <h2>Current Time</h2>
+                                <div class="panel-ctrls button-icon-bg" 
+                                    data-actions-container="" 
+                                    data-action-refresh-demo='{"type": "circular"}'
+                                    >
+                                </div>
+                            </div>
+                            <div class="panel-footer">
+                                <div class="tabular">
+                                    <div class="tabular-row">
+                                        <div class="tabular-cell">
+                                            <span class="status-total">Date</span>
+                                            <span class="status-value">	{{ clock | date:'MMM d, y'}}</span>
+                                        </div>
+                                        <div class="tabular-cell">
+                                            <span class="status-pending">Time</span>
+                                            <span class="status-value">	{{ clock | date:'h:m:s a'}}</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                 <div class="list-group list-group-alternate mb-n nav nav-tabs">
 						<a href="#" role="tab" data-toggle="tab" class="list-group-item active">Actions Panel</a>
 						<a href="#" ng-click="AddPharmaceutical()" role="tab" data-toggle="tab" class="list-group-item"><i class="fa fa-list-alt fa-fw"></i>Add Medicine</a>
@@ -135,26 +156,27 @@
             </div>
 
             <div class="modal fade" id="AddStock" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-                <div class="modal-dialog">
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                            <h4 class="modal-title" id="myModalLabel">Add Stock</h4>
-                        </div>
-                        <div class="modal-body">
+            <div class="modal-dialog">
+            <div class="panel panel-danger" data-widget='{"draggable": "false"}'>
+            <div class="panel-heading">
+                <h2>Add Stock</h2>
+                <div class="panel-ctrls" data-actions-container="" data-action-collapse='{"target": ".panel-body, .panel-footer"}'></div>
+            </div>
+            <div class="panel-body" style="height: auto">
                             <form ng-repeat="stock in stocks">
                                 <div class="form-group">
                                     <label>Medicine Name </label>
                                     <input type="text" ng-model="$parent.medname" ng-init="$parent.medname=stock.PharmaName" class="form-control" disabled>
                                 </div>
                                 </forM>
-                                <div class="form-group">
+                                <div class="form-group"  ng-class="{'has-error':submitted && Form.addqty.$error.required}" >
                                     <label>Quantity </label>
-                                    <input type="text" ng-model="addqty" placeholder="10" class="form-control" ng-keypress="filterValue($event)">
+                                    <input type="text" name="addqty" ng-model="addqty" class="form-control" ng-keypress="filterValue($event)" required>
+                                    <p ng-show="submitted && Form.addqty.$error.required" class="help-block">This field is required.</p>
                                 </div>
                                 <div class="modal-footer">
                                     <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                                    <button ng-click='UpdateStock()' class="btn btn-primary">Confirm</button>
+                                    <button ng-click='UpdateStock(); submitted=true' formnovalidate class="btn btn-primary">Confirm</button>
                                 </div>
                             
                         </div>
@@ -176,12 +198,12 @@
          
             <div class="modal fade" id="EditPharmaceutical" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
             <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                    <h4 class="modal-title" id="myModalLabel">Edit Medicine</h4>
-                </div>
-                <div class="modal-body">
+            <div class="panel panel-danger" data-widget='{"draggable": "false"}'>
+            <div class="panel-heading">
+                <h2>Edit Medicine</h2>
+                <div class="panel-ctrls" data-actions-container="" data-action-collapse='{"target": ".panel-body, .panel-footer"}'></div>
+            </div>
+            <div class="panel-body" style="height: auto">
                 <form ng-repeat="ep in editpharmac">
                 <div class="form-group">       
                         <label>Medicine ID</label>
@@ -224,12 +246,22 @@
         var fetch = angular.module('myApp', ['ui.mask']);
 
 
-        fetch.controller('userCtrl', ['$scope', '$http', function($scope, $http) {
+        fetch.controller('userCtrl', ['$scope', '$http', '$window', '$interval', function($scope, $http, $window, $interval) {
             $scope.at = "<?php echo $_GET['at'];?>";
             $scope.selectedRow = null;
             $scope.selectedStatus = null;
             $scope.clickedRow = 0;
             $scope.new = {};
+
+                var tick = function() {
+                $scope.clock = Date.now();
+                $scope.datetime = new Date().toLocaleTimeString('en-US', { hour: 'numeric', hour12: true, minute: 'numeric' });		
+			
+
+                }
+	
+                tick();
+                $interval(tick, 1000);
 
                 switch ($scope.at.charAt(0)) {
                     case '1':
@@ -273,6 +305,14 @@
                 else
                 $event.preventDefault();
                 };
+
+                $scope.ListOfMedicine = function(){
+                    if($scope.val == ''){
+                        $window.open('list-of-medicine.php?at='+$scope.at, '_blank');
+                    }else{
+                        $window.open('list-of-medicine.php?at='+$scope.at+'&searchparam='+$scope.val, '_blank');
+                    }
+                }
 
             $http({
                 method: 'get',
@@ -347,17 +387,24 @@
             }
 
             $scope.UpdateStock = function() {
-                $scope.medid = $scope.selectedRow;
-                $http({
-                    method: 'GET',
-                    url: 'updateData/update-pharmaceutical-stock.php',
-                    params: {
-                        pharmaid: $scope.medid,
-                        qty: $scope.addqty
-                    }
-                }).then(function(response) {
-                    window.location.href = 'pharmacy.php?at=' + $scope.at;
-                });
+                if ($scope.addqty == null)
+                {
+
+                }
+                else
+                {
+                    $scope.medid = $scope.selectedRow;
+                    $http({
+                        method: 'GET',
+                        url: 'updateData/update-pharmaceutical-stock.php',
+                        params: {
+                            pharmaid: $scope.medid,
+                            qty: $scope.addqty
+                        }
+                    }).then(function(response) {
+                        window.location.href = 'pharmacy.php?at=' + $scope.at;
+                    });
+                }
             }
 
             $scope.EditPharmaceutical = function() {

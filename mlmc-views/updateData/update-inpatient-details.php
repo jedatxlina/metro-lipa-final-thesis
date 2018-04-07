@@ -20,7 +20,7 @@
     
     $query = mysqli_query($conn,"SELECT MedicalID FROM medical_details WHERE AdmissionID ='$id'");    
     while ($row = mysqli_fetch_assoc($query)) {
-        $medid = $row['MedID'];
+        $medid = $row['MedicalID'];
     }
 
     $sql4 = "INSERT INTO patient_diet(MedicalID,AdmissionID,Diet,DietRemarks) VALUES('$medid','$id','$dietplan','$dietremarks')";

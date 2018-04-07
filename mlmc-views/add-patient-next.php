@@ -74,7 +74,7 @@
                                             </div>
                                             <div data-row-span="3">
                                                 <div data-field-span="1">
-                                                    <label>Current Medications</label>
+                                                    <label>Administered Medicines</label>
                                                     <select id="medications" class="select2" multiple="multiple" style="width:350px;">
                                                         <optgroup label="List of Medicines">
                                                              <option ng-repeat="medicine in medicines" value="{{medicine.MedicineID}}">{{medicine.MedicineName}}</option>
@@ -82,9 +82,9 @@
                                                         <option ng-value="Others">Others</option>
                                                     </select>
 
-                                                    <a href="#">&nbsp;<i class="ti ti-close" ng-click="reset('currentmed')"></i></a><br><br>
-                                                    <div id="othercurrentmed">
-                                                        <label>Other Current Medication</label>
+                                                     <a href="#">&nbsp;<i class="ti ti-close" ng-click="reset('currentmed')"></i></a><br><br>
+                                                    <div id="othercurrentmedication">
+                                                        <label>Other Administered Medicines</label>
                                                         <input type="text" ng-model="othercurrentmed" class="form-control tooltips" data-trigger="hover" data-original-title="Separate with , if more than 1">
                                                     </div>
                                                 </div>
@@ -108,14 +108,14 @@
                                                                     </optgroup>
                                                                     <option ng-value="Others">Others</option>
                                                                 </select>
-                                                                <a href="#">&nbsp;<i class="ti ti-close" ng-click="reset('administeredmed')"></i></a><br><br>
+                                                                <a href="#">&nbsp;<i class="ti ti-close" ng-click="reset('otherdiagnosis')"></i></a><br><br>
                                                                 <div id="otherdiagnosis">
                                                                     <label>Other Impression/Diagnosis</label>
                                                                     <input type="text" ng-model="otherdiagnosis" class="form-control tooltips" data-trigger="hover" data-original-title="Separate with , if more than 1">
                                                                 </div>
                                                         </div>
                                                         <div data-field-span="2">
-                                                            <label>Administered Medications</label>
+                                                            <label>Required Medicine Intake</label>
                                                             <div class="controls">
                                                             
                                                                 <select id="administered" class="select2" multiple="multiple" style="width:400px;">
@@ -126,7 +126,7 @@
                                                                 </select>
                                                                 <a href="#">&nbsp;<i class="ti ti-close" ng-click="reset('administeredmed')"></i></a><br><br>
                                                                 <div id="otheradministeredmed">
-                                                                    <label>Other Administered Medication</label>
+                                                                    <label>Other Required Medicine Intake</label>
                                                                     <input type="text" ng-model="otheradministeredmed" class="form-control tooltips" data-trigger="hover" data-original-title="Separate with , if more than 1">
                                                                 </div>
                                                             </div>
@@ -263,7 +263,7 @@
                     $scope.otheradministeredmed = '';
                     
                     $('#otherconditions').hide();
-                    $('#othercurrentmed').hide();
+                    $('#othercurrentmedication').hide();
                     $('#otherdiagnosis').hide();
                     $('#otheradministeredmed').hide();
                 
@@ -279,7 +279,7 @@
                     $( "#medications" ).click(function() {
                         $scope.medication = $("#medications").val();
                         if( $scope.medication.indexOf('Others') >= 0){
-                            $('#othercurrentmed').show();
+                            $('#othercurrentmedication').show();
                         }
                    
                     });
@@ -303,23 +303,23 @@
                         $scope.chck = val;
                         switch ($scope.chck) {
                             case 'condition':
-                            $('#conditions').removeAttr('disabled');
-                            $('#otherconditions').hide();
+                                $('#conditions').removeAttr('disabled');
+                                $('#otherconditions').hide();
                                 break;
                                 
                             case 'currentmed':
-                            $('#medications').removeAttr('disabled');
-                            $('#othercurrentmed').hide();
+                                $('#medications').removeAttr('disabled');
+                                $('#othercurrentmedication').hide();
                                 break;
 
-                            case 'diagnosis':
-                            $('#diagnosis').removeAttr('disabled');
-                            $('#otherdiagnosis').hide();
+                            case 'otherdiagnosis':
+                                $('#diagnosis').removeAttr('disabled');
+                                $('#otherdiagnosis').hide();
                                 break;
 
                             case 'administeredmed':
-                            $('#administered').removeAttr('disabled');
-                            $('#otheradministeredmed').hide();
+                                $('#administered').removeAttr('disabled');
+                                $('#otheradministeredmed').hide();
                                 break;
                         
                             default:

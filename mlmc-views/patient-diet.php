@@ -1,4 +1,5 @@
 <?php 
+date_default_timezone_set("Asia/Singapore");
     require 'getData/connection.php';
     require_once 'dompdf/lib/html5lib/Parser.php';
     require_once 'dompdf/lib/php-font-lib/src/FontLib/Autoloader.php';
@@ -7,13 +8,12 @@
     Dompdf\Autoloader::register();
     // reference the Dompdf namespace
     use Dompdf\Dompdf;
-    date_default_timezone_set("Asia/Singapore");
+
     // instantiate and use the dompdf class
     $dompdf = new Dompdf();
     $at = $_GET['at'];
     $datetime = date("Y-m-d h:i A");
 
-    
     $sel = mysqli_query($conn,"SELECT *, CONCAT(Firstname, ' ' ,MiddleName, ' ', LastName) AS Fullname FROM admin WHERE AdminID ='$at'");
 
     while ($row = mysqli_fetch_assoc($sel)) {
@@ -22,9 +22,17 @@
 
      if(isset($_GET['searchparam'])){
          $searchparam = $_GET['searchparam'];
-         $query = mysqli_query($conn,"SELECT PhysicianID, Specialization, CONCAT( FirstName, ' ', MiddleName , ' ' ,LastName) AS FullName FROM physicians");
+         $query = mysqli_query($conn,"SELECT patient_diet.Diet , patient_diet.DietRemarks , medical_details.BedID , CONCAT(patients.FirstName, ' ' , patients.MiddleName , ' ', patients.LastName) AS Fullname
+         FROM patient_diet
+         JOIN medical_details 
+         JOIN patients
+         WHERE patient_diet.MedicalID = medical_details.MedicalID AND medical_details.AdmissionID = patients.AdmissionID AND patients.AdmissionType = 'Inpatient'");
      }else{
-         $query = mysqli_query($conn,"SELECT PhysicianID, Specialization, CONCAT( FirstName, ' ', MiddleName , ' ' ,LastName) AS FullName FROM physicians");
+         $query = mysqli_query($conn,"SELECT patient_diet.Diet , patient_diet.DietRemarks , medical_details.BedID , CONCAT(patients.FirstName, ' ' , patients.MiddleName , ' ', patients.LastName) AS Fullname
+         FROM patient_diet
+         JOIN medical_details 
+         JOIN patients
+         WHERE patient_diet.MedicalID = medical_details.MedicalID AND medical_details.AdmissionID = patients.AdmissionID AND patients.AdmissionType = 'Inpatient'");
      }
     
     $html = '<link type="text/css" href="assets/plugins/gridforms/gridforms/gridforms.css" rel="stylesheet">
@@ -58,22 +66,26 @@
     </style>
 
     <img src="assets/img/report-header.jpg">
-    <h4><center>List of Doctors</center></h4>
+    <h4><center>Patient Diet</center></h4>
     </head>
     <div class="container-fluid">
     <br>
             <table>
             <tr>
-                <th>Doctor</th>
-                <th>Specialization</th>
+                <th>Room & Bed No.</th>
+                <th>Fullname</th>
+                <th>Diet</th>
+                <th>Diet Remarks</th>
             </tr>';
     
          while ($row = mysqli_fetch_assoc($query)) {
-         $specialization = $row['Specialization'];
-         $Fullname = $row['FullName'];
+         $bedid = $row['BedID'];
+         $fullname = $row['Fullname'];
+         $diet = $row['Diet'];
+         $dietremarks = $row['DietRemarks'];
     
          $html .= '<tr>
-          <td> Dr. ' . $Fullname . ' </td><td>' . $specialization . '</td> </tr>';
+          <td>' . $bedid . ' </td><td>' . $fullname . '</td><td>' . $diet . '</td><td>' . $dietremarks . '</td> </tr>';
         }
     
     $html .= '</table>

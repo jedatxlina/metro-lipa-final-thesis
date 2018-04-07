@@ -19681,6 +19681,17 @@ footer {
 footer ul {
   margin: 0 !important;
 }
+#custom-footer {
+  position:fixed;
+  right:18;
+  bottom:0;
+  margin:0;
+  width:15%;
+  height:15%;
+  background:url('../img/header-logo.png') no-repeat bottom right;
+  background-size:100%;
+  z-index: 1;
+}
 .static-content-wrapper.content-white {
   background-color: #fff !important;
 }

@@ -32,10 +32,11 @@ $date = date("Y-m-d");
 $time = date("h:i A");
 
 $prepAddr = str_replace(' ','+',$address);
-$geocode = file_get_contents('https://maps.google.com/maps/api/geocode/json?address='.$prepAddr.'&sensor=false');
+
+$geocode = file_get_contents('https://maps.googleapis.com/maps/api/geocode/json?address='.$prepAddr.'&sensor=false');
 $output= json_decode($geocode);
-$latcoor = $output->results[0]->geometry->location->lat;
-$longcoor = $output->results[0]->geometry->location->lng;
+$latcoor = $output->{'results'}[0]->{'geometry'}->{'location'}->{'lat'};
+$longcoor = $output->{'results'}[0]->{'geometry'}->{'location'}->{'lng'};
 
 $sel = mysqli_query($conn,"SELECT * FROM patients_archive WHERE FirstName='$firstname' AND MiddleName='$middlename' AND LastName = '$lastname' AND Birthdate='$date'");
 

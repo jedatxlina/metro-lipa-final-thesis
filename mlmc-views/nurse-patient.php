@@ -40,12 +40,12 @@ font-weight: bold;
 </ol>
 
 <div class="container-fluid" ng-app="myApp" ng-controller="userCtrl">
+	<div class="panel-body">
+		<h3>Inpatient<small> Section</small></h3>
+	</div>	
 	<div class="row">
 		<div class="col-md-9">
-                <br>
 				<a href="qr-scanner/index.php?at=<?php echo $_GET['at']?>" class="btn btn-danger-alt pull-left"><i class="fa fa-qrcode"></i>&nbsp;&nbsp;Scan</a>
-				
-	
 		</div>
 	</div>
 	<br>
@@ -107,9 +107,14 @@ font-weight: bold;
 										<td>{{user.Temperature}}</td>
 										<td>{{user.DateTimeChecked}}</td>
                                     </tr>
+									
 								</tbody>
+								
 							</table>
+							
+							<a ng-click="generatePatientDiet()" class="pull-right"> Generate Patient Diet&nbsp;<i class="ti ti-printer"></i></a>
 						</div>
+						
 						<div class="panel-footer"></div>
 					</div>
 				</div>
@@ -487,7 +492,7 @@ font-weight: bold;
    var fetch = angular.module('myApp', []);
   
 
-   fetch.controller('userCtrl', ['$scope', '$http','$interval', function($scope, $http,$interval) {   
+   fetch.controller('userCtrl', ['$scope', '$http','$interval', '$window' , function($scope, $http,$interval,$window) {   
 		$scope.at = "<?php echo $_GET['at'];?>";
 		$scope.selectedRow = null;
 		$scope.clickedRow = 0;
@@ -607,6 +612,16 @@ font-weight: bold;
 			dTable.DataTable();  
 			});  
 		});
+
+		$scope.generatePatientDiet = function()
+		{
+                    if($scope.val == ''){
+                        $window.open('patient-diet.php?at='+$scope.at, '_blank');
+                    }else{
+                        $window.open('patient-diet.php?at='+$scope.at+'&searchparam='+$scope.val, '_blank');
+                    }
+        }
+
 
 		// $http({
         //    method: 'get',

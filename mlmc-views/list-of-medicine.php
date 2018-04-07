@@ -13,8 +13,10 @@
     $at = $_GET['at'];
     $datetime = date("Y-m-d h:i A");
 
-    
+    if ($at[0] == 1)
     $sel = mysqli_query($conn,"SELECT *, CONCAT(Firstname, ' ' ,MiddleName, ' ', LastName) AS Fullname FROM admin WHERE AdminID ='$at'");
+    else if ($at[0] == 5)
+    $sel = mysqli_query($conn,"SELECT *, CONCAT(Firstname, ' ' ,MiddleName, ' ', LastName) AS Fullname FROM pharmacy_staff WHERE PharmacyStaffID ='$at'");
 
     while ($row = mysqli_fetch_assoc($sel)) {
         $genfullname = $row['Fullname'];
@@ -22,9 +24,9 @@
 
      if(isset($_GET['searchparam'])){
          $searchparam = $_GET['searchparam'];
-         $query = mysqli_query($conn,"SELECT PhysicianID, Specialization, CONCAT( FirstName, ' ', MiddleName , ' ' ,LastName) AS FullName FROM physicians");
+         $query = mysqli_query($conn,"SELECT *, CONCAT(pharmaceuticals.MedicineName, ' ' , pharmaceuticals.Unit) AS Medicine FROM pharmaceuticals");
      }else{
-         $query = mysqli_query($conn,"SELECT PhysicianID, Specialization, CONCAT( FirstName, ' ', MiddleName , ' ' ,LastName) AS FullName FROM physicians");
+         $query = mysqli_query($conn,"SELECT *, CONCAT(pharmaceuticals.MedicineName, ' ' , pharmaceuticals.Unit) AS Medicine FROM pharmaceuticals");
      }
     
     $html = '<link type="text/css" href="assets/plugins/gridforms/gridforms/gridforms.css" rel="stylesheet">
@@ -58,22 +60,22 @@
     </style>
 
     <img src="assets/img/report-header.jpg">
-    <h4><center>List of Doctors</center></h4>
+    <h4><center>List of Medicines</center></h4>
     </head>
     <div class="container-fluid">
     <br>
             <table>
             <tr>
-                <th>Doctor</th>
-                <th>Specialization</th>
+                <th>Medicine</th>
+                <th>Quantity On-Hand</th>
             </tr>';
     
          while ($row = mysqli_fetch_assoc($query)) {
-         $specialization = $row['Specialization'];
-         $Fullname = $row['FullName'];
+         $medicine = $row['Medicine'];
+         $quantity = $row['Quantity'];
     
          $html .= '<tr>
-          <td> Dr. ' . $Fullname . ' </td><td>' . $specialization . '</td> </tr>';
+          <td>' . $medicine . ' </td><td>' . $quantity . '</td> </tr>';
         }
     
     $html .= '</table>
