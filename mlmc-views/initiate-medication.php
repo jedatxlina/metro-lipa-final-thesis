@@ -14,7 +14,7 @@
 
     $days = [];
 
-    $interval =$interval =isset($_GET['intakeinterval']) ? explode(',',$_GET['intakeinterval']) : '';
+    $interval =isset($_GET['intakeinterval']) ? explode(',',$_GET['intakeinterval']) : '';
 
     $param = isset($_GET['param']) ? $_GET['param'] : '';
 

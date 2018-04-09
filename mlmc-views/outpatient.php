@@ -466,6 +466,7 @@ include 'admin-header.php' ?>
             		var pushalert = function (){
             			alert('jed');
             		}	
+					
             		var tick = function() {
             			
             			$scope.clock = Date.now();

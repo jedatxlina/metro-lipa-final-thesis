@@ -94,6 +94,10 @@
                         <a href="#" ng-click="postDiagnosis()" role="tab" data-toggle="tab" class="list-group-item"><i class="fa fa-stethoscope"></i>Post Diagnosis</a>
                         <a href="#" ng-click="postReferral()" role="tab" data-toggle="tab" class="list-group-item"><i class="fa fa-stethoscope"></i>Post Referral</a>
                     </div>
+                    <div class="list-group list-group-alternate mb-n nav nav-tabs">
+                        <a href="#" role="tab" data-toggle="tab" class="list-group-item active">Sub Panel</a>
+                        <a href="#" ng-click="viewMaster()" role="tab" data-toggle="tab" class="list-group-item"><i class="ti ti-user"></i> Patient Master List</a>
+                    </div>
                 </div>
             </div>
         </div>
@@ -370,6 +374,10 @@
                     else{
                     $('#errorModal').modal('show');
                     }
+                }
+
+                $scope.viewMaster = function(){
+                    window.location.href = 'patient-master-list.php?at=' + $scope.at;
                 }
 
                 $scope.postDiagnosis = function(){

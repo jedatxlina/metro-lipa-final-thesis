@@ -398,6 +398,16 @@
                     dTable.DataTable();
                 });
             });
+
+            $scope.accesstype = $scope.at[0];
+            $http({
+                method: 'GET',
+                url: 'getData/get-user-profile.php',
+                params: {id: $scope.at,
+                    atype : $scope.accesstype}
+            }).then(function(response) {
+                $scope.userdetails = response.data;
+            });		
            
              $scope.filterValue = function($event){
                 if(isNaN(String.fromCharCode($event.keyCode))){

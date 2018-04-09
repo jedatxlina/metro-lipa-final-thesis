@@ -12,9 +12,8 @@
         }
     }
 
-    public function import($file,$at)
+    public function import($file)
     {
-        $at = $at;
         $flag = true;
         $file = fopen($file,'r');
         while($row = fgetcsv($file)){
@@ -33,3 +32,5 @@
         }
     }
  }
+
+ ?>

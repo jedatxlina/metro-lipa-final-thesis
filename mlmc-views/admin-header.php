@@ -3,13 +3,17 @@
 
 <head>
     <meta charset="utf-8">
+
+    <link rel="shortcut icon" href="../mlmc-site/img/Metrolipa/header-logo.png" />
     <title>Metro Lipa Patient Management System</title>
+    
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-touch-fullscreen" content="yes">
     <meta name="description" content="Avenxo Admin Theme">
     <meta name="author" content="KaijuThemes">
+    
     <link type='text/css' href='https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400italic,600' rel='stylesheet'>
 
     <link type="text/css" href="assets/fonts/font-awesome/css/font-awesome.min.css" rel="stylesheet">
@@ -34,6 +38,7 @@
     <!-- Switchery -->
     <link type="text/css" href="assets/plugins/datatables/dataTables.bootstrap.css" rel="stylesheet">
     
+
     <style>
         .disabled {
         	color: #ccc;
