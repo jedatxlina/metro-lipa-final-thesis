@@ -109,97 +109,68 @@ include '../mlmc-views/getData/get-inpatient-vitals.php';
                                     </div>
                                 </div>
                             </div>
-                            <!-- <div class="panel panel-default">
+                        </div> <!-- #tab-projects -->
+                    </div><!-- .tab-content -->
+                </div><!-- col-sm-8 -->
+                <div class="col-sm-12">
+                <div class="panel panel-danger">
                                 <div class="panel-heading">
-                                    <h2>Medical Details</h2>
-                                </div>
-                                <div class="panel-body">
-                                    <div class="about-area">
-                                        <div class="grid-form">
-                                            <div class="row">
-                                                <fieldset data-ng-repeat="patient in patientdetails">
-                                                        <div data-row-span="2">
-                                                            <div data-field-span="1">
-                                                                <label>Patient ID</label>
-                                                                <input type="text" class="form-control" ng-model="patient.AdmissionID"  ng-disabled='true'>
-                                                            </div>
-                                                            <div data-field-span="1">
-                                                                <label>Admission No</label>
-                                                                <input type="text" ng-model="patient.AdmissionNo" ng-disabled='true'>
-                                                            </div>
-                                                        </div>
-                                                        <div data-row-span="3">
-                                                            <div data-field-span="1">
-                                                                <label>Admission Date</label>
-                                                                <input type="text" class="form-control" ng-model="patient.AdmissionDate"  ng-disabled='true'>
-                                                            </div>
-                                                            <div data-field-span="1">
-                                                                <label>Admission Time</label>
-                                                                <input type="text" ng-model="patient.AdmissionTime" ng-disabled='true'>
-                                                            </div>
-                                                          
-                                                        </div>
-                                                        <div data-row-span="2">
-                                                            <div data-field-span="1">
-                                                                <label>Admission</label>
-                                                                <input type="text" class="form-control" ng-model="patient.Admission"  ng-disabled='true'>
-                                                            </div>
-                                                            <div data-field-span="1">
-                                                                <label>Admission Type</label>
-                                                                <input type="text" ng-model="patient.AdmissionType" ng-disabled='true'>
-                                                            </div>
-                                                        </div>
-                                                </fieldset>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div> -->
-                            <div class="panel panel-danger">
-                                <div class="panel-heading">
-                                    <h2>Patient Vitals</h2>
-                                    <!-- <button ng-click="try()" class="btn-danger-alt btn">Next</button> -->
-           
+                                    <h2>Patient Temperature Chart</h2>
                                 </div>
                                 <div class="panel-body">
                                     <div class="about-area">
                                     <div class="col-md-12">
                                                 <div class="row">
                                                     <div class="col-md-12">
-                                                            <div class="panel-white" data-widget='{"draggable": "false"}'>
-                                                                <div class="panel-heading">
-                                                                </div>
-                                                                <div class="panel-body">
-                                                                    <div id="chart-container">
-                                                                        <canvas style="height: 380px;" id="mycanvas1"></canvas>
-                                                                    </div>
-                                                                </div>  
-                                                                <div class="panel-body">
-                                                                    <div id="chart-container">
-                                                                    <canvas style="height: 500px;" id="mycanvas2"></canvas>
-                                                                    </div>
-                                                                </div>
-                                                                <div class="panel-body">
-                                                                    <div id="chart-container">
-                                                                    <canvas style="height: 500px;" id="mycanvas3"></canvas>
-                                                                    </div>
-                                                                </div>
-                                                                <div class="panel-body">
-                                                                    <div id="chart-container">
-                                                                    <canvas style="height: 500px;" id="mycanvas4"></canvas>
-                                                                    </div>
-                                                                </div>
+                                                        <div class="panel-white" data-widget='{"draggable": "false"}'>
+                                                            <div class="panel-heading">
                                                             </div>
+                                                            <div class="panel-body">
+                                                                <div id="chart-container">
+                                                                    <canvas style="height: 380px;" id="mycanvas1"></canvas>
+                                                                </div>
+                                                            </div> 
                                                         </div>
-                                                    </div>
+                                                    </div> 
+                                                    <div class="col-md-12">
+                                                        <div class="panel-white" data-widget='{"draggable": "false"}'>
+                                                            <div class="panel-heading">
+                                                            </div>
+                                                            <div class="panel-body">
+                                                                <div id="chart-container">
+                                                                    <canvas style="height: 380px;" id="mycanvas2"></canvas>
+                                                                </div>
+                                                            </div> 
+                                                        </div>
+                                                    </div> 
+                                                    <div class="col-md-12">
+                                                        <div class="panel-white" data-widget='{"draggable": "false"}'>
+                                                            <div class="panel-heading">
+                                                            </div>
+                                                            <div class="panel-body">
+                                                                <div id="chart-container">
+                                                                    <canvas style="height: 380px;" id="mycanvas3"></canvas>
+                                                                </div>
+                                                            </div> 
+                                                        </div>
+                                                    </div> 
+                                                    <div class="col-md-12">
+                                                        <div class="panel-white" data-widget='{"draggable": "false"}'>
+                                                            <div class="panel-heading">
+                                                            </div>
+                                                            <div class="panel-body">
+                                                                <div id="chart-container">
+                                                                    <canvas style="height: 380px;" id="mycanvas4"></canvas>
+                                                                </div>
+                                                            </div> 
+                                                        </div>
+                                                    </div> 
                                                 </div>
                                         </div>
                                     </div>
                                 </div>
                             </div>
-                        </div> <!-- #tab-projects -->
-                    </div><!-- .tab-content -->
-                </div><!-- col-sm-8 -->
+                </div>
             </div>
         </div>
     </div>

@@ -51,6 +51,9 @@
                                     <fieldset data-ng-repeat="room in roomdetails track by $index">
                                         <input type="hidden" ng-model='RoomBill[$index]' ng-init='RoomBill[$index] = room.bedbill'>
                                     </fieldset>
+                                    <fieldset data-ng-repeat="emroom in emroomdetails track by $index">
+                                        <input type="hidden" ng-model='EmRoomBill[$index]' ng-init='EmRoomBill[$index] = emroom.EmRoomBill'>
+                                    </fieldset>
                                     <fieldset data-ng-repeat="room in roomdetails track by $index">
                                         <input type="hidden" ng-model='RoomDur[$index]' ng-init='RoomDur[$index] = room.Duration'>
                                     </fieldset>
@@ -197,6 +200,7 @@
             $scope.id = "<?php echo $_GET['id']; ?>";
             $scope.MedicineBill = [];
             $scope.RoomBill = [];
+            $scope.EmRoomBill = [];
             $scope.LabBill = [];
             $scope.DocBill = [];
             $scope.RoomDur = [];
@@ -212,6 +216,7 @@
             var total1 = 0;
             var total2 = 0;
             var total3 = 0;
+            var total4 = 0;
 
             switch ($scope.at.charAt(0)) {
                 case '1':
@@ -264,6 +269,16 @@
             }).then(function(response) {
                 $scope.roomdetails = response.data;
             });
+            
+            $http({
+                method: 'GET',
+                url: 'getData/get-empatient-roombill.php',
+                params: {
+                    id: $scope.id
+                }
+            }).then(function(response) {
+                $scope.emroomdetails = response.data;
+            });
 
             $http({
                 method: 'GET',
@@ -311,17 +326,23 @@
                     total1 = total1 + product1;
                 }
                 $scope.subtotalroom = total1;
+                for (var i = 0; i < $scope.EmRoomBill.length; i++) {
+                    var product4 = $scope.EmRoomBill[i];
+                    total4 = total4 + parseFloat(product4);
+                }
+                $scope.subtotalemroom = total4;
                 for (var i = 0; i < $scope.LabBill.length; i++) {
                     var product2 = $scope.LabBill[i];
-                    total2 = total2 + parseInt(product2);
+                    total2 = total2 + parseFloat(product2);
                 }
                 $scope.subtotallab = total2;
                 for (var i = 0; i < $scope.DocBill.length; i++) {
                     var product3 = $scope.DocBill[i];
-                    total3 = total3 + parseInt(product3);
+                    total3 = total3 + parseFloat(product3);
                 }
                 $scope.subtotaldoc = total3;
-                $scope.subtotal = $scope.subtotalroom + $scope.subtotalmedi+$scope.subtotallab+$scope.subtotaldoc;
+                $scope.subtotal = $scope.subtotalroom + $scope.subtotalemroom + $scope.subtotalmedi+$scope.subtotallab+$scope.subtotaldoc;
+                $scope.subtotalroom = $scope.subtotalroom + $scope.subtotalemroom;
             });
             $http({
                 method: 'GET',

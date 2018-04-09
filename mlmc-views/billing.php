@@ -162,6 +162,42 @@ font-weight: bold;
 						</div>
 					</form>
 				</div>
+				<div class="modal fade" id="postAR" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+				<form class="form-horizontal">
+									<div class="modal-dialog">
+										<div class="panel panel-danger" data-widget='{"draggable": "false"}'>
+											<div class="panel-heading">
+												<h2>Patients Doctors List</h2>	
+												<div class="panel-ctrls" data-actions-container="" data-action-collapse='{"target": ".panel-body, .panel-footer"}'></div>
+											</div>
+											<div class="panel-body" style="height: auto">
+												<center><span><strong>Guarantor List</strong></span></center>
+												<hr>
+												<table id="medication_table" class="table table-striped table-bordered" cellspacing="0" width="100%">
+													<thead>
+													<tr>
+														<th>Guarantor ID</th>
+														<th>Guarantor Name</th>
+														<th>Doctor Specialization</th>
+													</tr>
+													</thead>
+													<tbody>
+													<tr ng-repeat="doc in attendingdetails" ng-class="{'selected': doc.AttID == selectedRow}" ng-click="setClickedRow(doc.AttID)">
+															<td>{{doc.AttID}}</td>
+															<td>{{doc.FullName}}</td>
+															<td>{{doc.SP}}</td>
+														</tr>
+													</tbody>
+												</table>
+											</div>
+											<div class="panel-footer">
+													<button type="button" ng-click="postFees()" class="btn btn-default pull-left" data-dismiss="modal">Post Fees</button>
+													<button type="button" class="btn btn-danger-alt pull-right" data-dismiss="modal">Close</button>
+											</div>
+										</div>
+									</div>
+								</form>
+				</div>
 				<div class="modal fade" id="postdiscount2modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
 					<form class="form-horizontal">
 						<div class="modal-dialog">
@@ -654,6 +690,22 @@ font-weight: bold;
 		$scope.postFees = function(){
 			if($scope.selectedRow != null){
 				$('#patientModal2').modal('show');
+				$scope.doctor = $scope.selectedRow;
+				$http({
+					method: 'get',
+					url: 'getData/get-attending-details2.php',
+					params: {id: $scope.doctor}
+				}).then(function(response) {
+					$scope.attendingdetails2 = response.data;
+				});
+			}
+			else{
+			$('#errorModal').modal('show');
+			}
+		}
+		$scope.postTransfers = function(){
+			if($scope.selectedRow != null){
+				$('#postAR').modal('show');
 				$scope.doctor = $scope.selectedRow;
 				$http({
 					method: 'get',
