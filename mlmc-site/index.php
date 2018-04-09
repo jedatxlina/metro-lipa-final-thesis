@@ -1,476 +1,304 @@
-<!DOCTYPE html>
-<html>
+<!doctype html>
+<html lang="en">
 <head>
-    <meta http-equiv="content-type" content="text/html; charset=utf-8" />
-    <meta name="format-detection" content="telephone=no" />
-    <meta name="apple-mobile-web-app-capable" content="yes" />
-    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0, user-scalable=no, minimal-ui"/>
-    
-    <!-- fonts collection 5 -->
-    <link href='https://fonts.googleapis.com/css?family=Inconsolata:400,700' rel='stylesheet' type='text/css'>
-    <link href='https://fonts.googleapis.com/css?family=Share+Tech+Mono' rel='stylesheet' type='text/css'>
-    <link href='https://fonts.googleapis.com/css?family=Droid+Serif:400italic,700italic' rel='stylesheet' type='text/css'>
+	<meta charset="utf-8" />
+    <link rel="icon" type="image/png" href="assets/img/metro-lipa/header-logo.png">
+    <link rel="apple-touch-icon" sizes="76x76" href=" assets/img/apple-icon.png">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
 
-    <link href="css/bootstrap.min.css" rel="stylesheet" type="text/css" />
-    <link href="css/bootstrap.extension.css" rel="stylesheet" type="text/css" />
-    <link href="css/font-awesome.min.css" rel="stylesheet" type="text/css" />
-    <link href="css/style.css" rel="stylesheet" type="text/css" />
-    <link href="css/swiper.css" rel="stylesheet" type="text/css" />
-    <link href="css/boxesFx.css" rel="stylesheet" type="text/css" />
-    <!--[if lt IE 9]>
-        <link rel="stylesheet" type="text/css" href="css/ie8-and-down.css" />
-    <![endif]-->
-    <!--[if IE 9]>
-        <link href="css/ie9.css" rel="stylesheet" type="text/css" />
-    <![endif]-->
-
-    <link rel="shortcut icon" href="img/Metrolipa/header-logo.png" />
     <title>Metro Lipa Medical Center</title>
+
+    <meta content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0' name='viewport' />
+    <meta name="viewport" content="width=device-width" />
+
+    <link href=" assets/css/bootstrap.min.css" rel="stylesheet" />
+    <link href=" assets/css/paper-kit.css?v=2.1.0" rel="stylesheet"/>
+    <link href=" assets/css/demo.css" rel="stylesheet" />
+
+    <!--     Fonts and icons     -->
+    <link href='http://fonts.googleapis.com/css?family=Montserrat:400,300,700' rel='stylesheet' type='text/css'>
+    <link href="http://maxcdn.bootstrapcdn.com/font-awesome/latest/css/font-awesome.min.css" rel="stylesheet">
+    <link href=" assets/css/nucleo-icons.css" rel="stylesheet">
+
 </head>
-<body class="fonts-5">
+<body>
+	<nav class="navbar navbar-expand-lg fixed-top navbar-transparent nav-down" color-on-scroll="500">
+		<div class="container">
+			<div class="navbar-translate">
+				<div class="navbar-header">
+					<a class="navbar-brand" href="../presentation.html">Paper Kit 2 PRO</a>
+				</div>
+				<button class="navbar-toggler navbar-burger" type="button" data-toggle="collapse" data-target="#navbarToggler" aria-controls="navbarTogglerDemo02" aria-expanded="false" aria-label="Toggle navigation">
+					<span class="navbar-toggler-bar"></span>
+					<span class="navbar-toggler-bar"></span>
+					<span class="navbar-toggler-bar"></span>
+				</button>
+			</div>
+			<div class="collapse navbar-collapse">
+				<ul class="navbar-nav ml-auto">
+					<li class="nav-item">
+						<a class="nav-link" href="../index.html" data-scroll="true" href="javascript:void(0)">Components</a>
+					</li>
+					<li class="nav-item dropdown">
+						<a class="nav-link dropdown-toggle" href="javascript:void(0)" data-toggle="dropdown">Sections</a>
+						<ul class="dropdown-menu dropdown-menu-right dropdown-danger">
+							<a class="dropdown-item" href="../sections.html#headers"><i class="nc-icon nc-tile-56"></i>&nbsp; Headers</a>
+							<a class="dropdown-item" href="../sections.html#features"><i class="nc-icon nc-settings"></i>&nbsp; Features</a>
+							<a class="dropdown-item" href="../sections.html#blogs"><i class="nc-icon nc-bullet-list-67"></i>&nbsp; Blogs</a>
+							<a class="dropdown-item" href="../sections.html#teams"><i class="nc-icon nc-single-02"></i>&nbsp; Teams</a>
+							<a class="dropdown-item" href="../sections.html#projects"><i class="nc-icon nc-calendar-60"></i>&nbsp; Projects</a>
+							<a class="dropdown-item" href="../sections.html#pricing"><i class="nc-icon nc-money-coins"></i>&nbsp; Pricing</a>
+							<a class="dropdown-item" href="../sections.html#testimonials"><i class="nc-icon nc-badge"></i>&nbsp; Testimonials</a>
+							<a class="dropdown-item" href="../sections.html#contact-us"><i class="nc-icon nc-mobile"></i>&nbsp; Contacts</a>
+						</ul>
+					</li>
+					<li class="nav-item dropdown">
+						<a class="nav-link dropdown-toggle"  data-toggle="dropdown" href="javascript:void(0)">Examples</a>
+						<ul class="dropdown-menu dropdown-menu-right dropdown-danger">
+							<a class="dropdown-item" href="about-us.html"><i class="nc-icon nc-bank"></i>&nbsp; About Us</a>
+							<a class="dropdown-item" href="add-product.html"><i class="nc-icon nc-basket"></i>&nbsp; Add Product</a>
+							<a class="dropdown-item" href="blog-post.html"><i class="nc-icon nc-badge"></i>&nbsp; Blog Post</a>
+							<a class="dropdown-item" href="blog-posts.html"><i class="nc-icon nc-bullet-list-67"></i>&nbsp; Blog Posts</a>
+							<a class="dropdown-item" href="contact-us.html"><i class="nc-icon nc-mobile"></i>&nbsp; Contact Us</a>
+							<a class="dropdown-item" href="discover.html"><i class="nc-icon nc-world-2"></i>&nbsp; Discover</a>
+							<a class="dropdown-item" href="ecommerce.html"><i class="nc-icon nc-send"></i>&nbsp; Ecommerce</a>
+							<a class="dropdown-item" href="landing.html"><i class="nc-icon nc-spaceship"></i>&nbsp; Landing</a>
+							<a class="dropdown-item" href="login.html"><i class="nc-icon nc-lock-circle-open"></i>&nbsp; Login</a>
+							<a class="dropdown-item" href="product-page.html"><i class="nc-icon nc-album-2"></i>&nbsp; Product Page</a>
+							<a class="dropdown-item" href="profile.html"><i class="nc-icon nc-single-02"></i>&nbsp; Profile</a>
+							<a class="dropdown-item" href="register.html"><i class="nc-icon nc-bookmark-2"></i>&nbsp; Register</a>
+							<a class="dropdown-item" href="search-with-sidebar.html"><i class="nc-icon nc-zoom-split"></i>&nbsp; Search</a>
+							<a class="dropdown-item" href="settings.html"><i class="nc-icon nc-settings-gear-65"></i>&nbsp; Settings</a>
+							<a class="dropdown-item" href="twitter-redesign.html"><i class="nc-icon nc-tie-bow"></i>&nbsp; Twitter</a>
+						</ul>
+					</li>
+					<li class="nav-item">
+						<a class="btn btn-round btn-danger" href="https://www.creative-tim.com/product/paper-kit-2-pro">
+							<i class="nc-icon nc-cart-simple"></i> Buy now
+						</a>
+					</li>
+				</ul>
+			</div>
+		</div>
+	</nav>
 
-    <!-- LOADER -->
-    <div id="loader-wrapper"></div>
+	<div class="page-header" data-parallax="true" style="background-image: url(' assets/img/sections/david-marcu.jpg');">
+		<div class="filter"></div>
+		<div class="content-center">
+			<div class="container">
+	            <div class="motto">
+	                <h1 class="title">Landing page</h1>
+	                <h3 class="description">Start designing your landing page here.</h3>
+	                <br />
+	                <a href="https://www.youtube.com/watch?v=dQw4w9WgXcQ" class="btn btn-neutral btn-round"><i class="fa fa-play"></i>Watch video</a>
+	                <button type="button" class="btn btn-outline-neutral btn-round">Download</button>
+	            </div>
+	        </div>
+		</div>
 
-    <div class="overlay" data-rel="1">
-        <div class="animation-wrapper full-size"></div>
-        <div class="content-wrapper full-size">
-            <div class="cell-view page-height">
-                <div class="container">
-                    <div class="row">
-                        <div class="col-md-2 col-xs-b30 col-sm-0">
-                        
-                            <nav class="text-left clearfix">
-                                <ul>
-                                    <li class="active">
-                                        <a href="index.php">Home</a>
-                                    </li>
-                                    <li>
-                                        <a href="about.php">About</a>
-                                    </li>
-                                    <li>
-                                        <a href="services1.html">Our Services</a>
-                                        <span class="toggle-icon"></span>
-                                        <ul>
-                                            <li>
-                                                <a href="services1.html">Services #1</a>
-                                            </li>
-                                            <li>
-                                                <a href="services2.html">Services #2</a>
-                                            </li>
-                                            <li>
-                                                <a href="services3.html">Services #3</a>
-                                            </li>
-                                            <li>
-                                                <a href="services4.html">Services #4</a>
-                                            </li>
-                                        </ul>
-                                    </li>
+    </div>
 
-                                    <li class="megamenu-wrapper">
-                                        <a href="#">Pages</a>
-                                        <span class="toggle-icon"></span>
-                                        <div class="megamenu clearfix">
-                                            <div class="row">
-                                                <div class="col-md-3">                                                    
-                                                    <a href="portfolio1.html" class="title">Projects List</a>
-                                                    <span class="toggle-icon"></span>
-                                                    <div class="rs-slide">
-                                                        <a href="portfolio5.html">2 columns grid #1</a>
-                                                        <a href="portfolio7.html">2 columns grid #2</a>
-                                                        <a href="portfolio1.html">3 columns #1</a>
-                                                        <a href="portfolio4.html">3 columns #2</a>
-                                                        <a href="portfolio6.html">3 columns #3</a>
-                                                    </div>
-                                                </div>
-                                                <div class="col-md-3">
-                                                    <a href="detail1.html" class="title">Projects Detail</a>
-                                                    <span class="toggle-icon"></span>
-                                                    <div class="rs-slide">
-                                                        <a href="detail1.html">Project 1</a>
-                                                        <a href="detail2.html">Project 2</a>
-                                                        <a href="detail3.html">Project 3</a>
-                                                        <a href="detail4.html">Project 4</a>
-                                                        <a href="detail5.html">Project 5</a>
-                                                    </div>
-                                                </div>
-                                                <div class="col-md-3">                                                    
-                                                    <a href="contacts1.html" class="title">Contact</a>
-                                                    <span class="toggle-icon"></span>
-                                                    <div class="rs-slide">
-                                                        <a href="contacts1.html">Contact #1</a>
-                                                        <a href="contacts2.html">Contact #2</a>
-                                                    </div>
-                                                </div>
-                                                <div class="col-md-3">                                                    
-                                                    <a href="contacts1.html" class="title">Coming Soon</a>
-                                                    <span class="toggle-icon"></span>
-                                                    <div class="rs-slide">
-                                                        <a href="teaser1.html">Teaser #1</a>
-                                                        <a href="teaser2.html">Teaser #2</a>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </li>
-                                    
-                                    <li>
-                                        <a href="elements.html">Patients And Visitors</a>
-                                    </li>
-                                    <li>
-                                        <a href="blog1.html">Contact Us </a>
-                                        <span class="toggle-icon"></span>
-                                        <ul>
-                                            <li>
-                                                <a href="blog1.html.html">Blog List</a>
-                                                <span class="toggle-icon"></span>
-                                                <ul>
-                                                    <li><a href="blog1.html">Material style</a></li>
-                                                    <li><a href="blog2.html">3 columns grid</a></li>
-                                                    <li><a href="blog3.html">Left/right fullscreen</a></li>
-                                                    <li><a href="blog4.html">Right sidebar</a></li>
-                                                </ul>
-                                            </li>
-                                            <li>
-                                                <a href="blogdetail1.html">Blog Detail</a>
-                                                <span class="toggle-icon"></span>
-                                                <ul>
-                                                    <li><a href="blogdetail1.html">Right sidebar</a></li>
-                                                    <li><a href="blogdetail2.html">With banner grid</a></li>
-                                                    <li><a href="blogdetail3.html">Grid post</a></li>
-                                                </ul>
-                                            </li>
-                                        </ul>
-                                    </li>
-                                </ul>
-                            </nav>
-
-                        </div>
-                        <div class="col-sm-6 col-md-4 col-md-offset-1 col-xs-b30 col-sm-0">
-                            <div class="simple-article light transparent col-xs-b30 col-sm-b50">
-                                <div class="h4 small">INFORMATION</div>
-                                <div class="empty-space col-xs-b10"></div>
-                                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud.</p>
-                            </div>
-                            <div class="simple-article light transparent col-xs-b30 col-sm-b50">
-                                <div class="h4 small">CONTACT INFO</div>
-                                <div class="empty-space col-xs-b10"></div>
-                                <p>Email: <a class="mouseover-simple" href="mailto:modesto@email.com" style="color: #fff;"><b>modesto@email.com</b></a></p>
-                                <p>Phone: <a class="mouseover-simple" href="tel:+0009872251" style="color: #fff;"><b>+000 987 22 51</b></a></p>
-                            </div>
-                            <div class="h4 small light">FOLLOW ME</div>
-                            <div class="empty-space col-xs-b15"></div>
-                            <div class="follow">
-                                <a href="#" class="entry"><i class="fa fa-instagram"></i></a>
-                                <a href="#" class="entry"><i class="fa fa-facebook"></i></a>
-                                <a href="#" class="entry"><i class="fa fa-pinterest-p"></i></a>
-                                <a href="#" class="entry"><i class="fa fa-twitter"></i></a>
-                                <a href="#" class="entry"><i class="fa fa-google-plus"></i></a>
-                            </div>
-                        </div>
-                        <div class="col-sm-6 col-md-4 col-md-offset-1">
-                            <div class="twitter-entry col-xs-b15 col-sm-b30">
-                                <div class="row col-xs-b15">
-                                    <div class="col-xs-6">
-                                        <div class="date"><i>20 min ago</i></div>  
-                                    </div>
-                                    <div class="col-xs-6 text-right">
-                                        <i class="fa fa-twitter"></i>
-                                    </div>
-                                </div>
-                                <div class="simple-article light col-xs-b10">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</div>
-                                <a href="#" class="author">@modestodesign</a>
-                                <div class="col-xs-b10"></div>
-                                <a href="#" class="link"><i>https://www.youtube.com/</i></a>
-                            </div>
-                            <div class="overlay-thumbnails-wrapper">
-                                <div class="row nopadding">
-                                    <div class="col-xs-4"><a class="overlay-thumbnail" href="#"><img src="img/thumbnail-1.jpg" alt="" /><img src="img/thumbnail-1.jpg" alt="" /></a></div>
-                                    <div class="col-xs-4"><a class="overlay-thumbnail" href="#"><img src="img/thumbnail-2.jpg" alt="" /><img src="img/thumbnail-2.jpg" alt="" /></a></div>
-                                    <div class="col-xs-4"><a class="overlay-thumbnail" href="#"><img src="img/thumbnail-3.jpg" alt="" /><img src="img/thumbnail-3.jpg" alt="" /></a></div>
-                                    <div class="clear"></div>
-                                    <div class="col-xs-4"><a class="overlay-thumbnail" href="#"><img src="img/thumbnail-4.jpg" alt="" /><img src="img/thumbnail-4.jpg" alt="" /></a></div>
-                                    <div class="col-xs-4"><a class="overlay-thumbnail" href="#"><img src="img/thumbnail-5.jpg" alt="" /><img src="img/thumbnail-5.jpg" alt="" /></a></div>
-                                    <div class="col-xs-4"><a class="overlay-thumbnail" href="#"><img src="img/thumbnail-6.jpg" alt="" /><img src="img/thumbnail-6.jpg" alt="" /></a></div>
-                                </div>
-                            </div>
-                        </div>
+    <div class="wrapper">
+        <div class="section text-center landing-section">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-8 ml-auto mr-auto">
+                        <h2 class="title">Let's talk product</h2>
+                        <h5>This is the paragraph where you can write more details about your product. Keep you user engaged by providing meaningful information. Remember that by this time, the user is curious, otherwise he wouldn't scroll to get here. Add a button if you want the user to see more.</h5>
+                        <br />
+                        <a href="#paper-kit" class="btn btn-danger btn-fill btn-round">See Details</a>
                     </div>
                 </div>
+				<br /><br />
+				<div class="row">
+					<div class="col-md-3">
+						<div class="info">
+							<div class="icon icon-danger">
+								<i class="nc-icon nc-palette"></i>
+							</div>
+							<div class="description">
+								<h4 class="info-title">Beautiful Gallery</h4>
+								<p class="description">Spend your time generating new ideas. You don't have to think of implementing.</p>
+								<a href="#pkp" class="btn btn-link btn-danger">See more</a>
+							</div>
+						</div>
+					</div>
+					<div class="col-md-3">
+						<div class="info">
+							<div class="icon icon-danger">
+								<i class="nc-icon nc-bulb-63"></i>
+							</div>
+							<div class="description">
+								<h4 class="info-title">New Ideas</h4>
+								<p>Larger, yet dramatically thinner. More powerful, but remarkably power efficient.</p>
+								<a href="#pkp" class="btn btn-link btn-danger">See more</a>
+							</div>
+						</div>
+					</div>
+					<div class="col-md-3">
+						<div class="info">
+							<div class="icon icon-danger">
+								<i class="nc-icon nc-chart-bar-32"></i>
+							</div>
+							<div class="description">
+								<h4 class="info-title">Statistics</h4>
+								<p>Choose from a veriety of many colors resembling sugar paper pastels.</p>
+								<a href="#pkp" class="btn btn-link btn-danger">See more</a>
+							</div>
+						</div>
+					</div>
+					<div class="col-md-3">
+						<div class="info">
+							<div class="icon icon-danger">
+								<i class="nc-icon nc-sun-fog-29"></i>
+							</div>
+							<div class="description">
+								<h4 class="info-title">Delightful design</h4>
+								<p>Find unique and handmade delightful designs related items directly from our sellers.</p>
+								<a href="#pkp" class="btn btn-link btn-danger">See more</a>
+							</div>
+						</div>
+					</div>
+				</div>
+
             </div>
-            <a class="button-close"></a>
         </div>
+
+        <div class="section section-dark text-center landing-section">
+            <div class="container">
+                <h2 class="title">Let's talk about us</h2>
+				<div class="row">
+    				<div class="col-md-4">
+                        <div class="card card-profile card-plain">
+                            <div class="card-avatar">
+                                <a href="#avatar"><img src=" assets/img/faces/clem-onojeghuo-3.jpg" alt="..."></a>
+                            </div>
+                            <div class="card-body">
+                                <a href="#paper-kit">
+                                    <div class="author">
+                                        <h4 class="card-title">Henry Ford</h4>
+                                        <h6 class="card-category text-muted">Product Manager</h6>
+                                    </div>
+                                </a>
+                                <p class="card-description text-center">
+                                Teamwork is so important that it is virtually impossible for you to reach the heights of your capabilities or make the money that you want without becoming very good at it.
+                                </p>
+                            </div>
+                            <div class="card-footer text-center">
+                                <a href="#pablo" class="btn btn-link btn-just-icon btn-twitter"><i class="fa fa-twitter"></i></a>
+                                <a href="#pablo" class="btn btn-link btn-just-icon btn-dribbble"><i class="fa fa-dribbble"></i></a>
+                                <a href="#pablo" class="btn btn-link btn-just-icon btn-linkedin"><i class="fa fa-linkedin"></i></a>
+                            </div>
+                        </div>
+    				</div>
+
+    				<div class="col-md-4">
+                        <div class="card card-profile card-plain">
+                            <div class="card-avatar">
+                                <a href="#avatar"><img src=" assets/img/faces/joe-gardner-2.jpg" alt="..."></a>
+                            </div>
+                            <div class="card-body">
+                                <a href="#paper-kit">
+                                    <div class="author">
+                                        <h4 class="card-title">Sophie West</h4>
+                                        <h6 class="card-category text-muted">Designer</h6>
+                                    </div>
+                                </a>
+                                <p class="card-description text-center">
+                                A group becomes a team when each member is sure enough of himself and his contribution to praise the skill of the others. No one can whistle a symphony. It takes an orchestra to play it.
+                                </p>
+                            </div>
+                            <div class="card-footer text-center">
+                                <a href="#pablo" class="btn btn-link btn-just-icon btn-twitter"><i class="fa fa-twitter"></i></a>
+                                <a href="#pablo" class="btn btn-link btn-just-icon btn-dribbble"><i class="fa fa-dribbble"></i></a>
+                                <a href="#pablo" class="btn btn-link btn-just-icon btn-linkedin"><i class="fa fa-linkedin"></i></a>
+                            </div>
+                        </div>
+    				</div>
+
+    				<div class="col-md-4">
+                        <div class="card card-profile card-plain">
+                            <div class="card-avatar">
+                                <a href="#avatar"><img src=" assets/img/faces/erik-lucatero-2.jpg" alt="..."></a>
+                            </div>
+                            <div class="card-body">
+                                <a href="#paper-kit">
+                                    <div class="author">
+                                        <h4 class="card-title">Robert Orben</h4>
+                                        <h6 class="card-category text-muted">Developer</h6>
+                                    </div>
+                                </a>
+                                <p class="card-description text-center">
+                                The strength of the team is each individual member. The strength of each member is the team. If you can laugh together, you can work together, silence isn’t golden, it’s deadly.
+                                </p>
+                            </div>
+                            <div class="card-footer text-center">
+                                <a href="#pablo" class="btn btn-link btn-just-icon btn-twitter"><i class="fa fa-twitter"></i></a>
+                                <a href="#pablo" class="btn btn-link btn-just-icon btn-dribbble"><i class="fa fa-dribbble"></i></a>
+                                <a href="#pablo" class="btn btn-link btn-just-icon btn-linkedin"><i class="fa fa-linkedin"></i></a>
+                            </div>
+                        </div>
+    				</div>
+    			</div>
+        	</div>
+    	</div>
+
+	    <div class="section landing-section">
+	        <div class="container">
+	            <div class="row">
+	                <div class="col-md-8 ml-auto mr-auto">
+	                    <h2 class="text-center">Keep in touch?</h2>
+	                    <form class="contact-form">
+	                        <div class="row">
+	                            <div class="col-md-6">
+	                                <label>Name</label>
+	                                <input class="form-control" placeholder="Name">
+	                            </div>
+	                            <div class="col-md-6">
+	                                <label>Email</label>
+	                                <input class="form-control" placeholder="Email">
+	                            </div>
+	                        </div>
+	                        <label>Message</label>
+	                        <textarea class="form-control" rows="4" placeholder="Tell us your thoughts and feelings..."></textarea>
+	                        <div class="row">
+	                            <div class="col-md-4 offset-md-4">
+	                                <button class="btn btn-danger btn-lg btn-fill">Send Message</button>
+	                            </div>
+	                        </div>
+	                    </form>
+	                </div>
+	            </div>
+	        </div>
+	    </div>
     </div>
-
-    <div id="content-block">
-        <!-- HEADER -->
-        <header class="type-4 fixed light">
-            <div class="wide-container-fluid">
-                <div class="row">
-                    <div class="col-xs-6 col-sm-2">
-                        <a class="logo"><img src="img/logo1.png" alt="" /></a>  
-                    </div>
-                    <div class="col-xs-6 col-sm-10 text-right">
-
-                        <div class="navigation-wrapper">
-
-                            <a class="logo responsive"><img src="img/logo.png" alt="" /></a>
-
-                            <div class="navigation-overflow">
-                                <nav class="text-left clearfix">
-                                    <ul>
-                                    <li class="active">
-                                        <a href="index.php">Home</a>
-                                    </li>
-                                    <li>
-                                        <a href="about.php">About</a>
-                                    </li>
-                                      
-                                        <li>
-                                            <a href="services1.html">Our Services</a>
-                                            <span class="toggle-icon"></span>
-                                            <ul>
-                                                <li>
-                                                    <a href="services1.html">Services #1</a>
-                                                </li>
-                                                <li>
-                                                    <a href="services2.html">Services #2</a>
-                                                </li>
-                                                <li>
-                                                    <a href="services3.html">Services #3</a>
-                                                </li>
-                                                <li>
-                                                    <a href="services4.html">Services #4</a>
-                                                </li>
-                                            </ul>
-                                        </li>
-                                        <li class="megamenu-wrapper">
-                                            <a href="#">Pages</a>
-                                            <span class="toggle-icon"></span>
-                                            <div class="megamenu clearfix">
-                                                <div class="row">
-                                                    <div class="col-md-3">                                                    
-                                                        <a href="portfolio1.html" class="title">Projects List</a>
-                                                        <span class="toggle-icon"></span>
-                                                        <div class="rs-slide">
-                                                            <a href="portfolio5.html">2 columns grid #1</a>
-                                                            <a href="portfolio7.html">2 columns grid #2</a>
-                                                            <a href="portfolio1.html">3 columns #1</a>
-                                                            <a href="portfolio4.html">3 columns #2</a>
-                                                            <a href="portfolio6.html">3 columns #3</a>
-                                                        </div>
-                                                    </div>
-                                                    <div class="col-md-3">
-                                                        <a href="detail1.html" class="title">Projects Detail</a>
-                                                        <span class="toggle-icon"></span>
-                                                        <div class="rs-slide">
-                                                            <a href="detail1.html">Project 1</a>
-                                                            <a href="detail2.html">Project 2</a>
-                                                            <a href="detail3.html">Project 3</a>
-                                                            <a href="detail4.html">Project 4</a>
-                                                            <a href="detail5.html">Project 5</a>
-                                                        </div>
-                                                    </div>
-                                                    <div class="col-md-3">                                                    
-                                                        <a href="contacts1.html" class="title">Contact</a>
-                                                        <span class="toggle-icon"></span>
-                                                        <div class="rs-slide">
-                                                            <a href="contacts1.html">Contact #1</a>
-                                                            <a href="contacts2.html">Contact #2</a>
-                                                        </div>
-                                                    </div>
-                                                    <div class="col-md-3">                                                    
-                                                        <a href="contacts1.html" class="title">Coming Soon</a>
-                                                        <span class="toggle-icon"></span>
-                                                        <div class="rs-slide">
-                                                            <a href="teaser1.html">Teaser #1</a>
-                                                            <a href="teaser2.html">Teaser #2</a>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </li>
-                                       <li>
-                                        <a href="elements.html">Patients And Visitors</a>
-                                    </li>
-                                    <li>
-                                            <a href="blog1.html">Contact US</a>
-                                            <span class="toggle-icon"></span>
-                                            <ul>
-                                                <li>
-                                                    <a href="blog1.html.html">Blog List</a>
-                                                    <span class="toggle-icon"></span>
-                                                    <ul>
-                                                        <li><a href="blog1.html">Material style</a></li>
-                                                        <li><a href="blog2.html">3 columns grid</a></li>
-                                                        <li><a href="blog3.html">Left/right fullscreen</a></li>
-                                                        <li><a href="blog4.html">Right sidebar</a></li>
-                                                    </ul>
-                                                </li>
-                                                <li>
-                                                    <a href="blogdetail1.html">Blog Detail</a>
-                                                    <span class="toggle-icon"></span>
-                                                    <ul>
-                                                        <li><a href="blogdetail1.html">Right sidebar</a></li>
-                                                        <li><a href="blogdetail2.html">With banner grid</a></li>
-                                                        <li><a href="blogdetail3.html">Grid post</a></li>
-                                                    </ul>
-                                                </li>
-                                            </ul>
-                                        </li>
-
-                                    </ul>
-                                </nav>
-                            </div>
-
-                            <div class="follow style-1">
-                                <span class="title">Follow me:</span>
-                                <a class="entry" href="#"><i class="fa fa-instagram"></i></a>
-                                <a class="entry" href="#"><i class="fa fa-facebook"></i></a>
-                                <a class="entry" href="#"><i class="fa fa-pinterest-p"></i></a>
-                                <a class="entry" href="#"><i class="fa fa-twitter"></i></a>
-                                <a class="entry" href="#"><i class="fa fa-google-plus"></i></a>
-                            </div>
-                            
-                        </div>
-
-                        <div class="hamburger-icon open-navigation">
-                            <span></span>
-                            <span></span>
-                            <span></span>
-                        </div>
-
-                        <div class="hamburger-icon open-overlay" data-rel="1">
-                            <span></span>
-                            <span></span>
-                            <span></span>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="close-layer toggle-visibility"><div class="button-close"></div></div>
-        </header>
-
-        <div class="page-height">
-
-            <div class="homepage-9-container">
-
-                <div class="homepage-9-slider">
-                    <div id="boxgallery" class="boxgallery" data-effect="effect-1">
-                        <div class="panel">
-                            <img src="img/Metrolipa/Front.jpg" alt=""/>
-                        </div>
-                        <div class="panel">
-                            <img src="img/Metrolipa/Medical-Professionals1.jpg" alt=""/>
-                        </div>
-                        <div class="panel">
-                            <img src="img/Metrolipa/health-and-medical-fears.jpg" alt=""/>
-                        </div>
-
-                        <div class="boxgallery-text">
-                            <div class="boxgallery-text-panel">
-                                <div class="text">
-                                    <div class="text-animation">
-                                        <div class="project-logo"><img src="img/Metrolipa/header-logo.png" alt=""></div>
-                                    </div>
-                                    <div class="empty-space col-xs-b35"></div>
-                                    <div class="text-animation delay-1">
-                                        <div class="slide-title h2 small light">METRO LIPA MEDICAL CENTER</div>
-                                    </div>
-                                    <div class="empty-space col-xs-b15"></div>
-                                    <div class="text-animation delay-2">
-                                        <div class="slide-description simple-article large light transparent">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</div>
-                                    </div>
-                                    <div class="empty-space col-xs-b35"></div>
-                                    <div class="text-animation delay-3">
-                                        <a href="#" class="button type-3 light">view more</a>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="boxgallery-text-panel">
-                                <div class="text">
-                                    <div class="text-animation">
-                                        <div class="project-logo"><img src="img/Metrolipa/header-logo.png" alt=""></div>
-                                    </div>
-                                    <div class="empty-space col-xs-b35"></div>
-                                    <div class="text-animation delay-1">
-                                        <div class="slide-title h2 small light">ADVERTISING FOR HAT'S AGE</div>
-                                    </div>
-                                    <div class="empty-space col-xs-b15"></div>
-                                    <div class="text-animation delay-2">
-                                        <div class="slide-description simple-article large light transparent">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</div>
-                                    </div>
-                                    <div class="empty-space col-xs-b35"></div>
-                                    <div class="text-animation delay-3">
-                                        <a href="#" class="button type-3 light">view more</a>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="boxgallery-text-panel">
-                                <div class="text">
-                                    <div class="text-animation">
-                                        <div class="project-logo"><img src="img/Metrolipa/header-logo.png" alt=""></div>
-                                    </div>
-                                    <div class="empty-space col-xs-b35"></div>
-                                    <div class="text-animation delay-1">
-                                        <div class="slide-title h2 small light">ADVERTISING FOR HAT'S AGE</div>
-                                    </div>
-                                    <div class="empty-space col-xs-b15"></div>
-                                    <div class="text-animation delay-2">
-                                        <div class="slide-description simple-article large light transparent">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</div>
-                                    </div>
-                                    <div class="empty-space col-xs-b35"></div>
-                                    <div class="text-animation delay-3">
-                                        <a href="#" class="button type-3 light">view more</a>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                
-            </div>
-        
-        
-            sad    
-        </div><!-- FOOTER -->
-        <footer class="type-2 transparent">
-            <div class="wide-container-fluid">
-                <div class="row">
-                    <div class="col-md-6 col-xs-text-center col-md-text-left col-sm-b10 col-md-b0">
-                        <div class="copyright">
-                            <div class="simple-article small light transparent">
-                                &copy; 2016 All rights reserved. 
-                                <div class="developed-by">Development with by <a href="http://themeforest.net/user/unionagency" target="blank">UnionAgency.</a></div>
-                            </div>
-                        </div>
-                        <div class="empty-space col-xs-b20 col-md-b0"></div>
-                    </div>
-                    <div class="col-md-6 col-xs-text-center col-md-text-right">
-                        <div class="follow style-3">
-                            <span class="title">Follow us:</span>
-                            <a class="entry" href="https://www.instagram.com/" target="_blank"><i class="fa fa-instagram"></i></a>
-                            <a class="entry" href="https://www.facebook.com/" target="_blank"><i class="fa fa-facebook"></i></a>
-                            <a class="entry" href="https://www.pinterest.com/" target="_blank"><i class="fa fa-pinterest-p"></i></a>
-                            <a class="entry" href="https://twitter.com/" target="_blank"><i class="fa fa-twitter"></i></a>
-                            <a class="entry" href="https://plus.google.com/" target="_blank"><i class="fa fa-google-plus"></i></a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </footer>
-    </div>
-
-    <script src="js/jquery-2.1.4.min.js"></script>
-    <script src="js/swiper.jquery.min.js"></script>
-    <script src="js/jquery.mousewheel.min.js"></script>
-    <script src="js/global.js"></script>
-    <script src="js/modernizr.custom.js"></script>
-    <script src="js/boxesFx.js"></script>
-    <script>
-        new BoxesFx( document.getElementById( 'boxgallery' ) );
-    </script>
-
+	<footer class="footer section-dark">
+		<div class="container">
+			<div class="row">
+				<nav class="footer-nav">
+					<ul>
+						<li><a href="https://www.creative-tim.com">Creative Tim</a></li>
+						<li><a href="http://blog.creative-tim.com">Blog</a></li>
+						<li><a href="https://www.creative-tim.com/license">Licenses</a></li>
+					</ul>
+				</nav>
+				<div class="credits ml-auto">
+					<span class="copyright">
+						© <script>document.write(new Date().getFullYear())</script>, made with <i class="fa fa-heart heart"></i> by Creative Tim
+					</span>
+				</div>
+			</div>
+		</div>
+	</footer>
 </body>
+
+<!-- Core JS Files -->
+<script src=" assets/js/jquery-3.2.1.min.js" type="text/javascript"></script>
+<script src=" assets/js/jquery-ui-1.12.1.custom.min.js" type="text/javascript"></script>
+<script src=" assets/js/popper.js" type="text/javascript"></script>
+<script src=" assets/js/bootstrap.min.js" type="text/javascript"></script>
+
+<!-- Control Center for Paper Kit: parallax effects, scripts for the example pages etc -->
+<script src=" assets/js/paper-kit.js?v=2.1.0"></script>
+
 </html>

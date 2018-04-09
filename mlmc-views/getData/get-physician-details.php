@@ -7,6 +7,15 @@ $admissionid =  isset($_GET['admissionid']) ? $_GET['admissionid'] : '';
 
 $data = array();
 
+if ($at != '' && $admissionid == '') {
+    $sel = mysqli_query($conn,"SELECT PhysicianID, CONCAT(Firstname, ' ' ,MiddleName, ' ', LastName) AS Fullname FROM physicians WHERE PhysicianID NOT IN (456325)");
+    while ($row = mysqli_fetch_array($sel)) {
+        $data[] = array(
+            "PhysicianID"=>$row['PhysicianID'],
+            "Fullname"=>$row['Fullname']);
+    }
+}       
+
 if($at == '' && $admissionid == ''){
     $sel = mysqli_query($conn,"SELECT PhysicianID, CONCAT(Firstname, ' ' ,MiddleName, ' ', LastName) AS Fullname FROM physicians");
     while ($row = mysqli_fetch_array($sel)) {

@@ -10,10 +10,10 @@ $parnode = $dom->appendChild($node);
 
 
 // Select all the rows in the markers table
-$query = "SELECT a.AdmissionID,a.CompleteAddress,a.latcoor,a.longcoor,b.MedicalID,b.AdmissionID,c.Conditions FROM patients a,medical_details b, conditions c, medical_conditions d WHERE a.AdmissionID = b.AdmissionID AND b.MedicalID = d.MedicalID AND c.Conditions = d.Conditions";
+$query = "SELECT a.AdmissionID,a.CompleteAddress,a.latcoor,a.longcoor,b.MedicalID,b.AdmissionID,c.Conditions,( SELECT COUNT(Conditions) FROM medical_conditions WHERE Conditions = c.Conditions) AS count FROM patients a,medical_details b, conditions c, medical_conditions d WHERE a.AdmissionID = b.AdmissionID AND b.MedicalID = d.MedicalID AND c.Conditions = d.Conditions";
 $result = mysqli_query($conn,$query);
 
-
+// SELECT MedicalID,Conditions,( SELECT COUNT(Conditions) FROM medical_conditions) AS count FROM medical_conditions as temp
 header("Content-type: text/xml");
 
 // Iterate through the rows, adding XML nodes for each
@@ -27,6 +27,7 @@ while ($row = @mysqli_fetch_assoc($result)){
     $newnode->setAttribute("conditions", $row['Conditions']);
     $newnode->setAttribute("lat", $row['latcoor']);
     $newnode->setAttribute("lng", $row['longcoor']);
+    $newnode->setAttribute("cnt", $row['count']);
   }
   
   echo $dom->saveXML();

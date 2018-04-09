@@ -9,12 +9,12 @@
     $dosage = explode(',',$_GET['dosage']);
     $medid  = explode(',',$_GET['medid']);
     $notes  = explode(',',$_GET['notes']);
-    $intake =  explode(',',$_GET['intake']);
-    $qntyintake =  explode(',',$_GET['qntyintake']);
+    // $intake =  explode(',',$_GET['intake']);
+    // $qntyintake =  explode(',',$_GET['qntyintake']);
 
     $days = [];
 
-    $interval =$interval =isset($_GET['intakeinterval']) ? explode(',',$_GET['intakeinterval']) : '';
+    $interval =isset($_GET['intakeinterval']) ? explode(',',$_GET['intakeinterval']) : '';
 
     $param = isset($_GET['param']) ? $_GET['param'] : '';
 
@@ -66,7 +66,7 @@
                 );
                 
                 $data['message'] = "Dr. " . $fullname . " posted a patient order.";
-                $pusher->trigger('my-channel', 'my-event', $data);
+                $pusher->trigger('my-channel-outpatient', 'my-event-outpatient', $data);
 
                 header("Location:outpatient.php?at=$at");
                 break;

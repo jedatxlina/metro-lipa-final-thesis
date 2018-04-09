@@ -438,8 +438,8 @@ include 'admin-header.php' ?>
             		encrypted: true
             	  	});
               
-            		var channel = pusher.subscribe('my-channel');
-            		channel.bind('my-event', function(data) {
+            		var channel = pusher.subscribe('my-channel-outpatient');
+            		channel.bind('my-event-outpatient', function(data) {
             		
             			console.log(data.message);
             			swal({
@@ -466,6 +466,7 @@ include 'admin-header.php' ?>
             		var pushalert = function (){
             			alert('jed');
             		}	
+					
             		var tick = function() {
             			
             			$scope.clock = Date.now();
@@ -860,6 +861,9 @@ include 'admin-header.php' ?>
             		
             
                }]);
-        </script>
+		</script>
+		<div id="custom-footer">
+            
+			</div>		
     </div>
     <?php include 'footer.php'?>

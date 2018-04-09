@@ -113,7 +113,7 @@
                                                     <a href="#" class="close fileinput-exists" data-dismiss="fileinput" style="float: none">&times;</a>
                                                     <span class="fileinput-exists">
                                                         <br><br>
-                                                       <input type="submit" value="Upload" class="btn-default btn" >
+                                                       <input type="submit" value="Upload"   >
                                                     </span>
                                                 </div>
                                             </form>
