@@ -208,8 +208,8 @@ $sel = mysqli_query($conn,"SELECT MedicineName FROM pharmaceuticals");
             else{
                 $value  = ucwords(strtolower($value));
 
-                $query= "INSERT into pharmaceuticals(MedicineID,MedicineName) VALUES ('$newadministeredid','$value')";
-                mysqli_query($conn,$query);
+                // $query= "INSERT into pharmaceuticals(MedicineID,MedicineName) VALUES ('$newadministeredid','$value')";
+                // mysqli_query($conn,$query);
 
                 $query = "INSERT into medication(MedicationID,AdmissionID,MedicineID,DateAdministered,TimeAdministered,PhysicianID) 
                 VALUES('$medicationid','$admissionid','$newadministeredid','$date','$time','$physicianid')";

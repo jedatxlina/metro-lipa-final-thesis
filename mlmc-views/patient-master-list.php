@@ -43,7 +43,24 @@
                             </div>
                             <div class="panel-body">
                                 <div class="about-area">
-                                    
+                                <table id="handled_table" class="table table-striped table-bordered" cellspacing="0" width="100%">
+                                        <thead>
+                                        <tr>
+                                            <th>#</th>
+                                            <th>Name</th>
+                                            <th>Gender</th>
+                                            <th>Birthdate</th>
+                                        </tr>
+                                        </thead>
+                                        <tbody>
+                                        <tr ng-repeat="patient in listhandled" ng-class="{'selected': patient.ArchiveID == selectedRow}" ng-click="setClickedRow(patient.ArchiveID)">
+                                                <td>{{patient.ArchiveNo}}</td>
+                                                <td>{{patient.Firstname}} {{patient.Middlename}} {{patient.Lastname}}</td>
+                                                <td>{{patient.Gender}}</td>
+                                                <td>{{patient.Birthdate}}</td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
                                 </div>
                             </div>
                         </div>
@@ -153,9 +170,10 @@ var fetch = angular.module('myApp', ['ui.mask']);
 
         $http({
             method: 'GET',
-            url: 'getData/get-patients-handled.php'
+            url: 'getData/get-patients-handled.php',
+            params: {at: $scope.at}
         }).then(function(response) {
-            $scope.masterlist = response.data;
+            $scope.listhandled = response.data;
             angular.element(document).ready(function() {  
             dTable = $('#hadled_table')  
             dTable.DataTable();  

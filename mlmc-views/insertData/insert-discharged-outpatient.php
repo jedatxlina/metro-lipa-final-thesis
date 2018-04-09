@@ -17,7 +17,7 @@
   $query= "INSERT into billing_opd(BillingOpdID,AdmissionID,AccountReceiveID,TotalBill,Status) VALUES ('$billingid','$admissionid','$areceivableid',0,'Paid')";
   mysqli_query($conn,$query);  
 
-  $query2= "INSERT into accounts_receivable(AccountReceiveID,Provider,Amount,DateTimePosted,Remarks) VALUES ('$areceivableid','$hmoprovider','$totalfee','$datetime','Pending')";
+  $query2= "INSERT into accounts_receivable(AccountReceiveID,AdmissionID,Provider,Amount,DateTimePosted,Remarks) VALUES ('$areceivableid','$admissionid','$hmoprovider','$totalfee','$datetime','Pending')";
   mysqli_query($conn,$query2);  
 
   }else{

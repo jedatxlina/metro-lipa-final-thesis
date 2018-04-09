@@ -12,39 +12,40 @@
     <br>
     <br>
     <div class="container-fluid">
-        <div class="row">
-            <div class="col-md-3">
-                <div class="info-tile tile-info">
-                    <div class="tile-icon"><i class="ti ti-user"></i></div>
-                    <div class="tile-heading"><span>EMERGENCY PATIENTS</span></div>
-                    <div class="tile-body"><span>124</span></div>
-                    <div class="tile-footer"><span class="text-danger">-25.4%</span></div>
+        <div class="row" data-ng-repeat="cnt in countpatients">
+
+                <div class="col-md-3" >
+                    <div class="info-tile tile-info">
+                        <div class="tile-icon"><i class="ti ti-user"></i></div>
+                        <div class="tile-heading"><span>EMERGENCY PATIENTS</span></div>
+                        <div class="tile-body"><span>{{cnt.emergency}}</span></div>
+                        <div class="tile-footer"><span class="text-danger">-25.4%</span></div>
+                    </div>
                 </div>
-            </div>
-            <div class="col-md-3">
-                <div class="info-tile tile-info">
-                    <div class="tile-icon"><i class="ti ti-user"></i></div>
-                    <div class="tile-heading"><span>OUTPATIENT PATIENTS</span></div>
-                    <div class="tile-body"><span>124</span></div>
-                    <div class="tile-footer"><span class="text-danger">-25.4%</span></div>
+                <div class="col-md-3">
+                    <div class="info-tile tile-info">
+                        <div class="tile-icon"><i class="ti ti-user"></i></div>
+                        <div class="tile-heading"><span>OUTPATIENT PATIENTS</span></div>
+                        <div class="tile-body"><span>{{cnt.outpatient}}</span></div>
+                        <div class="tile-footer"><span class="text-danger">-25.4%</span></div>
+                    </div>
                 </div>
-            </div>
-            <div class="col-md-3">
-                <div class="info-tile tile-info">
-                    <div class="tile-icon"><i class="ti ti-user"></i></div>
-                    <div class="tile-heading"><span>INPATIENT PATIENTS</span></div>
-                    <div class="tile-body"><span>124</span></div>
-                    <div class="tile-footer"><span class="text-danger">-25.4%</span></div>
+                <div class="col-md-3">
+                    <div class="info-tile tile-info">
+                        <div class="tile-icon"><i class="ti ti-user"></i></div>
+                        <div class="tile-heading"><span>INPATIENT PATIENTS</span></div>
+                        <div class="tile-body"><span>{{cnt.inpatient}}</span></div>
+                        <div class="tile-footer"><span class="text-danger">-25.4%</span></div>
+                    </div>
                 </div>
-            </div>
-            <div class="col-md-3">
-                <div class="info-tile tile-info">
-                    <div class="tile-icon"><i class="ti ti-user"></i></div>
-                    <div class="tile-heading"><span>EMERGENCY PATIENTS</span></div>
-                    <div class="tile-body"><span>124</span></div>
-                    <div class="tile-footer"><span class="text-danger">-25.4%</span></div>
+                <div class="col-md-3">
+                    <div class="info-tile tile-info">
+                        <div class="tile-icon"><i class="ti ti-user"></i></div>
+                        <div class="tile-heading"><span>MASTER LIST</span></div>
+                        <div class="tile-body"><span>{{cnt.archive}}</span></div>
+                        <div class="tile-footer"><span class="text-danger">-25.4%</span></div>
+                    </div>
                 </div>
-            </div>
 
             <form ng-repeat="user in users">
                 <input type="hidden" ng-model="$parent.PW" ng-init="$parent.PW=user.Password" class="form-control">
@@ -96,14 +97,14 @@
 
                             <div class="panel-footer">
                                 <div class="tabular">
-                                    <div class="tabular-row">
+                                    <div class="tabular-row" data-ng-repeat="ave in average">
                                         <div class="tabular-cell">
                                             <span class="status-total">Systolic</span>
-                                            <span class="status-value">100</span>
+                                            <span class="status-value">{{ave.Systolic}}</span>
                                         </div>
                                         <div class="tabular-cell">
                                             <span class="status-pending">Diastolic</span>
-                                            <span class="status-value">63</span>
+                                            <span class="status-value">{{ave.Diastolic}}</span>
                                         </div>
                                     </div>
                                 </div>
@@ -156,22 +157,14 @@
                             var latLng = new google.maps.LatLng(lat, long);
                             var cnt = markers[i].getAttribute('cnt');
 
-                            switch (cnt) {
-                                case '1':
-                                    var url = "assets/img/markers/level-1.png";
-                                    break;
-
-                                case '2':
-                                    var url = "assets/img/markers/level-2.png";
-                                    break;
-
-                                case '3':
-                                    var url = "assets/img/markers/level-3.png";
-                                    break;
-
-                                default:
-                                    var url = "assets/img/markers/level-1.png";
-                                    break;
+                            if(cnt <= '3'){
+                                var url = "assets/img/markers/level-1.png";
+                            }
+                            if(cnt > '3'){
+                                var url = "assets/img/markers/level-2.png";
+                            }
+                            if(cnt > '6'){
+                                var url = "assets/img/markers/level-3.png";
                             }
 
                             var icon = {
@@ -288,6 +281,22 @@
                 }).then(function(response) {
                     $scope.illnesses = response.data;
                 });
+
+                
+                $http({
+                    method: 'GET',
+                    url: 'getData/get-average-bp.php'
+                }).then(function(response) {
+                    $scope.average = response.data;
+                });
+
+                $http({
+                    method: 'GET',
+                    url: 'getData/get-cnt-patients.php'
+                }).then(function(response) {
+                    $scope.countpatients = response.data;
+                });
+
 
                 $scope.customIllness = function(param) {
                     $scope.param = param;
