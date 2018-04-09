@@ -47,7 +47,9 @@
                                 <fieldset data-ng-repeat="medicine in medicinedetails">
                                     <input type="hidden" ng-model='MedicineBill[$index]' ng-init='MedicineBill[$index] = medicine.totalbill'>
                                 </fieldset>
-
+                                <fieldset data-ng-repeat="room in roomdetails track by $index">
+                                        <input type="hidden" ng-model='RoomBill[$index]' ng-init='RoomBill[$index] = room.Duration'>
+                                    </fieldset>
                                 <div class="row mb-xl">
                                     <div class="col-md-12">
                                         <h2 class="text-primary text-center" style="font-weight: small;">Statement of Account</h2>
@@ -182,6 +184,36 @@
                                         </div>
                                     </div>
 
+                                    <h5 class="text-primary text-center" style="font-weight: small;">From Doctors</h5>
+                                    <div class="row mb-xl">
+                                        <div class="col-md-12">
+                                            <div class="panel">
+                                                <div class="panel-body no-padding">
+                                                    <div class="table-responsive">
+                                                        <table class="table table-hover m-n">
+                                                            <thead>
+                                                                <tr>
+                                                                    <th>#</th>
+                                                                    <th>Doctors Name</th>
+                                                                    <th>Discount</th>
+                                                                    <th class="text-right">Total</th>
+                                                                </tr>
+                                                            </thead>
+                                                            <tbody>
+                                                                <tr ng-repeat="doc in docdetails track by $index">
+                                                                    <td>{{$index}}</td>
+                                                                    <td>Dr. {{doc.Fname + doc.Mname + doc.Lname}}</td>
+                                                                    <td>{{doc.Discount}}</td>
+                                                                    <td class="text-right">{{doc.Pfee - doc.Discount}}</td>
+                                                                </tr>
+                                                            </tbody>
+                                                        </table>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
                                     <div class="col-md-12">
                                         <div class="row" style="border-top-left-radius: 0px; border-top-right-radius: 0px; border-bottom-right-radius: 0px; border-bottom-left-radius: 0px;">
                                             <div class="col-md-3 col-md-offset-9">
@@ -234,7 +266,9 @@
             $scope.at = "<?php echo $_GET['at'];?>";
             $scope.id = "<?php echo $_GET['id']; ?>";
             $scope.MedicineBill = [];
+            $scope.RoomBill = [];
             $scope.subtotal = 0;
+            $scope.roomdur = 0;
             $scope.MedID = [];
             $scope.Quantity = [];
             $scope.Dosage = [];
@@ -312,7 +346,15 @@
             }).then(function(response) {
                 $scope.labdetails = response.data;
             });
-
+            $http({
+                method: 'GET',
+                url: 'getData/get-doctor-billdetailed.php',
+                params: {
+                    id: $scope.id
+                }
+            }).then(function(response) {
+                $scope.docdetails = response.data;
+            });
             $http({
                 method: 'get',
                 url: 'getData/get-patient-details.php',

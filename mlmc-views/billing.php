@@ -87,6 +87,7 @@ font-weight: bold;
 					<div class="list-group list-group-alternate mb-n nav nav-tabs">
 						<a href="#" role="tab" data-toggle="tab" class="list-group-item active">Actions Panel</a>
 						<a href="#" ng-click="viewPatient()" role="tab" data-toggle="tab" class="list-group-item"><i class="ti ti-user"></i>Patient Details</a>
+                        <a href="#" ng-click="postFee()"role="tab" data-toggle="tab" class="list-group-item"><i class="fa fa-file-text-o"></i>Post Professional Fee</a>
 						<a href="#" ng-click="postDiscount()" role="tab" data-toggle="tab" class="list-group-item"><i class="fa fa-file-text-o"></i>Post Discounts</a>
 						<a href="#" ng-click="postTransfers()"role="tab" data-toggle="tab" class="list-group-item"><i class="fa fa-file-text-o"></i>Post A/R Transfers</a>
                         <a href="#" ng-click="postStatement()"role="tab" data-toggle="tab" class="list-group-item"><i class="fa fa-file-text-o"></i>SOA/Billing Statement</a>
@@ -123,14 +124,14 @@ font-weight: bold;
 									<h2>Patient Details</h2>
 									<div class="panel-ctrls" data-actions-container="" data-action-collapse='{"target": ".panel-body, .panel-footer"}'></div>
 								</div>
-								<div class="panel-body" style="height: auto" data-ng-repeat="doctor in medicaldetails">
+								<div class="panel-body" style="height: auto" data-ng-repeat="att in attendingdetails2">
 									<center><span><strong>Attending Doctor Information</strong></span></center>
 									<hr>
 									<div class="row">
 										<div class="form-group">
-											<label for="focusedinput" class="col-sm-3 control-label">Doctor ID</label>
+											<label for="focusedinput" class="col-sm-3 control-label">Attending ID</label>
 											<div class="col-sm-8">
-												<input type="text" class="form-control" ng-value="doctor.PhysicianID" ng-model="doctorid"  disabled> 
+												<input type="text" class="form-control" ng-value="att.AttID" ng-model="doctorid"  disabled> 
 											</div>
 										</div>
 									</div>
@@ -138,22 +139,69 @@ font-weight: bold;
 										<div class="form-group">
 											<label for="focusedinput" class="col-sm-3 control-label">Doctor Name</label>
 											<div class="col-sm-5">
-												<input type="text" class="form-control" ng-value="doctor.Firstname + ' ' + doctor.Middlename + ' ' + doctor.Lastname" disabled>
+												<input type="text" class="form-control" ng-value="att.FullName" disabled>
 											</div>
 										</div>
 									</div>
+								</div>
+								<div>
 									<div class="row">
 										<div class="form-group">
 											<label for="focusedinput" class="col-sm-3 control-label">Professional Fee</label>
 											<div class="col-sm-5">
-												<input type="text" class="form-control" ng-value="doctor.ProfessionalFee" disable>
+												<input type="text" class="form-control" ng-model='profee'>
 											</div>
 										</div>
 									</div>
 								</div>
 								<div class="panel-footer">
-								<button type="button" ng-click="#" class="btn btn-danger-alt pull-left">View Details</button>
-								<button type="button" ng-click="postFees()" class="btn btn-danger-alt pull-right">Ok</button>
+								<button type="button" ng-click="updateFees()" class="btn btn-danger-alt pull-right">Ok</button>
+								<button type="button" data-dismiss="modal" class="btn btn-default-alt pull-right">Cancel</button>
+								</div>
+							</div>
+						</div>
+					</form>
+				</div>
+				<div class="modal fade" id="postdiscount2modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+					<form class="form-horizontal">
+						<div class="modal-dialog">
+							<div class="panel panel-danger" data-widget='{"draggable": "false"}'>
+								<div class="panel-heading">
+									<h2>Patient Details</h2>
+									<div class="panel-ctrls" data-actions-container="" data-action-collapse='{"target": ".panel-body, .panel-footer"}'></div>
+								</div>
+								<div class="panel-body" style="height: auto" data-ng-repeat="att in attendingdetails2">
+									<center><span><strong>Attending Doctor Information</strong></span></center>
+									<hr>
+									<div class="row">
+										<div class="form-group">
+											<label for="focusedinput" class="col-sm-3 control-label">Attending ID</label>
+											<div class="col-sm-8">
+												<input type="text" class="form-control" ng-value="att.AttID" ng-model="doctorid"  disabled> 
+											</div>
+										</div>
+									</div>
+									<div class="row">
+										<div class="form-group">
+											<label for="focusedinput" class="col-sm-3 control-label">Doctor Name</label>
+											<div class="col-sm-5">
+												<input type="text" class="form-control" ng-value="att.FullName" disabled>
+											</div>
+										</div>
+									</div>
+								</div>
+								<div>
+									<div class="row">
+										<div class="form-group">
+											<label for="focusedinput" class="col-sm-3 control-label">Discounted Fee</label>
+											<div class="col-sm-5">
+												<input type="text" class="form-control" ng-model='disfee'>
+											</div>
+										</div>
+									</div>
+								</div>
+								<div class="panel-footer">
+								<button type="button" ng-click="updateDiscount()" class="btn btn-danger-alt pull-right">Ok</button>
 								<button type="button" data-dismiss="modal" class="btn btn-default-alt pull-right">Cancel</button>
 								</div>
 							</div>
@@ -162,49 +210,76 @@ font-weight: bold;
 				</div>
 				<!-- Post Room Chage -->
 				<div class="modal fade" id="RoomChargeModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
-					<form class="form-horizontal">
-						<div class="modal-dialog">
-							<div class="panel panel-danger" data-widget='{"draggable": "false"}'>
-								<div class="panel-heading">
-									<h2>Patient Details</h2>
-									<div class="panel-ctrls" data-actions-container="" data-action-collapse='{"target": ".panel-body, .panel-footer"}'></div>
-								</div>
-								<div class="panel-body" style="height: auto" data-ng-repeat="doctor in medicaldetails">
-									<center><span><strong>Attending Doctor Information</strong></span></center>
-									<hr>
-									<div class="row">
-										<div class="form-group">
-											<label for="focusedinput" class="col-sm-3 control-label">Doctor ID</label>
-											<div class="col-sm-8">
-												<input type="text" class="form-control" ng-value="doctor.PhysicianID" ng-model="doctorid"  disabled> 
+				<form class="form-horizontal">
+									<div class="modal-dialog">
+										<div class="panel panel-danger" data-widget='{"draggable": "false"}'>
+											<div class="panel-heading">
+												<h2>Patients Doctors List</h2>	
+												<div class="panel-ctrls" data-actions-container="" data-action-collapse='{"target": ".panel-body, .panel-footer"}'></div>
+											</div>
+											<div class="panel-body" style="height: auto">
+												<center><span><strong>Doctors List</strong></span></center>
+												<hr>
+												<table id="medication_table" class="table table-striped table-bordered" cellspacing="0" width="100%">
+													<thead>
+													<tr>
+														<th>Attending ID</th>
+														<th>Doctor Name</th>
+														<th>Doctor Specialization</th>
+													</tr>
+													</thead>
+													<tbody>
+													<tr ng-repeat="doc in attendingdetails" ng-class="{'selected': doc.AttID == selectedRow}" ng-click="setClickedRow(doc.AttID)">
+															<td>{{doc.AttID}}</td>
+															<td>{{doc.FullName}}</td>
+															<td>{{doc.SP}}</td>
+														</tr>
+													</tbody>
+												</table>
+											</div>
+											<div class="panel-footer">
+													<button type="button" ng-click="postFees()" class="btn btn-default pull-left" data-dismiss="modal">Post Fees</button>
+													<button type="button" class="btn btn-danger-alt pull-right" data-dismiss="modal">Close</button>
 											</div>
 										</div>
 									</div>
-									<div class="row">
-										<div class="form-group">
-											<label for="focusedinput" class="col-sm-3 control-label">Doctor Name</label>
-											<div class="col-sm-5">
-												<input type="text" class="form-control" ng-value="doctor.Firstname + ' ' + doctor.Middlename + ' ' + doctor.Lastname" disabled>
+								</form>
+				</div>
+				<div class="modal fade" id="PostDiscountModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+				<form class="form-horizontal">
+									<div class="modal-dialog">
+										<div class="panel panel-danger" data-widget='{"draggable": "false"}'>
+											<div class="panel-heading">
+												<h2>Patients Doctors List</h2>	
+												<div class="panel-ctrls" data-actions-container="" data-action-collapse='{"target": ".panel-body, .panel-footer"}'></div>
+											</div>
+											<div class="panel-body" style="height: auto">
+												<center><span><strong>Doctors List</strong></span></center>
+												<hr>
+												<table id="medication_table" class="table table-striped table-bordered" cellspacing="0" width="100%">
+													<thead>
+													<tr>
+														<th>Attending ID</th>
+														<th>Doctor Name</th>
+														<th>Doctor Specialization</th>
+													</tr>
+													</thead>
+													<tbody>
+													<tr ng-repeat="doc in attendingdetails" ng-class="{'selected': doc.AttID == selectedRow}" ng-click="setClickedRow(doc.AttID)">
+															<td>{{doc.AttID}}</td>
+															<td>{{doc.FullName}}</td>
+															<td>{{doc.SP}}</td>
+														</tr>
+													</tbody>
+												</table>
+											</div>
+											<div class="panel-footer">
+													<button type="button" ng-click="postDiscounts()" class="btn btn-default pull-left" data-dismiss="modal">Post Discount</button>
+													<button type="button" class="btn btn-danger-alt pull-right" data-dismiss="modal">Close</button>
 											</div>
 										</div>
 									</div>
-									<div class="row">
-										<div class="form-group">
-											<label for="focusedinput" class="col-sm-3 control-label">Professional Fee</label>
-											<div class="col-sm-5">
-												<input type="text" class="form-control" ng-value="doctor.ProfessionalFee" disable>
-											</div>
-										</div>
-									</div>
-								</div>
-								<div class="panel-footer">
-								<button type="button" ng-click="#" class="btn btn-danger-alt pull-left">View Details</button>
-								<button type="button" ng-click="postFees()" class="btn btn-danger-alt pull-right">Ok</button>
-								<button type="button" data-dismiss="modal" class="btn btn-default-alt pull-right">Cancel</button>
-								</div>
-							</div>
-						</div>
-					</form>
+								</form>
 				</div>
 				<!-- Patient Modal -->
 				<div class="modal fade" id="patientModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
@@ -426,7 +501,12 @@ font-weight: bold;
 			window.location.href = 'add-patient.php?id=' + 1;
 		}
 		$scope.postStatement = function(){
+			if($scope.selectedRow != null){
 			window.location.href = 'view-patient-bill.php?at=' + $scope.at + '&id=' + $scope.selectedRow;
+			}
+			else{
+			$('#errorModal').modal('show');
+			}
 		}
 		
 	   
@@ -449,33 +529,23 @@ font-weight: bold;
 			}
 		}
 
-		$scope.postDoctorFees = function(){
+		$scope.postFee = function(){
 			if($scope.selectedRow != null){
 				$scope.admissionid = $scope.selectedRow;
 				$http({
 					method: 'get',
-					url: 'getData/get-medicalbill-details.php',
+					url: 'getData/get-patient-details.php',
 					params: {id: $scope.admissionid}
 				}).then(function(response) {
-					$scope.medicaldetails = response.data;
+					$scope.patientdetails = response.data;
 				});
-				$('#patientModal2').modal('show');
-			
-			}
-			else{
-			$('#errorModal').modal('show');
-			}
-		}
-
-		$scope.postRoomCharges = function(){
-			if($scope.selectedRow != null){
-				$scope.admissionid = $scope.selectedRow;
 				$http({
 					method: 'get',
-					url: 'getData/get-medical-details.php',
+					url: 'getData/get-attending-details.php',
 					params: {id: $scope.admissionid}
 				}).then(function(response) {
-					$scope.medicaldetails = response.data;
+					$scope.attendingdetails = response.data;
+					$scope.selectedRow = '';
 				});
 				$('#RoomChargeModal').modal('show');
 			
@@ -484,20 +554,131 @@ font-weight: bold;
 			$('#errorModal').modal('show');
 			}
 		}
-
-		$scope.postFees = function(){
+		$scope.updateFees= function(){
 			if($scope.selectedRow != null){
 				$scope.admissionid = $scope.selectedRow;
 				$http({
-                    method: 'GET',
-                    url: 'insertData/insert-bill-details.php',
-                    params: {admissionid: $scope.admissionid,
-                            department: $scope.User,
-                            description: 'Doctor Fee',
-                            total: $scope.totalbill}
-                }).then(function(response) {
-                $('#patientModal2').modal('hide');
-                });
+					method: 'get',
+					url: 'updateData/update-attending-profee.php',
+					params: {id: $scope.selectedRow,
+							fee:$scope.profee}
+				}).then(function(response) {
+					window.location.reload();
+				});
+			}
+			else{
+				$('#errorModal').modal('show');
+			}
+		}
+
+		$scope.updateDiscount= function(){
+			if($scope.selectedRow != null){
+				$scope.admissionid = $scope.selectedRow;
+				$http({
+					method: 'get',
+					url: 'updateData/update-discount-fee.php',
+					params: {id: $scope.selectedRow,
+							fee:$scope.disfee}
+				}).then(function(response) {
+					window.location.reload();
+				});
+			}
+			else{
+				$('#errorModal').modal('show');
+			}
+		}
+
+		$scope.postDoctorFees = function(){
+			if($scope.selectedRow != null){
+				$scope.admissionid = $scope.selectedRow;
+				$http({
+					method: 'get',
+					url: 'getData/get-attending-details.php',
+					params: {id: $scope.admissionid}
+				}).then(function(response) {
+					$scope.medicaldetails2 = response.data;
+				});
+				$('#patientModal2').modal('show');
+			
+			}
+			else{
+			$('#errorModal').modal('show');
+			}
+		}
+		$scope.postDiscount = function(){
+			if($scope.selectedRow != null){
+				$scope.admissionid = $scope.selectedRow;
+				$http({
+					method: 'get',
+					url: 'getData/get-patient-details.php',
+					params: {id: $scope.admissionid}
+				}).then(function(response) {
+					$scope.patientdetails = response.data;
+				});
+				$http({
+					method: 'get',
+					url: 'getData/get-attending-details.php',
+					params: {id: $scope.admissionid}
+				}).then(function(response) {
+					$scope.attendingdetails = response.data;
+					$scope.selectedRow = '';
+				});
+				$('#PostDiscountModal').modal('show');
+			
+			}
+			else{
+			$('#errorModal').modal('show');
+			}
+		}
+		
+		
+
+		// $scope.postRoomCharges = function(){
+		// 	if($scope.selectedRow != null){
+		// 		$scope.admissionid = $scope.selectedRow;
+		// 		$http({
+		// 			method: 'get',
+		// 			url: 'getData/get-medical-details.php',
+		// 			params: {id: $scope.admissionid}
+		// 		}).then(function(response) {
+		// 			$scope.medicaldetails = response.data;
+		// 		});
+		// 		$('#RoomChargeModal').modal('show');
+			
+		// 	}
+		// 	else{
+		// 	$('#errorModal').modal('show');
+		// 	}
+		// }
+
+		$scope.postFees = function(){
+			if($scope.selectedRow != null){
+				$('#patientModal2').modal('show');
+				$scope.doctor = $scope.selectedRow;
+				$http({
+					method: 'get',
+					url: 'getData/get-attending-details2.php',
+					params: {id: $scope.doctor}
+				}).then(function(response) {
+					$scope.attendingdetails2 = response.data;
+				});
+			}
+			else{
+			$('#errorModal').modal('show');
+			}
+		}
+
+		$scope.postDiscounts = function(){
+			if($scope.selectedRow != null){
+				$('#postdiscount2modal').modal('show');
+				$scope.doctor = $scope.selectedRow;
+				$http({
+					method: 'get',
+					url: 'getData/get-attending-details2.php',
+					params: {id: $scope.doctor}
+				}).then(function(response) {
+					$scope.attendingdetails2 = response.data;
+				});
 			}
 			else{
 			$('#errorModal').modal('show');

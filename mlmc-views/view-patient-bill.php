@@ -51,8 +51,14 @@
                                     <fieldset data-ng-repeat="room in roomdetails track by $index">
                                         <input type="hidden" ng-model='RoomBill[$index]' ng-init='RoomBill[$index] = room.bedbill'>
                                     </fieldset>
+                                    <fieldset data-ng-repeat="room in roomdetails track by $index">
+                                        <input type="hidden" ng-model='RoomDur[$index]' ng-init='RoomDur[$index] = room.Duration'>
+                                    </fieldset>
                                     <fieldset data-ng-repeat="lab in labdetails track by $index">
-                                        <input type="hidden" ng-model='LabBill[$index]' ng-init='LabBill[$index] = lab.Price'>
+                                        <input type="hidden" ng-model='LabBill[$index]' ng-init='LabBill[$index] = lab.Rate'>
+                                    </fieldset>
+                                    <fieldset data-ng-repeat="doc in docdetails track by $index">
+                                        <input type="hidden" ng-model='DocBill[$index]' ng-init='DocBill[$index] = doc.Pfee - doc.Discount'>
                                     </fieldset>
 
                                 </div>
@@ -126,6 +132,12 @@
                                                                 <td class="text-right">₱ {{ subtotallab }}</td>
                                                                 <td class="text-right">₱ {{ subtotallab }}</td>
                                                             </tr>
+                                                            <tr>
+                                                                <td>4</td>
+                                                                <td>Doctors Bill</td>
+                                                                <td class="text-right">₱ {{ subtotaldoc }}</td>
+                                                                <td class="text-right">₱ {{ subtotaldoc }}</td>
+                                                            </tr>
                                                         </tbody>
                                                     </table>
                                                 </div>
@@ -186,9 +198,12 @@
             $scope.MedicineBill = [];
             $scope.RoomBill = [];
             $scope.LabBill = [];
+            $scope.DocBill = [];
+            $scope.RoomDur = [];
             $scope.subtotalmedi = 0;
             $scope.subtotalroom = 0;
             $scope.subtotallab = 0;
+            $scope.subtotaldoc = 0;
             $scope.MedID = [];
             $scope.Quantity = [];
             $scope.Dosage = [];
@@ -196,6 +211,7 @@
             var total = 0;
             var total1 = 0;
             var total2 = 0;
+            var total3 = 0;
 
             switch ($scope.at.charAt(0)) {
                 case '1':
@@ -268,7 +284,15 @@
             }).then(function(response) {
                 $scope.labdetails = response.data;
             });
-
+            $http({
+                method: 'GET',
+                url: 'getData/get-doctor-billdetailed.php',
+                params: {
+                    id: $scope.id
+                }
+            }).then(function(response) {
+                $scope.docdetails = response.data;
+            });
             $http({
                 method: 'get',
                 url: 'getData/get-patient-details.php',
@@ -289,11 +313,15 @@
                 $scope.subtotalroom = total1;
                 for (var i = 0; i < $scope.LabBill.length; i++) {
                     var product2 = $scope.LabBill[i];
-                    total2 = parseInt(total2);
-                    total2 = total2 + product2;
+                    total2 = total2 + parseInt(product2);
                 }
                 $scope.subtotallab = total2;
-                $scope.subtotal = $scope.subtotalroom + $scope.subtotalmedi;
+                for (var i = 0; i < $scope.DocBill.length; i++) {
+                    var product3 = $scope.DocBill[i];
+                    total3 = total3 + parseInt(product3);
+                }
+                $scope.subtotaldoc = total3;
+                $scope.subtotal = $scope.subtotalroom + $scope.subtotalmedi+$scope.subtotallab+$scope.subtotaldoc;
             });
             $http({
                 method: 'GET',
