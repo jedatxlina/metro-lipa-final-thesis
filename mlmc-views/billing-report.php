@@ -14,13 +14,23 @@ $dompdf = new Dompdf();
 $param = isset($_GET['param']) ? $_GET['param'] : '';
 $id = $_GET['at'];
 $yearage = '0';
-$adid = $_GET['adid'];
+$adid = $_GET['id'];
 $sel = mysqli_query($conn,"SELECT a.* ,b.Rate,b.RoomType FROM duration a, beds b WHERE b.BedID = a.BedID AND a.AdmissionID = '$adid'");
 $patd = mysqli_query($conn,"SELECT * FROM patients WHERE AdmissionID = '$adid'");
+$sel4 = mysqli_query($conn,"SELECT physicians.LastName, physicians.FirstName, physicians.MiddleName, attending_physicians.Rate, attending_physicians.Discount FROM attending_physicians INNER JOIN physicians ON attending_physicians.PhysicianID=physicians.PhysicianID WHERE attending_physicians.AdmissionID='$adid'");
+$sel3 = mysqli_query($conn,"SELECT laboratories.Rate, laboratories.Description FROM laboratory_req INNER JOIN laboratories ON laboratories.LaboratoryID=laboratory_req.LaboratoryID WHERE laboratory_req.AdmissionID='$adid' AND laboratory_req.Status='Cleared'");
 $sel2 = mysqli_query($conn,"SELECT medication.Quantity,pharmaceuticals.Unit,pharmaceuticals.Price,pharmaceuticals.MedicineID, pharmaceuticals.MedicineName FROM medication INNER JOIN pharmaceuticals ON medication.MedicineID=pharmaceuticals.MedicineID WHERE medication.AdmissionID='$adid'");
 $data = array();
 $date = date("Y-m-d");
+$name = '';
+$AdID ='';
+$gender = '';
+$type ='';
+$phyname ='';
+$date= '';
+while ($row = mysqli_fetch_array($patd)) {
 
+}
 // $html =  '<table>
 // <tr>
 //   <td>Date</td><td>Name</td><td>Name</td><td>Name</td>
@@ -200,9 +210,9 @@ while ($row = mysqli_fetch_array($sel2)) {
                             </tr>
                         </thead>';
                         
-while ($row = mysqli_fetch_array($sel2)) {
+while ($row = mysqli_fetch_array($sel3)) {
     $html .= '<tbody><tr>
-      <td>' . $row['MedicineName'] . '</td><td>' . $row['Quantity'] . '</td><td>' . $row['Price'] . '</td><td class="text-right">'. $row['Quantity']*$row['Price'] .'</td>
+      <td>' . $row['Description'] . '</td><td>' . $row['Rate'] . '</td>
      </tr>';
     }
                         $html .= '
@@ -213,6 +223,38 @@ while ($row = mysqli_fetch_array($sel2)) {
         </div>
     </div>
 </div>
+<div class="row mb-xl">
+    <div class="col-md-12">
+        <h3 class="text-primary text-center" style="font-weight: small;">Doctors Bill</h3>
+    </div>
+    <div class="row mb-xl">
+    <div class="col-md-12">
+        <div class="panel">
+            <div class="panel-body no-padding">
+                <div class="table-responsive">
+                    <table class="table table-hover m-n">
+                        <thead>
+                            <tr>
+                                <th>Doctors Name</th>
+                                <th>Discounted Fee</th>
+                                <th class="text-right">Total Fee</th>
+                            </tr>
+                        </thead>';
+                        
+while ($row = mysqli_fetch_array($sel4)) {
+    $html .= '<tbody><tr>
+      <td>Dr. ' . $row['FirstName'] . ' ' . $row['MiddleName'] . ' ' . $row['LastName'] . '</td><td>' . $row['Discount'] . '</td><td>' . $row['Rate'] . '</td>
+     </tr>';
+    }
+                        $html .= '
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<br><br>
 <div class="col-md-12">
             <div class="pull-left">
                 <h3 class="text-muted">Info</h3>
@@ -223,7 +265,13 @@ while ($row = mysqli_fetch_array($sel2)) {
                 </ul>
             </div>
         </div>
-    </div>';
+    </div>
+    <div style="A_CSS_ATTRIBUTE:all;position: absolute;bottom: 50px; left: 10px; ">
+    <b>-------------------------------------------------------------------------------------------------------------------------------</b>
+    This is the discharge Stub Please Cut it and show the security on Your way Out. Thank You.
+    <br><br><br><br>
+    </div>
+</div>';
 
 
 
