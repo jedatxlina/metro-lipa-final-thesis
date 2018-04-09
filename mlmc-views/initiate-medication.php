@@ -36,8 +36,8 @@
             mysqli_query($conn,$query2);  
         }else{
 
-        $days[$x] = $qnty[$x];
-        $qnty[$x] *= $interval[$x];
+        $days[$x] = $qnty[$x] * $interval[$x];
+        // $qnty[$x] *= $interval[$x];
 
         $query = "UPDATE medication SET Quantity = '$qnty[$x]', Dosage = '$dosage[$x]', Notes = '$notes[$x]', DosingID = '$interval[$x]', Days = '$days[$x]' WHERE AdmissionID = '$admmissionid' AND MedicineID = '$medid[$x]'";
         mysqli_query($conn,$query);  
