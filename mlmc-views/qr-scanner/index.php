@@ -33,11 +33,11 @@
 			<div class="app__dialog app__dialog--hide">
 				<?php
 				$at = $_GET["at"];
-				$link = '../option.php';
+				$link = '../add-patient-vitals.php';
 				?>
 				<form action="<?php echo $link; ?>" method="GET">
 					<div class="app__dialog-content"><h5>Confirm ID</h5>
-						<input type="text" id="result" readonly="readonly" name="result">
+						<input type="text" id="result" readonly="readonly" name="id">
 						<input type="hidden" id="at" readonly="readonly" name="at" value="<?php echo $_GET['at']; ?>">
 					</div>
 					

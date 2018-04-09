@@ -322,7 +322,7 @@
                         url: 'insertData/insert-bed-bill.php',
                         params: {admissionid: $scope.admissionid,
                             department: $scope.User,
-                            description: 'Room Fee',
+                            description: 'Emergency Room Fee',
                             total: $scope.totalbill}
                         });
                       

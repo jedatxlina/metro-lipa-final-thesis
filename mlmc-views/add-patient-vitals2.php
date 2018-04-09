@@ -377,10 +377,9 @@ var fetch = angular.module('myApp', ['ui.mask']);
                 $scope.parsedbp =  $scope.bp.split('/');
                 $http({
                                 method: 'GET',
-                                url: 'insertData/patient-vitals-exec.php',
-                                params: {
+                                url: 'insertData/insert-medical-details.php',
+                                params: {at: $scope.at,
                                         admissionid: $scope.id,
-                                        taker: $scope.at,
                                         vitalsid: $scope.vitalsid,
                                         bp: JSON.stringify($scope.parsedbp),
                                         pr: $scope.pr,
