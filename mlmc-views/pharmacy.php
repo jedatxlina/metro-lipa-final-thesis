@@ -38,24 +38,13 @@
                                     <th>Medicine ID</th>
                                     <th>Medicine </th>
                                     <th>Price</th>
-                                    <th>Quantity</th>
-                                    <th>Re-Order Point</th>
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr ng-repeat="med in meds track by $index" ng-class="{'selected': med.PharmaID == selectedRow}" ng-click="setClickedRow(med.PharmaID)" >
-                                    <td>{{med.PharmaID}}</td>
-                                    <td>{{med.PharmaName}} {{med.Unit}}</td>
-                                    <td>{{med.Price}}</td>
-                                    <td style="color:red">{{med.Quantity}}</td>  
-                                    <td>{{med.ReOrder}}</td>
-                                </tr>
                                 <tr ng-repeat="pharma in pharmacs track by $index" ng-class="{'selected': pharma.PharmaID == selectedRow}" ng-click="setClickedRow(pharma.PharmaID)" >
                                     <td>{{pharma.PharmaID}}</td>
                                     <td>{{pharma.PharmaName}} {{pharma.Unit}}</td>
-                                    <td>{{pharma.Price}}</td>
-                                    <td>{{pharma.Quantity}}</td>  
-                                    <td>{{pharma.ReOrder}}</td>
+                                    <td>₱{{pharma.Price}}</td>
                                 </tr>
                             </tbody>
                            
@@ -94,7 +83,6 @@
 						<a href="#" role="tab" data-toggle="tab" class="list-group-item active">Actions Panel</a>
 						<a href="#" ng-click="AddPharmaceutical()" role="tab" data-toggle="tab" class="list-group-item"><i class="fa fa-list-alt fa-fw"></i>Add Medicine</a>
                         <a href="#" ng-click="EditPharmaceutical()"role="tab" data-toggle="tab" class="list-group-item"><i class="ti ti-info-alt"></i>Edit Medicine</a>
-                        <a href="#" ng-click="AddStock()"role="tab" data-toggle="tab" class="list-group-item"><i class="ti ti-info-alt"></i>Add Stock</a>
                 </div>
             </div>
 
@@ -117,7 +105,7 @@
                                         <label>Unit </label>
                                         <div class="row">
                                  <div class="col-md-9">
-                                        <input type="text" ng-model="unit" placeholder="100" class="form-control" ng-keypress="filterValue($event)" style="width:480px" ng-disabled="measurement == null ">
+                                        <input type="text" ng-model="unit" placeholder="100" class="form-control"  style="width:480px" ng-disabled="measurement == null ">
                                         </div>
                                         <div class="col-md-3">
                                         <select ng-model="measurement" class="form-control" style="width:130px">
@@ -136,14 +124,7 @@
                                     <label>Price </label>
                                     <input type="text" ng-model="price" placeholder="100"  ng-keypress="filterValue($event)" class="form-control">
                                 </div>
-                                <div class="form-group">
-                                    <label>Quantity </label>
-                                    <input type="text" ng-model="quantity" placeholder="10" ng-keypress="filterValue($event)" class="form-control">
-                                </div>
-                                <div class="form-group">
-                                    <label>Re-Order Point </label>
-                                    <input type="text" ng-model="reorder" placeholder="5" ng-keypress="filterValue($event)" class="form-control">
-                                </div>
+                          
                                 <div class="modal-footer">
                                     <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
                                     <button ng-click='Add()' class="btn btn-primary">Confirm</button>
@@ -210,25 +191,15 @@
                         <input type="text" ng-model="$parent.PID" ng-init="$parent.PID=ep.PharmaID" class="form-control" disabled>
                      </div>
                      <div class="form-group">       
-                     <label>Medicine Name </label>
-                     <input type="text" ng-model="$parent.PName" ng-init="$parent.PName=ep.PharmaName" class="form-control" disabled>
+                     <label>Medicine </label>
+                     <input type="text" ng-model="$parent.PName + ' ' + $parent.PUnit" ng-init="$parent.PName=ep.PharmaName; $parent.PUnit=ep.Unit" class="form-control" disabled>
                   </div>
-                  <div class="form-group">       
-                     <label>Unit </label>
-                     <input type="text" ng-model="$parent.PUnit" ng-init="$parent.PUnit=ep.Unit" class="form-control" disabled>
-                  </div>
+                  
                   <div class="form-group">       
                      <label>Price </label>
                      <input type="text" ng-model="$parent.PPrice" ng-init="$parent.PPrice=ep.Price" class="form-control" ng-keypress="filterValue($event)">
                   </div>
-                  <div class="form-group">       
-                     <label>Quantity </label>
-                     <input type="text" ng-model="$parent.qquantity" ng-init="$parent.qquantity=ep.Quantity" class="form-control" disabled>
-                  </div>
-                  <div class="form-group">       
-                     <label>Re-Order Point </label>
-                     <input type="text" ng-model="$parent.ROrder" ng-init="$parent.ROrder=ep.ReOrder" class="form-control" ng-keypress="filterValue($event)">
-                  </div>
+                 
                      <div class="modal-footer">
                         <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
                         <button ng-click='Update()' class="btn btn-primary">Confirm</button>
@@ -252,6 +223,10 @@
             $scope.selectedStatus = null;
             $scope.clickedRow = 0;
             $scope.new = {};
+            $scope.quantity = 0;
+            $scope.reorder = 0;
+            $scope.qquantity = 0;
+            $scope.ROrder = 0;
 
                 var tick = function() {
                 $scope.clock = Date.now();
@@ -316,7 +291,7 @@
 
             $http({
                 method: 'get',
-                url: 'getData/get-medicine-aboveorder.php'
+                url: 'getData/get-pharmaceutical-details.php'
             }).then(function(response) {
                 $scope.pharmacs = response.data;
                 angular.element(document).ready(function() {
@@ -326,17 +301,17 @@
             });
          
            
-            $http({
-                method: 'get',
-                url: 'getData/get-medicine-underorder.php'
-            }).then(function(response) {
-                $scope.meds = response.data;
-                $scope.count = response.data.length;
-                angular.element(document).ready(function() {
-                    dTable = $('#table_info')
-                    dTable.DataTable();
-                });
-            });
+            // $http({
+            //     method: 'get',
+            //     url: 'getData/get-medicine-underorder.php'
+            // }).then(function(response) {
+            //     $scope.meds = response.data;
+            //     $scope.count = response.data.length;
+            //     angular.element(document).ready(function() {
+            //         dTable = $('#table_info')
+            //         dTable.DataTable();
+            //     });
+            // });
           
          
 
