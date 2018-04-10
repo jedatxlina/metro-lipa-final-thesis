@@ -40,6 +40,7 @@
                                 <img ng-src="{{patient.QRpath}}">
                                 <div class="name">{{patient.Lastname}}, {{patient.Firstname}} {{patient.Middlename}}</div>
                                 <div class="info">{{patient.AdmissionID}}</div>
+                                <input type="hidden" ng-model="admittype" ng-init="admittype = patient.AdmissionType"/>
                             </div>
                         </div>
                         <!-- panel -->
@@ -145,7 +146,7 @@
                                                                 </div>
                                                             </div>
                                                         </div>
-                                                        <div data-row-span="2">
+                                                        <div data-row-span="2" ng-show="checkadmit()">
                                                             <div data-field-span="1">
                                                                 <label>Next appointment date</label>
                                                                 <input type="text" class="form-control" ng-model="" id="datepicker">
@@ -532,6 +533,12 @@
                     default:
                         break;
                 }
+
+            }
+
+            $scope.checkadmit = function() {
+                if($scope.admittype == 'Outpatient')
+                    return true;
 
             }
 
