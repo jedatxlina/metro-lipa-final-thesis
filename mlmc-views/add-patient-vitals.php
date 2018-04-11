@@ -41,6 +41,7 @@
                 <div class="list-group list-group-alternate mb-n nav nav-tabs">
                     <a href="#tab-about" 	role="tab" data-toggle="tab" class="list-group-item active"><i class="ti ti-user"></i> About </a>
                     <a href="#tab-details" role="tab" data-toggle="tab" class="list-group-item"><i class="fa fa-stethoscope"></i>Add Patient Vitals</a>
+                    <a href="#tab-supplies" role="tab" data-toggle="tab" class="list-group-item"><i class="fa fa-stethoscope"></i>Supplies Used</a>
                     <a href="#tab-projects" role="tab" data-toggle="tab" class="list-group-item"><i class="ti ti-view-list-alt"></i> Medical History</a>
                     <a href="#tab-edit" 	role="tab" data-toggle="tab" clata-toggle="tab" class="list-group-item" ng-if="chckval != 1"> <i class="ti ti-pencil"></i> Edit</a>
                 </div>
@@ -99,6 +100,64 @@
                                                 <div data-field-span="1">
                                                     <label>Temperature</label>
                                                     <input type="text" class="form-control" ng-model="temp">
+                                                </div>
+                                            </div>
+                                        </fieldset>
+                                    </form>
+                                </div>
+                    <div class="col-lg-4">
+                        <input type="button" class="btn btn-default" value="Cancel" onclick="goBack()">
+                        <button ng-click='AddVitals()' class="btn btn-primary">Confirm</button>
+                        <br>&emsp;
+                    </div>
+                    <br>&emsp;&emsp;&emsp;
+                </form>
+            </div>
+        </div>
+                    </div> <!-- #tab-projects -->
+                    <div class="tab-pane" id="tab-supplies">
+                    <div class="row">
+            <div class="col-lg-12">
+                <h3 class="page-header">Supplies Used</h3>
+            </div>
+        </div>
+        <div class="col-lg-15">
+                    <div class="panel panel-default">
+                    
+                <form action="javascript:void(0)">
+                    <div class="row">
+                        <div class="col-lg-4">
+                            <div class="panel-body">
+                                <div class="form-group">
+                                    <label>Patient ID</label>
+                                    <input type="text" placeholder="" class="form-control" ng-model="id" disabled>
+                                </div>
+                                <div class="form-group" ng-repeat='patient in patientdetails'>
+                                    <label>Patient Name</label>
+                                    <input type="text" placeholder="Juan" class="form-control" ng-value="patient.Firstname + ' ' + patient.Middlename + ' ' + patient.Lastname" disabled>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-3">
+                            <div class="panel-body">
+                                <form class="grid-form" action="javascript:void(0)">
+                                <fieldset>
+                                </fieldset>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="panel-body">
+                                    <form class="grid-form" action="javascript:void(0)">
+                                        <fieldset>
+                                        <div data-row-span="2">
+                                                <div data-field-span="2">
+                                                    <label>Supplies Used</label>
+                                                    <select id="supplies" style="width:550px;">
+                                                        <optgroup label="List of Conditions">
+                                                            <option ng-repeat="supp in supplies" value="{{supp.SuppliesID}}">{{supp.SuppliesName}}</option>
+                                                        </optgroup>
+                                                    </select>     
                                                 </div>
                                             </div>
                                         </fieldset>
@@ -422,7 +481,7 @@ var fetch = angular.module('myApp', ['ui.mask']);
             default:
                 break;
         }
-   
+        
         $scope.accesstype = $scope.at[0];
             $http({
             method: 'GET',
@@ -432,6 +491,13 @@ var fetch = angular.module('myApp', ['ui.mask']);
             }).then(function(response) {
                 $scope.userdetails = response.data;
             });
+
+            $http({
+                        method: 'GET',
+                        url: 'getData/get-supplies-details.php'
+                    }).then(function(response) {
+                        $scope.supplies = response.data;
+                    });
 
         $http({
             method: 'GET',
