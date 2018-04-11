@@ -150,7 +150,7 @@ while ($row = mysqli_fetch_array($sel)) {
     if($yearage <= 1)
         $yearage=1;
     $html .= '<tbody><tr>
-      <td> ' . $row['BedID'] . ' </td><td>' . $row['ArrivalDate'] . '</td><td>' . $date . '</td><td>' . $yearage . '</td><td class="text-right">'. $row['Rate']*$yearage .'</td>
+      <td> ' . $row['BedID'] . ' </td><td>' . $row['ArrivalDate'] . '</td><td>' . $date . '</td><td>' . $yearage . '</td><td class="text-right">'. number_format($row['Rate']*$yearage) .'</td>
      </tr>';
     }
                         $html .= '
@@ -182,7 +182,7 @@ while ($row = mysqli_fetch_array($sel)) {
                         
 while ($row = mysqli_fetch_array($sel2)) {
     $html .= '<tbody><tr>
-      <td>' . $row['MedicineName'] . '</td><td>' . $row['Quantity'] . '</td><td>' . $row['Price'] . '</td><td class="text-right">'. $row['Quantity']*$row['Price'] .'</td>
+      <td>' . $row['MedicineName'] . '</td><td>' . $row['Quantity'] . '</td><td>' . number_format($row['Price']) . '</td><td class="text-right">'. number_format($row['Quantity']*$row['Price']) .'</td>
      </tr>';
     }
                         $html .= '
@@ -212,7 +212,7 @@ while ($row = mysqli_fetch_array($sel2)) {
                         
 while ($row = mysqli_fetch_array($sel3)) {
     $html .= '<tbody><tr>
-      <td>' . $row['Description'] . '</td><td>' . $row['Rate'] . '</td>
+      <td>' . $row['Description'] . '</td><td>' . number_format($row['Rate']) . '</td>
      </tr>';
     }
                         $html .= '
@@ -243,7 +243,7 @@ while ($row = mysqli_fetch_array($sel3)) {
                         
 while ($row = mysqli_fetch_array($sel4)) {
     $html .= '<tbody><tr>
-      <td>Dr. ' . $row['FirstName'] . ' ' . $row['MiddleName'] . ' ' . $row['LastName'] . '</td><td>' . $row['Discount'] . '</td><td>' . $row['Rate'] . '</td>
+      <td>Dr. ' . $row['FirstName'] . ' ' . $row['MiddleName'] . ' ' . $row['LastName'] . '</td><td>' . number_format($row['Discount']) . '</td><td>' . number_format($row['Rate']) . '</td>
      </tr>';
     }
                         $html .= '

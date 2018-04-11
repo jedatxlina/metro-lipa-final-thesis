@@ -81,7 +81,7 @@
                                                 <ul class="text-left list-unstyled">
                                                     <li><strong>Patient Name:</strong>&emsp; {{patient.Lastname}}, {{patient.Firstname}} {{patient.Middlename}}</li>
                                                     <li><strong>Patient Room:</strong>&emsp; 19/05/2015</li>
-                                                    <li><strong>Advance Payment:</strong>&emsp; {{advpay}}</li>
+                                                    <li><strong>Advance Payment:</strong>&emsp; {{advpay.toLocaleString('en')}}</li>
                                                 </ul>
                                                 <br>
                                                 <div class="btn-group">
@@ -125,26 +125,26 @@
                                                             <tr>
                                                                 <td>1</td>
                                                                 <td>Room Bill</td>
-                                                                <td class="text-right">₱ {{ subtotalroom }}</td>
-                                                                <td class="text-right">₱ {{ subtotalroom }}</td>
+                                                                <td class="text-right">₱ {{ subtotalroom.toLocaleString('en') }}</td>
+                                                                <td class="text-right">₱ {{ subtotalroom.toLocaleString('en') }}</td>
                                                             </tr>
                                                             <tr>
                                                                 <td>2</td>
                                                                 <td>Medicines Bill</td>
-                                                                <td class="text-right">₱ {{ subtotalmedi }}</td>
-                                                                <td class="text-right">₱ {{ subtotalmedi }}</td>
+                                                                <td class="text-right">₱ {{ subtotalmedi.toLocaleString('en') }}</td>
+                                                                <td class="text-right">₱ {{ subtotalmedi.toLocaleString('en') }}</td>
                                                             </tr>
                                                             <tr>
                                                                 <td>3</td>
                                                                 <td>Laboratory Bill</td>
-                                                                <td class="text-right">₱ {{ subtotallab }}</td>
-                                                                <td class="text-right">₱ {{ subtotallab }}</td>
+                                                                <td class="text-right">₱ {{ subtotallab.toLocaleString('en') }}</td>
+                                                                <td class="text-right">₱ {{ subtotallab.toLocaleString('en') }}</td>
                                                             </tr>
                                                             <tr>
                                                                 <td>4</td>
                                                                 <td>Doctors Bill</td>
-                                                                <td class="text-right">₱ {{ subtotaldoc }}</td>
-                                                                <td class="text-right">₱ {{ subtotaldoc }}</td>
+                                                                <td class="text-right">₱ {{ subtotaldoc.toLocaleString('en') }}</td>
+                                                                <td class="text-right">₱ {{ subtotaldoc.toLocaleString('en') }}</td>
                                                             </tr>
                                                         </tbody>
                                                     </table>
@@ -155,11 +155,11 @@
                                     <div class="col-md-12">
                                         <div class="row" style="border-top-left-radius: 0px; border-top-right-radius: 0px; border-bottom-right-radius: 0px; border-bottom-left-radius: 0px;">
                                             <div class="col-md-3 col-md-offset-9">
-                                                <p class="text-right"><strong>SUB TOTAL:₱ {{ subtotal }}</strong></p>
-                                                <p class="text-right">DISCOUNT:₱ {{totaldiscount}}</p>
+                                                <p class="text-right"><strong>SUB TOTAL:₱ {{ subtotal.toLocaleString('en') }}</strong></p>
+                                                <p class="text-right">DISCOUNT:₱ {{totaldiscount.toLocaleString('en')}}</p>
                                                 <!-- <p class="text-right">VAT: **</p> -->
                                                 <hr>
-                                                <h3 class="text-right text-danger" style="font-weight: bold;">₱ {{ subtotal2 }}</h3>
+                                                <h3 class="text-right text-danger" style="font-weight: bold;">₱ {{ subtotal2.toLocaleString('en') }}</h3>
                                             </div>
                                         </div>
                                     </div>
@@ -353,7 +353,7 @@
                     var product1 = $scope.RoomBill[i];
                     total1 = total1 + product1;
                 }
-                $scope.subtotalroom = total1;
+                $scope.subtotalroom = total1
                 for (var i = 0; i < $scope.EmRoomBill.length; i++) {
                     var product4 = $scope.EmRoomBill[i];
                     total4 = total4 + parseFloat(product4);

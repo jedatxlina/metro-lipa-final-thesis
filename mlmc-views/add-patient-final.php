@@ -316,7 +316,7 @@
                     }
 
                     $scope.submitDetails = function(type){
-                        $scope.totalbill = 5000;
+                        $scope.totalbill = 2500;
                         $http({
                         method: 'GET',
                         url: 'insertData/insert-bed-bill.php',
@@ -325,7 +325,6 @@
                             description: 'Emergency Room Fee',
                             total: $scope.totalbill}
                         });
-                      
                         if($scope.philhealth == false && $scope.hmoclick == false){
                             $http({
                                 method: 'get',
@@ -350,7 +349,6 @@
                                 console.log(response.data);
                             });
                         }
-
                          if($scope.philhealth != false && $scope.hmoclick == false){
                             $http({
                                 method: 'get',
@@ -363,7 +361,6 @@
                                 console.log(response.data);
                             });
                         }
-
                         swal({
                             icon: "success",
                             title: "Successfully Added!",
@@ -376,7 +373,6 @@
                                 window.location.href = 'initiate-medication.php?admissionid=' + $scope.admissionid  + '&quantity=' + $scope.Quantity + '&id=' + $scope.medicationid + '&at=' + $scope.at + '&dosage=' + $scope.Dosage + '&medid=' + $scope.MedID + '&param=' + $scope.param + '&notes=' + $scope.NoteID + '&intake=' + $scope.Intake + '&qntyintake=' + $scope.QuantityIntake + '&intakeinterval=' + $scope.IntakeInterval;
                             }
                         });
-                        
                     }
 
                     $scope.goBack = function(){

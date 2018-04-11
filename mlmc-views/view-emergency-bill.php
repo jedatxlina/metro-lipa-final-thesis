@@ -51,8 +51,23 @@
                                     <fieldset data-ng-repeat="room in roomdetails track by $index">
                                         <input type="hidden" ng-model='RoomBill[$index]' ng-init='RoomBill[$index] = room.bedbill'>
                                     </fieldset>
+                                    <fieldset data-ng-repeat="emroom in emroomdetails track by $index">
+                                        <input type="hidden" ng-model='EmRoomBill[$index]' ng-init='EmRoomBill[$index] = emroom.EmRoomBill'>
+                                    </fieldset>
+                                    <fieldset data-ng-repeat="room in roomdetails track by $index">
+                                        <input type="hidden" ng-model='RoomDur[$index]' ng-init='RoomDur[$index] = room.Duration'>
+                                    </fieldset>
                                     <fieldset data-ng-repeat="lab in labdetails track by $index">
-                                        <input type="hidden" ng-model='LabBill[$index]' ng-init='LabBill[$index] = lab.TotalBill'>
+                                        <input type="hidden" ng-model='LabBill[$index]' ng-init='LabBill[$index] = lab.Rate'>
+                                    </fieldset>
+                                    <fieldset data-ng-repeat="doc in docdetails track by $index">
+                                        <input type="hidden" ng-model='DocBill[$index]' ng-init='DocBill[$index] = doc.Pfee - doc.Discount'>
+                                    </fieldset>
+                                    <fieldset data-ng-repeat="patientadv2 in patientadv track by $index">
+                                        <input type="hidden" ng-model='AdvPay[$index]' ng-init='AdvPay[$index] = patientadv2.Amount'>
+                                    </fieldset>
+                                    <fieldset data-ng-repeat="deb in debitdetails track by $index">
+                                        <input type="hidden" ng-model='DebitBill[$index]' ng-init='DebitBill[$index] = deb.Amount'>
                                     </fieldset>
 
                                 </div>
@@ -66,7 +81,7 @@
                                                 <ul class="text-left list-unstyled">
                                                     <li><strong>Patient Name:</strong>&emsp; {{patient.Lastname}}, {{patient.Firstname}} {{patient.Middlename}}</li>
                                                     <li><strong>Patient Room:</strong>&emsp; 19/05/2015</li>
-                                                    <li><strong>Advance Payment:</strong>&emsp; **</li>
+                                                    <li><strong>Advance Payment:</strong>&emsp; {{advpay.toLocaleString('en')}}</li>
                                                 </ul>
                                                 <br>
                                                 <div class="btn-group">
@@ -86,7 +101,6 @@
                                                 <ul class="text-left list-unstyled">
                                                     <li><strong>Patient ID:</strong>&emsp; {{patient.AdmissionID}}</li>
                                                     <li><strong>Admission No:</strong>&emsp; {{patient.AdmissionNo}}</li>
-                                                    <li><strong>Advance Payment:</strong> **</li>
                                                 </ul>
                                                 <br>
                                             </div>
@@ -107,24 +121,30 @@
                                                                 <th class="text-right">Total</th>
                                                             </tr>
                                                         </thead>
-                                                        <tbody >
-                                                            <tr data-ng-repeat="bill in billdetails">
+                                                        <tbody>
+                                                            <tr>
                                                                 <td>1</td>
                                                                 <td>Room Bill</td>
-                                                                <td class="text-right">₱ {{ bill.totalbill }}</td>
-                                                                <td class="text-right">₱ {{ bill.totalbill }}</td>
+                                                                <td class="text-right">₱ {{ subtotalroom.toLocaleString('en') }}</td>
+                                                                <td class="text-right">₱ {{ subtotalroom.toLocaleString('en') }}</td>
                                                             </tr>
                                                             <tr>
                                                                 <td>2</td>
                                                                 <td>Medicines Bill</td>
-                                                                <td class="text-right">₱ {{ subtotalmedi }}</td>
-                                                                <td class="text-right">₱ {{ subtotalmedi }}</td>
+                                                                <td class="text-right">₱ {{ subtotalmedi.toLocaleString('en') }}</td>
+                                                                <td class="text-right">₱ {{ subtotalmedi.toLocaleString('en') }}</td>
                                                             </tr>
                                                             <tr>
                                                                 <td>3</td>
                                                                 <td>Laboratory Bill</td>
-                                                                <td class="text-right">₱ {{ subtotallab }}</td>
-                                                                <td class="text-right">₱ {{ subtotallab }}</td>
+                                                                <td class="text-right">₱ {{ subtotallab.toLocaleString('en') }}</td>
+                                                                <td class="text-right">₱ {{ subtotallab.toLocaleString('en') }}</td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td>4</td>
+                                                                <td>Doctors Bill</td>
+                                                                <td class="text-right">₱ {{ subtotaldoc.toLocaleString('en') }}</td>
+                                                                <td class="text-right">₱ {{ subtotaldoc.toLocaleString('en') }}</td>
                                                             </tr>
                                                         </tbody>
                                                     </table>
@@ -135,11 +155,11 @@
                                     <div class="col-md-12">
                                         <div class="row" style="border-top-left-radius: 0px; border-top-right-radius: 0px; border-bottom-right-radius: 0px; border-bottom-left-radius: 0px;">
                                             <div class="col-md-3 col-md-offset-9">
-                                                <p class="text-right"><strong>SUB TOTAL:₱ {{ subtotal }}</strong></p>
-                                                <p class="text-right">DISCOUNT: **</p>
+                                                <p class="text-right"><strong>SUB TOTAL:₱ {{ subtotal.toLocaleString('en') }}</strong></p>
+                                                <p class="text-right">DISCOUNT:₱ {{totaldiscount.toLocaleString('en')}}</p>
                                                 <!-- <p class="text-right">VAT: **</p> -->
                                                 <hr>
-                                                <h3 class="text-right text-danger" style="font-weight: bold;">₱ {{ subtotal }}</h3>
+                                                <h3 class="text-right text-danger" style="font-weight: bold;">₱ {{ subtotal2.toLocaleString('en') }}</h3>
                                             </div>
                                         </div>
                                     </div>
@@ -147,7 +167,7 @@
                                 <div class="row">
                                     <div class="col-md-12">
                                         <div class="pull-right">
-                                            <a href="#" class="btn btn-danger">Submit</a>
+                                            <a href="#" ng-click="postBilling()" class="btn btn-danger">Process Bill</a>
                                         </div>
                                     </div>
                                 </div>
@@ -185,10 +205,17 @@
             $scope.id = "<?php echo $_GET['id']; ?>";
             $scope.MedicineBill = [];
             $scope.RoomBill = [];
+            $scope.EmRoomBill = [];
             $scope.LabBill = [];
+            $scope.DocBill = [];
+            $scope.RoomDur = [];
+            $scope.DebitBill = [];
+            $scope.AdvPay = [];
             $scope.subtotalmedi = 0;
             $scope.subtotalroom = 0;
             $scope.subtotallab = 0;
+            $scope.subtotaldoc = 0;
+            $scope.advpay = 0;
             $scope.MedID = [];
             $scope.Quantity = [];
             $scope.Dosage = [];
@@ -196,6 +223,10 @@
             var total = 0;
             var total1 = 0;
             var total2 = 0;
+            var total3 = 0;
+            var total4 = 0;
+            var total5 = 0;
+            var total6 = 0;
 
             switch ($scope.at.charAt(0)) {
                 case '1':
@@ -240,20 +271,24 @@
             });
 
             $http({
-				method: 'get',
-				url: 'getData/get-bill-details.php',
-				params: {id: $scope.id}
-			}).then(function(response) {
-				$scope.billdetails = response.data;
-			});
-
-			$http({
-				method: 'get',
-				url: 'getData/get-medication-bill.php',
-				params: {id: $scope.admissionid}
-			}).then(function(response) {
-				$scope.medicinebill = response.data;
-			});
+                method: 'GET',
+                url: 'getData/get-inpatient-roombill.php',
+                params: {
+                    id: $scope.id
+                }
+            }).then(function(response) {
+                $scope.roomdetails = response.data;
+            });
+            
+            $http({
+                method: 'GET',
+                url: 'getData/get-empatient-roombill.php',
+                params: {
+                    id: $scope.id
+                }
+            }).then(function(response) {
+                $scope.emroomdetails = response.data;
+            });
 
             $http({
                 method: 'GET',
@@ -265,16 +300,42 @@
                 $scope.medicinedetails = response.data;
             });
 
-            // $http({
-            //     method: 'GET',
-            //     url: 'getData/get-laboratory-billdetailed.php',
-            //     params: {
-            //         id: $scope.id
-            //     }
-            // }).then(function(response) {
-            //     $scope.labdetails = response.data;
-            // });
-
+            $http({
+                method: 'GET',
+                url: 'getData/get-laboratory-billdetailed.php',
+                params: {
+                    id: $scope.id
+                }
+            }).then(function(response) {
+                $scope.labdetails = response.data;
+            });
+            $http({
+                method: 'GET',
+                url: 'getData/get-doctor-billdetailed.php',
+                params: {
+                    id: $scope.id
+                }
+            }).then(function(response) {
+                $scope.docdetails = response.data;
+            });
+            $http({
+                method: 'GET',
+                url: 'getData/get-guarantor-inpatientbill.php',
+                params: {
+                    id: $scope.id
+                }
+            }).then(function(response) {
+                $scope.debitdetails = response.data;
+            });
+            $http({
+                method: 'GET',
+                url: 'getData/get-patient-advance.php',
+                params: {
+                    id: $scope.id
+                }
+            }).then(function(response) {
+                $scope.patientadv = response.data;
+            });
             $http({
                 method: 'get',
                 url: 'getData/get-patient-details.php',
@@ -292,15 +353,37 @@
                     var product1 = $scope.RoomBill[i];
                     total1 = total1 + product1;
                 }
-                $scope.subtotalroom = total1;
+                $scope.subtotalroom = total1
+                for (var i = 0; i < $scope.EmRoomBill.length; i++) {
+                    var product4 = $scope.EmRoomBill[i];
+                    total4 = total4 + parseFloat(product4);
+                }
+                $scope.subtotalemroom = total4;
                 for (var i = 0; i < $scope.LabBill.length; i++) {
                     var product2 = $scope.LabBill[i];
-                    total2 = total2 + product2;
+                    total2 = total2 + parseFloat(product2);
                 }
                 $scope.subtotallab = total2;
-                $scope.subtotal = $scope.subtotalroom + $scope.subtotalmedi + $scope.subtotallab;
+                for (var i = 0; i < $scope.DocBill.length; i++) {
+                    var product3 = $scope.DocBill[i];
+                    total3 = total3 + parseFloat(product3);
+                }
+                $scope.subtotaldoc = total3;
+                for (var i = 0; i < $scope.AdvPay.length; i++) {
+                    var product6 = $scope.AdvPay[i];
+                    total6 = total6 + parseFloat(product6);
+                }
+                $scope.advpay = total6;
+                for (var i = 0; i < $scope.DebitBill.length; i++) {
+                    var product5 = $scope.DebitBill[i];
+                    total5 = total5 + parseFloat(product5);
+                }
+                $scope.discountamount = total5;
+                $scope.totaldiscount = $scope.discountamount+$scope.advpay;
+                $scope.subtotal = $scope.subtotalroom + $scope.subtotalemroom + $scope.subtotalmedi+$scope.subtotallab+$scope.subtotaldoc;
+                $scope.subtotal2 = ($scope.subtotalroom + $scope.subtotalemroom + $scope.subtotalmedi+$scope.subtotallab+$scope.subtotaldoc)-$scope.totaldiscount;
+                $scope.subtotalroom = $scope.subtotalroom + $scope.subtotalemroom;
             });
-
             $http({
                 method: 'GET',
                 url: 'getData/get-medication-details.php',
@@ -310,9 +393,7 @@
                 }
             }).then(function(response) {
                 $scope.medications = response.data;
-
             });
-
             $scope.submitDetails = function(type) {
                 $scope.totalbill = 5000;
                 $http({
@@ -353,7 +434,20 @@
             }
 
             $scope.viewReport = function() {
-                $window.open('emergency-billing-report.php?at=' + $scope.at + '&id=' + $scope.id, '_blank');
+                $window.open('billing-report.php?at=' + $scope.at + '&id=' + $scope.id, '_blank');
+            }
+
+            $scope.postBilling = function() {
+                $http({
+                    method: 'get',
+                    url: 'insertData/insert-data-billing.php',
+                    params: {
+                        id: $scope.id,
+                        total: $scope.subtotal2
+                    }
+                }).then(function(response) {
+                    window.location.href='billing.php?at=' + $scope.at;
+                });
             }
             
             $scope.notifyPatient = function(){
