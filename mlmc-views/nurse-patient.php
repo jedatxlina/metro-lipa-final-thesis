@@ -325,7 +325,7 @@ font-weight: bold;
 									<h2>Patient Diet</h2>
 									<div class="panel-ctrls" data-actions-container="" data-action-collapse='{"target": ".panel-body, .panel-footer"}'></div>
 								</div>
-								<div class="panel-body" style="height: auto" data-ng-repeat="patientdiet in patientdiets">
+								<div class="panel-body" style="height: auto" data-ng-repeat="patientdiet in patientdiets" >
 									<center><span><strong>Registry Information</strong></span></center>
 									<hr>
 									<div class="row">
@@ -349,14 +349,12 @@ font-weight: bold;
 										</div>
 									</div>
 								</div>
-								<div class="row">
 									<div class="form-group">
 										<label for="focusedinput" class="col-sm-3 control-label">Diet Remarks</label>
-										<div class="col-sm-5">
-											<input type="text" class="form-control" ng-model="dietremarks">
+										<div class="col-sm-5" data-ng-repeat="patientdiet in patientdiets">
+											<input type="text" class="form-control" ng-model="$parent.dietremarks" ng-init="$parent.dietremarks=patientdiet.DietRemarks" >
 										</div>
 									</div>
-								</div>
 								<div class="panel-footer">
 								<button type="button" ng-click="updatePatientDiet()" class="btn btn-danger-alt pull-right">Update</button>
 								<button type="button" data-dismiss="modal" class="btn btn-default pull-right">Cancel</button>
