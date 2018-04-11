@@ -11,9 +11,9 @@
 </style>
 
 <ol class="breadcrumb">
-    <li><a href="index.php">Home</a>
+    <li><a href="#">Home</a>
     </li>
-    <li class="active"> <a href="laboratory.php">Medical Laboratories</a>
+    <li class="active"> <a href="#">Ancillary Services</a>
     </li>
 </ol>
 <br><br>
@@ -310,7 +310,11 @@
                 case 'Logout':
                         window.location.href = '../logout.php?at=' + $scope.at;
                         break;
-                
+                        
+                        case 'Others':
+                        	    window.location.href = 'migrate.php?at=' + $scope.at;
+                           		break;
+
                 default:
                     break;
             }

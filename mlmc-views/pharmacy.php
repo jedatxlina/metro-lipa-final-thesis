@@ -12,7 +12,7 @@
 
 <ol class="breadcrumb">
 <li><a href="#">Home</a></li>
-<li class="active"><a href="#">Pharmacy</a></li>
+<li class="active"><a href="#">Medicine & Supplies</a></li>
 </ol>
 
 <br><br>
@@ -27,12 +27,13 @@
             <div class="col-md-9">
                 <div class="panel panel-danger">
                     <div class="panel-heading">
-                        <h2>Pharmacy Department: Medicines & Supplies</h2><a ng-click="ListOfMedicine()"> <i class="ti ti-printer pull-right"></i></a> 
-                        <div class="panel-ctrls"></div>
+                        <h2>Medicines & Supplies</h2>
+                        <div class="panel-ctrls"></div><a ng-click="ListOfMedicine()"> <i class="ti ti-printer pull-right"></i></a> 
                     </div>
-                    <div class="tab-container tab-midnightblue">
+                    <div class="tab-container tab-midnightblue" >
 												<ul class="nav nav-tabs">
 													<li class="active"><a href="#tab1" data-toggle="tab" ng-click="changeAP()"> Medicines</a></li>
+                                                    
 													<li><a href="#tab2" data-toggle="tab" ng-click="changeAPS()">Supplies</a></li>
 												</ul>
                     <div class="tab-content">
@@ -624,7 +625,10 @@
                     case 'Logout':
                             window.location.href = '../logout.php?at=' + $scope.at;
                             break;
-                    
+                            
+                    case 'Others':
+                            window.location.href = 'migrate.php?at=' + $scope.at;
+                            break;
                     default:
                         break;
                 }

@@ -11,9 +11,9 @@
 </style>
 
 <ol class="breadcrumb">
-    <li><a href="index.php">Home</a>
+    <li><a href="#">Home</a>
     </li>
-    <li class="active"> <a href="bed.php">Bed Specifications</a>
+    <li class="active"> <a href="#">Room & Beds</a>
     </li>
 </ol>
 <bR><br>
@@ -28,7 +28,7 @@
             <div class="col-md-9">
                 <div class="panel panel-danger">
                     <div class="panel-heading">
-                        <h2>BED</h2>
+                        <h2>Room & Beds</h2>
                         <div class="panel-ctrls"></div>
                     </div>
                     <div class="panel-body">
@@ -85,7 +85,7 @@
                         </div>
                     <div class="list-group list-group-alternate mb-n nav nav-tabs">
 						<a href="#" role="tab" data-toggle="tab" class="list-group-item active">Actions Panel</a>
-						<a href="#" ng-click="Edit()"role="tab" data-toggle="tab" class="list-group-item"><i class="ti ti-info-alt"></i>Edit Bed</a>
+						<a href="#" ng-click="Edit()"role="tab" data-toggle="tab" class="list-group-item"><i class="ti ti-info-alt"></i>Edit Bed Status</a>
                 	</div>
             </div>
           
@@ -100,7 +100,7 @@
                         <div class="panel-body" style="height: auto">
                         <form ng-repeat="getbed in getbedid">
                                 <div class="form-group">
-                                    <label>Bed ID </label>
+                                    <label>Bed No. </label>
                                     <input type="text" ng-model="bedid" class="form-control" readonly>
                                 </div>
                                 <div class="form-group">
@@ -368,6 +368,9 @@
                                 window.location.href = '../logout.php?at=' + $scope.at;
                                 break;
                         
+                        case 'Others':
+                                window.location.href = 'migrate.php?at=' + $scope.at;
+                                break;
                         default:
                             break;
                     }
