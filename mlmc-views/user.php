@@ -62,6 +62,7 @@
 						<a href="#" ng-click="Add()" role="tab" data-toggle="tab" class="list-group-item"><i class="fa fa-user-plus"></i></i>Add User Account</a>
 						<a href="#" ng-click="EditUser()"role="tab" data-toggle="tab" class="list-group-item"><i class="ti ti-info-alt"></i>Edit Account</a>
                         <a href="#" ng-click="ViewUser()"role="tab" data-toggle="tab" class="list-group-item"><i class="ti ti-info-alt"></i>Edit User Details</a>
+                        <a href="#" ng-click="ViewUserLogs()"role="tab" data-toggle="tab" class="list-group-item"><i class="ti ti-info-alt"></i>View User Logs</a>
                 	</div>
             </div>
           
@@ -341,6 +342,44 @@
             </div>
             <!--/ View modal -->
 
+            <div class="modal fade" id="ViewUserLogsModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+					<form class="form-horizontal">
+						<div class="modal-dialog">
+							<div class="panel panel-danger" data-widget='{"draggable": "false"}'>
+								<div class="panel-heading">
+									<h2>User Logs</h2>
+									
+									<div class="panel-ctrls" data-actions-container="" data-action-collapse='{"target": ".panel-body, .panel-footer"}'></div>
+								</div>
+								<div class="panel-body" style="height: 500px">
+									<center><span><strong>Registry Information</strong></span></center>
+									<hr>
+									<table id="logs_table" class="table table-striped table-bordered" cellspacing="0" width="100%">
+										<thead>
+										<tr>
+											<th>Date Time-In</th>
+											<th>Date Time-Out</th>
+										</tr>
+										</thead>
+										<tbody>
+										<tr ng-repeat="user in userlogs">
+												<td>{{user.DateTimeIn}}</td>
+												<td>{{user.DateTimeOut}}</td>
+											</tr>
+										</tbody>
+									</table>
+
+								
+								</div>
+								<div class="panel-footer">
+										<button type="button" class="btn btn-default pull-right" data-dismiss="modal">Close</button>
+								</div>
+							</div>
+						</div>
+					</form>
+				</div>
+						
+
         </div>
     </div>
 
@@ -388,6 +427,35 @@
                         break;
                 }
                 
+
+                $scope.ViewUserLogs = function(){
+                    
+			if($scope.selectedRow != null){
+                
+              //  $('#logs_table tbody').empty(); 
+				$http({
+					method: 'get',
+					url: 'getData/get-user-logs.php',
+					params: {id: $scope.selectedRow}
+				}).then(function(response) {
+					$scope.userlogs = response.data;
+					angular.element(document).ready(function() {
+                       
+					dTable = $('#logs_table') 
+					dTable.DataTable(); 
+
+                    
+					});  
+				});
+				$('#ViewUserLogsModal').modal('show');
+            			}
+			else{
+			$('#ErrorModal').modal('show');
+			}
+		}
+
+
+
             $http({
                 method: 'get',
                 url: 'getData/get-all-users.php'
