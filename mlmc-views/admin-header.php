@@ -158,7 +158,7 @@
                                         <li <?php if ($activeMenu =="ListOfDoctors") {?> style="display:block;" class="active" <?php } ?>         <?php if ($id!=1){?>style="display:none"
                                             <?php } ?>><a ng-click="getPage('Specialization')" href="javascript:void(0);"><i class="fa fa-medkit"></i><span>List of Doctors</span> </a></li>
                                         <li <?php if ($activeMenu =="laboratories") {?> style="display:block;" class="active" <?php } ?>       <?php if ($id!=1){?>style="display:none"
-                                            <?php } ?>><a ng-click="getPage('Laboratory')" href="javascript:void(0);"><i class="fa fa-search"></i><span>Laboratories</span></a></li>
+                                            <?php } ?>><a ng-click="getPage('Laboratory')" href="javascript:void(0);"><i class="fa fa-plus-square-o"></i><span>Ancillary Services</span></a></li>
                                         <li <?php if ($activeMenu =="others") {?> style="display:block;" class="active" <?php } ?>       <?php if ($id!=1){?>style="display:none"
                                             <?php } ?>><a ng-click="getPage('Others')" href="javascript:void(0);"><i class="fa fa-gears"></i><span>Others</span></a></li>
                                     </ul>
