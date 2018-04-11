@@ -55,8 +55,6 @@
                 </div>
             </div>
             <div class="col-md-3">
-   
-
                     <div class="list-group list-group-alternate mb-n nav nav-tabs">
 						<a href="#" role="tab" data-toggle="tab" class="list-group-item active">Actions Panel</a>
 						<a href="#" ng-click="Add()" role="tab" data-toggle="tab" class="list-group-item"><i class="fa fa-user-plus"></i></i>Add User Account</a>
@@ -91,8 +89,8 @@
                                 <label>Access Type  </label>
                                 <div class="col-sm-13 select">
                                     <select ng-model="accesstype" class="form-control" ng-change="accessType()" required>
-                                        <option value="" disabled>Select</option>
-                                        <!-- <option value="1">Type 1 - All Priviliges</option> -->
+                                        <option value="" disabled selected>Select</option>
+                                         <option value="1">Type 1 - All Priviliges</option>
                                         <option value="2">Type 2 - Admission Module</option>
                                         <option value="3">Type 3 - Nurse Module</option>
                                         <option value="4">Type 4 - Doctor Module</option>
@@ -117,17 +115,17 @@
 
                             <div class="form-group">       
                                 <label>First Name </label>
-                                <input type="text" ng-model="fname" name="fname" placeholder="Juan" class="form-control" ng-keypress="filterValueCharacter($event)" required  ng-class="{'has-error':submitted && Form.fname.$error.required}">
+                                <input type="text" ng-model="fname" name="fname" placeholder="Juan" class="form-control"  required  ng-class="{'has-error':submitted && Form.fname.$error.required}">
                                 <p ng-show="submitted && Form.fname.$error.required" class="help-block">This field is required.</p>
                             </div>
                             <div class="form-group" ng-class="{'has-error':submitted && Form.mname.$error.required}">       
                                 <label>Middle Name </label>
-                                <input type="text" name="mname" ng-model="mname" placeholder="Dela" class="form-control" ng-keypress="filterValueCharacter($event)" required>
+                                <input type="text" name="mname" ng-model="mname" placeholder="Dela" class="form-control" required>
                                 <p ng-show="submitted && Form.mname.$error.required" class="help-block">This field is required.</p>
                             </div>
                             <div class="form-group" ng-class="{'has-error':submitted && Form.lname.$error.required}">       
                                 <label>Last Name </label>
-                                <input type="text" ng-model="lname" name="lname" placeholder="Cruz" class="form-control" ng-keypress="filterValueCharacter($event)" required>
+                                <input type="text" ng-model="lname" name="lname" placeholder="Cruz" class="form-control"  required>
                                 <p ng-show="submitted && Form.lname.$error.required" class="help-block">This field is required.</p>
                             </div>
                             <div class="form-group" >       
@@ -236,8 +234,8 @@
                             <label>Access Type </label>
                             <div class="col-sm-13 select">
                                 <select ng-model="$parent.acctype" ng-init="$parent.acctype=getaccount.AccessType" class="form-control" ng-change="accessType()" disabled>
-                                    <option value="">Select</option>
-                                    <!-- <option value="1">Type 1 - All Priviliges</option> -->
+                                    <option value="" disabled>Select</option>
+                                    <option value="1">Type 1 - All Priviliges</option> 
                                     <option value="2">Type 2 - Admission Module</option>
                                     <option value="3">Type 3 - Nurse Module</option>
                                     <option value="4">Type 4 - Doctor Module</option>
@@ -618,9 +616,9 @@
                 }
             }
 
-            $scope.setClickedRow = function(user) {
-                $scope.selectedRow = user;
-            }
+            // $scope.setClickedRow = function(user) {
+            //     $scope.selectedRow = user;
+            // }
    
             $scope.setClickedRow = function (index) {
                 $scope.selectedRow = ($scope.selectedRow == index) ? null : index;

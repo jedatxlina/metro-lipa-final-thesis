@@ -18,7 +18,11 @@ $acctype = $_GET['atype'];
 $specialization = isset($_GET['Specialization']) ? $_GET['Specialization'] : '';
 $assigned = isset($_GET['Assigned']) ? $_GET['Assigned'] : '';
 
-if ($acctype == 2)
+if ($acctype == 1)
+{   
+    $query= "INSERT into admin(AdminID,LastName,FirstName,MiddleName,Gender,Address,Birthdate,Email) VALUES ('$accountid','$lastname','$firstname','$middlename','$gender','$address','$birthdate','$email')";
+}
+else if ($acctype == 2)
 {   
     $query= "INSERT into admission_staffs(AdmissionStaffID,LastName,FirstName,MiddleName,Gender,Address,Birthdate,Email) VALUES ('$accountid','$lastname','$firstname','$middlename','$gender','$address','$birthdate','$email')";
 }

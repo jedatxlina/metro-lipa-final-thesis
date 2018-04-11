@@ -110,7 +110,7 @@
                                                                 <td>{{room.ArrivalDate}}</td>
                                                                 <td>{{room.DischargeDate}}</td>
                                                                 <td>{{room.Duration}}</td>
-                                                                <td class="text-right">{{room.bedbill}}</td>
+                                                                <td class="text-right">{{room.bedbill.toLocaleString('en')}}</td>
                                                             </tr>
                                                         </tbody>
                                                     </table>
@@ -143,8 +143,8 @@
                                                                 <td>{{$index}}</td>
                                                                 <td>{{medicine.mediname}}</td>
                                                                 <td class="text-right">{{medicine.quantity}}</td>
-                                                                <td class="text-right">{{medicine.totalbill}}</td>
-                                                                <td class="text-right">{{medicine.totalbill}}</td>
+                                                                <td class="text-right">{{medicine.totalbill.toLocaleString('en')}}</td>
+                                                                <td class="text-right">{{medicine.totalbill.toLocaleString('en')}}</td>
                                                             </tr>
                                                         </tbody>
                                                     </table>
@@ -172,7 +172,7 @@
                                                                 <tr ng-repeat="lab in labdetails track by $index">
                                                                     <td>{{$index}}</td>
                                                                     <td>{{lab.Description}}</td>
-                                                                    <td class="text-right">{{lab.Rate}}</td>
+                                                                    <td class="text-right">{{lab.Rate.toLocaleString('en')}}</td>
                                                                 </tr>
                                                             </tbody>
                                                         </table>
@@ -201,8 +201,8 @@
                                                                 <tr ng-repeat="doc in docdetails track by $index">
                                                                     <td>{{$index}}</td>
                                                                     <td>Dr. {{doc.Fname + doc.Mname + doc.Lname}}</td>
-                                                                    <td>{{doc.Discount}}</td>
-                                                                    <td class="text-right">{{doc.Pfee - doc.Discount}}</td>
+                                                                    <td>{{doc.Discount.toLocaleString('en')}}</td>
+                                                                    <td class="text-right">{{(doc.Pfee - doc.Discount).toLocaleString('en')}}</td>
                                                                 </tr>
                                                             </tbody>
                                                         </table>

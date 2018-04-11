@@ -9,7 +9,7 @@
         </li>
         <li><a href="#">Patients</a>
         </li>
-        <li class="active"><a href="index.php">Patient Bill Details</a>
+        <li class="active"><a href="index.php">Patient Medication Details</a>
         </li>
     </ol>
     <br>
@@ -19,6 +19,7 @@
             </div>
         </div>
     <br>
+
     <div ng-app="myApp" ng-controller="userCtrl">
         <div class="container-fluid">
             <div class="row">
@@ -36,29 +37,23 @@
                                 <!-- panel -->
                                 <div class="list-group list-group-alternate mb-n nav nav-tabs">
                                     <a href="#tab-edit" ng-click="Redirect()" role="tab" data-toggle="tab" class="list-group-item active"><i class="ti ti-view-list-alt"></i> Summary Of Bills</a>
-                                    <a href="#tab-edit"  role="tab" data-toggle="tab" class="list-group-item active"><i class="ti ti-view-list-alt"></i> Detailed Bill</a>
-
+                                    <a href="#tab-edit" role="tab" data-toggle="tab" class="list-group-item active"><i class="ti ti-view-list-alt"></i> Detailed Bill</a>
                                 </div>
                             </div>
                             <!-- col-sm-3 -->
                             <div class="col-sm-9">
                                 <div class="tab-content">
-
-                                    <!-- <div class="container-fluid"> -->
-                                    <fieldset data-ng-repeat="medicine in medicinedetails">
-                                        <input type="hidden" ng-model='MedicineBill[$index]' ng-init='MedicineBill[$index] = medicine.totalbill'>
-                                    </fieldset>
-                                    <fieldset data-ng-repeat="room in roomdetails track by $index">
-                                        <input type="hidden" ng-model='RoomBill[$index]' ng-init='RoomBill[$index] = room.bedbill'>
-                                    </fieldset>
-                                    <fieldset data-ng-repeat="lab in labdetails track by $index">
-                                        <input type="hidden" ng-model='LabBill[$index]' ng-init='LabBill[$index] = lab.TotalBill'>
-                                    </fieldset>
-
                                 </div>
+                                <fieldset data-ng-repeat="medicine in medicinedetails">
+                                    <input type="hidden" ng-model='MedicineBill[$index]' ng-init='MedicineBill[$index] = medicine.totalbill'>
+                                </fieldset>
+                                <fieldset data-ng-repeat="room in roomdetails track by $index">
+                                        <input type="hidden" ng-model='RoomBill[$index]' ng-init='RoomBill[$index] = room.Duration'>
+                                    </fieldset>
                                 <div class="row mb-xl">
                                     <div class="col-md-12">
                                         <h2 class="text-primary text-center" style="font-weight: small;">Statement of Account</h2>
+                                        <h5 class="text-primary text-center" style="font-weight: small;">Detailed</h5>
                                     </div>
                                     <div ng-repeat="patient in patientdetails">
                                         <div class="col-md-12">
@@ -66,7 +61,6 @@
                                                 <ul class="text-left list-unstyled">
                                                     <li><strong>Patient Name:</strong>&emsp; {{patient.Lastname}}, {{patient.Firstname}} {{patient.Middlename}}</li>
                                                     <li><strong>Patient Room:</strong>&emsp; 19/05/2015</li>
-                                                    <li><strong>Advance Payment:</strong>&emsp; **</li>
                                                 </ul>
                                                 <br>
                                                 <div class="btn-group">
@@ -86,13 +80,15 @@
                                                 <ul class="text-left list-unstyled">
                                                     <li><strong>Patient ID:</strong>&emsp; {{patient.AdmissionID}}</li>
                                                     <li><strong>Admission No:</strong>&emsp; {{patient.AdmissionNo}}</li>
-                                                    <li><strong>Advance Payment:</strong> **</li>
                                                 </ul>
                                                 <br>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
+
+                                <h5 class="text-primary text-center" style="font-weight: small;">From Admission</h5>
+
                                 <div class="row mb-xl">
                                     <div class="col-md-12">
                                         <div class="panel">
@@ -101,30 +97,20 @@
                                                     <table class="table table-hover m-n">
                                                         <thead>
                                                             <tr>
-                                                                <th>#</th>
-                                                                <th>Description</th>
-                                                                <th class="text-right">Unit Cost</th>
+                                                                <th>Room #</th>
+                                                                <th>Arrival Date</th>
+                                                                <th>Discharged Date</th>
+                                                                <th>Duration of Stay</th>
                                                                 <th class="text-right">Total</th>
                                                             </tr>
                                                         </thead>
-                                                        <tbody >
-                                                            <tr data-ng-repeat="bill in billdetails">
-                                                                <td>1</td>
-                                                                <td>Room Bill</td>
-                                                                <td class="text-right">₱ {{ bill.totalbill }}</td>
-                                                                <td class="text-right">₱ {{ bill.totalbill }}</td>
-                                                            </tr>
-                                                            <tr>
-                                                                <td>2</td>
-                                                                <td>Medicines Bill</td>
-                                                                <td class="text-right">₱ {{ subtotalmedi }}</td>
-                                                                <td class="text-right">₱ {{ subtotalmedi }}</td>
-                                                            </tr>
-                                                            <tr>
-                                                                <td>3</td>
-                                                                <td>Laboratory Bill</td>
-                                                                <td class="text-right">₱ {{ subtotallab }}</td>
-                                                                <td class="text-right">₱ {{ subtotallab }}</td>
+                                                        <tbody>
+                                                            <tr ng-repeat="room in roomdetails track by $index">
+                                                                <td>{{room.BedID}}</td>
+                                                                <td>{{room.ArrivalDate}}</td>
+                                                                <td>{{room.DischargeDate}}</td>
+                                                                <td>{{room.Duration}}</td>
+                                                                <td class="text-right">{{room.bedbill.toLocaleString('en')}}</td>
                                                             </tr>
                                                         </tbody>
                                                     </table>
@@ -132,28 +118,102 @@
                                             </div>
                                         </div>
                                     </div>
+                                </div>
+
+                                <h5 class="text-primary text-center" style="font-weight: small;">From Pharmacy</h5>
+
+                                <div class="row mb-xl">
+
                                     <div class="col-md-12">
-                                        <div class="row" style="border-top-left-radius: 0px; border-top-right-radius: 0px; border-bottom-right-radius: 0px; border-bottom-left-radius: 0px;">
-                                            <div class="col-md-3 col-md-offset-9">
-                                                <p class="text-right"><strong>SUB TOTAL:₱ {{ subtotal }}</strong></p>
-                                                <p class="text-right">DISCOUNT: **</p>
-                                                <!-- <p class="text-right">VAT: **</p> -->
-                                                <hr>
-                                                <h3 class="text-right text-danger" style="font-weight: bold;">₱ {{ subtotal }}</h3>
+                                        <div class="panel">
+                                            <div class="panel-body no-padding">
+                                                <div class="table-responsive">
+                                                    <table class="table table-hover m-n">
+                                                        <thead>
+                                                            <tr>
+                                                                <th>#</th>
+                                                                <th>Medicines</th>
+                                                                <th class="text-right">Quantity</th>
+                                                                <th class="text-right">Unit Cost</th>
+                                                                <th class="text-right">Total</th>
+                                                            </tr>
+                                                        </thead>
+                                                        <tbody>
+                                                            <tr ng-repeat="medicine in medicinedetails track by $index">
+                                                                <td>{{$index}}</td>
+                                                                <td>{{medicine.mediname}}</td>
+                                                                <td class="text-right">{{medicine.quantity}}</td>
+                                                                <td class="text-right">{{medicine.totalbill.toLocaleString('en')}}</td>
+                                                                <td class="text-right">{{medicine.totalbill.toLocaleString('en')}}</td>
+                                                            </tr>
+                                                        </tbody>
+                                                    </table>
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
-                                </div>
-                                <div class="row">
-                                    <div class="col-md-12">
-                                        <div class="pull-right">
-                                            <a href="#" class="btn btn-danger">Submit</a>
+                                    <br>
+
+                                    <h5 class="text-primary text-center" style="font-weight: small;">From Laboratory</h5>
+                                    <div class="row mb-xl">
+                                        <div class="col-md-12">
+                                            <div class="panel">
+                                                <div class="panel-body no-padding">
+                                                    <div class="table-responsive">
+                                                        <table class="table table-hover m-n">
+                                                            <thead>
+                                                                <tr>
+                                                                    <th>#</th>
+                                                                    <th>Description</th>
+                                                                    <th class="text-right">Total</th>
+                                                                </tr>
+                                                            </thead>
+                                                            <tbody>
+                                                                <tr ng-repeat="lab in labdetails track by $index">
+                                                                    <td>{{$index}}</td>
+                                                                    <td>{{lab.Description}}</td>
+                                                                    <td class="text-right">{{lab.Rate.toLocaleString('en')}}</td>
+                                                                </tr>
+                                                            </tbody>
+                                                        </table>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <h5 class="text-primary text-center" style="font-weight: small;">From Doctors</h5>
+                                    <div class="row mb-xl">
+                                        <div class="col-md-12">
+                                            <div class="panel">
+                                                <div class="panel-body no-padding">
+                                                    <div class="table-responsive">
+                                                        <table class="table table-hover m-n">
+                                                            <thead>
+                                                                <tr>
+                                                                    <th>#</th>
+                                                                    <th>Doctors Name</th>
+                                                                    <th>Discount</th>
+                                                                    <th class="text-right">Total</th>
+                                                                </tr>
+                                                            </thead>
+                                                            <tbody>
+                                                                <tr ng-repeat="doc in docdetails track by $index">
+                                                                    <td>{{$index}}</td>
+                                                                    <td>Dr. {{doc.Fname + doc.Mname + doc.Lname}}</td>
+                                                                    <td>{{doc.Discount.toLocaleString('en')}}</td>
+                                                                    <td class="text-right">{{(doc.Pfee - doc.Discount).toLocaleString('en')}}</td>
+                                                                </tr>
+                                                            </tbody>
+                                                        </table>
+                                                    </div>
+                                                </div>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
                             </div>
                             <!-- .tab-content -->
-
                         </div>
                         <!-- col-sm-8 -->
                     </div>
@@ -185,17 +245,13 @@
             $scope.id = "<?php echo $_GET['id']; ?>";
             $scope.MedicineBill = [];
             $scope.RoomBill = [];
-            $scope.LabBill = [];
-            $scope.subtotalmedi = 0;
-            $scope.subtotalroom = 0;
-            $scope.subtotallab = 0;
+            $scope.subtotal = 0;
+            $scope.roomdur = 0;
             $scope.MedID = [];
             $scope.Quantity = [];
             $scope.Dosage = [];
             $scope.NoteID = [];
             var total = 0;
-            var total1 = 0;
-            var total2 = 0;
 
             switch ($scope.at.charAt(0)) {
                 case '1':
@@ -240,20 +296,14 @@
             });
 
             $http({
-				method: 'get',
-				url: 'getData/get-bill-details.php',
-				params: {id: $scope.id}
-			}).then(function(response) {
-				$scope.billdetails = response.data;
-			});
-
-			$http({
-				method: 'get',
-				url: 'getData/get-medication-bill.php',
-				params: {id: $scope.admissionid}
-			}).then(function(response) {
-				$scope.medicinebill = response.data;
-			});
+                method: 'GET',
+                url: 'getData/get-inpatient-roombill.php',
+                params: {
+                    id: $scope.id
+                }
+            }).then(function(response) {
+                $scope.roomdetails = response.data;
+            });
 
             $http({
                 method: 'GET',
@@ -265,16 +315,24 @@
                 $scope.medicinedetails = response.data;
             });
 
-            // $http({
-            //     method: 'GET',
-            //     url: 'getData/get-laboratory-billdetailed.php',
-            //     params: {
-            //         id: $scope.id
-            //     }
-            // }).then(function(response) {
-            //     $scope.labdetails = response.data;
-            // });
-
+            $http({
+                method: 'GET',
+                url: 'getData/get-laboratory-billdetailed.php',
+                params: {
+                    id: $scope.id
+                }
+            }).then(function(response) {
+                $scope.labdetails = response.data;
+            });
+            $http({
+                method: 'GET',
+                url: 'getData/get-doctor-billdetailed.php',
+                params: {
+                    id: $scope.id
+                }
+            }).then(function(response) {
+                $scope.docdetails = response.data;
+            });
             $http({
                 method: 'get',
                 url: 'getData/get-patient-details.php',
@@ -283,24 +341,8 @@
                 }
             }).then(function(response) {
                 $scope.patientdetails = response.data;
-                for (var i = 0; i < $scope.MedicineBill.length; i++) {
-                    var product = $scope.MedicineBill[i];
-                    total = total + product;
-                }
-                $scope.subtotalmedi = total;
-                for (var i = 0; i < $scope.RoomBill.length; i++) {
-                    var product1 = $scope.RoomBill[i];
-                    total1 = total1 + product1;
-                }
-                $scope.subtotalroom = total1;
-                for (var i = 0; i < $scope.LabBill.length; i++) {
-                    var product2 = $scope.LabBill[i];
-                    total2 = total2 + product2;
-                }
-                $scope.subtotallab = total2;
-                $scope.subtotal = $scope.subtotalroom + $scope.subtotalmedi + $scope.subtotallab;
-            });
 
+            });
             $http({
                 method: 'GET',
                 url: 'getData/get-medication-details.php',
@@ -310,9 +352,12 @@
                 }
             }).then(function(response) {
                 $scope.medications = response.data;
-
+                for (var i = 0; i < $scope.MedicineBill.length; i++) {
+                    var product = $scope.MedicineBill[i];
+                    total = total + product;
+                }
+                $scope.subtotal = total;
             });
-
             $scope.submitDetails = function(type) {
                 $scope.totalbill = 5000;
                 $http({
@@ -352,16 +397,8 @@
                 });
             }
 
-            $scope.viewReport = function() {
-                $window.open('inpatient-billing-report.php?at=' + $scope.at + '&id=' + $scope.id, '_blank');
-            }
-            
-            $scope.notifyPatient = function(){
-                $window.open('notify-patient-sms.php?at=' + $scope.at + '&id=' + $scope.id + '&bill=' + $scope.subtotal, '_blank');
-            }
-
             $scope.Redirect = function() {
-                window.location.href = 'view-emergency-bill.php?at=' + $scope.at + '&id=' + $scope.id;
+                window.location.href = 'view-patient-bill.php?at=' + $scope.at + '&id=' + $scope.id;
             }
 
             $scope.getPage = function(check) {
