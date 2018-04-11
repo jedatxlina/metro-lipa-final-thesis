@@ -5,12 +5,11 @@
     $admmissionid = $_GET['admissionid'];
 
     $qnty = explode(',',$_GET['quantity']);
-
     $dosage = explode(',',$_GET['dosage']);
     $medid  = explode(',',$_GET['medid']);
     $notes  = explode(',',$_GET['notes']);
     // $intake =  explode(',',$_GET['intake']);
-    // $qntyintake =  explode(',',$_GET['qntyintake']);
+     $qntyintake =  explode(',',$_GET['qntyintake']);
 
     $days = [];
 
@@ -36,11 +35,13 @@
             mysqli_query($conn,$query2);  
         }else{
 
-        $days[$x] = $qnty[$x];
-        $qnty[$x] *= $interval[$x];
+        $days[$x] = $qnty[$x] * $interval[$x];
+        // $qnty[$x] *= $interval[$x];
 
         $query = "UPDATE medication SET Quantity = '$qnty[$x]', Dosage = '$dosage[$x]', Notes = '$notes[$x]', DosingID = '$interval[$x]', Days = '$days[$x]' WHERE AdmissionID = '$admmissionid' AND MedicineID = '$medid[$x]'";
         mysqli_query($conn,$query);  
+        $query2 = "UPDATE medication_history SET Quantity = '$qntyintake[$x]' WHERE AdmissionID = '$admmissionid'"; 
+        mysqli_query($conn,$query2);  
         }
 
     } 

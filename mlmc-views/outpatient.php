@@ -545,7 +545,7 @@ include 'admin-header.php' ?>
             		});
 
 					   
-					   $http({
+					$http({
             			method: 'get',
             			url: 'getData/get-hmo-providers.php'
             			}).then(function(response) {
@@ -740,8 +740,6 @@ include 'admin-header.php' ?>
 							$scope.discount = parseFloat($scope.disc);
 
 						if($scope.hmo == 'true'){
-							
-
 							$scope.hmo = 'false';
 							$scope.totalfee = $scope.fee - ($scope.fee*$scope.discount);
 						}else{

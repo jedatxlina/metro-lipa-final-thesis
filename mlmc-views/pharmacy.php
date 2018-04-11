@@ -166,7 +166,7 @@
                             <form ng-repeat="stock in stocks">
                                 <div class="form-group">
                                     <label>Medicine Name </label>
-                                    <input type="text" ng-model="$parent.medname" ng-init="$parent.medname=stock.PharmaName" class="form-control" disabled>
+                                    <input type="text" ng-model="$parent.medname" ng-init="$parent.medname=stock.PharmaName + ' ' + stock.Unit" class="form-control" disabled>
                                 </div>
                                 </forM>
                                 <div class="form-group"  ng-class="{'has-error':submitted && Form.addqty.$error.required}" >

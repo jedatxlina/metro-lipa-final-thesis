@@ -113,21 +113,58 @@
                                                     <input type="text" ng-model="NoteID[$index]" placeholder="Notes here"> 
                                                 </div>
                                                 <div data-field-span="1">
-                                                            <label>Intake Inerval</label>
-                                                            <select class="form-control" ng-model="IntakeInterval[$index]" style="width:395px;">
-                                                                <option value="" disabled selected>Select Interval</option>
-                                                                <option ng-repeat="intrvl in interval" value="{{intrvl.DosingID}}">{{intrvl.Intake}}</option>
-                                                            </select>
-                                                        </div>
+                                                    <label>Intake Interval</label>
+                                                    <select class="form-control" ng-model="IntakeInterval[$index]" style="width:395px;">
+                                                        <option value="" disabled selected>Select Interval</option>
+                                                        <option ng-repeat="intrvl in interval" value="{{intrvl.DosingID}}">{{intrvl.Intake}}</option>
+                                                    </select>
+                                                </div>
                                             </div>
-                                            <br><br>
                                         </fieldset>
+                                        <fieldset>
+                                            <legend>Guarantors:  
+                                                    <small><input type="checkbox" ng-model="phil" ng-click="philhealthClick()" ng-disabled="$parent.fee == 0"> Philhealth </small>
+                                                    <small><input type="checkbox" ng-model="hmo" ng-click="hmoClick()"> HMO </small>	
+                                            </legend>  
+
+                                            <div id="philhealth">
+                                                <div data-row-span="2">
+                                                    <div data-field-span="1"> 
+                                                        <label>Philhealth</label>
+                                                        <input type="text" value="Philhealth">
+                                                    </div>
+                                                    <div data-field-span="1"> 
+                                                        <label>Control Number</label>
+                                                        <input type="text" ng-model="controlphil"> 
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            <div id="providers">
+                                                <div data-row-span="2">
+                                                    <div data-field-span="1"> 
+                                                        <label>Accredited HMO Providers</label>
+                                                        <select class="form-control" ng-model="hmoprovider">
+                                                            <option value="" disabled selected>Select Guarantor</option>
+                                                            <option ng-repeat="hmo in hmolist" value="{{hmo.Provider}}" ng-init="hmoprovider = hmo.Provider">{{hmo.Provider}}</option>
+                                                        </select>
+                                                    </div>
+                                                    <div data-field-span="1"> 
+                                                        <label>Control Number</label>
+                                                        <input type="text" ng-model="controlhmo"> 
+                                                    </div>
+                                                </div>
+                                            </div>
+                                         
+                                        </fieldset>
+
                                             <div data-row-span="1">
                                                 <div class="pull-right">
                                                     <button ng-click="goBack()" class="btn-default btn">Cancel</button>
                                                     <button type="submit" class="btn-danger btn" ng-click="submitDetails(type)">Submit</button>
                                                 </div>
                                             </div>
+                                        
                                 </form>
                             </div>
                         </div>
@@ -164,7 +201,14 @@
                     $scope.NoteID = [];
                     $scope.Intake = [];
                     $scope.QuantityIntake = [];
-                    $scope.Intakeinterval = [];
+                    $scope.IntakeInterval = [];
+					$scope.hmoprovider = '';	
+
+                    $scope.philhealth = true;
+                    $scope.hmoclick = true;
+                    
+                    $('#philhealth').hide();
+                    $('#providers').hide();
 
                     switch ($scope.at.charAt(0)) {
                         case '1':
@@ -231,6 +275,13 @@
                         $scope.interval = response.data;
                     });
 
+                    $http({
+            			method: 'get',
+            			url: 'getData/get-hmo-providers.php'
+            		}).then(function(response) {
+            			$scope.hmolist = response.data;
+            		});
+
                     $scope.accesstype = $scope.at[0];
                     $http({
                     method: 'GET',
@@ -240,6 +291,29 @@
                     }).then(function(response) {
                         $scope.userdetails = response.data;
                     });
+
+                    $scope.philhealthClick = function(){
+
+                        if ($scope.philhealth == true) {
+                            $('#philhealth').show();
+                            $scope.philhealth = false;
+                        } else {
+                            $('#philhealth').hide();
+                            $scope.philhealth = true;
+                        }
+					}
+
+                    
+                    $scope.hmoClick = function(){
+
+                        if ($scope.hmoclick == true) {
+                            $('#providers').show();
+                            $scope.hmoclick = false;
+                        } else {
+                            $('#providers').hide();
+                            $scope.hmoclick = true;
+                        }
+                    }
 
                     $scope.submitDetails = function(type){
                         $scope.totalbill = 5000;
@@ -252,6 +326,44 @@
                             total: $scope.totalbill}
                         });
                       
+                        if($scope.philhealth == false && $scope.hmoclick == false){
+                            $http({
+                                method: 'get',
+                                url: 'insertData/insert-philhmo-details.php',
+                                params: {id: $scope.admissionid,
+                                        at: $scope.at,
+                                        hmoprovider: $scope.hmoprovider,
+                                        controlhmo: $scope.controlhmo,
+                                        controlphil: $scope.controlphil}
+                            }).then(function(response) {
+                                console.log(response.data);
+                            });
+                        }
+                        if($scope.philhealth == false && $scope.hmoclick != false){
+                            $http({
+                                method: 'get',
+                                url: 'insertData/insert-philhmo-details.php',
+                                params: {id: $scope.admissionid,
+                                        at: $scope.at,
+                                        controlphil: $scope.controlphil}
+                            }).then(function(response) {
+                                console.log(response.data);
+                            });
+                        }
+
+                         if($scope.philhealth != false && $scope.hmoclick == false){
+                            $http({
+                                method: 'get',
+                                url: 'insertData/insert-philhmo-details.php',
+                                params: {id: $scope.admissionid,
+                                        at: $scope.at,
+                                        hmoprovider: $scope.hmoprovider,
+                                        controlhmo: $scope.controlhmo,}
+                            }).then(function(response) {
+                                console.log(response.data);
+                            });
+                        }
+
                         swal({
                             icon: "success",
                             title: "Successfully Added!",
@@ -264,6 +376,7 @@
                                 window.location.href = 'initiate-medication.php?admissionid=' + $scope.admissionid  + '&quantity=' + $scope.Quantity + '&id=' + $scope.medicationid + '&at=' + $scope.at + '&dosage=' + $scope.Dosage + '&medid=' + $scope.MedID + '&param=' + $scope.param + '&notes=' + $scope.NoteID + '&intake=' + $scope.Intake + '&qntyintake=' + $scope.QuantityIntake + '&intakeinterval=' + $scope.IntakeInterval;
                             }
                         });
+                        
                     }
 
                     $scope.goBack = function(){

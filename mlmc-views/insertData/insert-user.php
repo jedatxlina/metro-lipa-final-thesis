@@ -30,6 +30,10 @@
   
     $subject = "Account Registration";
 
+$accountid = $conn->escape_string($_GET['accountid']);
+$accesstype = $conn->escape_string($_GET['accesstype']);
+$password = $conn->escape_string(password_hash($_GET['password'], PASSWORD_BCRYPT));
+$email = $_GET['email'];
     $from = new SendGrid\Email(null, $FROM_EMAIL);
     $to = new SendGrid\Email(null, $TO_EMAIL);
 
@@ -629,6 +633,7 @@
             </div>
           </div>
 
+$hash = $conn->escape_string( md5( rand(0,1000) ) );
           <div style='mso-line-height-rule: exactly;' role='contentinfo'>
             <div class='layout email-footer' style='Margin: 0 auto;max-width: 600px;min-width: 320px; width: 320px;width: calc(28000% - 167400px);overflow-wrap: break-word;word-wrap: break-word;word-break: break-word;'>
               <div class='layout__inner' style='border-collapse: collapse;display: table;width: 100%;'>
