@@ -367,7 +367,7 @@
                                     while ($scope.found3 !== -1) {
                                         $scope.diagnosis.splice($scope.found3, 1);
                                         $scope.found3 = $scope.diagnosis.indexOf('Others');
-                                    
+
                                     }
                                     if($scope.otherdiagnosis != ''){
                                         $scope.diagnosis = $scope.diagnosis.concat($scope.otherdiagnosis);

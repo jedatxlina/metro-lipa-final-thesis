@@ -1,5 +1,21 @@
-<?php include 'admin-header.php' ?>
+<?php include 'admin-header.php'?>
 
+<?php 
+            $id=$_GET['id'];
+            $host = "localhost";
+            $user = "root";
+            $password = "";
+            $dbname = "metro_lipa_db"; 
+            
+            $conn = mysqli_connect($host, $user, $password,$dbname);
+            
+            if (!$conn) {
+            die("Connection failed: " . mysqli_connect_error());
+            } 
+            ?>
+<script type="text/javascript" src="assets/js/jquery-1.10.2.min.js"></script> 	
+<script src="//select2.github.io/select2/select2-3.4.1/select2.js"></script>
+<link rel="stylesheet" type="text/css" href="//select2.github.io/select2/select2-3.4.1/select2.css"/>
 <style>
     .selected {
     color: #800000;
@@ -23,7 +39,7 @@
         </div>
     </div>
 <br>
-<div class="container-fluid">
+<div class="container-fluid" ng-init="LoadSupplyAdd()">
     <div data-widget-group="group1">
         <div class="row">
             <div class="col-sm-3">
@@ -115,7 +131,7 @@
             </div>
         </div>
                     </div> <!-- #tab-projects -->
-                    <div class="tab-pane" id="tab-supplies">
+                    <div class="tab-pane" id="tab-supplies" onload>
                     <div class="row">
             <div class="col-lg-12">
                 <h3 class="page-header">Supplies Used</h3>
@@ -150,14 +166,17 @@
                     <div class="panel-body">
                                     <form class="grid-form" action="javascript:void(0)">
                                         <fieldset>
-                                        <div data-row-span="2">
-                                                <div data-field-span="2">
-                                                    <label>Supplies Used</label>
-                                                    <select id="supplies" style="width:550px;">
-                                                        <optgroup label="List of Conditions">
-                                                            <option ng-repeat="supp in supplies" value="{{supp.SuppliesID}}">{{supp.SuppliesName}}</option>
+                                        <legend>Supplies Used</legend>
+                                            <div data-row-span="2">
+                                                <div data-field-span="1">
+                                                    
+                                                    <label>Supplies</label>
+                                                    <select id="supplies" class="select2" multiple="multiple" style="width:550px;">
+                                                        <optgroup label="List of Supplies">
+                                                            <option ng-repeat="supp in supplies" value="{{supp.SuppliesName}}">{{supp.SuppliesName}}</option>
                                                         </optgroup>
-                                                    </select>     
+                                                        <option ng-value="Others">Others</option>
+                                                    </select>
                                                 </div>
                                             </div>
                                         </fieldset>
@@ -165,7 +184,7 @@
                                 </div>
                     <div class="col-lg-4">
                         <input type="button" class="btn btn-default" value="Cancel" onclick="goBack()">
-                        <button ng-click='AddVitals()' class="btn btn-primary">Confirm</button>
+                        <button ng-click='AddSupplies()' class="btn btn-primary">Confirm</button>
                         <br>&emsp;
                     </div>
                     <br>&emsp;&emsp;&emsp;
@@ -414,11 +433,53 @@
                     </div>
                 </div><!-- .tab-content -->
             </div><!-- col-sm-8 -->
+            <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+            <div class="modal-dialog">
+            <div class="panel panel-danger" data-widget='{"draggable": "false"}'>
+            <div class="panel-heading">
+                <h2>EAdd Supply Used</h2>
+                <div class="panel-ctrls" data-actions-container="" data-action-collapse='{"target": ".panel-body, .panel-footer"}'></div>
+            </div>
+            <div class="panel-body" style="height: auto; width: auto">
+            <table class="table table-striped table-bordered" style="width: auto">
+            <tr>
+            <th>Supply Name</th>
+            <th> Quantity Used</th>
+            </tr>
+            <tr ng-repeat="supp in supplies track by $index">
+            <td>
+            <div class="form-group">       
+                     <input type="text" ng-value="supp" class="form-control" disabled>
+                  </div>
+            </td>
+            <td>
+            <div class="form-group">       
+                     <input type="text" ng-model="qty[$index]" class="form-control" >
+                  </div>
+            </td>
+            </tr>
+            </table>
+                     <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                        <button ng-click='AddSupplies2()' class="btn btn-primary">Confirm</button>
+                     </div>
+                     </div>
+                </div>
+            </div>
+          </div>
         </div>
     </div>
+    
 </div>
 
 <script>
+
+$('.select2').select2({ placeholder : '' });
+$('.select2-remote').select2({ data: [{id:'A', text:'A'}]});
+$('button[data-select2-open]').click(function(){
+$('#' + $(this).data('select2-open')).select2('open');
+});
+
 var fetch = angular.module('myApp', ['ui.mask']);
    
    fetch.controller('userCtrl', ['$scope', '$http','$window', function($scope, $http,$window) {
@@ -427,6 +488,9 @@ var fetch = angular.module('myApp', ['ui.mask']);
        $scope.chckval = $scope.at.charAt(0);
        $scope.selectedRow = null;
        $scope.selectedStatus = null;
+       $scope.qty=[];
+       $scope.supname=[];
+       $scope.trol=[];
        $scope.clickedRow = 0;
        $scope.new = {};
        $scope.vitalsid =     "<?php echo rand(111111, 999999);?>"; 
@@ -482,6 +546,17 @@ var fetch = angular.module('myApp', ['ui.mask']);
                 break;
         }
         
+       $scope.AddSupplies = function(){
+                                    $scope.supplies =$("#supplies").val();
+                                    $('#myModal').modal('show');
+        }
+        $scope.AddSupplies2 = function(){
+                                    for(var i = 0; i < $scope.trol.length; i++)
+                                    {
+                                        <?php
+                                        ?>
+                                    }
+        }
         $scope.accesstype = $scope.at[0];
             $http({
             method: 'GET',
