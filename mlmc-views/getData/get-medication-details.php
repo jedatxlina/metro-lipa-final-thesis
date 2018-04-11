@@ -45,7 +45,7 @@ if(isset($_GET['medicationid'])) {
 
 if(isset($_GET['id'])){
     $id = $_GET['id'];
-    $sel = mysqli_query($conn,"SELECT * FROM medication JOIN pharmaceuticals, dosing_time,physicians WHERE medication.AdmissionID = '$id' AND medication.MedicineID = pharmaceuticals.MedicineID AND medication.DosingID = dosing_time.DosingID AND medication.PhysicianID = physicians.PhysicianID");
+    $sel = mysqli_query($conn,"SELECT *,GROUP_CONCAT(patients.FirstName,' ',patients.MiddleName,' ',patients.LastName) as pfullname,medical_details.BedID FROM medication JOIN pharmaceuticals,patients,dosing_time,physicians,medical_details WHERE medication.AdmissionID = '$id' AND medication.MedicineID = pharmaceuticals.MedicineID AND medication.DosingID = dosing_time.DosingID AND medication.PhysicianID = physicians.PhysicianID AND patients.AdmissionID = 2017825837 AND medical_details.AdmissionID = '$id'");
     $data = array();
         while ($row = mysqli_fetch_array($sel)) {
             $data[] = array(
@@ -58,7 +58,9 @@ if(isset($_GET['id'])){
             "TimeAdministered"=>$row['TimeAdministered'],
             "PhysicianFirstname"=>$row['FirstName'],
             "PhysicianMiddlename"=>$row['MiddleName'],
-            "PhysicianLastname"=>$row['LastName']);
+            "PhysicianLastname"=>$row['LastName'],
+            "pfullname"=>$row['pfullname'],
+            "bedid"=>$row['BedID']);
     }
 }
 
@@ -84,6 +86,27 @@ if(isset($_GET['medid']) && isset($_GET['id'])) {
     }
 }
 
+if(isset($_GET['medicineid']) && isset($_GET['id'])) {
+    $medicineid = $_GET['medicineid'];
+    $admissionid = $_GET['id'];
+    $sel = mysqli_query($conn,"SELECT a.MedicineID,a    .MedicineName,a.Unit,b.* FROM pharmaceuticals a,medication b WHERE b.AdmissionID = '$admissionid' AND b.MedicationID =  '$medicineid' AND a.MedicineID = b.MedicineID");
+    $data = array();
+    while ($row = mysqli_fetch_array($sel)) {
+        $data[] = array(
+            "MedicineID"=>$row['MedicineID'],
+            "MedicineName"=>$row['MedicineName'],
+            "MedicationID"=>$row['MedicationID'],   
+            "DateAdministered"=>$row['DateAdministered'],
+            "TimeAdministered"=>$row['TimeAdministered'],
+            "PhysicianID"=>$row['PhysicianID'],
+            "Dosage"=>$row['Dosage'],
+            "Quantity"=>$row['Quantity'],
+            "DateStart"=>$row['DateStart'],
+            "TimeStart"=>$row['TimeStart'],
+            "DosingID"=>$row['DosingID'],
+            "Notes"=>$row['Notes']);
+    }
+}
 
 echo json_encode($data);
 

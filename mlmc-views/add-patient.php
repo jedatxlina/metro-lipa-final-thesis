@@ -345,7 +345,7 @@
                                                 </div>
                                               
                                             </div>
-                                            <div data-row-span="3">
+                                            <div data-row-span="4">
                                                 <div data-field-span="1" >
                                                     <label>Last Name</label>
                                                     <input type="text" ng-model="babylastname">
@@ -358,26 +358,15 @@
                                                     <label>Middle Name</label>
                                                     <input type="text" ng-model="babymiddlename">
                                                 </div>
-                                            </div>
-                                            <div data-row-span="3">
-                                                <div data-field-span="1">
-                                                    <label>Birthdate</label>
-                                                    <input type="text" ng-model="babybirthdate" disabled="disabled">
-                                                </div>
-                                                <div data-field-span="1">
-                                                    <label>Birth time</label>
-                                                    <input type="text" class="form-control tooltips" ng-model="babybirthtime" ui-mask="99:99 AA" ui-mask-placeholder ui-mask-placeholder-char="-  " data-trigger="hover" data-original-title="12-Hour Format"/>
-                                                </div>
-                                            </div>
-                                            <div data-row-span="2">
                                                 <div data-field-span="1">
                                                     <label>Nationality</label>
-                                                    <select class="form-control" ng-model="nationality">
+                                                    <select class="form-control" ng-model="babynationality">
                                                         <option value="" disabled selected>Select Nationality</option>
                                                          <option ng-repeat="nationality in cntntl" value="{{nationality.id}}">{{nationality.nationality}}</option>
                                                     </select>
                                                 </div>
                                             </div>
+                                     
                                             <legend>Medical Detail</label></legend>
                                             <div data-row-span="3">
                                                 <div data-field-span="1">
@@ -400,15 +389,28 @@
                                                         </optgroup>
                                                     </select>
                                                 </div>
-                                              
+                                                <div data-field-span="1">
+                                                    <label>Weight</label>
+                                                    <input type="text" ng-model="babyweight">
+                                                </div>
                                             </div>
+                                            <div data-row-span="2">
+                                                    <div data-field-span="1">
+                                                        <label>Attending Physician</label>
+                                                        <select class="form-control" ng-model="attendingphysician" style="width:395px;">
+                                                            <option value="" disabled selected>Select Physician</option>
+                                                            <option ng-repeat="physician in physicians" value="{{physician.PhysicianID}}">{{physician.Fullname}}</option>
+                                                        </select>
+                                                    
+                                                    </div>
+                                                </div>
                                         </fieldset>
                                     </form>
                                     <br>
                                     <div class="clearfix pt-md">
                                         <div class="pull-right">
                                             <button ng-click="goBack()" class="btn-default btn">Cancel</button>
-                                            <button type="submit" class="btn-danger btn" ng-click="submitForm()">Next</button>
+                                            <button type="submit" class="btn-danger btn" ng-click="submitNewbornForm()">Next</button>
                                         </div>
                                     </div>
                                 </div>
@@ -468,6 +470,28 @@
                             break;
                     }
 
+                         switch ($scope.at.charAt(0)) {
+                        case '7':
+                            $http({
+                                method: 'GET',
+                                url: 'getData/get-physician-outpatient-details.php',
+                                params: {id: $scope.at}
+                            }).then(function(response) {
+                                $scope.physicians = response.data;
+                            });
+                            break;
+                    
+
+                        default:
+                            $http({
+                                method: 'GET',
+                                url: 'getData/get-physician-details.php'
+                            }).then(function(response) {
+                                $scope.physicians = response.data;
+                            });
+                            break;
+                    }
+
                     $scope.accesstype = $scope.at[0];
                     $http({
                     method: 'GET',
@@ -511,8 +535,6 @@
                         $('#notnewborndiv').hide();
                         $('#oldpatientdiv').hide();
                         
-                        $scope.param = '1';
-                        
                         $http({
                             method: 'GET',
                             url: 'getData/get-inpatient-female.php'
@@ -523,18 +545,27 @@
 
                     $scope.newbornno = function(){
                         $('#newbornbabydiv').hide();
+
                         if($scope.chk != ''){
-                        $('#notnewborndiv').hide();
-                        $('#oldpatientdiv').show();
+                            $('#notnewborndiv').hide();
+                            $('#oldpatientdiv').show();
                         }else{
-                        $('#notnewborndiv').show();
-                        $('#oldpatientdiv').hide();
+                            $('#notnewborndiv').show();
+                            $('#oldpatientdiv').hide();
                         }
                     }
 
 
                     $scope.newbornUpdate = function(){
-                            $scope.babyadmission = $scope.mother.concat('-1');
+                        $http({
+                            method: 'GET',
+                            url: 'getData/get-patient-details.php',
+                            params: {id: $scope.mother}
+                        }).then(function(response) {
+                            $scope.cnt = response.data.length;
+                            $scope.babyadmission = $scope.mother.concat('-') + $scope.cnt;
+                        });                  
+                          
                             var today = new Date();
                             var dd = today.getDate();
                             var mm = today.getMonth()+1; //January is 0!
@@ -548,6 +579,7 @@
                             } 
                             var today = dd+'/'+mm+'/'+yyyy;
                             $scope.babybirthdate = today;
+                           
                     }
                 
                     $scope.cityUpdate = function(){
@@ -575,27 +607,6 @@
 
 
                     $scope.submitForm = function(check){
-                        if($scope.newborn == 'Yes'){
-                            $http({
-                            method: 'GET',
-                            url: 'insertData/insert-baby-details.php',
-                            params: {babyadmission: $scope.babyadmission,
-                                    admissionid: $scope.mother,
-                                    lastname: $scope.babylastname,
-                                    middlename: $scope.babymiddlename,
-                                    firstname: $scope.babyfirstname,
-                                    birthdate: $scope.babybirthdate,
-                                    birthtime: $scope.babybirthtime,
-                                    nationality: $scope.nationality,
-                                    bloodtype: $scope.babybloodtype,
-                                    delivery: $scope.babydelivery}
-                            }).then(function(response) {
-                                window.location.href = 'add-baby-next.php?at=' + $scope.at + '&id=' + $scope.babyadmission;
-                                alert('jed');
-                            });
-                            
-                        }else{
-                            
                         $scope.birthdate =$("#datepicker").datepicker("option", "dateFormat", "yy-mm-dd" ).val();
                         
                         $http({
@@ -620,9 +631,42 @@
                         }).then(function(response) {
                             window.location.href = 'add-patient-next.php?at=' + $scope.at + '&id=' + $scope.admissionid + '&medid=' + $scope.medicalid + '&param=' + $scope.admissiontype;
                         });
-                     
-                        }
-               
+                    
+                    }
+
+                    $scope.submitNewbornForm = function(){
+
+                        $http({
+
+                            method: 'GET',
+                            url: 'insertData/insert-baby-details.php',
+                            params: {babyadmission: $scope.babyadmission,
+                                    admissionid: $scope.mother,
+                                    lastname: $scope.babylastname,
+                                    middlename: $scope.babymiddlename,
+                                    firstname: $scope.babyfirstname,
+                                    nationality: $scope.babynationality,
+                                    bloodtype: $scope.babybloodtype,
+                                    delivery: $scope.babydelivery,
+                                    weight: $scope.babyweight,
+                                    attending: $scope.attendingphysician}
+                            }).then(function(response) {
+                            swal({
+                                
+                            icon: "success",
+                            title: "Successfully Added!",
+                            text: "Redirecting in 2..",
+                            timer: 2000
+                            }).then(function () {
+                                window.location.reload(false); 
+                                }, function (dismiss) {
+                                if (dismiss === 'cancel') {
+                                    window.location.reload(false); 
+                                }
+
+                            });
+                        });
+
                     }
                     
                     $scope.goBack = function(){

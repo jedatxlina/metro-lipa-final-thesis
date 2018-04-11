@@ -4,12 +4,13 @@ date_default_timezone_set("Asia/Singapore");
 // $datee = date("Y-m-d");
 // $timee = '2:00 AM';
 
-$timeadministered = '1:20 AM'; 
+$timeadministered = '12:15 AM'; 
 
 $time1  = date_create($timeadministered);
 $time 	= date_create(); 
 
 $diff  	= date_diff( $time1, $time );
+
 $yearrdiff = $diff->y;
 $monthdiff = $diff->m;
 
