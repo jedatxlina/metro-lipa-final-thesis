@@ -45,27 +45,55 @@
 							<div class="panel panel-danger" data-widget='{"draggable": "false"}'>
 								<div class="panel-heading">
 									<h2>Settings</h2>
+									<div class="options">
+										<ul class="nav nav-tabs">
+											<li class="active"><a href="#discount-form" data-toggle="tab">Discounts</a></li>
+											<li><a href="#misc-form" data-toggle="tab">Misc</a></li>
+										</ul>
+									</div>
 								</div>
 								<div class="panel-body">
-									<div class="form-horizontal row-border">
-										<div class="form-group">
-											<div class="col-xs-4">Senior Citizen Discount <br><span class="text-muted">Currently at {{discount}}%</span></div>
-											<div class="col-xs-8">
-												<div>
-												<div>
-												<rzslider rz-slider-model="slider.value"
-												rz-slider-options="slider.options"></rzslider>
+									<div class="tab-content">
+										<div class="tab-pane active" id="discount-form">
+											<div class="form-horizontal row-border">
+												<div class="form-group">
+													<div class="col-xs-4">Senior Citizen Discount <br><span class="text-muted">Currently at {{discount}}%</span></div>
+													<div class="col-xs-8">
+														<div>
+														<div>
+														<rzslider rz-slider-model="slider.value"
+														rz-slider-options="slider.options"></rzslider>
+														</div>
+																										
+														</div>
+													</div>
 												</div>
-																								
+											</div>
+											<br>
+											<div class="row">
+												<div class="col-md-12">
+														<button type="button" ng-click="checkValue()" class="btn btn-danger-alt pull-right">&nbsp;Save Changes</button>
 												</div>
 											</div>
 										</div>
-									</div>
-								</div>
-								<div class="panel-footer">
-									<div class="row">
-										<div class="col-md-12">
-												<button type="button" ng-click="checkValue()" class="btn btn-danger-alt pull-right">&nbsp;Save Changes</button>
+										<div class="tab-pane" id="misc-form">
+											<div class="form-horizontal row-border">
+												<div class="form-group">
+													<div class="col-xs-4">Acceredited Guarantors<br><span class="text-muted">Currently {{cnthmo}}</span></div>
+													<div class="col-xs-8">
+													<select class="form-control" ng-model="hmoprovider">
+                                                            <option value="" disabled selected>Select Guarantor</option>
+                                                            <option ng-repeat="hmo in hmolist" value="{{hmo.Provider}}" ng-init="hmoprovider = hmo.Provider">{{hmo.Provider}}</option>
+                                                        </select>
+													</div>
+												</div>
+											</div>
+											<br>
+											<div class="row">
+												<div class="col-md-12">
+														<button type="button" ng-click="addHmo()" class="btn btn-danger-alt pull-right">&nbsp;Add New</button>
+												</div>
+											</div>
 										</div>
 									</div>
 								</div>
@@ -87,27 +115,8 @@
 									<div class="panel-body">
 										<div class="tab-content">
 											<div class="tab-pane" id="migrate-form">
-												<!-- <form action="migrate-patient-archive.php" enctype='multipart/form-data' method="POST">
-													<input type="hidden" name="at" value="<?php if(isset($_GET['at'])) { echo $_GET['at']; } ?>">
-													<div align="center">
-															<p>Upload CSV: <input type="file" name="file" ></p>
-															<p><input type="submit" value="Import" name="submit"  class="btn-default btn"></p>
-													</div>
-												</form> -->
-												<!-- <div class="panel panel-default" data-widget='{"draggable": "false"}'>
-													<div class="panel-heading">
-														<h2>File Upload</h2>
-														<div class="panel-ctrls" data-actions-container="" data-action-collapse='{"target": ".panel-body"}'></div>
-														<div class="options">
-														</div>
-													</div>
-													<div class="panel-body"> -->
 														<form action="migrate-patient-archive.php" enctype='multipart/form-data' class="dropzone"	 id="dropzonewidget">
-															<!-- <p>Upload CSV: <input type="file" name="file" ></p>
-															<p><input type="submit" value="Import" name="submit"  class="btn-default btn"></p> -->
 														</form>
-													<!-- </div>
-												</div>	 -->
 											</div>
 											<div class="tab-pane active" id="template-form">
 												<span>
@@ -122,7 +131,6 @@
                            		<div class="panel panel-danger" data-widget='{"draggable": "false"}'>
 									<div class="panel-heading">
 										<h2>Reports</h2>
-										<!-- <div class="panel-ctrls" data-actions-container="" data-action-collapse='{"target": ".panel-body, .panel-footer"}'></div> -->
 										<div class="options">
 											<ul class="nav nav-tabs">
 											<li><a href="#patients-form" data-toggle="tab">Patients</a></li>
@@ -146,15 +154,41 @@
 									</div>
 								</div>
                         </div> <!-- #tab-projects -->
-
-
 					</div><!-- .tab-content -->
-
-				
+				<!-- Add HMO Provider  -->
+				<div class="modal fade" id="addHmoModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+					<div class="modal-dialog">
+						<div class="panel panel-danger" data-widget='{"draggable": "false"}'>
+							<div class="panel-heading">
+								<h2>Attending physician</h2>
+								<div class="panel-ctrls" data-actions-container="" data-action-collapse='{"target": ".panel-body, .panel-footer"}'></div>
+							</div>
+							<div class="panel-body" style="height: auto">
+							<center><span><strong>New Accredited Provider</strong></span></center>
+									<hr>
+									<div class="row">
+										<div class="form-group">
+											<label for="focusedinput" class="col-sm-3 control-label">
+											&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+											Name</label>
+											<div class="col-sm-7">
+											<input type="text" class="form-control" ng-model="hmo">
+											</div>
+										</div>
+									</div>
+									<br>
+                         
+							</div>
+							<div class="panel-footer">
+								<button type="button" ng-click="insertHmo()" data-dismiss="modal" class="btn btn-danger pull-right">Confirm</button>
+								<button type="button" data-dismiss="modal" class="btn btn-default pull-right">Cancel</button>
+							</div>
+						</div>
+					</div>
+           	 	</div>
+				<!-- Add HMO Provider -->
 
                 </div><!-- col-sm-8 -->
-
-				
             </div>
         </div>
 </div>
@@ -251,7 +285,15 @@
 					atype : $scope.accesstype}
 			}).then(function(response) {
 				$scope.userdetails = response.data;
-			});				
+			});		
+
+			 $http({
+            	method: 'get',
+            	url: 'getData/get-hmo-providers.php'
+            }).then(function(response) {
+            	$scope.hmolist = response.data;
+				$scope.cnthmo = response.data.length;
+            });		
 
 			$scope.checkValue = function(){
 				$http({
@@ -273,6 +315,33 @@
                         });
 				});
 			}
+
+			$scope.addHmo = function(){
+				$('#addHmoModal').modal('show');	
+			}
+			
+			$scope.insertHmo = function(){
+	
+				$http({
+				method: 'GET',
+				url: 'insertData/insert-new-hmo.php',
+				params: {hmo: $scope.hmo}
+				}).then(function(response) {
+					swal({
+                            icon: "success",
+                            title: "Successfully Added!",
+                            text: "Redirecting in 2..",
+                            timer: 2000
+                        }).then(function () {
+                               window.location.reload(false); 
+                            }, function (dismiss) {
+                            if (dismiss === 'cancel') {
+                               window.location.reload(false); 
+                            }
+                        });
+				});	
+			}
+
 
 			$scope.getPage = function(check){
 			

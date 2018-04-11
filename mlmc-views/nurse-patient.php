@@ -153,7 +153,7 @@ font-weight: bold;
 						<a href="#" ng-click="medicineRequisition()" role="tab" data-toggle="tab" class="list-group-item"><span class="badge badge-primary"></span> <i class="fa fa-plus-square-o"></i>Medicine Requisition</a>
 						<a href="#" ng-click="postMedication()" role="tab" data-toggle="tab" class="list-group-item"><span class="badge badge-primary"></span> <i class="fa fa-plus-square-o"></i>Post Medication</a>
 						<a href="#" ng-click="viewOrder()" role="tab" data-toggle="tab" class="list-group-item"><span class="badge badge-primary"  ng-if="order > 0">{{order}}</span> <i class="ti ti-email"></i>Doctors Order</a>
-						<a href="#" ng-click="postBills()"role="tab" data-toggle="tab" class="list-group-item"><i class="fa fa-file-text-o"></i>Process Billing</a>
+						<a href="#" ng-click="dischargePatient()"role="tab" data-toggle="tab" class="list-group-item"><i class="fa fa-tag"></i>Tag As Discharged</a>
                         <a href="#" ng-click="viewFlag()" role="tab" data-toggle="tab" class="list-group-item"><span class="badge badge-danger" ng-if="notif > 0">{{notif}}</span><i class="ti ti-bell"></i> Notifications</a>
                     </div>
 				</div>
@@ -270,7 +270,7 @@ font-weight: bold;
 				</div>
             <!-- Doctor Order Modal -->
 
-				<!-- Patient Modal -->
+			<!-- Patient Modal -->
 				<div class="modal fade" id="patientModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
 					<form class="form-horizontal">
 						<div class="modal-dialog">
@@ -387,6 +387,45 @@ font-weight: bold;
 								<div class="panel-footer">
 								<button type="button" ng-click="updatePatientDiet()" class="btn btn-danger-alt pull-right">Update</button>
 								<button type="button" data-dismiss="modal" class="btn btn-default pull-right">Cancel</button>
+								</div>
+							</div>
+						</div>
+					</form>
+				</div>
+
+				<!-- Tag Discharge Patient Modal -->
+				<div class="modal fade" id="dischargeModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+					<form class="form-horizontal">
+						<div class="modal-dialog">
+							<div class="panel panel-danger" data-widget='{"draggable": "false"}'>
+								<div class="panel-heading">
+									<h2>Tag Patient</h2>
+									<div class="panel-ctrls" data-actions-container="" data-action-collapse='{"target": ".panel-body, .panel-footer"}'></div>
+								</div>
+								<div class="panel-body" style="height: auto" data-ng-repeat="details in dischargedetails">
+									<center><span><strong>Registry Information</strong></span></center>
+									<hr>
+									<div class="row">
+										<div class="form-group">
+											<label for="focusedinput" class="col-sm-3 control-label">Patient name</label>
+											<div class="col-sm-8">
+												<input type="text" class="form-control" ng-value="details.Firstname"  disabled>
+											</div>
+										</div>
+									</div>
+									<div class="row">
+										<div class="form-group">
+											<label for="focusedinput" class="col-sm-3 control-label">Status</label>
+											<div class="col-sm-5">
+												<input type="text" class="form-control" ng-value="details.Middlename"  disabled>
+											</div>
+										</div>
+									</div>
+								</div>
+
+								<div class="panel-footer">
+									<button type="button" ng-click="tagPatientDischarge()" class="btn btn-danger-alt pull-right">Tag</button>
+									<button type="button" data-dismiss="modal" class="btn btn-default pull-right">Cancel</button>
 								</div>
 							</div>
 						</div>
@@ -763,6 +802,40 @@ font-weight: bold;
 			}
 		}
 
+		$scope.dischargePatient = function(){
+			if($scope.selectedRow != null){
+				$scope.admissionid = $scope.selectedRow;
+				$http({
+					method: 'get',
+					url: 'getData/get-patient-discharge-details.php',
+					params: {id: $scope.admissionid}
+				}).then(function(response) {
+					// $scope.dischargedetails = response.data;
+					if(response.data.length == 0){
+						swal({
+							icon: "warning",
+							title: "Billing is still being processed",
+							text: "Redirecting in 2..",
+							timer: 2000
+						}).then(function () {
+								window.location.reload(false); 
+							}, function (dismiss) {
+							if (dismiss === 'cancel') {
+								window.location.reload(false); 
+							}
+						});
+					}else{
+						$('#dischargeModal').modal('show');
+					}
+				});
+				
+			
+			}
+			else{
+			$('#myModal').modal('show');
+			}
+		}
+
 		$scope.patientDiet = function(){
 			if($scope.selectedRow != null){
 				$scope.admissionid = $scope.selectedRow;
@@ -1049,6 +1122,9 @@ font-weight: bold;
         }
 
    }]);
-</script>		
+</script>	
+<div id="custom-footer">
+            
+			</div>		
 </div>
 <?php include 'footer.php'?>
