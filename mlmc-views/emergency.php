@@ -531,8 +531,16 @@ font-weight: bold;
 											</div>
 										</div>
 									</div>
-									<hr>
 								</div>
+								<div class="row">
+										<div class="form-group">
+											<label for="focusedinput" class="col-sm-3 control-label">Diet Remarks</label>
+											<div class="col-sm-5">
+												<input type="text" class="form-control" ng-model="dietremarks">
+											</div>
+										</div>
+									</div>
+									<hr>
 								<div class="row">
 										<div class="form-group">
 											<label for="focusedinput" class="col-sm-3 control-label">Advance Payments</label>
@@ -910,7 +918,8 @@ font-weight: bold;
 				url: 'updateData/update-inpatient-details.php',
 				params: {AdmissionID: $scope.selectedRow,
 						BedID:$scope.bedno.BedID,
-						Dietplan: $scope.dietplan}
+						Dietplan: $scope.dietplan,
+						Dietremarks: $scope.dietremarks}
 				}).then(function(response) {
 			});
 			$http({
