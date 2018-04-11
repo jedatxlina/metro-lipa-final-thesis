@@ -482,7 +482,7 @@ font-weight: bold;
 						<div class="modal-dialog">
 							<div class="panel panel-danger" data-widget='{"draggable": "false"}'>
 								<div class="panel-heading">
-									<h2>Newly Registered Inpatients</h2>	
+									<h2>Inpatient Medication</h2>	
 									<div class="panel-ctrls" data-actions-container="" data-action-collapse='{"target": ".panel-body, .panel-footer"}'></div>
 								</div>
 								<div class="panel-body" style="height: 500px">
@@ -532,7 +532,7 @@ font-weight: bold;
 						<div class="modal-dialog">
 							<div class="panel panel-danger" data-widget='{"draggable": "false"}'>
 								<div class="panel-heading">
-									<h2>Newly Registered Inpatients</h2>	
+									<h2>Inpatient Post Medication</h2>	
 									<div class="panel-ctrls" data-actions-container="" data-action-collapse='{"target": ".panel-body, .panel-footer"}'></div>
 								</div>
 								<div class="panel-body" style="height: 500px">

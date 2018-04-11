@@ -415,7 +415,7 @@ font-weight: bold;
 									<div class="row" data-ng-repeat="bill in billdetails">
 										<div class="form-group">
 											<label for="focusedinput" class="col-sm-3 control-label">Bed Bill</label>
-											<div class="col-sm-8">
+											<div class="col-sm-5">
 												<input type="text" class="form-control" ng-value="bill.totalbill"  disabled>
 											</div>
 										</div>
@@ -424,13 +424,7 @@ font-weight: bold;
 										<div class="form-group">
 											<label for="focusedinput" class="col-sm-3 control-label">Medicine Name</label>
 											<div class="col-sm-5">
-												<input type="text" class="form-control"  ng-value="bill.mediname" disabled>
-											</div>
-										</div>
-										<div class="form-group">
-											<label for="focusedinput" class="col-sm-3 control-label">Medicine Quantity</label>
-											<div class="col-sm-5">
-												<input type="text" class="form-control"  ng-value="bill.quantity" disabled>
+												<input type="text" class="form-control"  ng-value="bill.mediname + ' ' + bill.Dosage + ' x ' + bill.quantity" disabled>
 											</div>
 										</div>
 										<div class="form-group">

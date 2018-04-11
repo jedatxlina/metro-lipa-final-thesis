@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="en" ng-app="myApp" ng-controller="userCtrl">
-
+<?php session_start(); 
+?>
 <head>
     <meta charset="utf-8">
 
@@ -114,6 +115,7 @@
                                         <div class="info"  ng-repeat="user in userdetails">
                                             <span class="username">{{User}}</span><br>
                                             <span class="text-default" style="color: white;">{{user.Firstname}} {{user.Middlename}} {{user.Lastname}}</span>
+                                              
                                         </div>
                                     </div>
                                 </div>
@@ -141,7 +143,7 @@
 										<li <?php if ($id!=1 && $id!=5){?>style="display:none"<?php } ?>><a  href="javascript:void(0);"><i class="fa fa-cubes"></i><span>Pharmacy Department</span></a>
                                             <ul class="acc-menu" <?php if ($activeMenu =="pharmacy") {?> style="display:block;" class="active" <?php } ?> >
 											<li><a ng-click="getPage('Pharmacy')" href="javascript:void(0);"><i class="fa fa-users"></i><span>&emsp;Medicine Requests</span></a></li>
-											<li><a ng-click="getPage('Pharmaceuticals')" href="javascript:void(0);"><i class="ti ti-support"></i><span>&emsp;Medicines</span></a></li>
+											<li><a ng-click="getPage('Pharmaceuticals')" href="javascript:void(0);"><i class="ti ti-support"></i><span>&emsp;Medicines & Supplies</span></a></li>
                                             </ul>
                                         </li>
 										<li    <?php if ($id!=1 && $id!=6){?>style="display:none"<?php } ?>><a href="javascript:;"><i class="fa fa-file-text-o"></i><span>Billing Department</span></a>

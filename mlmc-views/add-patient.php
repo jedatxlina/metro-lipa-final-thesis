@@ -335,7 +335,7 @@
                                                     <label>Mother Account</label>
                                                     <select  ng-change="newbornUpdate()" class="form-control" ng-model="mother">
                                                         <option  value="" disabled selected >Select Mother</option>
-                                                         <option ng-repeat="patient in patients" value="{{patient.AdmissionID}}">{{patient.Fname}}</option>
+                                                         <option ng-repeat="patient in patients" value="{{patient.AdmissionID}}">{{patient.Fname}} {{patient.Mname}} {{patient.Lname}}</option>
                                                     </select>
                                                     
                                                 </div>
@@ -346,7 +346,7 @@
                                               
                                             </div>
                                             <div data-row-span="3">
-                                                <div data-field-span="1">
+                                                <div data-field-span="1" >
                                                     <label>Last Name</label>
                                                     <input type="text" ng-model="babylastname">
                                                 </div>
@@ -515,7 +515,7 @@
                         
                         $http({
                             method: 'GET',
-                            url: 'getData/get-emergency-details.php'
+                            url: 'getData/get-inpatient-female.php'
                         }).then(function(response) {
                             $scope.patients = response.data;
                         });

@@ -113,7 +113,7 @@
                                                     <input type="text" ng-model="NoteID[$index]" placeholder="Notes here"> 
                                                 </div>
                                                 <div data-field-span="1">
-                                                    <label>Intake Inerval</label>
+                                                    <label>Intake Interval</label>
                                                     <select class="form-control" ng-model="IntakeInterval[$index]" style="width:395px;">
                                                         <option value="" disabled selected>Select Interval</option>
                                                         <option ng-repeat="intrvl in interval" value="{{intrvl.DosingID}}">{{intrvl.Intake}}</option>

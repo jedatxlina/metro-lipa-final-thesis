@@ -1,6 +1,6 @@
 <?php
 require_once 'connection.php';
-$sel = mysqli_query($conn,"select * from patients where AdmissionType = 'Inpatient'");
+$sel = mysqli_query($conn,"select * from patients where AdmissionType = 'Emergency'");
 $data = array();
 while ($row = mysqli_fetch_array($sel)) {
     $data[] = array(

@@ -1,7 +1,10 @@
 <?php
 require_once 'connection.php';
-$sel = mysqli_query($conn,"select * from patients where AdmissionType = 'Inpatient'");
+
+$sel = mysqli_query($conn,"select * from patients where AdmissionType = 'Inpatient' AND Gender = 'Female'");
+
 $data = array();
+
 while ($row = mysqli_fetch_array($sel)) {
     $data[] = array(
     	"AdmissionID"=>$row['AdmissionID'],
