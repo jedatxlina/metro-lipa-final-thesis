@@ -16,27 +16,27 @@ $datetime = date("Y-m-d h:i A");
 
 if ($hmoprovider != '' && $controlphil != '') {
 
-    $query = "INSERT into accounts_receivable(AccountReceiveID,AdmissionID,Provider,DateTimePosted,ControlNo) 
-    VALUES('$randstring','$id','$hmoprovider','$datetime','$controlhmo')";
+    $query = "INSERT into accounts_receivable(AccountReceiveID,AdmissionID,Provider,DateTimePosted,ControlNo,Remarks) 
+    VALUES('$randstring','$id','$hmoprovider','$datetime','$controlhmo','Pending')";
 
     mysqli_query($conn,$query);  
 
-    $query2 = "INSERT into accounts_receivable(AccountReceiveID,AdmissionID,Provider,DateTimePosted,ControlNo) 
-    VALUES('$randstring2','$id','Philhealth','$datetime','$controlphil')";
+    $query2 = "INSERT into accounts_receivable(AccountReceiveID,AdmissionID,Provider,DateTimePosted,ControlNo,Remarks) 
+    VALUES('$randstring2','$id','Philhealth','$datetime','$controlphil','Pending')";
 
     mysqli_query($conn,$query2);  
 
 }
 if($hmoprovider == '' && $controlphil != '') {
-    $query2 = "INSERT into accounts_receivable(AccountReceiveID,AdmissionID,Provider,DateTimePosted,ControlNo) 
-    VALUES('$randstring','$id','Philhealth','$datetime','$controlphil')";
+    $query2 = "INSERT into accounts_receivable(AccountReceiveID,AdmissionID,Provider,DateTimePosted,ControlNo,Remarks) 
+    VALUES('$randstring','$id','Philhealth','$datetime','$controlphil','Pending')";
 
     mysqli_query($conn,$query2);  
 }
 
 if($hmoprovider != '' && $controlphil == '') {
-    $query = "INSERT into accounts_receivable(AccountReceiveID,AdmissionID,Provider,DateTimePosted,ControlNo) 
-    VALUES('$randstring2','$id','$hmoprovider','$datetime','$controlhmo')";
+    $query = "INSERT into accounts_receivable(AccountReceiveID,AdmissionID,Provider,DateTimePosted,ControlNo,Remarks) 
+    VALUES('$randstring2','$id','$hmoprovider','$datetime','$controlhmo','Pending')";
 
     mysqli_query($conn,$query);  
 }

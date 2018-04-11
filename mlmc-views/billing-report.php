@@ -260,14 +260,19 @@ while ($row = mysqli_fetch_array($sel4)) {
                 <h3 class="text-muted">Info</h3>
                 <ul class="text-left list-unstyled">
                     <li><strong>Date:</strong> Today</li>
-                    <li><strong>Due:</strong> 19/05/2015</li>
-                    <li><strong>Advance Payment:</strong> **</li>
+                    <li><strong>Due:</strong> 19/05/2015</li>';
+                        
+                    while ($row = mysqli_fetch_array($sel4)) {
+                        $html .= '
+                        <li><strong>Advance Payment:</strong> **</li>';
+                        }
+                                            $html .= '
                 </ul>
             </div>
         </div>
     </div>
     <div style="A_CSS_ATTRIBUTE:all;position: fixed;bottom: 50px; left: 10px; ">
-    <b>-------------------------------------------------------------------------------------------------------------------------------</b>
+    <b>- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -</b>
     This is the discharge Stub Please Cut it and show the security on Your way Out. Thank You.
     </div>
 </div>';

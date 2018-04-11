@@ -61,7 +61,6 @@
                                                 <ul class="text-left list-unstyled">
                                                     <li><strong>Patient Name:</strong>&emsp; {{patient.Lastname}}, {{patient.Firstname}} {{patient.Middlename}}</li>
                                                     <li><strong>Patient Room:</strong>&emsp; 19/05/2015</li>
-                                                    <li><strong>Advance Payment:</strong>&emsp; **</li>
                                                 </ul>
                                                 <br>
                                                 <div class="btn-group">
@@ -81,7 +80,6 @@
                                                 <ul class="text-left list-unstyled">
                                                     <li><strong>Patient ID:</strong>&emsp; {{patient.AdmissionID}}</li>
                                                     <li><strong>Admission No:</strong>&emsp; {{patient.AdmissionNo}}</li>
-                                                    <li><strong>Advance Payment:</strong> **</li>
                                                 </ul>
                                                 <br>
                                             </div>

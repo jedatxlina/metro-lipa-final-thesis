@@ -63,6 +63,9 @@
                                     <fieldset data-ng-repeat="doc in docdetails track by $index">
                                         <input type="hidden" ng-model='DocBill[$index]' ng-init='DocBill[$index] = doc.Pfee - doc.Discount'>
                                     </fieldset>
+                                    <fieldset data-ng-repeat="patientadv2 in patientadv track by $index">
+                                        <input type="hidden" ng-model='AdvPay[$index]' ng-init='AdvPay[$index] = patientadv2.Amount'>
+                                    </fieldset>
                                     <fieldset data-ng-repeat="deb in debitdetails track by $index">
                                         <input type="hidden" ng-model='DebitBill[$index]' ng-init='DebitBill[$index] = deb.Amount'>
                                     </fieldset>
@@ -78,7 +81,7 @@
                                                 <ul class="text-left list-unstyled">
                                                     <li><strong>Patient Name:</strong>&emsp; {{patient.Lastname}}, {{patient.Firstname}} {{patient.Middlename}}</li>
                                                     <li><strong>Patient Room:</strong>&emsp; 19/05/2015</li>
-                                                    <li><strong>Advance Payment:</strong>&emsp; **</li>
+                                                    <li><strong>Advance Payment:</strong>&emsp; {{advpay}}</li>
                                                 </ul>
                                                 <br>
                                                 <div class="btn-group">
@@ -153,7 +156,7 @@
                                         <div class="row" style="border-top-left-radius: 0px; border-top-right-radius: 0px; border-bottom-right-radius: 0px; border-bottom-left-radius: 0px;">
                                             <div class="col-md-3 col-md-offset-9">
                                                 <p class="text-right"><strong>SUB TOTAL:₱ {{ subtotal }}</strong></p>
-                                                <p class="text-right">DISCOUNT:₱ {{discountamount}}</p>
+                                                <p class="text-right">DISCOUNT:₱ {{totaldiscount}}</p>
                                                 <!-- <p class="text-right">VAT: **</p> -->
                                                 <hr>
                                                 <h3 class="text-right text-danger" style="font-weight: bold;">₱ {{ subtotal2 }}</h3>
@@ -207,10 +210,12 @@
             $scope.DocBill = [];
             $scope.RoomDur = [];
             $scope.DebitBill = [];
+            $scope.AdvPay = [];
             $scope.subtotalmedi = 0;
             $scope.subtotalroom = 0;
             $scope.subtotallab = 0;
             $scope.subtotaldoc = 0;
+            $scope.advpay = 0;
             $scope.MedID = [];
             $scope.Quantity = [];
             $scope.Dosage = [];
@@ -221,6 +226,7 @@
             var total3 = 0;
             var total4 = 0;
             var total5 = 0;
+            var total6 = 0;
 
             switch ($scope.at.charAt(0)) {
                 case '1':
@@ -322,6 +328,15 @@
                 $scope.debitdetails = response.data;
             });
             $http({
+                method: 'GET',
+                url: 'getData/get-patient-advance.php',
+                params: {
+                    id: $scope.id
+                }
+            }).then(function(response) {
+                $scope.patientadv = response.data;
+            });
+            $http({
                 method: 'get',
                 url: 'getData/get-patient-details.php',
                 params: {
@@ -354,13 +369,19 @@
                     total3 = total3 + parseFloat(product3);
                 }
                 $scope.subtotaldoc = total3;
+                for (var i = 0; i < $scope.AdvPay.length; i++) {
+                    var product6 = $scope.AdvPay[i];
+                    total6 = total6 + parseFloat(product6);
+                }
+                $scope.advpay = total6;
                 for (var i = 0; i < $scope.DebitBill.length; i++) {
                     var product5 = $scope.DebitBill[i];
                     total5 = total5 + parseFloat(product5);
                 }
                 $scope.discountamount = total5;
+                $scope.totaldiscount = $scope.discountamount+$scope.advpay;
                 $scope.subtotal = $scope.subtotalroom + $scope.subtotalemroom + $scope.subtotalmedi+$scope.subtotallab+$scope.subtotaldoc;
-                $scope.subtotal2 = ($scope.subtotalroom + $scope.subtotalemroom + $scope.subtotalmedi+$scope.subtotallab+$scope.subtotaldoc)-$scope.discountamount;
+                $scope.subtotal2 = ($scope.subtotalroom + $scope.subtotalemroom + $scope.subtotalmedi+$scope.subtotallab+$scope.subtotaldoc)-$scope.totaldiscount;
                 $scope.subtotalroom = $scope.subtotalroom + $scope.subtotalemroom;
             });
             $http({

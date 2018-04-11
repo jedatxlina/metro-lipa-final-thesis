@@ -532,16 +532,15 @@ font-weight: bold;
 										</div>
 									</div>
 									<hr>
-									<div class="row">
+								</div>
+								<div class="row">
 										<div class="form-group">
 											<label for="focusedinput" class="col-sm-3 control-label">Advance Payments</label>
 											<div class="col-sm-5">
-												<input type="text" class="form-control" ng-model="advancepayment">
+												<input type="text" class="form-control" ng-model="advpayment">
 											</div>
 										</div>
 									</div>
-								</div>
-								
 								<div class="panel-footer">
 								<button type="button" ng-click="ConfirmInpatient()" class="btn btn-danger-alt pull-right">Confirm</button>
 								<button type="button" data-dismiss="modal" class="btn btn-default-alt pull-right">Cancel</button>
@@ -913,14 +912,12 @@ font-weight: bold;
 						BedID:$scope.bedno.BedID,
 						Dietplan: $scope.dietplan}
 				}).then(function(response) {
-					window.location.reload();
 			});
-
 			$http({
 				method: 'GET',
 				url: 'insertData/insert-advpayment-details.php',
 				params: {admissionid: $scope.selectedRow,
-						payment:$scope.advancepayment}
+						payment: $scope.advpayment}
 				}).then(function(response) {
 					window.location.reload();
 			});
