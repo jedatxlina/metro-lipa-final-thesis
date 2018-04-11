@@ -11,7 +11,7 @@
     $date = date("Y-m-d");
     $time = date("h:i A");
 
-    $sel = mysqli_query($conn,"SELECT b.*,c.DosingID,c.TimeInterval FROM medication b, dosing_time c WHERE b.AdmissionID = '$admissionid' AND b.DosingID = c.DosingID AND b.ID = '$medid'");
+    $sel = mysqli_query($conn,"SELECT b.*,c.DosingID,c.TimeInterval FROM medication b, dosing_time c WHERE b.AdmissionID = '$admissionid' AND b.DosingID = c.DosingID AND b.MedicationID = '$medid'");
 
     while($row = mysqli_fetch_assoc($sel))
     {

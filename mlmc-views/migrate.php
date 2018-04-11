@@ -79,7 +79,7 @@
 										<div class="tab-pane" id="misc-form">
 											<div class="form-horizontal row-border">
 												<div class="form-group">
-													<div class="col-xs-4">Acceredited Guarantors<br><span class="text-muted">Currently {{cnthmo}}</span></div>
+													<div class="col-xs-4">Accredited Guarantors<br><span class="text-muted">Currently {{cnthmo}}</span></div>
 													<div class="col-xs-8">
 													<select class="form-control" ng-model="hmoprovider">
                                                             <option value="" disabled selected>Select Guarantor</option>

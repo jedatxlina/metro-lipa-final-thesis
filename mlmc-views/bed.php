@@ -117,6 +117,7 @@
                                         <option value="Private">Private</option>
                                         <option value="Suite">Suite</option>
                                         <option value="Infectious">Infectious</option>
+                                        <option value="ICU">ICU</option>
                                     </select>
                                 </div>
                                 <div class="form-group">

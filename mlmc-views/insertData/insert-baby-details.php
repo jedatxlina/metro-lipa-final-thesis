@@ -1,24 +1,26 @@
 <?php
-require_once 'connection.php';
 
-date_default_timezone_set("Asia/Singapore");
+    require_once 'connection.php';
 
-$babyadmission = $_GET['babyadmission'];
-$admissionnid = $_GET['admissionid'];
-$lastname = $_GET['lastname'];
-$middlename = $_GET['middlename'];
-$firstname = $_GET['firstname'];
-$birthdate = $_GET['birthdate'];
-$birthtime = $_GET['birthtime'];
-$citizenship = $_GET['citizenship'];
-$bloodtype = $_GET['bloodtype'];
-$delivery = $_GET['delivery'];
-$birthdate = date("Y-m-d", strtotime($birthdate));
+    date_default_timezone_set("Asia/Singapore");
 
+    $babyadmission = $_GET['babyadmission'];
+    $admissionnid = $_GET['admissionid'];
+    $lastname = $_GET['lastname'];
+    $middlename = $_GET['middlename'];
+    $firstname = $_GET['firstname'];
+    $citizenship = $_GET['citizenship'];
+    $bloodtype = $_GET['bloodtype'];
+    $delivery = $_GET['delivery'];
+    $weight = $_GET['weight'];
+    $attendingid = $_GET['attending'];
 
+    $date = date("Y-m-d");
 
-$query = "INSERT into nursery(NurseryID,AdmissionID,LastName,FirstName,MiddleName,Birthdate,Birthtime,Citizenship,BloodType,DeliveryType) 
-VALUES('$babyadmission','$admissionnid','$lastname','$firstname','$middlename','$birthdate','$birthtime','$citizenship','$bloodtype','$delivery')";
+    $time = date("h:i A");
 
-mysqli_query($conn,$query);  
+    $query = "INSERT into nursery(NurseryID,AdmissionID,LastName,FirstName,MiddleName,Birthdate,Birthtime,Citizenship,BloodType,DeliveryType,Weight,AttendingID) 
+    VALUES('$babyadmission','$admissionnid','$lastname','$firstname','$middlename','$date','$time','$citizenship','$bloodtype','$delivery','$weight','$attendingid')";
+
+    mysqli_query($conn,$query);  
 

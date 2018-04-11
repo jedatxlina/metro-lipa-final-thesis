@@ -12,7 +12,7 @@ while ($row = mysqli_fetch_assoc($query)) {
     $birthdate = $row['Birthdate'];
 }
 
-$query2 = mysqli_query($conn,"SELECT * FROM patients_archive JOIN medical_details WHERE patients_archive.FirstName ='$firstname' AND patients_archive.MiddleName ='$middlename' AND patients_archive.LastName='$lastname' AND patients_archive.MedicalID = medical_details.MedicalID");
+$query2 = mysqli_query($conn,"SELECT * FROM patients_archive WHERE patients_archive.FirstName = '$firstname' AND patients_archive.MiddleName ='$middlename' AND patients_archive.LastName='$lastname' ");
 
 $data = array();
 
@@ -22,7 +22,6 @@ while ($row = mysqli_fetch_array($query2)) {
 		"ArchiveID"=>$row['ArchiveID'],
 		"AdmissionDate"=>$row['AdmissionDate'],
 		"AdmissionTime"=>$row['AdmissionTime'],
-		"Attending"=>$row['AttendingID'],
     	"Firstname"=>$row['FirstName'],
     	"Middlename"=>$row['MiddleName'],
 		"Lastname"=>$row['LastName'],
@@ -36,7 +35,6 @@ while ($row = mysqli_fetch_array($query2)) {
 		"Age"=>$row['Age'],
 		"Occupation"=>$row['Occupation'],
 		"Citizenship"=>$row['Citizenship'],
-        "QRpath"=>$row['QR_Path'],
         "MedicalID"=>$row['MedicalID']);
 }
 echo json_encode($data);

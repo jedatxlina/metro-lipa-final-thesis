@@ -4,7 +4,7 @@
 
     date_default_timezone_set("Asia/Singapore");
 
-    $sel = mysqli_query($conn,"SELECT * FROM medication_timeline JOIN patients WHERE Status != '0' AND medication_timeline.AdmissionID = patients.AdmissionID");
+    $sel = mysqli_query($conn,"SELECT * FROM medication_timeline JOIN patients WHERE Status = 1 AND medication_timeline.AdmissionID = patients.AdmissionID");
 
     $data = array();
 
@@ -29,11 +29,9 @@
 
         if($hours == 0){
             if($minutes <= 15){
-            
-              
 
                 if($alert == 0){
-                    $query= "UPDATE medication_timeline SET Alert = '$minutes', Status = '0' WHERE MedTimelineID = '$medtimelineid'";
+                    $query= "UPDATE medication_timeline SET Alert = '$minutes' WHERE MedTimelineID = '$medtimelineid'";
         
                     mysqli_query($conn,$query);  
         
@@ -78,7 +76,8 @@
                     );
 
                     $data['message'] = "Medication Warning!";
-                    $data['message1'] = "Medication Update for " . $firstname . ' ' . $middlename . ' ' . $lastname ;
+                    $data['message1'] = "Medication Update for " . $firstname . ' ' . $middlename . ' ' . $lastname;
+                    $data['medtimeline'] = $medtimelineid;
                     $pusher->trigger('my-channel-inpatient', 'my-event-inpatient', $data);
 
                 }

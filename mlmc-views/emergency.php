@@ -505,6 +505,7 @@ font-weight: bold;
 												<option value="Private">Private</option>
 												<option value="Suite">Suite</option>
 												<option value="Infectious">Infectious</option>
+												<option value="ICU">ICU</option>
 											</select>
 												</select>
 											</div>
