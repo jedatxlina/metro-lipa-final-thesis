@@ -4448,8 +4448,8 @@ button.close {
 .pagination > .active > span:focus {
   z-index: 2;
   color: #ffffff;
-  background-color: #03a9f4;
-  border-color: #03a9f4;
+  background-color: #b43439;
+  border-color: #b43439;
   cursor: default;
 }
 .pagination > .disabled > span,
