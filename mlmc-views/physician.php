@@ -93,6 +93,7 @@
                         <a href="#" ng-click="post()" role="tab" data-toggle="tab" class="list-group-item"><i class="fa fa-stethoscope"></i>View Patient Condition</a>
                         <a href="#" ng-click="postDiagnosis()" role="tab" data-toggle="tab" class="list-group-item"><i class="fa fa-stethoscope"></i>Post Diagnosis</a>
                         <a href="#" ng-click="postReferral()" role="tab" data-toggle="tab" class="list-group-item"><i class="fa fa-stethoscope"></i>Post Referral</a>
+                        <a href="#" ng-click="viewNotifs()" role="tab" data-toggle="tab" class="list-group-item"><span class="badge badge-danger" ng-if="notifs > 0">{{notifs}}</span><i class="ti ti-bell"></i>Referral Notifications</a>
                     </div>
                     <div class="list-group list-group-alternate mb-n nav nav-tabs">
                         <a href="#" role="tab" data-toggle="tab" class="list-group-item active">Sub Panel</a>
@@ -173,7 +174,7 @@
 					</form>
 				</div>
 
-                   <!-- External Request Modal -->
+             <!-- External Request Modal -->
 			<div class="modal fade" id="referralModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
 					<div class="modal-dialog">
 						<div class="panel panel-danger" data-widget='{"draggable": "false"}'>
@@ -232,6 +233,44 @@
 					</div>
            	 	</div>
 			<!--/ External Request Modal -->
+
+             <!-- External Referral Request Modal -->
+			<div class="modal fade" id="referralNotifsModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+					<div class="modal-dialog">
+						<div class="panel panel-danger" data-widget='{"draggable": "false"}'>
+							<div class="panel-heading">
+								<h2>Refferal Notifications</h2>
+								<div class="panel-ctrls" data-actions-container="" data-action-collapse='{"target": ".panel-body, .panel-footer"}'></div>
+							</div>
+							<div class="panel-body" style="height: auto">
+                                <table id="referral_table" class="table table-striped table-bordered" cellspacing="0" width="100%">
+                                    <thead>
+                                    <tr>
+                                        <th>ID</th>
+                                        <th>Admission ID</th>
+                                        <th>Referred To</th>
+                                        <th>Referred By</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    <tr ng-repeat="referral in referraldetails" ng-class="{'selected': referral.ID == selectedRow}" ng-click="setClickedRow(referral.ID)">
+                                            <td>{{referral.ID}}</td>
+                                            <td>{{referral.AdmissionID}}</td>
+                                            <td>{{referral.ReferredTo}}</td>
+                                            <td>Dr. {{referral.firstname}} {{referral.middlename}} {{referral.lastname}}</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+							</div>
+							<div class="panel-footer">
+								<button type="button" ng-click="acceptPatient()" data-dismiss="modal" class="btn btn-danger pull-right">Accept</button>
+								<button type="button" data-dismiss="modal" class="btn btn-default pull-right">Cancel</button>
+                                <button type="button"  ng-click="denyPatient()"  data-dismiss="modal" class="btn btn-danger-alt pull-left">Deny</button>
+							</div>
+						</div>
+					</div>
+           	 	</div>
+			<!--/ External Request Modal -->
                                            
                 <!-- Error modal -->
 				<div class="modal fade" id="errorModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
@@ -277,6 +316,15 @@
                 var tick = function() {
                     $scope.clock = Date.now();
                     $scope.datetime = new Date().toLocaleTimeString('en-US', { hour: 'numeric', hour12: true, minute: 'numeric' });		
+
+                    $http({
+                        method: 'GET',
+                        url: 'getData/get-referral-details.php',
+                        params: {at: $scope.at}
+                    }).then(function(response) {
+                        $scope.referraldetails = response.data;
+                        $scope.notifs = response.data.length;
+                    });
                 }
 	
                 tick();
@@ -435,6 +483,34 @@
                     else{
                     $('#errorModal').modal('show');
                     }
+                }
+
+                $scope.acceptPatient = function(){
+                    $scope.id = $scope.selectedRow;
+                    $http({
+                        method: 'get',
+                        url: 'updateData/update-referral-details.php',
+                        params: {id: $scope.id,
+                                at: $scope.at}
+                    }).then(function(response) {
+                        swal({
+                            icon: "success",
+                            title: "Successfully Accepted!",
+                            text: "Redirecting in 2..",
+                            timer: 2000
+                        }).then(function () {
+                                window.location.reload(false); 
+                            }, function (dismiss) {
+                            if (dismiss === 'cancel') {
+                                window.location.reload(false); 
+                            }
+                        });      
+                    });    
+                }
+  
+
+                $scope.viewNotifs = function(){
+                      $('#referralNotifsModal').modal('show');
                 }
          
                 $scope.getPage = function(check){
