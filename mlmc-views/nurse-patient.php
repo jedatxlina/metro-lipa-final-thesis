@@ -12,27 +12,6 @@ font-weight: bold;
 }
 </style>
 
-<!-- <script>
-  
-	  var pusher = new Pusher('c23d5c3be92c6ab27b7a', {
-		cluster: 'ap1',
-		encrypted: true
-	  });
-  
-	  var channel = pusher.subscribe('my-channel');
-	  channel.bind('my-event', function(data) {
-	
-		console.log(data.message);
-		swal({
-			icon: "success",
-			title: "New order notification!",
-			text: "Someone posted an order."
-			}).then(function () {
-		});
-	  });
-	  
-</script> -->
-
 <ol class="breadcrumb">
 <li><a href="#">Home</a></li>
 <li><a href="#">Patients</a></li>
@@ -187,26 +166,22 @@ font-weight: bold;
 									<center><span><strong>Physician Orders</strong></span></center>
 									<hr>
 									<table id="requisition_table" class="table table-striped table-bordered" cellspacing="0" width="100%">
-										<thead>
+									<thead>
 										<tr>
-	  										<th>Medication ID</th>
-											<th>Medicine ID</th>
-											<th>Date Administered</th>
-											<th>Time Administered</th>
+	  										<th>Patient Name</th>
+											<th>Date Time Administered</th>
+											<th>Room & Bed No</th>
 											<th>Medicine Name</th>
-											<th>Quantity</th>
-											<th>Dosage</th>
+											<th>Intake</th>
 										</tr>
 										</thead>
 										<tbody>
 										<tr ng-repeat="medication in medicationdetails">
-	  											<td>{{medication.MedicationID}}</td>
-												<td>{{medication.MedicineID}}</td>
-												<td>{{medication.DateAdministered}}</td>
-												<td>{{medication.TimeAdministered}}</td>
+	  											<td>{{medication.pfullname}}</td>
+												<td>{{medication.DateAdministered}} {{medication.TimeAdministered}}</td>
+												<td>{{medication.bedid}}</td>
 												<td>{{medication.MedicineName}}</td>
-												<td>{{medication.Quantity}}</td>
-												<td>{{medication.Dosage}}</td>
+												<td>{{medication.Intake}}</td>
 												
 											</tr>
 										</tbody>
@@ -223,7 +198,7 @@ font-weight: bold;
             <!-- Requisition Modal -->
 
 
-	  			  <!-- Doctor Order Modal -->
+	  		<!-- Doctor Order Modal -->
 				<div class="modal fade" id="orderModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
 					<form class="form-horizontal">
 						<div class="modal-dialog">
@@ -489,24 +464,20 @@ font-weight: bold;
 									<table id="medication_table" class="table table-striped table-bordered" cellspacing="0" width="100%">
 										<thead>
 										<tr>
-	  										<th>Medication ID</th>
-											<th>Medicine ID</th>
-											<th>Date Administered</th>
-											<th>Time Administered</th>
+	  										<th>Patient Name</th>
+											<th>Date Time Administered</th>
+											<th>Room & Bed No</th>
 											<th>Medicine Name</th>
-											<th>Quantity</th>
-											<th>Dosage</th>
+											<th>Intake</th>
 										</tr>
 										</thead>
 										<tbody>
-										<tr ng-repeat="medication in medicationdetails" ng-class="{'selected': medication.ID == selectedRow}" ng-click="setClickedRow(medication.ID)">
-	  											<td>{{medication.MedicationID}}</td>
-												<td>{{medication.MedicineID}}</td>
-												<td>{{medication.DateAdministered}}</td>
-												<td>{{medication.TimeAdministered}}</td>
+										<tr ng-repeat="medication in medicationdetails">
+	  											<td>{{medication.pfullname}}</td>
+												<td>{{medication.DateAdministered}} {{medication.TimeAdministered}}</td>
+												<td>{{medication.bedid}}</td>
 												<td>{{medication.MedicineName}}</td>
-												<td>{{medication.Quantity}}</td>
-												<td>{{medication.Dosage}}</td>
+												<td>{{medication.Intake}}</td>
 												
 											</tr>
 										</tbody>
@@ -537,27 +508,24 @@ font-weight: bold;
 									<center><span><strong>Registry Information</strong></span></center>
 									<hr>
 									<table id="postmedication_table" class="table table-striped table-bordered" cellspacing="0" width="100%">
-										<thead>
+									<thead>
 										<tr>
-											<th>Medication ID</th>
-											<th>Medicine ID</th>
-											<th>Date Administered</th>
-											<th>Time Administered</th>
+	  										<th>Patient Name</th>
+											<th>Date Time Administered</th>
+											<th>Room & Bed No</th>
 											<th>Medicine Name</th>
-											<th>Quantity</th>
-											<th>Dosage</th>
+											<th>Intake</th>
 										</tr>
 										</thead>
 										<tbody>
-										<tr ng-repeat="medication in medicationdetails" ng-class="{'selected': medication.ID == selectedRow}" ng-click="setClickedRow(medication.ID)">
-												<td>{{medication.MedicationID}}</td>
-												<td>{{medication.MedicineID}}</td>
-												<td>{{medication.DateAdministered}}</td>
-												<td>{{medication.TimeAdministered}}</td>
+										<tr ng-repeat="medication in medicationdetails">
+	  											<td>{{medication.pfullname}}</td>
+												<td>{{medication.DateAdministered}} {{medication.TimeAdministered}}</td>
+												<td>{{medication.bedid}}</td>
 												<td>{{medication.MedicineName}}</td>
-												<td>{{medication.Quantity}}</td>
-												<td>{{medication.Dosage}}</td>
-										</tr>
+												<td>{{medication.Intake}}</td>
+												
+											</tr>
 										</tbody>
 									</table>
 								</div>
@@ -598,13 +566,40 @@ font-weight: bold;
             		
             			console.log(data.message);
 						console.log(data.message1);
+						console.log(data.medtimeline);
             			swal({
-            				icon: "success",
+            				icon: "warning",
             				title: data.message,
             				text: data.message1
             				}).then(function () {
             			});
-            
+
+						swal({
+							title: "Post Medication?",
+							text: data.message1,
+							icon: "warning",
+							buttons: true,
+							dangerMode: true,
+							})
+							.then((willDelete) => {
+							if (willDelete) {
+								swal({
+									icon: "success",
+									title: "Successfully Updated Medication!",
+									text: "Redirecting in 2..",
+									timer: 2000
+								}).then(function () {
+										window.location.href = 'updateData/update-patient-medication.php?at=' + $scope.at + '&medtimeline=' + data.medtimeline;
+									}, function (dismiss) {
+									if (dismiss === 'cancel') {
+										window.location.href = 'updateData/update-patient-medication.php?at=' + $scope.at + '&medtimeline=' + data.medtimeline;
+									}
+								});
+							} else {
+								swal("Oh oh!");
+							}
+						});
+										
             			$http({
             			method: 'get',
             			url: 'getData/get-order-details.php',
@@ -894,8 +889,7 @@ font-weight: bold;
 		}
 
 		$scope.viewMedicine = function(param){
-			$scope.medid = $scope.selectedRow;
-			window.location.href = 'view-medication-details.php?at=' + $scope.at + '&id=' + $scope.admissionid + '&medid=' + $scope.medid;
+			window.location.href = 'view-medication-details.php?at=' + $scope.at + '&id=' + $scope.admissionid;
 		}
 
 		$scope.medicineRequisition = function(){
@@ -963,7 +957,6 @@ font-weight: bold;
 
 		$scope.postMedicationConfirm = function(){
 			$scope.medicineid = $scope.selectedRow;
-
 			swal({
                 icon: "success",
                 title: "Medication Updated!",

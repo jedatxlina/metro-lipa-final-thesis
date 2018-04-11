@@ -174,6 +174,7 @@ var fetch = angular.module('myApp', ['ui.mask']);
             params: {at: $scope.at}
         }).then(function(response) {
             $scope.listhandled = response.data;
+            alert($scope.listhandled);
             angular.element(document).ready(function() {  
             dTable = $('#hadled_table')  
             dTable.DataTable();  

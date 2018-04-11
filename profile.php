@@ -48,6 +48,8 @@ else {
   <meta charset="UTF-8">
   <title>Welcome <?= $id?></title>
   <?php include 'css/css.html'; ?>
+
+  <script src="mlmc-views/components/angular.min.js"></script>
 </head>
 
 <body>
@@ -59,37 +61,37 @@ else {
           <h2><?php echo $id . '<br>' . '<p>Access Type:' . $user;?></h2>
           <p><?= $email ?></p>
           <div text-align="center" ng-show="accesstype != 3">
-                                    <h2>Floor <form method="post"></h2>
+                                    <!-- <h2>Floor <form method="post"></h2>
                                     <br>
-                                    <p>
+                                    <p> -->
                                     
-                                    <select name="selectfloor" />
-                                    <option value="3">3rd</option>
-                                    <option value="4">4th</option>
-                                    </select>
-                                    </p>
+                                    <!-- <select ng-model="selectfloor" />
+                                      <option value="3" selected>3rd</option>
+                                      <option value="3">3rd</option>
+                                      <option value="4">4th</option>
+                                    </select> -->
+                                    <!-- </p> -->
                                     </form>
           </div>
 
-          <a href="mlmc-views/index.php" id="dashboard"><button class="button button-block" name="logout"/>Continue</button></a>
-
+          <a ng-click="continue()"><button class="button button-block" name="logout"/>Continue</button></a>
+          <!-- id="dashboard" -->
     </div>
     
 <script src='https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js'></script>
 <script src="js/index.js"></script>
-<script>
-var id = "<?php echo $id ?>";
-document.getElementById('dashboard').setAttribute('href', 'mlmc-views/index.php?at=' + id);
-</script>
+
  <script>
-        var fetch = angular.module('myApp', ['ui.mask']);
+        var fetch = angular.module('myApp', []);
 
 
-        fetch.controller('userCtrl', ['$scope', '$http','$interval', function($scope, $http,$interval) {
-    
-                        
-                }
-
+        fetch.controller('userCtrl', ['$scope', '$http', function($scope,$http) {
+      
+          $scope.continue = function() {
+              var id = "<?php echo $id ?>";
+           
+              window.location.href = 'mlmc-views/index.php?at=' + id;
+          }
 
         }]);
     </script>

@@ -97,7 +97,7 @@
                             </div>
                             <div class="panel panel-danger">
                                     <div class="panel-heading">
-                                        <h2>Diagnosis</h2><a ng-click="viewMedicationReport()" class="pull-right"><i class="ti ti-printer"></i></a>
+                                        <h2>Diagnosis</h2><a ng-click="viewDiagnosisReport()" class="pull-right"><i class="ti ti-printer"></i></a>
                                         <div class="panel-ctrls"></div>
                                     </div>
                                         <div class="panel-body">
@@ -129,7 +129,7 @@
                                 </div>
                                 <div class="panel panel-danger">
                                     <div class="panel-heading">
-                                        <h2>Patient Medications</h2><a ng-click="viewMedicationReport()" class="pull-right"><i class="ti ti-printer"></i></a>
+                                        <h2>Patient Medications</h2><a ng-click="viewMedicationsReport()" class="pull-right"><i class="ti ti-printer"></i></a>
                                         <div class="panel-ctrls"></div>
                                     </div>
                                         <div class="panel-body">
@@ -169,7 +169,7 @@
                         <div class="tab-pane" id="tab-projects">
                                 <div class="panel panel-danger">
                                     <div class="panel-heading">
-                                        <h2>Medical History</h2><a ng-click="viewMedicationReport()" class="pull-right"><i class="ti ti-printer"></i></a>
+                                        <h2>Medical History</h2><a ng-click="viewHistoryReport()" class="pull-right"><i class="ti ti-printer"></i></a>
                                         <div class="panel-ctrls"></div>
                                     </div>
                                         <div class="panel-body">
@@ -181,7 +181,6 @@
                                                         <th>Admission ID</th>
                                                         <th>Admission Date</th>
                                                         <th>Admission Time</th>
-                                                        <th>Medical ID</th>
                                                     </tr>
                                                     </thead>
                                                     <tbody>
@@ -190,7 +189,6 @@
                                                         <td>{{history.ArchiveID}}</td>
                                                         <td>{{history.AdmissionDate}}</td>
                                                         <td>{{history.AdmissionTime}}</td>
-                                                         <td>{{history.MedicalID}}</td>
                                                         </tr>
                                                     </tbody>
                                                 </table>
@@ -516,12 +514,23 @@
                $scope.clickedRow = ($scope.selectedRow == null) ? 0 : 1;
            }
 
+            $scope.viewDiagnosisReport = function(){    
+           
+                $window.open('view-diagnosis-report.php?at='+$scope.at+'&id='+$scope.id, '_blank');
+             
+            }
+
            $scope.viewMedicationReport = function(){    
            
                 $window.open('view-medication-report.php?at='+$scope.at+'&id='+$scope.id, '_blank');
              
             }
            
+            $scope.viewHistoryReport = function(){    
+           
+                $window.open('view-history-report.php?at='+$scope.at+'&id='+$scope.id, '_blank');
+             
+            }
            
            $scope.saveDetails = function(patient){
                 $http({
