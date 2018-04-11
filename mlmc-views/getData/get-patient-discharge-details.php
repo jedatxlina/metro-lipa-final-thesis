@@ -14,6 +14,7 @@ while ($row = mysqli_fetch_assoc($sel)) {
         "middlename"=>$row['MiddleName'],
         "lastname"=>$row['LastName'],
         "billid"=>$row['BillID'],
+        "department"=>$row['Department'],
         "totalbill"=>$row['TotalBill'],
         "status"=>$row['Status']);
 }
