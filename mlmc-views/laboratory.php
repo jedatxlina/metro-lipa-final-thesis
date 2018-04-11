@@ -39,7 +39,7 @@
                             <tbody>
                                 <tr ng-repeat="lab in labs" ng-class="{'selected': lab.LaboratoryID == selectedRow}" ng-click="setClickedRow(lab.LaboratoryID,lab.Description,lab.Rate)">
                                     <td>{{lab.Description}}</td>
-                                    <td>{{lab.Rate}}</td>
+                                    <td>₱{{lab.Rate}}</td>
                                 </tr>
                             </tbody>
                         </table>
@@ -73,15 +73,19 @@
                                 <div class="form-group">
                                     <label>Description </label>
                                     <input type="text" ng-model="description" placeholder="XRAY - Chest" class="form-control" ng-keypress="filterValueCharacter($event)">
+                                    
+                                    <span style="color:red" ng-show="description == null && submitted">* Description is required!</span>
                                 </div>
                                 <div class="form-group">
                                     <label>Rate </label>
                                     <input type="text" ng-model="rate" placeholder="1000"  ng-keypress="filterValue($event)" class="form-control">
+                                    
+                                    <span style="color:red" ng-show="rate == null && submitted">* Rate is required!</span>
                                 </div>
       
                                 <div class="modal-footer">
                                     <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                                    <button ng-click='AddAncillary()' class="btn btn-primary">Confirm</button>
+                                    <button ng-click='AddAncillary(); submitted=true' class="btn btn-primary">Confirm</button>
                                 </div>
                             </form>
                         </div>
@@ -189,6 +193,12 @@
 
 
         $scope.AddAncillary = function() {
+            if ($scope.description == null || $scope.rate == null)
+            {
+
+            }
+            else
+            {
                 $scope.labid = "<?php echo rand(100000, 999999); ?>"
                 $http({
                     method: 'GET',
@@ -201,6 +211,7 @@
                 }).then(function(response) {
                     window.location.href = 'laboratory.php?at=' + $scope.at;
                 });
+            }
             }
 
             $scope.UpdateAncillary = function() {

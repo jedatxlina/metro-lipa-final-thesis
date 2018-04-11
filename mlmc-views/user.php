@@ -99,15 +99,17 @@
                                         <option value="7">Type 7 - Secretary Module</option>
                                         <option value="8">Type 8 - Laboratory Module</option>
                                     </select>
+                                    <span style="color:red" ng-show="accesstype == null && submitted"> * Access Type is required!</span>
                                 </div>
                             </div>
                             <div class="form-group">       
                                 <label>Password </label>
                                 <input type="text" ng-model="password" class="form-control" disabled>
                             </div>
-                            <div class="form-group" ng-class="{'has-error':submitted && Form.email.$error.required}">       
+                            <div class="form-group">       
                                 <label>Email </label>
-                                <input type="email" name="email" ng-model="email" placeholder="youremail@yahoo.com" class="form-control" >
+                                <input type="email" name="email" ng-model="email" placeholder="youremail@yahoo.com" class="form-control" required> 
+                                <span style="color:red" ng-show="email == null && submitted">* Email is required!</span>
                             </div>
                             
                             </div>
@@ -115,22 +117,23 @@
 
                             <div class="form-group">       
                                 <label>First Name </label>
-                                <input type="text" ng-model="fname" name="fname" placeholder="Juan" class="form-control"  required  ng-class="{'has-error':submitted && Form.fname.$error.required}">
-                                <p ng-show="submitted && Form.fname.$error.required" class="help-block">This field is required.</p>
+                                <input type="text" ng-model="fname" name="fname" placeholder="Juan" class="form-control"  required>
+                                <span style="color:red" ng-show="fname == null && submitted">* First Name is required!</span>
                             </div>
-                            <div class="form-group" ng-class="{'has-error':submitted && Form.mname.$error.required}">       
+                            <div class="form-group">       
                                 <label>Middle Name </label>
                                 <input type="text" name="mname" ng-model="mname" placeholder="Dela" class="form-control" required>
-                                <p ng-show="submitted && Form.mname.$error.required" class="help-block">This field is required.</p>
+                                <span style="color:red" ng-show="mname == null && submitted">* Middle Name is required!</span>
                             </div>
-                            <div class="form-group" ng-class="{'has-error':submitted && Form.lname.$error.required}">       
+                            <div class="form-group">       
                                 <label>Last Name </label>
                                 <input type="text" ng-model="lname" name="lname" placeholder="Cruz" class="form-control"  required>
-                                <p ng-show="submitted && Form.lname.$error.required" class="help-block">This field is required.</p>
+                                <span style="color:red" ng-show="lname == null && submitted">* Last Name is required!</span>
                             </div>
                             <div class="form-group" >       
                                 <label>Gender </label>
-                                <select ng-model="gender" class="form-control" required> 
+                                <select name="gender "ng-model="gender" class="form-control"> 
+                                    
                                     <option value="" selected disabled>Select Gender</option>
                                     <option value="Male">Male</option>
                                     <option value="Female">Female</option>

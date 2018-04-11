@@ -94,6 +94,7 @@ else {
           }
 
           
+<<<<<<< HEAD
           $http({
                 method: 'get',
                 url: 'getData/get-promo-details.php'
@@ -101,6 +102,9 @@ else {
                 $scope.users = response.data;
                 });
             });
+=======
+        
+>>>>>>> master
 
             
 

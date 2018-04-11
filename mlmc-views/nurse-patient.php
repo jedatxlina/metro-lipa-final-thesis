@@ -359,6 +359,7 @@ include 'admin-header.php' ?>
                             </div>
                         </form>
                     </div>
+<<<<<<< HEAD
 
                     <!-- View Medication Modal -->
                     <div class="modal fade" id="dischargeModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
@@ -713,6 +714,582 @@ include 'admin-header.php' ?>
                     params: {
                         id: $scope.at,
                         atype: $scope.accesstype
+=======
+				</div>
+					
+				<!-- Error modal -->
+				<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+					<div class="modal-dialog">
+						<div class="panel panel-danger" data-widget='{"draggable": "false"}'>
+							<div class="panel-heading">
+								<h2>Error:</h2>
+								<div class="panel-ctrls" data-actions-container="" data-action-collapse='{"target": ".panel-body, .panel-footer"}'></div>
+							</div>
+							<div class="panel-body" style="height: 60px">
+							Select Inpatient record that you would like to apply an <a href="#" class="alert-link">Action.</a>
+							</div>
+						</div>
+					</div>
+				</div>
+				<!--/ Error modal -->
+
+				<!-- Requisition Modal -->
+				<div class="modal fade" id="medicineRequisitionModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+					<form class="form-horizontal">
+						<div class="modal-dialog">
+							<div class="panel panel-danger" data-widget='{"draggable": "false"}'>
+								<div class="panel-heading">
+									<h2>Medicine Requisition</h2>
+									<div class="panel-ctrls" data-actions-container="" data-action-collapse='{"target": ".panel-body, .panel-footer"}'></div>
+								</div>
+								<div class="panel-body" style="height: 500px">
+									<center><span><strong>Physician Orders</strong></span></center>
+									<hr>
+									<table id="requisition_table" class="table table-striped table-bordered" cellspacing="0" width="100%">
+									<thead>
+										<tr>
+	  										<th>Patient Name</th>
+											<th>Date Time Administered</th>
+											<th>Room & Bed No</th>
+											<th>Medicine Name</th>
+											<th>Intake</th>
+										</tr>
+										</thead>
+										<tbody>
+										<tr ng-repeat="medication in medicationdetails">
+	  											<td>{{medication.pfullname}}</td>
+												<td>{{medication.DateAdministered}} {{medication.TimeAdministered}}</td>
+												<td>{{medication.bedid}}</td>
+												<td>{{medication.MedicineName}}</td>
+												<td>{{medication.Intake}}</td>
+												
+											</tr>
+										</tbody>
+									</table>
+								</div>
+								<div class="panel-footer">
+									<button type="button" ng-click="sendRequisition()" data-dismiss="modal" class="btn btn-danger pull-right">Request Medicine</button>
+									<button type="button" data-dismiss="modal" class="btn btn-default pull-right">Cancel</button>
+								</div>
+							</div>
+						</div>
+					</form>
+				</div>
+            <!-- Requisition Modal -->
+
+
+	  		<!-- Doctor Order Modal -->
+				<div class="modal fade" id="orderModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+					<form class="form-horizontal">
+						<div class="modal-dialog">
+							<div class="panel panel-danger" data-widget='{"draggable": "false"}'>
+								<div class="panel-heading">
+									<h2>Posted Physician Orders</h2>
+									<div class="panel-ctrls" data-actions-container="" data-action-collapse='{"target": ".panel-body, .panel-footer"}'></div>
+								</div>
+								<div class="panel-body" style="height: 500px">
+									<center><span><strong>Physician Orders</strong></span></center>
+									<hr>
+									<table id="orders_table" class="table table-striped table-bordered" cellspacing="0" width="100%">
+										<thead>
+											<tr>
+												<th>Order ID</th>
+												<th>Admission ID</th>
+												<th>Physician ID</th>
+												<th>Task</th>
+												<th>Status</th>
+											</tr>
+										</thead>
+										<tbody>
+											<tr ng-repeat="order in orders" ng-class="{'selected': order.OrderID == selectedRow}" ng-click="setClickedRow(order.OrderID,order.AdmissionID)">
+												<td>{{order.OrderID}}</td>
+												<td>{{order.AdmissionID}}</td>
+												<td>{{order.PhysicianID}}</td>
+												<td>{{order.Task}}</td>
+												<td>{{order.Status}}</td>
+
+											</tr>
+										</tbody>
+									</table>
+
+
+								</div>
+								<div class="panel-footer">
+									<button type="button" ng-click="viewOrderDetails()" class="btn btn-danger-alt pull-left">View Details</button>
+									<button type="button" ng-click="acceptOrder()" data-dismiss="modal" class="btn btn-danger pull-right">Accept</button>
+									<button type="button" data-dismiss="modal" class="btn btn-default pull-right">Cancel</button>
+								</div>
+							</div>
+						</div>
+					</form>
+				</div>
+            <!-- Doctor Order Modal -->
+
+			<!-- Patient Modal -->
+				<div class="modal fade" id="patientModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+					<form class="form-horizontal">
+						<div class="modal-dialog">
+							<div class="panel panel-danger" data-widget='{"draggable": "false"}'>
+								<div class="panel-heading">
+									<h2>Patient Details</h2>
+									<div class="panel-ctrls" data-actions-container="" data-action-collapse='{"target": ".panel-body, .panel-footer"}'></div>
+								</div>
+								<div class="panel-body" style="height: 550px" data-ng-repeat="patient in patientdetails">
+									<center><span><strong>Registry Information</strong></span></center>
+									<hr>
+									<div class="row">
+										<div class="form-group">
+											<label for="focusedinput" class="col-sm-3 control-label">Patient name</label>
+											<div class="col-sm-8">
+												<input type="text" class="form-control" ng-value="patient.Lastname + ', ' + patient.Firstname + ' ' + patient.Middlename"  disabled>
+											</div>
+										</div>
+									</div>
+									<div class="row">
+										<div class="form-group">
+											<label for="focusedinput" class="col-sm-3 control-label">Admission ID</label>
+											<div class="col-sm-5">
+												<input type="text" class="form-control" ng-value="patient.AdmissionID" disabled>
+											</div>
+										</div>
+									</div>
+									<div class="row">
+										<div class="form-group">
+											<label for="focusedinput" class="col-sm-3 control-label">Admission Date</label>
+											<div class="col-sm-5">
+												<input type="text" class="form-control"  ng-value="patient.AdmissionDate" disabled>
+											</div>
+										</div>
+									</div>
+									<div class="row">
+										<div class="form-group">
+											<label for="focusedinput" class="col-sm-3 control-label">Admission</label>
+											<div class="col-sm-5">
+												<input type="text" class="form-control" ng-value="patient.Admission" disabled>
+											</div>
+										</div>
+									</div>
+									<div class="row">
+										<div class="form-group">
+											<label for="focusedinput" class="col-sm-3 control-label">Admission Type</label>
+											<div class="col-sm-5">
+												<input type="text" class="form-control" ng-value="patient.AdmissionType" disabled>
+											</div>
+										</div>
+									</div>
+									<div class="row">
+										<div class="form-group">
+											<label for="focusedinput" class="col-sm-3 control-label">QR Code</label>
+											<div class="col-sm-5">
+											<center> <img ng-src="{{patient.QRpath}}">
+											</div>
+										</div>
+									</div>
+								
+								</div>
+								<div class="panel-footer">
+								<button type="button" ng-click="viewPatientDetails()" class="btn btn-danger-alt pull-left">View Details</button>
+								<button type="button" data-dismiss="modal" class="btn btn-danger pull-right">Ok</button>
+								</div>
+							</div>
+						</div>
+					</form>
+				</div>
+				
+	  			<!-- Patient Modal -->
+				<div class="modal fade" id="patientDietModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+					<form class="form-horizontal">
+						<div class="modal-dialog">
+							<div class="panel panel-danger" data-widget='{"draggable": "false"}'>
+								<div class="panel-heading">
+									<h2>Patient Diet</h2>
+									<div class="panel-ctrls" data-actions-container="" data-action-collapse='{"target": ".panel-body, .panel-footer"}'></div>
+								</div>
+								<div class="panel-body" style="height: auto" data-ng-repeat="patientdiet in patientdiets" >
+									<center><span><strong>Registry Information</strong></span></center>
+									<hr>
+									<div class="row">
+										<div class="form-group">
+											<label for="focusedinput" class="col-sm-3 control-label">Patient name</label>
+											<div class="col-sm-8">
+												<input type="text" class="form-control" ng-value="patientdiet.Fullname"  disabled>
+											</div>
+										</div>
+									</div>
+									<div class="row">
+										<div class="form-group">
+											<label for="focusedinput" class="col-sm-3 control-label">Diet</label>
+											<div class="col-sm-5">
+											<select class="form-control" ng-model="$parent.dietplan">
+                                                    <option value="" disabled>Select Diet Plan</option>
+													<option value="patientdiet.Diet" ng-init="$parent.dietplan = patientdiet.Diet" selected>{{patientdiet.Diet}}</option>
+                                                    <option ng-repeat="diet in diets" value="{{diet.DietOrder}}">{{diet.DietOrder}}</option>
+                                                </select>   
+											</div>
+										</div>
+									</div>
+								</div>
+									<div class="form-group">
+										<label for="focusedinput" class="col-sm-3 control-label">Diet Remarks</label>
+										<div class="col-sm-5" data-ng-repeat="patientdiet in patientdiets">
+											<input type="text" class="form-control" ng-model="$parent.dietremarks" ng-init="$parent.dietremarks=patientdiet.DietRemarks" >
+										</div>
+									</div>
+								<div class="panel-footer">
+								<button type="button" ng-click="updatePatientDiet()" class="btn btn-danger-alt pull-right">Update</button>
+								<button type="button" data-dismiss="modal" class="btn btn-default pull-right">Cancel</button>
+								</div>
+							</div>
+						</div>
+					</form>
+				</div>
+
+				<!-- Tag Discharge Patient Modal -->
+				<div class="modal fade" id="dischargeModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+					<form class="form-horizontal">
+						<div class="modal-dialog">
+							<div class="panel panel-danger" data-widget='{"draggable": "false"}'>
+								<div class="panel-heading">
+									<h2>Tag Patient</h2>
+									<div class="panel-ctrls" data-actions-container="" data-action-collapse='{"target": ".panel-body, .panel-footer"}'></div>
+								</div>
+								<div class="panel-body" style="height: auto" data-ng-repeat="details in dischargedetails">
+									<center><span><strong>Registry Information</strong></span></center>
+									<hr>
+									<div class="row">
+										<div class="form-group">
+											<label for="focusedinput" class="col-sm-3 control-label">Patient name</label>
+											<div class="col-sm-8">
+												<input type="text" class="form-control" ng-value="details.Firstname"  disabled>
+											</div>
+										</div>
+									</div>
+									<div class="row">
+										<div class="form-group">
+											<label for="focusedinput" class="col-sm-3 control-label">Status</label>
+											<div class="col-sm-5">
+												<input type="text" class="form-control" ng-value="details.Middlename"  disabled>
+											</div>
+										</div>
+									</div>
+								</div>
+
+								<div class="panel-footer">
+									<button type="button" ng-click="tagPatientDischarge()" class="btn btn-danger-alt pull-right">Tag</button>
+									<button type="button" data-dismiss="modal" class="btn btn-default pull-right">Cancel</button>
+								</div>
+							</div>
+						</div>
+					</form>
+				</div>
+
+				<div class="modal fade" id="flagModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+					<form class="form-horizontal">
+						<div class="modal-dialog">
+							<div class="panel panel-danger" data-widget='{"draggable": "false"}'>
+								<div class="panel-heading">
+									<h2>Newly Registered Inpatients</h2>
+									
+									<div class="panel-ctrls" data-actions-container="" data-action-collapse='{"target": ".panel-body, .panel-footer"}'></div>
+								</div>
+								<div class="panel-body" style="height: 500px">
+									<center><span><strong>Registry Information</strong></span></center>
+									<hr>
+									<table id="patient_table" class="table table-striped table-bordered" cellspacing="0" width="80%">
+										<thead>
+										<tr>
+											<th>Patients Name</th>
+											<th>Admission ID</th>
+											<th>Admission Date</th>
+											<th>Admission Time</th>
+											<th>Room</th>
+										</tr>
+										</thead>
+										<tbody>
+										<tr ng-repeat="patient in flagPatients" ng-class="{'selected': patient.AdmissionID == selectedRow}" ng-click="setClickedRow(patient.AdmissionID)">
+												<td>{{patient.Lname}}, {{patient.Fname}} {{patient.Mname}}</td>
+												<td>{{patient.AdmissionID}}</td>
+												<td>{{patient.AdmissionDate}}</td>
+												<td>{{patient.AdmissionTime}}</td>
+												<td>{{patient.BedID}}</td>
+											</tr>
+										</tbody>
+									</table>
+
+								
+								</div>
+								<div class="panel-footer">
+										<button type="button" class="btn btn-default pull-right" data-dismiss="modal">Close</button>
+										<button type="button" ng-click="confirmBtn()" class="btn btn-danger pull-right">Confirm</button>
+								</div>
+							</div>
+						</div>
+					</form>
+				</div>
+
+				<!-- View Medication Modal -->
+				<div class="modal fade" id="viewMedicationModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+					<form class="form-horizontal">
+						<div class="modal-dialog">
+							<div class="panel panel-danger" data-widget='{"draggable": "false"}'>
+								<div class="panel-heading">
+									<h2>Inpatient Medication</h2>	
+									<div class="panel-ctrls" data-actions-container="" data-action-collapse='{"target": ".panel-body, .panel-footer"}'></div>
+								</div>
+								<div class="panel-body" style="height: 500px">
+									<center><span><strong>Registry Information</strong></span></center>
+									<hr>
+									<table id="medication_table" class="table table-striped table-bordered" cellspacing="0" width="100%">
+										<thead>
+										<tr>
+	  										<th>Patient Name</th>
+											<th>Date Time Administered</th>
+											<th>Room & Bed No</th>
+											<th>Medicine Name</th>
+											<th>Intake</th>
+										</tr>
+										</thead>
+										<tbody>
+										<tr ng-repeat="medication in medicationdetails">
+	  											<td>{{medication.pfullname}}</td>
+												<td>{{medication.DateAdministered}} {{medication.TimeAdministered}}</td>
+												<td>{{medication.bedid}}</td>
+												<td>{{medication.MedicineName}}</td>
+												<td>{{medication.Intake}}</td>
+												
+											</tr>
+										</tbody>
+									</table>
+
+								
+								</div>
+								<div class="panel-footer">
+										<button type="button" ng-click="viewMedicine()" class="btn btn-default pull-left" data-dismiss="modal">View Details</button>
+										<button type="button" class="btn btn-danger-alt pull-right" data-dismiss="modal">Close</button>
+								</div>
+							</div>
+						</div>
+					</form>
+				</div>
+				<!-- View Medication Modal -->
+
+				<!-- Post Medication Modal -->
+				<div class="modal fade" id="postMedicationModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+					<form class="form-horizontal">
+						<div class="modal-dialog">
+							<div class="panel panel-danger" data-widget='{"draggable": "false"}'>
+								<div class="panel-heading">
+									<h2>Inpatient Post Medication</h2>	
+									<div class="panel-ctrls" data-actions-container="" data-action-collapse='{"target": ".panel-body, .panel-footer"}'></div>
+								</div>
+								<div class="panel-body" style="height: 500px">
+									<center><span><strong>Registry Information</strong></span></center>
+									<hr>
+									<table id="postmedication_table" class="table table-striped table-bordered" cellspacing="0" width="100%">
+									<thead>
+										<tr>
+	  										<th>Patient Name</th>
+											<th>Date Time Administered</th>
+											<th>Room & Bed No</th>
+											<th>Medicine Name</th>
+											<th>Intake</th>
+										</tr>
+										</thead>
+										<tbody>
+										<tr ng-repeat="medication in medicationdetails">
+	  											<td>{{medication.pfullname}}</td>
+												<td>{{medication.DateAdministered}} {{medication.TimeAdministered}}</td>
+												<td>{{medication.bedid}}</td>
+												<td>{{medication.MedicineName}}</td>
+												<td>{{medication.Intake}}</td>
+												
+											</tr>
+										</tbody>
+									</table>
+								</div>
+	  							<div ng-repeat="med in medicationdetails">
+	  								<input type="hidden" ng-model="$parent.medicationid" ng-init="$parent.medicationid = med.MedicationID">
+								</div>
+
+								<div class="panel-footer">
+										<button type="button" class="btn btn-default pull-right" data-dismiss="modal">Close</button>
+										<button type="button" ng-click="postMedicationConfirm()" class="btn btn-danger pull-right">Post Medication</button>
+								</div>
+							</div>
+						</div>
+					</form>
+				</div>
+				<!-- Post Medication Modal -->
+		</div>
+	</div>
+	
+<script>
+
+   var fetch = angular.module('myApp', []);
+  
+
+   fetch.controller('userCtrl', ['$scope', '$http','$interval', '$window' , function($scope, $http,$interval,$window) {   
+		$scope.at = "<?php echo $_GET['at'];?>";
+		$scope.selectedRow = null;
+		$scope.clickedRow = 0;
+		$scope.new = {};
+
+		var pusher = new Pusher('c23d5c3be92c6ab27b7a', {
+            		cluster: 'ap1',
+            		encrypted: true
+            	  	});
+              
+            		var channel = pusher.subscribe('my-channel-inpatient');
+            		channel.bind('my-event-inpatient', function(data) {
+            		
+            			console.log(data.message);
+						console.log(data.message1);
+						console.log(data.medtimeline);
+            			swal({
+            				icon: "warning",
+            				title: data.message,
+            				text: data.message1
+            				}).then(function () {
+            			});
+
+						swal({
+							title: "Post Medication?",
+							text: data.message1,
+							icon: "warning",
+							buttons: true,
+							dangerMode: true,
+							})
+							.then((willDelete) => {
+							if (willDelete) {
+								swal({
+									icon: "success",
+									title: "Successfully Updated Medication!",
+									text: "Redirecting in 2..",
+									timer: 2000
+								}).then(function () {
+										window.location.href = 'updateData/update-patient-medication.php?at=' + $scope.at + '&medtimeline=' + data.medtimeline;
+									}, function (dismiss) {
+									if (dismiss === 'cancel') {
+										window.location.href = 'updateData/update-patient-medication.php?at=' + $scope.at + '&medtimeline=' + data.medtimeline;
+									}
+								});
+							} else {
+								swal("Oh oh!");
+							}
+						});
+										
+            			$http({
+            			method: 'get',
+            			url: 'getData/get-order-details.php',
+            			params:{id:$scope.at}
+            			}).then(function(response) {
+            				$scope.orders = response.data;	
+            				angular.element(document).ready(function() {  
+            				dTable = $('#orders_table')  
+            				dTable.DataTable();  
+            				});  
+            			});
+            
+            	  	});
+
+					  $http({
+						method: 'GET',
+						url: 'getData/get-diet-plans.php'
+					}).then(function(response) {
+						$scope.diets = response.data;
+					});
+
+		var tick = function() {
+			$scope.clock = Date.now();
+			$scope.time = new Date().toLocaleTimeString('en-US', { hour: 'numeric', hour12: true, minute: 'numeric' });		
+			
+			$http({
+            	method: 'get',
+            	url: 'getData/get-order-details.php'
+            }).then(function(response) {
+            	$scope.order = response.data.length;	
+            });		
+
+			$http({
+            	method: 'get',
+            	url: 'getData/get-medication-notif.php'
+            }).then(function(response) {
+            	// $scope.order = response.data.length;
+            });	
+		}
+	
+		tick();
+		$interval(tick, 1000);
+
+
+		switch ($scope.at.charAt(0)) {
+			case '1':
+				$scope.User = "Administrator";
+				break;
+			
+			case '2':
+				$scope.User = "Admission Staff";
+				break;
+			
+			case '3':
+				$scope.User = "Nursing Staff";
+				break;
+			
+			case '4':
+				$scope.User = "Physician";
+				break;
+			
+			case '5':
+				$scope.User = "Pharmacy Staff";
+				break;
+
+			case '6':
+				$scope.User = "Billing Staff";
+				break;
+		
+			default:
+				break;
+		}
+
+       	// $http({
+        //    method: 'get',
+        //    url: 'getData/get-inpatient-details.php'
+       	// }).then(function(response) {
+		//  	$scope.users = response.data;
+		// 	angular.element(document).ready(function() {  
+		// 	dTable = $('#patient_table')  
+		// 	dTable.DataTable();  
+		// 	});  
+		// });
+	
+		$scope.accesstype = $scope.at[0];
+        $http({
+        	method: 'GET',
+            url: 'getData/get-user-profile.php',
+            params: {id: $scope.at,
+                	atype : $scope.accesstype}
+        }).then(function(response) {
+            $scope.userdetails = response.data;
+        });
+
+		$http({
+           method: 'get',
+           url: 'getData/get-all-inpatient-vitals.php'
+       	}).then(function(response) {
+		 	$scope.users = response.data;
+			angular.element(document).ready(function() {  
+			dTable = $('#patient_table')  
+			dTable.DataTable();  
+			});  
+		});
+
+		$scope.generatePatientDiet = function()
+		{
+                    if($scope.val == ''){
+                        $window.open('patient-diet.php?at='+$scope.at, '_blank');
+                    }else{
+                        $window.open('patient-diet.php?at='+$scope.at+'&searchparam='+$scope.val, '_blank');
+>>>>>>> master
                     }
                 }).then(function(response) {
                     $scope.userdetails = response.data;
