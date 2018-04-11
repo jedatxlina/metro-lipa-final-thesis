@@ -107,11 +107,11 @@
 						<a href="#" role="tab" data-toggle="tab" class="list-group-item active">Actions Panel</a>
                         <div ng-show="currentTab == 'medicine'">
 						<a href="#" ng-click="AddPharmaceutical()" role="tab" data-toggle="tab" class="list-group-item"><i class="fa fa-list-alt fa-fw"></i>Add Medicine</a>
-                        <a href="#" ng-click="EditPharmaceutical()"role="tab" data-toggle="tab" class="list-group-item"><i class="ti ti-info-alt"></i>Edit Medicine</a>
+                        <a href="#" ng-click="EditPharmaceutical()"role="tab" data-toggle="tab" class="list-group-item"><i class="ti ti-info-alt"></i>Edit Medicine Price</a>
                         </div>
                         <div ng-show="currentTab == 'supplies'">
 						<a href="#" ng-click="AddSupplies()" role="tab" data-toggle="tab" class="list-group-item"><i class="fa fa-list-alt fa-fw"></i>Add Supplies</a>
-                        <a href="#" ng-click="EditSupplies()"role="tab" data-toggle="tab" class="list-group-item"><i class="ti ti-info-alt"></i>Edit Supplies</a>
+                        <a href="#" ng-click="EditSupplies()"role="tab" data-toggle="tab" class="list-group-item"><i class="ti ti-info-alt"></i>Edit Supplies Price</a>
                         </div>
                 </div>
             </div>
@@ -127,7 +127,7 @@
                             <form>
                                 <div class="form-group">
                                     <label>Medicine Name </label>
-                                    <input type="text" ng-model="pharmaname" placeholder="Paracetamol" class="form-control" ng-keypress="filterValueCharacter($event)">
+                                    <input type="text" ng-model="pharmaname" placeholder="Paracetamol" class="form-control" >
                                 </div>
 
                                 
@@ -152,7 +152,7 @@
                                 </div>
                                 <div class="form-group">
                                     <label>Price </label>
-                                    <input type="text" ng-model="price" placeholder="100"  ng-keypress="filterValue($event)" class="form-control">
+                                    <input type="text" ng-model="price" placeholder="100"   class="form-control">
                                 </div>
                           
                                 <div class="modal-footer">
@@ -183,7 +183,7 @@
             <div class="modal-dialog">
             <div class="panel panel-danger" data-widget='{"draggable": "false"}'>
             <div class="panel-heading">
-                <h2>Edit Medicine</h2>
+                <h2>Edit Price</h2>
                 <div class="panel-ctrls" data-actions-container="" data-action-collapse='{"target": ".panel-body, .panel-footer"}'></div>
             </div>
             <div class="panel-body" style="height: auto">

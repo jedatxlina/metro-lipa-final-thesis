@@ -39,7 +39,7 @@
                             <tbody>
                                 <tr ng-repeat="lab in labs" ng-class="{'selected': lab.LaboratoryID == selectedRow}" ng-click="setClickedRow(lab.LaboratoryID,lab.Description,lab.Rate)">
                                     <td>{{lab.Description}}</td>
-                                    <td>{{lab.Rate}}</td>
+                                    <td>₱{{lab.Rate}}</td>
                                 </tr>
                             </tbody>
                         </table>
