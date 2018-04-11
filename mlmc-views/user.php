@@ -89,8 +89,8 @@
                                 <label>Access Type  </label>
                                 <div class="col-sm-13 select">
                                     <select ng-model="accesstype" class="form-control" ng-change="accessType()" required>
-                                        <option value="" disabled>Select</option>
-                                        <!-- <option value="1">Type 1 - All Priviliges</option> -->
+                                        <option value="" disabled selected>Select</option>
+                                         <option value="1">Type 1 - All Priviliges</option>
                                         <option value="2">Type 2 - Admission Module</option>
                                         <option value="3">Type 3 - Nurse Module</option>
                                         <option value="4">Type 4 - Doctor Module</option>
@@ -234,8 +234,8 @@
                             <label>Access Type </label>
                             <div class="col-sm-13 select">
                                 <select ng-model="$parent.acctype" ng-init="$parent.acctype=getaccount.AccessType" class="form-control" ng-change="accessType()" disabled>
-                                    <option value="">Select</option>
-                                    <!-- <option value="1">Type 1 - All Priviliges</option> -->
+                                    <option value="" disabled>Select</option>
+                                    <option value="1">Type 1 - All Priviliges</option> 
                                     <option value="2">Type 2 - Admission Module</option>
                                     <option value="3">Type 3 - Nurse Module</option>
                                     <option value="4">Type 4 - Doctor Module</option>
@@ -616,9 +616,9 @@
                 }
             }
 
-            $scope.setClickedRow = function(user) {
-                $scope.selectedRow = user;
-            }
+            // $scope.setClickedRow = function(user) {
+            //     $scope.selectedRow = user;
+            // }
    
             $scope.setClickedRow = function (index) {
                 $scope.selectedRow = ($scope.selectedRow == index) ? null : index;
