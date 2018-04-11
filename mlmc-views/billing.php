@@ -22,43 +22,81 @@ font-weight: bold;
 	<br>
 	<div data-widget-group="group1">
 			<div class="row">
-				<div class="col-md-9">
+			<div class="col-md-9">
 					<div class="panel panel-danger">
 						<div class="panel-heading">
-							<h2>List of Patients</h2>
+							<h2>Currently Admitted</h2><a ng-click="viewReport()" class="pull-right"><i class="ti ti-printer"></i></a>
 							<div class="panel-ctrls"></div>
 						</div>
 						<div class="panel-body">
-							<table id="patient_table" class="table table-striped table-bordered" cellspacing="0" width="100%">
-								<thead>
-								<tr>
-									<th>Admission ID</th>
-									<th>Admission No</th>
-									<th>Admission Date</th>
-									<th>Full name</th>
-									<th>Admission</th>
-									<th>Admission Type</th>
-									<th>Gender</th>
-									<th>Province</th>
-								</tr>
-								</thead>
-								<tbody>
-								<tr ng-repeat="user in users" ng-class="{'selected': user.AdmissionID == selectedRow}" ng-click="setClickedRow(user.AdmissionID)">
-                                        <td>{{user.AdmissionID}}</td>
-                                        <td>{{user.AdmissionNo}}</td>
-                                        <td>{{user.AdmissionDate}}</td>
-                                        <td>{{user.Lname}}, {{user.Fname}} {{user.Mname}} </td>
-                                        <td>{{user.Admission}}</td>
-                                        <td>{{user.AdmissionType}}</td>
-                                        <td>{{user.Gender}}</td>
-                                        <td>{{user.Province}}</td>
-                                    </tr>
-								</tbody>
-							</table>
+							<div class="tab-container tab-midnightblue">
+												<ul class="nav nav-tabs">
+													<li class="active"><a href="#home1" data-toggle="tab">Emergency</a></li>
+													<li><a href="#profile1" data-toggle="tab">Inpatient</a></li>
+												</ul>
+												<div class="tab-content">
+													<div class="tab-pane active" id="home1">
+														<table id="patient_table" class="table table-striped table-bordered" cellspacing="0" width="100%">
+															<thead>
+															<tr>
+																<th>Inpatient ID</th>
+																<th>Admission No</th>
+																<th>Admission Date</th>
+																<th>Admission Time</th>
+																<th>Full name</th>
+																<th>Admission</th>
+																<th>Admission Type</th>
+																<th>Gender</th>
+															</tr>
+															</thead>
+															<tbody>
+															<tr ng-repeat="user in users" ng-class="{'selected': user.AdmissionID == selectedRow}" ng-click="setClickedRow(user.AdmissionID)">
+																<td>{{user.AdmissionID}}</td>
+																<td>{{user.AdmissionNo}}</td>
+																<td>{{user.AdmissionDate}}</td>
+																<td>{{user.AdmissionTime}}</td>
+																<td>{{user.Lname}}, {{user.Fname}} {{user.Mname}} </td>
+																<td>{{user.Admission}}</td>
+																<td>{{user.AdmissionType}}</td>
+																<td>{{user.Gender}}</td>
+																</tr>
+															</tbody>
+														</table>
+													</div>
+													<a ng-click="viewReport()">Print Report &nbsp;<i class="ti ti-printer"></i></a>
+													<div class="tab-pane" id="profile1">
+													<table id="inpatient_table" class="table table-striped table-bordered" cellspacing="0" width="100%">
+														<thead>
+														<tr>
+														<th>Inpatient ID</th>
+																<th>Admission No</th>
+																<th>Admission Date</th>
+																<th>Admission Time</th>
+																<th>Full name</th>
+																<th>Admission</th>
+																<th>Admission Type</th>
+																<th>Gender</th>
+														</tr>
+														</thead>
+														<tbody>
+														<tr ng-repeat="patient in patients" ng-class="{'selected': patient.AdmissionNo == selectedRow}"  ng-click="setClickedRow(patient.AdmissionNo)">
+														<td>{{patient.AdmissionID}}</td>
+																<td>{{patient.AdmissionNo}}</td>
+																<td>{{patient.AdmissionDate}}</td>
+																<td>{{patient.AdmissionTime}}</td>
+																<td>{{patient.Lname}}, {{patient.Fname}} {{patient.Mname}} </td>
+																<td>{{patient.Admission}}</td>
+																<td>{{patient.AdmissionType}}</td>
+																<td>{{patient.Gender}}</td>
+															</tr>
+														</tbody>
+													</table>
+													</div>
+												</div>
+											</div>
+							</div>
 						</div>
-						<div class="panel-footer"></div>
 					</div>
-				</div>
 				<div class="col-md-3">
 				<div class="panel panel-danger widget-progress" data-widget='{"draggable": "false"}'>
                             <div class="panel-heading">
@@ -131,7 +169,7 @@ font-weight: bold;
 										<div class="form-group">
 											<label for="focusedinput" class="col-sm-3 control-label">Attending ID</label>
 											<div class="col-sm-8">
-												<input type="text" class="form-control" ng-value="att.AttID" ng-model="doctorid"  disabled> 
+												<input type="text" class="form-control" ng-value="att.AttID" ng-model="doctorid"  disabled>
 											</div>
 										</div>
 									</div>
@@ -176,27 +214,75 @@ font-weight: bold;
 												<table id="medication_table" class="table table-striped table-bordered" cellspacing="0" width="100%">
 													<thead>
 													<tr>
-														<th>Guarantor ID</th>
+														<th>ID</th>
 														<th>Guarantor Name</th>
-														<th>Doctor Specialization</th>
+														<th>Guarantor Control Number</th>
+														<th>Status</th>
 													</tr>
 													</thead>
 													<tbody>
-													<tr ng-repeat="doc in attendingdetails" ng-class="{'selected': doc.AttID == selectedRow}" ng-click="setClickedRow(doc.AttID)">
-															<td>{{doc.AttID}}</td>
-															<td>{{doc.FullName}}</td>
-															<td>{{doc.SP}}</td>
+													<tr ng-repeat="gua in guarantordetails" ng-class="{'selected': gua.AccountID == selectedRow}" ng-click="setClickedRow(gua.AccountID)">
+															<td>{{gua.AccountID}}</td>
+															<td>{{gua.Provider}}</td>
+															<td>{{gua.ContNo}}</td>
+															<td>{{gua.Status}}</td>
 														</tr>
 													</tbody>
 												</table>
 											</div>
 											<div class="panel-footer">
-													<button type="button" ng-click="postFees()" class="btn btn-default pull-left" data-dismiss="modal">Post Fees</button>
+													<button type="button" ng-click="updateDebit()" class="btn btn-default pull-left" data-dismiss="modal">Post Amount</button>
 													<button type="button" class="btn btn-danger-alt pull-right" data-dismiss="modal">Close</button>
 											</div>
 										</div>
 									</div>
 								</form>
+				</div>
+				<div class="modal fade" id="postAR2" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+				<form class="form-horizontal">
+						<div class="modal-dialog">
+							<div class="panel panel-danger" data-widget='{"draggable": "false"}'>
+								<div class="panel-heading">
+									<h2>Patient Details</h2>
+									<div class="panel-ctrls" data-actions-container="" data-action-collapse='{"target": ".panel-body, .panel-footer"}'></div>
+								</div>
+								<div class="panel-body" style="height: auto" data-ng-repeat="gua in guarantordetails2">
+									<center><span><strong>Guarantor Information</strong></span></center>
+									<hr>
+									<div class="row">
+										<div class="form-group">
+											<label for="focusedinput" class="col-sm-3 control-label">Provider Name</label>
+											<div class="col-sm-8">
+												<input type="text" class="form-control" ng-value="gua.Provider" ng-model="doctorid"  disabled> 
+											</div>
+										</div>
+									</div>
+									<div class="row">
+										<div class="form-group">
+											<label for="focusedinput" class="col-sm-3 control-label">Control Number</label>
+											<div class="col-sm-5">
+												<input type="text" class="form-control" ng-value="gua.ContNo" disabled>
+											</div>
+										</div>
+									</div>
+								</div>
+								<div>
+									<div class="row">
+										<div class="form-group">
+											<label for="focusedinput" class="col-sm-3 control-label">Debit Amount</label>
+											<div class="col-sm-5">
+												<input type="text" class="form-control" ng-model='debamount'>
+											</div>
+										</div>
+									</div>
+								</div>
+								<div class="panel-footer">
+								<button type="button" ng-click="updateDebit2()" class="btn btn-danger-alt pull-right">Ok</button>
+								<button type="button" data-dismiss="modal" class="btn btn-default-alt pull-right">Cancel</button>
+								</div>
+							</div>
+						</div>
+					</form>
 				</div>
 				<div class="modal fade" id="postdiscount2modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
 					<form class="form-horizontal">
@@ -509,11 +595,22 @@ font-weight: bold;
 
        	$http({
            method: 'get',
-           url: 'getData/get-inpatient-details.php'
+           url: 'getData/get-patient-detailsforbill.php'
        	}).then(function(response) {
 		 	$scope.users = response.data;
 			angular.element(document).ready(function() {  
 			dTable = $('#patient_table')  
+			dTable.DataTable();  
+			});  
+		});
+
+		$http({
+           method: 'get',
+           url: 'getData/get-inpatient-details.php'
+       	}).then(function(response) {
+		 	$scope.patients = response.data;
+			angular.element(document).ready(function() {  
+			dTable = $('#inpatient_table')  
 			dTable.DataTable();  
 			});  
 		});
@@ -719,14 +816,49 @@ font-weight: bold;
 				$scope.doctor = $scope.selectedRow;
 				$http({
 					method: 'get',
-					url: 'getData/get-attending-details2.php',
+					url: 'getData/get-guarantor-inpatient.php',
 					params: {id: $scope.doctor}
 				}).then(function(response) {
-					$scope.attendingdetails2 = response.data;
+					$scope.selectedRow = '';
+					$scope.guarantordetails = response.data;
 				});
 			}
 			else{
 			$('#errorModal').modal('show');
+			}
+		}
+
+		$scope.updateDebit = function(){
+			if($scope.selectedRow != null){
+				$('#postAR2').modal('show');
+				$scope.guaid = $scope.selectedRow;
+				$http({
+					method: 'get',
+					url: 'getData/get-guarantor-inpatient2.php',
+					params: {id: $scope.guaid}
+				}).then(function(response) {
+					$scope.guarantordetails2 = response.data;
+				});
+			}
+			else{
+			$('#errorModal').modal('show');
+			}
+		}
+
+		$scope.updateDebit2 = function(){
+			if($scope.selectedRow != null){
+				$scope.admissionid = $scope.selectedRow;
+				$http({
+					method: 'get',
+					url: 'updateData/update-guarantor-amount.php',
+					params: {id: $scope.selectedRow,
+							fee:$scope.debamount}
+				}).then(function(response) {
+					window.location.reload();
+				});
+			}
+			else{
+				$('#errorModal').modal('show');
 			}
 		}
 
