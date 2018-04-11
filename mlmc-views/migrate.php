@@ -93,6 +93,28 @@
 													<button type="button" ng-click="backupDatabase()" class="btn btn-danger pull-left">&nbsp;Backup</button>
 													</div>
 												</div>
+												<div class="form-group">
+													<div class="col-xs-4">Website Promotions<br><span class="text-muted"> </span></div>
+													<div class="col-xs-8">
+													<form action="upload-additional-promotion.php" method="post" enctype="multipart/form-data">
+														<input type="hidden" name="at" value="<?php if(isset($_GET['at'])) { echo $_GET['at']; } ?>">
+														<div class="fileinput fileinput-new" data-provides="fileinput">
+															<span class="btn btn-danger-alt pull-left btn-file">
+																<span class="fileinput-new">Upload a photo</span>
+																<span class="fileinput-exists">Change</span>
+																	<input type="file" name="photo"/>
+															</span>
+															<span class="fileinput-filename"></span>
+															<a href="#" class="close fileinput-exists" data-dismiss="fileinput" style="float: none">&times;</a>
+															<span class="fileinput-exists">
+																<br><br>
+															<input type="submit" value="Upload" class="btn btn-danger-alt pull-left">
+															</span>
+														</div>
+													</form>
+														
+													</div>
+												</div>
 											</div>
 											<br>
 											<div class="row">
@@ -193,6 +215,8 @@
 					</div>
            	 	</div>
 				<!-- Add HMO Provider -->
+
+			
 
                 </div><!-- col-sm-8 -->
             </div>
@@ -363,6 +387,12 @@
                         });
 				});	
 			}
+
+			// $scope.uploadPromo = function(){
+			// 	$('#addPromoModal').modal('show');	
+		
+			// }
+
 
 
 			$scope.getPage = function(check){

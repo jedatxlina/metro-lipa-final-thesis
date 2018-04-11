@@ -96,7 +96,7 @@ else {
           
           $http({
                 method: 'get',
-                url: 'getData/get-all-users.php'
+                url: 'getData/get-promo-details.php'
             }).then(function(response) {
                 $scope.users = response.data;
                 });
