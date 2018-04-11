@@ -94,13 +94,7 @@ else {
           }
 
           
-          $http({
-                method: 'get',
-                url: 'getData/get-all-users.php'
-            }).then(function(response) {
-                $scope.users = response.data;
-                });
-            });
+        
 
             
 
