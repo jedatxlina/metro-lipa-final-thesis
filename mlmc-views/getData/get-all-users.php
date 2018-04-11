@@ -122,6 +122,22 @@ while ($row = mysqli_fetch_array($sel)) {
         "Email"=>$row['Email']);
 }
 
+$sel = mysqli_query($conn,"SELECT *, CONCAT(Firstname, ' ' ,MiddleName, ' ', LastName) AS Fullname FROM admin");
+
+
+while ($row = mysqli_fetch_array($sel)) {
+    $data[] = array(
+        "AccountID"=>$row['AdminID'],
+        "Fullname"=>$row['Fullname'],
+        "LastName"=>$row['LastName'],
+        "FirstName"=>$row['FirstName'],
+        "Gender"=>$row['Gender'],
+        "MiddleName"=>$row['MiddleName'],
+        "Address"=>$row['Address'],
+        "Birthdate"=>$row['Birthdate'],
+        "AccessType"=>'Administrator',
+        "Email"=>$row['Email']);
+}
 echo json_encode($data);
 ?>
 

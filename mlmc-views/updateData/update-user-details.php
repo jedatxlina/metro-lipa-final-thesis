@@ -4,7 +4,7 @@ require_once 'connection.php';
 $account = isset($_GET['at']) ? $_GET['at'] : '';
 
 $accountid = $_GET['accountid'];
-$password = $con->escape_string(password_hash($_GET['password'], PASSWORD_BCRYPT));
+$password = $conn->escape_string(password_hash($_GET['password'], PASSWORD_BCRYPT));
 $email = $_GET['email'];
 
 $query= "UPDATE user_account SET AccountID = '$accountid' , AccessType = '$accountid[0]', Passwordd = '$password' , Email = '$email' WHERE AccountID = '$accountid'";
