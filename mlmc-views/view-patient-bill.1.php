@@ -213,26 +213,6 @@
                                             </div>
                                         </div>
                                     </div>
-
-                                    <div class="col-md-12">
-                                        <div class="row" style="border-top-left-radius: 0px; border-top-right-radius: 0px; border-bottom-right-radius: 0px; border-bottom-left-radius: 0px;">
-                                            <div class="col-md-3 col-md-offset-9">
-                                                <p class="text-right"><strong>SUB TOTAL:₱ {{ subtotal }}</strong></p>
-                                                <p class="text-right">DISCOUNT: **</p>
-                                                <!-- <p class="text-right">VAT: **</p> -->
-                                                <hr>
-                                                <h3 class="text-right text-danger" style="font-weight: bold;">₱ {{ subtotal }}</h3>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-
-                                <div class="row">
-                                    <div class="col-md-12">
-                                        <div class="pull-right">
-                                            <a href="#" class="btn btn-danger">Submit</a>
-                                        </div>
-                                    </div>
                                 </div>
                             </div>
                             <!-- .tab-content -->

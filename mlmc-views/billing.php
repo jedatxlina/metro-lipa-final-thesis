@@ -79,7 +79,7 @@ font-weight: bold;
 														</tr>
 														</thead>
 														<tbody>
-														<tr ng-repeat="patient in patients" ng-class="{'selected': patient.AdmissionNo == selectedRow}"  ng-click="setClickedRow(patient.AdmissionNo)">
+														<tr ng-repeat="patient in patients" ng-class="{'selected': patient.AdmissionID == selectedRow}"  ng-click="setClickedRow(patient.AdmissionID)">
 														<td>{{patient.AdmissionID}}</td>
 																<td>{{patient.AdmissionNo}}</td>
 																<td>{{patient.AdmissionDate}}</td>

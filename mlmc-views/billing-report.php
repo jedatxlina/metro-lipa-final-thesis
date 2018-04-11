@@ -266,10 +266,9 @@ while ($row = mysqli_fetch_array($sel4)) {
             </div>
         </div>
     </div>
-    <div style="A_CSS_ATTRIBUTE:all;position: absolute;bottom: 50px; left: 10px; ">
+    <div style="A_CSS_ATTRIBUTE:all;position: fixed;bottom: 50px; left: 10px; ">
     <b>-------------------------------------------------------------------------------------------------------------------------------</b>
     This is the discharge Stub Please Cut it and show the security on Your way Out. Thank You.
-    <br><br><br><br>
     </div>
 </div>';
 

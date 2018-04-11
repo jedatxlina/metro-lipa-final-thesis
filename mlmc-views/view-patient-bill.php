@@ -98,7 +98,6 @@
                                                 <ul class="text-left list-unstyled">
                                                     <li><strong>Patient ID:</strong>&emsp; {{patient.AdmissionID}}</li>
                                                     <li><strong>Admission No:</strong>&emsp; {{patient.AdmissionNo}}</li>
-                                                    <li><strong>Advance Payment:</strong> **</li>
                                                 </ul>
                                                 <br>
                                             </div>
@@ -154,10 +153,10 @@
                                         <div class="row" style="border-top-left-radius: 0px; border-top-right-radius: 0px; border-bottom-right-radius: 0px; border-bottom-left-radius: 0px;">
                                             <div class="col-md-3 col-md-offset-9">
                                                 <p class="text-right"><strong>SUB TOTAL:₱ {{ subtotal }}</strong></p>
-                                                <p class="text-right">DISCOUNT: {{discountamount}}</p>
+                                                <p class="text-right">DISCOUNT:₱ {{discountamount}}</p>
                                                 <!-- <p class="text-right">VAT: **</p> -->
                                                 <hr>
-                                                <h3 class="text-right text-danger" style="font-weight: bold;">₱ {{ subtotal }}</h3>
+                                                <h3 class="text-right text-danger" style="font-weight: bold;">₱ {{ subtotal2 }}</h3>
                                             </div>
                                         </div>
                                     </div>
@@ -360,7 +359,8 @@
                     total5 = total5 + parseFloat(product5);
                 }
                 $scope.discountamount = total5;
-                $scope.subtotal = ($scope.subtotalroom + $scope.subtotalemroom + $scope.subtotalmedi+$scope.subtotallab+$scope.subtotaldoc)-$scope.discountamount;
+                $scope.subtotal = $scope.subtotalroom + $scope.subtotalemroom + $scope.subtotalmedi+$scope.subtotallab+$scope.subtotaldoc;
+                $scope.subtotal2 = ($scope.subtotalroom + $scope.subtotalemroom + $scope.subtotalmedi+$scope.subtotallab+$scope.subtotaldoc)-$scope.discountamount;
                 $scope.subtotalroom = $scope.subtotalroom + $scope.subtotalemroom;
             });
             $http({
