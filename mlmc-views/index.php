@@ -19,7 +19,6 @@
                         <div class="tile-icon"><i class="ti ti-user"></i></div>
                         <div class="tile-heading"><span>EMERGENCY PATIENTS</span></div>
                         <div class="tile-body"><span>{{cnt.emergency}}</span></div>
-                        <div class="tile-footer"><span class="text-danger">-25.4%</span></div>
                     </div>
                 </div>
                 <div class="col-md-3">
@@ -27,7 +26,6 @@
                         <div class="tile-icon"><i class="ti ti-user"></i></div>
                         <div class="tile-heading"><span>OUTPATIENT PATIENTS</span></div>
                         <div class="tile-body"><span>{{cnt.outpatient}}</span></div>
-                        <div class="tile-footer"><span class="text-danger">-25.4%</span></div>
                     </div>
                 </div>
                 <div class="col-md-3">
@@ -35,7 +33,6 @@
                         <div class="tile-icon"><i class="ti ti-user"></i></div>
                         <div class="tile-heading"><span>INPATIENT PATIENTS</span></div>
                         <div class="tile-body"><span>{{cnt.inpatient}}</span></div>
-                        <div class="tile-footer"><span class="text-danger">-25.4%</span></div>
                     </div>
                 </div>
                 <div class="col-md-3">
@@ -43,7 +40,6 @@
                         <div class="tile-icon"><i class="ti ti-user"></i></div>
                         <div class="tile-heading"><span>MASTER LIST</span></div>
                         <div class="tile-body"><span>{{cnt.archive}}</span></div>
-                        <div class="tile-footer"><span class="text-danger">-25.4%</span></div>
                     </div>
                 </div>
 

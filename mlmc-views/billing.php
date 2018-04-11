@@ -11,9 +11,9 @@ font-weight: bold;
 </style>
 
 <ol class="breadcrumb">
-<li><a href="index.php">Home</a></li>
-<li><a href="index.php">Patients</a></li>
-<li class="active"><a href="emergency.php">Billing</a></li>
+<li><a href="#">Home</a></li>
+<li><a href="#">Patients</a></li>
+<li class="active"><a href="#">Billing</a></li>
 </ol>
 <br><br>
 <div class="container-fluid" ng-app="myApp" ng-controller="userCtrl">
@@ -141,7 +141,7 @@ font-weight: bold;
 								<div class="panel-ctrls" data-actions-container="" data-action-collapse='{"target": ".panel-body, .panel-footer"}'></div>
 							</div>
 							<div class="panel-body" style="height: 60px">
-							Select Emergency record that you would like to apply an <a href="#" class="alert-link">Action.</a>
+							Select Patient record that you would like to apply an <a href="#" class="alert-link">Action.</a>
 							</div>
 							<!-- <div class="panel-footer">
 								<span class="text-gray"><em>Footer</em></span>
@@ -994,6 +994,9 @@ font-weight: bold;
 								window.location.href = '../logout.php?at=' + $scope.at;
 								break;
 
+						case 'Others':
+                        	    window.location.href = 'migrate.php?at=' + $scope.at;
+                           		break;
                         default:
                             break;
                     }

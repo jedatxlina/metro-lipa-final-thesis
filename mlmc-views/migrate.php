@@ -87,6 +87,34 @@
                                                         </select>
 													</div>
 												</div>
+												<div class="form-group">
+													<div class="col-xs-4">Backup Database Remotely<br><span class="text-muted"> </span></div>
+													<div class="col-xs-8">
+													<button type="button" ng-click="backupDatabase()" class="btn btn-danger pull-left">&nbsp;Backup</button>
+													</div>
+												</div>
+												<div class="form-group">
+													<div class="col-xs-4">Website Promotions<br><span class="text-muted"> </span></div>
+													<div class="col-xs-8">
+													<form action="upload-additional-promotion.php" method="post" enctype="multipart/form-data">
+														<input type="hidden" name="at" value="<?php if(isset($_GET['at'])) { echo $_GET['at']; } ?>">
+														<div class="fileinput fileinput-new" data-provides="fileinput">
+															<span class="btn btn-danger-alt pull-left btn-file">
+																<span class="fileinput-new">Upload a photo</span>
+																<span class="fileinput-exists">Change</span>
+																	<input type="file" name="photo"/>
+															</span>
+															<span class="fileinput-filename"></span>
+															<a href="#" class="close fileinput-exists" data-dismiss="fileinput" style="float: none">&times;</a>
+															<span class="fileinput-exists">
+																<br><br>
+															<input type="submit" value="Upload" class="btn btn-danger-alt pull-left">
+															</span>
+														</div>
+													</form>
+														
+													</div>
+												</div>
 											</div>
 											<br>
 											<div class="row">
@@ -164,7 +192,7 @@
 								<div class="panel-ctrls" data-actions-container="" data-action-collapse='{"target": ".panel-body, .panel-footer"}'></div>
 							</div>
 							<div class="panel-body" style="height: auto">
-							<center><span><strong>New Accredited Provider</strong></span></center>
+									<center><span><strong>New Accredited Provider</strong></span></center>
 									<hr>
 									<div class="row">
 										<div class="form-group">
@@ -187,6 +215,8 @@
 					</div>
            	 	</div>
 				<!-- Add HMO Provider -->
+
+			
 
                 </div><!-- col-sm-8 -->
             </div>
@@ -320,6 +350,22 @@
 				$('#addHmoModal').modal('show');	
 			}
 			
+			$scope.backupDatabase = function(){
+				window.location.href = 'backup-database.php?at=' + $scope.at;
+				swal({
+                    icon: "success",
+                    title: "Successfully Changed!",
+                    text: "Redirecting in 2..",
+                    timer: 2000
+                }).then(function () {
+                    window.location.reload(false); 
+                    }, function (dismiss) {
+                    	if (dismiss === 'cancel') {
+                            window.location.reload(false); 
+                        }
+                });
+			}
+
 			$scope.insertHmo = function(){
 	
 				$http({
@@ -341,6 +387,12 @@
                         });
 				});	
 			}
+
+			// $scope.uploadPromo = function(){
+			// 	$('#addPromoModal').modal('show');	
+		
+			// }
+
 
 
 			$scope.getPage = function(check){

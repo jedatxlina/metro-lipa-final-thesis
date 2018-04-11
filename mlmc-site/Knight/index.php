@@ -5,9 +5,9 @@
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width, maximum-scale=1">
 
-	<title>Homepage</title>
+	<title>Metro Lipa Medical Center</title>
 	<link rel="icon" href="favicon.png" type="image/png">
-	<link rel="shortcut icon" href="favicon.ico" type="img/x-icon">
+	<link rel="shortcut icon" href="../img/metro-lipa/header-logo.png" type="img/x-icon">
 
 	<link href='https://fonts.googleapis.com/css?family=Montserrat:400,700' rel='stylesheet' type='text/css'>
 	<link href='https://fonts.googleapis.com/css?family=Open+Sans:400,300,800italic,700italic,600italic,400italic,300italic,800,700,600' rel='stylesheet' type='text/css'>
@@ -27,6 +27,7 @@
 	<script type="text/javascript" src="js/classie.js"></script>
 	<script src="contactform/contactform.js"></script>
 
+  	<script src="../../mlmc-views/components/angular.min.js"></script>
 	<!-- =======================================================
     Theme Name: Knight
     Theme URL: https://bootstrapmade.com/knight-free-bootstrap-theme/
@@ -36,12 +37,12 @@
 
 </head>
 
-<body>
+<body ng-app="myApp" ng-controller="userCtrl">
 	<header class="header" id="header">
 		<!--header-start-->
 		<div class="container">
 			<figure class="logo animated fadeInDown delay-07s">
-				<a href="#"><img src="img/logo.png" alt=""></a>
+				<a href="#"><img src="../img/metro-lipa/header-logo.png" alt=""></a>
 			</figure>
 			<h1 class="animated fadeInDown delay-07s">Welcome To Metro Lipa Medical Center</h1>
 			<ul class="we-create animated fadeInUp delay-1s">
@@ -57,11 +58,11 @@
 		<div class="container">
 			<ul class="main-nav">
 				<li><a href="#header">Home</a></li>
-				<li><a href="#service">Services</a></li>
-				<li><a href="#Portfolio">Portfolio</a></li>
+				<li><a href="#service">About Us</a></li>
+				<li><a href="#Portfolio">Promotions</a></li>
 				<li class="small-logo"><a href="#header"><img src="img/small-logo.png" alt=""></a></li>
-				<li><a href="#client">Clients</a></li>
-				<li><a href="#team">Team</a></li>
+				<li><a href="#client">Services</a></li>
+				<li><a href="#team">What they say</a></li>
 				<li><a href="#contact">Contact</a></li>
 			</ul>
 			<a class="res-nav_click" href="#"><i class="fa-bars"></i></a>
@@ -74,52 +75,22 @@
 	<section class="main-section" id="service">
 		<!--main-section-start-->
 		<div class="container">
-			<h2>Services</h2>
-			<h6>We offer exceptional service with complimentary hugs.</h6>
+			<h2>Our Story</h2>
+			<h6>About The Rise of Metro Lipa Medical Center.</h6>
 			<div class="row">
 				<div class="col-lg-4 col-sm-6 wow fadeInLeft delay-05s">
 					<div class="service-list">
 						<div class="service-list-col1">
-							<i class="fa-paw"></i>
+							<i class="fa-history"></i>
 						</div>
 						<div class="service-list-col2">
-							<h3>branding &amp; identity</h3>
-							<p>24 hrs. Xray​</p>
-							<p>24 hrs. Out Patient Pharmacy</p>
-							<p>24 hrs. Emergency Room​</p>
-							<p>24 hrs. Ambulatory Service</p>
-							<p>Industrial Clinic
-								Industrial Annual Physical Examination
-								On-Site Industrial Mobile Xray
-								On-Site Industrial Laboratory Extraction
-								Home Service​ (Lipa Area Only)</p>
-								​​​​
-								<p>Diagnostic ​Executive Package
-								Diagnostic Platinum Package​​​​​
-								Diagnostic Diamond Package</p>
-								
-								<p>Normal Spontaneous Delivery Package
-								Ceasarian Section Birthing Package</p>
-								
-								<p>Cataract Package (Philhealth)</p>
-								
-								<p>Mini Executive Package
-									 Liver Function Test
-									 Kidney Function Test
-									 Hypertension Package
-									 Diabetes Milletus 
-									 Pregnancy with Diabetes Mellitus
-									 Broncho Asthma Package​​​​​​​​​​​​​​
-								​Spirometry
-								Stress Test - Threadmill
-								2D Echocardiogram</p>
-								
-								</p>Ultrasound</p>
+							<h3>THE &amp; RISE</h3>
+							<p>In February of 2004 a group of 13 Doctors and business minded individuals have conceptualized the idea of putting up a hospital. The strategic location is in a 2,949 square meter lot along J.P. Laurel Highway, a main thorough fare in Lipa City.</p>
 						</div>
 					</div>
 				</div>
 				<figure class="col-lg-8 col-sm-6  text-right wow fadeInUp delay-02s">
-					<img src="img/macbook-pro.png" alt="">
+					<img src="../img/metro-lipa/Doctors.jpg" alt="">
 				</figure>
 
 			</div>
@@ -134,18 +105,18 @@
 		<div class="container">
 			<div class="row">
 				<figure class="col-lg-5 col-sm-4 wow fadeInLeft">
-					<img src="img/iphone.png" alt="">
+					<img src="../img/metro-lipa/Front.jpg" alt="">
 				</figure>
 				<div class="col-lg-7 col-sm-8 featured-work">
-					<h2>featured work</h2>
-					<P class="padding-b">Proin iaculis purus consequat sem cure digni ssim. Donec porttitora entum suscipit aenean rhoncus posuere odio in tincidunt. Proin iaculis purus consequat sem cure digni ssim. Donec porttitora entum suscipit.</P>
+					<h2>The Goal</h2>
+					<P class="padding-b">	Metro Lipa Medical Center is an undertaking of BONLOU INC., a firm formally organized and duly incorporated under the Philippine laws on July 14, 2004 in Lipa City, Batangas with the sole purpose of building a Medical Center which will cater the health Batangueños and nearby provinces. The hospital showcases the traditional features of a Medical Center equipped with all the advanced technologies and amenities to provide optimum health care services affordable to patients.</P>
 					<div class="featured-box">
 						<div class="featured-box-col1 wow fadeInRight delay-02s">
 							<i class="fa-magic"></i>
 						</div>
 						<div class="featured-box-col2 wow fadeInRight delay-02s">
-							<h3>magic of theme development</h3>
-							<p>Proin iaculis purus consequat sem cure digni ssim. Donec porttitora entum suscipit aenean rhoncus posuere odio in tincidunt. </p>
+							<h3>Our mission</h3>
+							<p>A leading medical center committed to excellent patient care, driven by God-fearing and competent personnel. </p>
 						</div>
 					</div>
 					<div class="featured-box">
@@ -153,8 +124,8 @@
 							<i class="fa-gift"></i>
 						</div>
 						<div class="featured-box-col2 wow fadeInRight delay-04s">
-							<h3>neatly packaged</h3>
-							<p>Proin iaculis purus consequat sem cure digni ssim. Donec porttitora entum suscipit aenean rhoncus posuere odio in tincidunt. </p>
+							<h3>Our Vision</h3>
+							<p>We will be the Center of Global Expertise in caring for the unique needs of our patients and the communities we serve. </p>
 						</div>
 					</div>
 					<div class="featured-box">
@@ -162,8 +133,8 @@
 							<i class="fa-dashboard"></i>
 						</div>
 						<div class="featured-box-col2 wow fadeInRight delay-06s">
-							<h3>SEO optimized</h3>
-							<p>Proin iaculis purus consequat sem cure digni ssim. Donec porttitora entum suscipit aenean rhoncus posuere odio in tincidunt. </p>
+							<h3>Core Values</h3>
+							<p>Integrity,Teamwork,Excellence,Malasakit,Servant Leadership  </p>
 						</div>
 					</div>
 					<a class="Learn-More" href="#">Learn More</a>
@@ -178,51 +149,28 @@
 	<section class="main-section paddind" id="Portfolio">
 		<!--main-section-start-->
 		<div class="container">
-			<h2>Portfolio</h2>
-			<h6>Fresh portfolio of designs that will keep you wanting more.</h6>
+			<h2>Promotions</h2>
+			<h6>Fresh from the box promotions just for you.</h6>
 			<div class="portfolioFilter">
 				<ul class="Portfolio-nav wow fadeIn delay-02s">
 					<li><a href="#" data-filter="*" class="current">All</a></li>
-					<li><a href="#" data-filter=".branding">Branding</a></li>
-					<li><a href="#" data-filter=".webdesign">Web design</a></li>
-					<li><a href="#" data-filter=".printdesign">Print design</a></li>
-					<li><a href="#" data-filter=".photography">Photography</a></li>
+					<li><a href="#" data-filter=".latest">Latest</a></li>
+					<li><a href="#" data-filter=".past">Last Month</a></li>
 				</ul>
 			</div>
 
 		</div>
-		<div class="portfolioContainer wow fadeInUp delay-04s">
-			<div class=" Portfolio-box printdesign">
-				<a href="#"><img src="img/Portfolio-pic1.jpg" alt=""></a>
-				<h3>Foto Album</h3>
-				<p>Print Design</p>
+	
+			<div class="portfolioContainer wow fadeInUp delay-04s">
+				<div data-ng-repeat="details in photos">
+					<div class="Portfolio-box latest">
+						<a href="#"><img src="{{details.pathPhoto}}" alt=""></a>
+						<h3>{{details.PhotoTitle}}</h3>
+						<p>{{details.PhotoDesc}}</p>
+					</div>
+				</div>
 			</div>
-			<div class="Portfolio-box webdesign">
-				<a href="#"><img src="img/Portfolio-pic2.jpg" alt=""></a>
-				<h3>Luca Theme</h3>
-				<p>Web Design</p>
-			</div>
-			<div class=" Portfolio-box branding">
-				<a href="#"><img src="img/Portfolio-pic3.jpg" alt=""></a>
-				<h3>Uni Sans</h3>
-				<p>Branding</p>
-			</div>
-			<div class=" Portfolio-box photography">
-				<a href="#"><img src="img/Portfolio-pic4.jpg" alt=""></a>
-				<h3>Vinyl Record</h3>
-				<p>Photography</p>
-			</div>
-			<div class=" Portfolio-box branding">
-				<a href="#"><img src="img/Portfolio-pic5.jpg" alt=""></a>
-				<h3>Hipster</h3>
-				<p>Branding</p>
-			</div>
-			<div class=" Portfolio-box photography">
-				<a href="#"><img src="img/Portfolio-pic6.jpg" alt=""></a>
-				<h3>Windmills</h3>
-				<p>Photography</p>
-			</div>
-		</div>
+	
 	</section>
 	<!--main-section-end-->
 
@@ -341,7 +289,7 @@
 					</div>
 					<div class="contact-info-box email clearfix">
 						<h3><i class="fa-pencil"></i>email:</h3>
-						<span>metrolipamedicalcenter@yahoo.com</span>
+						<span>themetrolipa@gmail.com</span>
 					</div>
 					<div class="contact-info-box hours clearfix">
 						<h3><i class="fa-clock-o"></i>Hours:</h3>
@@ -396,7 +344,22 @@
 			</div>
 		</div>
 	</footer>
+	<script>
+        var fetch = angular.module('myApp', []);
 
+
+        fetch.controller('userCtrl', ['$scope', '$http', '$window', '$interval', function($scope, $http, $window, $interval) {
+     
+
+            $http({
+                method: 'get',
+                url: 'getPromo/get-promo-photos.php'
+            }).then(function(response) {
+                $scope.photos = response.data;
+            });
+
+        }]);
+    </script>
 
 	<script type="text/javascript">
 		$(document).ready(function(e) {

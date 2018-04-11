@@ -34,15 +34,7 @@ font-weight: bold;
 												<ul class="nav nav-tabs">
 													<li class="active"><a href="#home1" data-toggle="tab"> Inpatient</a></li>
 													<li><a href="#profile1" data-toggle="tab">Nursery</a></li>
-													<li class="dropdown">
-														<a class="dropdown-toggle" data-toggle="dropdown" href="#">Dropdown<span class="caret"></span></a>
-														<ul class="dropdown-menu">
-															<li><a href="#">Something</a></li>
-															<li><a href="#">Something Else</a></li>
-															<li class="divider"></li>
-															<li><a href="#">And one more thing</a></li>
-														</ul>
-													</li>
+													
 												
 												</ul>
 												<div class="tab-content">
@@ -638,6 +630,10 @@ font-weight: bold;
 						
 				case 'Logout':
                         window.location.href = '../logout.php?at=' + $scope.at;
+                        break;
+						
+				case 'Others':
+                        window.location.href = 'migrate.php?at=' + $scope.at;
                         break;
 
 				default:

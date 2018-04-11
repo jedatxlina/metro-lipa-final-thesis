@@ -12,7 +12,7 @@
 
 <ol class="breadcrumb">
 <li><a href="#">Home</a></li>
-<li class="active"><a href="#">Pharmacy</a></li>
+<li class="active"><a href="#">Medicine & Supplies</a></li>
 </ol>
 
 <br><br>
@@ -27,12 +27,13 @@
             <div class="col-md-9">
                 <div class="panel panel-danger">
                     <div class="panel-heading">
-                        <h2>Pharmacy Department: Medicines & Supplies</h2><a ng-click="ListOfMedicine()"> <i class="ti ti-printer pull-right"></i></a> 
-                        <div class="panel-ctrls"></div>
+                        <h2>Medicines & Supplies</h2>
+                        <div class="panel-ctrls"></div><a ng-click="ListOfMedicine()"> <i class="ti ti-printer pull-right"></i></a> 
                     </div>
-                    <div class="tab-container tab-midnightblue">
+                    <div class="tab-container tab-midnightblue" >
 												<ul class="nav nav-tabs">
 													<li class="active"><a href="#tab1" data-toggle="tab" ng-click="changeAP()"> Medicines</a></li>
+                                                    
 													<li><a href="#tab2" data-toggle="tab" ng-click="changeAPS()">Supplies</a></li>
 												</ul>
                     <div class="tab-content">
@@ -106,11 +107,11 @@
 						<a href="#" role="tab" data-toggle="tab" class="list-group-item active">Actions Panel</a>
                         <div ng-show="currentTab == 'medicine'">
 						<a href="#" ng-click="AddPharmaceutical()" role="tab" data-toggle="tab" class="list-group-item"><i class="fa fa-list-alt fa-fw"></i>Add Medicine</a>
-                        <a href="#" ng-click="EditPharmaceutical()"role="tab" data-toggle="tab" class="list-group-item"><i class="ti ti-info-alt"></i>Edit Medicine</a>
+                        <a href="#" ng-click="EditPharmaceutical()"role="tab" data-toggle="tab" class="list-group-item"><i class="ti ti-info-alt"></i>Edit Medicine Price</a>
                         </div>
                         <div ng-show="currentTab == 'supplies'">
 						<a href="#" ng-click="AddSupplies()" role="tab" data-toggle="tab" class="list-group-item"><i class="fa fa-list-alt fa-fw"></i>Add Supplies</a>
-                        <a href="#" ng-click="EditSupplies()"role="tab" data-toggle="tab" class="list-group-item"><i class="ti ti-info-alt"></i>Edit Supplies</a>
+                        <a href="#" ng-click="EditSupplies()"role="tab" data-toggle="tab" class="list-group-item"><i class="ti ti-info-alt"></i>Edit Supplies Price</a>
                         </div>
                 </div>
             </div>
@@ -126,7 +127,9 @@
                             <form>
                                 <div class="form-group">
                                     <label>Medicine Name </label>
-                                    <input type="text" ng-model="pharmaname" placeholder="Paracetamol" class="form-control" ng-keypress="filterValueCharacter($event)">
+                                    <input type="text" name="pharmaname" ng-model="pharmaname" placeholder="Paracetamol" class="form-control">
+                                    
+                                    <span style="color:red" ng-show="pharmaname == null && submitted">* Medicine Name is required!</span>
                                 </div>
 
                                 
@@ -135,6 +138,7 @@
                                         <div class="row">
                                  <div class="col-md-9">
                                         <input type="text" ng-model="unit" placeholder="100" class="form-control"  style="width:480px" ng-disabled="measurement == null ">
+                                        <span style="color:red" ng-show="unit == null && submitted">* Medicine Unit is required!</span>
                                         </div>
                                         <div class="col-md-3">
                                         <select ng-model="measurement" class="form-control" style="width:130px">
@@ -151,12 +155,13 @@
                                 </div>
                                 <div class="form-group">
                                     <label>Price </label>
-                                    <input type="text" ng-model="price" placeholder="100"  ng-keypress="filterValue($event)" class="form-control">
+                                    <input type="text" ng-model="price" placeholder="100"   class="form-control">
+                                    <span style="color:red" ng-show="price == null && submitted">* Medicine Price is required!</span>
                                 </div>
                           
                                 <div class="modal-footer">
                                     <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                                    <button ng-click='Add()' class="btn btn-primary">Confirm</button>
+                                    <button ng-click='Add();submitted=true' class="btn btn-primary">Confirm</button>
                                 </div>
                             </form>
                         </div>
@@ -182,7 +187,7 @@
             <div class="modal-dialog">
             <div class="panel panel-danger" data-widget='{"draggable": "false"}'>
             <div class="panel-heading">
-                <h2>Edit Medicine</h2>
+                <h2>Edit Price</h2>
                 <div class="panel-ctrls" data-actions-container="" data-action-collapse='{"target": ".panel-body, .panel-footer"}'></div>
             </div>
             <div class="panel-body" style="height: auto">
@@ -199,11 +204,13 @@
                   <div class="form-group">       
                      <label>Price </label>
                      <input type="text" ng-model="$parent.PPrice" ng-init="$parent.PPrice=ep.Price" class="form-control" ng-keypress="filterValue($event)">
+                     
+                     <span style="color:red" ng-show="PPrice == null && submitted">* Medicine Price is required!</span>
                   </div>
                  
                      <div class="modal-footer">
                         <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                        <button ng-click='Update()' class="btn btn-primary">Confirm</button>
+                        <button ng-click='Update(); submitted=true' class="btn btn-primary">Confirm</button>
                      </div>
                      </div>
                   </form>
@@ -222,16 +229,20 @@
                             <form>
                                 <div class="form-group">
                                     <label>Supplies Name </label>
-                                    <input type="text" ng-model="suppliesname" placeholder="Syringes" class="form-control" ng-keypress="filterValueCharacter($event)">
+                                    <input type="text" ng-model="suppliesname" placeholder="Syringes" class="form-control">
+                                    
+                                    <span style="color:red" ng-show="suppliesname == null && submitted">* Supplies Name is required!</span>
                                 </div>
                                 <div class="form-group">
                                     <label>Price </label>
                                     <input type="text" ng-model="supprice" placeholder="10"  ng-keypress="filterValue($event)" class="form-control">
+                                    
+                                    <span style="color:red" ng-show="supprice == null && submitted">* Supplies Price is required!</span>
                                 </div>
       
                                 <div class="modal-footer">
                                     <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                                    <button ng-click='AddSupp()' class="btn btn-primary">Confirm</button>
+                                    <button ng-click='AddSupp(); submitted=true' class="btn btn-primary">Confirm</button>
                                 </div>
                             </form>
                         </div>
@@ -414,6 +425,12 @@
             }
 
             $scope.Add = function() {
+                if ($scope.pharmaname == null || $scope.unit == null || $scope.measurement == null || $scope.price == null)
+                {
+
+                }
+                else
+                {
                 $scope.pharmaid = "<?php echo rand(100000, 999999); ?>"
                 $scope.unit = $scope.unit + '' +  $scope.measurement;
                 $http({
@@ -430,6 +447,7 @@
                 }).then(function(response) {
                     window.location.href = 'pharmacy.php?at=' + $scope.at;
                 });
+                }
             }
 
             $scope.Update = function() {
@@ -520,6 +538,12 @@
             }
 
             $scope.AddSupp = function() {
+                if ($scope.suppliesname == null || $scope.supprice == null)
+                {
+
+                }
+                else
+                {
                 $scope.supplyid = "<?php echo rand(100000, 999999); ?>"
                 $http({
                     method: 'GET',
@@ -532,6 +556,7 @@
                 }).then(function(response) {
                     window.location.href = 'pharmacy.php?at=' + $scope.at;
                 });
+                }
             }
 
             $scope.UpdateSupplies = function() {
@@ -624,7 +649,10 @@
                     case 'Logout':
                             window.location.href = '../logout.php?at=' + $scope.at;
                             break;
-                    
+                            
+                    case 'Others':
+                            window.location.href = 'migrate.php?at=' + $scope.at;
+                            break;
                     default:
                         break;
                 }
