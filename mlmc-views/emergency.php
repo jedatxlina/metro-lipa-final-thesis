@@ -998,6 +998,10 @@ font-weight: bold;
                             window.location.href = '../logout.php?at=' + $scope.at;
                             break;
 				
+				case 'Others':
+                            window.location.href = 'migrate.php?at=' + $scope.at;
+                            break;
+
 				default:
 					break;
 			}
