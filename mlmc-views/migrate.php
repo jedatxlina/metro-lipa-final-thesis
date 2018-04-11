@@ -87,6 +87,12 @@
                                                         </select>
 													</div>
 												</div>
+												<div class="form-group">
+													<div class="col-xs-4">Backup Database Remotely<br><span class="text-muted"> </span></div>
+													<div class="col-xs-8">
+													<button type="button" ng-click="backupDatabase()" class="btn btn-danger pull-left">&nbsp;Backup</button>
+													</div>
+												</div>
 											</div>
 											<br>
 											<div class="row">
@@ -164,7 +170,7 @@
 								<div class="panel-ctrls" data-actions-container="" data-action-collapse='{"target": ".panel-body, .panel-footer"}'></div>
 							</div>
 							<div class="panel-body" style="height: auto">
-							<center><span><strong>New Accredited Provider</strong></span></center>
+									<center><span><strong>New Accredited Provider</strong></span></center>
 									<hr>
 									<div class="row">
 										<div class="form-group">
@@ -320,6 +326,22 @@
 				$('#addHmoModal').modal('show');	
 			}
 			
+			$scope.backupDatabase = function(){
+				window.location.href = 'backup-database.php?at=' + $scope.at;
+				swal({
+                    icon: "success",
+                    title: "Successfully Changed!",
+                    text: "Redirecting in 2..",
+                    timer: 2000
+                }).then(function () {
+                    window.location.reload(false); 
+                    }, function (dismiss) {
+                    	if (dismiss === 'cancel') {
+                            window.location.reload(false); 
+                        }
+                });
+			}
+
 			$scope.insertHmo = function(){
 	
 				$http({
