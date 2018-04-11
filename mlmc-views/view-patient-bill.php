@@ -167,7 +167,7 @@
                                 <div class="row">
                                     <div class="col-md-12">
                                         <div class="pull-right">
-                                            <a href="#" class="btn btn-danger">Submit</a>
+                                            <a href="#" ng-click="postBilling()" class="btn btn-danger">Process Bill</a>
                                         </div>
                                     </div>
                                 </div>
@@ -435,6 +435,19 @@
 
             $scope.viewReport = function() {
                 $window.open('billing-report.php?at=' + $scope.at + '&id=' + $scope.id, '_blank');
+            }
+
+            $scope.postBilling = function() {
+                $http({
+                    method: 'get',
+                    url: 'insertData/insert-data-billing.php',
+                    params: {
+                        id: $scope.id,
+                        total: $scope.subtotal2
+                    }
+                }).then(function(response) {
+                    window.location.href='billing.php?at=' + $scope.at;
+                });
             }
             
             $scope.notifyPatient = function(){
