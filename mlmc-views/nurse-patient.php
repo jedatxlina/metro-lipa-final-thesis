@@ -342,22 +342,20 @@ font-weight: bold;
 											<div class="col-sm-5">
 											<select class="form-control" ng-model="$parent.dietplan">
                                                     <option value="" disabled>Select Diet Plan</option>
-													<option value="patientdiet.Diet" selected>{{patientdiet.Diet}}</option>
-                                                    <option ng-repeat="diet in diets" value="{{diet.DietOrder}}" ng-init="$parent.dietplan = diet.DietOrder">{{diet.DietOrder}}</option>
+													<option value="patientdiet.Diet" ng-init="$parent.dietplan = patientdiet.Diet" selected>{{patientdiet.Diet}}</option>
+                                                    <option ng-repeat="diet in diets" value="{{diet.DietOrder}}">{{diet.DietOrder}}</option>
                                                 </select>   
 											</div>
 										</div>
 									</div>
-									<div class="row">
-										<div class="form-group">
-											<label for="focusedinput" class="col-sm-3 control-label">Diet Remarks</label>
-											<div class="col-sm-5">
-												<input type="text" class="form-control"  ng-value="patientdiet.DietRemarks" >
-											</div>
+								</div>
+								<div class="row">
+									<div class="form-group">
+										<label for="focusedinput" class="col-sm-3 control-label">Diet Remarks</label>
+										<div class="col-sm-5">
+											<input type="text" class="form-control" ng-model="dietremarks">
 										</div>
 									</div>
-
-								
 								</div>
 								<div class="panel-footer">
 								<button type="button" ng-click="updatePatientDiet()" class="btn btn-danger-alt pull-right">Update</button>
@@ -973,6 +971,17 @@ font-weight: bold;
             });
 
 			
+		}
+		$scope.updatePatientDiet = function(){
+			$http({
+					method: 'get',
+					url: 'updateData/update-patient-diet.php',
+					params: {id: $scope.selectedRow,
+					diet: $scope.dietplan,
+					remarks: $scope.dietremarks }
+				}).then(function(response) {
+					window.location.reload();
+				});
 		}
 
 		$scope.viewOrder = function(){

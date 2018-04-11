@@ -19,42 +19,116 @@
 <br><br>
 <div class="container-fluid" ng-app="myApp" ng-controller="userCtrl">
 
-    <div class="row">
-
-    </div>
     <br>
     <div data-widget-group="group1">
         <div class="row">
-            <div class="col-md-11">
+            <div class="col-md-9">
                 <div class="panel panel-danger">
                     <div class="panel-heading">
-                        <h2>MEDICAL LABORATORY</h2>
+                        <h2>ANCILLARY SERVICES</h2>
                         <div class="panel-ctrls"></div>
                     </div>
                     <div class="panel-body">
                         <table id="table_info" class="table table-striped table-bordered" cellspacing="0" width="100%">
                             <thead>
                                 <tr>
-                                    <th>Laboratory ID</th>
                                     <th>Description</th>
                                     <th>Rate</th>
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr ng-repeat="lab in labs" ng-class="{'selected': lab.LaboratoryID == selectedRow}" ng-click="setClickedRow(lab.LaboratoryID)">
-                                    <td>{{lab.LaboratoryID}}</td>
+                                <tr ng-repeat="lab in labs" ng-class="{'selected': lab.LaboratoryID == selectedRow}" ng-click="setClickedRow(lab.LaboratoryID,lab.Description,lab.Rate)">
                                     <td>{{lab.Description}}</td>
                                     <td>{{lab.Rate}}</td>
                                 </tr>
                             </tbody>
                         </table>
                     </div>
-                    <div class="col-md-11">
+                   
+                    <div class="panel-footer">
+					
+                </div>
+                
+                </div>
+              
+        </div>
+        <div class="col-md-3">
+                    
+                    <div class="list-group list-group-alternate mb-n nav nav-tabs">
+                    <a href="#" role="tab" data-toggle="tab" class="list-group-item active">Actions Panel</a>
+						<a href="#" ng-click="AddAncil()" role="tab" data-toggle="tab" class="list-group-item"><i class="fa fa-list-alt fa-fw"></i>Add Ancillary Service</a>
+                        <a href="#" ng-click="EditAncillary()"role="tab" data-toggle="tab" class="list-group-item"><i class="ti ti-info-alt"></i>Edit Rate</a>
                     </div>
-                    <div class="panel-footer"></div>
+                    </div>
+
+                    <div class="modal fade" id="AddAncillary" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                <div class="modal-dialog">
+                <div class="panel panel-danger" data-widget='{"draggable": "false"}'>
+                <div class="panel-heading">
+                    <h2>Add Ancillary Service</h2>
+                    <div class="panel-ctrls" data-actions-container="" data-action-collapse='{"target": ".panel-body, .panel-footer"}'></div>
+                </div>
+                <div class="panel-body" style="height: auto">
+                            <form>
+                                <div class="form-group">
+                                    <label>Description </label>
+                                    <input type="text" ng-model="description" placeholder="XRAY - Chest" class="form-control" ng-keypress="filterValueCharacter($event)">
+                                </div>
+                                <div class="form-group">
+                                    <label>Rate </label>
+                                    <input type="text" ng-model="rate" placeholder="1000"  ng-keypress="filterValue($event)" class="form-control">
+                                </div>
+      
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                                    <button ng-click='AddAncillary()' class="btn btn-primary">Confirm</button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                    <!-- /.modal-content -->
                 </div>
             </div>
-        </div>
+
+        
+
+            <div class="modal fade" id="ErrorModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+                <div class="modal-dialog">
+                    <div class="alert alert-danger">
+                        Select Ancillary record that you would like to apply an <a href="#" class="alert-link">Action.</a>
+                    </div>
+                </div>
+            </div>
+
+         
+            <div class="modal fade" id="EditAncillary" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+            <div class="modal-dialog">
+            <div class="panel panel-danger" data-widget='{"draggable": "false"}'>
+            <div class="panel-heading">
+                <h2>Edit Ancillary Service</h2>
+                <div class="panel-ctrls" data-actions-container="" data-action-collapse='{"target": ".panel-body, .panel-footer"}'></div>
+            </div>
+            <div class="panel-body" style="height: auto">
+                     <div class="form-group">       
+                     <label>Description</label>
+                     <input type="text" ng-model="AncilDesc" class="form-control" disabled>
+                  </div>
+                  
+                  <div class="form-group">       
+                     <label>Rate </label>
+                     <input type="text" ng-model="AncilRate" class="form-control" ng-keypress="filterValue($event)">
+                  </div>
+                 
+                     <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                        <button ng-click='UpdateAncillary()' class="btn btn-primary">Confirm</button>
+                     </div>
+                     </div>
+                </div>
+            </div>
+          </div>
+
+
     </div>
 
 </div>
@@ -109,6 +183,54 @@
             });
         });
 
+        $scope.AddAncil = function() {
+                $('#AddAncillary').modal('show');
+            }
+
+
+        $scope.AddAncillary = function() {
+                $scope.labid = "<?php echo rand(100000, 999999); ?>"
+                $http({
+                    method: 'GET',
+                    url: 'insertData/insert-laboratory.php',
+                    params: {
+                        laboratoryid: $scope.labid,
+                        description: $scope.description,
+                        rate: $scope.rate
+                    }
+                }).then(function(response) {
+                    window.location.href = 'laboratory.php?at=' + $scope.at;
+                });
+            }
+
+            $scope.UpdateAncillary = function() {
+
+                $http({
+                    method: 'GET',
+                    url: 'updateData/update-laboratory-details.php',
+                    params: {
+                        laboratoryid: $scope.selectedRow,
+                        description: $scope.AncilDesc,
+                        rate: $scope.AncilRate
+                    }
+                }).then(function(response) {
+                    window.location.href = 'laboratory.php?at=' + $scope.at;
+                });
+            }
+
+          
+
+            $scope.EditAncillary = function() {
+                if ($scope.selectedRow != null) {
+                    $('#EditAncillary').modal('show');
+                  $scope.AncilDesc = $scope.selectedDesc;
+                  $scope.AncilRate = $scope.selectedRate;
+                } else {
+                    $('#ErrorModal').modal('show');
+                }
+            }
+
+
         $scope.accesstype = $scope.at[0];
         $http({
         	method: 'GET',
@@ -119,9 +241,11 @@
             $scope.userdetails = response.data;
         });		
 
-        $scope.setClickedRow = function(lab) {
+        $scope.setClickedRow = function(lab,des,rat) {
             $scope.selectedRow = ($scope.selectedRow == null) ? lab : ($scope.selectedRow == lab) ? null : lab;
             $scope.clickedRow = ($scope.selectedRow == null) ? 0 : 1;
+            $scope.selectedDesc = des;
+            $scope.selectedRate = rat;
         }
 
         $scope.getPage = function(check){

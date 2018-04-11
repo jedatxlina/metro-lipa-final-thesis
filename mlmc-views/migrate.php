@@ -160,7 +160,7 @@
 					<div class="modal-dialog">
 						<div class="panel panel-danger" data-widget='{"draggable": "false"}'>
 							<div class="panel-heading">
-								<h2>Attending physician</h2>
+								<h2>Add New Guarantor</h2>
 								<div class="panel-ctrls" data-actions-container="" data-action-collapse='{"target": ".panel-body, .panel-footer"}'></div>
 							</div>
 							<div class="panel-body" style="height: auto">

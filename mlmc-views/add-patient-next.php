@@ -139,7 +139,7 @@
                                                             <option value="" disabled selected>Select Physician</option>
                                                             <option ng-repeat="physician in physicians" value="{{physician.PhysicianID}}">{{physician.Fullname}}</option>
                                                         </select>
-                                                    
+                                                        <span style="color:red" ng-show="attendingphysician == null">Doctor is required!</span>
                                                     </div>
                                                 </div>
                                             </div>
