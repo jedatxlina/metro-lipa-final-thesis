@@ -69,6 +69,9 @@
                                     <fieldset data-ng-repeat="deb in debitdetails track by $index">
                                         <input type="hidden" ng-model='DebitBill[$index]' ng-init='DebitBill[$index] = deb.Amount'>
                                     </fieldset>
+                                    <fieldset data-ng-repeat="sup in supplydetails track by $index">
+                                        <input type="hidden" ng-model='SupplyID[$index]' ng-init='SupplyID[$index] = sup.totalbill'>
+                                    </fieldset>
 
                                 </div>
                                 <div class="row mb-xl">
@@ -146,6 +149,12 @@
                                                                 <td class="text-right">₱ {{ subtotaldoc.toLocaleString('en') }}</td>
                                                                 <td class="text-right">₱ {{ subtotaldoc.toLocaleString('en') }}</td>
                                                             </tr>
+                                                            <tr>
+                                                                <td>5</td>
+                                                                <td>Supplies Bill</td>
+                                                                <td class="text-right">₱ {{ subtotalsupp.toLocaleString('en') }}</td>
+                                                                <td class="text-right">₱ {{ subtotalsupp.toLocaleString('en') }}</td>
+                                                            </tr>
                                                         </tbody>
                                                     </table>
                                                 </div>
@@ -215,11 +224,13 @@
             $scope.subtotalroom = 0;
             $scope.subtotallab = 0;
             $scope.subtotaldoc = 0;
+            $scope.subtotalsupp = 0;
             $scope.advpay = 0;
             $scope.MedID = [];
             $scope.Quantity = [];
             $scope.Dosage = [];
             $scope.NoteID = [];
+            $scope.SupplyID = [];
             var total = 0;
             var total1 = 0;
             var total2 = 0;
@@ -227,6 +238,7 @@
             var total4 = 0;
             var total5 = 0;
             var total6 = 0;
+            var total7 = 0;
 
             switch ($scope.at.charAt(0)) {
                 case '1':
@@ -329,6 +341,15 @@
             });
             $http({
                 method: 'GET',
+                url: 'getData/get-usedsupplies-details.php',
+                params: {
+                    id: $scope.id
+                }
+            }).then(function(response) {
+                $scope.supplydetails = response.data;
+            });
+            $http({
+                method: 'GET',
                 url: 'getData/get-patient-advance.php',
                 params: {
                     id: $scope.id
@@ -379,6 +400,11 @@
                     total5 = total5 + parseFloat(product5);
                 }
                 $scope.discountamount = total5;
+                for (var i = 0; i < $scope.SupplyID.length; i++) {
+                    var product7 = $scope.SupplyID[i];
+                    total7 = total7 + parseFloat(product7);
+                }
+                $scope.subtotalsupp = total7;
                 $scope.totaldiscount = $scope.discountamount+$scope.advpay;
                 $scope.subtotal = $scope.subtotalroom + $scope.subtotalemroom + $scope.subtotalmedi+$scope.subtotallab+$scope.subtotaldoc;
                 $scope.subtotal2 = ($scope.subtotalroom + $scope.subtotalemroom + $scope.subtotalmedi+$scope.subtotallab+$scope.subtotaldoc)-$scope.totaldiscount;
@@ -434,7 +460,7 @@
             }
 
             $scope.viewReport = function() {
-                $window.open('billing-report.php?at=' + $scope.at + '&id=' + $scope.id, '_blank');
+                $window.open('billing-report.php?at=' + $scope.at + '&id=' + $scope.id + '&subtotal=' + $scope.subtotal+ '&totald=' + $scope.totaldiscount+ '&subtotal2=' + $scope.subtotal2, '_blank');
             }
 
             $scope.postBilling = function() {

@@ -434,7 +434,7 @@
             }
 
             $scope.viewReport = function() {
-                $window.open('billing-report.php?at=' + $scope.at + '&id=' + $scope.id, '_blank');
+                $window.open('billing-report.php?at=' + $scope.at + '&id=' + $scope.id + '&subtotal=' + $scope.subtotal+ '&totald=' + $scope.totaldiscount+ '&subtotal2=' + $scope.subtotal2, '_blank');
             }
 
             $scope.postBilling = function() {

@@ -17,6 +17,8 @@ $yearage = '0';
 $adid = $_GET['id'];
 $sel = mysqli_query($conn,"SELECT a.* ,b.Rate,b.RoomType FROM duration a, beds b WHERE b.BedID = a.BedID AND a.AdmissionID = '$adid'");
 $patd = mysqli_query($conn,"SELECT * FROM patients WHERE AdmissionID = '$adid'");
+$sel5 = mysqli_query($conn,"SELECT a.SupplyName, SUM(a.Quantity) AS total, b.Price FROM supply_used a, supplies b WHERE AdmissionID='$adid' AND a.SupplyName = b.SuppliesName GROUP BY SupplyName");
+$sel6 = mysqli_query($conn,"SELECT * FROM adv_payment WHERE AdmissionID = '$adid'");
 $sel4 = mysqli_query($conn,"SELECT physicians.LastName, physicians.FirstName, physicians.MiddleName, attending_physicians.Rate, attending_physicians.Discount FROM attending_physicians INNER JOIN physicians ON attending_physicians.PhysicianID=physicians.PhysicianID WHERE attending_physicians.AdmissionID='$adid'");
 $sel3 = mysqli_query($conn,"SELECT laboratories.Rate, laboratories.Description FROM laboratory_req INNER JOIN laboratories ON laboratories.LaboratoryID=laboratory_req.LaboratoryID WHERE laboratory_req.AdmissionID='$adid' AND laboratory_req.Status='Cleared'");
 $sel2 = mysqli_query($conn,"SELECT medication.Quantity,pharmaceuticals.Unit,pharmaceuticals.Price,pharmaceuticals.MedicineID, pharmaceuticals.MedicineName FROM medication INNER JOIN pharmaceuticals ON medication.MedicineID=pharmaceuticals.MedicineID WHERE medication.AdmissionID='$adid'");
@@ -27,9 +29,12 @@ $AdID ='';
 $gender = '';
 $type ='';
 $phyname ='';
-$date= '';
+$date= date("Y/m/d");
 while ($row = mysqli_fetch_array($patd)) {
-
+    $name = $row['FirstName']. ' ' .$row['MiddleName']. ' '.$row['LastName'];
+    $AdID =$row['AdmissionID'];
+    $gender = $row['Gender'];
+    $type =$row['AdmissionType'];
 }
 // $html =  '<table>
 // <tr>
@@ -93,33 +98,20 @@ h4 {
 
 <img src="assets/img/report-header.jpg">
 <h4><center>Summary of Bill </center></h4>
-</head><div class="container-fluid">
+</head>
+<div class="container-fluid">
     <br>
-    <form class="grid-form">  
-        <fieldset><div data-row-span="4">
-            <div data-field-span="1">
-                <label>Patient ID: </label>
-            </div>
-            <div data-field-span="1">
-                <label>Patient Name: </label>
-            </div>
-            <div data-field-span="1">
-                <label>Gender:  </label>
-            </div>
-            <div data-field-span="1">
-            <label>Admission Type: </label>
-            </div>
+    <div data-row-span="4" class="row">
+        <div class="col-md-1">
+                <div data-field-span="1" class="col-md-12">
+                    <label>Patient ID:</label><br><b><h4>'.$AdID.' </hr></b>
+                    <label>Patient Name:</label><br><b><h4>'.$name.' </hr></b>
+                    <label>Gender:</label><br><b><h4>'.$gender.'  </hr></b>
+                    <label>Admission Type:</label><br><b><h4>'.$type.' </hr></b>
+                    <label>Date Issued:</label><br><b><h4>'.$date.' </hr></b>
+                </div>
         </div>
-    <div data-row-span="2">
-            <div data-field-span="1">
-                <label>Physician Name: </label>
-            </div>
-            <div data-field-span="1">
-                <label>Date Issued: </label>
-            </div>
     </div>
-        </fieldset>  
-    </form>
 </div> 
 <div class="row mb-xl">
     <div class="col-md-12">
@@ -240,7 +232,6 @@ while ($row = mysqli_fetch_array($sel3)) {
                                 <th class="text-right">Total Fee</th>
                             </tr>
                         </thead>';
-                        
 while ($row = mysqli_fetch_array($sel4)) {
     $html .= '<tbody><tr>
       <td>Dr. ' . $row['FirstName'] . ' ' . $row['MiddleName'] . ' ' . $row['LastName'] . '</td><td>' . number_format($row['Discount']) . '</td><td>' . number_format($row['Rate']) . '</td>
@@ -254,20 +245,57 @@ while ($row = mysqli_fetch_array($sel4)) {
         </div>
     </div>
 </div>
+<div class="row mb-xl">
+    <div class="col-md-12">
+        <h3 class="text-primary text-center" style="font-weight: small;">Supplies Bill</h3>
+    </div>
+    <div class="row mb-xl">
+    <div class="col-md-12">
+        <div class="panel">
+            <div class="panel-body no-padding">
+                <div class="table-responsive">
+                    <table class="table table-hover m-n">
+                        <thead>
+                            <tr>
+                                <th>Supply Name</th>
+                                <th>Price</th>
+                                <th>Quantity</th>
+                                <th class="text-right">Total Fee</th>
+                            </tr>
+                        </thead>';
+while ($row = mysqli_fetch_array($sel5)) {
+    $html .= '<tbody><tr>
+      <td>' . $row['SupplyName'] . '</td><td>' .  number_format($row['Price']) . '</td><td>' . $row['total'] . '</td><td>' . number_format($row['total']*$row['Price']) . '</td></tr>';
+    }
+                        $html .= '
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
 <br><br>
-<div class="col-md-12">
+<div class="col-md-6">
             <div class="pull-left">
                 <h3 class="text-muted">Info</h3>
                 <ul class="text-left list-unstyled">
                     <li><strong>Date:</strong> Today</li>
                     <li><strong>Due:</strong> 19/05/2015</li>';
                         
-                    while ($row = mysqli_fetch_array($sel4)) {
+                    while ($row = mysqli_fetch_array($sel6)) {
                         $html .= '
-                        <li><strong>Advance Payment:</strong> **</li>';
+                        <li><strong>Advance Payment:</strong>'.$row['Amount'].'</li>';
                         }
                                             $html .= '
                 </ul>
+            </div>
+        </div>
+        <div class="col-md-6" style="float:right">
+            <div class="pull-left">
+                <h3 class="text-muted">SUB TOTAL:'.$_GET['subtotal'].'</h3>
+                <h3 class="text-muted">DISCOUNT:'.$_GET['totald'].'</h3>
+                <h2 class="text-muted">'.$_GET['subtotal2'].'</h2>
             </div>
         </div>
     </div>

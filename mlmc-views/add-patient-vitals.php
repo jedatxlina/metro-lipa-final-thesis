@@ -551,11 +551,20 @@ var fetch = angular.module('myApp', ['ui.mask']);
                                     $('#myModal').modal('show');
         }
         $scope.AddSupplies2 = function(){
-                                    for(var i = 0; i < $scope.trol.length; i++)
+                                    for(var i = 0; i < $scope.supplies.length; i++)
                                     {
-                                        <?php
-                                        ?>
+                                        $http({
+                                            method: 'GET',
+                                            url: 'insertData/insert-used-supply.php',
+                                            params: {id: $scope.id,
+                                                supplyname: $scope.supplies[i],
+                                                qty: $scope.qty[i]}
+                                        }).then(function(response) {
+                                            alert($scope.supplies[i]);
+                                            alert($scope.qty[i]);
+                                        });
                                     }
+                                    window.location.reload();
         }
         $scope.accesstype = $scope.at[0];
             $http({
@@ -605,7 +614,7 @@ var fetch = angular.module('myApp', ['ui.mask']);
             // 			dTable.DataTable();  
             // 			});  
         });
-
+    
        
 
        $scope.setClickedRow = function(lab) {

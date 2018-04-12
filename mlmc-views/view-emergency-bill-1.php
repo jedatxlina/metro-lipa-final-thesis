@@ -60,7 +60,7 @@
                                             <div class="pull-left">
                                                 <ul class="text-left list-unstyled">
                                                     <li><strong>Patient Name:</strong>&emsp; {{patient.Lastname}}, {{patient.Firstname}} {{patient.Middlename}}</li>
-                                                    <li><strong>Patient Room:</strong>&emsp; 19/05/2015</li>
+                                                    <li><strong>Patient Room:</strong>&emsp; Emergency Room</li>
                                                 </ul>
                                                 <br>
                                                 <div class="btn-group">
@@ -87,7 +87,7 @@
                                     </div>
                                 </div>
 
-                                <h5 class="text-primary text-center" style="font-weight: small;">From Admission</h5>
+                                <h5 class="text-primary text-center" style="font-weight: small;">From Emergenc</h5>
 
                                 <div class="row mb-xl">
                                     <div class="col-md-12">
@@ -106,11 +106,11 @@
                                                         </thead>
                                                         <tbody>
                                                             <tr ng-repeat="room in roomdetails track by $index">
-                                                                <td>{{room.BedID}}</td>
-                                                                <td>{{room.ArrivalDate}}</td>
-                                                                <td>{{room.DischargeDate}}</td>
-                                                                <td>{{room.Duration}}</td>
-                                                                <td class="text-right">{{room.bedbill.toLocaleString('en')}}</td>
+                                                                <td>{{room.EmRoom}}</td>
+                                                                <td>N/A</td>
+                                                                <td>N/A</td>
+                                                                <td>N/A</td>
+                                                                <td class="text-right">{{room.EmRoomBill.toLocaleString('en')}}</td>
                                                             </tr>
                                                         </tbody>
                                                     </table>
@@ -297,7 +297,7 @@
 
             $http({
                 method: 'GET',
-                url: 'getData/get-inpatient-roombill.php',
+                url: 'getData/get-empatient-roombill.php',
                 params: {
                     id: $scope.id
                 }

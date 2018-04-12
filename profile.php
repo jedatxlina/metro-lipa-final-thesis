@@ -93,21 +93,6 @@ else {
               window.location.href = 'mlmc-views/index.php?at=' + id;
           }
 
-          
-<<<<<<< HEAD
-          $http({
-                method: 'get',
-                url: 'getData/get-promo-details.php'
-            }).then(function(response) {
-                $scope.users = response.data;
-                });
-            });
-=======
-        
->>>>>>> master
-
-            
-
         }]);
     </script>
 

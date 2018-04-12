@@ -7,7 +7,8 @@ $data = array();
 $date = date("Y-m-d");
 while ($row = mysqli_fetch_array($sel)) {
     $data[] = array(
-    "EmRoomBill"=>$row['TotalBill']);
+    "EmRoomBill"=>$row['TotalBill'],
+    "EmRoom" => 'Emergency Room');
 }
 echo json_encode($data);
 ?>
