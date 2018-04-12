@@ -101,14 +101,18 @@ h4 {
 </head>
 <div class="container-fluid">
     <br>
-    <div data-row-span="4" class="row">
-        <div class="col-md-1">
-                <div data-field-span="1" class="col-md-12">
-                    <label>Patient ID:</label><br><b><h4>'.$AdID.' </hr></b>
-                    <label>Patient Name:</label><br><b><h4>'.$name.' </hr></b>
-                    <label>Gender:</label><br><b><h4>'.$gender.'  </hr></b>
-                    <label>Admission Type:</label><br><b><h4>'.$type.' </hr></b>
-                    <label>Date Issued:</label><br><b><h4>'.$date.' </hr></b>
+    <div class="row" style="padding: 0">
+        <div class="col-md-12">
+                <div style="float: right">
+                    <label>Patient ID:'.$AdID.'</label><br>
+                    <label>Gender:'.$gender.' </label><br>
+                    <label>Date Issued:'.$date.' </label>
+                </div>
+                <div>
+                    <label>Patient Name:'.$name.'</label>
+                </div>
+                <div>
+                    <label>Admission Type:'.$type.' </label>
                 </div>
         </div>
     </div>

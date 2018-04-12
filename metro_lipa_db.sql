@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 4.7.9
+-- version 4.7.4
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Apr 12, 2018 at 04:11 AM
--- Server version: 10.1.31-MariaDB
--- PHP Version: 7.2.3
+-- Generation Time: Apr 12, 2018 at 05:57 AM
+-- Server version: 10.1.29-MariaDB
+-- PHP Version: 7.2.0
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET AUTOCOMMIT = 0;
@@ -38,6 +38,22 @@ CREATE TABLE `accounts_receivable` (
   `Remarks` varchar(25) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
+--
+-- Dumping data for table `accounts_receivable`
+--
+
+INSERT INTO `accounts_receivable` (`AccountReceiveID`, `AdmissionID`, `Provider`, `Amount`, `DateTimePosted`, `ControlNo`, `Remarks`) VALUES
+(166466, 2017295727, 'Philhealth', '0.00', '2018-04-12 11:20 AM', '523658956', 'Pending'),
+(305798, 2017588916, 'Philhealth', '0.00', '2018-04-12 10:52 AM', '542136548', 'Posted'),
+(341937, 2017519027, 'Philhealth', '0.00', '2018-04-12 10:37 AM', '123456789', 'Pending'),
+(615041, 2017519027, 'Cocolife', '0.00', '2018-04-12 10:37 AM', '456325896', 'Pending'),
+(620108, 2017521811, 'EA Philippines', '0.00', '2018-04-12 11:28 AM', '452376326', 'Pending'),
+(755599, 2017588916, 'Insular Health Care', '3000.00', '2018-04-12 10:52 AM', '546325849', 'Posted'),
+(760496, 2017521811, 'Philhealth', '0.00', '2018-04-12 11:28 AM', '357486753', 'Pending'),
+(838303, 2017295727, 'MediCard', '0.00', '2018-04-12 11:20 AM', '123568549', 'Pending'),
+(886732, 2017547123, 'Star Care', '0.00', '2018-04-12 11:24 AM', '852681651', 'Pending'),
+(990811, 2017547123, 'Philhealth', '0.00', '2018-04-12 11:24 AM', '452163589', 'Pending');
+
 -- --------------------------------------------------------
 
 --
@@ -61,7 +77,8 @@ CREATE TABLE `admin` (
 --
 
 INSERT INTO `admin` (`AdminID`, `LastName`, `FirstName`, `MiddleName`, `Gender`, `Address`, `Birthdate`, `Email`, `pathPhoto`) VALUES
-(146404, 'Lina', 'Jed', 'Matthew', 'Male', '152 Lipa City', '12/09/1993', 'jmatthewlina.ceo@gmail.com', 'uploads/1464045ac342bfdd7ac.jpeg');
+(146404, 'Lina', 'Jed', 'Matthew', 'Male', '152 Lipa City', '12/09/1993', 'jmatthewlina.ceo@gmail.com', 'uploads/1464045ac342bfdd7ac.jpeg'),
+(156956, 'Navarro', 'Giovanni', 'Atienza', 'Male', 'Lipa City, Batangas', '07/13/1966', 'giiovanni@gmail.com', '');
 
 -- --------------------------------------------------------
 
@@ -102,6 +119,13 @@ CREATE TABLE `adv_payment` (
   `DateTimePaid` varchar(30) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
+--
+-- Dumping data for table `adv_payment`
+--
+
+INSERT INTO `adv_payment` (`PaymentID`, `AdmissionID`, `Amount`, `Status`, `DateTimePaid`) VALUES
+(25514, 2017519027, 3000, 'Paid', '2018-04-12');
+
 -- --------------------------------------------------------
 
 --
@@ -116,6 +140,18 @@ CREATE TABLE `attending_physicians` (
   `Rate` decimal(15,2) NOT NULL DEFAULT '0.00',
   `Discount` decimal(15,2) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `attending_physicians`
+--
+
+INSERT INTO `attending_physicians` (`AttendingID`, `PhysicianID`, `AdmissionID`, `DiagnosisID`, `Rate`, `Discount`) VALUES
+(278357, 456325, 2017451828, 0, '0.00', '0.00'),
+(337533, 456325, 2017521811, 360598, '0.00', '0.00'),
+(416846, 456325, 2017283874, 0, '0.00', '0.00'),
+(683210, 456325, 2017519027, 258853, '0.00', '0.00'),
+(765232, 456325, 2017547123, 511549, '0.00', '0.00'),
+(775259, 456325, 2017295727, 553075, '0.00', '0.00');
 
 -- --------------------------------------------------------
 
@@ -170,7 +206,7 @@ INSERT INTO `beds` (`BedID`, `RoomType`, `Rate`, `Floor`, `Room`, `Status`) VALU
 ('308-1', 'Semi-Private', 1500, '3', 308, 'Available'),
 ('308-2', 'Semi-Private', 1500, '3', 308, 'Available'),
 ('400', 'Private', 1800, '4', 400, 'Occupied'),
-('401', 'Private', 1800, '4', 401, 'Available'),
+('401', 'Private', 1800, '4', 401, 'Occupied'),
 ('402', 'Private', 1800, '4', 402, 'Available'),
 ('403', 'Private', 1800, '4', 403, 'Available'),
 ('404', 'Private', 1800, '4', 404, 'Available'),
@@ -199,6 +235,13 @@ CREATE TABLE `billing` (
   `Status` varchar(10) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
+--
+-- Dumping data for table `billing`
+--
+
+INSERT INTO `billing` (`BillID`, `AdmissionID`, `Department`, `ItemID`, `BillDes`, `TotalBill`, `Status`) VALUES
+(87892, 2017588916, 'Inpatient', 1000, 'Inpatient Bill', '7500.00', 'Paid');
+
 -- --------------------------------------------------------
 
 --
@@ -214,6 +257,17 @@ CREATE TABLE `billing_em` (
   `TotalBill` decimal(15,2) NOT NULL,
   `Status` varchar(10) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `billing_em`
+--
+
+INSERT INTO `billing_em` (`BillID`, `AdmissionID`, `Department`, `ItemID`, `BillDes`, `TotalBill`, `Status`) VALUES
+(78786, 2017519027, 'Administrator', 123123123, 'Emergency Room Fee', '2500.00', 'Unpaid'),
+(43248, 2017588916, 'Administrator', 123123123, 'Emergency Room Fee', '2500.00', 'Unpaid'),
+(24042, 2017295727, 'Admission Staff', 123123123, 'Emergency Room Fee', '2500.00', 'Unpaid'),
+(75915, 2017547123, 'Admission Staff', 123123123, 'Emergency Room Fee', '2500.00', 'Unpaid'),
+(43874, 2017521811, 'Admission Staff', 123123123, 'Emergency Room Fee', '2500.00', 'Unpaid');
 
 -- --------------------------------------------------------
 
@@ -271,6 +325,7 @@ CREATE TABLE `conditions` (
 
 INSERT INTO `conditions` (`ConditionID`, `Conditions`) VALUES
 (125632, 'Dysmenorhoea'),
+(182439, 'High Blood Pressure'),
 (330623, 'Hypertension'),
 (456321, 'Asthma'),
 (471503, 'Stomach Ache'),
@@ -568,6 +623,17 @@ CREATE TABLE `diagnosis` (
   `NextDateAppointment` varchar(25) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
+--
+-- Dumping data for table `diagnosis`
+--
+
+INSERT INTO `diagnosis` (`ID`, `DiagnosisID`, `MedicalID`, `AdmissionID`, `AttendingID`, `Findings`, `DateDiagnosed`, `TimeDiagnosed`, `NextDateAppointment`) VALUES
+(1, 258853, 790711, 2017519027, 683210, 'Pneumonia', '2018-04-12', '10:37 AM', ''),
+(2, 414041, 612045, 2017588916, 355751, 'Dengue', '2018-04-12', '10:51 AM', ''),
+(3, 553075, 847223, 2017295727, 775259, 'Mild Concussion', '2018-04-12', '11:20 AM', ''),
+(4, 511549, 281504, 2017547123, 765232, 'Hypertension', '2018-04-12', '11:23 AM', ''),
+(5, 360598, 278445, 2017521811, 337533, 'Dengue', '2018-04-12', '11:27 AM', '');
+
 -- --------------------------------------------------------
 
 --
@@ -657,6 +723,13 @@ CREATE TABLE `duration` (
   `BedID` varchar(11) NOT NULL,
   `TotalBill` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `duration`
+--
+
+INSERT INTO `duration` (`DurationID`, `AdmissionID`, `ArrivalDate`, `DischargeDate`, `BedID`, `TotalBill`) VALUES
+(54546, 2017519027, '2018-04-12 00:00:00', '0000-00-00 00:00:00', '401', 0);
 
 -- --------------------------------------------------------
 
@@ -752,6 +825,20 @@ CREATE TABLE `medical_conditions` (
   `Conditions` varchar(50) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
+--
+-- Dumping data for table `medical_conditions`
+--
+
+INSERT INTO `medical_conditions` (`ID`, `MedicalID`, `Conditions`) VALUES
+(1, 790711, 'Asthma'),
+(2, 612045, 'Hypertension'),
+(3, 223381, 'Asthma'),
+(4, 223381, 'Pneumonia'),
+(5, 363076, 'Stomach Ache'),
+(6, 847223, 'Concussion'),
+(7, 281504, 'High Blood Pressure'),
+(8, 278445, 'Asthma');
+
 -- --------------------------------------------------------
 
 --
@@ -774,6 +861,18 @@ CREATE TABLE `medical_details` (
   `Class` varchar(15) NOT NULL,
   `QR_Path` varchar(100) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `medical_details`
+--
+
+INSERT INTO `medical_details` (`MedicalID`, `AdmissionID`, `AttendingID`, `ArrivalDate`, `ArrivalTime`, `BedID`, `VitalsID`, `MedicationID`, `OperationID`, `PreviousSurgeries`, `Weight`, `Height`, `Class`, `QR_Path`) VALUES
+(223381, 2017283874, 416846, '2018-04-12', '11:04 AM', '', 851355, 0, 0, 'None', 60, 175, '', ''),
+(278445, 2017521811, 337533, '2018-04-12', '11:27 AM', '', 691734, 586465, 0, 'None', 75, 175, '', 'qr-generator/temp/2017521811.png'),
+(281504, 2017547123, 765232, '2018-04-12', '11:23 AM', '', 841416, 309739, 0, 'None', 90, 180, '', 'qr-generator/temp/2017547123.png'),
+(363076, 2017451828, 278357, '2018-04-12', '11:08 AM', '', 195863, 0, 0, 'Appendicitis', 60, 165, '', ''),
+(790711, 2017519027, 683210, '2018-04-12', '10:37 AM', '401', 599342, 131066, 0, 'None', 60, 172, '', 'qr-generator/temp/2017519027.png'),
+(847223, 2017295727, 775259, '2018-04-12', '11:20 AM', '', 445044, 709985, 0, 'None', 80, 180, '', 'qr-generator/temp/2017295727.png');
 
 -- --------------------------------------------------------
 
@@ -812,6 +911,17 @@ CREATE TABLE `medication` (
   `Days` int(6) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
+--
+-- Dumping data for table `medication`
+--
+
+INSERT INTO `medication` (`ID`, `MedicationID`, `AdmissionID`, `MedicineID`, `Quantity`, `DateAdministered`, `TimeAdministered`, `Dosage`, `PhysicianID`, `Notes`, `DosingID`, `DateStart`, `TimeStart`, `Days`) VALUES
+(1, 131066, 2017519027, 646685, 3, '2018-04-12', '10:37 AM', 'Alclav Tablet 625mg', 456325, '', 1, '', '', 3),
+(2, 144563, 2017588916, 165130, 6, '2018-04-12', '10:51 AM', 'Cefixine 500mg', 452854, 'After Meals', 2, '', '', 12),
+(3, 709985, 2017295727, 227411, 5, '2018-04-12', '11:20 AM', 'Paracetamol 500mg', 456325, 'After Meals', 1, '', '', 5),
+(4, 309739, 2017547123, 494851, 3, '2018-04-12', '11:23 AM', 'Antiox Tablet 375mg', 456325, 'After Meals', 1, '', '', 3),
+(5, 586465, 2017521811, 692502, 3, '2018-04-12', '11:27 AM', 'Biogesic 500mg', 456325, 'In the morning', 1, '', '', 3);
+
 -- --------------------------------------------------------
 
 --
@@ -834,6 +944,19 @@ CREATE TABLE `medication_history` (
   `DateEnd` varchar(25) NOT NULL,
   `TimeEnd` varchar(25) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `medication_history`
+--
+
+INSERT INTO `medication_history` (`MedicationHistoryID`, `AdmissionID`, `MedicineName`, `Quantity`, `DateAdministered`, `TimeAdministered`, `Dosage`, `PhysicianID`, `Notes`, `DosingID`, `DateStart`, `TimeStart`, `DateEnd`, `TimeEnd`) VALUES
+(208158, 2017547123, 'Airex Capsule', 1, '', '', '500mg', 0, '', 0, '', '', '', ''),
+(248241, 2017521811, 'Paracetamol', 2, '', '', '500mg', 0, '', 0, '', '', '', ''),
+(390261, 2017295727, 'Paracetamol', 2, '', '', '500mg', 0, '', 0, '', '', '', ''),
+(692743, 2017519027, 'Paracetamol', 5, '', '', '500mg', 0, '', 0, '', '', '', ''),
+(754269, 2017451828, 'Paracetamol', 0, '', '', '500mg', 0, '', 0, '', '', '', ''),
+(924614, 2017588916, 'Paracetamol', 5, '', '', '500mg', 0, '', 0, '', '', '', ''),
+(970682, 2017283874, 'Alclav Tablet', 0, '', '', '625mg', 0, '', 0, '', '', '', '');
 
 -- --------------------------------------------------------
 
@@ -973,6 +1096,18 @@ CREATE TABLE `patients` (
   `MedicalID` int(15) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
+--
+-- Dumping data for table `patients`
+--
+
+INSERT INTO `patients` (`AdmissionID`, `AdmissionNo`, `AdmissionDate`, `AdmissionTime`, `FirstName`, `MiddleName`, `LastName`, `Admission`, `AdmissionType`, `Province`, `City`, `Brgy`, `CompleteAddress`, `latcoor`, `longcoor`, `Gender`, `Age`, `CivilStatus`, `Birthdate`, `Contact`, `Occupation`, `Citizenship`, `MedicalID`) VALUES
+('2017283874', 3, '2018-04-12', '11:03 AM', 'Julius', 'Atienza', 'Atonio', 'New Patient', 'Outpatient', 'BUKIDNON', 'MANOLO FORTICH', 'San Miguel', 'San Miguel, Manolo Fortich, Bukidnon', 8.35983467, 100.00000000, 'Male', '36y', 'Single', '1981-12-24', '9874561232', 'Unemployed', 'Philippine, Filipino', 223381),
+('2017295727', 5, '2018-04-12', '11:19 AM', 'Junjun', 'Binay', 'Mandanas', 'New Patient', 'Emergency', 'BULACAN', 'PANDI', 'Poblacion', 'Poblacion, Pandi, Bulacan', 14.86373615, 100.00000000, 'Male', '46y', 'Widowed', '1971-07-02', '8465123684', 'Employed', 'Philippine, Filipino', 847223),
+('2017451828', 4, '2018-04-12', '11:07 AM', 'Teresita', 'Manobo', 'Batumbato', 'New Patient', 'Outpatient', 'BATANGAS', 'MABINI', 'Poblacion', 'Poblacion, Mabini, Batangas', 13.75791264, 100.00000000, 'Female', '42y', 'Married', '1975-10-29', '4865123856', 'Employed', 'Philippine, Filipino', 363076),
+('2017519027', 1, '2018-04-12', '10:36 AM', 'Juan', 'Luna', 'Dela Cruz', 'New Patient', 'Inpatient', 'BATANGAS', 'LIPA CITY', 'Tambo', 'Tambo, Lipa City, Batangas', 13.94520664, 100.00000000, 'Male', '30y', 'Single', '1988-03-10', '9157474613', 'Employed', 'Philippine, Filipino', 790711),
+('2017521811', 7, '2018-04-12', '11:26 AM', 'Francis Vonn', 'Guevarra', 'Ilagan', 'New Patient', 'Emergency', 'BATANGAS', 'LIPA CITY', 'Calamias', 'Calamias, Lipa City, Batangas', 0.00000000, 0.00000000, 'Male', '21y', 'Single', '1997-03-31', '9366203136', 'Student', 'Canadian', 278445),
+('2017547123', 6, '2018-04-12', '11:22 AM', 'Jed', 'Matthew', 'Lina', 'New Patient', 'Emergency', 'BATANGAS', 'LIPA CITY', 'Banaybanay', 'Banay-Banay, Lipa City, Batangas', 13.93729973, 100.00000000, 'Male', '20y', 'Single', '1998-02-18', '9959864747', 'Student', 'Philippine, Filipino', 281504);
+
 -- --------------------------------------------------------
 
 --
@@ -1013,7 +1148,8 @@ INSERT INTO `patients_archive` (`ArchiveNo`, `ArchiveID`, `AdmissionDate`, `Admi
 (11, 2017474040, '2018-04-12', '01:35 AM', 'Wim', 'Mercado', 'Villanurva', 'New Patient', 'Inpatient', 'BATANGAS', 'LIPA CITY', 'Banaybanay', '152 Bagongpook Lipa City Batangas', 0.000000, 0.000000, 'Male', '17y', 'Single', '2000-06-22', '9175768818', 'Employed', 'Philippine, Filipino', 759132),
 (12, 2017608798, '2018-04-09', '11:18 PM', 'Jed', 'Pablo', 'Escobar', 'New Patient', 'Inpatient', 'ABRA', 'BOLINEY', 'Amti', '', 0.000000, 0.000000, 'Female', '18y', 'Single', '2000-03-02', '1234567892', 'Retired', 'Philippine, Filipino', 957724),
 (13, 2017825837, '2018-04-11', '10:19 PM', 'Ruben', 'Juan', 'Cruz', 'Old Patient', 'Inpatient', 'BATANGAS', 'LIPA CITY', 'Bagong Pook', '152 Bagongpook Lipa City', 0.000000, 0.000000, 'Male', '', 'Single', '4/1/1995', '9175768818', 'Employed', 'Philippine, Filipino', 454394),
-(14, 2017912304, '2018-04-10', '12:00 AM', 'Shakeem', 'Ula', 'Juwon', 'New Patient', 'Inpatient', 'CAGAYAN', 'LAL-LO', 'Fusina', '', 0.000000, 0.000000, 'Male', '17y', 'Separated', '2000-06-29', '3453453453', 'Retired', 'Antarctic', 382633);
+(14, 2017912304, '2018-04-10', '12:00 AM', 'Shakeem', 'Ula', 'Juwon', 'New Patient', 'Inpatient', 'CAGAYAN', 'LAL-LO', 'Fusina', '', 0.000000, 0.000000, 'Male', '17y', 'Separated', '2000-06-29', '3453453453', 'Retired', 'Antarctic', 382633),
+(15, 2017588916, '2018-04-12', '10:51 AM', 'Jennifer', 'Lopez', 'Dela Luna', 'New Patient', 'Emergency', 'BATANGAS', 'BATANGAS CITY (Capit', 'Santa Rita Karsada', 'Brgy. Santa Rita Karsada, Batangas City, Batangas', 13.779135, 100.000000, 'Male', '44y', 'Single', '1974-03-14', '9959864747', 'Employed', 'Philippine, Filipino', 612045);
 
 -- --------------------------------------------------------
 
@@ -1028,6 +1164,13 @@ CREATE TABLE `patient_diet` (
   `Diet` varchar(50) NOT NULL,
   `DietRemarks` varchar(50) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `patient_diet`
+--
+
+INSERT INTO `patient_diet` (`ID`, `MedicalID`, `AdmissionID`, `Diet`, `DietRemarks`) VALUES
+(1, 790711, 2017519027, 'Clear Liquid ', 'None');
 
 -- --------------------------------------------------------
 
@@ -1086,6 +1229,13 @@ CREATE TABLE `pharmacy_staff` (
   `pathPhoto` varchar(100) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
+--
+-- Dumping data for table `pharmacy_staff`
+--
+
+INSERT INTO `pharmacy_staff` (`PharmacyID`, `LastName`, `FirstName`, `MiddleName`, `Gender`, `Address`, `Birthdate`, `Email`, `pathPhoto`) VALUES
+(542987, 'Mortel', 'Kenneth', 'Catapang', 'Male', 'Sambal Ilaya, Lemery, Batangas', '12/26/1992', 'marinez.renzc@gmail.com', '');
+
 -- --------------------------------------------------------
 
 --
@@ -1112,7 +1262,6 @@ CREATE TABLE `physicians` (
 --
 
 INSERT INTO `physicians` (`PhysicianID`, `LastName`, `FirstName`, `MiddleName`, `Gender`, `Address`, `Contact`, `Birthdate`, `Specialization`, `ProfessionalFee`, `Email`, `pathPhoto`) VALUES
-(452854, 'Atienza', 'Protacio', 'Realonda', 'Female', '152 gagongpook', '639154785487', '12-01-25', '', '500.00', 'protocio@gmail.com', ''),
 (456325, 'Rizal', 'Jose', 'Mercado', 'Male', 'Santa Rosa Calamba', '639175669856', '12-02-21', '', '500.00', 'jose@gmail.com', 'uploads/4563255abcaf828e6fb.jpg');
 
 -- --------------------------------------------------------
@@ -45134,6 +45283,19 @@ INSERT INTO `supplies` (`SuppliesID`, `SuppliesName`, `Price`) VALUES
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `supply_used`
+--
+
+CREATE TABLE `supply_used` (
+  `SupplyID` int(30) NOT NULL,
+  `AdmissionID` int(30) NOT NULL,
+  `SupplyName` varchar(30) NOT NULL,
+  `Quantity` int(30) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `user_account`
 --
 
@@ -45151,9 +45313,11 @@ CREATE TABLE `user_account` (
 
 INSERT INTO `user_account` (`AccountID`, `AccessType`, `Passwordd`, `hash`, `Email`) VALUES
 ('146404', '1', '$2y$10$ckZloJ0urCvSgYP/.t6cLePlZLR/C7i7NMm7vf9pTWhqyh0KZfsuu', '847cc55b7032108eee6dd897f3bca8a5', 'admin@gmail.com'),
+('156956', '1', '$2y$10$KwR8PbLrffLEGs3JSkq7IuWsAxv/Q0gDfukVjIWio2oiqbwF7GdXm', 'fc49306d97602c8ed1be1dfbf0835ead', 'giiovanni@gmail.com'),
 ('292556', '2', '$2y$10$WXd0kGvt2052wAMqSVWdeuWQZqaLFP6W06PX9Xu5buKK9hAcK.3gC', 'd709f38ef758b5066ef31b18039b8ce5', 'admission@gmail.com'),
 ('352367', '3', '$2y$10$2QIryHcnG4FAjJkVXtDEEOEr2ApY7BeloqDisSXh7WayqrNssaumq', '1f50893f80d6830d62765ffad7721742', 'kendalljenner@gmail.com'),
 ('456325', '4', '$2y$10$rALMHQbyTlm6TuvaZ4znRux9yQtY.K2PJJsLRp2G.HJvzoQyQoSPC', '82cec96096d4281b7c95cd7e74623496', 'doctor@gmail.com'),
+('542987', '5', '$2y$10$kS80201Q1RHUS6pVI9wer.S47KfgQFCVLWTePcEiT/qFZnIf8rtOi', '3328bdf9a4b9504b9398284244fe97c2', 'marinez.renzc@gmail.com'),
 ('699279', '6', '$2y$10$9JyQlIvSRvTGSdXT/ju4reKLWF1TQVo3fVmbJ.b8dTAe2JdwZP1qu', '73278a4a86960eeb576a8fd4c9ec6997', 'jmatthewatx.lina@gmail.com'),
 ('739062', '7', '$2y$10$YT4oPbjuIWOIemkMvQoRSePnwpXjqHfaquGbVptaZaJVutAMYY6X.', '7f39f8317fbdb1988ef4c628eba02591', 'jmatthewatx.lina@gmail.com'),
 ('792857', '7', '$2y$10$qTtSmN7zs85zDUhG7hEiIODhCIrocBIdvP4kolLueYhp4n3ZXqiy6', 'f1c1592588411002af340cbaedd6fc33', 'secretary@gmail.com'),
@@ -45171,6 +45335,21 @@ CREATE TABLE `user_logs` (
   `DateTimeIn` varchar(30) NOT NULL,
   `DateTimeOut` varchar(30) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `user_logs`
+--
+
+INSERT INTO `user_logs` (`LogsID`, `AccountID`, `DateTimeIn`, `DateTimeOut`) VALUES
+(219279, 292556, '2018-04-12 10:58 AM', '0'),
+(334547, 352367, '2018-04-12 10:58 AM', '0'),
+(373678, 699279, '2018-04-12 10:59 AM', '0'),
+(380585, 456325, '2018-04-12 10:58 AM', '0'),
+(525658, 739062, '2018-04-12 10:59 AM', '0'),
+(664410, 792857, '2018-04-12 10:59 AM', '0'),
+(684929, 146404, '2018-04-12 10:32 AM', '0'),
+(812866, 542987, '2018-04-12 11:32 AM', '0'),
+(828496, 830454, '2018-04-12 11:00 AM', '0');
 
 -- --------------------------------------------------------
 
@@ -45206,7 +45385,14 @@ INSERT INTO `vitals` (`ID`, `VitalsID`, `AdmissionID`, `AccountID`, `BP`, `BPD`,
 (9, 636460, 2017936139, 0, 120, 80, 55, 66, '38.0', '2018-04-10 00:56:04'),
 (10, 210751, 2017825837, 0, 120, 89, 76, 39, '39.6', '2018-04-11 22:20:26'),
 (11, 377201, 2017192189, 0, 120, 90, 69, 39, '36.8', '2018-04-12 12:49 AM'),
-(12, 163684, 2017474040, 0, 120, 85, 63, 38, '37.5', '2018-04-12 01:35:59');
+(12, 163684, 2017474040, 0, 120, 85, 63, 38, '37.5', '2018-04-12 01:35:59'),
+(13, 599342, 2017519027, 0, 120, 80, 80, 15, '37.6', '2018-04-12 10:37:12'),
+(14, 265633, 2017588916, 0, 140, 90, 90, 25, '36.9', '2018-04-12 10:51:53'),
+(15, 851355, 2017283874, 0, 120, 80, 90, 25, '37.8', '2018-04-12 11:04 AM'),
+(16, 195863, 2017451828, 0, 120, 80, 68, 20, '36.4', '2018-04-12 11:08 AM'),
+(17, 445044, 2017295727, 0, 120, 80, 90, 22, '36.8', '2018-04-12 11:20:00'),
+(18, 841416, 2017547123, 0, 140, 90, 90, 26, '36.8', '2018-04-12 11:23:35'),
+(19, 691734, 2017521811, 0, 120, 80, 93, 20, '38.9', '2018-04-12 11:27:44');
 
 -- --------------------------------------------------------
 
@@ -45492,7 +45678,7 @@ ALTER TABLE `website_uploads`
 -- AUTO_INCREMENT for table `diagnosis`
 --
 ALTER TABLE `diagnosis`
-  MODIFY `ID` int(5) NOT NULL AUTO_INCREMENT;
+  MODIFY `ID` int(5) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT for table `discounts`
@@ -45510,31 +45696,31 @@ ALTER TABLE `dosing_time`
 -- AUTO_INCREMENT for table `medical_conditions`
 --
 ALTER TABLE `medical_conditions`
-  MODIFY `ID` int(6) NOT NULL AUTO_INCREMENT;
+  MODIFY `ID` int(6) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 
 --
 -- AUTO_INCREMENT for table `medication`
 --
 ALTER TABLE `medication`
-  MODIFY `ID` int(6) NOT NULL AUTO_INCREMENT;
+  MODIFY `ID` int(6) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT for table `patients`
 --
 ALTER TABLE `patients`
-  MODIFY `AdmissionNo` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `AdmissionNo` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
 -- AUTO_INCREMENT for table `patients_archive`
 --
 ALTER TABLE `patients_archive`
-  MODIFY `ArchiveNo` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
+  MODIFY `ArchiveNo` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
 
 --
 -- AUTO_INCREMENT for table `patient_diet`
 --
 ALTER TABLE `patient_diet`
-  MODIFY `ID` int(6) NOT NULL AUTO_INCREMENT;
+  MODIFY `ID` int(6) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT for table `refbrgy`
@@ -45570,7 +45756,7 @@ ALTER TABLE `specialization`
 -- AUTO_INCREMENT for table `vitals`
 --
 ALTER TABLE `vitals`
-  MODIFY `ID` int(6) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
+  MODIFY `ID` int(6) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=20;
 
 --
 -- AUTO_INCREMENT for table `website_uploads`
