@@ -178,19 +178,23 @@
 	<section class="main-section client-part" id="client">
 		<!--main-section client-part-start-->
 		<div class="container">
-			<b class="quote-right wow fadeInDown delay-03"><i class="fa-quote-right"></i></b>
+			<!-- <b class="quote-right wow fadeInDown delay-03"><i class="fa-quote-right"></i></b> -->
 			<div class="row">
 				<div class="col-lg-12">
-					<p class="client-part-haead wow fadeInDown delay-05">It was a pleasure to work with the guys at Knight Studio. They made sure we were well fed and drunk all the time!</p>
+					<p class="client-part-haead wow fadeInDown delay-05">
+					In February of 2004 a group of 13 Doctors and business minded individuals have conceptualized the idea of putting up a hospital. The strategic location is in a 2,949 square meter lot along J.P. Laurel Highway, a main thorough fare in Lipa City. Metro Lipa Medical Center is an undertaking of BONLOU INC., a firm formally organized and duly incorporated under the Philippine laws on July 14, 2004 in Lipa City, Batangas with the sole purpose of building a Medical Center which will cater the health Batangueños and nearby provinces. The hospital showcases the traditional features of a Medical Center equipped with all the advanced technologies and amenities to provide optimum health care services affordable to patients.
+
+The corporate organization and management is composed of young, dynamic but experienced professionals. The first President and Chairman of the Board, Mr. Edmundo Cacho, a registered Pharmacist and a respected businessman and civic-minded person spearheaded the operations of BONLOU INC., Dr. Erlando Nepomuceno was Vice-Chairman, while Dr. Amor Lobrin, Treasurer, and Dr. Percival Lojo was appointed Secretary. The Board of Directors were Dr. Benito Atienza, Dr. Ma. Lovely Cacho, Dr. Alice Lojo, Dr. Lourie Nepomuceno, Dr. Zenaida Pantas, Dr. Imelda Siasoco, Dr. John Rodolfo Suan Jr., and Mrs. Mylene Tezon. 
+					</p>
 				</div>
 			</div>
-			<ul class="client wow fadeIn delay-05s">
+			<!-- <ul class="client wow fadeIn delay-05s">
 				<li><a href="#">
             	<img src="img/client-pic1.jpg" alt="">
                 <h3>James Bond</h3>
                 <span>License To Drink Inc.</span>
             </a></li>
-			</ul>
+			</ul> -->
 		</div>
 	</section>
 	<!--main-section client-part-end-->
@@ -293,7 +297,7 @@
 					</div>
 					<div class="contact-info-box hours clearfix">
 						<h3><i class="fa-clock-o"></i>Hours:</h3>
-						<span><strong>Monday - Thursday:</strong> 10am - 6pm<br><strong>Friday:</strong> People work on Fridays now?<br><strong>Saturday - Sunday:</strong> Best not to ask.</span>
+						<span><strong>Monday - Sunday:</strong> 24/7<br> </span>
 					</div>
 					<ul class="social-link">
 						<li class="facebook"><a href="www.facebook/metrolipamedcenter"><i class="fa-facebook"></i></a></li>
