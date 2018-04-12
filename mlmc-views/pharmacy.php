@@ -360,6 +360,16 @@
                     });
                 });
 
+                	$scope.accesstype = $scope.at[0];
+        $http({
+        	method: 'GET',
+            url: 'getData/get-user-profile.php',
+            params: {id: $scope.at,
+                	atype : $scope.accesstype}
+        }).then(function(response) {
+            $scope.userdetails = response.data;
+        });
+
                 $scope.changeAP = function(){
                     $scope.currentTab='medicine';
                 }

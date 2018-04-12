@@ -97,7 +97,8 @@ p{
 
 .header{
 	text-align:center;
-	background:url(../img/pw_maze_black_2X.png) left top repeat;
+	background:url(../img/side.jpg) left top repeat;
+	background-size: cover;
 	padding:200px 0;
 }
 .logo{
@@ -401,10 +402,10 @@ img {
 /* Clients
 ---------------------------------*/
 .client-part{
-	background:url(../img/section-bg1.jpg) center center no-repeat;
+	 /* background:url(../img/MLMC.jpg) center center no-repeat; 
 	background-size:cover;
 	padding:55px 0;
-	text-align:center;
+	text-align:center; */
 }
 .client-part-haead{
 	color:#fdfdfd;
