@@ -919,11 +919,12 @@ include 'admin-header.php' ?>
                             method: 'get',
                             url: 'getData/get-medication-details.php',
                             params: {
-                                id: $scope.admissionid
+                                admissionid: $scope.admissionid
                             }
                         }).then(function(response) {
-                            $scope.medicationdetails = response.data;
-                            angular.element(document).ready(function() {
+                                $scope.medicationdetails = response.data;
+                                
+                                angular.element(document).ready(function() {
                                 dTable = $('#medication_table')
                                 dTable.DataTable();
                             });
@@ -946,7 +947,7 @@ include 'admin-header.php' ?>
                             method: 'get',
                             url: 'getData/get-medication-details.php',
                             params: {
-                                id: $scope.admissionid
+                                admissionid: $scope.admissionid
                             }
                         }).then(function(response) {
                             $scope.medicationdetails = response.data;
@@ -987,7 +988,7 @@ include 'admin-header.php' ?>
                             method: 'get',
                             url: 'getData/get-medication-details.php',
                             params: {
-                                id: $scope.admissionid
+                                admissionid: $scope.admissionid
                             }
                         }).then(function(response) {
                             $scope.medicationdetails = response.data;
