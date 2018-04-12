@@ -269,20 +269,39 @@ font-weight: bold;
 										</div>
 										<div class="row">
 											<div class="form-group">
-												<label for="focusedinput" class="col-sm-3 control-label">Room Type</label>
+												<label for="focusedinput" class="col-sm-3 control-label">Diet</label>
 												<div class="col-sm-5">
-													<input type="text" class="form-control" ng-value="relocate.RoomType" disabled>
+												<select class="form-control" ng-model="$parent.roomtype">
+														<option value="" disabled>Select Room Type</option>
+														<option value="relocate.RoomType" ng-init="$parent.roomtype = relocate.RoomType" selected>{{relocate.RoomType}}</option>
+														<option value="Ward">Ward</option>
+														<option value="OB-Ward">OB-Ward</option>
+														<option value="Female-Ward">Female-Ward</option>
+														<option value="Male-Ward">Male-Ward</option>
+														<option value="Pedia-Ward">Pedia-Ward</option>
+														<option value="Surgical-Ward">Surgical-Ward</option>
+														<option value="Semi-Private">Semi-Private</option>
+														<option value="Private">Private</option>
+														<option value="Suite">Suite</option>
+														<option value="Infectious">Infectious</option>
+														<option value="ICU">ICU</option>
+													</select>   
 												</div>
 											</div>
 										</div>
+										<div>
 										<div class="row">
 											<div class="form-group">
-												<label for="focusedinput" class="col-sm-3 control-label">Room No</label>
+												<label for="focusedinput" class="col-sm-3 control-label">Bed Number</label>
 												<div class="col-sm-5">
-													<input type="text" class="form-control" ng-value="relocate.Room" disabled>
+													<select class="form-control" ng-init="$parent.bedno = relocate.roomun" ng-options="data.BedID for data in bed |  filter:filterBed(roomtype)"  ng-model="$parent.bedno" ng-disabled="roomtype==''">
+														<option value="" disabled selected>Select Bed Number</option>
+													</select>
 												</div>
 											</div>
 										</div>
+										</div>
+										
 									</div>
 
 									<div class="panel-footer">
@@ -448,7 +467,16 @@ font-weight: bold;
         }).then(function(response) {
             $scope.userdetails = response.data;
         });
-		   
+
+		$http({
+            method: 'GET',
+            url: 'getData/get-bed-details.php',
+            contentType:"application/json; charset=utf-8",
+            dataType:"json"
+        }).then(function(response) {
+            $scope.bed = response.data;
+        });
+
 		$http({
             method: 'GET',
             url: 'getData/get-bed-details.php',

@@ -93,7 +93,7 @@ $sel = mysqli_query($conn,"SELECT *, CONCAT(Firstname, ' ' ,MiddleName, ' ', Las
 
 while ($row = mysqli_fetch_array($sel)) {
     $data[] = array(
-        "AccountID"=>$row['PharmacyStaffID'],
+        "AccountID"=>$row['PharmacyID'],
         "Fullname"=>$row['Fullname'],
         "LastName"=>$row['LastName'],
         "FirstName"=>$row['FirstName'],
