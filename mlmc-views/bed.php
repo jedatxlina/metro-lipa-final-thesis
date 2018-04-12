@@ -259,6 +259,16 @@
                 });
             });
 
+            	$scope.accesstype = $scope.at[0];
+        $http({
+        	method: 'GET',
+            url: 'getData/get-user-profile.php',
+            params: {id: $scope.at,
+                	atype : $scope.accesstype}
+        }).then(function(response) {
+            $scope.userdetails = response.data;
+        });
+
             $scope.setClickedRow = function(bed,stat) {
                 $scope.selectedRow = ($scope.selectedRow == null) ? bed : ($scope.selectedRow == bed) ? null : bed;
                 $scope.selectedStatus= ($scope.selectedStatus == null) ? stat : ($scope.selectedStatus == stat) ? null : stat;

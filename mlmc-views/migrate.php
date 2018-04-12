@@ -36,7 +36,7 @@
                     <div class="list-group list-group-alternate mb-n nav nav-tabs">
                         <a href="#tab-settings" role="tab" data-toggle="tab" class="list-group-item"><i class="fa fa-gear"></i> Settings </a>
                         <a href="#tab-migrate" role="tab" data-toggle="tab" class="list-group-item"><i class="fa fa-database"></i>Migrate Archive</a>
-						<a href="#tab-reports" role="tab" data-toggle="tab" class="list-group-item"><i class="fa fa-file-pdf-o"></i>Reports</a>
+						<!-- <a href="#tab-reports" role="tab" data-toggle="tab" class="list-group-item"><i class="fa fa-file-pdf-o"></i>Reports</a> -->
                     </div>
                 </div><!-- col-sm-3 -->
                 <div class="col-sm-9">
@@ -115,6 +115,12 @@
 														
 													</div>
 												</div>
+												<div class="form-group">
+													<div class="col-xs-4">Generate PDF Latest Common Illnesses	<br><span class="text-muted"> </span></div>
+													<div class="col-xs-8">
+													<button type="button" ng-click="generateCommon()" class="btn btn-danger pull-left">&nbsp;Generate</button>
+													</div>
+												</div>
 											</div>
 											<br>
 											<div class="row">
@@ -155,7 +161,7 @@
 								</div>
                         </div> <!-- #tab-projects -->
 
-						<div class="tab-pane" id="tab-reports">
+						<!-- <div class="tab-pane" id="tab-reports">
                            		<div class="panel panel-danger" data-widget='{"draggable": "false"}'>
 									<div class="panel-heading">
 										<h2>Reports</h2>
@@ -181,7 +187,7 @@
 										</div>
 									</div>
 								</div>
-                        </div> <!-- #tab-projects -->
+                        </div> -->
 					</div><!-- .tab-content -->
 				<!-- Add HMO Provider  -->
 				<div class="modal fade" id="addHmoModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
@@ -226,7 +232,7 @@
 <script>
 
 			var app = angular.module('myApp', ['rzModule']);
-			app.controller('userCtrl', function($scope, $http) {
+			app.controller('userCtrl', function($scope, $http,$window) {
 
 			$scope.at = "<?php echo $at;?>";
 
@@ -364,6 +370,11 @@
                             window.location.reload(false); 
                         }
                 });
+			}
+
+			$scope.generateCommon = function(){
+				$window.open('view-illnesses-report.php?at='+$scope.at, '_blank');
+			
 			}
 
 			$scope.insertHmo = function(){
