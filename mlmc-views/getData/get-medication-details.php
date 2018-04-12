@@ -108,6 +108,26 @@ if(isset($_GET['medicineid']) && isset($_GET['id'])) {
     }
 }
 
+if(isset($_GET['orderid'])){
+    $orderid = $_GET['orderid'];
+    $sel = mysqli_query($conn,"SELECT *,pharmaceuticals.MedicineName FROM `orders`JOIN medication,pharmaceuticals WHERE orders.OrderID = '$orderid' AND medication.AdmissionID = orders.AdmissionID AND medication.MedicineID = pharmaceuticals.MedicineID");
+    $data = array();
+    while ($row = mysqli_fetch_array($sel)) {
+        $data[] = array(
+            "MedicineID"=>$row['MedicineID'],
+            "MedicineName"=>$row['MedicineName'],
+            "MedicationID"=>$row['MedicationID'],   
+            "DateAdministered"=>$row['DateAdministered'],
+            "TimeAdministered"=>$row['TimeAdministered'],
+            "PhysicianID"=>$row['PhysicianID'],
+            "Dosage"=>$row['Dosage'],
+            "Quantity"=>$row['Quantity'],
+            "DateStart"=>$row['DateStart'],
+            "TimeStart"=>$row['TimeStart'],
+            "DosingID"=>$row['DosingID'],
+            "Notes"=>$row['Notes']);
+    }
+}
 echo json_encode($data);
 
 									
