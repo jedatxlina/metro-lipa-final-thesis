@@ -144,7 +144,7 @@ font-weight: bold;
                                         <fieldset data-ng-repeat='medication in medications'>
                                             <div data-row-span="4">
                                                     <div data-field-span="1">
-                                                        <label>Medicine NAme<br></label>
+                                                        <label>Medicine Name<br></label>
                                                         <input type="text" ng-model="medication.MedicineName + ' ' + medication.Dosage " ng-disabled='true'>
                                                     </div>
                                                     <div data-field-span="1">
@@ -227,7 +227,18 @@ font-weight: bold;
 			params:{id: $scope.id}
 		}).then(function(response) {
 			$scope.medications = response.data;	
+            alert($scope.medications);
 		});
+
+         $scope.accesstype = $scope.at[0];
+                $http({
+                    method: 'GET',
+                    url: 'getData/get-user-profile.php',
+                    params: {id: $scope.at,
+                    atype : $scope.accesstype}
+                }).then(function(response) {
+                    $scope.userdetails = response.data;
+                });
 
         $http({
 			method: 'get',

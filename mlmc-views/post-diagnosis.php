@@ -40,16 +40,16 @@
                                 <img ng-src="{{patient.QRpath}}">
                                 <div class="name">{{patient.Lastname}}, {{patient.Firstname}} {{patient.Middlename}}</div>
                                 <div class="info">{{patient.AdmissionID}}</div>
-                                <input type="hidden" ng-model="admittype" ng-init="admittype = patient.AdmissionType"/>
+                                <input type="hidden" ng-model="$parent.admittype" ng-init="$parent.admittype = patient.AdmissionType"/>
                             </div>
                         </div>
                         <!-- panel -->
                         <div class="list-group list-group-alternate mb-n nav nav-tabs">
                             <a href="#tab-diagnosis" role="tab" data-toggle="tab" class="list-group-item active"><i class="fa fa-stethoscope"></i> Diagnosis</a>
-                            <a href="#tab-laboratory" role="tab" data-toggle="tab" class="list-group-item"><i class="fa fa-stethoscope"></i> Laboratory</a>
-                            <a href="#tab-medications" role="tab" data-toggle="tab" class="list-group-item"><i class="fa fa-stethoscope"></i> Medications</a>
+                            <!-- <a href="#tab-laboratory" role="tab" data-toggle="tab" class="list-group-item"><i class="fa fa-stethoscope"></i> Laboratory</a>
+                            <a href="#tab-medications" role="tab" data-toggle="tab" class="list-group-item"><i class="fa fa-stethoscope"></i> Medications</a> -->
                             <a href="#tab-details" role="tab" data-toggle="tab" class="list-group-item"><i class="fa fa-stethoscope"></i>Medical Details</a>
-                            <a href="#tab-historys" role="tab" data-toggle="tab" class="list-group-item"><i class="ti ti-view-list-alt"></i> Medical History</a>
+                            <a href="#tab-history" role="tab" data-toggle="tab" class="list-group-item"><i class="ti ti-view-list-alt"></i> Medical History</a>
                         </div>
                     </div>
                     <div class="col-md-9">
@@ -164,7 +164,7 @@
                                             </form>
                                         </div>
                                         <div id="diagsteptwo">
-                                        <form class="grid-form" action="javascript:void(0)">
+                                            <form class="grid-form" action="javascript:void(0)">
                                                 <fieldset data-ng-repeat="patient in patientdetails">
                                                     <div data-row-span="3">
                                                         <div data-field-span="1">
@@ -198,8 +198,7 @@
                                                 </fieldset>
                                                 <br>
                                                 <fieldset data-ng-repeat="medication in medications track by $index">
-                                                    <legend>{{medication.MedicineName}}
-                                                        <h6>Medicine ID: {{medication.MedicineID}}</h6></legend>
+                                                <input type="text" ng-model="med" ng-init="med = medication.MedicineName" disabled="disabled">
                                                     <div data-row-span="2">
                                                         <div data-field-span="1">
                                                             <label>Dosage</label>
@@ -298,39 +297,149 @@
                                 </div>
                             </div> 
                             <div class="tab-pane" id="tab-details">
-                                <div class="panel panel-default">
+                                <div class="panel panel-danger">
                                     <div class="panel-heading">
-                                        <h2>Medical History</h2>
+                                        <h2>Medical Details</h2>
                                     </div>
                                     <div class="panel-body">
-                                        <div class="table-responsive"  data-ng-repeat="patient in patientdetails">
-                                            <table id="patient_table" class="table table-striped table-bordered" cellspacing="0" width="80%">
-                                                <thead>
-                                                <tr>
-                                                    <th>Patients Name</th>
-                                                    <th>Admission ID</th>
-                                                    <th>Admission Date</th>
-                                                    <th>Admission Time</th>
-                                                    <th>Bed ID</th>
-                                                    <th>Medical ID</th>
-                                                </tr>
-                                                </thead>
-                                                <tbody>
-                                                <tr ng-repeat="" ng-class="{'selected': patient.AdmissionID == selectedRow}" ng-click="setClickedRow(patient.AdmissionID)">
-                                                        <td>{{patient.Lname}}, {{patient.Fname}} {{patient.Mname}}</td>
-                                                        <td>{{patient.AdmissionID}}</td>
-                                                        <td>{{patient.AdmissionDate}}</td>
-                                                        <td>{{patient.AdmissionTime}}</td>
-                                                        <td>{{patient.BedID}}</td>
-                                                        <td>{{patient.MedicalID}}</td>
-                                                        <td></td>
-                                                    </tr>
-                                                </tbody>
-                                            </table>
-                                        </div><!-- /.table-responsive -->
-                                    </div> <!-- /.panel-body -->
+                                        <div class="about-area">
+                                            <div class="grid-form">
+                                                <div class="row">
+                                                    <fieldset data-ng-repeat="patient in patientdetails">
+                                                            <div data-row-span="2">
+                                                                <div data-field-span="1">
+                                                                    <label>Patient ID</label>
+                                                                    <input type="text" class="form-control" ng-model="patient.AdmissionID"  ng-disabled='true'>
+                                                                </div>
+                                                                <div data-field-span="1">
+                                                                    <label>Admission No</label>
+                                                                    <input type="text" ng-model="patient.AdmissionNo" ng-disabled='true'>
+                                                                </div>
+                                                            </div>
+                                                            <div data-row-span="3">
+                                                                <div data-field-span="1">
+                                                                    <label>Admission Date</label>
+                                                                    <input type="text" class="form-control" ng-model="patient.AdmissionDate"  ng-disabled='true'>
+                                                                </div>
+                                                                <div data-field-span="1">
+                                                                    <label>Admission Time</label>
+                                                                    <input type="text" ng-model="patient.AdmissionTime" ng-disabled='true'>
+                                                                </div>
+                                                            
+                                                            </div>
+                                                            <div data-row-span="2">
+                                                                <div data-field-span="1">
+                                                                    <label>Admission</label>
+                                                                    <input type="text" class="form-control" ng-model="patient.Admission"  ng-disabled='true'>
+                                                                </div>
+                                                                <div data-field-span="1">
+                                                                    <label>Admission Type</label>
+                                                                    <input type="text" ng-model="patient.AdmissionType" ng-disabled='true'>
+                                                                </div>
+                                                            </div>
+                                                    </fieldset>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="panel panel-danger">
+                                    <div class="panel-heading">
+                                        <h2>Diagnosis</h2><a ng-click="viewDiagnosisReport()" class="pull-right"><i class="ti ti-printer"></i></a>
+                                        <div class="panel-ctrls"></div>
+                                    </div>
+                                        <div class="panel-body">
+                                            <div class="table-responsive">
+                                                <table id="findings_table" class="table table-striped table-bordered" cellspacing="0" width="100%">
+                                                        <thead>
+                                                            <tr>
+                                                                <th>#</th>
+                                                                <th>Findings</th>
+                                                                <th>DateDiagnosed</th>
+                                                                <th>TimeDiagnosed</th>
+                                                                <th>Administered By</th>
+                                                            </tr>
+                                                        </thead>
+                                                        <tbody>
+                                                            <tr  ng-repeat="finding in findings track by $index">
+                                                                <td>{{$index}}</td>
+                                                                <td>{{finding.Findings}}</td>
+                                                                <td>{{finding.DateDiagnosed}}</td>
+                                                                <td>{{finding.TimeDiagnosed}}</td>
+                                                                <td>Dr. {{finding.PhysicianFirstname}} {{finding.PhysicianMiddlename}} {{finding.PhysicianLastname}}</td>
+                                                            </tr>
+                                                        </tbody>
+                                                </table>
+                                            </div>
+                                        </div>
+                                    <div class="panel-footer">
+                                    </div>
+                                </div>
+                                <div class="panel panel-danger">
+                                    <div class="panel-heading">
+                                        <h2>Patient Medications</h2><a ng-click="viewMedicationsReport()" class="pull-right"><i class="ti ti-printer"></i></a>
+                                        <div class="panel-ctrls"></div>
+                                    </div>
+                                        <div class="panel-body">
+                                            <div class="table-responsive">
+                                                <table id="medications_table" class="table table-striped table-bordered" cellspacing="0" width="100%">
+                                                        <thead>
+                                                            <tr>
+                                                                <th>#</th>
+                                                                <th>Medicine Name</th>
+                                                                <th>Dosage</th>
+                                                                <th>Quantity</th>
+                                                                <th>Administered By</th>
+                                                            </tr>
+                                                        </thead>
+                                                        <tbody>
+                                                            <tr  ng-repeat="med in medications track by $index">
+                                                                <td>{{$index}}</td>
+                                                                <td>{{med.MedicineName}}</td>
+                                                                <td>{{med.Unit}}</td>
+                                                                <td>{{med.Intake}}</td>
+                                                                <td>Dr. {{med.PhysicianFirstname}} {{med.PhysicianFirstname}} {{med.PhysicianFirstname}}</td>
+                                                            </tr>
+                                                        </tbody>
+                                                </table>
+                                            </div>
+                                        </div>
+                                    <div class="panel-footer">
+                                    </div>
                                 </div>
                             </div> <!-- #tab-details -->
+                            <div class="tab-pane" id="tab-history">
+                                <div class="panel panel-danger">
+                                    <div class="panel-heading">
+                                        <h2>Medical History</h2><a ng-click="viewHistoryReport()" class="pull-right"><i class="ti ti-printer"></i></a>
+                                        <div class="panel-ctrls"></div>
+                                    </div>
+                                        <div class="panel-body">
+                                            <div class="table-responsive"  data-ng-repeat="patient in patientdetails">
+                                                <table id="medhistory_table" class="table table-striped table-bordered" cellspacing="0" width="100%">
+                                                    <thead>
+                                                    <tr>
+                                                        <th>Patient Name</th>
+                                                        <th>Admission ID</th>
+                                                        <th>Admission Date</th>
+                                                        <th>Admission Time</th>
+                                                    </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                    <tr ng-repeat="history in patienthistory" ng-class="{'selected': history.ArchiveID == selectedRow}" ng-click="setClickedRow(history.ArchiveID)">
+                                                        <td>{{history.Firstname}} {{history.Middlename}} {{history.Lastname}}</td>
+                                                        <td>{{history.ArchiveID}}</td>
+                                                        <td>{{history.AdmissionDate}}</td>
+                                                        <td>{{history.AdmissionTime}}</td>
+                                                        </tr>
+                                                    </tbody>
+                                                </table>
+                                            </div>
+                                        </div>
+                                    <div class="panel-footer">
+                                    </div>
+                                </div>   
+                            </div> 
                         </div>
                     </div>
                     <div class="panel-footer"></div>
@@ -387,8 +496,7 @@
                     method: 'GET',
                     url: 'getData/get-medication-details.php',
                     params: {
-                        medicationid: $scope.medicationid,
-                        admissionid: $scope.admissionid
+                        medicationid: $scope.medicationid
                     }
                 }).then(function(response) {
                     $scope.medications = response.data;
@@ -481,6 +589,43 @@
             }).then(function(response) {
                 $scope.conditions = response.data;
             });
+
+              $http({
+                method: 'GET',
+                url: 'getData/get-findings-details.php',
+                params: {id: $scope.id}
+            }).then(function(response) {
+                $scope.findings = response.data;
+                angular.element(document).ready(function() {  
+                dTable = $('#findings_table')  
+                dTable.DataTable();  
+            	});  
+            });
+
+                   $http({
+            method: 'GET',
+            url: 'getData/get-medication-details.php',
+            params: {id: $scope.id}
+            }).then(function(response) {
+                $scope.medications = response.data;
+                angular.element(document).ready(function() {  
+            	dTable = $('#medications_table')  
+            	dTable.DataTable();  
+            	});  
+            });
+
+                      $http({
+                method: 'GET',
+                url: 'getData/get-history-details.php',
+                params: {id: $scope.id}
+            }).then(function(response) {
+                $scope.patienthistory = response.data;
+                angular.element(document).ready(function() {  
+                dTable = $('#medhistory_table')  
+                dTable.DataTable();  
+            	});  
+            });
+
 
             $scope.otherdiagnosis = '';
             $scope.otherlabs = '';
