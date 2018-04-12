@@ -224,10 +224,9 @@ font-weight: bold;
         $http({
 			method: 'get',
 			url: 'getData/get-medication-details.php',
-			params:{id: $scope.id}
+			params:{admissionid: $scope.id}
 		}).then(function(response) {
 			$scope.medications = response.data;	
-            alert($scope.medications);
 		});
 
          $scope.accesstype = $scope.at[0];
