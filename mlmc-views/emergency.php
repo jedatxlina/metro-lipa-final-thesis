@@ -402,56 +402,49 @@ font-weight: bold;
 				</div>
 				
 				<div class="modal fade" id="dischargeModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
-					<form class="form-horizontal">
-						<div class="modal-dialog">
-							<div class="panel panel-danger" data-widget='{"draggable": "false"}'>
-								<div class="panel-heading">
-									<h2>Patient Details</h2>
-									<div class="panel-ctrls" data-actions-container="" data-action-collapse='{"target": ".panel-body, .panel-footer"}'></div>
-								</div>
-								<div class="panel-body" style="height: auto">
-									<center><span><strong>Patient Bill</strong></span></center>
-									<hr>
-									<div class="row" data-ng-repeat="bill in billdetails">
-										<div class="form-group">
-											<label for="focusedinput" class="col-sm-3 control-label">Bed Bill</label>
-											<div class="col-sm-5">
-												<input type="text" class="form-control" ng-value="bill.totalbill"  disabled>
-											</div>
-										</div>
-									</div>
-									<div class="row" data-ng-repeat="bill in medicinebill2">
-										<div class="form-group">
-											<label for="focusedinput" class="col-sm-3 control-label">Medicine Name</label>
-											<div class="col-sm-5">
-												<input type="text" class="form-control"  ng-value="bill.mediname + ' ' + bill.Dosage + ' x ' + bill.quantity" disabled>
-											</div>
-										</div>
-										<div class="form-group">
-											<label for="focusedinput" class="col-sm-3 control-label">Medicine Price</label>
-											<div class="col-sm-5">
-												<input type="text" class="form-control"  ng-value="bill.price" disabled>
-											</div>
-										</div>
-									</div>
-									<div class="row" data-ng-repeat="bill in medicinebill">
-										<div class="form-group">
-											<label for="focusedinput" class="col-sm-3 control-label">Medicine Bill Total</label>
-											<div class="col-sm-5">
-												<input type="text" class="form-control" ng-value="bill.totalbill" disabled>
-											</div>
-										</div>
-									</div>
-									<br>
-								</div>
-								<div class="panel-footer">
-									<button type="button" ng-click="viewPatientDetails()" class="btn btn-danger-alt pull-left">View Details</button>
-									<button type="button" data-dismiss="modal" class="btn btn-danger pull-right">Ok</button>
-								</div>
-							</div>
-						</div>
-					</form>
-				</div>
+                        <form class="form-horizontal">
+                            <div class="modal-dialog">
+                                <div class="panel panel-danger" data-widget='{"draggable": "false"}'>
+                                    <div class="panel-heading">
+                                        <h2>Tag as Discharged</h2>
+                                        <div class="panel-ctrls" data-actions-container="" data-action-collapse='{"target": ".panel-body, .panel-footer"}'></div>
+                                    </div>
+                                    <div class="panel-body" style="height: auto">
+                                        <center><span><strong>Registry Information</strong></span></center>
+                                        <hr>
+                                        <div class="row" data-ng-repeat="details in dischargedetails">
+                                            <div class="form-group">
+                                                <label for="focusedinput" class="col-sm-3 control-label">Patient name</label>
+                                                <div class="col-sm-8">
+                                                    <input type="text" class="form-control" ng-value="details.firstname + ' ' + details.middlename + ' ' + details.lastname" disabled>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="row" data-ng-repeat="details in dischargedetails">
+                                            <div class="form-group">
+                                                <label for="focusedinput" class="col-sm-3 control-label">Total Bill</label>
+                                                <div class="col-sm-5">
+                                                    <input type="text" class="form-control" ng-value="details.totalbill" disabled>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="form-group" data-ng-repeat="details in dischargedetails">
+                                            <label for="focusedinput" class="col-sm-3 control-label">Status</label>
+                                            <div class="col-sm-5">
+                                                <input type="text" class="form-control" ng-value="details.status" disabled>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="panel-footer">
+                                        <button type="button" ng-click="tagPatientDischarge()" class="btn btn-danger-alt pull-right">Tag</button>
+                                        <button type="button" data-dismiss="modal" class="btn btn-default pull-right">Cancel</button>
+                                    </div>
+                                </div>
+
+                            </div>
+                    </div>
+                    </form>
+                </div>
 
 				<div class="modal fade" id="moveInpatientModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
 					<form class="form-horizontal">
@@ -717,6 +710,20 @@ font-weight: bold;
 				$('#searchResultPatientModal').modal('show');
 		}
             
+
+		$scope.tagPatientDischarge = function() {
+                    $http({
+                        method: 'get',
+                        url: 'insertData/insert-discharged-inpatient.php',
+                        params: {
+                            id: $scope.admissionid
+                        }
+                    }).then(function(response) {
+                        console.log(response.data);
+                    });
+
+                }
+
 		$scope.searchResultView = function(){
 			if($scope.selectedRow != null){
             	$scope.archiveid = $scope.selectedRow;
@@ -933,6 +940,40 @@ font-weight: bold;
 			});
 
 		}
+
+		$scope.dischargePatient = function() {
+                    if ($scope.selectedRow != null) {
+                        $scope.admissionid = $scope.selectedRow;
+                        $http({
+                            method: 'get',
+                            url: 'getData/get-patient-discharge-details.php',
+                            params: {
+                                id: $scope.admissionid
+                            }
+                        }).then(function(response) {
+                            $scope.dischargedetails = response.data;
+                            if (response.data.length == 0) {
+                                swal({
+                                    icon: "warning",
+                                    title: "Billing is still being processed",
+                                    text: "Redirecting in 2..",
+                                    timer: 2000
+                                }).then(function() {
+                                    window.location.reload(false);
+                                }, function(dismiss) {
+                                    if (dismiss === 'cancel') {
+                                        window.location.reload(false);
+                                    }
+                                });
+                            } else {
+                                $('#dischargeModal').modal('show');
+                            }
+                        });
+
+                    } else {
+                        $('#myModal').modal('show');
+                    }
+                }
 		
 		$scope.getPage = function(check){
 			
