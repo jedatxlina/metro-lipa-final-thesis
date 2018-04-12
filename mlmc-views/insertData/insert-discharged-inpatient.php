@@ -15,7 +15,23 @@
     mysqli_query($conn,$query);
 
     $query2 = "DELETE FROM patients WHERE AdmissionID = '$id'";
+
     mysqli_query($conn,$query2);
+
+    
+    $sel = mysqli_query($conn,"SELECT BedID FROM medical_details WHERE AdmissionID = '$id'");
+    while ($row = mysqli_fetch_assoc($sel)) {
+        $bedid = $row['BedID'];
+    }
+
+    $query3 = "DELETE FROM patients WHERE AdmissionID = '$id'";
+
+    mysqli_query($conn,$query2);
+
+    $query4 = "UPDATE beds SET Status = 'Unavailable' WHERE BedID = '$bedid'";
+
+    mysqli_query($conn,$query4);  
+
 
     require('../vendor/autoload.php');
             
