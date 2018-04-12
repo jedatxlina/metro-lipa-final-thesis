@@ -363,10 +363,14 @@
 										</tr>
 										</thead>
 										<tbody>
+                                       
+                                        
 										<tr ng-repeat="user in userlogs">
+                                        <div id="log"> 
 												<td>{{user.DateTimeIn}}</td>
 												<td>{{user.DateTimeOut}}</td>
 											</tr>
+                                            </div>
 										</tbody>
 									</table>
 
@@ -432,7 +436,6 @@
                 $scope.ViewUserLogs = function(){
                     
 			if($scope.selectedRow != null){
-                
               //  $('#logs_table tbody').empty(); 
 				$http({
 					method: 'get',
@@ -440,15 +443,18 @@
 					params: {id: $scope.selectedRow}
 				}).then(function(response) {
 					$scope.userlogs = response.data;
-					angular.element(document).ready(function() {
+					// angular.element(document).ready(function() {
                        
-					dTable = $('#logs_table') 
-					dTable.DataTable(); 
+					// dTable = $('#logs_table') 
+                    
+					// dTable.DataTable(); 
 
                     
-					});  
+					// });  
 				});
 				$('#ViewUserLogsModal').modal('show');
+                
+                document.getElementById("logs").innerHTML = "";
             			}
 			else{
 			$('#ErrorModal').modal('show');

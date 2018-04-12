@@ -76,7 +76,7 @@ include 'admin-header.php' ?>
                                         <td style="color:red">{{user.Temperature}}</td>
 										<td>{{user.DateTimeChecked}}</td>
                                     </tr> -->
-                                        <tr ng-repeat="user in users" ng-class="{'selected': user.AdmissionID == selectedRow}" ng-click="setClickedRow(user.AdmissionID)">
+                                        <tr ng-repeat="user in users" ng-class="{'selected': user.AdmissionID == selectedRow}" ng-click="setClickedRow(user.AdmissionID,user.PR,user.Fullname,user.BedID)">
                                             <td>{{user.BedID}}</td>
                                             <td>{{user.Fullname}}</td>
                                             <td>{{user.BP}}/{{user.BPD}}</td>
@@ -473,12 +473,13 @@ include 'admin-header.php' ?>
                                         </thead>
                                         <tbody>
                                             <tr ng-repeat="medication in medicationdetails">
-                                                <td>{{medication.pfullname}}</td>
+                                            <div id="id">
+                                                <td>{{nameofpatient}}</td>
                                                 <td>{{medication.DateAdministered}} {{medication.TimeAdministered}}</td>
-                                                <td>{{medication.bedid}}</td>
+                                                <td>{{roomofpatient}}</td>
                                                 <td>{{medication.MedicineName}}</td>
                                                 <td>{{medication.Intake}}</td>
-
+                                            </div>
                                             </tr>
                                         </tbody>
                                     </table>
@@ -791,10 +792,13 @@ include 'admin-header.php' ?>
                     window.location.href = 'add-patient.php?id=' + 1;
                 }
 
-                $scope.setClickedRow = function(user, param) {
+                $scope.setClickedRow = function(user, param,name,room) {
                     $scope.selectedRow = ($scope.selectedRow == null) ? user : ($scope.selectedRow == user) ? null : user;
                     $scope.clickedRow = ($scope.selectedRow == null) ? 0 : 1;
                     $scope.orderadmissionid = param;
+                    $scope.nameofpatient = name;
+                    $scope.roomofpatient = room;
+                    
                 }
 
                 $scope.viewPatient = function() {
@@ -924,12 +928,14 @@ include 'admin-header.php' ?>
                         }).then(function(response) {
                                 $scope.medicationdetails = response.data;
                                 
-                                angular.element(document).ready(function() {
-                                dTable = $('#medication_table')
-                                dTable.DataTable();
-                            });
+                                // angular.element(document).ready(function() {
+                                // dTable = $('#medication_table')
+                                // dTable.DataTable();
+                            // });
                         });
                         $('#viewMedicationModal').modal('show');
+                        
+                document.getElementById("id").innerHTML = "";
 
                     } else {
                         $('#myModal').modal('show');
