@@ -145,11 +145,11 @@
                                                             </tr>
                                                         </thead>
                                                         <tbody>
-                                                            <tr  ng-repeat="med in medications track by $index">
+                                                            <tr data-ng-repeat="meds in medications track by $index">
                                                                 <td>{{$index}}</td>
-                                                                <td>{{med.MedicineName}}</td>
-                                                                <td>{{med.Unit}}</td>
-                                                                <td>{{med.Intake}}</td>
+                                                                <td>{{meds.MedicineName}}</td>
+                                                                <td>{{meds.Unit}}</td>
+                                                                <td>{{meds.Intake}}</td>
                                                                 <td>Dr. {{med.PhysicianFirstname}} {{med.PhysicianFirstname}} {{med.PhysicianFirstname}}</td>
                                                             </tr>
                                                         </tbody>
@@ -501,6 +501,7 @@
             params: {id: $scope.id}
             }).then(function(response) {
                 $scope.medications = response.data;
+
                 angular.element(document).ready(function() {  
             	dTable = $('#medications_table')  
             	dTable.DataTable();  
