@@ -477,7 +477,21 @@
             }
             
             $scope.notifyPatient = function(){
-                $window.open('notify-patient-sms.php?at=' + $scope.at + '&id=' + $scope.id + '&bill=' + $scope.subtotal, '_blank');
+              
+         
+					swal({
+                            icon: "success",
+                            title: "Successfully Notified!",
+                            text: "Redirecting in 2..",
+                            timer: 2000
+                        }).then(function () {
+                                window.location.href = 'notify-patient-sms.php?at=' + $scope.at + '&id=' + $scope.id + '&bill=' + $scope.subtotal;
+                            }, function (dismiss) {
+                            if (dismiss === 'cancel') {
+                                window.location.href = 'notify-patient-sms.php?at=' + $scope.at + '&id=' + $scope.id + '&bill=' + $scope.subtotal;
+                            }
+                        });
+			
             }
 
             $scope.Redirect = function() {
