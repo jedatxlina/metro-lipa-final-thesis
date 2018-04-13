@@ -28,10 +28,10 @@ require_once 'connection.php';
 
     }
 
-    $nextintake = date("h:i A", strtotime("+{$timeinterval} hours"));
+    // $nextintake = date("h:i A", strtotime("+{$timeinterval} hours"));
 
-    $query1 = "INSERT into medication_timeline(MedTimelineID,MedicationID,AdmissionID,MedicineID,NurseID,DateIntake,TimeIntake,NextTimeIntake,Alert,Status) 
-    VALUES('$randstring','$MedicationID','$AdmissionID','$MedicineID','$at','$date','$NextTimeIntake','$nextintake',0,1)";
+    // $query1 = "INSERT into medication_timeline(MedTimelineID,MedicationID,AdmissionID,MedicineID,NurseID,DateIntake,TimeIntake,NextTimeIntake,Alert,Status) 
+    // VALUES('$randstring','$MedicationID','$AdmissionID','$MedicineID','$at','$date','$NextTimeIntake','$nextintake',0,1)";
 
     mysqli_query($conn,$query1);  
 ?>

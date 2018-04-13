@@ -269,7 +269,7 @@ font-weight: bold;
 										</div>
 										<div class="row">
 											<div class="form-group">
-												<label for="focusedinput" class="col-sm-3 control-label">Diet</label>
+												<label for="focusedinput" class="col-sm-3 control-label">Room Type</label>
 												<div class="col-sm-5">
 												<select class="form-control" ng-model="$parent.roomtype">
 														<option value="" disabled>Select Room Type</option>
@@ -289,19 +289,18 @@ font-weight: bold;
 												</div>
 											</div>
 										</div>
+										</div>
 										<div>
 										<div class="row">
 											<div class="form-group">
 												<label for="focusedinput" class="col-sm-3 control-label">Bed Number</label>
 												<div class="col-sm-5">
-													<select class="form-control" ng-init="$parent.bedno = relocate.roomun" ng-options="data.BedID for data in bed |  filter:filterBed(roomtype)"  ng-model="$parent.bedno" ng-disabled="roomtype==''">
+													<select class="form-control" ng-options="data.BedID for data in bed |  filter:filterBed(roomtype)"  ng-model="bednum" ng-disabled="roomtype==''">
 														<option value="" disabled selected>Select Bed Number</option>
 													</select>
 												</div>
 											</div>
 										</div>
-										</div>
-										
 									</div>
 
 									<div class="panel-footer">
@@ -561,8 +560,8 @@ font-weight: bold;
 		}
 
 		$scope.relocateNext = function(){
-			$('#relocateModal').modal('hide');
-			$('#relocateNextModal').modal('show');
+			alert($scope.bednum);			
+			window.location.href = 'insertData/insert-relocate-details.php?id=' + $scope.admissionid +'&relobed='+ $scope.bednum;
 		}
 	
         $scope.filterBed = function (param) {

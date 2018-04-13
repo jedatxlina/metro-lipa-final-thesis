@@ -46,6 +46,9 @@
 .blacktext {
   color: black;
 }
+.main-nav li a {
+	color: #ffffff;
+}
 	</style>
 </head>
 
@@ -65,7 +68,7 @@
 	</header>
 	<!--header-end-->
 
-	<nav class="main-nav-outer" id="test" >
+	<nav class="main-nav-outer"  style="background: #000;"  id="test" >
 		<!--main-nav-start-->
 		<div class="container" >
 			<ul class="main-nav">
@@ -317,20 +320,19 @@ The corporate organization and management is composed of young, dynamic but expe
 		</section>
 	</div>
 </div>
-	<footer class="footer">
+	<footer class="footer" style="height:150px;">
 		<div class="container">
 			<div class="footer-logo"><a href="#"><img src="img/mlmc-footer-logo.png" alt=""></a></div>
-			<span class="copyright">&copy; Knight Theme. All Rights Reserved</span>
-			<div class="credits">
+			<span class="copyright">&copy; Metro Lipa Medical Center All Rights Reserved 2018</span>
+			<!-- <div class="credits">
 				<!--
           All the links in the footer should remain intact. 
           You can delete the links only if you purchased the pro version.
           Licensing information: https://bootstrapmade.com/license/
           Purchase the pro version with working PHP/AJAX contact form: https://bootstrapmade.com/buy/?theme=Knight
         -->
-				<a href="https://bootstrapmade.com/bootstrap-agency-templates/">Bootstrap Agency Templates</a> by <a href="https://bootstrapmade.com/">BootstrapMade</a>
-			</div>
-		</div>
+				<!-- <a href="https://bootstrapmade.com/bootstrap-agency-templates/">Bootstrap Agency Templates</a> by <a href="https://bootstrapmade.com/">BootstrapMade</a>
+			</div> -->
 	</footer>
 	<script>
         var fetch = angular.module('myApp', []);

@@ -345,6 +345,7 @@
                 params: {
                     id: $scope.id
                 }
+                
             }).then(function(response) {
                 $scope.supplydetails = response.data;
             });

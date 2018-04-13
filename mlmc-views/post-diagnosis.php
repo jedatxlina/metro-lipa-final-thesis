@@ -602,17 +602,17 @@
             	});  
             });
 
-                   $http({
-            method: 'GET',
-            url: 'getData/get-medication-details.php',
-            params: {id: $scope.id}
-            }).then(function(response) {
-                $scope.medications = response.data;
-                angular.element(document).ready(function() {  
-            	dTable = $('#medications_table')  
-            	dTable.DataTable();  
-            	});  
-            });
+            // $http({
+            // method: 'GET',
+            // url: 'getData/get-medication-details.php',
+            // params: {id: $scope.id}
+            // }).then(function(response) {
+            //     $scope.medications = response.data;
+            //     angular.element(document).ready(function() {  
+            // 	dTable = $('#medications_table')  
+            // 	dTable.DataTable();  
+            // 	});  
+            // });
 
                       $http({
                 method: 'GET',
