@@ -564,12 +564,7 @@ include 'admin-header.php' ?>
                     console.log(data.message);
                     console.log(data.message1);
                     console.log(data.medtimeline);
-                    swal({
-                        icon: "warning",
-                        title: data.message,
-                        text: data.message1
-                    }).then(function() {});
-
+             
                     swal({
                             title: "Post Medication?",
                             text: data.message1,
@@ -922,8 +917,9 @@ include 'admin-header.php' ?>
                                 id: $scope.admissionid
                             }
                         }).then(function(response) {
-                            $scope.medicationdetails = response.data;
-                            angular.element(document).ready(function() {
+                            $scope.medicationdetails = response.data.length;
+                      
+                                angular.element(document).ready(function() {
                                 dTable = $('#medication_table')
                                 dTable.DataTable();
                             });

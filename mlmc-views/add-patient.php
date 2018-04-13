@@ -525,9 +525,10 @@
                     }
                     
                     if($scope.chk != ''){
+
                         $('#notnewborndiv').hide();
                         $('#oldpatientdiv').show();
-                        window.location.href = 'insertData/insert-oldpatient-details.php?at=' + $scope.at + '&chk=' + $scope.chk + '&admissionid=' + $scope.admissionid + '&admissiontype=' + $scope.admissiontype + '&medicalid=' + $scope.medicalid;
+                        window.location.href = 'insertData/insert-oldpatient-details.php?at=' + $scope.at + '&chk=' + $scope.chk + '&admissionid=' + $scope.chk + '&admissiontype=' + $scope.admissiontype + '&medicalid=' + $scope.medicalid;
                     }
                 
                     $scope.newbornyes = function(){

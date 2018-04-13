@@ -45,7 +45,7 @@ if(isset($_GET['medicationid'])) {
 
 if(isset($_GET['id'])){
     $id = $_GET['id'];
-    $sel = mysqli_query($conn,"SELECT *,GROUP_CONCAT(patients.FirstName,' ',patients.MiddleName,' ',patients.LastName) as pfullname,medical_details.BedID FROM medication JOIN pharmaceuticals,patients,dosing_time,physicians,medical_details WHERE medication.AdmissionID = '$id' AND medication.MedicineID = pharmaceuticals.MedicineID AND medication.DosingID = dosing_time.DosingID AND medication.PhysicianID = physicians.PhysicianID AND patients.AdmissionID = 2017825837 AND medical_details.AdmissionID = '$id'");
+    $sel = mysqli_query($conn,"SELECT *,GROUP_CONCAT(patients.FirstName,' ',patients.MiddleName,' ',patients.LastName) as pfullname,medical_details.BedID FROM medication JOIN pharmaceuticals,patients,dosing_time,physicians,medical_details WHERE medication.AdmissionID = '$id' AND medication.MedicineID = pharmaceuticals.MedicineID AND medication.DosingID = dosing_time.DosingID AND medication.PhysicianID = physicians.PhysicianID AND patients.AdmissionID = '$id' AND medical_details.AdmissionID = '$id'");
     $data = array();
         while ($row = mysqli_fetch_array($sel)) {
             $data[] = array(
