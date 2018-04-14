@@ -3,16 +3,7 @@ require_once 'connection.php';
 
 $id = $_GET['id'];
 
-$query = mysqli_query($conn,"SELECT * FROM patients WHERE AdmissionID = '$id' LIMIT 1");
-
-while ($row = mysqli_fetch_assoc($query)) {
-    $firstname = $row['FirstName'];
-    $middlename = $row['MiddleName'];
-    $lastname = $row['LastName'];
-    $birthdate = $row['Birthdate'];
-}
-
-$query2 = mysqli_query($conn,"SELECT * FROM patients_archive WHERE patients_archive.FirstName = '$firstname' AND patients_archive.MiddleName ='$middlename' AND patients_archive.LastName='$lastname' ");
+$query2 = mysqli_query($conn,"SELECT patients_archive.*,CONCAT(physicians.FirstName,' ',physicians.MiddleName,' ',physicians.LastName) as dfullname,medical_details.QR_Path FROM patients_archive JOIN medical_details,attending_physicians,physicians WHERE ArchiveID = '$id' AND patients_archive.MedicalID = medical_details.MedicalID AND medical_details.AttendingID = attending_physicians.AttendingID AND attending_physicians.PhysicianID = physicians.PhysicianID");
 
 $data = array();
 
@@ -25,6 +16,8 @@ while ($row = mysqli_fetch_array($query2)) {
     	"Firstname"=>$row['FirstName'],
     	"Middlename"=>$row['MiddleName'],
 		"Lastname"=>$row['LastName'],
+		"Admission"=>$row['Admission'],
+		"AdmissionType"=>$row['AdmissionType'],
     	"Birthdate"=>$row['Birthdate'],
     	"Contact"=>$row['Contact'],
 		"Province"=>$row['Province'],
@@ -35,7 +28,9 @@ while ($row = mysqli_fetch_array($query2)) {
 		"Age"=>$row['Age'],
 		"Occupation"=>$row['Occupation'],
 		"Citizenship"=>$row['Citizenship'],
-        "MedicalID"=>$row['MedicalID']);
+		"MedicalID"=>$row['MedicalID'],
+		"PhysicianFullname"=>$row['dfullname'],
+		"QRpath"=>$row['QR_Path']);
 }
 echo json_encode($data);
 ?>

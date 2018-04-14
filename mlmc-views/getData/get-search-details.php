@@ -12,10 +12,12 @@ $sel = mysqli_query($conn,"SELECT * FROM patients_archive  WHERE ArchiveID = '$i
 $firstname = $_GET['firstname'];
 $middlename = $_GET['middlename'];
 $lastname = $_GET['lastname'];
+
 $date = $_GET['birthdate'];
+
 $birthdate = date("Y-m-d", strtotime($date));
 
-$sel = mysqli_query($conn,"SELECT * FROM patients_archive  WHERE (FirstName LIKE '%$firstname%' AND MiddleName LIKE '%$middlename' AND LastName LIKE '%$lastname')");
+$sel = mysqli_query($conn,"SELECT * FROM patients_archive  WHERE (FirstName LIKE '%$firstname%' OR MiddleName LIKE '%$middlename%' OR LastName LIKE '%$lastname%') ORDER BY ArchiveNo DESC LIMIT 1");
 
 }
 

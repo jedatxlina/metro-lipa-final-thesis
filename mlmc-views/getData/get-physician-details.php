@@ -8,7 +8,7 @@ $admissionid =  isset($_GET['admissionid']) ? $_GET['admissionid'] : '';
 $data = array();
 
 if ($at != '' && $admissionid == '') {
-    $sel = mysqli_query($conn,"SELECT PhysicianID, CONCAT(Firstname, ' ' ,MiddleName, ' ', LastName) AS Fullname FROM physicians WHERE PhysicianID NOT IN (456325)");
+    $sel = mysqli_query($conn,"SELECT PhysicianID, CONCAT(Firstname, ' ' ,MiddleName, ' ', LastName) AS Fullname FROM physicians WHERE PhysicianID NOT IN ('$at')");
     while ($row = mysqli_fetch_array($sel)) {
         $data[] = array(
             "PhysicianID"=>$row['PhysicianID'],
@@ -17,11 +17,12 @@ if ($at != '' && $admissionid == '') {
 }       
 
 if($at == '' && $admissionid == ''){
-    $sel = mysqli_query($conn,"SELECT PhysicianID, CONCAT(Firstname, ' ' ,MiddleName, ' ', LastName) AS Fullname FROM physicians");
+    $sel = mysqli_query($conn,"SELECT PhysicianID, CONCAT(Firstname, ' ' ,MiddleName, ' ', LastName) AS Fullname, Specialization  FROM physicians");
     while ($row = mysqli_fetch_array($sel)) {
         $data[] = array(
             "PhysicianID"=>$row['PhysicianID'],
-            "Fullname"=>$row['Fullname']);
+            "Fullname"=>$row['Fullname'],
+            "Specialization"=>$row['Specialization']);
     }
 }else{
     $sel = mysqli_query($conn,"SELECT * FROM physicians JOIN attending_physicians WHERE attending_physicians.AdmissionID = '$admissionid' AND attending_physicians.PhysicianID = physicians.PhysicianID");
@@ -32,6 +33,7 @@ if($at == '' && $admissionid == ''){
             "Firstname"=>$row['FirstName'],
             "Middlename"=>$row['MiddleName'],
             "Address"=>$row['Address'],
+            "Specialization"=>$row['Specialization'],
             "Rate"=>$row['Rate'],
             "Fee"=>$row['ProfessionalFee']);
     }

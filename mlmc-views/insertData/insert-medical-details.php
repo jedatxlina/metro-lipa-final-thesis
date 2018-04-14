@@ -8,6 +8,7 @@ $attendingid =  $_GET['attendingid'];
 $admissionid =  $_GET['admissionid'];  
 $diagnosisid =  $_GET['diagnosisid'];  
 $medicalid = $_GET['medid'];
+$condition = $_GET['condition'];
 
 $surgery = $_GET['surgery'];
 
@@ -50,6 +51,11 @@ mysqli_query($conn,$query);
 
 $query = "INSERT into attending_physicians(AttendingID,PhysicianID,AdmissionID,DiagnosisID,Discount) 
 VALUES('$attendingid','$attendingphysicianid','$admissionid','$diagnosisid','$discount')";
+
+mysqli_query($conn,$query);
+
+$query = "INSERT into medical_conditions(MedicalID,Conditions) 
+VALUES('$medicalid','$condition')";
 
 mysqli_query($conn,$query);
 

@@ -1,43 +1,49 @@
 
 <?php
-require_once 'connection.php';
-date_default_timezone_set("Asia/Singapore");
+    require_once 'connection.php';
+    date_default_timezone_set("Asia/Singapore");
 
-$randstring = rand(111111, 999999);
-$randstring2 = rand(111111, 999999);
+    $randstring = rand(111111, 999999);
+    $randstring2 = rand(111111, 999999);
 
-$at = $_GET['at'];
-$id = $_GET['id'];
-$hmoprovider = isset($_GET['hmoprovider']) ? $_GET['hmoprovider'] : '';
-$controlhmo = isset($_GET['controlhmo']) ? $_GET['controlhmo'] : '';
-$controlphil = isset($_GET['controlphil']) ? $_GET['controlphil'] : '';
+    $at = $_GET['at'];
+    $id = $_GET['id'];
 
-$datetime = date("Y-m-d h:i A");
+    $philhealth = isset($_GET['philhealth']) ? $_GET['philhealth'] : '';
+    $hmo = isset($_GET['hmo']) ? $_GET['hmo'] : '';
+    $hmoprovider = isset($_GET['hmoprovider']) ? $_GET['hmoprovider'] : '';
 
-if ($hmoprovider != '' && $controlphil != '') {
+    $datetime = date("Y-m-d h:i A");
 
-    $query = "INSERT into accounts_receivable(AccountReceiveID,AdmissionID,Provider,DateTimePosted,ControlNo,Remarks) 
-    VALUES('$randstring','$id','$hmoprovider','$datetime','$controlhmo','Pending')";
+    if($hmo == 'Pending'){
+        
+        $query = "INSERT into accounts_receivable(AccountReceiveID,AdmissionID,Provider,Remarks) 
+        VALUES('$randstring','$id','$hmoprovider','Pending')";
 
-    mysqli_query($conn,$query);  
+        mysqli_query($conn,$query); 
 
-    $query2 = "INSERT into accounts_receivable(AccountReceiveID,AdmissionID,Provider,DateTimePosted,ControlNo,Remarks) 
-    VALUES('$randstring2','$id','Philhealth','$datetime','$controlphil','Pending')";
+    }else{
 
-    mysqli_query($conn,$query2);  
+        $query = "INSERT into accounts_receivable(AccountReceiveID,AdmissionID,Provider,Remarks) 
+        VALUES('$randstring','$id','HMO','Not Applicable')";
 
-}
-if($hmoprovider == '' && $controlphil != '') {
-    $query2 = "INSERT into accounts_receivable(AccountReceiveID,AdmissionID,Provider,DateTimePosted,ControlNo,Remarks) 
-    VALUES('$randstring','$id','Philhealth','$datetime','$controlphil','Pending')";
+        mysqli_query($conn,$query); 
 
-    mysqli_query($conn,$query2);  
-}
+    }
 
-if($hmoprovider != '' && $controlphil == '') {
-    $query = "INSERT into accounts_receivable(AccountReceiveID,AdmissionID,Provider,DateTimePosted,ControlNo,Remarks) 
-    VALUES('$randstring2','$id','$hmoprovider','$datetime','$controlhmo','Pending')";
+    if($philhealth == 'Pending'){
+        
+        $query = "INSERT into accounts_receivable(AccountReceiveID,AdmissionID,Provider,Remarks) 
+        VALUES('$randstring2','$id','Philhealth','Pending')";
 
-    mysqli_query($conn,$query);  
-}
+        mysqli_query($conn,$query); 
+
+    }else{
+
+        $query = "INSERT into accounts_receivable(AccountReceiveID,AdmissionID,Provider,Remarks) 
+        VALUES('$randstring2','$id','Philhealth','Not Applicable')";
+
+        mysqli_query($conn,$query); 
+
+    }
 ?>

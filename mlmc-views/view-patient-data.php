@@ -145,12 +145,13 @@
                                                             </tr>
                                                         </thead>
                                                         <tbody>
-                                                            <tr data-ng-repeat="meds in medications track by $index">
+                                                            <tr data-ng-repeat="meds in patientmedications track by $index">
                                                                 <td>{{$index}}</td>
                                                                 <td>{{meds.MedicineName}}</td>
-                                                                <td>{{meds.Unit}}</td>
-                                                                <td>{{meds.Intake}}</td>
-                                                                <td>Dr. {{med.PhysicianFirstname}} {{med.PhysicianFirstname}} {{med.PhysicianFirstname}}</td>
+                                                                <td>{{meds.Dosage}}</td>
+                                                                <td>{{meds.Quantity}}</td>
+                                                                <td>Dr. {{meds.Fullname}}</td>
+                                                           
                                                             </tr>
                                                         </tbody>
                                                 </table>
@@ -498,10 +499,9 @@
             $http({
             method: 'GET',
             url: 'getData/get-medication-details.php',
-            params: {id: $scope.id}
+            params: {admissionid: $scope.id}
             }).then(function(response) {
-                $scope.medications = response.data;
-
+                $scope.patientmedications = response.data;
                 angular.element(document).ready(function() {  
             	dTable = $('#medications_table')  
             	dTable.DataTable();  
@@ -531,6 +531,12 @@
            
                 $window.open('view-history-report.php?at='+$scope.at+'&id='+$scope.id, '_blank');
              
+            }
+
+            $scope.printQR = function(){    
+           
+                $window.open('view-qr-code.php?at='+$scope.at+'&id='+$scope.id, '_blank');
+                
             }
            
            $scope.saveDetails = function(patient){

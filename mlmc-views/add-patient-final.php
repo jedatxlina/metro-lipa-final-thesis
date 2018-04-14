@@ -74,27 +74,26 @@
                                         <br>
                                         
                                         <fieldset data-ng-repeat="intake in intakes track by $index"> 
-                                            <legend>Intaked Medicines</legend>
+                                            <legend>Administered Medicines</legend>
                                             <div data-row-span="2">
                                                 <div data-field-span="1">
                                                     <label>Medicine</label>
-                                                    <input type="text" ng-model="Intake[$index]" ng-init="Intake[$index] = intake.MedicineName" > 
+                                                    <input type="text" ng-model="Intake[$index]" ng-init="Intake[$index] = intake.MedicineName" disabled="disabled"> 
                                                 </div>
                                                 <div data-field-span="1">
                                                     <label>Quantity Administered</label>
                                                     <input type="text" ng-model="QuantityIntake[$index]" ng-init="QuantityIntake[$index] = intake.Quantity">    
                                                 </div>
                                             </div>
-                                            <!-- <div data-row-span="2">
+                                            <div data-row-span="2">
                                                 <div data-field-span="1">
                                                     <label>Notes</label>
                                                     <input type="text" ng-model="NoteID[$index]" placeholder="Notes here"> 
                                                 </div>
-                                            </div> -->
-                                            <br><br>
+                                            </div>
                                         </fieldset>
                                         
-                                        <fieldset data-ng-repeat="medication in medications track by $index">
+                                        <!-- <fieldset data-ng-repeat="medication in medications track by $index">
                                             <legend>Required Medicine Intake</legend>
                                             <div data-row-span="2">
                                                 <div data-field-span="1">
@@ -120,7 +119,7 @@
                                                     </select>
                                                 </div>
                                             </div>
-                                        </fieldset>
+                                        </fieldset> -->
                                         <fieldset>
                                             <legend>Guarantors:  
                                                     <small><input type="checkbox" ng-model="phil" ng-click="philhealthClick()" ng-disabled="$parent.fee == 0"> Philhealth </small>
@@ -133,10 +132,10 @@
                                                         <label>Philhealth</label>
                                                         <input type="text" value="Philhealth">
                                                     </div>
-                                                    <div data-field-span="1"> 
+                                                    <!-- <div data-field-span="1"> 
                                                         <label>Control Number</label>
                                                         <input type="text" ng-model="controlphil"> 
-                                                    </div>
+                                                    </div> -->
                                                 </div>
                                             </div>
 
@@ -149,10 +148,10 @@
                                                             <option ng-repeat="hmo in hmolist" value="{{hmo.Provider}}" ng-init="hmoprovider = hmo.Provider">{{hmo.Provider}}</option>
                                                         </select>
                                                     </div>
-                                                    <div data-field-span="1"> 
+                                                    <!-- <div data-field-span="1"> 
                                                         <label>Control Number</label>
                                                         <input type="text" ng-model="controlhmo"> 
-                                                    </div>
+                                                    </div> -->
                                                 </div>
                                             </div>
                                          
@@ -195,17 +194,18 @@
                     $scope.admissionid = "<?php echo $_GET['admissionid']; ?>";
                     $scope.param = "<?php echo $_GET['param']; ?>";
 
-                    $scope.MedID = [];
-                    $scope.Quantity = [];
-                    $scope.Dosage = [];
+                    // $scope.MedID = [];
+                    // $scope.Quantity = [];
+                    // $scope.Dosage = [];
+                    // $scope.IntakeInterval = [];
+
                     $scope.NoteID = [];
                     $scope.Intake = [];
                     $scope.QuantityIntake = [];
-                    $scope.IntakeInterval = [];
 					$scope.hmoprovider = '';	
 
-                    $scope.philhealth = true;
-                    $scope.hmoclick = true;
+                    $scope.philhealth = false;
+                    $scope.hmoclick = false;
                     
                     $('#philhealth').hide();
                     $('#providers').hide();
@@ -246,19 +246,21 @@
                     $http({
                         method: 'get',
                         url: 'getData/get-medicines-intaked.php',
-                        params: {id: $scope.admissionid}
+                        params: {id: $scope.admissionid,
+                                medicationid: $scope.medicationid}
                     }).then(function(response) {
                         $scope.intakes = response.data;
+                 
                     });
 
-                    $http({
-                        method: 'GET',
-                        url: 'getData/get-medication-details.php',
-                        params: {medicationid: $scope.medicationid,
-                                admissionid: $scope.admissionid}
-                    }).then(function(response) {
-                        $scope.medications = response.data;
-                    });
+                    // $http({
+                    //     method: 'GET',
+                    //     url: 'getData/get-medication-details.php',
+                    //     params: {medicationid: $scope.medicationid,
+                    //             admissionid: $scope.admissionid}
+                    // }).then(function(response) {
+                    //     $scope.medications = response.data;
+                    // });
 
                     $http({
                         method: 'get',
@@ -268,12 +270,12 @@
                         $scope.patientdetails = response.data;
                     });
 
-                    $http({
-                        method: 'GET',
-                        url: 'getData/get-dosing-interval.php'
-                    }).then(function(response) {
-                        $scope.interval = response.data;
-                    });
+                    // $http({
+                    //     method: 'GET',
+                    //     url: 'getData/get-dosing-interval.php'
+                    // }).then(function(response) {
+                    //     $scope.interval = response.data;
+                    // });
 
                     $http({
             			method: 'get',
@@ -294,28 +296,29 @@
 
                     $scope.philhealthClick = function(){
 
-                        if ($scope.philhealth == true) {
-                            $('#philhealth').show();
-                            $scope.philhealth = false;
-                        } else {
-                            $('#philhealth').hide();
+                        if ($scope.philhealth == false) {
+                            // $('#philhealth').show();
                             $scope.philhealth = true;
+                        } else {
+                            // $('#philhealth').hide();
+                            $scope.philhealth = false;
                         }
 					}
 
                     
                     $scope.hmoClick = function(){
 
-                        if ($scope.hmoclick == true) {
+                         if ($scope.hmoclick == false) {
                             $('#providers').show();
-                            $scope.hmoclick = false;
-                        } else {
-                            $('#providers').hide();
                             $scope.hmoclick = true;
-                        }
+                         } else {
+                            $('#providers').hide();
+                            $scope.hmoclick = false;
+                         }
                     }
 
                     $scope.submitDetails = function(type){
+            
                         $scope.totalbill = 2500;
                         $http({
                         method: 'GET',
@@ -325,54 +328,59 @@
                             description: 'Emergency Room Fee',
                             total: $scope.totalbill}
                         });
-                        if($scope.philhealth == false && $scope.hmoclick == false){
+
+                        if($scope.philhealth == true && $scope.hmoclick == true){
+                            $http({
+                                method: 'get',
+                                url: 'insertData/insert-philhmo-details.php',
+                                params: {id: $scope.admissionid,    
+                                        at: $scope.at,
+                                        philhealth: 'Pending',
+                                        hmo: 'Pending',
+                                        hmoprovider: $scope.hmoprovider}
+                            }).then(function(response) {
+                                console.log(response.data);
+                            });
+                        }
+                        if($scope.philhealth == false && $scope.hmoclick == true){
                             $http({
                                 method: 'get',
                                 url: 'insertData/insert-philhmo-details.php',
                                 params: {id: $scope.admissionid,
                                         at: $scope.at,
-                                        hmoprovider: $scope.hmoprovider,
-                                        controlhmo: $scope.controlhmo,
-                                        controlphil: $scope.controlphil}
+                                        philhealth: 'Not Applicable',
+                                        hmo: 'Pending',
+                                        hmoprovider: $scope.hmoprovider}
                             }).then(function(response) {
                                 console.log(response.data);
                             });
                         }
-                        if($scope.philhealth == false && $scope.hmoclick != false){
+                         if($scope.philhealth == true && $scope.hmoclick == false){
                             $http({
                                 method: 'get',
                                 url: 'insertData/insert-philhmo-details.php',
                                 params: {id: $scope.admissionid,
                                         at: $scope.at,
-                                        controlphil: $scope.controlphil}
+                                        philhealth: 'Pending',
+                                        hmo: 'Not Applicable'}
                             }).then(function(response) {
                                 console.log(response.data);
                             });
                         }
-                         if($scope.philhealth != false && $scope.hmoclick == false){
-                            $http({
-                                method: 'get',
-                                url: 'insertData/insert-philhmo-details.php',
-                                params: {id: $scope.admissionid,
-                                        at: $scope.at,
-                                        hmoprovider: $scope.hmoprovider,
-                                        controlhmo: $scope.controlhmo,}
-                            }).then(function(response) {
-                                console.log(response.data);
-                            });
-                        }
+
                         swal({
                             icon: "success",
-                            title: "Successfully Added!",
-                            text: "Redirecting in 2..",
+                            title: "Successfully Added !",
+                            text: "Successfully Added Patient ..",
                             timer: 2000
                         }).then(function () {
-                                window.location.href = 'initiate-medication.php?admissionid=' + $scope.admissionid + '&quantity=' + $scope.Quantity + '&id=' + $scope.medicationid + '&at=' + $scope.at + '&dosage=' + $scope.Dosage + '&medid=' + $scope.MedID + '&param=' + $scope.param + '&notes=' + $scope.NoteID + '&intake=' + $scope.Intake + '&qntyintake=' + $scope.QuantityIntake + '&intakeinterval=' + $scope.IntakeInterval;
+                                window.location.href = 'initiate-medication.php?admissionid=' + $scope.admissionid  + '&id=' + $scope.medicationid + '&at=' + $scope.at  + '&param=' + $scope.param + '&notes=' + $scope.NoteID + '&intake=' + $scope.Intake + '&qntyintake=' + $scope.QuantityIntake;
                             }, function (dismiss) {
                             if (dismiss === 'cancel') {
-                                window.location.href = 'initiate-medication.php?admissionid=' + $scope.admissionid  + '&quantity=' + $scope.Quantity + '&id=' + $scope.medicationid + '&at=' + $scope.at + '&dosage=' + $scope.Dosage + '&medid=' + $scope.MedID + '&param=' + $scope.param + '&notes=' + $scope.NoteID + '&intake=' + $scope.Intake + '&qntyintake=' + $scope.QuantityIntake + '&intakeinterval=' + $scope.IntakeInterval;
+                                window.location.href = 'initiate-medication.php?admissionid=' + $scope.admissionid   + '&id=' + $scope.medicationid + '&at=' + $scope.at   + '&param=' + $scope.param + '&notes=' + $scope.NoteID + '&intake=' + $scope.Intake + '&qntyintake=' + $scope.QuantityIntake;
                             }
                         });
+
                     }
 
                     $scope.goBack = function(){

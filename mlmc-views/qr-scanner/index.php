@@ -33,7 +33,18 @@
 			<div class="app__dialog app__dialog--hide">
 				<?php
 				$at = $_GET["at"];
-				$link = '../add-patient-vitals.php';
+
+				switch ($at[0]) {
+					case '2':
+						$link = '../view-patient-data-archive.php';
+						break;
+					
+					default:
+						$link = '../add-patient-vitals.php';
+						break;
+				}
+
+				
 				?>
 				<form action="<?php echo $link; ?>" method="GET">
 					<div class="app__dialog-content"><h5>Confirm ID</h5>
