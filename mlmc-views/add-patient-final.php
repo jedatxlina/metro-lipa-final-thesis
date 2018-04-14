@@ -268,6 +268,7 @@
                         params: {id: $scope.admissionid}
                     }).then(function(response) {
                         $scope.patientdetails = response.data;
+                    
                     });
 
                     // $http({

@@ -171,7 +171,7 @@ var fetch = angular.module('myApp', ['ui.mask']);
    
    fetch.controller('userCtrl', ['$scope', '$http','$window', function($scope, $http,$window) {
        $scope.at = "<?php echo $_GET['at'];?>";
-       $scope.id = "<?php echo $_GET['id'];?>";
+       $scope.archiveno = "<?php echo $_GET['id'];?>";
 
        $scope.chckval = $scope.at.charAt(0);
        
@@ -213,24 +213,22 @@ var fetch = angular.module('myApp', ['ui.mask']);
         }
    
         $scope.accesstype = $scope.at[0];
-            $http({
+        $http({
             method: 'GET',
             url: 'getData/get-user-profile.php',
             params: {id: $scope.at,
                 atype : $scope.accesstype}
             }).then(function(response) {
                 $scope.userdetails = response.data;
-            });
+        });
 
         $http({
             method: 'GET',
-            url: 'getData/get-patient-archive.php',
-            params: {id: $scope.id}
+            url: 'getData/get-history-data.php',
+            params: {archiveno: $scope.archiveno}
         }).then(function(response) {
-            $scope.patientdetails = response.data;
+            $scope.historydetails = response.data;
         });
-
-
 
         $http({
             method: 'GET',
@@ -246,12 +244,11 @@ var fetch = angular.module('myApp', ['ui.mask']);
 
        $scope.viewPatientDataHistory = function(){
         if ($scope.selectedRow != null) {
-            $scope.archiveno = $scope.selectedRow;
-            window.location.href = 'view-archived-data.php?at=' + $scope.at + '&id=' + $scope.archiveno;
-        } else {
-            $('#errorModal').modal('show');
-        }
-       
+                        $scope.archiveid = $scope.selectedRow;
+                        window.location.href = 'view-patient-data-archive.php?at=' + $scope.at + '&id=' + $scope.archiveid;
+                    } else {
+                        $('#errorModal').modal('show');
+                    }
        }
 
        $scope.setClickedRow = function(lab) {

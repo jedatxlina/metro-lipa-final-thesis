@@ -1,10 +1,9 @@
 <?php
 require_once 'connection.php';
 
-$id =  isset($_GET['id']) ? $_GET['id'] : '';
+$archiveno =  isset($_GET['archiveno']) ? $_GET['archiveno'] : '';
 
-$query2 = mysqli_query($conn,"SELECT patients_archive.*,CONCAT(physicians.FirstName,' ',physicians.MiddleName,' ',physicians.LastName) as dfullname,medical_details.QR_Path FROM patients_archive JOIN medical_details,attending_physicians,physicians WHERE ArchiveID = '$id' AND patients_archive.MedicalID = medical_details.MedicalID AND medical_details.AttendingID = attending_physicians.AttendingID AND attending_physicians.PhysicianID = physicians.PhysicianID");
-
+$query2 = mysqli_query($conn,"SELECT patients_archive.*,CONCAT(physicians.FirstName,' ',physicians.MiddleName,' ',physicians.LastName) as dfullname,medical_details.QR_Path FROM patients_archive JOIN medical_details,attending_physicians,physicians WHERE ArchiveNo= '$archiveno' AND patients_archive.MedicalID = medical_details.MedicalID AND medical_details.AttendingID = attending_physicians.AttendingID AND attending_physicians.PhysicianID = physicians.PhysicianID");	
 
 $data = array();
 

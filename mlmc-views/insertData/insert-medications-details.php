@@ -231,5 +231,5 @@ $time = date("h:i A");
     // }
 
     
-header("Location:../add-patient-final.php?at=$at&medicationid=$medicationid&admissionid=$admissionid&param=$param&medhistoryid=$medhistoryid");
+header("Location:../add-patient-final.php?at=$at&medicationid=$medicationid&admissionid=$admissionid&param=$param");
 

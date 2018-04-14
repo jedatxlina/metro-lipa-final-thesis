@@ -41,10 +41,12 @@
             // mysqli_query($conn,$query);  
 
             $search = mysqli_query($conn,"SELECT MedicineName,Unit FROM pharmaceuticals WHERE MedicineName = '$intake[$x]'");
-            while($row = mysqli_fetch_assoc($result))
+           
+            while($row = mysqli_fetch_assoc($search))
             {
                 $unit = $row['Unit'];
             }
+
             $row_cnt = $search->num_rows;
 
             if($row_cnt >= 1){
