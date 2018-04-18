@@ -56,7 +56,7 @@
                     
                     <div class="list-group list-group-alternate mb-n nav nav-tabs">
                     <a href="#" role="tab" data-toggle="tab" class="list-group-item active">Actions Panel</a>
-						<a href="#" ng-click="AddAncil()" role="tab" data-toggle="tab" class="list-group-item"><i class="fa fa-list-alt fa-fw"></i>Add Ancillary Service</a>
+						<a href="#" ng-click="AddAncil()" role="tab" data-toggle="tab" ng-disabled="sample == 1" class="list-group-item"><i class="fa fa-list-alt fa-fw"></i>Add Ancillary Service</a>
                         <a href="#" ng-click="EditAncillary()"role="tab" data-toggle="tab" class="list-group-item"><i class="ti ti-info-alt"></i>Edit Rate</a>
                     </div>
                     </div>
@@ -146,7 +146,7 @@
         $scope.selectedStatus = null;
         $scope.clickedRow = 0;
         $scope.new = {};
-
+            $scope.sample = $scope.at[0];
             switch ($scope.at.charAt(0)) {
 				case '1':
 					$scope.User = "Administrator";
