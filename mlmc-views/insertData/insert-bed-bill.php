@@ -3,14 +3,12 @@ require_once 'connection.php';
 
 
 $billid =  rand (11111,99999);
-$admissionid =  $_GET['admissionid'];  
-$department =  $_GET['department'];  
+$admissno =  $_GET['admissno']; 
+$admissionid =  $_GET['admissionid']; 
 $total =  $_GET['total'];
-$des =  $_GET['description'];
+$date = date("Y-m-d h:i:sa");
 
-$item = '123123123';
-
-$query = "INSERT into billing_em(BillID,AdmissionID,Department,ItemID,BillDes,TotalBill,Status) 
-VALUES('$billid','$admissionid','$department','$item','$des','$total','Unpaid')";
-mysqli_query($conn,$query);  
+$query2 = "INSERT into duration(DurationID,AdmissionID,AdmissionNo,ArrivalDate,DischargeDate,BedID,TotalBill) 
+VALUES('$billid','$admissionid','$admissno','$date','0000/00/00 00:00:00','EM','$total')";
+mysqli_query($conn,$query2);  
 ?>
