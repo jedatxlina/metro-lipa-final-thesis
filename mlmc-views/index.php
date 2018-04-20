@@ -71,7 +71,7 @@
                             <tbody>
                                 <tr data-ng-repeat="list in illnesses">
                                     <td>{{list.Conditions}}</td>
-                                    <td class="text-right">{{list.cnt}}%</td>
+                                    <td class="text-right">{{list.cnt}}</td>
                                     <td class="vam" style="width: 56px;">
                                         <div class="progress m-n">
                                             <div class="progress-bar progress-bar-teal" style="width: {{list.cnt}}%"></div>

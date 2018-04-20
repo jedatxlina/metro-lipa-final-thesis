@@ -52,8 +52,7 @@
                                                     </div>
                                                     <div data-field-span="1">
                                                         <label>Admission No<br></label>
-                                                        <input type="text" ng-model="patient.AdmissionNo" ng-disabled='true'>
-                                                    
+                                                        <input type="text" ng-init="AdmissionNo[$index] = patient.AdmissionNo" ng-model="AdmissionNo[$index]" ng-disabled='true'>
                                                     </div>
                                                 </div>
                                             <div data-row-span="4">
@@ -74,7 +73,7 @@
                                         <br>
                                         
                                         <fieldset data-ng-repeat="intake in intakes track by $index"> 
-                                            <legend>Administered Medicines</legend>
+                                            <legend>Administered Medicines {{AdmissionNo}}</legend>
                                             <div data-row-span="2">
                                                 <div data-field-span="1">
                                                     <label>Medicine</label>
@@ -88,7 +87,7 @@
                                             <div data-row-span="2">
                                                 <div data-field-span="1">
                                                     <label>Notes</label>
-                                                    <input type="text" ng-model="NoteID[$index]" placeholder="Notes here"> 
+                                                    <input type="text" ng-value="AdmissionNo" ng-model="NoteID[$index]" placeholder="Notes here"> 
                                                 </div>
                                             </div>
                                         </fieldset>
@@ -193,12 +192,12 @@
                     $scope.medicationid = "<?php echo $_GET['medicationid']; ?>";
                     $scope.admissionid = "<?php echo $_GET['admissionid']; ?>";
                     $scope.param = "<?php echo $_GET['param']; ?>";
-
                     // $scope.MedID = [];
                     // $scope.Quantity = [];
                     // $scope.Dosage = [];
                     // $scope.IntakeInterval = [];
 
+                    $scope.AdmissionNo = [];
                     $scope.NoteID = [];
                     $scope.Intake = [];
                     $scope.QuantityIntake = [];
@@ -319,7 +318,7 @@
                     }
 
                     $scope.submitDetails = function(type){
-            
+                    alert();
                         $scope.totalbill = 2500;
                         $http({
                         method: 'GET',
@@ -327,6 +326,7 @@
                         params: {admissionid: $scope.admissionid,
                             department: $scope.User,
                             description: 'Emergency Room Fee',
+                            admissno: $scope.AdmissionNo[0],
                             total: $scope.totalbill}
                         });
 
@@ -383,7 +383,6 @@
                         });
 
                     }
-
                     $scope.goBack = function(){
                             $http({
                                 method: 'get',

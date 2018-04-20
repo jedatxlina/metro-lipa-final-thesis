@@ -398,7 +398,7 @@
             }
 
             $scope.Redirect = function() {
-                window.location.href = 'view-patient-bill.php?at=' + $scope.at + '&id=' + $scope.id;
+                window.location.href = 'view-emergency-bill.php?at=' + $scope.at + '&id=' + $scope.id;
             }
 
             $scope.getPage = function(check) {

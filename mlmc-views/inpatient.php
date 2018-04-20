@@ -234,7 +234,7 @@ font-weight: bold;
 										<h2>Relocate Patient</h2>
 										<div class="panel-ctrls" data-actions-container="" data-action-collapse='{"target": ".panel-body, .panel-footer"}'></div>
 									</div>
-									<div class="panel-body" style="height: 450px" data-ng-repeat="relocate in reldetails">
+									<div class="panel-body" style="height: auto" data-ng-repeat="relocate in reldetails">
 										<center><span><strong>Registry Information</strong></span></center>
 										<hr>
 
@@ -256,7 +256,16 @@ font-weight: bold;
 											</div>
 										</div>
 
-										<center><span><strong>Relocate Patient Details</strong></span></center>	
+										<div class="row">
+											<div class="form-group">
+												<label for="focusedinput" class="col-sm-3 control-label">Admission Number</label>
+												<div class="col-sm-5">
+													<input type="text" class="form-control" ng-init="admissno[$index] = relocate.AdmissionNo" ng-model="admissno[$index]" disabled>
+												</div>
+											</div>
+										</div>
+
+										<center><span><strong>Current Room</strong></span></center>	
 										<hr>
 
 										<div class="row">
@@ -269,10 +278,21 @@ font-weight: bold;
 										</div>
 										<div class="row">
 											<div class="form-group">
+												<label for="focusedinput" class="col-sm-3 control-label">Current Room</label>
+												<div class="col-sm-5">
+													<input type="text" class="form-control" ng-value="relocate.RoomType + ' ' + relocate.BedID" disabled>
+													<input type="hidden" class="form-control" ng-init = "curroom[$index] = relocate.BedID" ng-model="curroom[$index]" disabled>
+												</div>
+											</div>
+										</div>
+										<center><span><strong>Relocation Details</strong></span></center>	
+										<hr>
+										<div class="row">
+											<div class="form-group">
 												<label for="focusedinput" class="col-sm-3 control-label">Room Type</label>
 												<div class="col-sm-5">
-												<select class="form-control" ng-model="$parent.roomtype">
-														<option value="" disabled>Select Room Type</option>
+													<select ng-model="RoomType" class="form-control">
+														<option value="" disabled selected>Select Room Type</option>
 														<option value="relocate.RoomType" ng-init="$parent.roomtype = relocate.RoomType" selected>{{relocate.RoomType}}</option>
 														<option value="Ward">Ward</option>
 														<option value="OB-Ward">OB-Ward</option>
@@ -285,26 +305,24 @@ font-weight: bold;
 														<option value="Suite">Suite</option>
 														<option value="Infectious">Infectious</option>
 														<option value="ICU">ICU</option>
-													</select>   
+													</select>
+													</select>
 												</div>
 											</div>
 										</div>
-										</div>
-										<div>
 										<div class="row">
 											<div class="form-group">
 												<label for="focusedinput" class="col-sm-3 control-label">Bed Number</label>
 												<div class="col-sm-5">
-													<select class="form-control" ng-options="data.BedID for data in bed |  filter:filterBed(roomtype)"  ng-model="bednum" ng-disabled="roomtype==''">
+													<select class="form-control" ng-options="data.BedID for data in bed |  filter:filterBed(RoomType)" ng-model="$parent.bedno" ng-disabled="RoomType==''">
 														<option value="" disabled selected>Select Bed Number</option>
 													</select>
 												</div>
 											</div>
 										</div>
 									</div>
-
 									<div class="panel-footer">
-										<button type="button" ng-click="relocateNext()" class="btn btn-danger-alt pull-right">Next</button>
+										<button type="button" ng-click="ConfirmRelo()" class="btn btn-danger-alt pull-right">Confirm</button>
 										<button type="button" data-dismiss="modal" class="btn btn-default-alt pull-right">Cancel</button>
 									</div>
 								</div>
@@ -392,6 +410,8 @@ font-weight: bold;
 		$scope.new = {};
 		$scope.order = 0;
 		$scope.notif = 0;
+		$scope.admissno = [];
+		$scope.curroom = [];
 
 		var pushalert = function (){
 			alert('jed');
@@ -535,9 +555,22 @@ font-weight: bold;
 		}
 		
 
-
-		$scope.confirmBtn = function(){
-			alert($scope.new.Firstname);
+		$scope.ConfirmRelo = function(){
+			if($scope.bedno == null || $scope.RoomType == null)
+			{
+				$http({
+					method: 'GET',
+					url: 'updateData/update-beddura-details.php',
+					params: {id: $scope.admissionid,
+							admissno: $scope.admissno[0],
+							bedno: $scope.bedno.BedID,
+							Prev: $scope.curroom[0]}
+				}).then(function(response) {
+					window.location.reload();
+				});
+			}
+			else
+				alert('Complete The form');
 		}
 
 		$scope.relocatePatient = function(){
