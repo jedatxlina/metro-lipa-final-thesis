@@ -12,14 +12,15 @@
     $intake =  explode(',',$_GET['intake']);
     $qntyintake =  explode(',',$_GET['qntyintake']);
     $notes  = explode(',',$_GET['notes']);
-
     $param = isset($_GET['param']) ? $_GET['param'] : '';
-    
-    // $days = [];
-    // $interval =isset($_GET['intakeinterval']) ? explode(',',$_GET['intakeinterval']) : '';
-
     $cnt = count($intake);
-    
+
+    // $days = [];
+    $interval =isset($_GET['intakeinterval']) ? explode(',',$_GET['intakeinterval']) : '';
+
+    // <-- OPD -->
+    $medicalid =   isset($_GET['medicalid']) ? explode(',',$_GET['medicalid']) : '';
+    $dosage =   isset($_GET['dosage']) ? explode(',',$_GET['dosage']) : '';
 
 
     for($x = 0;$x < $cnt; $x++){
@@ -41,7 +42,7 @@
             // mysqli_query($conn,$query);  
 
             $search = mysqli_query($conn,"SELECT MedicineName,Unit FROM pharmaceuticals WHERE MedicineName = '$intake[$x]'");
-           
+                
             while($row = mysqli_fetch_assoc($search))
             {
                 $unit = $row['Unit'];
@@ -49,34 +50,28 @@
 
             $row_cnt = $search->num_rows;
 
-            if($row_cnt >= 1){
-                $query = "UPDATE medication SET Quantity = '$qntyintake[$x]', Dosage = '$unit', Notes = '$notes[$x]' WHERE MedicationID = '$medicationid' AND MedicineName = '$intake[$x]'"; 
-                mysqli_query($conn,$query);  
+            if($interval == ''){
+
+
+                if($row_cnt >= 1){
+                    $query = "UPDATE medication SET Quantity = '$qntyintake[$x]', Dosage = '$unit', Notes = '$notes[$x]' WHERE MedicationID = '$medicationid' AND MedicineName = '$intake[$x]'"; 
+                    mysqli_query($conn,$query);  
+                }else{
+                    $query = "UPDATE medication SET Quantity = '$qntyintake[$x]', Notes = '$notes[$x]' WHERE MedicationID = '$medicationid' AND MedicineName = '$intake[$x]'"; 
+                    mysqli_query($conn,$query);  
+                }
+
             }else{
-                $query = "UPDATE medication SET Quantity = '$qntyintake[$x]', Notes = '$notes[$x]' WHERE MedicationID = '$medicationid' AND MedicineName = '$intake[$x]'"; 
-                mysqli_query($conn,$query);  
+                    
+                if($row_cnt >= 1){
+                    $query = "UPDATE medication SET Quantity = '$qntyintake[$x]', Dosage = '$unit', Notes = '$notes[$x]', DosingID = '$interval[$x]' WHERE MedicationID = '$medicationid' AND MedicineName = '$intake[$x]'"; 
+                    mysqli_query($conn,$query);  
+                }else{
+                    $query = "UPDATE medication SET Quantity = '$qntyintake[$x]', Notes = '$notes[$x]', DosingID = '$interval[$x]' WHERE MedicationID = '$medicationid' AND MedicineName = '$intake[$x]'"; 
+                    mysqli_query($conn,$query);  
+                }
+
             }
-      
-         
-            // if($interval == ''){
-            
-                // $query = "UPDATE medication SET Quantity = '$qnty[$x]', Dosage = '$dosage[$x]', Notes = '$notes[$x]' WHERE AdmissionID = '$admmissionid' AND MedicineID = '$medid[$x]'"; 
-                // mysqli_query($conn,$query);  
-                
-            //     $query2 = "UPDATE medication_history SET Quantity = '$qntyintake[$x]' WHERE AdmissionID = '$admmissionid'"; 
-            //     mysqli_query($conn,$query2);  
-            // }else{
-
-            // $days[$x] = $qnty[$x] * $interval[$x];
-            // // $qnty[$x] *= $interval[$x];
-
-            // $query = "UPDATE medication SET Quantity = '$qnty[$x]', Dosage = '$dosage[$x]', Notes = '$notes[$x]', DosingID = '$interval[$x]', Days = '$days[$x]' WHERE AdmissionID = '$admmissionid' AND MedicineID = '$medid[$x]'";
-            // mysqli_query($conn,$query);  
-            // $query2 = "UPDATE medication_history SET Quantity = '$qntyintake[$x]' WHERE AdmissionID = '$admmissionid'"; 
-            // mysqli_query($conn,$query2);  
-
-            // }
-
     } 
 
     if($param != ''){
@@ -86,8 +81,8 @@
                 header("Location:emergency.php?at=$at");
                 break;
                 
-            default:
-                require('vendor/autoload.php');
+            case 'Outpatient':
+                require __DIR__ . '/vendor/autoload.php';
 
                 $options = array(
                     'cluster' => 'ap1',
@@ -104,13 +99,16 @@
                 $data['message'] = "Dr. " . $fullname . " posted a patient order.";
                 $pusher->trigger('my-channel-outpatient', 'my-event-outpatient', $data);
 
-                header("Location:outpatient.php?at=$at");
+                header("Location:physician.php?at=$at");
                 break;
+
+            default:
+                    break;
         }
     }
     else{
 
-        require('vendor/autoload.php');
+        require __DIR__ . '/vendor/autoload.php';
 
         $options = array(
             'cluster' => 'ap1',

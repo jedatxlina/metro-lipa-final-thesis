@@ -248,7 +248,7 @@
                                     <table id="opdtransfer_table" class="table table-striped table-bordered" cellspacing="0" width="100%">
                                         <thead>
                                             <tr>
-                                                <th>AdmissionID</th>
+                                                <th>Patient ID</th>
                                                 <th>Patient Name</th>
                                                 <th>Gender</th>
                                                 <th>Admission Type</th>
@@ -355,7 +355,7 @@
                                         </div>
                                         <div class="row">
                                             <div class="form-group">
-                                                <label for="focusedinput" class="col-sm-3 control-label">Admission ID</label>
+                                                <label for="focusedinput" class="col-sm-3 control-label">Patient ID</label>
                                                 <div class="col-sm-5">
                                                     <input type="text" class="form-control" ng-value="patient.AdmissionID" disabled>
                                                 </div>

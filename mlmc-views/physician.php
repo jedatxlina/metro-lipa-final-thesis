@@ -47,7 +47,7 @@
                                     </tr>
                                     </thead>
                                     <tbody>
-                                    <tr ng-repeat="patient in administered" ng-class="{'selected': patient.AdmissionID == selectedRow}" ng-click="setClickedRow(patient.AdmissionID)">
+                                    <tr ng-repeat="patient in administered" ng-class="{'selected': patient.AdmissionID == selectedRow}" ng-click="setClickedRow(patient.AdmissionID,patient.MedicalID)">
                                             <td>{{patient.AdmissionID}}</td>
                                             <td>{{patient.Lastname}} {{patient.Firstname}} {{patient.Middlename}}</td>
                                             <td>{{patient.Gender}}</td>
@@ -401,9 +401,10 @@
                     window.location.href = 'view-patient-data.php?at=' + $scope.at + '&id=' + $scope.admissionid;
                 }
 
-                $scope.setClickedRow = function(spec) {
+                $scope.setClickedRow = function(spec,medid) {
                     $scope.selectedRow = ($scope.selectedRow == null) ? spec : ($scope.selectedRow == spec) ? null : spec;
                     $scope.clickedRow = ($scope.selectedRow == null) ? 0 : 1;
+                    $scope.medid = medid;
                 }
 
                 $scope.viewPatient = function(){
@@ -431,7 +432,7 @@
                 $scope.postDiagnosis = function(){
                     if($scope.selectedRow != null){
                         $scope.admissionid = $scope.selectedRow;
-                        window.location.href = 'post-diagnosis.php?at=' + $scope.at + '&id=' + $scope.admissionid;
+                        window.location.href = 'post-diagnosis.php?at=' + $scope.at + '&id=' + $scope.admissionid + '&medicalid=' + $scope.medid;
                         
                     }
                     else{
