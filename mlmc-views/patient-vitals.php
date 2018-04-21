@@ -1,6 +1,4 @@
-<?php 
-	  $activeMenu = "patients";	
-?>
+
 <?php 
 include 'admin-header.php';
 include '../mlmc-views/getData/get-inpatient-vitals.php';

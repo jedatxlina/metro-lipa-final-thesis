@@ -12,6 +12,7 @@
     $dompdf = new Dompdf();
     $at = $_GET['at'];
     $datetime = date("Y-m-d h:i A");
+    $id = $_GET['admissionid'];
 
     
     $sel = mysqli_query($conn,"SELECT *, CONCAT(Firstname, ' ' ,MiddleName, ' ', LastName) AS Fullname FROM admin WHERE AdminID ='$at'");
@@ -25,6 +26,37 @@
          $query = mysqli_query($conn,"SELECT PhysicianID, Specialization, CONCAT( FirstName, ' ', MiddleName , ' ' ,LastName) AS FullName FROM physicians");
      }else{
          $query = mysqli_query($conn,"SELECT PhysicianID, Specialization, CONCAT( FirstName, ' ', MiddleName , ' ' ,LastName) AS FullName FROM physicians");
+     }
+
+
+
+     switch ($at[0]) {
+        case '3':
+        $sel = mysqli_query($conn,"SELECT *, CONCAT(Firstname, ' ' ,MiddleName, ' ', LastName) AS Fullname FROM nurses WHERE NurseID='$at'");
+
+        while ($row = mysqli_fetch_assoc($sel)) {
+            $genfullname = $row['Fullname'];
+        }
+        break;
+        
+        default:
+        $sel = mysqli_query($conn,"SELECT *, CONCAT(Firstname, ' ' ,MiddleName, ' ', LastName) AS Fullname FROM admission_staffs WHERE AdmissionStaffID ='$at'");
+
+        while ($row = mysqli_fetch_assoc($sel)) {
+            $genfullname = $row['Fullname'];
+        }
+        break;
+    }
+
+
+     $sel = mysqli_query($conn,"SELECT *, CONCAT(Firstname, ' ' ,MiddleName, ' ', LastName) AS Fullname FROM patients WHERE AdmissionID ='$id'");
+     while ($row = mysqli_fetch_assoc($sel)) {
+         $fullname = $row['Fullname'];
+         $gender = $row['Gender'];
+         $address = $row['CompleteAddress'];
+         $birthdate = $row['Birthdate'];
+         $contact = $row['Contact'];
+         $admissiontype = $row['AdmissionType'];
      }
     
     $html = '<link type="text/css" href="assets/plugins/gridforms/gridforms/gridforms.css" rel="stylesheet">
@@ -67,10 +99,8 @@
     This is to certify that according to his/her case records in this hospital,  
     <br>
     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-    ______________________________________________________, of
-    <br>
-    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-    _______________________________________________   
+    <u> '. $fullname .' </u>, of
+    <u>' . $address .'   </u>
     <br>
     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
     is/was hospitalized in this institution from ______________ to _____________
