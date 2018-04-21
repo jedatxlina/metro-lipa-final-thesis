@@ -43,7 +43,7 @@ font-weight: bold;
 								<tr ng-repeat="user in users" ng-class="{'selected': user.MedRequestID == selectedRow}" ng-click="setClickedRow(user.MedRequestID,user.Status,user.MedicationID,user.Quantity,user.Dosage,user.MedicineName)">
                                        
                                         <td>{{user.Fullname}}</td>
-                                        <td>{{user.Medicine}}</td>
+                                        <td>{{user.MedicineName}} {{user.Dosage}}</td>
                                         <td>{{user.Status}}</td>
 										<th>{{user.Quantity}}</th>
                                     </tr>
