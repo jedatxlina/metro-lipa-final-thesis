@@ -205,7 +205,7 @@
                                                             <input type="text" ng-model="Dosage[$index]" ng-init="Dosage[$index] = medication.Unit" disabled="disabled">
                                                         </div>
                                                         <div data-field-span="1">
-                                                            <label>Intake Days</label>
+                                                            <label>Required Intake</label>
                                                             <input type="text" ng-model="Quantity[$index]" ng-init="Quantity[$index] = medication.Quantity">
                                                             <input type="hidden" ng-model="MedID[$index]" ng-init="MedID[$index] = medication.MedicineID">
                                                         </div>
