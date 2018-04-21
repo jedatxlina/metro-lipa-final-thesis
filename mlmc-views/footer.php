@@ -10,8 +10,8 @@
         
 </div>
 
-
-<script type="text/javascript" src="assets/js/jquery-1.10.2.min.js"></script> 							<!-- Load jQuery -->
+<script type="text/javascript" src="//cdn.jsdelivr.net/jquery/1/jquery.min.js"></script>
+<!-- <script type="text/javascript" src="assets/js/jquery-1.10.2.min.js"></script> 						 -->
 <script type="text/javascript" src="assets/js/jqueryui-1.10.3.min.js"></script> 							<!-- Load jQueryUI -->
 <script type="text/javascript" src="assets/js/bootstrap.min.js"></script> 								<!-- Load Bootstrap -->
 <script type="text/javascript" src="assets/js/enquire.min.js"></script> 									<!-- Load Enquire -->
@@ -36,18 +36,24 @@
 
 <!-- End loading site level scripts -->
 <!-- Load page level scripts-->
+<script type="text/javascript" src="//cdn.jsdelivr.net/momentjs/latest/moment.min.js"></script>
+
+<!-- <script type="text/javascript" src="assets/plugins/form-daterangepicker/moment.min.js"></script>              		 -->
+<!-- <script type="text/javascript" src="assets/plugins/form-daterangepicker/daterangepicker.js"></script>     			 -->
+
+<script type="text/javascript" src="//cdn.jsdelivr.net/bootstrap.daterangepicker/2/daterangepicker.js"></script>
 
 <script type="text/javascript" src="assets/plugins/easypiechart/jquery.easypiechart.js"></script>
 <script async defer
     src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCLfminQLvZltEX8k-JYWgfi0lmOn1vAXk&callback=initMap">
 </script>
+
 <!-- <script src="http://maps.google.com/maps/api/js?sensor=true&key=AIzaSyBnYLV11sfAvjC_sNfI_yDymsmGZBWaEvI"></script>
 <script type="text/javascript" src="assets/plugins/gmaps/gmaps.js"></script>
 <script type="text/javascript" src="assets/demo/demo-gmaps.js"></script> -->
+
 <script type="text/javascript" src="assets/plugins/bootstrap-datetimepicker/js/bootstrap-datetimepicker.js"></script> <!-- DateTime Picker -->
-<script type="text/javascript" src="assets/plugins/form-daterangepicker/moment.min.js"></script>              			<!-- Moment.js for Date Range Picker -->
-<script type="text/javascript" src="assets/plugins/form-daterangepicker/daterangepicker.js"></script>     				<!-- Date Range Picker -->
-	
+
 <script type="text/javascript" src="assets/plugins/form-colorpicker/js/bootstrap-colorpicker.min.js"></script> 			<!-- Color Picker -->
 
 <script type="text/javascript" src="assets/plugins/bootstrap-datepicker/bootstrap-datepicker.js"></script>      			<!-- Datepicker -->

@@ -130,7 +130,7 @@ $activeMenu = "patients";
                                                 </thead>
                                                 <tbody>
                                                 <tr ng-repeat="history in patienthistory track by $index" ng-class="{'selected': history.ArchiveNo == selectedRow}" ng-click="setClickedRow(history.ArchiveNo)">
-                                                    <td>{{$index}}</td>
+                                                    <td>{{$index + 1}}</td>
                                                     <td>{{history.AdmissionDate}} {{history.AdmissionTime}}</td>
                                                     <td>{{history.AdmissionType}}</td>
                                                     <td>{{history.PhysicianFullname}}</td>

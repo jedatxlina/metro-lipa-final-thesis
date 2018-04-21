@@ -556,6 +556,9 @@
                     </form>
                 </div>
             </div>
+            <div id="custom-footer">
+
+            </div>
         </div>
 
         <script>
@@ -1086,8 +1089,7 @@
 
             }]);
         </script>
-        <div id="custom-footer">
-
+      
         </div>
-        </div>
+        
         <?php include 'footer.php'?>

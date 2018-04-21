@@ -45,7 +45,7 @@ VALUES('$medicalid','$admissionid','$attendingid','$date','$time','$vitalsid','$
 mysqli_query($conn,$query);  
 
 $query = "INSERT into vitals(VitalsID,AdmissionID,BP,BPD,PR,RR,Temperature,DateTimeChecked) 
-VALUES('$vitalsid','$admissionid','$sys','$dia','$pr','$rr','$temp',NOW())";
+VALUES('$vitalsid','$admissionid','$sys','$dia','$pr','$rr','$temp','$datetime')";
 
 mysqli_query($conn,$query);
 
