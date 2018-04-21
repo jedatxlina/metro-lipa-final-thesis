@@ -153,6 +153,7 @@ font-weight: bold;
 						<a href="#" ng-click="postMedication()" role="tab" data-toggle="tab" class="list-group-item"><span class="badge badge-primary"></span> <i class="fa fa-plus-square-o"></i>Post Medication</a>
 						<a href="#" ng-click="viewOrder()" role="tab" data-toggle="tab" class="list-group-item"><span class="badge badge-primary"  ng-if="order > 0">{{order}}</span> <i class="ti ti-email"></i>Doctors Order</a>
 						<a href="#" ng-click="postBills()"role="tab" data-toggle="tab" class="list-group-item"><i class="fa fa-file-text-o"></i>Process Billing</a>
+						<a href="#" ng-click="processMedCert()"role="tab" data-toggle="tab" class="list-group-item"><i class="fa fa-file-text-o"></i>Process Medical Certificate</a>
                         <a href="#" ng-click="viewFlag()" role="tab" data-toggle="tab" class="list-group-item"><span class="badge badge-danger" ng-if="notif > 0">{{notif}}</span><i class="ti ti-bell"></i> Notifications</a>
                     </div>
 				</div>
@@ -599,6 +600,15 @@ font-weight: bold;
                         $window.open('patient-diet.php?at='+$scope.at+'&searchparam='+$scope.val, '_blank');
                     }
         }
+
+		$scope.processMedCert = function() {
+                    if ($scope.selectedRow != null) {
+                        $scope.admissionid = $scope.selectedRow;
+                        $window.open('inpatient-med-cert.php?at=' + $scope.at + '&admissionid=' + $scope.admissionid, '_blank');
+                    }else{
+                        $('#errorModal').modal('show');
+                    }
+                }
 
 
 		// $http({
