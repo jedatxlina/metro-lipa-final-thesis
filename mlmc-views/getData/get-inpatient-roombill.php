@@ -7,7 +7,10 @@ $data = array();
 $date = date("Y-m-d");
 while ($row = mysqli_fetch_array($sel)) {
     $parameterage  = date_create($row['ArrivalDate']);
-    $currentdatetime 	= date_create(); // Current time and date
+    if($row['DischargeDate'] == '0000-00-00 00:00:00')
+        $currentdatetime 	= date_create();
+    else
+        $currentdatetime 	= date_create($row['DischargeDate']); // Current time and date
     $getage =  date_diff( $parameterage, $currentdatetime );
     $yearage = $getage->d;
     if($yearage <= 1)

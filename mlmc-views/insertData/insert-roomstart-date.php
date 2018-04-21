@@ -4,7 +4,7 @@ require_once 'connection.php';
 $id = $_GET["id"];
 $bed;
 $admissno;
-$sel = mysqli_query($conn,"SELECT b.BedID,a.AdmissionNo FROM patients a, medical_details b WHERE a.AdmissionType = 'Pending' AND b.AdmissionID = '$id'");
+$sel = mysqli_query($conn,"SELECT b.BedID FROM patients a, medical_details b WHERE a.AdmissionType = 'Pending' AND b.AdmissionID = '$id' AND a.AdmissionID = '$id'");
 $data = array();
 while ($row = mysqli_fetch_array($sel)) {
     $bed = $row['BedID'];
