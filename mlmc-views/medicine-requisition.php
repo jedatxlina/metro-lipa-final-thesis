@@ -142,6 +142,10 @@ font-weight: bold;
 		$scope.clickedRow = 0;
 		$scope.new = {};
 		$scope.selectedStatus = null;
+		$scope.selectedMedID = null;
+		$scope.selectedQty = null;
+		$scope.selectedDosage = null;
+		$scope.selectedMedName = null;
 
 		var tick = function() {
                 $scope.clock = Date.now();
