@@ -7,9 +7,11 @@ $time = date("h:i A");
 
 $at = $_GET['at'];
 $admissionid = $_GET['id'];
+$medname = $_GET['med'];
+
 $medreqid = rand(111111, 999999);
 
-$sel = mysqli_query($conn,"SELECT MedicineID FROM medication WHERE AdmissionID = '$admissionid'");
+$sel = mysqli_query($conn,"SELECT MedicineID FROM pharmaceuticals JOIN medication,patients,medical_details WHERE patients.AdmissionID = '$admissionid' AND patients.MedicalID = medical_details.MedicalID AND medical_details.MedicationID = medication.MedicationID AND medication.MedicineName = pharmaceuticals.MedicineName AND medication.Dosage = pharmaceuticals.Unit");
 
 
 while($row = mysqli_fetch_assoc($sel)){

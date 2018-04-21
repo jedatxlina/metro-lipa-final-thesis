@@ -759,16 +759,17 @@ font-weight: bold;
 		}
 
 		$scope.sendRequisition = function(){
+			$scope.selectedmed = $scope.selectedRow;
 			swal({
                 icon: "success",
                 title: "Medicine Requested!",
                 text: "Redirecting in 2..",
                 timer: 2000
             }).then(function () {
-				window.location.href = 'insertData/insert-medicine-request.php?at=' + $scope.at + '&id=' + $scope.admissionid;
+				window.location.href = 'insertData/insert-medicine-request.php?at=' + $scope.at + '&id=' + $scope.admissionid + '&med=' + $scope.selectedmed;
                 }, function (dismiss) {
                 if (dismiss === 'cancel') {
-					window.location.href = 'insertData/insert-medicine-request.php?at=' + $scope.at + '&id=' + $scope.admissionid;
+					window.location.href = 'insertData/insert-medicine-request.php?at=' + $scope.at + '&id=' + $scope.admissionid  + '&med=' + $scope.selectedmed;
             }
             });
 		}
