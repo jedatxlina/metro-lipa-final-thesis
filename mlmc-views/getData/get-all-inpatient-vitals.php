@@ -5,7 +5,7 @@ require_once 'connection.php';
 
 $sel = mysqli_query($conn,"SELECT vitals.AdmissionID, vitals.ID, vitals.BP , vitals.BPD , vitals.PR , vitals.RR , vitals.Temperature , vitals.DateTimeChecked , CONCAT(patients.Firstname, ' ' ,patients.MiddleName, ' ', patients.LastName) AS Fullname , medical_details.BedID 
 FROM vitals , patients , medical_details 
-WHERE vitals.AdmissionID = patients.AdmissionID AND medical_details.AdmissionID = patients.AdmissionID AND patients.AdmissionType = 'Inpatient' AND vitals.ID IN (SELECT MAX(vitals.ID)
+WHERE vitals.AdmissionID = patients.AdmissionID AND medical_details.AdmissionID = patients.AdmissionID AND patients.AdmissionType = 'Inpatient' AND patients.MedicalID = medical_details.MedicalID AND vitals.ID IN (SELECT MAX(vitals.ID)
     FROM vitals
     GROUP BY vitals.AdmissionID)");
 
