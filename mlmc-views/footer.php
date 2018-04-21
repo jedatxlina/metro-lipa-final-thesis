@@ -36,12 +36,10 @@
 
 <!-- End loading site level scripts -->
 <!-- Load page level scripts-->
-<script type="text/javascript" src="//cdn.jsdelivr.net/momentjs/latest/moment.min.js"></script>
+  			
 
-<!-- <script type="text/javascript" src="assets/plugins/form-daterangepicker/moment.min.js"></script>              		 -->
-<!-- <script type="text/javascript" src="assets/plugins/form-daterangepicker/daterangepicker.js"></script>     			 -->
-
-<script type="text/javascript" src="//cdn.jsdelivr.net/bootstrap.daterangepicker/2/daterangepicker.js"></script>
+<!-- <script type="text/javascript" src="//cdn.jsdelivr.net/bootstrap.daterangepicker/2/daterangepicker.js"></script> -->
+<!-- <script type="text/javascript" src="//cdn.jsdelivr.net/momentjs/latest/moment.min.js"></script> -->
 
 <script type="text/javascript" src="assets/plugins/easypiechart/jquery.easypiechart.js"></script>
 <script async defer
@@ -101,7 +99,8 @@
 <script type="text/javascript" src="assets/plugins/jquery-mousewheel/jquery.mousewheel.min.js"></script>
 <script type="text/javascript" src="assets/demo/demo-formcomponents.js"></script>
 
-
+<script type="text/javascript" src="assets/plugins/form-daterangepicker/moment.min.js"></script>              	
+<script type="text/javascript" src="assets/plugins/form-daterangepicker/daterangepicker.js"></script>   
  <!-- End loading page level scripts-->
 
 

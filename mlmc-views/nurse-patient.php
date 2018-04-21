@@ -12,26 +12,6 @@ font-weight: bold;
 }
 </style>
 
-<!-- <script>
-  
-	  var pusher = new Pusher('c23d5c3be92c6ab27b7a', {
-		cluster: 'ap1',
-		encrypted: true
-	  });
-  
-	  var channel = pusher.subscribe('my-channel');
-	  channel.bind('my-event', function(data) {
-	
-		console.log(data.message);
-		swal({
-			icon: "success",
-			title: "New order notification!",
-			text: "Someone posted an order."
-			}).then(function () {
-		});
-	  });
-	  
-</script> -->
 
 <ol class="breadcrumb">
 <li><a href="#">Home</a></li>

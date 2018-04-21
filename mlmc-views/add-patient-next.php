@@ -74,7 +74,7 @@
                                                         </div>
                                                     </div>
                                                     <div data-row-span="3">
-                                                        <div data-field-span="1" ng-show="param == Outpatient">
+                                                        <div data-field-span="1" ng-show="param == 'Emergency'">
                                                             <label>Administered Medicines</label>
                                                             <select id="medications" class="select2" multiple="multiple" style="width:350px;">
                                                                 <optgroup label="List of Medicines">

@@ -19,7 +19,7 @@ if(isset($_GET['admissionid'])) {
 if(isset($_GET['medicationid']) && isset($_GET['medicalid'])) {
     $medicationid = $_GET['medicationid'];
     $medicalid = $_GET['medicalid'];
-    $sel = mysqli_query($conn,"SELECT medical_details.MedicationID, medication.*,pharmaceuticals.MedicineID,pharmaceuticals.MedicineName,pharmaceuticals.Unit FROM medical_details JOIN medication,pharmaceuticals WHERE medical_details.MedicalID = '$medicalid' AND medical_details.MedicationID = '$medicationid' AND medical_details.MedicationID = medication.MedicationID AND medication.MedicineName = pharmaceuticals.MedicineName");
+    $sel = mysqli_query($conn,"SELECT medical_details.MedicationID, medication.*,pharmaceuticals.MedicineID,pharmaceuticals.MedicineName,pharmaceuticals.Unit FROM medical_details JOIN medication,pharmaceuticals WHERE medical_details.MedicalID = '$medicalid' AND medical_details.MedicationID = '$medicationid' AND medical_details.MedicationID = medication.MedicationID AND medication.MedicineName = pharmaceuticals.MedicineName AND medication.Quantity = '0'");
     $data = array();
     while ($row = mysqli_fetch_array($sel)) {
         $data[] = array(
