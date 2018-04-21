@@ -40,7 +40,7 @@ font-weight: bold;
 								</tr>
 								</thead>
 								<tbody>
-								<tr ng-repeat="user in users" ng-class="{'selected': user.MedRequestID == selectedRow}" ng-click="setClickedRow(user.MedRequestID,user.Status)">
+								<tr ng-repeat="user in users" ng-class="{'selected': user.MedRequestID == selectedRow}" ng-click="setClickedRow(user.MedRequestID,user.Status,user.MedicationID,user.Quantity,user.Dosage,user.MedicineName)">
                                        
                                         <td>{{user.Fullname}}</td>
                                         <td>{{user.Medicine}}</td>
@@ -205,10 +205,14 @@ font-weight: bold;
         });
 
 		   
-		$scope.setClickedRow = function(user,stat) {
+		$scope.setClickedRow = function(user,stat,medid,qty,dsg,mname) {
            $scope.selectedRow = ($scope.selectedRow == null) ? user : ($scope.selectedRow == user) ? null : user;
            $scope.clickedRow = ($scope.selectedRow == null) ? 0 : 1;
 		   $scope.selectedStatus= ($scope.selectedStatus == null) ? stat : ($scope.selectedStatus == stat) ? null : stat;
+		   $scope.selectedMedID = medid;
+		   $scope.selectedQty = qty;
+		   $scope.selectedDosage = dsg;
+		   $scope.selectedMedName = mname;
 		 
 	   	}
 
@@ -235,7 +239,11 @@ font-weight: bold;
 									method: 'GET',
 									params: {
 										requestid: $scope.selectedRow,
-										status: $scope.selectedStatus
+										status: $scope.selectedStatus,
+										medid: $scope.selectedMedID,
+										quantity: $scope.selectedQty,
+										dosage: $scope.selectedDosage,
+										medname: $scope.selectedMedName
 									},
 									url: 'updateData/update-medicine-request.php'
 								}).then(function(response) {
