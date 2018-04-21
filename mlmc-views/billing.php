@@ -457,9 +457,7 @@ font-weight: bold;
 									</div>
 								</div>
 								<div class="panel-footer">
-								<button type="button" ng-click="#" class="btn btn-danger-alt pull-left">View Details</button>
-								<button type="button" ng-click="#" class="btn btn-danger-alt pull-right">Ok</button>
-								<button type="button" data-dismiss="modal" class="btn btn-default-alt pull-right">Cancel</button>
+								<button type="button" data-dismiss="modal" class="btn btn-default-alt pull-right">Close</button>
 								</div>
 							</div>
 						</div>
