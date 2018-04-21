@@ -32,8 +32,9 @@
     <link type="text/css" href="assets/plugins/gridforms/gridforms/gridforms.css" rel="stylesheet">
     <link type="text/css" href="assets/plugins/fullcalendar/fullcalendar.css" rel="stylesheet">
 
-    <link rel="stylesheet" type="text/css" href="//cdn.jsdelivr.net/bootstrap.daterangepicker/2/daterangepicker.css" />    
-    <!-- <link type="text/css" href="assets/plugins/form-daterangepicker/daterangepicker-bs3.css" rel="stylesheet"> -->
+    <link type="text/css" href="assets/plugins/form-daterangepicker/daterangepicker-bs3.css" rel="stylesheet">
+
+
     <!-- FullCalendar -->
     <link type="text/css" href="assets/plugins/jvectormap/jquery-jvectormap-2.0.2.css" rel="stylesheet">
     <!-- jVectorMap -->

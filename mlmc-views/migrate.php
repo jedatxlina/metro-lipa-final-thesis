@@ -10,15 +10,11 @@
 }
 </style>
 
-
 <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/angularjs-slider/6.5.1/rzslider.min.css"/>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/angularjs-slider/6.5.1/rzslider.min.js"></script>
 
 <link type="text/css" href="assets/plugins/dropzone/css/dropzone.css" rel="stylesheet"> <!-- Dropzone Plugin -->
-
 <script type="text/javascript" src="assets/plugins/dropzone/dropzone.min.js"></script>   	<!-- Dropzone Plugin -->
-
-
 
 <!-- <script src="assets/js/report/webix.js" type="text/javascript"></script>
 <script type="text/javascript" src="assets/js/report/querybuilder.js"></script>
@@ -120,11 +116,16 @@
 													</div>
 												</div>
 												
-												<input type="text" name="daterange" value="01/01/2015 - 01/31/2015" />
-
+										
+											
 												<div class="form-group">
-													<div class="col-xs-4">Generate PDF Latest Common Illnesses	<br><span class="text-muted"> </span></div>
-													<div class="col-xs-8">
+													<div class="col-xs-4">Generate PDF Latest Common Illnesses	<br><span class="text-muted">Filter</span></div>
+													<div class="col-xs-4">
+													<div class="input-group">
+															<span class="input-group-addon"><i class="ti ti-calendar"></i></span>
+															<input type="text" class="form-control" id="daterangepicker1">
+													</div>
+													<br>
 													<button type="button" ng-click="generateCommon()" class="btn btn-danger pull-left">&nbsp;Generate</button>
 													</div>
 												</div>
