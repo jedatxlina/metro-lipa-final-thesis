@@ -4,7 +4,7 @@ require_once 'connection.php';
 $diagnosisid = rand(111111,999999);
 $orderid =  rand(111111, 999999);     
 $conditionid = rand(111111,999999);
-$medicationid = rand(111111,999999);
+
 $laboratoryid =  rand(111111, 999999);
 $pharmaid  =  rand(111111, 999999);
 $laborderid =  rand(111111, 999999);     
@@ -24,6 +24,13 @@ $rate =  isset($_GET['rate']) ? $_GET['rate'] : '';
 date_default_timezone_set("Asia/Singapore");
 $date = date("Y-m-d");
 $time = date("h:i A");  
+
+$sel = mysqli_query($conn,"SELECT MedicationID FROM medical_details JOIN patients WHERE patients.AdmissionID= '$admissionid' AND patients.MedicalID = medical_details.MedicalID");
+
+while ($row = mysqli_fetch_assoc($sel)) {
+    $medicationid = $row['MedicationID'];
+   
+}
 
 if($labs != ''){
     if(preg_match("/[A-z]/i", $labs)){
