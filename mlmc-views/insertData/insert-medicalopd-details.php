@@ -28,7 +28,7 @@
     $height = $_GET['height'];
 
     $attendingphysicianid = $_GET['attending'];
-    $medicationid = $_GET['medicationid'];
+    // $medicationid = $_GET['medicationid'];
     $discount = '0.00';
 
     date_default_timezone_set("Asia/Singapore");

@@ -729,10 +729,11 @@ include 'admin-header.php' ?>
             			}).then(function(response) {
 							$scope.scdiscount = JSON.parse(response.data);
 
-							$scope.disc = '.' + $scope.scdiscount;
+							$scope.disc =  $scope.scdiscount;
 
 							$scope.discount = parseFloat($scope.disc);
-
+							$scope.discount /= 100;
+							
 							if($scope.senior == 'true'){
 							$scope.senior = 'false';
 							}else{
@@ -787,7 +788,7 @@ include 'admin-header.php' ?>
             			}).then(function(response) {
 							swal({
                             icon: "success",
-                            title: "Successfully Added!",
+                            title: "Patient Successfully Discharged!",
                             text: "Redirecting in 2..",
                             timer: 2000
 							}).then(function () {

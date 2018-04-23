@@ -25,8 +25,8 @@
   mysqli_query($conn,$query);  
   }
 
-  $querydischarge = "INSERT INTO patients_archive(ArchiveID,FirstName,MiddleName,LastName,Admission,AdmissionType,Province,City,Brgy,CompleteAddress,latcoor,longcoor,Gender,Age,CivilStatus,Birthdate,Contact,Occupation,Citizenship,MedicalID)
-  SELECT a.AdmissionID,a.FirstName,a.MiddleName,a.LastName,a.Admission,a.AdmissionType,a.Province,a.City,a.Brgy,a.CompleteAddress,a.latcoor,a.longcoor,a.Gender,a.Age,a.CivilStatus,a.Birthdate,a.Contact,a.Occupation,a.Citizenship,a.MedicalID
+  $querydischarge = "INSERT INTO patients_archive(ArchiveID,AdmissionDate,AdmissionTime,FirstName,MiddleName,LastName,Admission,AdmissionType,Province,City,Brgy,CompleteAddress,latcoor,longcoor,Gender,Age,CivilStatus,Birthdate,Contact,Occupation,Citizenship,MedicalID)
+  SELECT a.AdmissionID,a.AdmissionDate,a.AdmissionTime,a.FirstName,a.MiddleName,a.LastName,a.Admission,a.AdmissionType,a.Province,a.City,a.Brgy,a.CompleteAddress,a.latcoor,a.longcoor,a.Gender,a.Age,a.CivilStatus,a.Birthdate,a.Contact,a.Occupation,a.Citizenship,a.MedicalID
   FROM patients a
   WHERE a.AdmissionID = '$admissionid'";
 

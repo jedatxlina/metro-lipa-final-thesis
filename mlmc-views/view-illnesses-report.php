@@ -12,10 +12,29 @@
     $dompdf = new Dompdf();
 
     $at = $_GET['at'];
-
+   
+    $search =  isset($_GET['param']) ? $_GET['param'] : '';
+  
     $datetime = date("Y-m-d h:i A");
 
-    $cnt = 1;
+ 
+
+    if($search != ''){
+        $param =  explode(' - ',$search); 
+        $cnt = count($param);
+        for($x = 0; $x < $cnt; $x++){
+            if($x == 0){
+                $start = $param[$x];
+            }else{
+                $end = $param[$x];
+            }
+        }
+
+        $filter = $start . ' - ' . $end;
+    }else{
+        $filter = 'None';
+    }
+    
 
     switch ($at[0]) {
         case '7':
@@ -58,7 +77,7 @@
         background-color: #dddddd;
     }
 
-    h4 {
+    h4,h5 {
         font-family: arial, sans-serif;
     }
     </style>
@@ -70,8 +89,9 @@
     #footer .page:after { content: counter(page, upper-roman); }
     </style>
 
-    <img src="assets/img/report-header.jpg">
-    <h4><center>List of Common Illnesses Report</center></h4>
+    <img src="assets/img/report-header.jpg">    
+    <h4><center>Common Illnesses Report</center></h4>
+    <h5><center>Filter: '.$filter.'</center></h5>
     </head>
     <div class="container-fluid">
     <br>

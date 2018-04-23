@@ -5,19 +5,20 @@
 
     $at = $_GET['at'];
     $admissionid = $_GET['id'];
-    $medid = $_GET['medicationid'];
+    $medid = $_GET['medid'];
 
     date_default_timezone_set("Asia/Singapore");
     $date = date("Y-m-d");
     $time = date("h:i A");
 
-    $sel = mysqli_query($conn,"SELECT b.*,c.DosingID,c.TimeInterval FROM medication b, dosing_time c WHERE b.AdmissionID = '$admissionid' AND b.DosingID = c.DosingID AND b.MedicationID = '$medid'");
+    $sel = mysqli_query($conn,"SELECT medication.*,dosing_time.DosingID,dosing_time.TimeInterval FROM medication JOIN dosing_time WHERE medication.ID = '$medid' AND medication.AdmissionID = '$admissionid' AND medication.DosingID = dosing_time.DosingID");
 
     while($row = mysqli_fetch_assoc($sel))
     {
         $medicationid=$row['MedicationID'];
-        $medicineid = $row['MedicineID'];
+        $medicinename = $row['MedicineName'];
         $qnty =  intval($row['Quantity']);
+        $quantityOnhand =  intval($row['QuantityOnHand']);
         $dateadministered = $row['DateAdministered'];
         $timeadminitered = $row['TimeAdministered'];
         $datestart = $row['DateStart'];
@@ -33,15 +34,17 @@
 
     }
 
-    $query= "UPDATE medication SET Quantity = Quantity - 1 WHERE AdmissionID = '$admissionid' AND ID = '$medid'";
+    $query= "UPDATE medication SET QuantityOnHand = QuantityOnHand - 1 WHERE AdmissionID = '$admissionid' AND ID = '$medid'";
 
     mysqli_query($conn,$query); 
 
 
     $nextintake = date("h:i A", strtotime("+{$timeinterval} hours"));
 
-    $query1= "INSERT into medication_timeline(MedTimelineID,MedicationID,AdmissionID,MedicineID,NurseID,DateIntake,TimeIntake,NextTimeIntake) 
-    VALUES ('$medtimelineid','$medicationid','$admissionid','$medicineid','$at','$date','$time','$nextintake')";
+
+
+    $query1= "INSERT into medication_timeline(MedTimelineID,MedicationID,AdmissionID,MedicineName,NurseID,DateIntake,TimeIntake,NextTimeIntake) 
+    VALUES ('$medtimelineid','$medicationid','$admissionid','$medicinename','$at','$date','$time','$nextintake')";
 
 
     mysqli_query($conn,$query1);  

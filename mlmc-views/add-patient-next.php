@@ -475,7 +475,7 @@
                         }
                         else{
                             $scope.attendphysician = $scope.attendingphysician2;
-              
+               
                             $http({
                             method: 'GET',
                             url: 'insertData/insert-medicalopd-details.php',
