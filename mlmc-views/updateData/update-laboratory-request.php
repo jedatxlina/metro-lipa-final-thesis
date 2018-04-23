@@ -4,7 +4,11 @@ require_once 'connection.php';
 
 $requestid = $_GET['requestid'];
 
-$query= "UPDATE laboratory_req SET Status = 'Cleared' WHERE RequestID = '$requestid'";
+date_default_timezone_set("Asia/Singapore");
+$date = date("Y-m-d");
+$time = date("h:i A");  
+
+$query= "UPDATE laboratory_req SET Status = 'Cleared', DateCleared = '$date', TimeCleared = '$time' WHERE RequestID = '$requestid'";
 
 mysqli_query($conn,$query);  
 

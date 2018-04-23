@@ -35,8 +35,8 @@ if($labs != ''){
 
                 $orderid =  rand(111111, 999999);     
                 
-                $query2 = "INSERT into laboratory_req(RequestID,LaboratoryID,AdmissionID,Status,DateRequest,TimeRequest) 
-                VALUES('$laborderid','$value','$admissionid','Pending','$date','$time')";
+                $query2 = "INSERT into laboratory_req(RequestID,LaboratoryID,AdmissionID,Status,DateRequest,TimeRequest,MedicalID) 
+                VALUES('$laborderid','$value','$admissionid','Pending','$date','$time','$medicalid')";
     
                 mysqli_query($conn,$query2);
 
@@ -77,8 +77,8 @@ if($labs != ''){
 
             $orderid =  rand(111111, 999999);   
 
-            $query2 = "INSERT into laboratory_req(RequestID,LaboratoryID,AdmissionID,Status,DateRequest,TimeRequest) 
-            VALUES('$laborderid','$value','$admissionid','Pending','$date','$time')";
+            $query2 = "INSERT into laboratory_req(RequestID,LaboratoryID,AdmissionID,Status,DateRequest,TimeRequest,MedicalID) 
+            VALUES('$laborderid','$value','$admissionid','Pending','$date','$time','$medicalid')";
 
             mysqli_query($conn,$query2);
 
@@ -93,8 +93,8 @@ if($labs != ''){
 
     $orderid =  rand(111111, 999999);     
     
-    $query2 = "INSERT into laboratory_req(RequestID,LaboratoryID,AdmissionID,Status,DateRequest,TimeRequest) 
-    VALUES('$laborderid','$value','$admissionid','Pending','$date','$time')";
+    $query2 = "INSERT into laboratory_req(RequestID,LaboratoryID,AdmissionID,Status,DateRequest,TimeRequest,MedicalID) 
+    VALUES('$laborderid','$value','$admissionid','Pending','$date','$time','$medicalid')";
 
     mysqli_query($conn,$query2);
 
