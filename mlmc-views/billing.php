@@ -39,11 +39,12 @@ font-weight: bold;
 														<table id="patient_table" class="table table-striped table-bordered" cellspacing="0" width="100%">
 															<thead>
 															<tr>
-																<th>Inpatient ID</th>
-																<th>Admission No</th>
+																<!-- <th>Inpatient ID</th>
+																<th>Admission No</th> -->
+																<th>Full name</th>
 																<th>Admission Date</th>
 																<th>Admission Time</th>
-																<th>Full name</th>
+																
 																<th>Admission</th>
 																<th>Admission Type</th>
 																<th>Gender</th>
@@ -51,11 +52,12 @@ font-weight: bold;
 															</thead>
 															<tbody>
 															<tr ng-repeat="user in users" ng-class="{'selected': user.AdmissionID == selectedRow}" ng-click="setClickedRow(user.AdmissionID)">
-																<td>{{user.AdmissionID}}</td>
-																<td>{{user.AdmissionNo}}</td>
+																<!-- <td>{{user.AdmissionID}}</td>
+																<td>{{user.AdmissionNo}}</td> -->
+																<td>{{user.Lname}}, {{user.Fname}} {{user.Mname}} </td>
 																<td>{{user.AdmissionDate}}</td>
 																<td>{{user.AdmissionTime}}</td>
-																<td>{{user.Lname}}, {{user.Fname}} {{user.Mname}} </td>
+																
 																<td>{{user.Admission}}</td>
 																<td>{{user.AdmissionType}}</td>
 																<td>{{user.Gender}}</td>
@@ -68,11 +70,12 @@ font-weight: bold;
 													<table id="inpatient_table" class="table table-striped table-bordered" cellspacing="0" width="100%">
 														<thead>
 														<tr>
-														<th>Inpatient ID</th>
-																<th>Admission No</th>
+														<!-- <th>Inpatient ID</th>
+																<th>Admission No</th> -->
+																<th>Full name</th>
 																<th>Admission Date</th>
 																<th>Admission Time</th>
-																<th>Full name</th>
+																
 																<th>Admission</th>
 																<th>Admission Type</th>
 																<th>Gender</th>
@@ -80,11 +83,13 @@ font-weight: bold;
 														</thead>
 														<tbody>
 														<tr ng-repeat="patient in patients" ng-class="{'selected': patient.AdmissionID == selectedRow}"  ng-click="setClickedRow(patient.AdmissionID)">
-														<td>{{patient.AdmissionID}}</td>
-																<td>{{patient.AdmissionNo}}</td>
-																<td>{{patient.AdmissionDate}}</td>
-																<td>{{patient.AdmissionTime}}</td>
+																<!-- <td>{{patient.AdmissionID}}</td>
+																<td>{{patient.AdmissionNo}}</td> -->
+																
+																
 																<td>{{patient.Lname}}, {{patient.Fname}} {{patient.Mname}} </td>
+																<td>{{patient.AdmissionDate}}</td> 
+																<td>{{patient.AdmissionTime}}</td>
 																<td>{{patient.Admission}}</td>
 																<td>{{patient.AdmissionType}}</td>
 																<td>{{patient.Gender}}</td>
@@ -124,12 +129,12 @@ font-weight: bold;
                         </div>
 					<div class="list-group list-group-alternate mb-n nav nav-tabs">
 						<a href="#" role="tab" data-toggle="tab" class="list-group-item active">Actions Panel</a>
-						<a href="#" ng-click="viewPatient()" role="tab" data-toggle="tab" class="list-group-item"><i class="ti ti-user"></i>Patient Details</a>
+						<!-- <a href="#" ng-click="viewPatient()" role="tab" data-toggle="tab" class="list-group-item"><i class="ti ti-user"></i>Patient Details</a> -->
                         <a href="#" ng-click="postFee()"role="tab" data-toggle="tab" class="list-group-item"><i class="fa fa-file-text-o"></i>Post Professional Fee</a>
 						<a href="#" ng-click="postDiscount()" role="tab" data-toggle="tab" class="list-group-item"><i class="fa fa-file-text-o"></i>Post Discounts</a>
 						<a href="#" ng-click="postTransfers()"role="tab" data-toggle="tab" class="list-group-item"><i class="fa fa-file-text-o"></i>Post A/R Transfers</a>
                         <a href="#" ng-click="postStatement()"role="tab" data-toggle="tab" class="list-group-item"><i class="fa fa-file-text-o"></i>SOA/Billing Statement</a>
-                        <a href="#" ng-click="reprintReceipt()"role="tab" data-toggle="tab" class="list-group-item"><i class="fa fa-file-text-o"></i>Print Receipt Details</a>
+                        <!-- <a href="#" ng-click="reprintReceipt()"role="tab" data-toggle="tab" class="list-group-item"><i class="fa fa-file-text-o"></i>Print Receipt Details</a> -->
 					</div>
 				</div>
 				<!-- Error modal -->
