@@ -73,7 +73,7 @@
                                         <br>
                                         
                                         <fieldset data-ng-repeat="intake in intakes track by $index"> 
-                                            <legend>Administered Medicines {{AdmissionNo}}</legend>
+                                            <legend>Administered Medicines</legend>
                                             <div data-row-span="2">
                                                 <div data-field-span="1">
                                                     <label>Medicine</label>

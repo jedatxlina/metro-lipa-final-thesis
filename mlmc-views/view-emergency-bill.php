@@ -51,9 +51,9 @@
                                     <fieldset data-ng-repeat="room in roomdetails track by $index">
                                         <input type="hidden" ng-model='RoomBill[$index]' ng-init='RoomBill[$index] = room.bedbill'>
                                     </fieldset>
-                                    <fieldset data-ng-repeat="emroom in emroomdetails track by $index">
+                                    <!-- <fieldset data-ng-repeat="emroom in emroomdetails track by $index">
                                         <input type="hidden" ng-model='EmRoomBill[$index]' ng-init='EmRoomBill[$index] = emroom.EmRoomBill'>
-                                    </fieldset>
+                                    </fieldset> -->
                                     <fieldset data-ng-repeat="room in roomdetails track by $index">
                                         <input type="hidden" ng-model='RoomDur[$index]' ng-init='RoomDur[$index] = room.Duration'>
                                     </fieldset>
@@ -280,15 +280,15 @@
                 $scope.roomdetails = response.data;
             });
             
-            $http({
-                method: 'GET',
-                url: 'getData/get-empatient-roombill.php',
-                params: {
-                    id: $scope.id
-                }
-            }).then(function(response) {
-                $scope.emroomdetails = response.data;
-            });
+            // $http({
+            //     method: 'GET',
+            //     url: 'getData/get-empatient-roombill.php',
+            //     params: {
+            //         id: $scope.id
+            //     }
+            // }).then(function(response) {
+            //     $scope.emroomdetails = response.data;
+            // });
 
             $http({
                 method: 'GET',

@@ -303,15 +303,15 @@
                 $scope.roomdetails = response.data;
             });
             
-            $http({
-                method: 'GET',
-                url: 'getData/get-empatient-roombill.php',
-                params: {
-                    id: $scope.id
-                }
-            }).then(function(response) {
-                $scope.emroomdetails = response.data;
-            });
+            // $http({
+            //     method: 'GET',
+            //     url: 'getData/get-empatient-roombill.php',
+            //     params: {
+            //         id: $scope.id
+            //     }
+            // }).then(function(response) {
+            //     $scope.emroomdetails = response.data;
+            // });
 
             $http({
                 method: 'GET',
@@ -433,11 +433,12 @@
                 }
                 $scope.subtotalphil = total8;
                 $scope.totaldiscount = $scope.discountamount+$scope.advpay+$scope.subtotalphil;
-                $scope.subtotal = $scope.subtotalroom + $scope.subtotalemroom + $scope.subtotalmedi+$scope.subtotallab+$scope.subtotaldoc;
+                $scope.subtotal = $scope.subtotalroom + $scope.subtotalmedi+$scope.subtotallab+$scope.subtotaldoc;
+                $scope.subtotal2 = ($scope.subtotalroom + $scope.subtotalmedi+$scope.subtotallab+$scope.subtotaldoc)-$scope.totaldiscount;
                 if($scope.subtotal2 <= 0)
                     $scope.subtotal2 = '0';
                 else
-                    $scope.subtotal2 = ($scope.subtotalroom + $scope.subtotalemroom + $scope.subtotalmedi+$scope.subtotallab+$scope.subtotaldoc)-$scope.totaldiscount;
+                    $scope.subtotal2 = ($scope.subtotalroom + $scope.subtotalmedi+$scope.subtotallab+$scope.subtotaldoc)-$scope.totaldiscount;
                 $scope.subtotalroom = $scope.subtotalroom + $scope.subtotalemroom;
             });
             $http({

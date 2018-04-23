@@ -87,7 +87,7 @@
                                     </div>
                                 </div>
 
-                                <h5 class="text-primary text-center" style="font-weight: small;">From Emergenc</h5>
+                                <h5 class="text-primary text-center" style="font-weight: small;">From Emergency</h5>
 
                                 <div class="row mb-xl">
                                     <div class="col-md-12">
@@ -106,11 +106,11 @@
                                                         </thead>
                                                         <tbody>
                                                             <tr ng-repeat="room in roomdetails track by $index">
-                                                                <td>{{room.EmRoom}}</td>
+                                                                <td>{{room.BedID}}</td>
                                                                 <td>N/A</td>
                                                                 <td>N/A</td>
                                                                 <td>N/A</td>
-                                                                <td class="text-right">{{room.EmRoomBill.toLocaleString('en')}}</td>
+                                                                <td class="text-right">{{room.bedbill.toLocaleString('en')}}</td>
                                                             </tr>
                                                         </tbody>
                                                     </table>
@@ -297,7 +297,7 @@
 
             $http({
                 method: 'GET',
-                url: 'getData/get-empatient-roombill.php',
+                url: 'getData/get-inpatient-roombill.php',
                 params: {
                     id: $scope.id
                 }

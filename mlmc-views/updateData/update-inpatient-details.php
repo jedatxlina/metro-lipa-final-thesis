@@ -5,7 +5,7 @@
     $bedid = $_GET['BedID']; 
     $dietplan = $_GET['Dietplan'];
     $dietremarks =  isset($_GET['Dietremarks']) ? $_GET['Dietremarks'] : '';
-
+    $date = date("Y-m-d h:i:sa");
     $sql = "UPDATE patients SET AdmissionType='Pending' WHERE AdmissionID='$id'";
 
     mysqli_query($conn,$sql);  
@@ -25,4 +25,6 @@
 
     $sql4 = "INSERT INTO patient_diet(MedicalID,AdmissionID,Diet,DietRemarks) VALUES('$medid','$id','$dietplan','$dietremarks')";
     mysqli_query($conn,$sql4); 
+
+    $sel2 = mysqli_query($conn,"UPDATE duration SET DischargeDate = '$date' WHERE AdmissionID = '$id' AND AdmissionNo = (SELECT AdmissionNo FROM patients WHERE AdmissionID = '$id') AND BedID = 'ER'");
 ?>
