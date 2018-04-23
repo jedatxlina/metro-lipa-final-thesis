@@ -49,21 +49,32 @@ date_default_timezone_set("Asia/Singapore");
 
 //   $data['message'] = 'hello world';
 //   $pusher->trigger('my-channel', 'my-event', $data);
-$fullname = 'ead';
+// $fullname = 'ead';
 
-  require('vendor/autoload.php');
+//   require('vendor/autoload.php');
 
-                $options = array(
-                    'cluster' => 'ap1',
-                    'encrypted' => true
-                );
+//                 $options = array(
+//                     'cluster' => 'ap1',
+//                     'encrypted' => true
+//                 );
                 
-                $pusher = new Pusher\Pusher(
-                    'c23d5c3be92c6ab27b7a',
-                    '296fc518f7ee23f7ee56',
-                    '468021',
-                    $options
-                );
+//                 $pusher = new Pusher\Pusher(
+//                     'c23d5c3be92c6ab27b7a',
+//                     '296fc518f7ee23f7ee56',
+//                     '468021',
+//                     $options
+//                 );
                 
-                $data['message'] = "Dr. " . $fullname . " posted a patient order.";
-                $pusher->trigger('my-channel-outpatient', 'my-event-outpatient', $data);
+//                 $data['message'] = "Dr. " . $fullname . " posted a patient order.";
+//                 $pusher->trigger('my-channel-outpatient', 'my-event-outpatient', $data);
+
+$param =  explode(' - ',$_GET['param']); 
+$cnt = count($param);
+
+for($x = 0; $x < $cnt; $x++){
+    echo $x;
+}
+
+// foreach ($param as $val) {
+//     $Date = date("d-m-Y", strtotime($originalDate));
+// }
