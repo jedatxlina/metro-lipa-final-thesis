@@ -32,63 +32,88 @@ include 'admin-header.php' ?>
                     <div class="col-md-9">
                         <div class="panel panel-danger">
                             <div class="panel-heading">
-                                <h2>Inpatient Patients</h2><a ng-click="viewReport()" class="pull-right"> &nbsp;<i class="ti ti-printer"></i></a>
+                                <h2>Patients</h2><a ng-click="viewReport()" class="pull-right"> &nbsp;<i class="ti ti-printer"></i></a>
                                 <div class="panel-ctrls"></div>
                             </div>
                             <div class="panel-body">
-                                <table id="patient_table" class="table table-striped table-bordered" cellspacing="0" width="100%">
-                                    <thead>
-                                        <tr>
-                                            <th>Room & Bed No.</th>
-                                            <th>Patient Name</th>
-                                            <th>Blood Pressure</th>
-                                            <th>Pulse Rate</th>
-                                            <th>Respiratory Rate</th>
-                                            <th>Temperature</th>
-                                            <th>Date Time Checked</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        <!-- <tr ng-repeat="user in users2" ng-class="{'selected': user.AdmissionID == selectedRow}" ng-click="setClickedRow(user.AdmissionID)">	  									
-										<td>{{user.BedID}}</td>
-                                        <td>{{user.Fullname}}</td>
-                                        <td style="color:red">{{user.BP}}/{{user.BPD}}</td>
-                                        <td>{{user.PR}}</td>
-                                        <td>{{user.RR}}</td>
-                                        <td style="color:red">{{user.Temperature}}</td>
-										<td>{{user.DateTimeChecked}}</td>
-                                    </tr>
-									<tr ng-repeat="user in users3" ng-class="{'selected': user.AdmissionID == selectedRow}" ng-click="setClickedRow(user.AdmissionID)">	  									
-										<td>{{user.BedID}}</td>
-                                        <td>{{user.Fullname}}</td>
-                                        <td style="color:red">{{user.BP}}/{{user.BPD}}</td>
-                                        <td>{{user.PR}}</td>
-                                        <td>{{user.RR}}</td>
-                                        <td>{{user.Temperature}}</td>
-										<td>{{user.DateTimeChecked}}</td>
-                                    </tr>
-								<tr ng-repeat="user in users4" ng-class="{'selected': user.AdmissionID == selectedRow}" ng-click="setClickedRow(user.AdmissionID)">	  									
-										<td>{{user.BedID}}</td>
-                                        <td>{{user.Fullname}}</td>
-                                        <td>{{user.BP}}/{{user.BPD}}</td>
-                                        <td>{{user.PR}}</td>
-                                        <td>{{user.RR}}</td>
-                                        <td style="color:red">{{user.Temperature}}</td>
-										<td>{{user.DateTimeChecked}}</td>
-                                    </tr> -->
-                                        <tr ng-repeat="user in users" ng-class="{'selected': user.AdmissionID == selectedRow}" ng-click="setClickedRow(user.AdmissionID)">
-                                            <td>{{user.BedID}}</td>
-                                            <td>{{user.Fullname}}</td>
-                                            <td>{{user.BP}}/{{user.BPD}}</td>
-                                            <td>{{user.PR}}</td>
-                                            <td>{{user.RR}}</td>
-                                            <td>{{user.Temperature}}</td>
-                                            <td>{{user.DateTimeChecked}}</td>
-                                        </tr>
+                            <div class="tab-container tab-midnightblue">
+												<ul class="nav nav-tabs">
+													<li class="active"><a href="#home1" data-toggle="tab">Emergency</a></li>
+													<li><a href="#profile1" data-toggle="tab">Inpatient</a></li>
+												</ul>
+												<div class="tab-content">
+													<div class="tab-pane active" id="home1">
+														<table id="emergency_patient_table" class="table table-striped table-bordered" cellspacing="0" width="100%">
+															<thead>
+															<tr>
+																<!-- <th>Inpatient ID</th>
+																<th>Admission No</th> -->
+																<th>Full name</th>
+																<th>Admission Date</th>
+																<th>Admission Time</th>
+																
+																<th>Admission</th>
+																<th>Admission Type</th>
+																<th>Gender</th>
+															</tr>
+															</thead>
+															<tbody>
+															<tr ng-repeat="user in epatient" ng-class="{'selected': user.AdmissionID == selectedRow}" ng-click="setClickedRow(user.AdmissionID)">
+																<!-- <td>{{user.AdmissionID}}</td>
+																<td>{{user.AdmissionNo}}</td> -->
+																<td>{{user.Lname}}, {{user.Fname}} {{user.Mname}} </td>
+																<td>{{user.AdmissionDate}}</td>
+																<td>{{user.AdmissionTime}}</td>
+																
+																<td>{{user.Admission}}</td>
+																<td>{{user.AdmissionType}}</td>
+																<td>{{user.Gender}}</td>
+																</tr>
+															</tbody>
+														</table>
+													</div>
+													<!-- <a ng-click="viewReport()">Print Report &nbsp;<i class="ti ti-printer"></i></a> -->
+													<div class="tab-pane" id="profile1">
+                                                    <table id="patient_table" class="table table-striped table-bordered" cellspacing="0" width="100%">
+                                                    <thead>
+                                                        <tr>
+                                                            <th>Room & Bed No.</th>
+                                                            <th>Patient Name</th>
+                                                            <th>Gender</th>
+                                                            <th>Blood Pressure</th>
+                                                            <th>Pulse Rate</th>
+                                                            <th>Respiratory Rate</th>
+                                                            <th>Temperature</th>
+                                                            <th>Date Time Checked</th>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                        <tr ng-repeat="user in users" ng-class="{'selected': user.AdmissionID == selectedRow}" ng-click="setClickedRow(user.AdmissionID)">
+                                                            <td>{{user.BedID}}</td>
+                                                            <td>{{user.Fullname}}</td>
+                                                            <td>{{user.Gender}}
+                                                            <td>{{user.BP}}/{{user.BPD}}</td>
+                                                            <td>{{user.PR}}</td>
+                                                            <td>{{user.RR}}</td>
+                                                            <td>{{user.Temperature}}</td>
+                                                            <td>{{user.DateTimeChecked}}</td>
+                                                        </tr>
+                
+                                                    </tbody>
+                
+                                                </table>
+													</div>
+												</div>
+											</div>
 
-                                    </tbody>
 
-                                </table>
+
+
+
+
+
+
+
 
                                 <a ng-click="generatePatientDiet()" class="pull-right"> Generate Patient Diet&nbsp;<i class="ti ti-printer"></i></a>
                             </div>
@@ -491,6 +516,18 @@ include 'admin-header.php' ?>
                 $scope.selectedRow = null;
                 $scope.clickedRow = 0;
                 $scope.new = {};
+
+                    $http({
+                    method: 'get',
+                    url: 'getData/get-emergency-details.php'
+                     }).then(function(response) {
+                    $scope.epatient = response.data;
+                    angular.element(document).ready(function() {
+                        dTable = $('#emergency_patient_table')
+                        dTable.DataTable();
+                    });
+                     });
+
 
                 var pusher = new Pusher('c23d5c3be92c6ab27b7a', {
                     cluster: 'ap1',
