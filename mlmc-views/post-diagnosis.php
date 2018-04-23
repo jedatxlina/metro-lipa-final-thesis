@@ -46,8 +46,8 @@
                         <!-- panel -->
                         <div class="list-group list-group-alternate mb-n nav nav-tabs">
                             <a href="#tab-diagnosis" role="tab" data-toggle="tab" class="list-group-item active"><i class="fa fa-stethoscope"></i> Diagnosis</a>
-                            <!-- <a href="#tab-laboratory" role="tab" data-toggle="tab" class="list-group-item"><i class="fa fa-stethoscope"></i> Laboratory</a>
-                            <a href="#tab-medications" role="tab" data-toggle="tab" class="list-group-item"><i class="fa fa-stethoscope"></i> Medications</a> -->
+                            <a href="#tab-laboratory" role="tab" data-toggle="tab" class="list-group-item"><i class="fa fa-stethoscope"></i> Laboratory</a>
+                             <!--  <a href="#tab-medications" role="tab" data-toggle="tab" class="list-group-item"><i class="fa fa-stethoscope"></i> Medications</a> -->
                             <a href="#tab-details" role="tab" data-toggle="tab" class="list-group-item"><i class="fa fa-stethoscope"></i>Medical Details</a>
                             <a href="#tab-history" role="tab" data-toggle="tab" class="list-group-item"><i class="ti ti-view-list-alt"></i> Medical History</a>
                         </div>
@@ -84,10 +84,10 @@
                                                     <fieldset>
                                                         <div data-row-span="2">
                                                             <div data-field-span="1">
-                                                                <label>Post-Diagnosis</label>
+                                                                <label>Diagnosis</label>
                                                                 <br>
                                                                 <select id="diagnosis" class="select2" multiple="multiple" style="width:420px;">
-                                                                    <optgroup label="List of Medicines">
+                                                                    <optgroup label="List of Conditions">
                                                                         <option ng-repeat="condition in conditions" value="{{condition.ConditionID}}">{{condition.Conditions}}</option>
                                                                     </optgroup>
                                                                     <option ng-value="Others">Others</option>
@@ -198,14 +198,14 @@
                                                 </fieldset>
                                                 <br>
                                                 <fieldset data-ng-repeat="medication in medications track by $index">
-                                                <input type="text" ng-model="med" ng-init="med = medication.MedicineName" disabled="disabled">
+                                                <input type="text" ng-model="Intake[$index]" ng-init="Intake[$index] = medication.MedicineName" disabled="true">
                                                     <div data-row-span="2">
                                                         <div data-field-span="1">
                                                             <label>Dosage</label>
                                                             <input type="text" ng-model="Dosage[$index]" ng-init="Dosage[$index] = medication.Unit" disabled="disabled">
                                                         </div>
                                                         <div data-field-span="1">
-                                                            <label>Intake Days</label>
+                                                            <label>Required Intake</label>
                                                             <input type="text" ng-model="Quantity[$index]" ng-init="Quantity[$index] = medication.Quantity">
                                                             <input type="hidden" ng-model="MedID[$index]" ng-init="MedID[$index] = medication.MedicineID">
                                                         </div>
@@ -247,28 +247,6 @@
                                     <div class="panel-body">
                                     <form class="grid-form">
                                                 <div class="row">
-                                                    <fieldset data-ng-repeat="patient in patientdetails">
-                                                        <div data-row-span="2">
-                                                            <div data-field-span="1">
-                                                                <label>Admission ID
-                                                                    <br>
-                                                                </label>
-                                                                <input type="text" ng-model="admissionid" ng-disabled='true'>
-                                                            </div>
-                                                            <div data-field-span="1">
-                                                                <label>Patient Name
-                                                                    <br>
-                                                                </label>
-                                                                <input type="text" class="form-control" ng-value="patient.Firstname + ' ' + patient.Middlename + ' ' + patient.Lastname" disabled="disabled">
-                                                            </div>
-                                                            <input type="hidden" ng-model="$parent.attendingid" ng-init="$parent.attendingid = patient.Attending">
-                                                        </div>
-                                                    </fieldset>
-                                                    <fieldset>
-                                                        <div data-row-span="2">
-                                                        
-                                                        </div>
-                                                    </fieldset>
                                                     <fieldset>
                                                         <div data-row-span="2">
                                                             <div data-field-span="1">
@@ -289,7 +267,6 @@
                                                         </div>
                                                 </div>
                                                 </fieldset>
-                                                
                                             <button type="button" class="btn btn-defualt pull-right" data-dismiss="modal">Close</button>
                                             <button ng-click='confirmLaboratory()' class="btn btn-danger pull-right">Confirm</button>
                                             </form>
@@ -477,26 +454,29 @@
         fetch.controller('userCtrl', ['$scope', '$http', '$interval', function($scope, $http, $interval) {
             $scope.at = "<?php echo $_GET['at'];?>";
             $scope.admissionid = "<?php echo $_GET['id'];?>";
+            $scope.medicalid = "<?php echo  isset($_GET['medicalid']) ? $_GET['medicalid'] : ''; ?>";
             $scope.lab = 'No';
             $('#diagsteptwo').hide();
 
             $scope.medicationid = "<?php echo  isset($_GET['medicationid']) ? $_GET['medicationid'] : ''; ?>";
             $scope.id = "<?php echo  isset($_GET['id']) ? $_GET['id'] : ''; ?>";
             $scope.MedID = [];
+            $scope.Intake = [];
             $scope.Quantity = [];
             $scope.Dosage = [];
             $scope.NoteID = [];
             $scope.IntakeInterval = [];
             $scope.rate = '';
 
-            if ($scope.medicationid != '' && $scope.id != '') {
+            if ($scope.medicationid != '' && $scope.medicalid != '') {
                 $('#diagstepone').hide();
                 $('#diagsteptwo').show();
                 $http({
                     method: 'GET',
                     url: 'getData/get-medication-details.php',
                     params: {
-                        medicationid: $scope.medicationid
+                        medicationid: $scope.medicationid,
+                        medicalid: $scope.medicalid
                     }
                 }).then(function(response) {
                     $scope.medications = response.data;
@@ -614,7 +594,7 @@
             // 	});  
             // });
 
-                      $http({
+            $http({
                 method: 'GET',
                 url: 'getData/get-history-details.php',
                 params: {id: $scope.id}
@@ -725,9 +705,9 @@
                 }
 
                 if ($scope.lab != 'No') {
-                    window.location.href = 'insertData/insert-diagnosis-details.php?at=' + $scope.at + '&id=' + $scope.admissionid + '&diagnosis=' + $scope.diagnosis + '&order=' + $scope.order + '&lab=' + $scope.lab + '&meds=' + $scope.meds + '&attendingid=' + $scope.attendingid + '&appointment=' + $scope.appointment + '&rate=' + $scope.rate;
+                    window.location.href = 'insertData/insert-diagnosis-details.php?at=' + $scope.at + '&id=' + $scope.admissionid + '&diagnosis=' + $scope.diagnosis + '&order=' + $scope.order + '&lab=' + $scope.lab + '&meds=' + $scope.meds + '&attendingid=' + $scope.attendingid + '&appointment=' + $scope.appointment + '&rate=' + $scope.rate + '&medicalid=' + $scope.medicalid;
                 } else {
-                    window.location.href = 'insertData/insert-diagnosis-details.php?at=' + $scope.at + '&id=' + $scope.admissionid + '&diagnosis=' + $scope.diagnosis + '&order=' + $scope.order + '&meds=' + $scope.meds + '&attendingid=' + $scope.attendingid + '&appointment=' + $scope.appointment + '&rate=' + $scope.rate;
+                    window.location.href = 'insertData/insert-diagnosis-details.php?at=' + $scope.at + '&id=' + $scope.admissionid + '&diagnosis=' + $scope.diagnosis + '&order=' + $scope.order + '&meds=' + $scope.meds + '&attendingid=' + $scope.attendingid + '&appointment=' + $scope.appointment + '&rate=' + $scope.rate + '&medicalid=' + $scope.medicalid;
                 }
 
             }
@@ -739,10 +719,10 @@
                     text: "Redirecting in 2..",
                     timer: 2000
                 }).then(function() {
-                    window.location.href = 'initiate-medication.php?quantity=' + $scope.Quantity + '&id=' + $scope.medicationid + '&at=' + $scope.at + '&dosage=' + $scope.Dosage + '&medid=' + $scope.MedID + '&notes=' + $scope.NoteID + '&admissionid=' + $scope.admissionid + '&intakeinterval=' + $scope.IntakeInterval + '&parma=' + 'Outpatient';
+                    window.location.href = 'initiate-medication.php?qntyintake=' + $scope.Quantity + '&id=' + $scope.medicationid + '&at=' + $scope.at + '&dosage=' + $scope.Dosage + '&medid=' + $scope.MedID + '&notes=' + $scope.NoteID + '&admissionid=' + $scope.admissionid + '&intake=' + $scope.Intake + '&intakeinterval=' + $scope.IntakeInterval + '&parma=' + 'Outpatient' + '&medicalid=' + $scope.medicalid;
                 }, function(dismiss) {
                     if (dismiss === 'cancel') {
-                        window.location.href = 'initiate-medication.php?quantity=' + $scope.Quantity + '&id=' + $scope.medicationid + '&at=' + $scope.at + '&dosage=' + $scope.Dosage + '&medid=' + $scope.MedID + '&notes=' + $scope.NoteID + '&admissionid=' + $scope.admissionid + '&intakeinterval=' + $scope.IntakeInterval  + '&parma=' + 'Outpatient'; 
+                        window.location.href = 'initiate-medication.php?qntyintake=' + $scope.Quantity + '&id=' + $scope.medicationid + '&at=' + $scope.at + '&dosage=' + $scope.Dosage + '&medid=' + $scope.MedID + '&notes=' + $scope.NoteID + '&admissionid=' + $scope.admissionid + '&intakeinterval=' + $scope.IntakeInterval  + '&parma=' + 'Outpatient' + '&medicalid=' + $scope.medicalid;
                     }
                 });
             }

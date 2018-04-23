@@ -22,10 +22,20 @@ include 'admin-header.php' ?>
         <h3>Outpatient<small> Section</small></h3>
     </div>
     <div class="row">
-        <div class="col-md-6">
-            <button type="button" ng-click="addPatient()" class="btn btn-danger-alt pull-left"><i class="ti ti-user"></i>&nbsp;Add Patient</button>
-        </div>
-    </div>
+                <div class="col-md-9">
+                    <div class="btn-group">
+                        <button type="button" class="btn btn-danger-alt dropdown-toggle" data-toggle="dropdown">
+                            <i class="fa fa-group"></i>&nbsp; Patient <span class="caret"></span>
+                        </button>
+
+                        <ul class="dropdown-menu" role="menu">
+                            <li><a ng-click="addPatient()"><i class="fa fa-search"></i>&nbsp; Data Lookup</a></li>
+                            <li><a ng-click="addNewPatient()"><i class="fa fa-plus-square-o"></i>&nbsp; Add New</a></li>
+                            <li><a href="qr-scanner/index.php?at=<?php echo $_GET['at']?>"><i class="fa fa-qrcode"></i>&nbsp; Scan & Admit</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>	
     <br>
     <div data-widget-group="group1" >
         <div class="row">
@@ -462,10 +472,16 @@ include 'admin-header.php' ?>
             			});
             
             	  	});
-            
-            		var pushalert = function (){
-            			alert('jed');
-            		}	
+
+					   var pusher = new Pusher('c23d5c3be92c6ab27b7a', {
+						cluster: 'ap1',
+						encrypted: true
+						});
+
+						var channel = pusher.subscribe('my-channel');
+						channel.bind('my-event', function(data) {
+						alert(data.message);
+						});
 					
             		var tick = function() {
             			
@@ -669,6 +685,11 @@ include 'admin-header.php' ?>
 					
             		}
             
+					$scope.addNewPatient = function() {
+						window.location.href = 'add-patient.php?at=' + $scope.at + '&id=' + 0;
+					}
+
+
             		$scope.dischargePatient = function(param){
 						$scope.redirect = param;
 						

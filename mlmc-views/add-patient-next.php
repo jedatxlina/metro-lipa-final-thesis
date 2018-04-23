@@ -74,7 +74,7 @@
                                                         </div>
                                                     </div>
                                                     <div data-row-span="3">
-                                                        <div data-field-span="1">
+                                                        <div data-field-span="1" ng-show="param == 'Emergency'">
                                                             <label>Administered Medicines</label>
                                                             <select id="medications" class="select2" multiple="multiple" style="width:350px;">
                                                                 <optgroup label="List of Medicines">
@@ -102,8 +102,8 @@
                                                     </div>
                                                     <div>
                                                         <legend>Attending Physician</legend>
-                                                        <div data-row-span="4" ng-show="param != 'Outpatient'">
-                                                            <div data-field-span="2">
+                                                        <div data-row-span="4">
+                                                            <div data-field-span="2" ng-show="param == Outpatient">
                                                                 <!-- <label>Impression/Admitting Diagnosis</label>
                                                             <select id="diagnosis" class="select2" multiple="multiple" style="width:400px;">
                                                                     <optgroup label="List of Impression/Diagnosis">
@@ -116,7 +116,7 @@
                                                                     <label>Other Impression/Diagnosis</label>
                                                                     <input type="text" ng-model="otherdiagnosis" class="form-control tooltips" data-trigger="hover" data-original-title="Separate with , if more than 1">
                                                                 </div> -->
-                                                                <div data-field-span="1">
+                                                                <div data-field-span="1" >
                                                                     <label>Specialization</label>
                                                                     <select class="form-control" ng-model="specialization" style="width:395px;">
                                                                         <option value="" selected> Select Specialization</option>
@@ -380,7 +380,6 @@
                         // alert($scope.attendingphysician.PhysicianID);
                         // $scope.condition = $("#conditions").val();
                        
-                        $scope.medication = $("#medications").val();
                 
                         $scope.vitalsid =     "<?php echo rand(111111, 999999);?>"; 
                         $scope.medicationid = "<?php echo rand(111111, 999999);?>"; 
@@ -399,19 +398,23 @@
                         // //     $scope.condition = $scope.condition.concat($scope.otherconditions);
                         // // }
 
-                        $scope.found1 = $scope.medication.indexOf('Others');
-                        while ($scope.found1 !== -1) {
-                            $scope.medication.splice($scope.found1, 1);
-                            $scope.found1 = $scope.medication.indexOf('Others');
-
-                        }
-                        if($scope.othercurrentmed != ''){
-                            $scope.medication = $scope.medication.concat($scope.othercurrentmed);
-                        }
+                        
+                 
 
                         if($scope.param != 'Outpatient'){
+                            $scope.medication = $("#medications").val();
+
+                            $scope.found1 = $scope.medication.indexOf('Others');
+                            while ($scope.found1 !== -1) {
+                                $scope.medication.splice($scope.found1, 1);
+                                $scope.found1 = $scope.medication.indexOf('Others');
+
+                            }
+                            if($scope.othercurrentmed != ''){
+                                $scope.medication = $scope.medication.concat($scope.othercurrentmed);
+                            }
+
                             if($scope.specialization == ''){
-                              
                                 $scope.attendphysician = $scope.attendingphysician2;
                             }else{
                                 $scope.attendphysician = $scope.attendingphysician1.PhysicianID;
@@ -470,26 +473,30 @@
                                 window.location.href = 'insertData/insert-medications-details.php?param=' + $scope.param + '&at=' + $scope.at + '&medicationid=' + $scope.medicationid + '&admissionid=' + $scope.admissionid + '&physicianid=' + $scope.attendphysician + '&medication=' + $scope.medication  + '&attendingid=' + $scope.attendingid + '&medid=' + $scope.medid;
                             });      
                         }
-                        // else{
-                        //     $http({
-                        //     method: 'GET',
-                        //     url: 'insertData/insert-medicalopd-details.php',
-                        //     params: {medid: $scope.medid,
-                        //             admissionid: $scope.admissionid,
-                        //             vitalsid: $scope.vitalsid,
-                        //             attendingid: $scope.attendingid,
-                        //             surgery: $scope.surgery,
-                        //             bp: JSON.stringify($scope.parsedbp),
-                        //             pr: $scope.pr,
-                        //             rr: $scope.rr,
-                        //             temp: $scope.temp,
-                        //             weight: $scope.weight,
-                        //             height: $scope.height,
-                        //             attending: $scope.attendingphysician}
-                        //     }).then(function(response) {
-                        //         window.location.href = 'insertData/insert-condition-details.php?param=' + $scope.param + '&at=' + $scope.at + '&admissionid=' + $scope.admissionid + '&condition=' + $scope.condition + '&medid=' + $scope.medid + '&medication=' + $scope.medication;
-                        //     });   
-                        // }
+                        else{
+                            $scope.attendphysician = $scope.attendingphysician2;
+              
+                            $http({
+                            method: 'GET',
+                            url: 'insertData/insert-medicalopd-details.php',
+                            params: {medid: $scope.medid,
+                                    admissionid: $scope.admissionid,
+                                    vitalsid: $scope.vitalsid,
+                                    condition: $scope.condition,
+                                    attendingid: $scope.attendingid,
+                                    surgery: $scope.surgery,
+                                    bp: JSON.stringify($scope.parsedbp),
+                                    pr: $scope.pr,
+                                    rr: $scope.rr,
+                                    temp: $scope.temp,
+                                    weight: $scope.weight,
+                                    height: $scope.height,
+                                    attending: $scope.attendphysician}
+                            }).then(function(response) {
+                                // window.location.href = 'insertData/insert-condition-details.php?param=' + $scope.param + '&at=' + $scope.at + '&admissionid=' + $scope.admissionid + '&condition=' + $scope.condition + '&medid=' + $scope.medid + '&medication=' + $scope.medication;
+                                window.location.href = 'outpatient.php?at=' + $scope.at;
+                            });   
+                        }
 
                     }
 

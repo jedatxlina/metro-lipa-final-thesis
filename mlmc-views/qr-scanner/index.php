@@ -38,6 +38,10 @@
 					case '2':
 						$link = '../view-patient-data-archive.php';
 						break;
+
+					case '7':
+						$link = '../view-patient-data-archive.php';
+						break;
 					
 					default:
 						$link = '../add-patient-vitals.php';
