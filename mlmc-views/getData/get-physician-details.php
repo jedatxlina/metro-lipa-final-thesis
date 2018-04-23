@@ -25,7 +25,8 @@ if($at == '' && $admissionid == ''){
             "Specialization"=>$row['Specialization']);
     }
 }else{
-    $sel = mysqli_query($conn,"SELECT * FROM physicians JOIN attending_physicians WHERE attending_physicians.AdmissionID = '$admissionid' AND attending_physicians.PhysicianID = physicians.PhysicianID");
+    $sel = mysqli_query($conn,"SELECT * FROM physicians JOIN attending_physicians,medical_details,patients WHERE attending_physicians.PhysicianID = physicians.PhysicianID AND patients.AdmissionID = '$admissionid' AND patients.MedicalID = medical_details.MedicalID AND medical_details.AttendingID = attending_physicians.AttendingID
+    ");
     while ($row = mysqli_fetch_array($sel)) {
         $data[] = array(
             "PhysicianID"=>$row['PhysicianID'],

@@ -6,7 +6,7 @@ $id =  isset($_GET['id']) ? $_GET['id'] : '';
 if($id == ''){
 	$sel = mysqli_query($conn,"SELECT * FROM patients_archive");
 }else{
-	$sel = mysqli_query($conn,"SELECT * FROM patients_archive WHERE ArchiveID = '$id'");
+	$sel = mysqli_query($conn,"SELECT * FROM patients_archive WHERE ArchiveID = '$id' GROUP BY ArchiveID");
 }
 
 $data = array();

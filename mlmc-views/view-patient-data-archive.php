@@ -30,7 +30,7 @@ $activeMenu = "patients";
         <div class="row">
             <div class="col-sm-3">
             <div class="panel panel-profile">   
-                        <div class="panel-body"  data-ng-repeat="history in patienthistory">
+                        <div class="panel-body"  data-ng-repeat="history in patienthistory | limitTo : 1">
                             <img ng-src="{{history.QRpath}}">
                             <div class="name">{{history.Lastname}}, {{history.Firstname}} {{history.Middlename}}</div>
                             <div class="info">{{history.ArchiveID}}</div>  
@@ -39,7 +39,7 @@ $activeMenu = "patients";
                         </div>
                         <center>
                      
-                    </div><!-- panel -->
+                    </div>
                 <div class="list-group list-group-alternate mb-n nav nav-tabs">
                     <a href="#tab-about" 	role="tab" data-toggle="tab" class="list-group-item active"><i class="ti ti-user"></i> About </a>
                 </div>
@@ -238,6 +238,7 @@ var fetch = angular.module('myApp', ['ui.mask']);
             params: {id: $scope.id}
         }).then(function(response) {
             $scope.patienthistory = response.data;
+      
             angular.element(document).ready(function() {
                 dTable = $('#medhistory_table')
                 dTable.DataTable();

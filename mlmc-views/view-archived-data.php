@@ -42,7 +42,7 @@ $activeMenu = "patients";
                 <div class="row">
                     <div class="col-sm-3">
                         <div class="panel panel-profile">
-                            <div class="panel-body" data-ng-repeat="history in historydetails">
+                            <div class="panel-body" data-ng-repeat="history in historydetails | limitTo : 1">
                                 <img ng-src="{{history.QRpath}}">
                                 <div class="name">{{history.Lastname}}, {{history.Firstname}} {{history.Middlename}}</div>
                                 <div class="info">{{history.ArchiveID}}</div>
@@ -71,7 +71,7 @@ $activeMenu = "patients";
                                         <div class="about-area">
                                             <div class="grid-form">
                                                 <div class="row">
-                                                    <fieldset data-ng-repeat="patient in historydetails">
+                                                    <fieldset data-ng-repeat="patient in historydetails | limitTo : 1">
                                                         <div data-row-span="2">
                                                             <div data-field-span="1">
                                                                 <label>Patient Name</label>
