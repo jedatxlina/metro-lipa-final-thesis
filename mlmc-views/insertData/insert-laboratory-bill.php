@@ -24,25 +24,15 @@ $sel2 = mysqli_query($conn,"SELECT beds.Percent
 FROM beds 
 JOIN patients
 JOIN medical_details
-<<<<<<< HEAD
-WHERE patients.MedicalID = medical_details.MedicalID AND medical_details.BedID = beds.BedID AND patients.AdmissionID = 2017340646");
-
-$percent = '';
-
-
-=======
 WHERE patients.MedicalID = medical_details.MedicalID AND medical_details.BedID = beds.BedID AND patients.AdmissionID = '$admissionid'");
->>>>>>> master
 while($row = mysqli_fetch_assoc($sel2))
 {
     $percent = $row['Percent'];
 }
 $rate = $rate * $percent;
 
-<<<<<<< HEAD
 $query = "INSERT into billing(BillID,AdmissionID,Department,ItemID,BillDes,TotalBill) 
 VALUES('$billid','$admissionid','$department','$laboratoryid','$des','$rate')";
-=======
 $sel3 = mysqli_query($conn,"SELECT MedicalID FROM patients WHERE admissionID = '$admissionid'");
 
 while($row = mysqli_fetch_assoc($sel3))
@@ -57,13 +47,10 @@ while($row = mysqli_fetch_assoc($sel4))
     $bedid = $row['BedID'];
 }
 
-<<<<<<< HEAD
 $query = "INSERT into billing(BillID,AdmissionID,Department,ItemID,BillDes,TotalBill,MedicalID,BedID) 
 VALUES('$billid','$admissionid','$department','$laboratoryid','$des','$rate','$medicalid','$bedid')";
->>>>>>> master
-=======
+
 $query = "INSERT into billing(BillID,AdmissionID,Department,ItemID,BillDes,TotalBill,Status,MedicalID,BedID) 
 VALUES('$billid','$admissionid','$department','$laboratoryid','$des','$rate','Unpaid','$medicalid','$bedid')";
->>>>>>> master
 mysqli_query($conn,$query);  
 ?>
