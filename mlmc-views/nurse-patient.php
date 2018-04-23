@@ -166,9 +166,9 @@ include 'admin-header.php' ?>
                                             <thead>
                                                 <tr>
                                                     <th>Medicine Name</th>
-                                                    <th>Quantity</th>
+                                                    <th>Administered Quantity</th>
                                                     <th>Dosage</th>
-                                                    <th>Fullname</th>
+                                                    <th>Patient Name</th>
                                                 </tr>
                                             </thead>
                                             <tbody>
@@ -365,9 +365,9 @@ include 'admin-header.php' ?>
                                             <thead>
                                                 <tr>
                                                     <th>Medicine Name</th>
-                                                    <th>Quantity</th>
+                                                    <th>Administered Quantity</th>
                                                     <th>Dosage</th>
-                                                    <th>Fullname</th>
+                                                    <th>Patient Name</th>
                                                 </tr>
                                             </thead>
                                             <tbody>
@@ -407,7 +407,7 @@ include 'admin-header.php' ?>
                                             <thead>
                                                 <tr>
                                                     <th>Medicine Name</th>
-                                                    <th>Quantity</th>
+                                                    <th>Quantity (on hand)</th>
                                                     <th>Dosage</th>
                                                     <th>Fullname</th>
                                                 </tr>
@@ -415,7 +415,7 @@ include 'admin-header.php' ?>
                                             <tbody>
                                                 <tr ng-repeat="medication in medicationdetails" ng-class="{'selected': medication.ID == selectedRow}" ng-click="setClickedRow(medication.ID)">
                                                     <td>{{medication.MedicineName}}</td>
-                                                    <td>{{medication.Quantity}}</td>
+                                                    <td>{{medication.QuantityOnHand}}</td>
                                                     <td>{{medication.Dosage}}</td>
                                                     <td>{{medication.Fullname}}</td>
                                                 </tr>
@@ -821,7 +821,7 @@ include 'admin-header.php' ?>
                 }
 
                 $scope.postMedicationConfirm = function() {
-                    $scope.medicineid = $scope.selectedRow;
+                    $scope.medid = $scope.selectedRow;
 
                     swal({
                         icon: "success",
@@ -829,10 +829,10 @@ include 'admin-header.php' ?>
                         text: "Redirecting in 2..",
                         timer: 2000
                     }).then(function() {
-                        window.location.href = 'insertData/post-medication-details.php?at=' + $scope.at + '&id=' + $scope.admissionid + '&medicationid=' + $scope.medicineid;
+                        window.location.href = 'insertData/post-medication-details.php?at=' + $scope.at + '&id=' + $scope.admissionid + '&medid=' + $scope.medid;
                     }, function(dismiss) {
                         if (dismiss === 'cancel') {
-                            window.location.href = 'insertData/post-medication-details.php?at=' + $scope.at + '&id=' + $scope.admissionid + '&medicationid=' + $scope.medicineid;
+                            window.location.href = 'insertData/post-medication-details.php?at=' + $scope.at + '&id=' + $scope.admissionid + '&medid=' + $scope.medid;
                         }
                     });
 
