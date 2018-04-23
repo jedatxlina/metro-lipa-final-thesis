@@ -53,7 +53,7 @@
     $department = 'Pharmacy';
     $billid =  rand (111111,999999);
 
-    $sel = mysqli_query($conn,"SELECT Price FROM pharmaceuticals WHERE MedicineName = '$medicinename' AND Dosage = '$dsg' ");
+    $sel = mysqli_query($conn,"SELECT Price FROM pharmaceuticals WHERE MedicineName = '$medicinename' AND Unit = '$dsg' ");
     
     $price = '';
     
@@ -86,7 +86,7 @@
     {
         $bedid = $row['BedID'];
     }
-    $med = $medicinename + ' ' + $dsg;
+    $med = $medicinename . ' ' . $dsg;
     $billquery = "INSERT into billing(BillID,AdmissionID,Department,ItemID,BillDes,TotalBill,Status,MedicalID,BedID) 
     VALUES('$billid','$admissionid','$department','$medicationid','$med','$price','Unpaid','$medicalid','$bedid')";
     mysqli_query($conn,$billquery);  
