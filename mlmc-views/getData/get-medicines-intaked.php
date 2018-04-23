@@ -14,6 +14,7 @@
             "MedicationID"=>$row['MedicationID'],        
             "AdmissionID"=>$row['AdmissionID'],
             "MedicineName"=>$row['MedicineName'],
+            "Dosage"=>$row['Dosage'],
             "Quantity"=>$row['Quantity'],
             "PhysicianID"=>$row['PhysicianID']);
         }

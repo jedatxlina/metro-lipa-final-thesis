@@ -73,11 +73,11 @@
                                         <br>
                                         
                                         <fieldset data-ng-repeat="intake in intakes track by $index"> 
-                                            <legend>Administered Medicines {{AdmissionNo}}</legend>
+                                            <legend>Administered Medicines </legend>
                                             <div data-row-span="2">
                                                 <div data-field-span="1">
                                                     <label>Medicine</label>
-                                                    <input type="text" ng-model="Intake[$index]" ng-init="Intake[$index] = intake.MedicineName" disabled="disabled"> 
+                                                    <input type="text" ng-model="Intake[$index]" ng-init="Intake[$index] = intake.MedicineName" disabled="disabled"> {{intake.Dosage}}
                                                 </div>
                                                 <div data-field-span="1">
                                                     <label>Quantity Administered</label>
