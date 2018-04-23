@@ -57,8 +57,13 @@ while($row = mysqli_fetch_assoc($sel4))
     $bedid = $row['BedID'];
 }
 
+<<<<<<< HEAD
 $query = "INSERT into billing(BillID,AdmissionID,Department,ItemID,BillDes,TotalBill,MedicalID,BedID) 
 VALUES('$billid','$admissionid','$department','$laboratoryid','$des','$rate','$medicalid','$bedid')";
+>>>>>>> master
+=======
+$query = "INSERT into billing(BillID,AdmissionID,Department,ItemID,BillDes,TotalBill,Status,MedicalID,BedID) 
+VALUES('$billid','$admissionid','$department','$laboratoryid','$des','$rate','Unpaid','$medicalid','$bedid')";
 >>>>>>> master
 mysqli_query($conn,$query);  
 ?>
