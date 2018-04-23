@@ -23,7 +23,7 @@ $activeMenu = "patients";
 <div class="container-fluid">
     <div class="panel-body">
         <button ng-click="goBack()" class="btn-danger-alt btn">Back</button>
-        <button ng-click="goBack()" class="btn-danger btn pull-right">Admit Patient</button>
+        <button ng-click="admitPatientArchive()" class="btn-danger btn pull-right">Admit Patient</button>
     </div>
     <br>
     <div data-widget-group="group1">
@@ -264,6 +264,13 @@ var fetch = angular.module('myApp', ['ui.mask']);
            
            $window.open('view-qr-code.php?at='+$scope.at+'&id='+$scope.id, '_blank');
            
+       }
+
+       $scope.admitPatientArchive = function(){
+          
+            $scope.archiveid = $scope.id;
+            window.location.href = 'add-patient.php?at=' + $scope.at + '&id=' + 1 + '&chk=' + $scope.archiveid;
+            
        }
 
        $scope.getPage = function(check){

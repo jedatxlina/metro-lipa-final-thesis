@@ -31,8 +31,6 @@ while($row = mysqli_fetch_assoc($sel2))
 }
 $rate = $rate * $percent;
 
-$query = "INSERT into billing(BillID,AdmissionID,Department,ItemID,BillDes,TotalBill) 
-VALUES('$billid','$admissionid','$department','$laboratoryid','$des','$rate')";
 $sel3 = mysqli_query($conn,"SELECT MedicalID FROM patients WHERE admissionID = '$admissionid'");
 
 while($row = mysqli_fetch_assoc($sel3))
@@ -46,9 +44,6 @@ while($row = mysqli_fetch_assoc($sel4))
 {
     $bedid = $row['BedID'];
 }
-
-$query = "INSERT into billing(BillID,AdmissionID,Department,ItemID,BillDes,TotalBill,MedicalID,BedID) 
-VALUES('$billid','$admissionid','$department','$laboratoryid','$des','$rate','$medicalid','$bedid')";
 
 $query = "INSERT into billing(BillID,AdmissionID,Department,ItemID,BillDes,TotalBill,Status,MedicalID,BedID) 
 VALUES('$billid','$admissionid','$department','$laboratoryid','$des','$rate','Unpaid','$medicalid','$bedid')";
