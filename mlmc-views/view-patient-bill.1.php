@@ -242,6 +242,37 @@
                                             </div>
                                         </div>
                                     </div>
+                                    <h5 class="text-primary text-center" style="font-weight: small;">From Philhealth and HMO's</h5>
+                                    <div class="row mb-xl">
+                                        <div class="col-md-12">
+                                            <div class="panel">
+                                                <div class="panel-body no-padding">
+                                                    <div class="table-responsive">
+                                                        <table class="table table-hover m-n">
+                                                            <thead>
+                                                                <tr>
+                                                                    <th>#</th>
+                                                                    <th>Disease Name</th>
+                                                                    <th>Discount</th>
+                                                                    <th>Professional Fee Discount</th>
+                                                                    <th class="text-right">Total</th>
+                                                                </tr>
+                                                            </thead>
+                                                            <tbody>
+                                                                <tr ng-repeat="phil in philhealthdetails track by $index">
+                                                                    <td>{{$index}}</td>
+                                                                    <td>{{phil.FindingsName}}</td>
+                                                                    <td>{{phil.DDiscount.toLocaleString('en')}}</td>
+                                                                    <td>{{phil.PFDiscount}}</td>
+                                                                    <td class="text-right">{{phil.Total.toLocaleString('en')}}</td>
+                                                                </tr>
+                                                            </tbody>
+                                                        </table>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
                             <!-- .tab-content -->
@@ -382,6 +413,15 @@
                 }
             }).then(function(response) {
                 $scope.supplydetails = response.data;
+            });
+            $http({
+                method: 'GET',
+                url: 'getData/get-philhealthsupply-details.php',
+                params: {
+                    id: $scope.id
+                }
+            }).then(function(response) {
+                $scope.philhealthdetails = response.data;
             });
             $http({
                 method: 'GET',

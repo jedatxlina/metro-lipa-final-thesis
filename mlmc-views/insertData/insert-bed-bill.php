@@ -9,6 +9,6 @@ $total =  $_GET['total'];
 $date = date("Y-m-d h:i:sa");
 
 $query2 = "INSERT into duration(DurationID,AdmissionID,AdmissionNo,ArrivalDate,DischargeDate,BedID,TotalBill) 
-VALUES('$billid','$admissionid','$admissno','$date','0000/00/00 00:00:00','EM','$total')";
+VALUES('$billid','$admissionid','$admissno','$date','0000/00/00 00:00:00','ER','$total')";
 mysqli_query($conn,$query2);  
 ?>
