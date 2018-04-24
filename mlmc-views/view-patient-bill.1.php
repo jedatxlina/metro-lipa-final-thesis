@@ -140,9 +140,9 @@
                                                         </thead>
                                                         <tbody>
                                                             <tr ng-repeat="medicine in medicinedetails track by $index">
-                                                                <td>{{$index}}</td>
+                                                                <td>{{$index + 1}}</td>
                                                                 <td>{{medicine.mediname}}</td>
-                                                                <td class="text-right">{{medicine.quantity}}</td>
+                                                                <td class="text-right">{{medicine.qty}}</td>
                                                                 <td class="text-right">{{medicine.totalbill.toLocaleString('en')}}</td>
                                                                 <td class="text-right">{{medicine.totalbill.toLocaleString('en')}}</td>
                                                             </tr>
@@ -165,13 +165,15 @@
                                                                 <tr>
                                                                     <th>#</th>
                                                                     <th>Description</th>
+                                                                    <th>Quantity</th>
                                                                     <th class="text-right">Total</th>
                                                                 </tr>
                                                             </thead>
                                                             <tbody>
                                                                 <tr ng-repeat="lab in labdetails track by $index">
-                                                                    <td>{{$index}}</td>
+                                                                    <td>{{$index + 1}}</td>
                                                                     <td>{{lab.Description}}</td>
+                                                                    <td>{{lab.qty}}</td>
                                                                     <td class="text-right">{{lab.Rate.toLocaleString('en')}}</td>
                                                                 </tr>
                                                             </tbody>
@@ -199,7 +201,7 @@
                                                             </thead>
                                                             <tbody>
                                                                 <tr ng-repeat="doc in docdetails track by $index">
-                                                                    <td>{{$index}}</td>
+                                                                    <td>{{$index +1}}</td>
                                                                     <td>Dr. {{doc.Fname + doc.Mname + doc.Lname}}</td>
                                                                     <td>{{doc.Discount.toLocaleString('en')}}</td>
                                                                     <td class="text-right">{{(doc.Pfee - doc.Discount).toLocaleString('en')}}</td>
@@ -222,17 +224,15 @@
                                                                 <tr>
                                                                     <th>#</th>
                                                                     <th>Supply Name</th>
-                                                                    <th>Price</th>
                                                                     <th>Quantity</th>
                                                                     <th class="text-right">Total</th>
                                                                 </tr>
                                                             </thead>
                                                             <tbody>
                                                                 <tr ng-repeat="sup in supplydetails track by $index">
-                                                                    <td>{{$index}}</td>
-                                                                    <td>{{sup.SupplyName}}</td>
-                                                                    <td>{{sup.price.toLocaleString('en')}}</td>
-                                                                    <td>{{sup.total}}</td>
+                                                                    <td>{{$index + 1}}</td>
+                                                                    <td>{{sup.suppname}}</td>
+                                                                    <td>{{sup.qty2}}</td>
                                                                     <td class="text-right">{{sup.totalbill.toLocaleString('en')}}</td>
                                                                 </tr>
                                                             </tbody>
@@ -260,7 +260,7 @@
                                                             </thead>
                                                             <tbody>
                                                                 <tr ng-repeat="phil in philhealthdetails track by $index">
-                                                                    <td>{{$index}}</td>
+                                                                    <td>{{$index + 1}}</td>
                                                                     <td>{{phil.FindingsName}}</td>
                                                                     <td>{{phil.DDiscount.toLocaleString('en')}}</td>
                                                                     <td>{{phil.PFDiscount}}</td>

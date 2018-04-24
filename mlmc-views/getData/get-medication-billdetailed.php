@@ -1,15 +1,13 @@
 <?php
 require_once 'connection.php';
 $id = $_GET['id'];
-$sel = mysqli_query($conn,"SELECT medication.Quantity,pharmaceuticals.Unit,pharmaceuticals.Price,pharmaceuticals.MedicineID, pharmaceuticals.MedicineName FROM medication INNER JOIN pharmaceuticals ON medication.MedicineName=pharmaceuticals.MedicineName WHERE medication.AdmissionID='$id' AND medication.Dosage = pharmaceuticals.Unit");
+$sel = mysqli_query($conn,"SELECT SUM(TotalBill) AS TotalBill,BillDes, COUNT(*) AS qty FROM billing c, patients a WHERE c.AdmissionID ='$id' AND c.Department = 'Pharmacy' AND a.MedicalID = c.MedicalID GROUP BY BillDes");
 $data = array();
 while ($row = mysqli_fetch_array($sel)) {
     $data[] = array(
-    "mediname"=>$row['MedicineName'],
-    "Dosage"=>$row['Unit'],
-    "quantity"=>$row['Quantity'],
-    "totalbill"=>$row['Quantity']*$row['Price'],
-    "price"=>$row['Price']);
+    "mediname"=>$row['BillDes'],
+    "totalbill"=>$row['TotalBill'],
+    "qty"=>$row['qty']);
 }
 echo json_encode($data);
 ?>

@@ -389,12 +389,12 @@
                 $scope.patientdetails = response.data;
                 for (var i = 0; i < $scope.MedicineBill.length; i++) {
                     var product = $scope.MedicineBill[i];
-                    total = total + product;
+                    total = total + parseFloat(product);
                 }
                 $scope.subtotalmedi = total;
                 for (var i = 0; i < $scope.RoomBill.length; i++) {
                     var product1 = $scope.RoomBill[i];
-                    total1 = total1 + product1;
+                    total1 = total1 + parseFloat(product1);
                 }
                 $scope.subtotalroom = total1
                 for (var i = 0; i < $scope.EmRoomBill.length; i++) {
