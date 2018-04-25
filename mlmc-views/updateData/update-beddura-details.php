@@ -21,5 +21,12 @@ $query5 = "INSERT into duration(DurationID,AdmissionID,AdmissionNo,ArrivalDate,D
 VALUES('$billid2','$id','$admissno','$date','0000-00-00','$bedno','0000')";
 mysqli_query($conn,$query5);  
 mysqli_query($conn,$query3);  
-mysqli_query($conn,$query4);  
+mysqli_query($conn,$query4); 
+
+
+
+$updatenewbed = "UPDATE beds SET Status = 'Unavailable' WHERE BedID = '$prev'";
+$updatecurrbed = "UPDATE beds SET Status = 'Occupied' WHERE BedID = '$bedno'";
+mysqli_query($conn,$updatenewbed);  
+mysqli_query($conn,$updatecurrbed); 
 ?>
