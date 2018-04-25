@@ -276,63 +276,6 @@
                     </div>
                     <!-- OPD Transfers modal -->
 
-                    <!-- Attending Physician Transfer Modal -->
-                    <div class="modal fade" id="attendingModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
-                        <div class="modal-dialog">
-                            <div class="panel panel-danger" data-widget='{"draggable": "false"}'>
-                                <div class="panel-heading">
-                                    <h2>Attending physician</h2>
-                                    <div class="panel-ctrls" data-actions-container="" data-action-collapse='{"target": ".panel-body, .panel-footer"}'></div>
-                                </div>
-                                <div class="panel-body" style="height: auto">
-                                    <center><span><strong>Select Attending Physician</strong></span></center>
-                                    <hr>
-                                    <div class="row">
-                                        <div class="form-group">
-                                            <label for="focusedinput" class="col-sm-3 control-label">
-                                                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Select Physician</label>
-                                            <div class="col-sm-7">
-                                                <select class="form-control" ng-model="attendingphysician" style="width:350px;">
-                                                    <option value="" disabled selected>Select Physician</option>
-                                                    <option ng-repeat="physician in physicians" value="{{physician.PhysicianID}}">{{physician.Fullname}}</option>
-                                                </select>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <br>
-                                    <div data-ng-repeat="patient in patientdetails">
-
-                                        <div class="row">
-                                            <div class="form-group">
-                                                <label for="focusedinput" class="col-sm-3 control-label">
-                                                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;Patient Name</label>
-                                                <div class="col-sm-7">
-                                                    <input type="text" class="form-control" ng-value="patient.Lastname + ', ' + patient.Firstname + ' ' + patient.Middlename" disabled>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <br>
-                                        <div class="row">
-                                            <div class="form-group">
-                                                <label for="focusedinput" class="col-sm-3 control-label">
-                                                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;Admission No</label>
-                                                <div class="col-sm-7">
-                                                    <input type="text" class="form-control" ng-value="patient.AdmissionID" disabled>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <br>
-                                </div>
-                                <div class="panel-footer">
-                                    <button type="button" ng-click="admitOpdConfirm()" data-dismiss="modal" class="btn btn-danger pull-right">Confirm</button>
-                                    <button type="button" data-dismiss="modal" class="btn btn-default pull-right">Cancel</button>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <!-- Attending Physician Transfer Modal -->
-
                     <!-- Patient Modal -->
                     <div class="modal fade" id="patientModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
                         <form class="form-horizontal">
@@ -896,17 +839,27 @@
 
                 $scope.admitopdTransfer = function() {
                     if ($scope.selectedRow != null) {
-                        $scope.admissionid = $scope.selectedRow;
+                     $scope.admissionid = $scope.selectedRow;
                         $http({
                             method: 'get',
-                            url: 'getData/get-patient-details.php',
+                            url: 'updateData/update-transfering-patient.php',
                             params: {
                                 id: $scope.admissionid
                             }
                         }).then(function(response) {
-                            $scope.patientdetails = response.data;
+                            swal({
+                                icon: "success",
+                                title: "Successfully Transferred!",
+                                text: "Redirecting in 2..",
+                                timer: 2000
+                            }).then(function () {
+                                window.location.reload(false); 
+                                }, function (dismiss) {
+                                    if (dismiss === 'cancel') {
+                                        window.location.reload(false); 
+                                    }
+                            });
                         });
-                        $('#attendingModal').modal('show');
                     } else {
                         $('#errorModal').modal('show');
                     }

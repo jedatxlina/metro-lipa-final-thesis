@@ -5,10 +5,6 @@
     $medicationid= $_GET['id'];
     $admissionid = $_GET['admissionid'];
 
-    // $qnty = explode(',',$_GET['quantity']);
-    // $dosage = explode(',',$_GET['dosage']);
-    // $medid  = explode(',',$_GET['medid']);
-
     $intake =  explode(',',$_GET['intake']);
     $qntyintake =  explode(',',$_GET['qntyintake']);
     $notes  = explode(',',$_GET['notes']);
@@ -18,7 +14,7 @@
     // $days = [];
     $interval =isset($_GET['intakeinterval']) ? explode(',',$_GET['intakeinterval']) : '';
 
-    // <-- OPD -->
+   
     $medicalid =   isset($_GET['medicalid']) ? explode(',',$_GET['medicalid']) : '';
     $dosage =   isset($_GET['dosage']) ? explode(',',$_GET['dosage']) : '';
 
@@ -27,22 +23,6 @@
 
             $query = "UPDATE pharmaceuticals SET Unit = '$dosage[$x]' WHERE MedicineName = '$intake[$x]'"; 
             mysqli_query($conn,$query);  
-
-            // $sel =  mysqli_query($conn,"SELECT MedicineID,Unit FROM pharmaceuticals WHERE MedicineName = '$intake[$x]'");
-            // while($row = mysqli_fetch_assoc($sel))
-            // {
-            //    $medicineid = $row['MedicineID'];
-            //    $dosage = $row['Unit'];
-            // }
-          
-            // $sel2 = mysqli_query($conn,"SELECT * FROM medication WHERE MedicationID = '$medicationid' AND MedicineID = '$medicineid'");
-            // while($row = mysqli_fetch_assoc($sel2))
-            // {
-            //    $chk = $row['MedicationID'];
-            // }
-
-            // $query = "UPDATE medication SET Quantity = '$medicineid' WHERE MedicationID = 324943 AND MedicineID = 227411"; 
-            // mysqli_query($conn,$query);  
 
             $search = mysqli_query($conn,"SELECT MedicineName,Unit FROM pharmaceuticals WHERE MedicineName = '$intake[$x]'");
                 
@@ -63,6 +43,50 @@
                     $query = "UPDATE medication SET Quantity = '$qntyintake[$x]', Notes = '$notes[$x]' WHERE MedicationID = '$medicationid' AND MedicineName = '$intake[$x]'"; 
                     mysqli_query($conn,$query);  
                 }
+
+                $department = 'Pharmacy';
+                $billid =  rand (111111,999999);
+            
+                $sel = mysqli_query($conn,"SELECT Price FROM pharmaceuticals WHERE MedicineName = '$intake[$x]' AND Unit = '$unit' ");
+                
+                $price = '';
+                
+                while($row = mysqli_fetch_assoc($sel))
+                {
+                    $price = $row['Price'];
+                }
+                
+                $sel2 = mysqli_query($conn,"SELECT beds.Percent
+                FROM beds 
+                JOIN patients
+                JOIN medical_details
+                WHERE patients.MedicalID = medical_details.MedicalID AND medical_details.BedID = beds.BedID AND patients.AdmissionID = '$admissionid'");
+                while($row = mysqli_fetch_assoc($sel2))
+                {
+                    $percent = $row['Percent'];
+                }
+                $price = $price * $percent;
+
+                $price *= $qntyintake[$x];
+                
+                $sel3 = mysqli_query($conn,"SELECT MedicalID FROM patients WHERE admissionID = '$admissionid'");
+                
+                while($row = mysqli_fetch_assoc($sel3))
+                {
+                    $medicalid = $row['MedicalID'];
+                }
+                
+                $sel4 = mysqli_query($conn,"SELECT medical_details.BedID FROM medical_details JOIN patients WhERE medical_details.MedicalID = patients.MedicalID AND patients.AdmissionID = '$admissionid'");
+                
+                while($row = mysqli_fetch_assoc($sel4))
+                {
+                    $bedid = $row['BedID'];
+                }
+                $med = $medicinename . ' ' . $dsg;
+                $billquery = "INSERT into billing(BillID,AdmissionID,Department,ItemID,BillDes,TotalBill,Status,MedicalID,BedID) 
+                VALUES('$billid','$admissionid','$department','$medicationid','$intake[$x]' ,'$price','Unpaid','$medicalid','$bedid')";
+                mysqli_query($conn,$billquery);  
+            
 
             }else{
                     
@@ -111,25 +135,35 @@
     }
     else{
 
-        require __DIR__ . '/vendor/autoload.php';
+        switch ($at[0]) {
+            case '3':
+                header("Location:nurse-patient.php?at=$at");
+                break;
+            
+            default:
+                require __DIR__ . '/vendor/autoload.php';
 
-        $options = array(
-            'cluster' => 'ap1',
-            'encrypted' => true
-        );
+                $options = array(
+                    'cluster' => 'ap1',
+                    'encrypted' => true
+                );
+                
+                $pusher = new Pusher\Pusher(
+                    'c23d5c3be92c6ab27b7a',
+                    '296fc518f7ee23f7ee56',
+                    '468021',
+                    $options
+                );
+                
+                $data['message'] = "Dr. " . $fullname . " posted a patient order.";
+                $pusher->trigger('my-channel-inpatient', 'my-event-inpatient', $data);
+                $pusher->trigger('my-channel', 'my-event', $data);
         
-        $pusher = new Pusher\Pusher(
-            'c23d5c3be92c6ab27b7a',
-            '296fc518f7ee23f7ee56',
-            '468021',
-            $options
-        );
-        
-        $data['message'] = "Dr. " . $fullname . " posted a patient order.";
-        $pusher->trigger('my-channel-inpatient', 'my-event-inpatient', $data);
-        $pusher->trigger('my-channel', 'my-event', $data);
+                header("Location:physician.php?at=$at");
+                break;
+        }
 
-        header("Location:physician.php?at=$at");
+        
 
 }
 
