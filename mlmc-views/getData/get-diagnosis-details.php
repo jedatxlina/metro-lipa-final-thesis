@@ -6,7 +6,7 @@ $at = $_GET['at'];
 $id = $_GET['id'];
 $orderid = $_GET['orderid'];
 
-$sel = mysqli_query($conn,"SELECT * FROM Medication WHERE AdmissionID = '$id");
+$sel = mysqli_query($conn,"SELECT * FROM Medication WHERE AdmissionID = '$id'");
 
 $data = array();
 

@@ -185,7 +185,7 @@
                                                     </tr>
                                                     </thead>
                                                     <tbody>
-                                                    <tr ng-repeat="history in patienthistory" ng-class="{'selected': history.ArchiveID == selectedRow}" ng-click="setClickedRow(history.ArchiveID)">
+                                                    <tr ng-repeat="history in patienthistory" ng-class="{'selected': history.ArchiveNo == selectedRow}" ng-click="setClickedRow(history.ArchiveNo)">
                                                         <td>{{history.Firstname}} {{history.Middlename}} {{history.Lastname}}</td>
                                                         <td>{{history.ArchiveID}}</td>
                                                         <td>{{history.AdmissionDate}}</td>

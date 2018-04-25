@@ -28,7 +28,7 @@
     $height = $_GET['height'];
 
     $attendingphysicianid = $_GET['attending'];
-    // $medicationid = $_GET['medicationid'];
+    $medicationid = $_GET['medicationid'];
     $discount = '0.00';
 
     date_default_timezone_set("Asia/Singapore");
@@ -36,8 +36,8 @@
     $time = date("h:i A");
     $datetime = date("Y-m-d h:i A");
 
-    $query = "INSERT into medical_details(MedicalID,AdmissionID,AttendingID,ArrivalDate,ArrivalTime,VitalsID,PreviousSurgeries,Weight,Height) 
-    VALUES('$medicalid','$admissionid','$attendingid','$date','$time','$vitalsid','$surgery','$weight','$height')";
+    $query = "INSERT into medical_details(MedicalID,AdmissionID,AttendingID,ArrivalDate,ArrivalTime,VitalsID,MedicationID,PreviousSurgeries,Weight,Height) 
+    VALUES('$medicalid','$admissionid','$attendingid','$date','$time','$vitalsid','$medicationid','$surgery','$weight','$height')";
 
     mysqli_query($conn,$query);  
 

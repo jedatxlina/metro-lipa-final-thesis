@@ -17,7 +17,7 @@ $date = $_GET['birthdate'];
 
 $birthdate = date("Y-m-d", strtotime($date));
 
-$sel = mysqli_query($conn,"SELECT * FROM patients_archive  WHERE (FirstName LIKE '%$firstname%' OR MiddleName LIKE '%$middlename%' OR LastName LIKE '%$lastname%') ORDER BY ArchiveNo DESC LIMIT 1");
+$sel = mysqli_query($conn,"SELECT * FROM patients_archive  WHERE (FirstName LIKE '%$firstname%' OR MiddleName LIKE '%$middlename%' OR LastName LIKE '%$lastname%') GROUP BY ArchiveID");
 
 }
 

@@ -5,7 +5,7 @@ require_once 'connection.php';
 $id =  isset($_GET['id']) ? $_GET['id'] : '';
 
 if($id != ''){
-    $query = "SELECT a.SecretaryID,a.PhysicianID,b.PhysicianID,b.AdmissionID,c.*, CONCAT(d.Firstname, ' ' ,d.MiddleName, ' ', d.LastName) AS Pname,e.PhysicianID, CONCAT(e.Firstname, ' ' ,e.MiddleName, ' ', e.LastName) AS Dname FROM secretary a, attending_physicians b, orders c, patients d, physicians e WHERE a.SecretaryID = '$id' AND a.PhysicianID = b.PhysicianID AND c.PhysicianID = b.PhysicianID AND b.AdmissionID = c.AdmissionID AND c.Status = 'Pending' AND d.AdmissionID = b.AdmissionID AND b.PhysicianID = e.PhysicianID AND d.AdmissionType = 'Outpatient'";
+    $query = "SELECT CONCAT(patients.Firstname, ' ' ,patients.MiddleName, ' ', patients.LastName) AS Pname,physicians.PhysicianID, CONCAT(physicians.Firstname, ' ' ,physicians.MiddleName, ' ', physicians.LastName) AS Dname, orders.* FROM orders JOIN patients,secretary,physicians WHERE secretary.SecretaryID = '$id' AND orders.PhysicianID = physicians.PhysicianID AND orders.Status = 'Pending' AND patients.AdmissionID = orders.AdmissionID";
 }else{
     $query = "SELECT orders.*,CONCAT(patients.Firstname, ' ' ,patients.MiddleName, ' ', patients.LastName) AS Pname,CONCAT(physicians.Firstname, ' ' ,physicians.MiddleName, ' ', physicians.LastName) AS Dname FROM orders JOIN patients,physicians WHERE patients.MedicalID = orders.MedicalID AND orders.PhysicianID = physicians.PhysicianID AND orders.Status = 'Pending'";
 }

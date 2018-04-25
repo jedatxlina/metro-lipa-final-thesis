@@ -99,7 +99,7 @@ include 'admin-header.php' ?>
                     <a href="#" role="tab" data-toggle="tab" class="list-group-item active">Actions Panel</a>
                     <a href="#" ng-click="viewPatient()" role="tab" data-toggle="tab" class="list-group-item"><i class="ti ti-user"></i> Patient Details</a>
                     <a href="#" ng-click="dischargePatient('move')" role="tab" data-toggle="tab" class="list-group-item"><i class="fa fa-stethoscope"></i>Move to Emergency</a>
-                    <a href="#" ng-click="viewOrder()" role="tab" data-toggle="tab" class="list-group-item"><span class="badge badge-primary"  ng-if="notifs > 0">{{notifs}}</span> <i class="ti ti-email"></i>Doctors Order</a>
+                    <a href="#" ng-click="viewOrder()" role="tab" data-toggle="tab" class="list-group-item"><span class="badge badge-primary"  ng-if="notifs > 0">{{notifs}}</span> <i class="ti ti-email"></i>View Prescriptions</a>
                     <a href="#" ng-click="dischargePatient('pay')" role="tab" data-toggle="tab" class="list-group-item"><i class="fa fa-check-square-o"></i>Post Charge</a>
                 </div>
             </div>
@@ -309,7 +309,7 @@ include 'admin-header.php' ?>
                                 <div class="panel-ctrls" data-actions-container="" data-action-collapse='{"target": ".panel-body, .panel-footer"}'></div>
                             </div>
                             <div class="panel-body" style="height: 500px">
-                                <center><span><strong>Physician Orders</strong></span></center>
+                                <center><span><strong>Physician Orders / Prescriptions</strong></span></center>
                                 <hr>
                                 <table id="orders_table" class="table table-striped table-bordered" cellspacing="0" width="100%">
                                     <thead>
@@ -438,6 +438,12 @@ include 'admin-header.php' ?>
 					$scope.hmo = 'false';
 					$scope.hmoprovider = '';	
 
+					// Search Query
+					$scope.firstname = '';
+					$scope.middlename = '';
+					$scope.lastname = '';
+					$scope.birthdate = '';
+
             		$('#patient_table').on('search.dt', function() {
             			var value = $('.dataTables_filter input').val();
             			$scope.val = value;
@@ -480,7 +486,7 @@ include 'admin-header.php' ?>
 
 						var channel = pusher.subscribe('my-channel');
 						channel.bind('my-event', function(data) {
-						alert(data.message);
+							alert(data.message);
 						});
 					
             		var tick = function() {
@@ -488,13 +494,13 @@ include 'admin-header.php' ?>
             			$scope.clock = Date.now();
             			$scope.datetime = new Date().toLocaleTimeString('en-US', { hour: 'numeric', hour12: true, minute: 'numeric' });		
             			
-            			$http({
-            				method: 'get',
-            				url: 'getData/get-order-details.php',
-            				params:{id:$scope.at}
-            			}).then(function(response) {
-            				$scope.notifs = response.data.length;	
-            			});
+            			// $http({
+            			// 	method: 'get',
+            			// 	url: 'getData/get-order-details.php',
+            			// 	params:{id:$scope.at}
+            			// }).then(function(response) {
+            			// 	$scope.notifs = response.data.length;	
+            			// });
             			
             		}
             	
@@ -583,10 +589,12 @@ include 'admin-header.php' ?>
             			$('#searchPatientModal').modal('show');
 						
             		}
-
 				
+
 					$scope.searchPatient = function(){
+			
 						$scope.birthdate =$("#datepicker").datepicker("option", "dateFormat", "yy-mm-dd" ).val();
+						
 						$('#searchPatientModal').modal('hide');
 						$http({
 							method: 'get',
@@ -664,7 +672,10 @@ include 'admin-header.php' ?>
                    	}
             	   
             		$scope.viewOrder = function(){
-            			$('#orderModal').modal('show');
+					
+					
+							$('#orderModal').modal('show');
+            		
             		}
             
             		$scope.acceptOrder = function(){
@@ -680,9 +691,9 @@ include 'admin-header.php' ?>
             		}
             
             		$scope.viewOrderDetails = function(){
-            			$scope.id = $scope.selectedRow;
-            			window.location.href = 'view-order-details.php?at=' + $scope.at + '&id=' + $scope.orderadmissionid + '&orderid=' + $scope.id;
-					
+            			$scope.id = $scope.orderadmissionid;
+            			// window.location.href = 'view-order-details.php?at=' + $scope.at + '&id=' + $scope.orderadmissionid + '&orderid=' + $scope.id;
+						$window.open('view-order-prescription.php?at='+$scope.at+'&id='+$scope.id, '_blank');
             		}
             
 					$scope.addNewPatient = function() {

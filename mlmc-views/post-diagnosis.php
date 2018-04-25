@@ -55,7 +55,37 @@
                     <div class="col-md-9">
                         <div class="tab-content">
                             <div class="tab-pane active" id="tab-diagnosis">
-                                <div class="panel panel-default">
+                                <div class="panel panel-danger">
+                                        <div class="panel-heading">
+                                            <h2>Latest Diagnosis</h2>
+                                            <div class="panel-ctrls"></div>
+                                        </div>
+                                            <div class="panel-body">
+                                                <div class="table-responsive">
+                                                    <table id="latest_table" class="table table-striped table-bordered" cellspacing="0" width="100%">
+                                                            <thead>
+                                                                <tr>
+                                                                    <th>Findings</th>
+                                                                    <th>Date & Time Diagnosed</th>
+                                                                    <th>Administered By</th>
+                                                                </tr>
+                                                            </thead>
+                                                            <tbody>
+                                                                <tr data-ng-repeat="latest in latestdiagnosis">
+                                                                    <td>{{latest.Findings}}</td>
+                                                                    <td>{{latest.DateDiagnosed}} {{latest.TimeDiagnosed}}</td>
+                                                                    <td>Dr. {{latest.PhysicianFirstname}} {{latest.PhysicianMiddlename}} {{ latest.PhysicianLastname}}</td>
+                                                            
+                                                                </tr>
+                                                            </tbody>
+                                                    </table>
+                                                </div>
+                                            </div>
+                                        <div class="panel-footer">
+                                        </div>
+                                </div>
+
+                                <div class="panel panel-danger">
                                     <div class="panel-heading">
                                         <h2>Post Diagnosis</h2>
                                         <div class="panel-ctrls"></div>
@@ -65,21 +95,7 @@
                                             <form class="grid-form">
                                                 <div class="row">
                                                     <fieldset data-ng-repeat="patient in patientdetails">
-                                                        <div data-row-span="2">
-                                                            <div data-field-span="1">
-                                                                <label>Admission ID
-                                                                    <br>
-                                                                </label>
-                                                                <input type="text" ng-model="admissionid" ng-disabled='true'>
-                                                            </div>
-                                                            <div data-field-span="1">
-                                                                <label>Patient Name
-                                                                    <br>
-                                                                </label>
-                                                                <input type="text" class="form-control" ng-value="patient.Firstname + ' ' + patient.Middlename + ' ' + patient.Lastname" disabled="disabled">
-                                                            </div>
                                                             <input type="hidden" ng-model="$parent.attendingid" ng-init="$parent.attendingid = patient.Attending">
-                                                        </div>
                                                     </fieldset>
                                                     <fieldset>
                                                         <div data-row-span="2">
@@ -88,7 +104,7 @@
                                                                 <br>
                                                                 <select id="diagnosis" class="select2" multiple="multiple" style="width:420px;">
                                                                     <optgroup label="List of Conditions">
-                                                                        <option ng-repeat="condition in conditions" value="{{condition.ConditionID}}">{{condition.Conditions}}</option>
+                                                                        <option ng-repeat="condition in conditions | orderBy:'Conditions'" value="{{condition.ConditionID}}">{{condition.Conditions}}</option>
                                                                     </optgroup>
                                                                     <option ng-value="Others">Others</option>
                                                                 </select>
@@ -96,7 +112,7 @@
                                                                 <br>
                                                                 <br>
                                                                 <div id="otherdiagnosis">
-                                                                    <label>Other Conditions</label>
+                                                                    <label>Other Diagnosis (Philhealth Exclusion)</label>
                                                                     <input type="text" ng-model="otherdiagnosis" class="form-control tooltips" data-trigger="hover" data-original-title="Separate with , if more than 1">
                                                                 </div>
                                                             </div>
@@ -202,7 +218,7 @@
                                                     <div data-row-span="2">
                                                         <div data-field-span="1">
                                                             <label>Dosage</label>
-                                                            <input type="text" ng-model="Dosage[$index]" ng-init="Dosage[$index] = medication.Unit" disabled="disabled">
+                                                            <input type="text" ng-model="Dosage[$index]" ng-init="Dosage[$index] = medication.Unit">
                                                         </div>
                                                         <div data-field-span="1">
                                                             <label>Required Intake</label>
@@ -471,6 +487,7 @@
             if ($scope.medicationid != '' && $scope.medicalid != '') {
                 $('#diagstepone').hide();
                 $('#diagsteptwo').show();
+
                 $http({
                     method: 'GET',
                     url: 'getData/get-medication-details.php',
@@ -538,6 +555,19 @@
                 }).then(function(response) {
                     $scope.userdetails = response.data;
                 });
+
+            $http({
+                method: 'GET',
+                url: 'getData/get-latest-diagnosis.php',
+                params: {admissionid: $scope.admissionid }
+            }).then(function(response) {
+                $scope.latestdiagnosis = response.data;
+                angular.element(document).ready(function() {  
+                dTable = $('#latest_table')  
+                dTable.DataTable();  
+            	});  
+            });
+
 
             $http({
                 method: 'GET',
@@ -715,7 +745,7 @@
             $scope.submitDetails = function(type) {
                 swal({
                     icon: "success",
-                    title: "Successfully Added!",
+                    title: "Successfully Posted!",
                     text: "Redirecting in 2..",
                     timer: 2000
                 }).then(function() {
