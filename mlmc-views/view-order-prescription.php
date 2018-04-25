@@ -34,7 +34,7 @@
         break;
     }
 
-    $queryfind = mysqli_query($conn,"SELECT * FROM patients WHERE AdmissionID = '$id'");
+    $queryfind = mysqli_query($conn,"SELECT patients.*,CONCAT(physicians.FirstName, ' ' ,physicians.MiddleName, ' ',physicians.LastName) AS Pname FROM patients JOIN medical_details,attending_physicians,physicians WHERE patients.AdmissionID = '$id' AND patients.MedicalID = medical_details.MedicalID AND medical_details.AttendingID = attending_physicians.AttendingID AND attending_physicians.PhysicianID = physicians.PhysicianID");
 
     while ($row = mysqli_fetch_assoc($queryfind)) {
         $firstname = $row['FirstName'];
@@ -44,11 +44,18 @@
         $gender = $row['Gender'];
         $admissiondate = $row['AdmissionDate'];
         $admissiontime = $row['AdmissionTime'];
+        $pname = $row['Pname'];
     }
 
     $patientfullname = $firstname . ' ' . $middlename . ' ' . $lastname;
  
+    $findqr =  mysqli_query($conn,"SELECT QR_Path FROM medical_details JOIN patients_archive WHERE patients_archive.ArchiveID = '$id' AND patients_archive.MedicalID = medical_details.MedicalID GROUP BY QR_Path");
   
+    while ($row = mysqli_fetch_assoc($findqr)) {
+        $path = $row['QR_Path'];
+    }
+
+
     $html = '
         <link type="text/css" href="assets/plugins/gridforms/gridforms/gridforms.css" rel="stylesheet">
         
@@ -100,62 +107,54 @@
     
         <head> 
         <style>
-        #footer { position: fixed; center: 0px; bottom: -150px; right: 0px; height: 150px; background-color: #F4F4F4; }
+        #footer { position: fixed; center: 0px; bottom: -150px; right: 0px; height: 250px; background-color: #FFFFFF; }
         #footer .page:after { content: counter(page, upper-roman); }
         </style>
 
         <img src="assets/img/report-header.jpg">
         <h4><center>Prescription Report</center></h4>
+        <img src='.$path.' style="float: right; width: 120px;">
         </head>
         <div class="container-fluid">
         <br>
                 <div>  
                 
                 
-                    <div style="float: right; text-align: right;">Patient ID: <span> '.$id.' </span> <br>
-                    Admission Date & Time: <span>  '. $admissiondate . ' ' . $admissiontime .'  </span>
-                    </div>
-                    <div>Patient name: <span> '. $patientfullname .'  </span> </div>   
+                 
+                    <div>Patient name: <span> '. $patientfullname .' </span> <br>
+                    Patient ID: <span> '.$id.' </span> <br></div>   
 
                     
                     <div>Age:  <span>  '.$age.' </span> </div>
-                    <div class="pull-left">Gender:  <span>  '.$gender.'  </span> </div>
+                    <div class="pull-left">Gender:  <span>  '.$gender.'  </span>  </div>
 
                 </div>
+              
+                <br>';
 
-                <br><br>
-                <center><h5>Diagnosis Report</h5></center>
-            
-                <table>
-                <tr>
-                    <th>Attending Doctor</th>
-                    <th>Date & Time Diagnosed</th>
-                    <th>Findings</th>
-                </tr>';
+                // $diagnosis = mysqli_query($conn,"SELECT CONCAT(physicians.Firstname, ' ' ,physicians.MiddleName, ' ', physicians.LastName) AS Dname,diagnosis.* FROM patients JOIN diagnosis,attending_physicians,physicians WHERE patients.AdmissionID = '$id' AND patients.MedicalID = diagnosis.MedicalID AND attending_physicians.AttendingID = diagnosis.AttendingID AND attending_physicians.PhysicianID = physicians.PhysicianID");
 
-                $diagnosis = mysqli_query($conn,"SELECT CONCAT(physicians.Firstname, ' ' ,physicians.MiddleName, ' ', physicians.LastName) AS Dname,diagnosis.* FROM patients JOIN diagnosis,attending_physicians,physicians WHERE patients.AdmissionID = '$id' AND patients.MedicalID = diagnosis.MedicalID AND attending_physicians.AttendingID = diagnosis.AttendingID AND attending_physicians.PhysicianID = physicians.PhysicianID");
-
-                while ($row = mysqli_fetch_assoc($diagnosis)) {
-                    $physician = $row['Dname'];
-                    $datediagnosed = $row['DateDiagnosed'];
-                    $timediagnosed = $row['TimeDiagnosed'];
-                    $findings = $row['Findings'];
+                // while ($row = mysqli_fetch_assoc($diagnosis)) {
+                //     $physician = $row['Dname'];
+                //     $datediagnosed = $row['DateDiagnosed'];
+                //     $timediagnosed = $row['TimeDiagnosed'];
+                //     $findings = $row['Findings'];
                
-                    $html .= '<tr>
-                     <td> ' . $physician . ' </td><td>' . $datediagnosed . ' ' . $timediagnosed . '</td><td>' . $findings . '</td></tr>';
-                   }
+                //     $html .= '<tr>
+                //      <td> ' . $physician . ' </td><td>' . $datediagnosed . ' ' . $timediagnosed . '</td><td>' . $findings . '</td></tr>';
+                //    }
 
                 $html .= '
-                </table>
-                <br>
+                
+                <br><br>
+             
                 <center><h5>Medicine Prescriptions</h5></center>
                 <table>
                 <tr>
                     <th>Medicine </th>
                     <th>Quantity</th>
-                    <th>Date & Time Administered</th>
                     <th>Intake</th>
-                    <th>Notes</th>
+                    <th>Notes (Instruction)</th>
                   
                 </tr>';
 
@@ -171,13 +170,42 @@
                     $intake = $row['Intake'];
                
                     $html .= '<tr>
-                     <td> ' . $medicinename . ' ' .  $dosage . ' </td><td>' . $quantity . '</td><td>' . $dateadministered . ' ' .   $timeadministered . '</td><td>' . $intake . '</td><td>' . $notes . '</td></tr>';
+                     <td> ' . $medicinename . ' ' .  $dosage . ' </td><td>' . $quantity . '</td><td>' . $intake . '</td><td>' . $notes . '</td></tr>';
+                   }
+
+                   
+                $html .= '
+                </table>
+                <br><br>
+             
+                <center><h5>Laboratory Tests / Diagnostic Procedures</h5></center>
+                <table>
+                <tr>
+                    <th>Laboratory</th>
+                    <th>Notes (Instruction)</th>
+                  
+                </tr>';
+
+                $labs = mysqli_query($conn,"SELECT orders.*,laboratories.Description FROM orders JOIN patients,laboratories WHERE patients.AdmissionID =  '$id' AND patients.MedicalID = orders.MedicalID AND orders.LaboratoryID = laboratories.LaboratoryID");
+     
+                while ($row = mysqli_fetch_assoc($labs)) {
+                    $labdesc = $row['Description'];
+                    $task = $row['Task'];
+           
+                    $html .= '<tr>
+                     <td> ' . $labdesc . ' </td><td>' . $task. '</td></tr>';
                    }
 
                          
                    $html .= '</table>
                    </div>
                    <div id="footer">
+                   Attending Physician:Dr. <span> '.$pname. ' </span>
+                   <div style="float: right; text-align: right;">Lic. No: <span>  </span> <br>
+                   PTR. No. <span>    </span><br>
+                   Tin. No. <span>  </span>
+                   </div>
+                   <br><br><br><br><br>
                    Generated by:   '.$genfullname.' 
                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;

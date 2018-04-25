@@ -572,6 +572,13 @@
                 $scope.order = 0;
                 $scope.notifs = 1;
 
+                					// Search Query
+					$scope.firstname = '';
+					$scope.middlename = '';
+					$scope.lastname = '';
+					$scope.birthdate = '';
+
+
                 var pusher = new Pusher('c23d5c3be92c6ab27b7a', {
                     cluster: 'ap1',
                     encrypted: true

@@ -195,7 +195,8 @@
                                                 </table>
                                             </div>
                                         </div>
-                                    <div class="panel-footer">
+                                        <div class="panel-footer">
+                                        <button type="button" ng-click="viewPatientDataHistory()" class="btn btn-danger-alt pull-left">View Details</button>
                                     </div>
                                 </div>       
                            <!-- <div class="panel panel-default">
@@ -561,6 +562,17 @@
                     window.location.href = 'view-patient-data.php?at=' + $scope.at + '&id=' + $scope.id;
                 });
            }
+
+           
+            $scope.viewPatientDataHistory = function(){
+                    if ($scope.selectedRow != null) {
+                        $scope.archiveno = $scope.selectedRow;
+                        window.location.href = 'view-archived-data.php?at=' + $scope.at + '&id=' + $scope.archiveno;
+                    } else {
+                        $('#errorModal').modal('show');
+                    }
+                
+            }
 
         //    $scope.resetDetails = function(oldpatient){
              

@@ -359,7 +359,7 @@ include 'admin-header.php' ?>
                             <div class="panel-body" style="height: auto">
                                 <center><span><strong>Post Outpatient Charges</strong></span></center>
                                 <br>
-                                <div class="row" data-ng-repeat="physician in physiciandetails">
+                                <div class="row" data-ng-repeat="physician in physiciandetails  | limitTo : 1">
 										<div class="col-md-6">
 											<div class="form-group">
 												<label>Physician Name</label>
@@ -376,7 +376,7 @@ include 'admin-header.php' ?>
 										</div>
                                 </div>
 
-								<div class="row" data-ng-repeat="patient in outpatientdetails">
+								<div class="row" data-ng-repeat="patient in outpatientdetails  | limitTo : 1">
 										<div class="col-md-6">
 											<div class="form-group">
 												<label>Patient Name</label>
@@ -400,6 +400,12 @@ include 'admin-header.php' ?>
                                                 <option value="" disabled selected>Select Guarantor</option>
                                             	<option ng-repeat="hmo in hmolist" value="{{hmo.Provider}}" ng-init="$parent.hmoprovider = hmo.Provider">{{hmo.Provider}}</option>
                                             </select>
+										</div>
+									</div>
+									<div class="col-md-6">
+										<div class="form-group">
+											<label>Control No</label>
+											<input type="text" class="form-control" ng-model="hmocontrol" >	
 										</div>
 									</div>
                                 </div>
@@ -795,6 +801,7 @@ include 'admin-header.php' ?>
 								admissionid: $scope.patient,
 								totalfee: $scope.totalfee,
 								hmo: $scope.hmoprovider,
+								hmocontrol: $scope.hmocontrol,
 								re: $scope.redirect}
             			}).then(function(response) {
 							swal({
