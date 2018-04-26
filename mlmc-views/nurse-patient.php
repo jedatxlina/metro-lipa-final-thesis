@@ -461,10 +461,10 @@ include 'admin-header.php' ?>
                                         <h2>Tag as Discharged</h2>
                                         <div class="panel-ctrls" data-actions-container="" data-action-collapse='{"target": ".panel-body, .panel-footer"}'></div>
                                     </div>
-                                    <div class="panel-body" style="height: auto">
+                                    <div class="panel-body" style="height: auto" data-ng-repeat="details in dischargedetails   | limitTo : 1">
                                         <center><span><strong>Registry Information</strong></span></center>
                                         <hr>
-                                        <div class="row" data-ng-repeat="details in dischargedetails">
+                                        <div class="row" >
                                             <div class="form-group">
                                                 <label for="focusedinput" class="col-sm-3 control-label">Patient name</label>
                                                 <div class="col-sm-8">
@@ -472,7 +472,7 @@ include 'admin-header.php' ?>
                                                 </div>
                                             </div>
                                         </div>
-                                        <div class="row" data-ng-repeat="details in dischargedetails">
+                                        <div class="row">
                                             <div class="form-group">
                                                 <label for="focusedinput" class="col-sm-3 control-label">Total Bill</label>
                                                 <div class="col-sm-5">
@@ -480,7 +480,7 @@ include 'admin-header.php' ?>
                                                 </div>
                                             </div>
                                         </div>
-                                        <div class="form-group" data-ng-repeat="details in dischargedetails">
+                                        <div class="form-group">
                                             <label for="focusedinput" class="col-sm-3 control-label">Status</label>
                                             <div class="col-sm-5">
                                                 <input type="text" class="form-control" ng-value="details.status" disabled>

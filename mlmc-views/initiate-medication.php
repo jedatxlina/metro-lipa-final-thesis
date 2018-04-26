@@ -66,8 +66,6 @@
                     $percent = $row['Percent'];
                 }
                 $price = $price * $percent;
-
-                $price *= $qntyintake[$x];
                 
                 $sel3 = mysqli_query($conn,"SELECT MedicalID FROM patients WHERE admissionID = '$admissionid'");
                 
@@ -83,10 +81,16 @@
                     $bedid = $row['BedID'];
                 }
                 $med = $medicinename . ' ' . $dsg;
-                $billquery = "INSERT into billing(BillID,AdmissionID,Department,ItemID,BillDes,TotalBill,Status,MedicalID,BedID) 
-                VALUES('$billid','$admissionid','$department','$medicationid','$intake[$x]' ,'$price','Unpaid','$medicalid','$bedid')";
-                mysqli_query($conn,$billquery);  
+                
+                for ($i=0; $i < $qntyintake[$x]; $i++) { 
             
+                    $billquery = "INSERT into billing(BillID,AdmissionID,Department,ItemID,BillDes,TotalBill,Status,MedicalID,BedID) 
+                    VALUES('$billid','$admissionid','$department','$medicationid','$intake[$x]' ,'$price','Unpaid','$medicalid','$bedid')";
+                    mysqli_query($conn,$billquery);  
+                
+                    $billid =  rand (111111,999999);
+            
+                }
 
             }else{
                     
