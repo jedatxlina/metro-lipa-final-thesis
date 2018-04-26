@@ -2,7 +2,7 @@
 
 require_once 'connection.php';
 $id=$_GET['id'];
-$sel = mysqli_query($conn,"SELECT a.Findings, b.Discount AS Disease_Discount, b.PFDiscount AS Professional_DIscount FROM diagnosis a, philhealth b, patients c WHERE a.Findings = b.Disease AND a.AdmissionID = '$id' AND c.MedicalID = a.MedicalID");
+$sel = mysqli_query($conn,"SELECT a.Findings, b.Discount AS Disease_Discount, b.PFDiscount AS Professional_DIscount FROM diagnosis a, philhealth b, patients c WHERE a.Findings = b.Disease AND a.AdmissionID = '$id' AND c.MedicalID = a.MedicalID GROUP BY a.Findings");
 
 $data = array();
 

@@ -37,7 +37,6 @@
                                 <div class="list-group list-group-alternate mb-n nav nav-tabs">
                                     <a href="#tab-edit" role="tab" data-toggle="tab" class="list-group-item active"><i class="ti ti-view-list-alt"></i> Summary Of Bills</a>
                                     <a href="#tab-edit" ng-click="Redirect()" role="tab" data-toggle="tab" class="list-group-item active"><i class="ti ti-view-list-alt"></i> Detailed Bill</a>
-
                                 </div>
                             </div>
                             <!-- col-sm-3 -->
@@ -106,6 +105,8 @@
                                                 <ul class="text-left list-unstyled">
                                                     <li><strong>Patient ID:</strong>&emsp; {{patient.AdmissionID}}</li>
                                                     <li><strong>Admission No:</strong>&emsp; {{patient.AdmissionNo}}</li>
+                                                    <br><br>
+                                                    <small><input type="checkbox" ng-model="senior" ng-click="seniorClick()" ng-disabled="$parent.fee == 0"> Senior Citizen </small>
                                                 </ul>
                                                 <br>
                                             </div>
@@ -478,6 +479,30 @@
                 });
             }
 
+            $scope.seniorClick = function(){
+					
+                    $http({
+                        method: 'GET',
+                        url: 'getData/get-discount-details.php'
+                    }).then(function(response) {
+                        $scope.scdiscount = JSON.parse(response.data);
+
+                        $scope.disc =  $scope.scdiscount;
+
+                        $scope.discount = parseFloat($scope.disc);
+                        $scope.discount /= 100;
+                        
+                        if($scope.senior == 'true'){
+                            $scope.senior = 'false';
+                            $scope.subtotal = $scope.subtotalroom + $scope.subtotalmedi+$scope.subtotallab+$scope.subtotaldoc;
+                        }else{
+                            $scope.senior = 'true';
+                            $scope.subtotal = $scope.subtotal - ($scope.subtotal*$scope.discount);
+                        }
+                    });
+                    
+                }
+
             $scope.goBack = function() {
                 $http({
                     method: 'get',
@@ -495,16 +520,40 @@
             }
 
             $scope.postBilling = function() {
-                $http({
-                    method: 'get',
-                    url: 'insertData/insert-data-billing.php',
-                    params: {
-                        id: $scope.id,
-                        total: $scope.subtotal2
+                for (var i = 0; i < $scope.DocBill.length; i++) {
+                    if($scope.DocBill[i] == '0')
+                    {
+                        $scope.clear = 0;
                     }
-                }).then(function(response) {
-                    window.location.href='billing.php?at=' + $scope.at;
-                });
+                }
+                if($scope.clear == 0)
+                {
+                    swal({
+                                    icon: "warning",
+                                    title: "A Doctor has Not Posted Their Bill",
+                                    text: "Reloading in 2..",
+                                    timer: 3000
+                                }).then(function() {
+                                    window.location.reload(false);
+                                }, function(dismiss) {
+                                    if (dismiss === 'cancel') {
+                                        window.location.reload(false);
+                                    }
+                                });
+                }
+                else
+                {
+                    $http({
+                        method: 'get',
+                        url: 'insertData/insert-data-billing.php',
+                        params: {
+                            id: $scope.id,
+                            total: $scope.subtotal2
+                        }
+                    }).then(function(response) {
+                        window.location.href='billing.php?at=' + $scope.at;
+                    });
+                }
             }
             
             $scope.notifyPatient = function(){
