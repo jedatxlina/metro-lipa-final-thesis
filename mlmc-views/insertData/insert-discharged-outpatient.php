@@ -9,6 +9,7 @@
   // $opdroomno = $_GET['opdroomno'];
   $totalfee = $_GET['totalfee'];
   $hmoprovider = isset($_GET['hmo']) ? $_GET['hmo'] : '';
+  $hmocontrol = isset($_GET['hmocontrol']) ? $_GET['hmocontrol'] : '';
   $re = $_GET['re'];
   $datetime = date("Y-m-d h:i A");
 
@@ -17,7 +18,7 @@
   $query= "INSERT into billing_opd(BillingOpdID,AdmissionID,AccountReceiveID,TotalBill,Status) VALUES ('$billingid','$admissionid','$areceivableid',0,'Paid')";
   mysqli_query($conn,$query);  
 
-  $query2= "INSERT into accounts_receivable(AccountReceiveID,AdmissionID,Provider,Amount,DateTimePosted,Remarks) VALUES ('$areceivableid','$admissionid','$hmoprovider','$totalfee','$datetime','Pending')";
+  $query2= "INSERT into accounts_receivable(AccountReceiveID,AdmissionID,Provider,Amount,DateTimePosted,ControlNo,Remarks) VALUES ('$areceivableid','$admissionid','$hmoprovider','$totalfee','$datetime','$hmocontrol','Pending')";
   mysqli_query($conn,$query2);  
 
   }else{

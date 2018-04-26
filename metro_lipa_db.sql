@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Apr 14, 2018 at 02:39 PM
+-- Generation Time: Apr 25, 2018 at 04:52 PM
 -- Server version: 10.1.31-MariaDB
 -- PHP Version: 7.2.3
 
@@ -43,9 +43,15 @@ CREATE TABLE `accounts_receivable` (
 --
 
 INSERT INTO `accounts_receivable` (`AccountReceiveID`, `AdmissionID`, `Provider`, `Amount`, `DateTimePosted`, `ControlNo`, `Remarks`) VALUES
+(36297, 2017340646, 'Maxicare', '1500.00', '2018-04-25 10:46 PM', '', 'Pending'),
+(43241, 2017340646, 'Intellicare', '500.00', '2018-04-25 10:50 PM', '', 'Pending'),
+(168288, 2017319597, 'Philhealth', '0.00', '', '', 'Pending'),
 (216547, 2017340646, 'Philhealth', '0.00', '', '', 'Pending'),
+(224030, 2017319597, 'Intellicare', '0.00', '', '', 'Pending'),
 (289073, 2017340646, 'Philhealth', '0.00', '', '', 'Pending'),
+(436118, 2017340646, 'HMI Health Maintenance Inc', '0.00', '', '', 'Pending'),
 (472835, 2017340646, 'Intellicare', '0.00', '', '', 'Pending'),
+(494280, 2017340646, 'Philhealth', '0.00', '', '', 'Pending'),
 (656632, 2017340646, 'HMO', '0.00', '', '', 'Not Applicable');
 
 -- --------------------------------------------------------
@@ -113,6 +119,15 @@ CREATE TABLE `adv_payment` (
   `DateTimePaid` varchar(30) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
+--
+-- Dumping data for table `adv_payment`
+--
+
+INSERT INTO `adv_payment` (`PaymentID`, `AdmissionID`, `Amount`, `Status`, `DateTimePaid`) VALUES
+(94452, 2017340646, 0, 'Paid', '2018-04-21'),
+(16932, 2017319597, 0, 'Paid', '2018-04-23'),
+(24482, 2017340646, 0, 'Paid', '2018-04-23');
+
 -- --------------------------------------------------------
 
 --
@@ -120,6 +135,7 @@ CREATE TABLE `adv_payment` (
 --
 
 CREATE TABLE `attending_physicians` (
+  `ID` int(15) NOT NULL,
   `AttendingID` int(6) NOT NULL,
   `PhysicianID` int(6) NOT NULL,
   `AdmissionID` int(10) NOT NULL,
@@ -132,9 +148,22 @@ CREATE TABLE `attending_physicians` (
 -- Dumping data for table `attending_physicians`
 --
 
-INSERT INTO `attending_physicians` (`AttendingID`, `PhysicianID`, `AdmissionID`, `DiagnosisID`, `Rate`, `Discount`) VALUES
-(590253, 426113, 2017340646, 396250, '0.00', '0.00'),
-(648446, 426113, 2017340646, 541313, '0.00', '0.00');
+INSERT INTO `attending_physicians` (`ID`, `AttendingID`, `PhysicianID`, `AdmissionID`, `DiagnosisID`, `Rate`, `Discount`) VALUES
+(1, 384835, 456325, 2017288509, 343589, '560.00', '0.00'),
+(2, 590253, 426113, 2017340646, 396250, '0.00', '0.00'),
+(3, 648446, 426113, 2017340646, 699220, '500.00', '0.00'),
+(8, 648446, 456325, 2017340646, 699220, '500.00', '0.00'),
+(9, 123062, 498455, 2017319597, 231254, '0.00', '0.00'),
+(10, 557552, 456325, 2017340646, 0, '0.00', '0.00'),
+(11, 822760, 456325, 2017340646, 0, '0.00', '0.00'),
+(12, 499570, 456325, 2017340646, 431327, '650.00', '0.00'),
+(13, 351036, 456325, 2017340646, 419544, '1000.00', '0.00'),
+(14, 863100, 498455, 2017340646, 131843, '0.00', '0.00'),
+(15, 202611, 456325, 2017340646, 731036, '750.00', '0.00'),
+(16, 696431, 456325, 2017340646, 185026, '1500.00', '0.00'),
+(17, 696431, 426113, 2017340646, 0, '0.00', '0.00'),
+(18, 906868, 456325, 2017340646, 959127, '1500.00', '0.00'),
+(19, 637974, 456325, 2017340646, 506517, '500.00', '0.00');
 
 -- --------------------------------------------------------
 
@@ -148,59 +177,64 @@ CREATE TABLE `beds` (
   `Rate` int(11) NOT NULL,
   `Floor` varchar(10) NOT NULL,
   `Room` int(6) NOT NULL,
-  `Status` varchar(25) NOT NULL
+  `Status` varchar(25) NOT NULL,
+  `Percent` decimal(6,2) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `beds`
 --
 
-INSERT INTO `beds` (`BedID`, `RoomType`, `Rate`, `Floor`, `Room`, `Status`) VALUES
-('300-1', 'Ward', 900, '3', 300, 'Occupied'),
-('300-2', 'Ward', 900, '3', 300, 'Occupied'),
-('300-3', 'Ward', 900, '3', 300, 'Occupied'),
-('300-4', 'Ward', 900, '3', 300, 'Occupied'),
-('301-1', 'OB-Ward', 900, '3', 301, 'Occupied'),
-('301-2', 'OB-Ward', 900, '3', 301, 'Occupied'),
-('301-3', 'OB-Ward', 900, '3', 301, 'Available'),
-('301-4', 'OB-Ward', 900, '3', 301, 'Available'),
-('302-1', 'Female-Ward', 900, '3', 302, 'Occupied'),
-('302-2', 'Female-Ward', 900, '3', 302, 'Available'),
-('302-3', 'Female-Ward', 900, '3', 302, 'Occupied'),
-('302-4', 'Female-Ward', 900, '3', 302, 'Available'),
-('303-1', 'Male-Ward', 900, '3', 303, 'Occupied'),
-('303-2', 'Male-Ward', 900, '3', 303, 'Occupied'),
-('303-3', 'Male-Ward', 900, '3', 303, 'Unavailable'),
-('303-4', 'Male-Ward', 900, '3', 303, 'Available'),
-('304-1', 'Pedia-Ward', 900, '3', 304, 'Occupied'),
-('304-2', 'Pedia-Ward', 900, '3', 304, 'Occupied'),
-('304-3', 'Pedia-Ward', 900, '3', 304, 'Available'),
-('304-4', 'Pedia-Ward', 900, '3', 304, 'Available'),
-('305-1', 'Surgical-Ward', 900, '3', 305, 'Occupied'),
-('305-2', 'Surgical-Ward', 900, '3', 305, 'Occupied'),
-('305-3', 'Surgical-Ward', 900, '3', 305, 'Available'),
-('305-4', 'Surgical-Ward', 900, '3', 305, 'Available'),
-('306-1', 'Semi-Private', 1250, '3', 306, 'Available'),
-('306-2', 'Semi-Private', 1250, '3', 306, 'Available'),
-('306-3', 'Semi-Private', 1250, '3', 306, 'Unavailable'),
-('306-4', 'Semi-Private', 1250, '3', 306, 'Available'),
-('307-1', 'Semi-Private', 1500, '3', 307, 'Available'),
-('307-2', 'Semi-Private', 1500, '3', 307, 'Available'),
-('308-1', 'Semi-Private', 1500, '3', 308, 'Available'),
-('308-2', 'Semi-Private', 1500, '3', 308, 'Available'),
-('400', 'Private', 1800, '4', 400, 'Occupied'),
-('401', 'Private', 1800, '4', 401, 'Occupied'),
-('402', 'Private', 1800, '4', 402, 'Available'),
-('403', 'Private', 1800, '4', 403, 'Available'),
-('404', 'Private', 1800, '4', 404, 'Available'),
-('405', 'Private', 1800, '4', 405, 'Available'),
-('406', 'Suite', 2500, '4', 406, 'Available'),
-('407', 'Suite', 2500, '4', 407, 'Available'),
-('408', 'Suite', 2500, '4', 408, 'Available'),
-('409', 'Suite', 2500, '4', 409, 'Available'),
-('411', 'Infectious', 2500, '4', 411, 'Occupied'),
-('412', 'Infectious', 2500, '4', 412, 'Available'),
-('ER', 'Emergency', 2000, '1', 101, '');
+INSERT INTO `beds` (`BedID`, `RoomType`, `Rate`, `Floor`, `Room`, `Status`, `Percent`) VALUES
+('300-1', 'Ward', 900, '3', 300, 'Available', '1.50'),
+('300-2', 'Ward', 900, '3', 300, 'Available', '1.50'),
+('300-3', 'Ward', 900, '3', 300, 'Available', '1.50'),
+('300-4', 'Ward', 900, '3', 300, 'Available', '1.50'),
+('301-1', 'OB-Ward', 900, '3', 301, 'Available', '1.50'),
+('301-2', 'OB-Ward', 900, '3', 301, 'Available', '1.50'),
+('301-3', 'OB-Ward', 900, '3', 301, 'Available', '1.50'),
+('301-4', 'OB-Ward', 900, '3', 301, 'Available', '1.50'),
+('302-1', 'Female-Ward', 900, '3', 302, 'Available', '1.50'),
+('302-2', 'Female-Ward', 900, '3', 302, 'Available', '1.50'),
+('302-3', 'Female-Ward', 900, '3', 302, 'Available', '1.50'),
+('302-4', 'Female-Ward', 900, '3', 302, 'Available', '1.50'),
+('303-1', 'Male-Ward', 900, '3', 303, 'Unavailable', '1.50'),
+('303-2', 'Male-Ward', 900, '3', 303, 'Available', '1.50'),
+('303-3', 'Male-Ward', 900, '3', 303, 'Available', '1.50'),
+('303-4', 'Male-Ward', 900, '3', 303, 'Available', '1.50'),
+('304-1', 'Pedia-Ward', 900, '3', 304, 'Available', '1.50'),
+('304-2', 'Pedia-Ward', 900, '3', 304, 'Available', '1.50'),
+('304-3', 'Pedia-Ward', 900, '3', 304, 'Available', '1.50'),
+('304-4', 'Pedia-Ward', 900, '3', 304, 'Available', '1.50'),
+('305-1', 'Surgical-Ward', 900, '3', 305, 'Available', '1.50'),
+('305-2', 'Surgical-Ward', 900, '3', 305, 'Available', '1.50'),
+('305-3', 'Surgical-Ward', 900, '3', 305, 'Available', '1.50'),
+('305-4', 'Surgical-Ward', 900, '3', 305, 'Available', '1.50'),
+('306-1', 'Semi-Private', 1250, '3', 306, 'Occupied', '1.70'),
+('306-2', 'Semi-Private', 1250, '3', 306, 'Unavailable', '1.70'),
+('306-3', 'Semi-Private', 1250, '3', 306, 'Available', '1.70'),
+('306-4', 'Semi-Private', 1250, '3', 306, 'Available', '1.70'),
+('307-1', 'Semi-Private', 1500, '3', 307, 'Available', '1.70'),
+('307-2', 'Semi-Private', 1500, '3', 307, 'Available', '1.70'),
+('308-1', 'Semi-Private', 1500, '3', 308, 'Available', '1.70'),
+('308-2', 'Semi-Private', 1500, '3', 308, 'Available', '1.70'),
+('400', 'Private', 1800, '4', 400, 'Available', '2.00'),
+('401', 'Private', 1800, '4', 401, 'Available', '2.00'),
+('402', 'Private', 1800, '4', 402, 'Available', '2.00'),
+('403', 'Private', 1800, '4', 403, 'Available', '2.00'),
+('404', 'Private', 1800, '4', 404, 'Available', '2.00'),
+('405', 'Private', 1800, '4', 405, 'Available', '2.00'),
+('406', 'Suite', 2500, '4', 406, 'Available', '2.00'),
+('407', 'Suite', 2500, '4', 407, 'Available', '2.00'),
+('408', 'Suite', 2500, '4', 408, 'Available', '2.00'),
+('409', 'Suite', 2500, '4', 409, 'Available', '2.00'),
+('411', 'Infectious', 2500, '4', 411, 'Available', '2.00'),
+('412', 'Infectious', 2500, '4', 412, 'Available', '2.00'),
+('413', 'ICU', 5000, '4', 413, 'Available', '2.00'),
+('414', 'ICU', 5000, '4', 414, 'Available', '2.00'),
+('415', 'ICU', 5000, '4', 415, 'Available', '2.00'),
+('416', 'ICU', 5000, '4', 416, 'Available', '2.00'),
+('ER', 'Emergency', 2000, '1', 101, 'Available', '1.50');
 
 -- --------------------------------------------------------
 
@@ -215,8 +249,21 @@ CREATE TABLE `billing` (
   `ItemID` int(20) NOT NULL,
   `BillDes` varchar(20) NOT NULL,
   `TotalBill` decimal(15,2) NOT NULL,
-  `Status` varchar(10) NOT NULL
+  `Status` varchar(10) NOT NULL,
+  `MedicalID` int(15) NOT NULL,
+  `BedID` varchar(6) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `billing`
+--
+
+INSERT INTO `billing` (`BillID`, `AdmissionID`, `Department`, `ItemID`, `BillDes`, `TotalBill`, `Status`, `MedicalID`, `BedID`) VALUES
+(77460, 2017340646, 'Laboratory', 1008, 'ECG', '750.00', '', 0, '0'),
+(14997, 2017340646, 'Inpatient', 1000, 'Inpatient Bill', '11955.00', 'Paid', 0, '0'),
+(15878, 2017340646, 'Laboratory', 1008, 'ECG', '1125.00', '', 0, '0'),
+(464023, 2017340646, 'Pharmacy', 173756, '250', '0.00', 'Unpaid', 638289, '303'),
+(571498, 2017340646, 'Pharmacy', 173756, 'Dolfenal 250mg', '225.00', 'Unpaid', 638289, '303');
 
 -- --------------------------------------------------------
 
@@ -255,6 +302,19 @@ CREATE TABLE `billing_opd` (
   `TotalBill` decimal(15,2) NOT NULL,
   `Status` varchar(10) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `billing_opd`
+--
+
+INSERT INTO `billing_opd` (`BillingOpdID`, `AdmissionID`, `AccountReceiveID`, `TotalBill`, `Status`) VALUES
+(16985, 2017340646, 0, '1200.00', 'Paid'),
+(31233, 2017340646, 0, '520.00', 'Paid'),
+(45977, 2017340646, 43241, '0.00', 'Paid'),
+(51051, 2017340646, 36297, '0.00', 'Paid'),
+(52251, 2017288509, 0, '448.00', 'Paid'),
+(70619, 2017340646, 0, '600.00', 'Paid'),
+(88016, 2017340646, 0, '800.00', 'Paid');
 
 -- --------------------------------------------------------
 
@@ -308,9 +368,7 @@ INSERT INTO `conditions` (`ConditionID`, `Conditions`) VALUES
 (785412, 'Disjoint Arm'),
 (789652, 'Pneumonia'),
 (789654, 'CVA'),
-(793154, 'None'),
 (818800, 'Low Potassium'),
-(825683, 'Low Potassium'),
 (865089, 'Numbness'),
 (963258, 'Dengue'),
 (965823, 'Chikungunya');
@@ -600,6 +658,25 @@ CREATE TABLE `diagnosis` (
   `NextDateAppointment` varchar(25) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
+--
+-- Dumping data for table `diagnosis`
+--
+
+INSERT INTO `diagnosis` (`ID`, `DiagnosisID`, `MedicalID`, `AdmissionID`, `AttendingID`, `Findings`, `DateDiagnosed`, `TimeDiagnosed`, `NextDateAppointment`) VALUES
+(2, 396250, 853895, 2017288509, 384835, 'ABNORMAL SENSORIUM IN THE NEWBORN', '2018-04-16', '01:34 AM', '2018-04-20'),
+(3, 158685, 638289, 2017340646, 648446, 'ACUTE RENAL FAILURE', '2018-04-21', '04:40 PM', '1970-01-01'),
+(6, 282870, 638289, 2017340646, 648446, 'ACUTE RENAL FAILURE', '2018-04-21', '11:10 PM', '1970-01-01'),
+(7, 317585, 638289, 2017340646, 648446, 'ADULT RESPIRATORY DISTRESS SYNDROME', '2018-04-21', '11:11 PM', '1970-01-01'),
+(8, 699220, 638289, 2017340646, 648446, 'ALLERGIC REACTIONS', '2018-04-21', '11:43 PM', '1970-01-01'),
+(9, 431327, 819837, 2017340646, 499570, 'CLEFT LIP AND PALATE', '2018-04-23', '03:46 PM', '2018-04-26'),
+(10, 419544, 381093, 2017340646, 351036, 'LEPROSY', '2018-04-23', '03:57 PM', '2018-04-26'),
+(11, 131843, 533909, 2017340646, 863100, 'ABSCESS OF RESPIRATORY TRACT', '2018-04-23', '11:39 PM', '1970-01-01'),
+(16, 731036, 371963, 2017340646, 202611, 'Asthma', '2018-04-25', '02:02 AM', '2018-04-27'),
+(17, 382376, 670321, 2017340646, 696431, 'BOTULISM', '2018-04-25', '03:12 AM', '2018-04-27'),
+(18, 185026, 670321, 2017340646, 696431, 'BACK PAIN, RADICULOPATHY, SCIATICA', '2018-04-25', '10:55 AM', '2018-04-27'),
+(19, 959127, 168164, 2017340646, 906868, 'ANEMIA', '2018-04-25', '10:12 PM', '2018-04-27'),
+(20, 506517, 669930, 2017340646, 637974, 'AMOEBIASIS, HEPATIC', '2018-04-25', '10:49 PM', '2018-04-27');
+
 -- --------------------------------------------------------
 
 --
@@ -650,7 +727,7 @@ CREATE TABLE `discounts` (
 --
 
 INSERT INTO `discounts` (`ID`, `DiscDesc`, `Discount`) VALUES
-(1, 'Senior Citizen', 9);
+(1, 'Senior Citizen', 50);
 
 -- --------------------------------------------------------
 
@@ -744,8 +821,23 @@ CREATE TABLE `laboratory_req` (
   `DateRequest` varchar(25) NOT NULL,
   `TimeRequest` varchar(25) NOT NULL,
   `DateCleared` varchar(25) NOT NULL,
-  `TimeCleared` varchar(25) NOT NULL
+  `TimeCleared` varchar(25) NOT NULL,
+  `MedicalID` int(15) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `laboratory_req`
+--
+
+INSERT INTO `laboratory_req` (`RequestID`, `LaboratoryID`, `AdmissionID`, `Status`, `SpecialRequest`, `DateRequest`, `TimeRequest`, `DateCleared`, `TimeCleared`, `MedicalID`) VALUES
+(118890, 1008, 2017340646, 'Cleared', '', '2018-04-22', '01:44 AM', '', '', 0),
+(293279, 302776, 2017340646, 'Cleared', '', '2018-04-23', '11:40 PM', '2018-04-23', '11:41 PM', 533909),
+(394804, 123723, 2017319597, 'Cleared', '', '2018-04-23', '10:24 PM', '2018-04-23', '10:24 PM', 198059),
+(453301, 1087, 2017319597, 'Cleared', '', '2018-04-23', '10:19 PM', '2018-04-23', '10:19 PM', 198059),
+(587648, 1008, 2017319597, 'Cleared', '', '2018-04-23', '09:50 PM', '2018-04-23', '09:50 PM', 198059),
+(687715, 1075, 2017319597, 'Cleared', '', '2018-04-23', '09:55 PM', '2018-04-23', '09:55 PM', 198059),
+(735728, 1008, 2017340646, 'Cleared', '', '2018-04-22', '01:18 AM', '', '', 0),
+(798824, 1008, 2017340646, 'Pending', '', '2018-04-25', '10:12 PM', '', '', 168164);
 
 -- --------------------------------------------------------
 
@@ -789,7 +881,18 @@ CREATE TABLE `medical_conditions` (
 --
 
 INSERT INTO `medical_conditions` (`ID`, `MedicalID`, `Conditions`) VALUES
-(1, 638289, 'Stomach Ache');
+(1, 638289, 'Stomach Ache'),
+(2, 853895, 'Masakit ang tiyan'),
+(3, 198059, 'Masakit likod'),
+(4, 504081, 'Masakit ang ulo'),
+(5, 575313, 'Masakit daw ulo'),
+(6, 819837, 'Masakit ulo'),
+(7, 381093, 'Masakit pwet'),
+(8, 533909, 'Masakit ang mata'),
+(9, 371963, 'Masakit bewang'),
+(10, 670321, 'Masakit likod'),
+(11, 168164, 'Masakit ulit ang tiyan'),
+(12, 669930, 'Follow up check up');
 
 -- --------------------------------------------------------
 
@@ -819,8 +922,17 @@ CREATE TABLE `medical_details` (
 --
 
 INSERT INTO `medical_details` (`MedicalID`, `AdmissionID`, `AttendingID`, `ArrivalDate`, `ArrivalTime`, `BedID`, `VitalsID`, `MedicationID`, `OperationID`, `PreviousSurgeries`, `Weight`, `Height`, `Class`, `QR_Path`) VALUES
-(638289, 2017340646, 648446, '2018-04-14', '07:56 PM', '', 552407, 648579, 0, 'Nothing', 80, 170, '', 'qr-generator/temp/2017340646.png'),
-(899312, 2017340646, 590253, '2018-04-14', '03:45 PM', '', 642080, 390399, 0, 'Nothing', 85, 175, '', 'qr-generator/temp/2017340646.png');
+(168164, 2017340646, 906868, '2018-04-25', '10:12 PM', '', 807274, 588653, 0, 'Nothing', 75, 150, '', ''),
+(198059, 2017319597, 123062, '2018-04-22', '01:41 AM', '306-1', 690767, 175276, 0, 'Nothing', 68, 165, '', 'qr-generator/temp/2017319597.png'),
+(371963, 2017340646, 202611, '2018-04-24', '10:07 PM', '', 605338, 123654, 0, 'Nothing', 60, 160, '', ''),
+(381093, 2017340646, 351036, '2018-04-23', '03:55 PM', '306-2', 364875, 0, 0, 'nothing', 40, 155, '', ''),
+(533909, 2017340646, 863100, '2018-04-23', '11:23 PM', '306-2', 195721, 434035, 0, 'Nothing', 59, 168, '', 'qr-generator/temp/2017340646.png'),
+(638289, 2017340646, 648446, '2018-04-14', '07:56 PM', '306-2', 552407, 329587, 0, 'Nothing', 80, 170, '', 'qr-generator/temp/2017340646.png'),
+(669930, 2017340646, 637974, '2018-04-25', '10:48 PM', '', 352899, 591822, 0, 'Nothing', 45, 160, '', ''),
+(670321, 2017340646, 696431, '2018-04-25', '03:07 AM', '', 932501, 321451, 0, 'Nothing', 67, 160, '', ''),
+(819837, 2017340646, 499570, '2018-04-23', '03:45 PM', '306-2', 326194, 0, 0, 'Nothing', 45, 160, '', ''),
+(853895, 2017288509, 384835, '2018-04-16', '12:21 AM', '', 662987, 142893, 0, 'Nothing', 78, 165, '', ''),
+(899312, 2017340646, 590253, '2018-04-14', '03:45 PM', '306-2', 642080, 390399, 0, 'Nothing', 85, 175, '', 'qr-generator/temp/2017340646.png');
 
 -- --------------------------------------------------------
 
@@ -848,6 +960,7 @@ CREATE TABLE `medication` (
   `AdmissionID` int(10) NOT NULL,
   `MedicineName` varchar(50) NOT NULL,
   `Quantity` int(15) NOT NULL,
+  `QuantityOnHand` int(15) NOT NULL,
   `DateAdministered` varchar(25) NOT NULL,
   `TimeAdministered` varchar(25) NOT NULL,
   `Dosage` varchar(50) NOT NULL,
@@ -863,10 +976,25 @@ CREATE TABLE `medication` (
 -- Dumping data for table `medication`
 --
 
-INSERT INTO `medication` (`ID`, `MedicationID`, `AdmissionID`, `MedicineName`, `Quantity`, `DateAdministered`, `TimeAdministered`, `Dosage`, `PhysicianID`, `Notes`, `DosingID`, `DateStart`, `TimeStart`, `Days`) VALUES
-(1, 390399, 2017340646, 'Advil', 1, '2018-04-14', '03:45 PM', '500mg', 426113, 'Administered once', 0, '', '', 0),
-(2, 390399, 2017340646, 'Ziagen', 2, '2018-04-14', '03:45 PM', '', 426113, 'administered twice', 0, '', '', 0),
-(3, 648579, 2017340646, 'Paracetamol', 5, '2018-04-14', '07:56 PM', '500mg', 426113, 'Administered 5', 0, '', '', 0);
+INSERT INTO `medication` (`ID`, `MedicationID`, `AdmissionID`, `MedicineName`, `Quantity`, `QuantityOnHand`, `DateAdministered`, `TimeAdministered`, `Dosage`, `PhysicianID`, `Notes`, `DosingID`, `DateStart`, `TimeStart`, `Days`) VALUES
+(1, 390399, 2017340646, 'Advil', 1, 0, '2018-04-14', '03:45 PM', '500mg', 426113, 'Administered once', 0, '', '', 0),
+(2, 390399, 2017340646, 'Ziagen', 2, 0, '2018-04-14', '03:45 PM', '', 426113, 'administered twice', 0, '', '', 0),
+(3, 648579, 2017340646, 'Paracetamol', 5, 0, '2018-04-14', '07:56 PM', '500mg', 426113, 'Administered 5', 0, '', '', 0),
+(4, 142893, 2017288509, 'Avastoph Capsule', 3, 0, '2018-04-16', '01:34 AM', '625mg', 456325, 'Comeback after 3 days', 1, '', '', 0),
+(5, 467177, 2017340646, 'Avastoph Capsule', 5, 0, '2018-04-21', '04:40 PM', '625mg', 426113, 'Comeback after 5 days', 1, '', '', 0),
+(8, 329587, 2017340646, 'Hydrites', 3, 3, '2018-04-21', '11:10 PM', '4.1g', 426113, 'Comeback after 3 days', 1, '', '', 0),
+(9, 329587, 2017340646, 'Cefixine', 6, 0, '2018-04-21', '11:11 PM', '500mg', 426113, 'Lets see after 6 days', 2, '', '', 0),
+(10, 329587, 2017340646, 'Alaxan', 2, 0, '2018-04-21', '11:43 PM', '500mg', 456325, 'It will work after 2 days', 1, '', '', 0),
+(11, 175276, 2017319597, 'Daivobet Ointment', 3, 2, '2018-04-22', '01:41 AM', '30g', 498455, 'Lessen pain', 1, '2018-04-23', '10:11 PM', 0),
+(12, 0, 2017340646, 'Biogesic', 3, 0, '2018-04-23', '03:46 PM', '500mg', 456325, 'Lets see after 3 days', 1, '', '', 0),
+(13, 0, 2017340646, 'Cataprez', 5, 0, '2018-04-23', '03:57 PM', '50mg', 456325, 'After 5 days', 1, '', '', 0),
+(14, 434035, 2017340646, 'Airex Capsule', 3, 0, '2018-04-23', '11:23 PM', '500mg', 498455, '3 times', 0, '', '', 0),
+(15, 434035, 2017340646, 'Hydrites', 3, 0, '2018-04-23', '11:39 PM', '4.1g', 498455, 'Lets see after 3 days', 1, '', '', 0),
+(19, 123654, 2017340646, 'Ziagen', 3, 0, '2018-04-25', '01:29 AM', '200mg', 456325, 'Lets see after 3 days', 1, '', '', 0),
+(20, 123654, 2017340646, 'Dolfenal', 3, 0, '2018-04-25', '02:02 AM', '250mg', 456325, 'Additional for 3 days', 1, '', '', 0),
+(24, 321451, 2017340646, 'Biogesic', 3, 0, '2018-04-25', '09:57 PM', '500mg', 456325, 'See after 3 days', 1, '', '', 0),
+(25, 588653, 2017340646, 'Airex Capsule', 5, 0, '2018-04-25', '10:12 PM', '500mg', 456325, 'After meals', 1, '', '', 0),
+(26, 591822, 2017340646, 'Hydrites', 3, 0, '2018-04-25', '10:49 PM', '4.1g', 456325, 'Be good at 3 days', 1, '', '', 0);
 
 -- --------------------------------------------------------
 
@@ -878,7 +1006,7 @@ CREATE TABLE `medication_timeline` (
   `MedTimelineID` int(6) NOT NULL,
   `MedicationID` int(6) NOT NULL,
   `AdmissionID` int(10) NOT NULL,
-  `MedicineID` int(6) NOT NULL,
+  `MedicineName` varchar(25) NOT NULL,
   `NurseID` int(6) NOT NULL,
   `DateIntake` varchar(25) NOT NULL,
   `TimeIntake` varchar(25) NOT NULL,
@@ -886,6 +1014,13 @@ CREATE TABLE `medication_timeline` (
   `Alert` int(5) NOT NULL,
   `Status` int(2) DEFAULT '1'
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `medication_timeline`
+--
+
+INSERT INTO `medication_timeline` (`MedTimelineID`, `MedicationID`, `AdmissionID`, `MedicineName`, `NurseID`, `DateIntake`, `TimeIntake`, `NextTimeIntake`, `Alert`, `Status`) VALUES
+(79790, 175276, 2017319597, 'Daivobet Ointment', 352367, '2018-04-23', '10:11 PM', '10:11 PM', 0, 1);
 
 -- --------------------------------------------------------
 
@@ -903,6 +1038,14 @@ CREATE TABLE `medicine_req` (
   `DateGiven` varchar(25) NOT NULL,
   `TimeGiven` varchar(25) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `medicine_req`
+--
+
+INSERT INTO `medicine_req` (`MedRequestID`, `MedicineID`, `AdmissionID`, `Status`, `DateRequested`, `TimeRequested`, `DateGiven`, `TimeGiven`) VALUES
+(511128, 533895, 2017319597, 'Claimed', '2018-04-23', '09:58 PM', '', ''),
+(955019, 154990, 2017340646, 'Claimed', '2018-04-22', '12:10 AM', '', '');
 
 -- --------------------------------------------------------
 
@@ -958,6 +1101,7 @@ INSERT INTO `nurses` (`NurseID`, `LastName`, `FirstName`, `MiddleName`, `Gender`
 
 CREATE TABLE `orders` (
   `OrderID` int(10) NOT NULL,
+  `MedicalID` int(6) NOT NULL,
   `AdmissionID` int(10) NOT NULL,
   `PhysicianID` int(6) NOT NULL,
   `Task` varchar(250) NOT NULL,
@@ -966,6 +1110,25 @@ CREATE TABLE `orders` (
   `TimeOrder` varchar(25) NOT NULL,
   `Status` varchar(25) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `orders`
+--
+
+INSERT INTO `orders` (`OrderID`, `MedicalID`, `AdmissionID`, `PhysicianID`, `Task`, `LaboratoryID`, `DateOrder`, `TimeOrder`, `Status`) VALUES
+(167076, 168164, 2017340646, 456325, 'Laboratory and Medication', 1008, '2018-04-25', '10:12 PM', 'Accepted'),
+(489872, 669930, 2017340646, 456325, 'Medications only', 0, '2018-04-25', '10:49 PM', 'Accepted'),
+(574630, 638289, 2017340646, 426113, 'Nothing', 1087, '2018-04-21', '05:30 PM', 'Accepted'),
+(595011, 198059, 2017319597, 498455, 'Handle with care CT', 1075, '2018-04-23', '09:55 PM', 'Accepted'),
+(651581, 533909, 2017340646, 498455, 'Handle care', 302776, '2018-04-23', '11:40 PM', 'Accepted'),
+(656007, 198059, 2017319597, 498455, 'Arms onle', 1087, '2018-04-23', '10:19 PM', 'Accepted'),
+(656949, 670321, 2017340646, 456325, 'Medications asap', 0, '2018-04-25', '03:12 AM', 'Accepted'),
+(661148, 198059, 2017319597, 498455, 'Handle with care', 1008, '2018-04-23', '09:50 PM', 'Accepted'),
+(744568, 371963, 2017340646, 456325, 'Medications only', 0, '2018-04-25', '01:29 AM', 'Accepted'),
+(852649, 198059, 2017319597, 498455, 'Handle with care', 1008, '2018-04-23', '09:47 PM', 'Accepted'),
+(924778, 371963, 2017340646, 456325, 'Medications additional', 0, '2018-04-25', '02:02 AM', 'Accepted'),
+(960003, 670321, 2017340646, 456325, 'Medications only', 0, '2018-04-25', '10:55 AM', 'Accepted'),
+(992849, 198059, 2017319597, 498455, 'Nothing special', 123723, '2018-04-23', '10:24 PM', 'Accepted');
 
 -- --------------------------------------------------------
 
@@ -1004,7 +1167,8 @@ CREATE TABLE `patients` (
 --
 
 INSERT INTO `patients` (`AdmissionID`, `AdmissionNo`, `AdmissionDate`, `AdmissionTime`, `FirstName`, `MiddleName`, `LastName`, `Admission`, `AdmissionType`, `Province`, `City`, `Brgy`, `CompleteAddress`, `latcoor`, `longcoor`, `Gender`, `Age`, `CivilStatus`, `Birthdate`, `Contact`, `Occupation`, `Citizenship`, `MedicalID`) VALUES
-('2017340646', 2, '2018-04-14', '07:55 PM', 'Joseph', 'Benedict', 'Lina', 'Old Patient', 'Emergency', 'BATANGAS', 'LIPA CITY', 'Bagong Pook', '152 Bagongpook Lipa City', '13.93985810', '121.11093730', 'Male', '', 'Single', '7/11/1990', '9175768818', 'Employed', 'Philippine, Filipino', 638289);
+('2017319597', 4, '2018-04-22', '01:34 AM', 'Renz', 'Villanueva', 'Ilagan', 'New Patient', 'Inpatient', 'BATANGAS', 'LOBO', 'Nagtoctoc', 'Nagtoctoc Lobo Batangas', '0.00000000', '0.00000000', 'Male', '23y', 'Single', '1994-06-16', '9175768818', 'Employed', 'Philippine, Filipino', 198059),
+('2017340646', 14, '2018-04-25', '10:48 PM', 'Joseph', 'Benedict', 'Lina', 'Old Patient', 'Transfering', 'BATANGAS', 'LIPA CITY', 'Bagong Pook', '152 Bagongpook Lipa City', '0.00000000', '0.00000000', 'Male', '', 'Single', '7/11/1990', '9175768818', 'Employed', 'Philippine, Filipino', 669930);
 
 -- --------------------------------------------------------
 
@@ -1044,7 +1208,15 @@ CREATE TABLE `patients_archive` (
 --
 
 INSERT INTO `patients_archive` (`ArchiveNo`, `ArchiveID`, `ArchiveNum`, `AdmissionDate`, `AdmissionTime`, `FirstName`, `MiddleName`, `LastName`, `Admission`, `AdmissionType`, `Province`, `City`, `Brgy`, `CompleteAddress`, `latcoor`, `longcoor`, `Gender`, `Age`, `CivilStatus`, `Birthdate`, `Contact`, `Occupation`, `Citizenship`, `MedicalID`) VALUES
-(1, 2017340646, 0, '4/7/2018', '6:22 PM', 'Joseph', 'Benedict', 'Lina', 'New Patient', 'Emergency', 'BATANGAS', 'LIPA CITY', 'Bagong Pook', '152 Bagongpook Lipa City', 13.939858, 121.110939, 'Male', '27y', 'Single', '7/11/1990', '9175768818', 'Employed', 'Philippine, Filipino', 899312);
+(1, 2017340646, 0, '4/7/2018', '6:22 PM', 'Joseph', 'Benedict', 'Lina', 'New Patient', 'Emergency', 'BATANGAS', 'LIPA CITY', 'Bagong Pook', '152 Bagongpook Lipa City', 13.939858, 121.110939, 'Male', '27y', 'Single', '7/11/1990', '9175768818', 'Employed', 'Philippine, Filipino', 899312),
+(2, 2017340646, 0, '4/7/2017', '6:22 PM', 'Joseph ', 'Benedict', 'Lina', 'Old Patient', 'Outpatient', 'BATANGAS', 'LIPA CITY', 'Bagong Pook', '152 Bagongpook Lipa City', 13.939858, 121.110939, 'Male', '27y', 'Single', '7/11/1990', '9175768818', 'Employed', 'Philippine, Filipino', 638289),
+(4, 2017340646, 0, '', '', 'Joseph', 'Benedict', 'Lina', 'Old Patient', 'Outpatient', 'BATANGAS', 'LIPA CITY', 'Bagong Pook', '152 Bagongpook Lipa City', 13.939858, 121.110939, 'Male', '', 'Single', '7/11/1990', '9175768818', 'Employed', 'Philippine, Filipino', 819837),
+(5, 2017340646, 0, '2018-04-23', '03:55 PM', 'Joseph', 'Benedict', 'Lina', 'Old Patient', 'Outpatient', 'BATANGAS', 'LIPA CITY', 'Bagong Pook', '152 Bagongpook Lipa City', 13.939858, 121.110939, 'Male', '', 'Single', '7/11/1990', '9175768818', 'Employed', 'Philippine, Filipino', 381093),
+(6, 2017340646, 0, '2018-04-23', '11:21 PM', 'Joseph', 'Benedict', 'Lina', 'Old Patient', 'Inpatient', 'BATANGAS', 'LIPA CITY', 'Bagong Pook', '152 Bagongpook Lipa City', 0.000000, 0.000000, 'Male', '', 'Single', '7/11/1990', '9175768818', 'Employed', 'Philippine, Filipino', 533909),
+(7, 2017340646, 0, '2018-04-24', '10:06 PM', 'Joseph', 'Benedict', 'Lina', 'Old Patient', 'Outpatient', 'BATANGAS', 'LIPA CITY', 'Bagong Pook', '152 Bagongpook Lipa City', 0.000000, 0.000000, 'Male', '', 'Single', '7/11/1990', '9175768818', 'Employed', 'Philippine, Filipino', 371963),
+(8, 2017340646, 0, '2018-04-25', '03:06 AM', 'Joseph', 'Benedict', 'Lina', 'Old Patient', 'Outpatient', 'BATANGAS', 'LIPA CITY', 'Bagong Pook', '152 Bagongpook Lipa City', 13.939858, 121.110939, 'Male', '', 'Single', '7/11/1990', '9175768818', 'Employed', 'Philippine, Filipino', 670321),
+(9, 2017340646, 0, '2018-04-25', '10:11 PM', 'Joseph', 'Benedict', 'Lina', 'Old Patient', 'Outpatient', 'BATANGAS', 'LIPA CITY', 'Bagong Pook', '152 Bagongpook Lipa City', 13.939858, 121.110939, 'Male', '', 'Single', '7/11/1990', '9175768818', 'Employed', 'Philippine, Filipino', 168164),
+(10, 2017340646, 0, '2018-04-25', '10:48 PM', 'Joseph', 'Benedict', 'Lina', 'Old Patient', 'Outpatient', 'BATANGAS', 'LIPA CITY', 'Bagong Pook', '152 Bagongpook Lipa City', 0.000000, 0.000000, 'Male', '', 'Single', '7/11/1990', '9175768818', 'Employed', 'Philippine, Filipino', 669930);
 
 -- --------------------------------------------------------
 
@@ -1059,6 +1231,15 @@ CREATE TABLE `patient_diet` (
   `Diet` varchar(50) NOT NULL,
   `DietRemarks` varchar(50) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `patient_diet`
+--
+
+INSERT INTO `patient_diet` (`ID`, `MedicalID`, `AdmissionID`, `Diet`, `DietRemarks`) VALUES
+(1, 899312, 2017340646, 'Cardiac Very Low Sodium ', 'Add Egg'),
+(2, 198059, 2017319597, 'Regular', 'None'),
+(3, 899312, 2017340646, 'Regular', '');
 
 -- --------------------------------------------------------
 
@@ -1088,6 +1269,7 @@ INSERT INTO `pharmaceuticals` (`MedicineID`, `MedicineName`, `Unit`, `Price`, `Q
 (227411, 'Paracetamol', '500mg', 1000, 10, 15),
 (254804, 'Aspirin', '50g', 7, 0, 0),
 (378208, 'Celestamine Syrup', '50mL', 70, 0, 0),
+(459464, 'Ziagen', '200mg', 0, 0, 0),
 (461968, 'Alaxan', '500mg', 16, 0, 0),
 (491663, 'Bactoclav Tablet', '625mg', 880, 0, 0),
 (494851, 'Antiox Tablet', '375mg', 35, 0, 0),
@@ -1128,6 +1310,338 @@ INSERT INTO `pharmacy_staff` (`PharmacyID`, `LastName`, `FirstName`, `MiddleName
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `philhealth`
+--
+
+CREATE TABLE `philhealth` (
+  `DiseaseID` int(10) NOT NULL,
+  `Disease` varchar(150) NOT NULL,
+  `Discount` int(10) NOT NULL,
+  `PFDiscount` int(10) NOT NULL,
+  `HCIDiscount` int(10) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `philhealth`
+--
+
+INSERT INTO `philhealth` (`DiseaseID`, `Disease`, `Discount`, `PFDiscount`, `HCIDiscount`) VALUES
+(1, 'ABNORMAL SENSORIUM IN THE NEWBORN', 12000, 3600, 8400),
+(2, 'ABSCESS OF RESPIRATORY TRACT', 10000, 3000, 7000),
+(3, 'ACUTE GASTROENTERITIS', 6000, 1800, 4200),
+(4, 'ACUTE RENAL FAILURE', 19300, 5790, 13510),
+(5, 'ADULT RESPIRATORY DISTRESS SYNDROME', 32000, 9600, 22400),
+(6, 'ALLERGIC REACTIONS', 6200, 1860, 4340),
+(7, 'AMOEBIASIS, HEPATIC', 10000, 3000, 7000),
+(8, 'AMOEBIASIS, NONHEPATIC', 6000, 1800, 4200),
+(9, 'AMYLOIDOSIS', 11100, 3330, 7770),
+(10, 'ANAPHYLACTIC SHOCK', 7600, 2280, 5320),
+(11, 'ANEMIA', 10000, 3000, 7000),
+(12, 'ARTHRITIS INFECTIOUS', 9700, 2910, 6790),
+(13, 'ARTHRITIS NONINFECTIOUS', 7000, 2100, 4900),
+(14, 'ARTHROPOD BORNE VIRAL FEVER', 8100, 2430, 5670),
+(15, 'ARTHROSIS', 7000, 2100, 4900),
+(16, 'ATELECTASIS', 13800, 4140, 9660),
+(17, 'BACK PAIN, RADICULOPATHY, SCIATICA', 6400, 1920, 4480),
+(18, 'BLADDER DYSFUNCTION', 9000, 2700, 6300),
+(19, 'BOTULISM', 4800, 1440, 3360),
+(20, 'BRAIN HERNIATION', 22400, 6720, 15680),
+(21, 'BRAIN/NERVOUS SYSTEM', 13000, 3900, 9100),
+(22, 'BREAST INFECTIONS', 7900, 2370, 5530),
+(23, 'BREAST MALIGNANCY', 11800, 3540, 8260),
+(24, 'BULLOUS DISORDERS', 12000, 3600, 8400),
+(25, 'BURN A', 8500, 2550, 5950),
+(26, 'BURN B', 10600, 3180, 7420),
+(27, 'BURN C', 16100, 4830, 11270),
+(28, 'CARDIAC ARRHYTHMIA', 12200, 3660, 8540),
+(29, 'CARDIOMYOPATHY', 13400, 4020, 9380),
+(30, 'CARDIOVASCULAR COMPLICATIONS IN THE\nNEWBORN', 22700, 6810, 15890),
+(31, 'CAUDA EQUINA SYNDROME', 8800, 2640, 6160),
+(32, 'CELLULITIS', 9600, 2880, 6720),
+(33, 'CEREBRAL PALSY', 9500, 2850, 6650),
+(34, 'CHOLANGITIS', 13200, 3960, 9240),
+(35, 'CHOLECYSTITIS', 11300, 3390, 7910),
+(36, 'CHROMOSOMAL ABNORMALITIES', 12700, 3810, 8890),
+(37, 'CHRONIC KIDNEY DISEASE', 14500, 4350, 10150),
+(38, 'CHRONIC OBSTRUCTIVE PULMONARY DISEASE', 12200, 3660, 8540),
+(39, 'CLEFT LIP AND PALATE', 7800, 2340, 5460),
+(40, 'COGNITIVE DYSFUNCTION', 8200, 2460, 5740),
+(41, 'COMPLICATIONS OF BENIGN NEOPLASMS OF\nENDOCRINE GLANDS', 12000, 3600, 8400),
+(42, 'COMPLICATIONS OF BENIGN NEOPLASMS OF THE\nBONES', 10500, 3150, 7350),
+(43, 'COMPLICATIONS OF BENIGN NEOPLASMS OF THE\nDIGESTIVE SYSTEM', 8700, 2610, 6090),
+(44, 'COMPLICATIONS OF TRAUMA', 9300, 2790, 6510),
+(45, 'CONGENITAL ANDROGENITAL DISORDER', 7800, 2340, 5460),
+(46, 'CONGENITAL ANEMIA', 15200, 4560, 10640),
+(47, 'CONGENITAL BLOOD DISORDERS', 4000, 1200, 2800),
+(48, 'CONGENITAL DERMATOLOGIC DISEASES', 11800, 3540, 8260),
+(49, 'CONGENITAL DISORDERS OF THE\nMUSCULOSKELETAL SYSTEM', 5300, 1590, 3710),
+(50, 'CONGENITAL DISORDERS OF THE FEMALE GENITAL\nTRACT', 9300, 2790, 6510),
+(51, 'CONGENITAL GASTROINTESTINAL DISORDERS', 11300, 3390, 7910),
+(52, 'CONGENITAL HEART DISEASES', 11600, 3480, 8120),
+(53, 'CONGENITAL HYPOTHYROIDISM', 9900, 2970, 6930),
+(54, 'CONGENITAL MALFORMATIONS OF THE\nBRAIN/NERVOUS SYSTEM', 13000, 3900, 9100),
+(55, 'CONGENITAL MALFORMATIONS OF THE LOWER\nRESPIRATORY TRACT', 21700, 6510, 15190),
+(56, 'CONGENITAL MALFORMATIONS OF THE NOSE,\nUPPER RESPIRATORY TRACT', 11000, 3300, 7700),
+(57, 'CONGENITAL MALFORMATIONS OF THE ORAL\nCAVITY', 4000, 1200, 2800),
+(58, 'CONGENITAL OPHTHALMOLOGIC DISORDERS', 4300, 1290, 3010),
+(59, 'CONGENITAL RENAL DISORDERS', 9100, 2730, 6370),
+(60, 'CONGENITAL SYPHILIS', 12800, 3840, 8960),
+(61, 'CONGENITAL URINARY TRACT DISORDERS', 9100, 2730, 6370),
+(62, 'CONGENITAL VASCULAR DISEASES', 12000, 3600, 8400),
+(63, 'CONNECTIVE TISSUE DISEASES', 13800, 4140, 9660),
+(64, 'CRANIAL NERVE DISORDER', 7400, 2220, 5180),
+(65, 'CROUP', 8200, 2460, 5740),
+(66, 'CUSHING\'S SYNDROME', 9500, 2850, 6650),
+(67, 'CYSTIC FIBROSIS', 7300, 2190, 5110),
+(68, 'DEGENERATIVE DISEASES OF CENTRAL NERVOUS\nSYSTEM', 10000, 3000, 7000),
+(69, 'DEMYELINATING DISEASE OF CENTRAL NERVOUS\nSYSTEM', 11600, 3480, 8120),
+(70, 'DENGUE FEVER', 10000, 3000, 7000),
+(71, 'DENGUE, SEVERE', 16000, 4800, 11200),
+(72, 'DIABETES INSIPIDUS', 10100, 3030, 7070),
+(73, 'DIABETES MELLITUS WITH COMA OR KETOSIS', 15800, 4740, 11060),
+(74, 'DIABETES MELLITUS WITH COMPLICATIONS\nOTHER THAN COMA AND KETOSIS', 12600, 3780, 8820),
+(75, 'DIPHTHERIA', 8700, 2610, 6090),
+(76, 'DISEASES OF BLOOD AND BLOOD FORMING\nORGANS', 12100, 3630, 8470),
+(77, 'DISEASES OF BLOOD AND BLOOD FORMING', 12100, 3630, 8470),
+(78, 'DISEASES OF ESOPHAGUS', 8300, 2490, 5810),
+(79, 'DISEASES OF EXTERNAL EAR', 9000, 2700, 6300),
+(80, 'DISEASES OF INNER EAR', 6200, 1860, 4340),
+(81, 'DISEASES OF MIDDLE EAR AND MASTOID', 10400, 3120, 7280),
+(82, 'DISEASES OF ORAL CAVITY, SALIVARY GLANDS,\nAND JAW', 8300, 2490, 5810),
+(83, 'DISEASES OF STOMACH AND DUODENUM', 6600, 1980, 4620),
+(84, 'DISEASES OF THE GALLBLADDER AND BILIARY\nTRACT', 9800, 2940, 6860),
+(85, 'DISEASES OF THE GALLBLADDER AND BILIARY', 9800, 2940, 6860),
+(86, 'DISEASES OF THE PANCREAS', 12600, 3780, 8820),
+(87, 'DISEASES OF VASCULAR SYSTEM', 13100, 3930, 9170),
+(88, 'DISODERS OF CHOROID AND RETINA', 4600, 1380, 3220),
+(89, 'DISORDER OF BONE DENSITY AND STRUCTURE', 7900, 2370, 5530),
+(90, 'DISORDER OF LIPID STORAGE', 8100, 2430, 5670),
+(91, 'DISORDERS ASSOCIATED WITH MENOPAUSE', 6000, 1800, 4200),
+(92, 'DISORDERS OF ADRENAL GLAND', 9900, 2970, 6930),
+(93, 'DISORDERS OF AMINO ACID METABOLISM', 10600, 3180, 7420),
+(94, 'DISORDERS OF LIPOPROTEIN METABOLISM', 6600, 1980, 4620),
+(95, 'DISORDERS OF MINERAL METABOLISM', 7300, 2190, 5110),
+(96, 'DISORDERS OF ORBIT', 9500, 2850, 6650),
+(97, 'DISORDERS OF PORPHYRIN AND BILIRUBIN\nMETABOLISM', 9800, 2940, 6860),
+(98, 'DISORDERS OF PURINE AND PYRIMIDINE\nMETABOLISM', 7000, 2100, 4900),
+(99, 'DISORDERS OF THE PARATHYROID', 9300, 2790, 6510),
+(100, 'DISORDERS OF THE PITUITARY GLAND', 11800, 3540, 8260),
+(101, 'DISORDERS OF VITREOUS BODY AND GLOBE', 10400, 3120, 7280),
+(102, 'DISSEMINATED INTRAVASCULAR COAGULATION', 32000, 9600, 22400),
+(103, 'DORSOPATHIES', 7600, 2280, 5320),
+(104, 'DROWNING', 7100, 2130, 4970),
+(105, 'ECTOPIC PREGNANCY', 7800, 2340, 5460),
+(106, 'ELECTRICAL SHOCK', 5400, 1620, 3780),
+(107, 'EMPHYSEMA', 11400, 3420, 7980),
+(108, 'ENCEPHALOPATHY', 22200, 6660, 15540),
+(109, 'ENDOMETRIOSIS', 7700, 2310, 5390),
+(110, 'EPIGLOTTITIS', 9700, 2910, 6790),
+(111, 'EPILEPSY', 7800, 2340, 5460),
+(112, 'EXTRAPYRAMIDAL AND MOVEMENT DISORDERS', 8300, 2490, 5810),
+(113, 'FEBRILE SEIZURES', 7000, 2100, 4900),
+(114, 'FEEDING PROBLEMS NEWBORN', 8700, 2610, 6090),
+(115, 'FEVER OF UNKNOWN ORIGIN', 7000, 2100, 4900),
+(116, 'FLUID AND ELECTROLYTE DISTURBANCES', 8500, 2550, 5950),
+(117, 'FRACTURES OF THE BONES OF THE THORAX', 8700, 2610, 6090),
+(118, 'GANGRENE', 13200, 3960, 9240),
+(119, 'GASTROESOPHAGEAL REFLUX DISEASE', 6100, 1830, 4270),
+(120, 'GASTROINTESTINAL DISORDERS OF THE\nNEWBORN', 11700, 3510, 8190),
+(121, 'GLAUCOMA', 6500, 1950, 4550),
+(122, 'GLOMERULAR AND INTERSTITIAL KIDNEY DISEASES', 10000, 3000, 7000),
+(123, 'HAND, FEET AND JOINT DEFORMITIES', 9200, 2760, 6440),
+(124, 'HEADACHE SYNDROMES', 5500, 1650, 3850),
+(125, 'HEART CONDUCTION DISORDERSS', 12300, 3690, 8610),
+(126, 'HEART FAILURE', 15700, 4710, 10990),
+(127, 'HEART VALVE DISORDERS', 8400, 2520, 5880),
+(128, 'HEAT EXHAUSTION', 6500, 1950, 4550),
+(129, 'HEMARTHROSIS/JOINT EFFUSION', 7800, 2340, 5460),
+(130, 'HEMOLYTIC UREMIC SYNDROME', 20200, 6060, 14140),
+(131, 'HEMORRHAGE IN PREGNANCY AND POST\nPARTUM PERIOD', 7000, 2100, 4900),
+(132, 'HEMORRHAGE/INTRACRANIAL HEMORRHAGE IN', 25600, 7680, 17920),
+(133, 'HEMORRHAGIC AND HEMATOLOGIC DISEASES OF\nTHE NEWBORN', 7800, 2340, 5460),
+(134, 'HEMORRHAGIC CONDITIONS', 12800, 3840, 8960),
+(135, 'HEPATIC FAILURE', 20600, 6180, 14420),
+(136, 'HYDATIDIFORM MOLE', 6600, 1980, 4620),
+(137, 'HYDROCEPHALUS', 17300, 5190, 12110),
+(138, 'HYDROPS FETALIS', 7400, 2220, 5180),
+(139, 'HYPERTENSIVE EMERGENCY/URGENCY', 9000, 2700, 6300),
+(140, 'HYPERTHYROIDISM', 8500, 2550, 5950),
+(141, 'HYPOTHYROIDISM', 8100, 2430, 5670),
+(142, 'IMMUNODEFICIENCY', 11600, 3480, 8120),
+(143, 'INFLAMMATION/INFECTION OF THE MALE\nGENITAL TRACT', 9000, 2700, 6300),
+(144, 'INFLAMMATION/INFECTION OF THE MALE', 9000, 2700, 6300),
+(145, 'INFLAMMATORY BOWEL DISEASE', 9100, 2730, 6370),
+(146, 'INFLAMMATORY DISEASE OF THE CENTRAL\nNERVOUS SYSTEM', 21600, 6480, 15120),
+(147, 'INFLAMMATORY DISEASES OF THE HEART', 14400, 4320, 10080),
+(148, 'INFLUENZA', 6600, 1980, 4620),
+(149, 'INJURIES DUE TO ENVIRONMENTAL AND OTHER\nEXTERNAL FACTORS CAUSES', 9300, 2790, 6510),
+(150, 'INJURIES TO NEURAL STRUCTURES AND NERVES', 18400, 5520, 12880),
+(151, 'INJURIES TO THE MUSCLES AND TENDONS AND\nJOINTS', 7200, 2160, 5040),
+(152, 'INTERSTITIAL PULMONARY DISEASE', 14000, 4200, 9800),
+(153, 'INTESTINAL DISORDERS', 9500, 2850, 6650),
+(154, 'INTESTINAL MALABSORPTION', 4100, 1230, 2870),
+(155, 'INTESTINAL OBSTRUCTION', 10100, 3030, 7070),
+(156, 'INTRACRANIAL AND INTRASPINAL ABSCESS AND\nGRANULOMA', 27900, 8370, 19530),
+(157, 'INTRACRANIAL AND INTRASPINAL ABSCESS AND', 27900, 8370, 19530),
+(158, 'INTRACRANIAL INJURIES', 8800, 2640, 6160),
+(159, 'INTRAVENTRICULAR\nHEMORRHAGE/INTRACRANIAL HEMORRHAGE IN\nTHE NEWBORN', 25600, 7680, 17920),
+(160, 'ISCHEMIC HEART DISEASE WITH MYOCARDIAL\nINFARCTION', 18900, 5670, 13230),
+(161, 'ISCHEMIC HEART DISEASE WITHOUT MYOCARDIAL\nINFARCTION', 12000, 3600, 8400),
+(162, 'JAUNDICE IN THE NEWBORN', 7400, 2220, 5180),
+(163, 'LEPROSY', 8800, 2640, 6160),
+(164, 'LEPTOSPIROSIS MODERATE TO SEVERE', 11000, 3300, 7700),
+(165, 'LIVER DISEASES I', 11800, 3540, 8260),
+(166, 'LIVER DISEASES II', 15100, 4530, 10570),
+(167, 'LYMPHADENITIS', 6800, 2040, 4760),
+(168, 'LYMPHATIC VESSELS DISORDER', 8900, 2670, 6230),
+(169, 'MALIGNANT NEOPLASM OF URINARY TRACT', 14100, 4230, 9870),
+(170, 'MALIGNANT NEOPLASMS OF BONE AND\nARTICULAR CARTILAGE', 16500, 4950, 11550),
+(171, 'MALIGNANT NEOPLASMS OF CENTRAL NERVOUS\nSYSTEM', 16900, 5070, 11830),
+(172, 'MALIGNANT NEOPLASMS OF DIGESTIVE ORGANS', 14200, 4260, 9940),
+(173, 'MALIGNANT NEOPLASMS OF EARS AND NOSE', 10300, 3090, 7210),
+(174, 'MALIGNANT NEOPLASMS OF EYE', 16900, 5070, 11830),
+(175, 'MALIGNANT NEOPLASMS OF FEMALE GENITAL\nTRACT', 11400, 3420, 7980),
+(176, 'MALIGNANT NEOPLASMS OF LIP, ORAL CAVITY,\nPHARYNX', 11500, 3450, 8050),
+(177, 'MALIGNANT NEOPLASMS OF LYMPHOID,\nHEMATOPOIETIC AND RELATED TISSUE', 13900, 4170, 9730),
+(178, 'MALIGNANT NEOPLASMS OF RESPIRATORY AND\nINTRATHORACIC ORGANS', 14600, 4380, 10220),
+(179, 'MALIGNANT NEOPLASMS OF SINUSES', 11500, 3450, 8050),
+(180, 'MALIGNANT NEOPLASMS OF SOFT TISSUES', 12000, 3600, 8400),
+(181, 'MALIGNANT NEOPLASMS OF THYROID AND\nOTHER ENDOCRINE GLANDS', 11400, 3420, 7980),
+(182, 'MALNUTRITION', 11700, 3510, 8190),
+(183, 'MATERNAL COMORBIDITIES CONDITIONS', 6800, 2040, 4760),
+(184, 'MENINGITIS', 25700, 7710, 17990),
+(185, 'MENINGOCOCCAL INFECTION', 19800, 5940, 13860),
+(186, 'MENSTRUAL IRREGULARITIES', 6600, 1980, 4620),
+(187, 'MENTAL AND BEHAVIORAL DISORDERS', 7800, 2340, 5460),
+(188, 'METABOLIC DISORDERS', 10700, 3210, 7490),
+(189, 'METABOLIC DISORDERS OF THE NEWBORN', 9300, 2790, 6510),
+(190, 'MISCARRIAGE', 5000, 1500, 3500),
+(191, 'MISCARRIAGE WITH COMPLICATIONS', 6900, 2070, 4830),
+(192, 'MUSCLE, TENDON, SOFT TISSUE DISORDERS', 6500, 1950, 4550),
+(193, 'MYALGIA, NEURALGIA, RHEUMATISM', 5900, 1770, 4130),
+(194, 'MYASTHENIA GRAVIS NEWBORN', 11600, 3480, 8120),
+(195, 'MYOPATHIES', 7900, 2370, 5530),
+(196, 'NEONATAL CEREBRAL ISCHEMIA', 25800, 7740, 18060),
+(197, 'NEONATE AFFECTED BY MATERNAL FACTORS', 7700, 2310, 5390),
+(198, 'NEOPLASMS OF UNKNOWN BEHAVIOR', 12200, 3660, 8540),
+(199, 'NERVE ROOT AND PLEXUS DISORDERS', 7900, 2370, 5530),
+(200, 'NEWBORN COMPLICATED- LOW BIRTH\nWEIGHT/PRETERM', 16900, 5070, 11830),
+(201, 'NEWBORN COMPLICATED-LARGE BABY', 7000, 2100, 4900),
+(202, 'NEWBORN COMPLICATED-POSTTERM', 7500, 2250, 5250),
+(203, 'NEWBORN SEPSIS', 11700, 3510, 8190),
+(204, 'NONINFLAMMATORY DISORDERS OF THE FEMALE\nGENITAL TRACT', 8500, 2550, 5950),
+(205, 'NUTRITIONAL DISORDER', 9200, 2760, 6440),
+(206, 'OBESITY HYPOVENTILATION', 13600, 4080, 9520),
+(207, 'OBSTRUCTIVE UROPATHIES', 9700, 2910, 6790),
+(208, 'ORCHITIS', 7900, 2370, 5530),
+(209, 'OSTEOMYELITIS AND OSTEONECROSIS', 13000, 3900, 9100),
+(210, 'OTHER BACTERIAL DISEASES', 8900, 2670, 6230),
+(211, 'OTHER BONE DISORDERS', 8800, 2640, 6160),
+(212, 'OTHER CEREBROVASCULAR DISEASES', 15200, 4560, 10640),
+(213, 'OTHER CHLAMYDIAL DISEASES', 8500, 2550, 5950),
+(214, 'OTHER CONGENITAL MALFORMATIONS', 11600, 3480, 8120),
+(215, 'OTHER DISORDERS OF CIRCULATORY SYSTEM', 12400, 3720, 8680),
+(216, 'OTHER DISORDERS OF THE FEMALE GENITAL\nTRACT', 7800, 2340, 5460),
+(217, 'OTHER DISORDERS OF THE MALE GENITAL TRACT', 6400, 1920, 4480),
+(218, 'OTHER DISORDERS OF THE NERVOUS SYSTEM', 15800, 4740, 11060),
+(219, 'OTHER DISORDERS OF THE NEWBORN', 12000, 3600, 8400),
+(220, 'OTHER DISORDERS OF THE THYROID', 8500, 2550, 5950),
+(221, 'OTHER ENDOCRINE DISORDERS', 10900, 3270, 7630),
+(222, 'OTHER NEPHROPATHY', 9500, 2850, 6650),
+(223, 'OTHER PLEURAL CONDITIONS', 13500, 4050, 9450),
+(224, 'OTHER RESPIRATORY DISORDERS', 10200, 3060, 7140),
+(225, 'OTHER SPIROCHAETAL DISEASES', 8800, 2640, 6160),
+(226, 'OTITIS MEDIA', 7800, 2340, 5460),
+(227, 'OVARIAN CYSTS', 7800, 2340, 5460),
+(228, 'PELVIC INFLAMMATORY DISEASES', 9000, 2700, 6300),
+(229, 'PELVIC PAIN', 4800, 1440, 3360),
+(230, 'PEPTIC ULCER DISEASE WITH HEMORRHAGE', 12800, 3840, 8960),
+(231, 'PEPTIC ULCER DISEASE WITHOUT HEMORRHAGE', 6100, 1830, 4270),
+(232, 'PERINATAL INFECTIONS', 12700, 3810, 8890),
+(233, 'PERITONEAL DISORDERS', 10800, 3240, 7560),
+(234, 'PERITONITIS', 14700, 4410, 4410),
+(235, 'PHAKOMATOSES', 10800, 3240, 7560),
+(236, 'PLEURAL EFFUSION', 14200, 4260, 9940),
+(237, 'PNEUMONIA HIGH RISK', 32000, 9600, 22400),
+(238, 'PNEUMONIA MODERATE RISK', 15000, 4500, 10500),
+(239, 'PNEUMOTHORAX', 15300, 4590, 10700),
+(240, 'POISONING CAUSED BY ANTI-INFLAMMATORY\nAGENTS', 7400, 2220, 5180),
+(241, 'POISONING CAUSED BY ANTIBIOTICS', 7300, 2190, 5110),
+(242, 'POISONING CAUSED BY CARDIOVASCULAR DRUGS', 12500, 3750, 8750),
+(243, 'POISONING CAUSED BY DRUGS AFFECTING THE\nPULMONARY SYSTEM', 6200, 1860, 4340),
+(244, 'POISONING CAUSED BY DRUGS AFFECTING THE\nRENAL SYSTEM', 6300, 1890, 4410),
+(245, 'POISONING CAUSED BY GASTROINTESTINAL\nDRUGS', 8300, 2490, 5810),
+(246, 'POISONING CAUSED BY HEMATOLOGIC AGENTS', 7300, 2190, 5110),
+(247, 'POISONING CAUSED BY HORMONES', 8500, 2550, 5950),
+(248, 'POISONING CAUSED BY ORGANIC SUBSTANCES\nAND HEAVY METALS', 6400, 1920, 4480),
+(249, 'POISONING CAUSED BY TOPICAL AGENTS', 5300, 1590, 3710),
+(250, 'POISONING FROM ANIMALS, INSECTS, PLANTS', 5700, 1710, 3990),
+(251, 'POISONING OTHERS', 8300, 2490, 5810),
+(252, 'POLYNEUROPATHIES', 10600, 3180, 7420),
+(253, 'POLYPS, FEMALE GENITAL TRACT', 5200, 1560, 3640),
+(254, 'POST PARTUM COMPLICATIONS', 9300, 2790, 6510),
+(255, 'POSTPARTUM CARE FOR DELIVERIES IN TRANSIT', 2000, 600, 1400),
+(256, 'POSTPROCEDURAL DISORDERS', 10300, 3090, 7210),
+(257, 'PROSTATE DISORDERS', 9200, 2760, 6440),
+(258, 'PUERPERAL COMPLICATIONS', 6800, 2040, 4760),
+(259, 'PULMONARY COMPLICATIONS IN THE NEWBORN', 10900, 3270, 7630),
+(260, 'PULMONARY EMBOLISM', 24300, 7290, 17010),
+(261, 'PULMONARY HEART DISEASE', 14100, 4230, 9870),
+(262, 'PYELONEPHRITIS', 10900, 3270, 7630),
+(263, 'RED CELL APLASIA', 7300, 2190, 5110),
+(264, 'RENAL INFARCT', 9600, 2880, 6720),
+(265, 'RENAL/BLADDER ABSCESS', 13900, 4170, 9730),
+(266, 'RESPIRATORY CONDITIONS DUE TO EXTERNAL\nAGENTS', 14700, 4410, 10290),
+(267, 'RESPIRATORY FAILURE', 32000, 9600, 22400),
+(268, 'RESPIRATORY TRACT', 21700, 6510, 15190),
+(269, 'RETINAL VASCULAR OCCLUSION', 7700, 2310, 5390),
+(270, 'RHEUMATIC FEVER', 10100, 3030, 7070),
+(271, 'RHEUMATIC HEART DISEASE', 12800, 3840, 8960),
+(272, 'RICKETTSIOSES', 7000, 2100, 4900),
+(273, 'SCARLET FEVER', 8300, 2490, 5810),
+(274, 'SEPSIS', 32000, 9600, 22400),
+(275, 'SEQUELAE OF CEREBROVASCULAR DISEASES', 10300, 3090, 7210),
+(276, 'SEQUELAE OF INFECTIOUS AND PARASITIC\nDISEASES', 10700, 3210, 7490),
+(277, 'SEQUELAE OF INFLAMMATORY DISEASE OF THE\nCENTRAL NERVOUS SYSTEM', 8000, 2400, 5600),
+(278, 'SEQUELAE OF NUTRITIONAL DEFICIENCIES', 8800, 2640, 6160),
+(279, 'SEQUELAE OF TRAUMA INJURIES', 8500, 2550, 5950),
+(280, 'SHOCK', 32000, 9600, 22400),
+(281, 'SITUS INVERSUS', 6700, 2010, 4690),
+(282, 'SKULL FRACTURES', 10700, 3210, 7490),
+(283, 'SLEEP APNEA', 10800, 3240, 7560),
+(284, 'SPONDYLOPATHIES', 8300, 2490, 5810),
+(285, 'STAPHYLOCCOCAL SCALDED SKIN SYNDROME', 10200, 3060, 7140),
+(286, 'STATUS EPILEPTICUS', 15600, 4680, 10920),
+(287, 'STEVEN JOHNSONS SYNDROME', 12300, 3690, 8610),
+(288, 'STROKE - HEMORRHAGIC', 38000, 11400, 26600),
+(289, 'STROKE - INFARCTION', 28000, 8400, 19600),
+(290, 'SYSTEM', 10000, 3000, 7000),
+(291, 'SYSTEMIC ATROPHIES INVOLVING CENTRAL\nNERVOUS SYSTEM', 10400, 3120, 7280),
+(292, 'SYSTEMIC LUPUS ERYTHEMATOSUS', 11900, 3570, 8330),
+(293, 'TETANUS', 16500, 4950, 11550),
+(294, 'THALASSEMIA', 5600, 1680, 3920),
+(295, 'THE NEWBORN', 7800, 2340, 5460),
+(296, 'TOXIC EPIDERMAL NECROLYSIS', 15900, 4770, 11130),
+(297, 'TRACT', 9300, 2790, 6510),
+(298, 'TRANSIENT CEREBRAL ISCHEMIC ATTACKS', 7300, 2190, 5110),
+(299, 'TRAUMA RELATED TO BIRTH PROCESS', 13800, 4140, 9660),
+(300, 'TUBERCULOSIS, EXTRAPULMONARY', 11900, 3570, 8330),
+(301, 'TUBERCULOSIS, MILIARY', 15100, 4530, 10570),
+(302, 'TUBERCULOSIS, PULMONARY', 9800, 2940, 6860),
+(303, 'TYPHOID FEVER', 10000, 3000, 7000),
+(304, 'URINARY TRACT ATROPHY/HYPERTROPHY', 11300, 3390, 7910),
+(305, 'URINARY TRACT INFECTION [ADMISSIBLE]', 7500, 2250, 5250),
+(306, 'VERTEBRAL DISC DISORDERS', 7800, 2340, 5460),
+(307, 'VERTIGINOUS DISORDERS', 5700, 1710, 3990),
+(308, 'VIRAL HEMORRHAGIC FEVER', 7900, 2370, 5530),
+(309, 'VIRAL HEPATITIS', 11800, 3540, 8260),
+(310, 'VIRAL INFECTION OF CENTRAL NERVOUS SYSTEM', 21100, 6330, 14770),
+(311, 'WHOOPING COUGH', 10600, 3180, 7420),
+(312, 'ZOONOTIC BACTERIAL DISEASES', 11700, 3510, 8190);
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `physicians`
 --
 
@@ -1151,9 +1665,16 @@ CREATE TABLE `physicians` (
 --
 
 INSERT INTO `physicians` (`PhysicianID`, `LastName`, `FirstName`, `MiddleName`, `Gender`, `Address`, `Contact`, `Birthdate`, `Specialization`, `ProfessionalFee`, `Email`, `pathPhoto`) VALUES
+(422018, 'Atienza', 'Rico', 'Bautista', 'Male', 'Lipa City Batangas', '', '08/25/1961', 'Surgeon', '0.00', 'rba@gmail.com', ''),
+(423430, 'Silva', 'Romeo', 'Siy', 'Male', 'Lipa City Batangas', '', '06/20/1984', 'Internal Medicine', '0.00', 'RSSilva@gmail.com', ''),
 (426113, 'Villanueva', 'Renz', 'Marinez', 'Male', 'Lipa City', '', '06/17/1998', 'Orthopedic', '0.00', 'jmatthewatx.lina@gmail.com', ''),
+(434985, 'Subido', 'Rose', 'Angel', 'Female', 'Lipa City Batangas', '', '06/25/1970', 'Dentist ', '0.00', 'roseangelsbudi@gmail.com', ''),
+(439870, 'Dimayuga', 'Edna', 'Dyann', 'Female', 'Lipa City Batangas', '', '07/12/1984', 'Cardiac', '0.00', 'ednadaynmayuga@gmail.com', ''),
+(441283, 'Navarro', 'Bonan', 'Odoro', 'Male', 'Lipa City Batangas', '', '07/18/1984', 'Endocrinologist', '0.00', 'bonanodoronavarro@gmail.com', ''),
+(445018, 'Desipeda', 'Arvin', 'James', 'Male', 'Lipa City Batangas', '', '07/26/1975', 'Anesthesiologists ', '0.00', 'arvinjames123@gmail.com', ''),
+(451763, 'Cuyos', 'Fernando', 'Perez', 'Male', 'Lipa City Batangas', '', '12/24/1976', 'Neuro-surgeon ', '0.00', 'FperezC@gmail.com', ''),
 (456325, 'Rizal', 'Jose', 'Mercado', 'Male', 'Santa Rosa Calamba', '639175669856', '12-02-21', 'Diabetologist', '500.00', 'jose@gmail.com', 'uploads/4563255abcaf828e6fb.jpg'),
-(498455, 'Lina', 'Jed', 'Matthew', 'Male', 'Lipa City', '', '07/19/1995', 'Diabetologist ', '0.00', 'jmatthewatx.lina@gmail.com', '');
+(498455, 'Lina', 'Jed', 'Matthew', 'Male', 'Lipa City', '', '07/19/1995', 'Diabetologist ', '0.00', 'jmatthewatx.lina@gmail.com', 'uploads/4984555addee76ba470.jpg');
 
 -- --------------------------------------------------------
 
@@ -45200,7 +45721,14 @@ INSERT INTO `user_account` (`AccountID`, `AccessType`, `Passwordd`, `hash`, `Ema
 ('156956', '1', '$2y$10$KwR8PbLrffLEGs3JSkq7IuWsAxv/Q0gDfukVjIWio2oiqbwF7GdXm', 'fc49306d97602c8ed1be1dfbf0835ead', 'giiovanni@gmail.com'),
 ('292556', '2', '$2y$10$WXd0kGvt2052wAMqSVWdeuWQZqaLFP6W06PX9Xu5buKK9hAcK.3gC', 'd709f38ef758b5066ef31b18039b8ce5', 'admission@gmail.com'),
 ('352367', '3', '$2y$10$2QIryHcnG4FAjJkVXtDEEOEr2ApY7BeloqDisSXh7WayqrNssaumq', '1f50893f80d6830d62765ffad7721742', 'kendalljenner@gmail.com'),
+('422018', '4', '$2y$10$6.geYf9McMRhctgm1LfDPujw73tAebLie5oNvABgelOj7SGOalcD.', 'b2f627fff19fda463cb386442eac2b3d', 'rba@gmail.com'),
+('423430', '4', '$2y$10$xQ4rTLLoozUU.Yur3N5rnucc3qzggGvGcd9gD4RTYRmr9SP7o/jzu', '109a0ca3bc27f3e96597370d5c8cf03d', 'RSSilva@gmail.com'),
 ('426113', '4', '$2y$10$PgQpVSTAh3Z36eZJaXzcvOAMPMc5rnhs8nnkUppNN7KNo2xxRowp.', '82489c9737cc245530c7a6ebef3753ec', 'jmatthewatx.lina@gmail.com'),
+('434985', '4', '$2y$10$RCGhVnJy8HBcdB9fSzbk3OwUriD1U7iZZzD9l7cIYhGh9qufmhr5q', '39059724f73a9969845dfe4146c5660e', 'roseangelsbudi@gmail.com'),
+('439870', '4', '$2y$10$sVd/jYVcvi0NsKgOx57d0.cnYl079ouXN70M1qP7meZJf3bzDD3YO', 'f457c545a9ded88f18ecee47145a72c0', 'ednadaynmayuga@gmail.com'),
+('441283', '4', '$2y$10$CrXpG40836L62jccS21nSeunKiyvizACD8bpIkxfRLZhC3p679MUi', 'e4bb4c5173c2ce17fd8fcd40041c068f', 'bonanodoronavarro@gmail.com'),
+('445018', '4', '$2y$10$KjZ9usq.SDfsohIFWDNqfOtkvF5uwhypWKrsI8DMyfUhq/zZp0wE6', '2823f4797102ce1a1aec05359cc16dd9', 'arvinjames123@gmail.com'),
+('451763', '4', '$2y$10$q4MUUZdtD8.qEctctx47leu3Ih38wqXuRLvstc1ZX1jraRzI/hkBC', '7d04bbbe5494ae9d2f5a76aa1c00fa2f', 'FperezC@gmail.com'),
 ('456325', '4', '$2y$10$rALMHQbyTlm6TuvaZ4znRux9yQtY.K2PJJsLRp2G.HJvzoQyQoSPC', '82cec96096d4281b7c95cd7e74623496', 'doctor@gmail.com'),
 ('498455', '4', '$2y$10$AzHBpXscQPZ3JMM9t5CKIeQzU3JJAOTGztSk/YMwK4Jy0xLGX/IbK', '7380ad8a673226ae47fce7bff88e9c33', 'jmatthewatx.lina@gmail.com'),
 ('542987', '5', '$2y$10$kS80201Q1RHUS6pVI9wer.S47KfgQFCVLWTePcEiT/qFZnIf8rtOi', '3328bdf9a4b9504b9398284244fe97c2', 'marinez.renzc@gmail.com'),
@@ -45221,6 +45749,29 @@ CREATE TABLE `user_logs` (
   `DateTimeIn` varchar(30) NOT NULL,
   `DateTimeOut` varchar(30) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `user_logs`
+--
+
+INSERT INTO `user_logs` (`LogsID`, `AccountID`, `DateTimeIn`, `DateTimeOut`) VALUES
+(149282, 146404, '2018-04-20 10:32 PM', '2018-04-20 10:34 PM'),
+(161494, 699279, '2018-04-21 05:12 PM', '0'),
+(188700, 146404, '2018-04-22 01:35 AM', '0'),
+(194328, 292556, '2018-04-20 11:40 PM', '2018-04-21 04:04 PM'),
+(221971, 292556, '2018-04-20 10:35 PM', '2018-04-21 04:04 PM'),
+(360134, 739062, '2018-04-25 08:13 PM', '0'),
+(468696, 292556, '2018-04-25 08:48 PM', '0'),
+(494565, 426113, '2018-04-21 04:38 PM', '0'),
+(517291, 146404, '2018-04-25 06:20 PM', '0'),
+(551477, 456325, '2018-04-25 08:53 PM', '0'),
+(627655, 146404, '2018-04-23 04:06 PM', '0'),
+(655570, 456325, '2018-04-24 10:08 PM', '0'),
+(701380, 146404, '2018-04-23 01:47 PM', '0'),
+(754350, 146404, '2018-04-21 05:57 PM', '0'),
+(789294, 292556, '2018-04-15 11:58 PM', '2018-04-21 04:04 PM'),
+(936753, 426113, '2018-04-18 08:50 PM', '0'),
+(984187, 352367, '2018-04-21 04:04 PM', '2018-04-21 04:38 PM');
 
 -- --------------------------------------------------------
 
@@ -45246,8 +45797,21 @@ CREATE TABLE `vitals` (
 --
 
 INSERT INTO `vitals` (`ID`, `VitalsID`, `AdmissionID`, `AccountID`, `BP`, `BPD`, `PR`, `RR`, `Temperature`, `DateTimeChecked`) VALUES
-(5, 642080, 2017340646, 0, 120, 80, 68, 38, '39.5', '2018-04-14 15:45:30'),
-(6, 552407, 2017340646, 0, 120, 80, 68, 48, '38.5', '2018-04-14 19:56:17');
+(6, 552407, 2017340646, 0, 120, 80, 68, 48, '38.5', '2018-04-14 19:56:17'),
+(7, 662987, 2017288509, 0, 120, 80, 68, 38, '38.9', '2018-04-16 12:21 AM'),
+(8, 642080, 2017340646, 0, 120, 90, 68, 69, '39.8', '2018-04-20 16:45:30'),
+(9, 374365, 2017340646, 352367, 120, 70, 68, 38, '36.8', '2018-04-21 04:22 PM'),
+(10, 664711, 2017340646, 352367, 150, 90, 68, 38, '38.8', '2018-04-21 09:58 PM'),
+(11, 690767, 2017319597, 0, 150, 90, 68, 38, '36.8', '2018-04-22 01:41 AM'),
+(12, 759816, 2017340646, 0, 120, 80, 67, 38, '37.9', '2018-04-23 02:38 PM'),
+(13, 443508, 2017340646, 0, 150, 90, 64, 37, '39.5', '2018-04-23 02:43 PM'),
+(14, 326194, 2017340646, 0, 120, 80, 67, 35, '38.5', '2018-04-23 03:45 PM'),
+(15, 364875, 2017340646, 0, 150, 80, 67, 34, '38.5', '2018-04-23 03:55 PM'),
+(16, 195721, 2017340646, 0, 150, 90, 67, 34, '37.8', '2018-04-23 11:23 PM'),
+(17, 605338, 2017340646, 0, 150, 90, 68, 37, '37.9', '2018-04-24 10:07 PM'),
+(18, 932501, 2017340646, 0, 150, 80, 64, 34, '34.6', '2018-04-25 03:07 AM'),
+(19, 807274, 2017340646, 0, 150, 90, 67, 34, '38.9', '2018-04-25 10:12 PM'),
+(20, 352899, 2017340646, 0, 150, 80, 68, 34, '37.8', '2018-04-25 10:48 PM');
 
 -- --------------------------------------------------------
 
@@ -45288,7 +45852,7 @@ ALTER TABLE `admission_staffs`
 -- Indexes for table `attending_physicians`
 --
 ALTER TABLE `attending_physicians`
-  ADD PRIMARY KEY (`AttendingID`);
+  ADD PRIMARY KEY (`ID`);
 
 --
 -- Indexes for table `beds`
@@ -45416,8 +45980,7 @@ ALTER TABLE `patients`
 -- Indexes for table `patients_archive`
 --
 ALTER TABLE `patients_archive`
-  ADD PRIMARY KEY (`ArchiveNo`),
-  ADD UNIQUE KEY `ArchiveID` (`ArchiveID`);
+  ADD PRIMARY KEY (`ArchiveNo`);
 
 --
 -- Indexes for table `patient_diet`
@@ -45436,6 +45999,12 @@ ALTER TABLE `pharmaceuticals`
 --
 ALTER TABLE `pharmacy_staff`
   ADD PRIMARY KEY (`PharmacyID`);
+
+--
+-- Indexes for table `philhealth`
+--
+ALTER TABLE `philhealth`
+  ADD PRIMARY KEY (`DiseaseID`);
 
 --
 -- Indexes for table `physicians`
@@ -45514,10 +46083,16 @@ ALTER TABLE `website_uploads`
 --
 
 --
+-- AUTO_INCREMENT for table `attending_physicians`
+--
+ALTER TABLE `attending_physicians`
+  MODIFY `ID` int(15) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=20;
+
+--
 -- AUTO_INCREMENT for table `diagnosis`
 --
 ALTER TABLE `diagnosis`
-  MODIFY `ID` int(5) NOT NULL AUTO_INCREMENT;
+  MODIFY `ID` int(5) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=21;
 
 --
 -- AUTO_INCREMENT for table `discounts`
@@ -45535,31 +46110,37 @@ ALTER TABLE `dosing_time`
 -- AUTO_INCREMENT for table `medical_conditions`
 --
 ALTER TABLE `medical_conditions`
-  MODIFY `ID` int(6) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `ID` int(6) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
 
 --
 -- AUTO_INCREMENT for table `medication`
 --
 ALTER TABLE `medication`
-  MODIFY `ID` int(6) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `ID` int(6) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=27;
 
 --
 -- AUTO_INCREMENT for table `patients`
 --
 ALTER TABLE `patients`
-  MODIFY `AdmissionNo` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `AdmissionNo` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
 
 --
 -- AUTO_INCREMENT for table `patients_archive`
 --
 ALTER TABLE `patients_archive`
-  MODIFY `ArchiveNo` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `ArchiveNo` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
 
 --
 -- AUTO_INCREMENT for table `patient_diet`
 --
 ALTER TABLE `patient_diet`
-  MODIFY `ID` int(6) NOT NULL AUTO_INCREMENT;
+  MODIFY `ID` int(6) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+
+--
+-- AUTO_INCREMENT for table `philhealth`
+--
+ALTER TABLE `philhealth`
+  MODIFY `DiseaseID` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=313;
 
 --
 -- AUTO_INCREMENT for table `refbrgy`
@@ -45595,7 +46176,7 @@ ALTER TABLE `specialization`
 -- AUTO_INCREMENT for table `vitals`
 --
 ALTER TABLE `vitals`
-  MODIFY `ID` int(6) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `ID` int(6) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=21;
 
 --
 -- AUTO_INCREMENT for table `website_uploads`

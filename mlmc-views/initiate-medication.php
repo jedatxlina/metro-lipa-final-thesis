@@ -25,6 +25,9 @@
 
     for($x = 0;$x < $cnt; $x++){
 
+            $query = "UPDATE pharmaceuticals SET Unit = '$dosage[$x]' WHERE MedicineName = '$intake[$x]'"; 
+            mysqli_query($conn,$query);  
+
             // $sel =  mysqli_query($conn,"SELECT MedicineID,Unit FROM pharmaceuticals WHERE MedicineName = '$intake[$x]'");
             // while($row = mysqli_fetch_assoc($sel))
             // {

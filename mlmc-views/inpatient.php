@@ -293,7 +293,6 @@ font-weight: bold;
 												<div class="col-sm-5">
 													<select ng-model="RoomType" class="form-control">
 														<option value="" disabled selected>Select Room Type</option>
-														<option value="relocate.RoomType" ng-init="$parent.roomtype = relocate.RoomType" selected>{{relocate.RoomType}}</option>
 														<option value="Ward">Ward</option>
 														<option value="OB-Ward">OB-Ward</option>
 														<option value="Female-Ward">Female-Ward</option>

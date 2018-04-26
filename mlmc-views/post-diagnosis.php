@@ -47,7 +47,7 @@
                         <div class="list-group list-group-alternate mb-n nav nav-tabs">
                             <a href="#tab-diagnosis" role="tab" data-toggle="tab" class="list-group-item active"><i class="fa fa-stethoscope"></i> Diagnosis</a>
                             <a href="#tab-laboratory" role="tab" data-toggle="tab" class="list-group-item"><i class="fa fa-stethoscope"></i> Laboratory</a>
-                             <!--  <a href="#tab-medications" role="tab" data-toggle="tab" class="list-group-item"><i class="fa fa-stethoscope"></i> Medications</a> -->
+                            <a href="#tab-medications" role="tab" data-toggle="tab" class="list-group-item"><i class="fa fa-stethoscope"></i> Medications</a>
                             <a href="#tab-details" role="tab" data-toggle="tab" class="list-group-item"><i class="fa fa-stethoscope"></i>Medical Details</a>
                             <a href="#tab-history" role="tab" data-toggle="tab" class="list-group-item"><i class="ti ti-view-list-alt"></i> Medical History</a>
                         </div>
@@ -55,7 +55,37 @@
                     <div class="col-md-9">
                         <div class="tab-content">
                             <div class="tab-pane active" id="tab-diagnosis">
-                                <div class="panel panel-default">
+                                <div class="panel panel-danger">
+                                        <div class="panel-heading">
+                                            <h2>Latest Diagnosis</h2>
+                                            <div class="panel-ctrls"></div>
+                                        </div>
+                                            <div class="panel-body">
+                                                <div class="table-responsive">
+                                                    <table id="latest_table" class="table table-striped table-bordered" cellspacing="0" width="100%">
+                                                            <thead>
+                                                                <tr>
+                                                                    <th>Findings</th>
+                                                                    <th>Date & Time Diagnosed</th>
+                                                                    <th>Administered By</th>
+                                                                </tr>
+                                                            </thead>
+                                                            <tbody>
+                                                                <tr data-ng-repeat="latest in latestdiagnosis">
+                                                                    <td>{{latest.Findings}}</td>
+                                                                    <td>{{latest.DateDiagnosed}} {{latest.TimeDiagnosed}}</td>
+                                                                    <td>Dr. {{latest.PhysicianFirstname}} {{latest.PhysicianMiddlename}} {{ latest.PhysicianLastname}}</td>
+                                                            
+                                                                </tr>
+                                                            </tbody>
+                                                    </table>
+                                                </div>
+                                            </div>
+                                        <div class="panel-footer">
+                                        </div>
+                                </div>
+
+                                <div class="panel panel-danger">
                                     <div class="panel-heading">
                                         <h2>Post Diagnosis</h2>
                                         <div class="panel-ctrls"></div>
@@ -65,21 +95,7 @@
                                             <form class="grid-form">
                                                 <div class="row">
                                                     <fieldset data-ng-repeat="patient in patientdetails">
-                                                        <div data-row-span="2">
-                                                            <div data-field-span="1">
-                                                                <label>Admission ID
-                                                                    <br>
-                                                                </label>
-                                                                <input type="text" ng-model="admissionid" ng-disabled='true'>
-                                                            </div>
-                                                            <div data-field-span="1">
-                                                                <label>Patient Name
-                                                                    <br>
-                                                                </label>
-                                                                <input type="text" class="form-control" ng-value="patient.Firstname + ' ' + patient.Middlename + ' ' + patient.Lastname" disabled="disabled">
-                                                            </div>
                                                             <input type="hidden" ng-model="$parent.attendingid" ng-init="$parent.attendingid = patient.Attending">
-                                                        </div>
                                                     </fieldset>
                                                     <fieldset>
                                                         <div data-row-span="2">
@@ -88,7 +104,7 @@
                                                                 <br>
                                                                 <select id="diagnosis" class="select2" multiple="multiple" style="width:420px;">
                                                                     <optgroup label="List of Conditions">
-                                                                        <option ng-repeat="condition in conditions" value="{{condition.ConditionID}}">{{condition.Conditions}}</option>
+                                                                        <option ng-repeat="condition in conditions | orderBy:'Conditions'" value="{{condition.ConditionID}}">{{condition.Conditions}}</option>
                                                                     </optgroup>
                                                                     <option ng-value="Others">Others</option>
                                                                 </select>
@@ -96,7 +112,7 @@
                                                                 <br>
                                                                 <br>
                                                                 <div id="otherdiagnosis">
-                                                                    <label>Other Conditions</label>
+                                                                    <label>Other Diagnosis (Philhealth Exclusion)</label>
                                                                     <input type="text" ng-model="otherdiagnosis" class="form-control tooltips" data-trigger="hover" data-original-title="Separate with , if more than 1">
                                                                 </div>
                                                             </div>
@@ -158,10 +174,11 @@
                                                         </div>
                                                 </div>
                                                 </fieldset>
-                                                
-                                            <button type="button" class="btn btn-defualt pull-right" data-dismiss="modal">Close</button>
+                                                <button type="button" class="btn btn-defualt pull-right" data-dismiss="modal">Close</button>
                                             <button ng-click='confirmDiagnosis()' class="btn btn-danger pull-right">Next</button>
+                                           
                                             </form>
+                                            
                                         </div>
                                         <div id="diagsteptwo">
                                             <form class="grid-form" action="javascript:void(0)">
@@ -202,7 +219,7 @@
                                                     <div data-row-span="2">
                                                         <div data-field-span="1">
                                                             <label>Dosage</label>
-                                                            <input type="text" ng-model="Dosage[$index]" ng-init="Dosage[$index] = medication.Unit" disabled="disabled">
+                                                            <input type="text" ng-model="Dosage[$index]" ng-init="Dosage[$index] = medication.Unit">
                                                         </div>
                                                         <div data-field-span="1">
                                                             <label>Required Intake</label>
@@ -240,7 +257,36 @@
                                 </div>
                             </div>
                             <div class="tab-pane" id="tab-laboratory">
-                                <div class="panel panel-default">
+                                <div class="panel panel-danger">
+                                        <div class="panel-heading">
+                                            <h2>Latest Diagnosis</h2>
+                                            <div class="panel-ctrls"></div>
+                                        </div>
+                                            <div class="panel-body">
+                                                <div class="table-responsive">
+                                                    <table id="latest_table" class="table table-striped table-bordered" cellspacing="0" width="100%">
+                                                            <thead>
+                                                                <tr>
+                                                                    <th>Findings</th>
+                                                                    <th>Date & Time Diagnosed</th>
+                                                                    <th>Administered By</th>
+                                                                </tr>
+                                                            </thead>
+                                                            <tbody>
+                                                                <tr data-ng-repeat="latest in latestdiagnosis">
+                                                                    <td>{{latest.Findings}}</td>
+                                                                    <td>{{latest.DateDiagnosed}} {{latest.TimeDiagnosed}}</td>
+                                                                    <td>Dr. {{latest.PhysicianFirstname}} {{latest.PhysicianMiddlename}} {{ latest.PhysicianLastname}}</td>
+                                                            
+                                                                </tr>
+                                                            </tbody>
+                                                    </table>
+                                                </div>
+                                            </div>
+                                        <div class="panel-footer">
+                                        </div>
+                                </div>
+                                <div class="panel panel-danger">
                                     <div class="panel-heading">
                                         <h2>Post Laboratory</h2>
                                     </div>
@@ -269,6 +315,77 @@
                                                 </fieldset>
                                             <button type="button" class="btn btn-defualt pull-right" data-dismiss="modal">Close</button>
                                             <button ng-click='confirmLaboratory()' class="btn btn-danger pull-right">Confirm</button>
+                                            </form>
+                                    </div> 
+                                </div>
+                            </div> 
+                            <div class="tab-pane" id="tab-medications">
+                                <div class="panel panel-danger">
+                                        <div class="panel-heading">
+                                            <h2>Latest Diagnosis</h2>
+                                            <div class="panel-ctrls"></div>
+                                        </div>
+                                            <div class="panel-body">
+                                                <div class="table-responsive">
+                                                    <table id="latest_table" class="table table-striped table-bordered" cellspacing="0" width="100%">
+                                                            <thead>
+                                                                <tr>
+                                                                    <th>Findings</th>
+                                                                    <th>Date & Time Diagnosed</th>
+                                                                    <th>Administered By</th>
+                                                                </tr>
+                                                            </thead>
+                                                            <tbody>
+                                                                <tr data-ng-repeat="latest in latestdiagnosis">
+                                                                    <td>{{latest.Findings}}</td>
+                                                                    <td>{{latest.DateDiagnosed}} {{latest.TimeDiagnosed}}</td>
+                                                                    <td>Dr. {{latest.PhysicianFirstname}} {{latest.PhysicianMiddlename}} {{ latest.PhysicianLastname}}</td>
+                                                            
+                                                                </tr>
+                                                            </tbody>
+                                                    </table>
+                                                </div>
+                                            </div>
+                                        <div class="panel-footer">
+                                        </div>
+                                </div>
+                                <div class="panel panel-danger">
+                                    <div class="panel-heading">
+                                        <h2>Post Medications</h2>
+                                    </div>
+                                    <div class="panel-body">
+                                    <form class="grid-form">
+                                                <div class="row">
+                                                    <fieldset>
+                                                        <div data-row-span="2">
+                                                            <div data-field-span="1">
+                                                                <label>Medications: </label>
+                                                                <select id="separatemedications" class="select2" multiple="multiple" style="width:370px;">
+                                                                    <optgroup label="List of Medicines">
+                                                                        <option ng-repeat="meds in medicines" value="{{meds.MedicineID}}">{{meds.MedicineName}}</option>
+                                                                    </optgroup>
+                                                                    <option ng-value="Others">Others</option>
+                                                                </select>
+                                                                <a href="#">&nbsp;<i class="ti ti-close" ng-click="reset('meds')"></i></a>
+                                                                <br>
+                                                                <br>
+                                                                <div id="separateothermeds">
+                                                                    <label>Other Medicines</label>
+                                                                    <input type="text" ng-model="separateothermeds" class="form-control tooltips" data-trigger="hover" data-original-title="Separate with , if more than 1">
+                                                                </div>
+                                                                
+                                                            </div>
+                                                            <div data-field-span="1">
+                                                                <label>Special Order</label>
+                                                                <br>
+                                                                <input type="text" ng-model="medicationorder">
+                                                            </div>
+                                                        </div>
+                                                </div>
+                                                </fieldset>
+                                                <BR>
+                                            <button type="button" class="btn btn-defualt pull-right" data-dismiss="modal">Close</button>
+                                            <button ng-click='confirmMedication()' class="btn btn-danger pull-right">Confirm</button>
                                             </form>
                                     </div> 
                                 </div>
@@ -386,7 +503,7 @@
                                 </div>
                             </div> <!-- #tab-details -->
                             <div class="tab-pane" id="tab-history">
-                                <div class="panel panel-danger">
+                            <div class="panel panel-danger">
                                     <div class="panel-heading">
                                         <h2>Medical History</h2><a ng-click="viewHistoryReport()" class="pull-right"><i class="ti ti-printer"></i></a>
                                         <div class="panel-ctrls"></div>
@@ -403,7 +520,7 @@
                                                     </tr>
                                                     </thead>
                                                     <tbody>
-                                                    <tr ng-repeat="history in patienthistory" ng-class="{'selected': history.ArchiveID == selectedRow}" ng-click="setClickedRow(history.ArchiveID)">
+                                                    <tr ng-repeat="history in patienthistory" ng-class="{'selected': history.ArchiveNo == selectedRow}" ng-click="setClickedRow(history.ArchiveNo)">
                                                         <td>{{history.Firstname}} {{history.Middlename}} {{history.Lastname}}</td>
                                                         <td>{{history.ArchiveID}}</td>
                                                         <td>{{history.AdmissionDate}}</td>
@@ -413,9 +530,10 @@
                                                 </table>
                                             </div>
                                         </div>
-                                    <div class="panel-footer">
+                                        <div class="panel-footer">
+                                        <button type="button" ng-click="viewPatientDataHistory()" class="btn btn-danger-alt pull-left">View Details</button>
                                     </div>
-                                </div>   
+                                </div>         
                             </div> 
                         </div>
                     </div>
@@ -471,6 +589,7 @@
             if ($scope.medicationid != '' && $scope.medicalid != '') {
                 $('#diagstepone').hide();
                 $('#diagsteptwo').show();
+
                 $http({
                     method: 'GET',
                     url: 'getData/get-medication-details.php',
@@ -538,6 +657,19 @@
                 }).then(function(response) {
                     $scope.userdetails = response.data;
                 });
+
+            $http({
+                method: 'GET',
+                url: 'getData/get-latest-diagnosis.php',
+                params: {admissionid: $scope.admissionid }
+            }).then(function(response) {
+                $scope.latestdiagnosis = response.data;
+                angular.element(document).ready(function() {  
+                dTable = $('#latest_table')  
+                dTable.DataTable();  
+            	});  
+            });
+
 
             $http({
                 method: 'GET',
@@ -610,10 +742,12 @@
             $scope.otherdiagnosis = '';
             $scope.otherlabs = '';
             $scope.othermeds = '';
+            $scope.separateothermeds = '';
 
             $('#otherdiagnosis').hide();
             $('#otherlabs').hide();
             $('#othermeds').hide();
+            $('#separateothermeds').hide();
 
             $("#diagnosis").click(function() {
                 $scope.diagnosis = $("#diagnosis").val();
@@ -638,6 +772,14 @@
                     $('#othermeds').show();
                 }
             });
+
+            $("#separatemedications").click(function() {
+                $scope.meds = $("#separatemedications").val();
+                if ($scope.meds.indexOf('Others') >= 0) {
+                    $('#separateothermeds').show();
+                }
+            });
+
 
             $scope.reset = function(val) {
                 $scope.chck = val;
@@ -715,7 +857,7 @@
             $scope.submitDetails = function(type) {
                 swal({
                     icon: "success",
-                    title: "Successfully Added!",
+                    title: "Successfully Posted!",
                     text: "Redirecting in 2..",
                     timer: 2000
                 }).then(function() {
@@ -725,6 +867,30 @@
                         window.location.href = 'initiate-medication.php?qntyintake=' + $scope.Quantity + '&id=' + $scope.medicationid + '&at=' + $scope.at + '&dosage=' + $scope.Dosage + '&medid=' + $scope.MedID + '&notes=' + $scope.NoteID + '&admissionid=' + $scope.admissionid + '&intakeinterval=' + $scope.IntakeInterval  + '&parma=' + 'Outpatient' + '&medicalid=' + $scope.medicalid;
                     }
                 });
+            }
+
+            
+            $scope.setClickedRow = function(lab) {
+               $scope.selectedRow = ($scope.selectedRow == null) ? lab : ($scope.selectedRow == lab) ? null : lab;
+               $scope.clickedRow = ($scope.selectedRow == null) ? 0 : 1;
+           }
+
+           $scope.viewHistoryReport = function(){    
+           
+                $window.open('view-history-report.php?at='+$scope.at+'&id='+$scope.id, '_blank');
+                
+            }
+
+            
+           
+            $scope.viewPatientDataHistory = function(){
+                    if ($scope.selectedRow != null) {
+                        $scope.archiveno = $scope.selectedRow;
+                        window.location.href = 'view-archived-data.php?at=' + $scope.at + '&id=' + $scope.archiveno;
+                    } else {
+                        $('#errorModal').modal('show');
+                    }
+                
             }
 
             $scope.confirmLaboratory = function() {
@@ -743,7 +909,20 @@
                 });
             }
 
+            $scope.confirmMedication = function() {
+                $scope.meds = $("#separatemedications").val();
 
+                $scope.found1 = $scope.meds.indexOf('Others');
+
+                while ($scope.found1 !== -1) {
+                    $scope.meds.splice($scope.found1, 1);
+                    $scope.found1 = $scope.meds.indexOf('Others');
+                }
+                if ($scope.separateothermeds != '') {
+                    $scope.meds = $scope.meds.concat($scope.separateothermeds);
+                }
+                window.location.href = 'insertData/insert-separate-medications.php?at=' + $scope.at + '&id=' + $scope.admissionid + '&medicalid=' + $scope.medicalid + '&meds=' + $scope.meds + '&medorder=' + $scope.medicationorder; 
+            }
 
             $scope.getPage = function(check) {
                 switch (check) {

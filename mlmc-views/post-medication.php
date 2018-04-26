@@ -41,67 +41,40 @@
                         <div class="panel panel-white" data-widget='{"draggable": "false"}'>
                             <div class="panel-heading">
                                 <h2>Patient Medication Details</h2>
-                                <!-- <div class="panel-ctrls" data-actions-container="" data-action-collapse='{"target": ".panel-body"}'></div> -->
+                              
                             </div>
                             <div class="panel-body">
                                 <form class="grid-form" action="javascript:void(0)">  
-                                <fieldset data-ng-repeat="patient in patientdetails">
-                                    <div data-row-span="3">
-                                            <div data-field-span="1">
-                                                <label>Admission ID<br></label>
-                                                <input type="text" ng-model="admissionid" ng-disabled='true'>
-                                            </div>
-                                            <div data-field-span="1">
-                                                <label>Admission No<br></label>
-                                                <input type="text" ng-model="patient.AdmissionNo" ng-disabled='true'>
-                                            
-                                            </div>
-                                        </div>
-                                    <div data-row-span="4">
-                                            <div data-field-span="1">
-                                                <label>Last Name</label>
-                                                <input type="text" ng-value="patient.Lastname" ng-disabled='true'>
-                                            </div>
-                                            <div data-field-span="1">
-                                                <label>First Name</label>
-                                                <input type="text" ng-value="patient.Firstname" ng-disabled='true'>
-                                            </div>
-                                            <div data-field-span="1">
-                                                <label>Middle Name</label>
-                                                <input type="text" ng-value="patient.Middlename" ng-disabled='true'>
-                                            </div>
-                                    </div>
-                                    </fieldset>  
-                                    <br>
-                                    <fieldset data-ng-repeat="medication in medications track by $index">
-                                        <legend>{{medication.MedicineName}} <h6>Medicine ID: {{medication.MedicineID}}</h6></legend>
-                                        <div data-row-span="2">
-                                            <div data-field-span="1">
-                                                <label>Dosage</label>
-                                                <input type="text" ng-model="Dosage[$index]" ng-init="Dosage[$index] = medication.Unit" disabled="disabled"> 
-                                            </div>
-                                            <div data-field-span="1">
-                                                <label>Intake Days</label>
-                                                <input type="text" ng-model="Quantity[$index]" ng-init="Quantity[$index] = medication.Quantity">
-                                                <input type="hidden" ng-model="MedID[$index]" ng-init="MedID[$index] = medication.MedicineID"> 
-                                            </div>
-                                        </div>
-                                        <div data-row-span="2">
-                                            <div data-field-span="1">
-                                                <label>Notes</label>
-                                                <input type="text" ng-model="NoteID[$index]" placeholder="Notes here"> 
-                                            </div>
-                                            <div data-field-span="1">
-                                                <label>Intake Inerval</label>
-                                                <select class="form-control" ng-model="IntakeInterval[$index]" style="width:395px;">
-                                                    <option value="" disabled selected>Select Interval</option>
-                                                    <option ng-repeat="intrvl in interval" value="{{intrvl.DosingID}}">{{intrvl.Intake}} a day</option>
-                                                </select>
-                                            </div>
-                                        
-                                        </div>
-                                    <br><br>
-                                    </fieldset>
+                                <fieldset data-ng-repeat="medication in medications track by $index">
+                                                <input type="text" ng-model="Intake[$index]" ng-init="Intake[$index] = medication.MedicineName" disabled="true">
+                                                    <div data-row-span="2">
+                                                        <div data-field-span="1">
+                                                            <label>Dosage</label>
+                                                            <input type="text" ng-model="Dosage[$index]" ng-init="Dosage[$index] = medication.Unit">
+                                                        </div>
+                                                        <div data-field-span="1">
+                                                            <label>Required Intake</label>
+                                                            <input type="text" ng-model="Quantity[$index]" ng-init="Quantity[$index] = medication.Quantity">
+                                                            <input type="hidden" ng-model="MedID[$index]" ng-init="MedID[$index] = medication.MedicineID">
+                                                        </div>
+                                                    </div>
+                                                    <div data-row-span="2">
+                                                        <div data-field-span="1">
+                                                            <label>Notes</label>
+                                                            <input type="text" ng-model="NoteID[$index]" placeholder="Notes here">
+                                                        </div>
+                                                        <div data-field-span="1">
+                                                            <label>Intake Inerval</label>
+                                                            <select class="form-control" ng-model="IntakeInterval[$index]" style="width:395px;">
+                                                                <option value="" disabled selected>Select Interval</option>
+                                                                <option ng-repeat="intrvl in interval" value="{{intrvl.DosingID}}">{{intrvl.Intake}}</option>
+                                                            </select>
+                                                        </div>
+
+                                                    </div>
+                                                    <br>
+                                                    <br>
+                                                </fieldset>
                                             <div class="pull-right">
                                                 <button ng-click="goBack()" class="btn-default btn">Cancel</button>
                                                 <button type="submit" class="btn-danger btn" ng-click="submitDetails(type)">Submit</button>
@@ -130,9 +103,11 @@
                     
                     $scope.at = "<?php echo $_GET['at'];?>";
                     $scope.medicationid = "<?php echo $_GET['medicationid']; ?>";
-                    $scope.admissionid = "<?php echo $_GET['admissionid']; ?>";
+                    $scope.admissionid = "<?php echo $_GET['id']; ?>";
+                    $scope.medicalid = "<?php echo $_GET['medicalid']; ?>";
 
                     $scope.MedID = [];
+                    $scope.Intake = [];
                     $scope.Quantity = [];
                     $scope.Dosage = [];
                     $scope.NoteID = [];
@@ -170,12 +145,23 @@
                         default:
                             break;
                     }
+
+                    $scope.accesstype = $scope.at[0];
+                    $http({
+                        method: 'GET',
+                        url: 'getData/get-user-profile.php',
+                        params: {id: $scope.at,
+                        atype : $scope.accesstype}
+                    }).then(function(response) {
+                        $scope.userdetails = response.data;
+                    });
+
                     
                     $http({
                         method: 'GET',
                         url: 'getData/get-medication-details.php',
                         params: {medicationid: $scope.medicationid,
-                                admissionid: $scope.admissionid}
+                                medicalid: $scope.medicalid}
                     }).then(function(response) {
                         $scope.medications = response.data;
                     });
@@ -198,14 +184,14 @@
                     $scope.submitDetails = function(type){
                         swal({
                             icon: "success",
-                            title: "Successfully Added!",
+                            title: "Successfully Posted!",
                             text: "Redirecting in 2..",
                             timer: 2000
-                        }).then(function () {
-                            window.location.href = 'initiate-medication.php?quantity=' + $scope.Quantity + '&id=' + $scope.medicationid + '&at=' + $scope.at + '&dosage=' + $scope.Dosage + '&medid=' + $scope.MedID + '&notes=' + $scope.NoteID  + '&admissionid=' + $scope.admissionid + '&intakeinterval=' + $scope.IntakeInterval;
-                            }, function (dismiss) {
+                        }).then(function() {
+                            window.location.href = 'initiate-medication.php?qntyintake=' + $scope.Quantity + '&id=' + $scope.medicationid + '&at=' + $scope.at + '&dosage=' + $scope.Dosage + '&medid=' + $scope.MedID + '&notes=' + $scope.NoteID + '&admissionid=' + $scope.admissionid + '&intake=' + $scope.Intake + '&intakeinterval=' + $scope.IntakeInterval + '&parma=' + 'Outpatient' + '&medicalid=' + $scope.medicalid;
+                        }, function(dismiss) {
                             if (dismiss === 'cancel') {
-                                window.location.href = 'initiate-medication.php?quantity=' + $scope.Quantity + '&id=' + $scope.medicationid + '&at=' + $scope.at + '&dosage=' + $scope.Dosage + '&medid=' + $scope.MedID +  '&notes=' + $scope.NoteID + '&admissionid=' + $scope.admissionid + '&intakeinterval=' + $scope.IntakeInterval;
+                                window.location.href = 'initiate-medication.php?qntyintake=' + $scope.Quantity + '&id=' + $scope.medicationid + '&at=' + $scope.at + '&dosage=' + $scope.Dosage + '&medid=' + $scope.MedID + '&notes=' + $scope.NoteID + '&admissionid=' + $scope.admissionid + '&intakeinterval=' + $scope.IntakeInterval  + '&parma=' + 'Outpatient' + '&medicalid=' + $scope.medicalid;
                             }
                         });
                     }

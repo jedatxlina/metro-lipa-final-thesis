@@ -485,6 +485,7 @@
                                     condition: $scope.condition,
                                     attendingid: $scope.attendingid,
                                     surgery: $scope.surgery,
+                                    medicationid: $scope.medicationid,
                                     bp: JSON.stringify($scope.parsedbp),
                                     pr: $scope.pr,
                                     rr: $scope.rr,

@@ -246,13 +246,13 @@ var fetch = angular.module('myApp', ['ui.mask']);
         });
 
        $scope.viewPatientDataHistory = function(){
-        if ($scope.selectedRow != null) {
-            $scope.archiveno = $scope.selectedRow;
-            window.location.href = 'view-archived-data.php?at=' + $scope.at + '&id=' + $scope.archiveno;
-        } else {
-            $('#errorModal').modal('show');
-        }
-       
+            if ($scope.selectedRow != null) {
+                $scope.archiveno = $scope.selectedRow;
+                window.location.href = 'view-archived-data.php?at=' + $scope.at + '&id=' + $scope.archiveno;
+            } else {
+                $('#errorModal').modal('show');
+            }
+        
        }
 
        $scope.setClickedRow = function(lab) {
