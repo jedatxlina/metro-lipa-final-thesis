@@ -520,16 +520,40 @@
             }
 
             $scope.postBilling = function() {
-                $http({
-                    method: 'get',
-                    url: 'insertData/insert-data-billing.php',
-                    params: {
-                        id: $scope.id,
-                        total: $scope.subtotal2
+                for (var i = 0; i < $scope.DocBill.length; i++) {
+                    if($scope.DocBill[i] == '0')
+                    {
+                        $scope.clear = 0;
                     }
-                }).then(function(response) {
-                    window.location.href='billing.php?at=' + $scope.at;
-                });
+                }
+                if($scope.clear == 0)
+                {
+                    swal({
+                                    icon: "warning",
+                                    title: "A Doctor has Not Posted Their Bill",
+                                    text: "Reloading in 2..",
+                                    timer: 3000
+                                }).then(function() {
+                                    window.location.reload(false);
+                                }, function(dismiss) {
+                                    if (dismiss === 'cancel') {
+                                        window.location.reload(false);
+                                    }
+                                });
+                }
+                else
+                {
+                    $http({
+                        method: 'get',
+                        url: 'insertData/insert-data-billing.php',
+                        params: {
+                            id: $scope.id,
+                            total: $scope.subtotal2
+                        }
+                    }).then(function(response) {
+                        window.location.href='billing.php?at=' + $scope.at;
+                    });
+                }
             }
             
             $scope.notifyPatient = function(){

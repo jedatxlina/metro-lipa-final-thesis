@@ -170,14 +170,14 @@ font-weight: bold;
 								<div class="panel-body" style="height: auto" data-ng-repeat="att in attendingdetails2">
 									<center><span><strong>Attending Doctor Information</strong></span></center>
 									<hr>
-									<div class="row">
+									<!-- <div class="row">
 										<div class="form-group">
 											<label for="focusedinput" class="col-sm-3 control-label">Attending ID</label>
 											<div class="col-sm-8">
-												<input type="text" class="form-control" ng-value="att.AttID" ng-model="doctorid"  disabled>
+												<input type="text" class="form-control" ng-init = "AttendingID[$index] = att.AttID" ng-model="AttendingID[$index]"  disabled>
 											</div>
 										</div>
-									</div>
+									</div> -->
 									<div class="row">
 										<div class="form-group">
 											<label for="focusedinput" class="col-sm-3 control-label">Doctor Name</label>
@@ -350,14 +350,12 @@ font-weight: bold;
 												<table id="medication_table" class="table table-striped table-bordered" cellspacing="0" width="100%">
 													<thead>
 													<tr>
-														<th>Attending ID</th>
 														<th>Doctor Name</th>
 														<th>Doctor Specialization</th>
 													</tr>
 													</thead>
 													<tbody>
-													<tr ng-repeat="doc in attendingdetails" ng-class="{'selected': doc.AttID == selectedRow}" ng-click="setClickedRow(doc.AttID)">
-															<td>{{doc.AttID}}</td>
+													<tr ng-repeat="doc in attendingdetails" ng-class="{'selected': doc.PID == selectedRow}" ng-click="setClickedRow(doc.PID,doc.AttID)">
 															<td>{{doc.FullName}}</td>
 															<td>{{doc.SP}}</td>
 														</tr>
@@ -555,6 +553,7 @@ font-weight: bold;
 		$scope.at = "<?php echo $_GET['at'];?>";
 		$scope.selectedRow = null;
 		$scope.clickedRow = 0;
+		$scope.AttendingID = [];
 		$scope.new = {};
 
 			var tick = function() {
@@ -638,9 +637,10 @@ font-weight: bold;
                     $scope.bed = response.data;
                 });
 		   
-		$scope.setClickedRow = function(user) {
+		$scope.setClickedRow = function(user,param) {
            $scope.selectedRow = ($scope.selectedRow == null) ? user : ($scope.selectedRow == user) ? null : user;
            $scope.clickedRow = ($scope.selectedRow == null) ? 0 : 1;
+		   $scope.selattid = param;
 	   	}
 
 		$scope.addPatient = function(){
@@ -707,7 +707,8 @@ font-weight: bold;
 					method: 'get',
 					url: 'updateData/update-attending-profee.php',
 					params: {id: $scope.selectedRow,
-							fee:$scope.profee}
+							fee:$scope.profee,
+							phyid: $scope.selattid}
 				}).then(function(response) {
 					window.location.reload();
 				});
@@ -804,7 +805,8 @@ font-weight: bold;
 				$http({
 					method: 'get',
 					url: 'getData/get-attending-details2.php',
-					params: {id: $scope.doctor}
+					params: {id: $scope.doctor,
+							attid: $scope.selattid}
 				}).then(function(response) {
 					$scope.attendingdetails2 = response.data;
 				});
