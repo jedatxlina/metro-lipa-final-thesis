@@ -438,7 +438,7 @@ include 'admin-header.php' ?>
                                                 </tr>
                                             </thead>
                                             <tbody>
-                                                <tr ng-repeat="medication in medicationdetails" ng-class="{'selected': medication.ID == selectedRow}" ng-click="setClickedRow(medication.ID)">
+                                                <tr ng-repeat="medication in medicationdetails" ng-if="medication.QuantityOnHand!=0" ng-class="{'selected': medication.ID == selectedRow}" ng-click="setClickedRow(medication.ID)">
                                                     <td>{{medication.MedicineName}}</td>
                                                     <td>{{medication.QuantityOnHand}}</td>
                                                     <td>{{medication.Dosage}}</td>
