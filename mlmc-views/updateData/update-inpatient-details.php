@@ -1,6 +1,6 @@
 <?php
     require_once 'connection.php';
-    date_default_timezone_set("Asia/Singapore");
+
     $id =  $_GET['AdmissionID'];
     $bedid = $_GET['BedID']; 
     $dietplan = $_GET['Dietplan'];

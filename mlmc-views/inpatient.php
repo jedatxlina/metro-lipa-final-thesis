@@ -234,7 +234,7 @@ font-weight: bold;
 										<h2>Relocate Patient</h2>
 										<div class="panel-ctrls" data-actions-container="" data-action-collapse='{"target": ".panel-body, .panel-footer"}'></div>
 									</div>
-									<div class="panel-body" style="height: auto" data-ng-repeat="relocate in reldetails | limitTo:1">
+									<div class="panel-body" style="height: auto" data-ng-repeat="relocate in reldetails">
 										<center><span><strong>Registry Information</strong></span></center>
 										<hr>
 

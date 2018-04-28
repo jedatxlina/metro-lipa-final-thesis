@@ -747,13 +747,13 @@ include 'admin-header.php' ?>
 
                 $scope.postBills = function() {
                     if ($scope.selectedRow != null) {
-                        // $http({
-                        //     method: 'get',
-                        //     url: 'updateData/update-roomend-date.php',
-                        //     params: {
-                        //         id: $scope.selectedRow
-                        //     }
-                        // }).then(function(response) {});
+                        $http({
+                            method: 'get',
+                            url: 'updateData/update-roomend-date.php',
+                            params: {
+                                id: $scope.selectedRow
+                            }
+                        }).then(function(response) {});
                         window.location.href = 'view-patient-bill.php?at=' + $scope.at + '&id=' + $scope.selectedRow;
                     } else {
                         $('#myModal').modal('show');
