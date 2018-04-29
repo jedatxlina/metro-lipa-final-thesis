@@ -58,7 +58,7 @@ include 'admin-header.php' ?>
 															</tr>
 															</thead>
 															<tbody>
-															<tr ng-repeat="user in epatient" ng-class="{'selected': user.AdmissionID == selectedRow}" ng-click="setClickedRow(user.AdmissionID)">
+															<tr ng-repeat="user in epatient" ng-class="{'selected': user.AdmissionID == selectedRow}" ng-click="setClickedRow(user.AdmissionID,user.MedicalID)">
 																<!-- <td>{{user.AdmissionID}}</td>
 																<td>{{user.AdmissionNo}}</td> -->
 																<td>{{user.Lname}}, {{user.Fname}} {{user.Mname}} </td>
@@ -88,7 +88,7 @@ include 'admin-header.php' ?>
                                                         </tr>
                                                     </thead>
                                                     <tbody>
-                                                        <tr ng-repeat="user in users" ng-class="{'selected': user.AdmissionID == selectedRow}" ng-click="setClickedRow(user.AdmissionID)">
+                                                        <tr ng-repeat="user in users" ng-class="{'selected': user.AdmissionID == selectedRow}" ng-click="setClickedRow(user.AdmissionID,user.MedicalID)">
                                                             <td>{{user.BedID}}</td>
                                                             <td>{{user.Fullname}}</td>
                                                             <td>{{user.Gender}}
@@ -105,15 +105,6 @@ include 'admin-header.php' ?>
 													</div>
 												</div>
 											</div>
-
-
-
-
-
-
-
-
-
 
                                 <a ng-click="generatePatientDiet()" class="pull-right"> Generate Patient Diet&nbsp;<i class="ti ti-printer"></i></a>
                             </div>
@@ -150,6 +141,7 @@ include 'admin-header.php' ?>
                             <a href="#" ng-click="patientVitals()" role="tab" data-toggle="tab" class="list-group-item"><i class="fa fa-stethoscope"></i>Patient Vitals</a>
                             <a href="#" ng-click="viewPatientMedication()" role="tab" data-toggle="tab" class="list-group-item"><span class="badge badge-primary"></span> <i class="fa fa-medkit"></i>View Medication</a>
                             <a href="#" ng-click="medicineRequisition()" role="tab" data-toggle="tab" class="list-group-item"><span class="badge badge-primary"></span> <i class="fa fa-plus-square-o"></i>Medicine Requisition</a>
+                            <a href="#" ng-click="postDiagnosis()" role="tab" data-toggle="tab" class="list-group-item"><i class="fa fa-stethoscope"></i>Post Diagnosis</a>
                             <a href="#" ng-click="postMedication()" role="tab" data-toggle="tab" class="list-group-item"><span class="badge badge-primary"></span> <i class="fa fa-plus-square-o"></i>Post Medication</a>
                             <a href="#" ng-click="viewOrder()" role="tab" data-toggle="tab" class="list-group-item"><span class="badge badge-primary"  ng-if="order > 0">{{order}}</span> <i class="ti ti-email"></i>Doctors Order</a>
                             <a href="#" ng-click="postBills()" role="tab" data-toggle="tab" class="list-group-item"><i class="fa fa-file-text-o"></i>Process Billing</a>
@@ -469,10 +461,10 @@ include 'admin-header.php' ?>
                                         <h2>Tag as Discharged</h2>
                                         <div class="panel-ctrls" data-actions-container="" data-action-collapse='{"target": ".panel-body, .panel-footer"}'></div>
                                     </div>
-                                    <div class="panel-body" style="height: auto">
+                                    <div class="panel-body" style="height: auto" data-ng-repeat="details in dischargedetails   | limitTo : 1">
                                         <center><span><strong>Registry Information</strong></span></center>
                                         <hr>
-                                        <div class="row" data-ng-repeat="details in dischargedetails">
+                                        <div class="row" >
                                             <div class="form-group">
                                                 <label for="focusedinput" class="col-sm-3 control-label">Patient name</label>
                                                 <div class="col-sm-8">
@@ -480,7 +472,7 @@ include 'admin-header.php' ?>
                                                 </div>
                                             </div>
                                         </div>
-                                        <div class="row" data-ng-repeat="details in dischargedetails">
+                                        <div class="row">
                                             <div class="form-group">
                                                 <label for="focusedinput" class="col-sm-3 control-label">Total Bill</label>
                                                 <div class="col-sm-5">
@@ -488,7 +480,7 @@ include 'admin-header.php' ?>
                                                 </div>
                                             </div>
                                         </div>
-                                        <div class="form-group" data-ng-repeat="details in dischargedetails">
+                                        <div class="form-group">
                                             <label for="focusedinput" class="col-sm-3 control-label">Status</label>
                                             <div class="col-sm-5">
                                                 <input type="text" class="form-control" ng-value="details.status" disabled>
@@ -743,6 +735,19 @@ include 'admin-header.php' ?>
                     } else {
                         $('#myModal').modal('show');
                     }
+                }
+
+                
+                $scope.postDiagnosis = function(){
+                    if($scope.selectedRow != null){
+                        $scope.admissionid = $scope.selectedRow;
+                        window.location.href = 'post-diagnosis-nurse.php?at=' + $scope.at + '&id=' + $scope.admissionid + '&medicalid=' + $scope.orderadmissionid;
+                        
+                    }
+                    else{
+                    $('#errorModal').modal('show');
+                    }
+           
                 }
 
                 $scope.postBills = function() {

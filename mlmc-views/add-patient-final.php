@@ -77,7 +77,8 @@
                                             <div data-row-span="2">
                                                 <div data-field-span="1">
                                                     <label>Medicine</label>
-                                                    <input type="text" ng-model="Intake[$index]" ng-init="Intake[$index] = intake.MedicineName" disabled="disabled"> {{intake.Dosage}}
+                                                    <input type="text" ng-model="Intake[$index]" ng-init="Intake[$index] = intake.MedicineName" disabled="true">  {{intake.Dosage}}
+                                                    <input type="hidden" ng-model="Dosage[$index]" ng-init="Dosage[$index] = intake.Dosage"> 
                                                 </div>
                                                 <div data-field-span="1">
                                                     <label>Quantity Administered</label>
@@ -194,7 +195,7 @@
                     $scope.param = "<?php echo $_GET['param']; ?>";
                     // $scope.MedID = [];
                     // $scope.Quantity = [];
-                    // $scope.Dosage = [];
+                    $scope.Dosage = [];
                     // $scope.IntakeInterval = [];
 
                     $scope.AdmissionNo = [];
@@ -375,10 +376,10 @@
                             text: "Successfully Added Patient ..",
                             timer: 2000
                         }).then(function () {
-                                window.location.href = 'initiate-medication.php?admissionid=' + $scope.admissionid  + '&id=' + $scope.medicationid + '&at=' + $scope.at  + '&param=' + $scope.param + '&notes=' + $scope.NoteID + '&intake=' + $scope.Intake + '&qntyintake=' + $scope.QuantityIntake;
+                                window.location.href = 'initiate-medication.php?admissionid=' + $scope.admissionid  + '&id=' + $scope.medicationid + '&at=' + $scope.at  + '&param=' + $scope.param + '&notes=' + $scope.NoteID + '&intake=' + $scope.Intake + '&qntyintake=' + $scope.QuantityIntake + '&dosage=' + $scope.Dosage;
                             }, function (dismiss) {
                             if (dismiss === 'cancel') {
-                                window.location.href = 'initiate-medication.php?admissionid=' + $scope.admissionid   + '&id=' + $scope.medicationid + '&at=' + $scope.at   + '&param=' + $scope.param + '&notes=' + $scope.NoteID + '&intake=' + $scope.Intake + '&qntyintake=' + $scope.QuantityIntake;
+                                window.location.href = 'initiate-medication.php?admissionid=' + $scope.admissionid   + '&id=' + $scope.medicationid + '&at=' + $scope.at   + '&param=' + $scope.param + '&notes=' + $scope.NoteID + '&intake=' + $scope.Intake + '&qntyintake=' + $scope.QuantityIntake + '&dosage=' + $scope.Dosage;
                             }
                         });
 

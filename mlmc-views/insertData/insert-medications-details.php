@@ -5,6 +5,7 @@ $newconditionid =  rand(111111, 999999);
 $conditionid =  rand(111111, 999999);
 $newpharmaid =  rand(111111, 999999);
 $newadministeredid =  rand(111111, 999999);
+$newmedicineid = rand(111111, 999999);
 
 $at = $_GET['at'];
 $param = $_GET['param'];
@@ -19,7 +20,7 @@ $medid = $_GET['medid'];
 
 // $condition = $_GET['condition'];
 
-$medication = $_GET['medication'];
+$meds = $_GET['medication'];
 
 // $diagnosis = $_GET['diagnosis'];
 // $administered = $_GET['administered'];
@@ -81,57 +82,64 @@ $time = date("h:i A");
     //     }
     // }
 
-    if(preg_match("/[A-z]/i", $medication)){
-        
-        $medication = explode(',',$medication);
+    
+    if(preg_match("/[A-z]/i", $meds)){
+            
+        $meds = explode(',',$meds);
 
-        foreach($medication AS $value){
+        foreach($meds AS $value){
             
             if(is_numeric($value)){
-                
+
                 $sel = mysqli_query($conn,"SELECT MedicineName,Unit FROM pharmaceuticals WHERE MedicineID = '$value'");
-                while ($row = mysqli_fetch_assoc($sel)) {   
-                    $medname = $row['MedicineName'];
-                    $meddosage = $row['Unit'];
+
+                while ($row = mysqli_fetch_assoc($sel)) {
+                    $val = $row['MedicineName'];
+                    $valunit = $row['Unit'];
                 }
 
                 $query = "INSERT into medication(MedicationID,AdmissionID,MedicineName,DateAdministered,TimeAdministered,Dosage,PhysicianID) 
-                VALUES('$medicationid','$admissionid','$medname','$date','$time','$meddosage','$physicianid')";
-    
-                mysqli_query($conn,$query);
+                        VALUES('$medicationid','$admissionid','$val','$date','$time','$valunit','$physicianid')";
 
+                mysqli_query($conn,$query);   
 
             }
             else{
+
                 $value  = ucwords(strtolower($value));
+
+                $query = "INSERT into pharmaceuticals(MedicineID,MedicineName) 
+                        VALUES('$newmedicineid','$value')";
+
+                mysqli_query($conn,$query);
+                
+                $newmedicineid = rand(111111, 999999);
 
                 $query = "INSERT into medication(MedicationID,AdmissionID,MedicineName,DateAdministered,TimeAdministered,PhysicianID) 
                 VALUES('$medicationid','$admissionid','$value','$date','$time','$physicianid')";
-    
-                mysqli_query($conn,$query);
+
+                mysqli_query($conn,$query);  
             }
 
         }
-
     }
     else{
-        
-        $medication = explode(',',$_GET['medication']);
+        $meds = explode(',',$meds);
 
-        foreach($medication AS $value) {
-        
-            $sel = mysqli_query($conn,"SELECT MedicineName,Unit FROM pharmaceuticals WHERE MedicineID = '$value'");
-            while ($row = mysqli_fetch_assoc($sel)) {   
-                $medname = $row['MedicineName'];
-                $meddosage = $row['Unit'];
-            }
+        foreach($meds AS $value) {
+
+                $sel = mysqli_query($conn,"SELECT MedicineName,Unit FROM pharmaceuticals WHERE MedicineID = '$value'");
+
+                while ($row = mysqli_fetch_assoc($sel)) {
+                    $val = $row['MedicineName'];
+                    $valunit = $row['Unit'];
+                }
 
             $query = "INSERT into medication(MedicationID,AdmissionID,MedicineName,DateAdministered,TimeAdministered,Dosage,PhysicianID) 
-            VALUES('$medicationid','$admissionid','$medname','$date','$time','$meddosage','$physicianid')";
+                        VALUES('$medicationid','$admissionid','$val','$date','$time','$valunit','$physicianid')";
 
             mysqli_query($conn,$query);
         }
-
     }
 
     // if(preg_match("/[A-z]/i", $diagnosis)){

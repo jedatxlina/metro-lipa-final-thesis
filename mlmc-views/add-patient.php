@@ -86,8 +86,8 @@
 
                                             <div data-row-span="4">
                                                 <div data-field-span="1">
-                                                    <label>In case of a minor please provide details (Name of parent and natural guardian)</label>
-                                                    <input type="text">
+                                                    <label>Companion</label>
+                                                    <input type="text" class="form-control" ng-model="companion">
                                                 </div>
                                                 <div data-field-span="1">
                                                     <label>Contact</label>
@@ -122,7 +122,7 @@
                                                     </div>
                                                     <div data-row-span='4'>
                                                         <div data-field-span="1">
-                                                            <label>Complete Address</label>
+                                                            <label>House No/Blk No./Zip Code</label>
                                                             <input type="text" ng-model="address">
                                                         </div>
                                                     </div>
@@ -609,7 +609,7 @@
 
                     $scope.submitForm = function(check){
                         $scope.birthdate =$("#datepicker").datepicker("option", "dateFormat", "yy-mm-dd" ).val();
-                        
+                        $scope.address = $scope.address + ' ' + $scope.brgy.brgy + ' ' + $scope.city.city + ' ' + $scope.province.provname;
                         $http({
                             method: 'GET',
                             url: 'insertData/insert-emergency-details.php',

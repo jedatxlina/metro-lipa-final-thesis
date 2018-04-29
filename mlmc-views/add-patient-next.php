@@ -103,7 +103,11 @@
                                                     <div>
                                                         <legend>Attending Physician</legend>
                                                         <div data-row-span="4">
+<<<<<<< HEAD
+                                                            <div data-field-span="2" ng-show="param != Outpatient">
+=======
                                                             <div data-field-span="2" ng-show="param == 'Emergency'">
+>>>>>>> master
                                                                 <!-- <label>Impression/Admitting Diagnosis</label>
                                                             <select id="diagnosis" class="select2" multiple="multiple" style="width:400px;">
                                                                     <optgroup label="List of Impression/Diagnosis">

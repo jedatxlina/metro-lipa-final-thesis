@@ -179,11 +179,11 @@
 					<div class="modal-dialog">
 						<div class="panel panel-danger" data-widget='{"draggable": "false"}'>
 							<div class="panel-heading">
-								<h2>Reffer a physician</h2>
+								<h2>Refer a physician</h2>
 								<div class="panel-ctrls" data-actions-container="" data-action-collapse='{"target": ".panel-body, .panel-footer"}'></div>
 							</div>
 							<div class="panel-body" style="height: auto">
-							<center><span><strong>Reffer to a physician</strong></span></center>
+							<center><span><strong>Refer to a physician</strong></span></center>
 									<hr>
 									<div class="row">
 										<div class="form-group">
@@ -226,7 +226,7 @@
 									<br>
 							</div>
 							<div class="panel-footer">
-								<button type="button" ng-click="referPatient()" data-dismiss="modal" class="btn btn-danger pull-right">Reffer</button>
+								<button type="button" ng-click="referPatient()" data-dismiss="modal" class="btn btn-danger pull-right">Refer</button>
 									<button type="button" data-dismiss="modal" class="btn btn-default pull-right">Cancel</button>
 							</div>
 						</div>
@@ -239,7 +239,7 @@
 					<div class="modal-dialog">
 						<div class="panel panel-danger" data-widget='{"draggable": "false"}'>
 							<div class="panel-heading">
-								<h2>Refferal Notifications</h2>
+								<h2>Referal Notifications</h2>
 								<div class="panel-ctrls" data-actions-container="" data-action-collapse='{"target": ".panel-body, .panel-footer"}'></div>
 							</div>
 							<div class="panel-body" style="height: auto">

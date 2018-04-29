@@ -3,6 +3,7 @@ require_once 'connection.php';
 $orderid =  rand(111111, 999999);  
 $newmedicineid = rand(111111, 999999);
 $at = $_GET['at'];
+$nurseat = $_GET['nurseat'];
 $admissionid = $_GET['id'];
 $medicalid = $_GET['medicalid'];
 $meds = $_GET['meds'];
@@ -77,12 +78,12 @@ else{
     }
 }
 
-$query = "INSERT into orders(OrderID,MedicalID,AdmissionID,PhysicianID,Task,DateOrder,TimeOrder,Status) 
-    VALUES('$orderid','$medicalid','$admissionid','$at','$medorder','$date','$time','Pending')";
+$query = "INSERT into orders(OrderID,MedicalID,AdmissionID,PhysicianID,Task,DateOrder,TimeOrder,Status,NurseID) 
+    VALUES('$orderid','$medicalid','$admissionid','$at','$medorder','$date','$time','Pending','$nurseat')";
 
 mysqli_query($conn,$query);
 
 
 
-header("Location:../post-medication.php?at=$at&medicationid=$medicationid&id=$admissionid&medicalid=$medicalid");
+header("Location:../post-medication-nurse.php?at=$nurseat&medicationid=$medicationid&id=$admissionid&medicalid=$medicalid&phyat=$at");
 
