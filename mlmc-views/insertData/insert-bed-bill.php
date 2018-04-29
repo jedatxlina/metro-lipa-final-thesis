@@ -1,7 +1,7 @@
 <?php
 require_once 'connection.php';
 
-
+date_default_timezone_set("Asia/Singapore");
 $billid =  rand (11111,99999);
 $admissno =  $_GET['admissno']; 
 $admissionid =  $_GET['admissionid']; 

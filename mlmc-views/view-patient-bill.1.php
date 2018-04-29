@@ -87,6 +87,39 @@
                                     </div>
                                 </div>
 
+                                <h4 class="text-primary text-center" style="font-weight: small;">From Emergency</h4>
+
+                                <div class="row mb-xl">
+                                    <div class="col-md-12">
+                                        <div class="panel">
+                                            <div class="panel-body no-padding">
+                                                <div class="table-responsive">
+                                                    <table class="table table-hover m-n">
+                                                        <thead>
+                                                            <tr>
+                                                                <th>Room #</th>
+                                                                <th>Arrival Date</th>
+                                                                <th>Discharged Date</th>
+                                                                <th>Duration of Stay</th>
+                                                                <th class="text-right">Total</th>
+                                                            </tr>
+                                                        </thead>
+                                                        <tbody>
+                                                            <tr ng-repeat="room in roomdetails track by $index">
+                                                                <td>{{room.BedID}}</td>
+                                                                <td>{{room.ArrivalDate}}</td>
+                                                                <td>{{room.DischargeDate}}</td>
+                                                                <td>{{room.Duration}}</td>
+                                                                <td class="text-right">{{room.bedbill.toLocaleString('en')}}</td>
+                                                            </tr>
+                                                        </tbody>
+                                                    </table>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
                                 <h5 class="text-primary text-center" style="font-weight: small;">From Admission</h5>
 
                                 <div class="row mb-xl">
@@ -202,7 +235,7 @@
                                                             <tbody>
                                                                 <tr ng-repeat="doc in docdetails track by $index">
                                                                     <td>{{$index +1}}</td>
-                                                                    <td>Dr. {{doc.Fname + doc.Mname + doc.Lname}}</td>
+                                                                    <td>Dr. {{doc.Fname}} {{doc.Mname}} {{doc.Lname}}</td>
                                                                     <td>{{doc.Discount.toLocaleString('en')}}</td>
                                                                     <td class="text-right">{{(doc.Pfee - doc.Discount).toLocaleString('en')}}</td>
                                                                 </tr>

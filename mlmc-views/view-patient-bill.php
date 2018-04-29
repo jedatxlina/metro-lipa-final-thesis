@@ -495,11 +495,17 @@
                         if($scope.senior == 'true'){
                             $scope.senior = 'false';
                             $scope.subtotal = $scope.subtotalroom + $scope.subtotalmedi+$scope.subtotallab+$scope.subtotaldoc;
+                            $scope.subtotal2 = $scope.subtotal-$scope.totaldiscount;
                         }else{
                             $scope.senior = 'true';
                             $scope.subtotal = $scope.subtotal - ($scope.subtotal*$scope.discount);
+                            $scope.subtotal2 = $scope.subtotal-$scope.totaldiscount;
                         }
-                    });
+                        if($scope.subtotal2 <= 0)
+                            $scope.subtotal2 = '0';
+                        else
+                            $scope.subtotal2 = $scope.subtotal-$scope.totaldiscount;
+                        });
                     
                 }
 
