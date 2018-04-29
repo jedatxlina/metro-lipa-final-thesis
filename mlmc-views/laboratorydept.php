@@ -43,7 +43,7 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr ng-repeat="labreq in labsreq" ng-class="{'selected': labreq.RequestID == selectedRow}" ng-click="setClickedRow(labreq.RequestID,labreq.AdmissionID,labreq.Description,labreq.LaboratoryID)">
+                                <tr ng-repeat="labreq in labsreq" ng-class="{'selected': labreq.RequestID == selectedRow}" ng-click="setClickedRow(labreq.RequestID,labreq.AdmissionID,labreq.Description,labreq.LaboratoryID,labreq.Fullname)">
                                     <td>{{labreq.AdmissionID}}</td>
                                     <td>{{labreq.Fullname}}</td>
                                     <td>{{labreq.Description}}</td>
@@ -83,7 +83,7 @@
                     <div class="list-group list-group-alternate mb-n nav nav-tabs">
 						<a href="#" role="tab" data-toggle="tab" class="list-group-item active">Actions Panel</a>
 						<a href="#" ng-click="viewPatient()" role="tab" data-toggle="tab" class="list-group-item"><i class="ti ti-user"></i> Patient Details</a>
-                        <a href="#" ng-click="ClearRequest()"role="tab" data-toggle="tab" class="list-group-item"><i class="ti ti-info-alt"></i>Clear Request</a>
+                        <a href="#" ng-click="inputClearModal()"role="tab" data-toggle="tab" class="list-group-item"><i class="ti ti-info-alt"></i>Clear Request</a>
                        
                 </div>
                     
@@ -236,6 +236,60 @@
            	 	</div>
 			<!--/ External Request Modal -->
 
+             <!-- Clear Request Modal -->
+			<div class="modal fade" id="ResultModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+					<div class="modal-dialog">
+						<div class="panel panel-danger" data-widget='{"draggable": "false"}'>
+							<div class="panel-heading">
+								<h2>Laboratory Request Interpretation</h2>
+								<div class="panel-ctrls" data-actions-container="" data-action-collapse='{"target": ".panel-body, .panel-footer"}'></div>
+							</div>
+							<div class="panel-body" style="height: auto">
+									<hr>
+									<div class="row">
+										<div class="form-group">
+											<label for="focusedinput" class="col-sm-3 control-label">
+											&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+											&nbsp;&nbsp;&nbsp;&nbsp;Patient Name</label>
+											<div class="col-sm-7">
+												<input type="text" ng-model="pname" class="form-control" disabled>
+											</div>
+										</div>
+									</div>
+									<br>
+									<div class="row">
+										<div class="form-group">
+											<label for="focusedinput" class="col-sm-3 control-label">
+											&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+											&nbsp;&nbsp;&nbsp;&nbsp;Laboratory</label>
+											<div class="col-sm-7">
+												<input type="text" ng-model="description" class="form-control" disabled>
+											</div>
+										</div>
+									</div>
+									<br>
+									<div class="row">
+										<div class="form-group">
+											<label for="focusedinput" class="col-sm-3 control-label">
+											&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+											&nbsp;&nbsp;&nbsp;&nbsp;Interpretation
+                                            </label>
+											<div class="col-sm-7">
+                                            <textarea autogrow ng-model="interpret" rows="4" cols="55"></textarea> 
+											</div>
+										</div>
+									</div>
+									<br>
+							</div>
+							<div class="panel-footer">
+								<button type="button" ng-click="ClearRequest()" data-dismiss="modal" class="btn btn-danger pull-right">Clear Request</button>
+									<button type="button" data-dismiss="modal" class="btn btn-default pull-right">Cancel</button>
+							</div>
+						</div>
+					</div>
+           	 	</div>
+			<!--/ Clear Request Modal -->
+
                 <!-- Error modal -->
                 <div class="modal fade" id="ErrorModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
                 <div class="modal-dialog">
@@ -347,12 +401,13 @@
         $scope.labid = '';
 
 
-        $scope.setClickedRow = function(labreq,pid,desc,lid) {
+        $scope.setClickedRow = function(labreq,pid,desc,lid,name) {
             $scope.selectedRow = ($scope.selectedRow == null) ? labreq : ($scope.selectedRow == labreq) ? null : labreq;
             $scope.selectedid = ($scope.selectedid == null) ? pid : ($scope.selectedid == pid) ? null : pid;
             $scope.clickedRow = ($scope.selectedRow == null) ? 0 : 1;
             $scope.description = desc;
             $scope.labid = lid;
+            $scope.pname = name;
         }
 
         $scope.externalRequest = function(){
@@ -360,7 +415,7 @@
         }
 
         $scope.ClearRequest = function(){
-			if($scope.selectedRow != null){
+		//	if($scope.selectedRow != null){
                 swal({
                     title: "Are you sure you want to clear this patient?",
                     text: "Once cleared, the nurses will be notified about the result!",
@@ -373,7 +428,8 @@
                         $http({
                             method: 'GET',
                             params: {
-                                requestid: $scope.selectedRow
+                                requestid: $scope.selectedRow,
+                                interpret: $scope.interpret
                             },
                             url: 'updateData/update-laboratory-request.php'
                         }).then(function(response) {
@@ -386,8 +442,7 @@
                             params: {
                                 admissionid: $scope.selectedid,
                                 laboratoryid: $scope.labid,
-                                description: $scope.description
-
+                                description: $scope.description,
                             },
                             url: 'insertData/insert-laboratory-bill.php'
                         }).then(function(response) {
@@ -397,22 +452,25 @@
 
                     swal("Patient Cleared! Refreshing page...", {
                         icon: "success",
-                        timer: 2000
+                        timer: 1000
                     });
                     window.setTimeout(function(){
                         
                     // Move to a new location or you can do something else
                         window.location.href = 'laboratorydept.php?at=' + $scope.at;
-                    }, 2000);
-                    } else {
+                    }, 1000);
+                    } 
+                    
+                    
+                    else {
                     swal("Action Cancelled");
                     }
                 });
 
-                }
-                else{
-			    $('#ErrorModal').modal('show');
-			    }
+                // }
+                // else{
+			    // $('#ErrorModal').modal('show');
+			    // }
 		    
          }
 
@@ -427,6 +485,19 @@
 					$scope.patientdetails = response.data;
 				});
 				$('#patientModal').modal('show');
+			
+			}
+			else{
+			$('#ErrorModal').modal('show');
+			}
+		}
+
+
+        $scope.inputClearModal = function(){
+			if($scope.selectedRow != null){
+				$scope.admissionid = $scope.selectedid;
+			
+				$('#ResultModal').modal('show');
 			
 			}
 			else{
