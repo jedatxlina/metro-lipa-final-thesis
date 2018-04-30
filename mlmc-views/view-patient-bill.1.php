@@ -87,8 +87,8 @@
                                     </div>
                                 </div>
 
-                                <h4 class="text-primary text-center" style="font-weight: small;">From Emergency</h4>
-
+                                <h4 class="text-primary text-center" style="font-weight: small;">From Emergency</h4><br>
+                                <h5 class="text-primary text-center" style="font-weight: small;">From Room</h5>
                                 <div class="row mb-xl">
                                     <div class="col-md-12">
                                         <div class="panel">
@@ -105,12 +105,12 @@
                                                             </tr>
                                                         </thead>
                                                         <tbody>
-                                                            <tr ng-repeat="room in roomdetails track by $index">
-                                                                <td>{{room.BedID}}</td>
-                                                                <td>{{room.ArrivalDate}}</td>
-                                                                <td>{{room.DischargeDate}}</td>
-                                                                <td>{{room.Duration}}</td>
-                                                                <td class="text-right">{{room.bedbill.toLocaleString('en')}}</td>
+                                                            <tr ng-repeat="room2 in emroomdetails track by $index">
+                                                                <td>{{room2.BedID}}</td>
+                                                                <td>{{room2.ArrivalDate}}</td>
+                                                                <td>{{room2.DischargeDate}}</td>
+                                                                <td>{{room2.Duration}}</td>
+                                                                <td class="text-right">{{room2.bedbill.toLocaleString('en')}}</td>
                                                             </tr>
                                                         </tbody>
                                                     </table>
@@ -120,7 +120,43 @@
                                     </div>
                                 </div>
 
-                                <h5 class="text-primary text-center" style="font-weight: small;">From Admission</h5>
+                                <h5 class="text-primary text-center" style="font-weight: small;">From Pharmacy</h5>
+
+                                <div class="row mb-xl">
+
+                                    <div class="col-md-12">
+                                        <div class="panel">
+                                            <div class="panel-body no-padding">
+                                                <div class="table-responsive">
+                                                    <table class="table table-hover m-n">
+                                                        <thead>
+                                                            <tr>
+                                                                <th>#</th>
+                                                                <th>Medicines</th>
+                                                                <th class="text-right">Quantity</th>
+                                                                <th class="text-right">Unit Cost</th>
+                                                                <th class="text-right">Total</th>
+                                                            </tr>
+                                                        </thead>
+                                                        <tbody>
+                                                            <tr ng-repeat="medicine in emmedicinedetails track by $index">
+                                                                <td>{{$index + 1}}</td>
+                                                                <td>{{medicine.mediname}}</td>
+                                                                <td class="text-right">{{medicine.qty}}</td>
+                                                                <td class="text-right">{{medicine.totalbill.toLocaleString('en')}}</td>
+                                                                <td class="text-right">{{medicine.totalbill.toLocaleString('en')}}</td>
+                                                            </tr>
+                                                        </tbody>
+                                                    </table>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <br>
+                                
+                                <h4 class="text-primary text-center" style="font-weight: small;">From Inpatient</h4>
+                                <br>
+                                <h5 class="text-primary text-center" style="font-weight: small;">From Room</h5>
 
                                 <div class="row mb-xl">
                                     <div class="col-md-12">
@@ -399,7 +435,15 @@
             }).then(function(response) {
                 $scope.roomdetails = response.data;
             });
-
+            $http({
+                method: 'GET',
+                url: 'getData/get-empatient-roombill.php',
+                params: {
+                    id: $scope.id
+                }
+            }).then(function(response) {
+                $scope.emroomdetails = response.data;
+            });
             $http({
                 method: 'GET',
                 url: 'getData/get-medication-billdetailed.php',
@@ -408,6 +452,15 @@
                 }
             }).then(function(response) {
                 $scope.medicinedetails = response.data;
+            });
+            $http({
+                method: 'GET',
+                url: 'getData/get-emmedication-billdetailed.php',
+                params: {
+                    id: $scope.id
+                }
+            }).then(function(response) {
+                $scope.emmedicinedetails = response.data;
             });
 
             $http({
