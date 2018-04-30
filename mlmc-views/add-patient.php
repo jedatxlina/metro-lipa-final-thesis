@@ -396,13 +396,31 @@
                                             </div>
                                             <div data-row-span="2">
                                                     <div data-field-span="1">
-                                                        <label>Attending Physician</label>
-                                                        <select class="form-control" ng-model="attendingphysician" style="width:395px;">
-                                                            <option value="" disabled selected>Select Physician</option>
-                                                            <option ng-repeat="physician in physicians" value="{{physician.PhysicianID}}">{{physician.Fullname}}</option>
-                                                        </select>
-                                                    
+                                                            <label>Specialization</label>
+                                                                <select class="form-control" ng-model="specialization" style="width:395px;">
+                                                                    <option value="" selected> Select Specialization</option>
+                                                                    <option ng-repeat="val in specializations | orderBy:'SpecializationName'" value="{{val.SpecializationName}}">{{val.SpecializationName}}</option>
+                                                                </select>
                                                     </div>
+                                                    <div ng-if="specialization">
+                                                        <div data-field-span="1">
+                                                                        <label>Attending Physician</label>
+                                                                        <select class="form-control" ng-options="physician.Fullname for physician in physicians |  filter:filterPhysician(specialization)" ng-model="$parent.attendingphysician1" style="width:395px;">
+                                                                            <option value="" disabled selected>Select Physician</option>
+                                                                        </select>
+
+                                                                    </div>
+                                                                </div>
+
+                                                                <div ng-if="!specialization">
+                                                                    <div data-field-span="1">
+                                                                        <label>Attending Physiciann</label>
+                                                                        <select class="form-control" ng-model="$parent.attendingphysician2" style="width:395px;">
+                                                                            <option value="" disabled selected>Select Physician</option>
+                                                                            <option ng-repeat="physician in physicians" value="{{physician.PhysicianID}}">{{physician.Fullname}}</option>
+                                                                        </select>
+                                                                    </div>
+                                                                </div>
                                                 </div>
                                         </fieldset>
                                     </form>
@@ -430,7 +448,7 @@
                     $scope.chk = "<?php echo $chk =  isset($_GET['chk']) ? $_GET['chk'] : ''; ?>";
                     $scope.admissionid = "<?php echo "2017" .  rand(111111, 999999); ?>";
                     $scope.medicalid = "<?php echo  rand(111111, 999999); ?>";
-
+                    $scope.specialization = '';
                     $scope.newborn = 'No';
 
                     switch ($scope.at.charAt(0)) {
@@ -492,6 +510,16 @@
                             break;
                     }
 
+                    
+                    $scope.filterPhysician = function(param) {
+                        return function(physician) {
+                            if (physician.Specialization == param) {
+                                return true;
+                            }
+                            return false;
+                        };
+                    }
+
                     $scope.accesstype = $scope.at[0];
                     $http({
                     method: 'GET',
@@ -515,6 +543,14 @@
                     }).then(function(response) {
                         $scope.cntntl = response.data;
                     });
+
+                       $http({
+                        method: 'GET',
+                        url: 'getData/get-specialization-details.php'
+                    }).then(function(response) {
+                        $scope.specializations = response.data;
+                    });
+
         
                     $('#newbornbabydiv').hide();
                     
@@ -558,6 +594,7 @@
 
 
                     $scope.newbornUpdate = function(){
+
                         $http({
                             method: 'GET',
                             url: 'getData/get-patient-details.php',
@@ -636,7 +673,23 @@
                     }
 
                     $scope.submitNewbornForm = function(){
+                        if($scope.specialization == ''){
+                            $scope.attendphysician = $scope.attendingphysician2;
+                        }else{
+                            $scope.attendphysician = $scope.attendingphysician1.PhysicianID;
+                        }
+                        
+                               
+                        $http({
+                            method: 'GET',
+                            url: 'qr-generator/index.php',
+                            params: {medid: $scope.medicalid,
+                            admissionid: $scope.babyadmission,
+                        }
+                        }).then(function(response) {
+                        });
 
+                     
                         $http({
 
                             method: 'GET',
@@ -650,7 +703,8 @@
                                     bloodtype: $scope.babybloodtype,
                                     delivery: $scope.babydelivery,
                                     weight: $scope.babyweight,
-                                    attending: $scope.attendingphysician}
+                                    attending: $scope.attendphysician,
+                                    medicalid: $scope.medicalid}
                             }).then(function(response) {
                             swal({
                                 
@@ -659,10 +713,10 @@
                             text: "Redirecting in 2..",
                             timer: 2000
                             }).then(function () {
-                                window.location.reload(false); 
+                                window.location.href = 'emergency.php?at=' + $scope.at;
                                 }, function (dismiss) {
                                 if (dismiss === 'cancel') {
-                                    window.location.reload(false); 
+                                    window.location.href = 'emergency.php?at=' + $scope.at;
                                 }
 
                             });

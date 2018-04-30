@@ -1,7 +1,7 @@
 <?php
 require_once 'connection.php';
 
-$sel = mysqli_query($conn,"select * from patients where AdmissionType = 'Inpatient' AND Gender = 'Female'");
+$sel = mysqli_query($conn,"select * from patients where Gender = 'Female' AND (AdmissionType = 'Inpatient' OR AdmissionType ='Emergency')");
 
 $data = array();
 

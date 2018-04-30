@@ -157,26 +157,26 @@ $activeMenu = "patients";
 
                                 <div class="panel panel-danger">
                                     <div class="panel-heading">
-                                        <h2>Diagnosis History</h2>
+                                        <h2>Laboratory History</h2>
                                         <!-- <a ng-click="viewHistoryReport()" class="pull-right"><i class="ti ti-printer"></i></a> -->
                                         <div class="panel-ctrls"></div>
                                     </div>
                                     <div class="panel-body">
-                                        <table id="diagnosis_table" class="table table-striped table-bordered" cellspacing="0" width="100%">
+                                        <table id="laboratory_table" class="table table-striped table-bordered" cellspacing="0" width="100%">
                                             <thead>
                                                 <tr>
                                                     <th>#</th>
-                                                    <th>Attending Doctor</th>
-                                                    <th>Date & Time Diagnosed</th>
-                                                    <th>Findings</th>
+                                                    <th>Description</th>
+                                                    <th>Date & Time Cleared</th>
+                                                    <th>Result</th>
                                                 </tr>
                                             </thead>
                                             <tbody>
-                                                <tr ng-repeat="history in historyreports track by $index">
+                                                <tr ng-repeat="history in historylaboratory track by $index">
                                                     <td>{{$index + 1}}</td>
-                                                    <td>{{history.PhysicianFullname}}</td>
-                                                    <td>{{history.DateDiagnosed}} {{history.TimeDiagnosed}}</td>
-                                                    <td>{{history.Diagnosis}}</td>
+                                                    <td>{{history.Description}}</td>
+                                                    <td>{{history.DateCleared}} {{history.TimeCleared}}</td>
+                                                    <td>{{history.Result}}</td>
                                                 </tr>
                                             </tbody>
                                         </table>
@@ -363,6 +363,19 @@ $activeMenu = "patients";
                     $scope.historymedications = response.data;
                     angular.element(document).ready(function() {
                         dTable = $('#medications_table')
+                        dTable.DataTable();
+                    });
+                });
+
+                
+                $http({
+                    method: 'GET',
+                    url: 'getData/get-history-laboratory.php',
+                    params: {archiveno: $scope.archiveno}
+                }).then(function(response) {
+                    $scope.historylaboratory = response.data;
+                    angular.element(document).ready(function() {
+                        dTable = $('#laboratory_table')
                         dTable.DataTable();
                     });
                 });

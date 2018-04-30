@@ -103,11 +103,7 @@
                                                     <div>
                                                         <legend>Attending Physician</legend>
                                                         <div data-row-span="4">
-<<<<<<< HEAD
-                                                            <div data-field-span="2" ng-show="param != Outpatient">
-=======
                                                             <div data-field-span="2" ng-show="param == 'Emergency'">
->>>>>>> master
                                                                 <!-- <label>Impression/Admitting Diagnosis</label>
                                                             <select id="diagnosis" class="select2" multiple="multiple" style="width:400px;">
                                                                     <optgroup label="List of Impression/Diagnosis">
@@ -403,7 +399,14 @@
                         // // }
 
                         
-                 
+                        $http({
+                            method: 'GET',
+                            url: 'qr-generator/index.php',
+                            params: {medid: $scope.medid,
+                            admissionid: $scope.admissionid,
+                        }
+                        }).then(function(response) {
+                        });
 
                         if($scope.param != 'Outpatient'){
                             $scope.medication = $("#medications").val();
@@ -446,14 +449,7 @@
                         //         //     $scope.administered = $scope.administered.concat($scope.otheradministeredmed);
                         //         // }
                     
-                                $http({
-                                method: 'GET',
-                                url: 'qr-generator/index.php',
-                                params: {medid: $scope.medid,
-                                        admissionid: $scope.admissionid,
-                                    }
-                                }).then(function(response) {
-                                });
+                           
 
                             $http({
                             method: 'GET',

@@ -38,7 +38,7 @@ $output= json_decode($geocode);
 $latcoor = $output->{'results'}[0]->{'geometry'}->{'location'}->{'lat'};
 $longcoor = $output->{'results'}[0]->{'geometry'}->{'location'}->{'lng'};
 
-$sel = mysqli_query($conn,"SELECT * FROM patients_archive WHERE FirstName='$firstname' AND MiddleName='$middlename' AND LastName = '$lastname' AND Birthdate='$date'");
+$sel = mysqli_query($conn,"SELECT * FROM patients_archive WHERE ArchiveID = '$admissionid'");
 
 $rows = mysqli_num_rows($sel);
 if($rows >= 1){

@@ -423,6 +423,7 @@ include 'admin-header.php' ?>
                                         <table id="postmedication_table" class="table table-striped table-bordered" cellspacing="0" width="100%">
                                             <thead>
                                                 <tr>
+                                                    <th>  <a ng-click="clearPushID()" class="pull-right"><i class="ti ti-reload"></i></a></th>
                                                     <th>Medicine Name</th>
                                                     <th>Quantity (on hand)</th>
                                                     <th>Dosage</th>
@@ -430,7 +431,8 @@ include 'admin-header.php' ?>
                                                 </tr>
                                             </thead>
                                             <tbody>
-                                                <tr ng-repeat="medication in medicationdetails" ng-if="medication.QuantityOnHand!=0" ng-class="{'selected': medication.ID == selectedRow}" ng-click="setClickedRow(medication.ID)">
+                                                <tr ng-repeat="medication in medicationdetails track by $index" ng-if="medication.QuantityOnHand!=0" ng-class="{'selected': medication.ID == selectedRow}" ng-click="setClickedRow(medication.ID)">
+                                                    <td><input id="rad" type="radio" ng-click="PushID(medication.ID)"></td>
                                                     <td>{{medication.MedicineName}}</td>
                                                     <td>{{medication.QuantityOnHand}}</td>
                                                     <td>{{medication.Dosage}}</td>
@@ -509,6 +511,8 @@ include 'admin-header.php' ?>
                 $scope.clickedRow = 0;
                 $scope.new = {};
 
+                $scope.PostCheck =  [];
+
                     $http({
                     method: 'get',
                     url: 'getData/get-emergency-details.php'
@@ -518,7 +522,7 @@ include 'admin-header.php' ?>
                         dTable = $('#emergency_patient_table')
                         dTable.DataTable();
                     });
-                     });
+                    });
 
 
                 var pusher = new Pusher('c23d5c3be92c6ab27b7a', {
@@ -712,11 +716,22 @@ include 'admin-header.php' ?>
                     window.location.href = 'add-patient.php?id=' + 1;
                 }
 
+                $scope.PushID = function(param){
+                    $scope.PostCheck.push(param);
+                }
+
+                $scope.clearPushID = function(){
+                    $('#rad').attr('checked',false);
+                    $scope.PostCheck.length = 0;
+                    $scope.selectedRow = '';
+                }
+
                 $scope.setClickedRow = function(user, param) {
                     $scope.selectedRow = ($scope.selectedRow == null) ? user : ($scope.selectedRow == user) ? null : user;
                     $scope.clickedRow = ($scope.selectedRow == null) ? 0 : 1;
                     $scope.orderadmissionid = param;
                 }
+
 
                 $scope.viewPatient = function() {
                     if ($scope.selectedRow != null) {
@@ -855,6 +870,7 @@ include 'admin-header.php' ?>
                                 dTable.DataTable();
                             });
                         });
+                        $scope.selectedRow = '';
                         $('#postMedicationModal').modal('show');
 
                     } else {
@@ -864,20 +880,22 @@ include 'admin-header.php' ?>
 
                 $scope.postMedicationConfirm = function() {
                     $scope.medid = $scope.selectedRow;
-
+                    if($scope.PostCheck.indexOf($scope.medid) === -1) {
+                        $scope.PostCheck.push($scope.medid);
+                    }
+      
                     swal({
                         icon: "success",
                         title: "Medication Updated!",
                         text: "Redirecting in 2..",
                         timer: 2000
                     }).then(function() {
-                        window.location.href = 'insertData/post-medication-details.php?at=' + $scope.at + '&id=' + $scope.admissionid + '&medid=' + $scope.medid;
+                        window.location.href = 'insertData/post-medication-details.php?at=' + $scope.at + '&id=' + $scope.admissionid + '&medid=' + $scope.PostCheck;
                     }, function(dismiss) {
                         if (dismiss === 'cancel') {
-                            window.location.href = 'insertData/post-medication-details.php?at=' + $scope.at + '&id=' + $scope.admissionid + '&medid=' + $scope.medid;
+                            window.location.href = 'insertData/post-medication-details.php?at=' + $scope.at + '&id=' + $scope.admissionid + '&medid=' + $scope.PostCheck;
                         }
                     });
-
                 }
 
                 $scope.viewOrder = function() {
@@ -885,7 +903,7 @@ include 'admin-header.php' ?>
                 }
 
                 $scope.viewOrderDetails = function() {
-                    alert($scope.orderadmissionid);
+                    $window.open('view-order-prescription.php?at='+$scope.at+'&id='+$scope.orderadmissionid, '_blank');
                 }
 
                 $scope.acceptOrder = function() {

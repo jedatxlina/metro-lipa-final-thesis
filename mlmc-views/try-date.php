@@ -68,12 +68,10 @@ date_default_timezone_set("Asia/Singapore");
 //                 $data['message'] = "Dr. " . $fullname . " posted a patient order.";
 //                 $pusher->trigger('my-channel-outpatient', 'my-event-outpatient', $data);
 
-$param =  explode(' - ',$_GET['param']); 
+$param = array('12','12'); 
 $cnt = count($param);
 
-for($x = 0; $x < $cnt; $x++){
-    echo $x;
-}
+echo $cnt;
 
 // foreach ($param as $val) {
 //     $Date = date("d-m-Y", strtotime($originalDate));
