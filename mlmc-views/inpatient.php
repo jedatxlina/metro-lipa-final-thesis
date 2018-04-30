@@ -71,24 +71,21 @@ font-weight: bold;
 													<table id="nursery_table" class="table table-striped table-bordered" cellspacing="0" width="100%">
 														<thead>
 														<tr>
-															<th>Nursery ID</th>
 															<th>Admission ID</th>
 															<th>Last name</th>
 															<th>First name</th>
 															<th>Middle name</th>
 															<th>Birthdate</th>
-															<th>Delivery Type</th>
 														</tr>
 														</thead>
 														<tbody>
-														<tr ng-repeat="patient in patients" ng-class="{'selected': patient.NurseryID == selectedRow}"  ng-click="setClickedRow(patient.NurseryID)">
-															<td>{{patient.NurseryID}}</td>
+														<tr ng-repeat="patient in patients" ng-class="{'selected': patient.AdmissionID == selectedRow}"  ng-click="setClickedRow(patient.AdmissionID)">
+											
 															<td>{{patient.AdmissionID}}</td>
 															<td>{{patient.Lastname}}</td>
 															<td>{{patient.Firstname}}</td>
 															<td>{{patient.Middlename}}</td>
 															<td>{{patient.Birthdate}}</td>
-															<td>{{patient.Deliverytype}}</td>
 															</tr>
 														</tbody>
 													</table>
@@ -531,9 +528,7 @@ font-weight: bold;
 			
 			if($scope.selectedRow != null){
 				$scope.admissionid = $scope.selectedRow;
-				if( $scope.selectedRow.indexOf('-') >= 0){
-                            alert('jed');
-				}else{
+			
 					$http({
 						method: 'get',
 						url: 'getData/get-patient-details.php',
@@ -542,7 +537,6 @@ font-weight: bold;
 						$scope.patientdetails = response.data;
 					});
 					$('#patientModal').modal('show');
-				}
 			}
 			else{
 			$('#errorModal').modal('show');

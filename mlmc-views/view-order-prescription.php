@@ -49,7 +49,7 @@
 
     $patientfullname = $firstname . ' ' . $middlename . ' ' . $lastname;
  
-    $findqr =  mysqli_query($conn,"SELECT QR_Path FROM medical_details JOIN patients_archive WHERE patients_archive.ArchiveID = '$id' AND patients_archive.MedicalID = medical_details.MedicalID GROUP BY QR_Path");
+    $findqr =  mysqli_query($conn,"SELECT QR_Path FROM medical_details JOIN patients WHERE patients.AdmissionID = '$id' AND patients.MedicalID = medical_details.MedicalID GROUP BY QR_Path");
   
     while ($row = mysqli_fetch_assoc($findqr)) {
         $path = $row['QR_Path'];

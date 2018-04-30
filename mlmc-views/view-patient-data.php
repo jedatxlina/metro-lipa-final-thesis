@@ -178,18 +178,17 @@
                                                 <table id="medhistory_table" class="table table-striped table-bordered" cellspacing="0" width="100%">
                                                     <thead>
                                                     <tr>
-                                                        <th>Patient Name</th>
-                                                        <th>Admission ID</th>
-                                                        <th>Admission Date</th>
-                                                        <th>Admission Time</th>
+                                                        <th>#</th>
+                                                        <th>Admission Type</th>
+                                                        <th>Admission Date & Time</th>
+                                                        <!-- <th>Discharged Date & Time</th> -->
                                                     </tr>
                                                     </thead>
                                                     <tbody>
-                                                    <tr ng-repeat="history in patienthistory" ng-class="{'selected': history.ArchiveNo == selectedRow}" ng-click="setClickedRow(history.ArchiveNo)">
-                                                        <td>{{history.Firstname}} {{history.Middlename}} {{history.Lastname}}</td>
-                                                        <td>{{history.ArchiveID}}</td>
-                                                        <td>{{history.AdmissionDate}}</td>
-                                                        <td>{{history.AdmissionTime}}</td>
+                                                    <tr ng-repeat="history in patienthistory track by $index" ng-class="{'selected': history.ArchiveNo == selectedRow}" ng-click="setClickedRow(history.ArchiveNo)">
+                                                        <td>{{$index}}</td>
+                                                        <td>{{history.AdmissionType}}</td>
+                                                        <td>{{history.AdmissionDate}} {{history.AdmissionTime}}</td>
                                                         </tr>
                                                     </tbody>
                                                 </table>
