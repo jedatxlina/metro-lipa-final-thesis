@@ -35,8 +35,8 @@
     }
 
 
-    $query = "INSERT into patients(AdmissionID,AdmissionDate,AdmissionTime,AdmissionType,FirstName,MiddleName,LastName,Admission,Province,City,Brgy,CompleteAddress,Birthdate,Citizenship,MedicalID) 
-    VALUES('$babyadmission','$date','$time','Inpatient','$firstname','$middlename','$lastname','New Patient','$province','$city','$brgy','$address','$date','$citizenship','$medicalid')";
+    $query = "INSERT into patients(AdmissionID,AdmissionDate,AdmissionTime,FirstName,MiddleName,LastName,Admission,AdmissionType,Province,City,Brgy,CompleteAddress,Birthdate,Citizenship,MedicalID) 
+    VALUES('$babyadmission','$date','$time','$firstname','$middlename','$lastname','New Patient','Inpatient','$province','$city','$brgy','$address','$date','$citizenship','$medicalid')";
 
     mysqli_query($conn,$query);  
 

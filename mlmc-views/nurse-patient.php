@@ -535,26 +535,35 @@ include 'admin-header.php' ?>
 
                     console.log(data.message);
                     console.log(data.message1);
+                    console.log(data.medtimeline);
+                    console.log(data.medname);
+            
                     swal({
-                        icon: "success",
-                        title: data.message,
-                        text: data.message1
-                    }).then(function() {});
-
-                    // 	$http({
-                    // 	method: 'get',
-                    // 	url: 'getData/get-order-details.php',
-                    // 	params:{id:$scope.at}
-                    // 	}).then(function(response) {
-                    // 		$scope.orders = response.data;	
-                    // 		angular.element(document).ready(function() {  
-                    // 		dTable = $('#orders_table')  
-                    // 		dTable.DataTable();  
-                    // 		});  
-                    // 	});
-
+                    title: data.message,
+                    text: data.message1 + ': ' + data.medname,
+                    icon: "warning",
+                    buttons: true,
+                    dangerMode: true,
+                    })
+                    .then((willDelete) => {
+                    if (willDelete) {
+                        $http({
+                        method: 'get',
+                        url: 'updateData/update-medtimeline-details.php',
+                        params: {medtimeline: data.medtimeline}
+                        }).then(function(response) {
+                            swal("Medication Successfully Alerted!", {
+                            icon: "success",
+                            });
+                        });
+                            
+                    } else {
+                        swal("Failed to be alerted!");
+                    }
+                    });
+             
                 });
-
+          
                 var tick = function() {
                     $scope.clock = Date.now();
                     $scope.time = new Date().toLocaleTimeString('en-US', {
@@ -570,12 +579,12 @@ include 'admin-header.php' ?>
                         $scope.order = response.data.length;
                     });
 
-                    // $http({
-                    // 	method: 'get',
-                    // 	url: 'getData/get-medication-notif.php'
-                    // }).then(function(response) {
-                    // 	$scope.order = response.data.length;
-                    // });	
+                    $http({
+                    	method: 'get',
+                    	url: 'getData/get-medication-notif.php'
+                    }).then(function(response) {
+                    	
+                    });	
                 }
 
                 tick();
@@ -610,16 +619,6 @@ include 'admin-header.php' ?>
                         break;
                 }
 
-                // $http({
-                //    method: 'get',
-                //    url: 'getData/get-inpatient-details.php'
-                // }).then(function(response) {
-                //  	$scope.users = response.data;
-                // 	angular.element(document).ready(function() {  
-                // 	dTable = $('#patient_table')  
-                // 	dTable.DataTable();  
-                // 	});  
-                // });
 
                 $scope.accesstype = $scope.at[0];
                 $http({
@@ -660,39 +659,6 @@ include 'admin-header.php' ?>
                         $('#errorModal').modal('show');
                     }
                 }
-
-                // $http({
-                //    method: 'get',
-                //    url: 'getData/get-inpatient-fever-hb.php'
-                // }).then(function(response) {
-                //  	$scope.users2 = response.data;
-                // 	angular.element(document).ready(function() {  
-                // 	dTable = $('#patient_table')  
-                // 	dTable.DataTable();  
-                // 	});  
-                // });
-
-                // $http({
-                //    method: 'get',
-                //    url: 'getData/get-inpatient-nonfever-hb.php'
-                // }).then(function(response) {
-                //  	$scope.users3 = response.data;
-                // 	angular.element(document).ready(function() {  
-                // 	dTable = $('#patient_table')  
-                // 	dTable.DataTable();  
-                // 	});  
-                // });
-
-                // $http({
-                //    method: 'get',
-                //    url: 'getData/get-inpatient-fever-nonhb.php'
-                // }).then(function(response) {
-                //  	$scope.users4 = response.data;
-                // 	angular.element(document).ready(function() {  
-                // 	dTable = $('#patient_table')  
-                // 	dTable.DataTable();  
-                // 	});  
-                // });
 
                 $http({
                     method: 'get',
