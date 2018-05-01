@@ -37,7 +37,6 @@
                                 <div class="list-group list-group-alternate mb-n nav nav-tabs">
                                     <a href="#tab-edit" role="tab" data-toggle="tab" class="list-group-item active"><i class="ti ti-view-list-alt"></i> Summary Of Bills</a>
                                     <a href="#tab-edit" ng-click="Redirect()" role="tab" data-toggle="tab" class="list-group-item active"><i class="ti ti-view-list-alt"></i> Detailed Bill</a>
-
                                 </div>
                             </div>
                             <!-- col-sm-3 -->
@@ -106,6 +105,8 @@
                                                 <ul class="text-left list-unstyled">
                                                     <li><strong>Patient ID:</strong>&emsp; {{patient.AdmissionID}}</li>
                                                     <li><strong>Admission No:</strong>&emsp; {{patient.AdmissionNo}}</li>
+                                                    <br><br>
+                                                    <small><input type="checkbox" ng-model="senior" ng-click="seniorClick()" ng-disabled="$parent.fee == 0"> Senior Citizen </small>
                                                 </ul>
                                                 <br>
                                             </div>
@@ -477,6 +478,30 @@
                     }
                 });
             }
+
+            $scope.seniorClick = function(){
+					
+                    $http({
+                        method: 'GET',
+                        url: 'getData/get-discount-details.php'
+                    }).then(function(response) {
+                        $scope.scdiscount = JSON.parse(response.data);
+
+                        $scope.disc =  $scope.scdiscount;
+
+                        $scope.discount = parseFloat($scope.disc);
+                        $scope.discount /= 100;
+                        
+                        if($scope.senior == 'true'){
+                            $scope.senior = 'false';
+                            $scope.subtotal = $scope.subtotalroom + $scope.subtotalmedi+$scope.subtotallab+$scope.subtotaldoc;
+                        }else{
+                            $scope.senior = 'true';
+                            $scope.subtotal = $scope.subtotal - ($scope.subtotal*$scope.discount);
+                        }
+                    });
+                    
+                }
 
             $scope.goBack = function() {
                 $http({
