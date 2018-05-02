@@ -1,7 +1,7 @@
 <?php
 require_once 'connection.php';
 $id = $_GET['id'];
-$sel = mysqli_query($conn,"SELECT SUM(TotalBill) AS TotalBill,BillDes, COUNT(*) AS qty FROM billing c, patients a WHERE c.AdmissionID ='$id' AND c.Department = 'Laboratory' AND a.MedicalID = c.MedicalID AND NOT c.BedID = 'ER' GROUP BY BillDes");
+$sel = mysqli_query($conn,"SELECT SUM(TotalBill) AS TotalBill,BillDes, COUNT(*) AS qty FROM billing c, patients a WHERE c.AdmissionID ='$id' AND c.Department = 'Laboratory' AND a.MedicalID = c.MedicalID AND c.BedID = 'ER' GROUP BY BillDes");
 $data = array();
 while ($row = mysqli_fetch_array($sel)) {
     $data[] = array(

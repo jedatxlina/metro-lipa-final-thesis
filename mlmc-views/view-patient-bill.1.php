@@ -153,6 +153,36 @@
                                         </div>
                                     </div>
                                     <br>
+
+                                <h5 class="text-primary text-center" style="font-weight: small;">From Laboratory</h5>
+                                    <div class="row mb-xl">
+                                        <div class="col-md-12">
+                                            <div class="panel">
+                                                <div class="panel-body no-padding">
+                                                    <div class="table-responsive">
+                                                        <table class="table table-hover m-n">
+                                                            <thead>
+                                                                <tr>
+                                                                    <th>#</th>
+                                                                    <th>Description</th>
+                                                                    <th>Quantity</th>
+                                                                    <th class="text-right">Total</th>
+                                                                </tr>
+                                                            </thead>
+                                                            <tbody>
+                                                                <tr ng-repeat="lab in emlabdetails track by $index">
+                                                                    <td>{{$index + 1}}</td>
+                                                                    <td>{{lab.Description}}</td>
+                                                                    <td>{{lab.qty}}</td>
+                                                                    <td class="text-right">{{lab.Rate.toLocaleString('en')}}</td>
+                                                                </tr>
+                                                            </tbody>
+                                                        </table>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
                                 
                                 <h4 class="text-primary text-center" style="font-weight: small;">From Inpatient</h4>
                                 <br>
@@ -471,6 +501,16 @@
                 }
             }).then(function(response) {
                 $scope.labdetails = response.data;
+            });
+
+            $http({
+                method: 'GET',
+                url: 'getData/get-laboratory-embilldetailed.php',
+                params: {
+                    id: $scope.id
+                }
+            }).then(function(response) {
+                $scope.emlabdetails = response.data;
             });
             $http({
                 method: 'GET',

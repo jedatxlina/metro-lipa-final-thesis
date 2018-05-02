@@ -135,7 +135,7 @@
             </div>
         </fieldset>  
     </form>
-            <br>Medical Histort Goes Below:<br><br>
+            <br>Medical History Goes Below:<br><br>
                 <table>
                 <tr>
                     <th>Admission ID</th>

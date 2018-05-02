@@ -5,7 +5,12 @@ $id =  rand (11111,99999);
 $admissionid =  $_GET['admissionid'];  
 $payment =  $_GET['payment']; 
 $date = date("Y-m-d h:i:sa");
-$query = "INSERT into adv_payment(PaymentID,AdmissionID,Amount,Status,DateTimePaid) 
-VALUES('$id','$admissionid','$payment','Paid','$date')";
+$sel = mysqli_query($conn,"SELECT AdmissionNo FROM patients WHERE AdmissionID = '$admissionid'");
+$data = array();
+while ($row = mysqli_fetch_array($sel)) {
+    $adno = $row['AdmissionNo'];
+}
+$query = "INSERT into adv_payment(PaymentID,AdmissionID,Amount,Status,DateTimePaid,AdmissionNo) 
+VALUES('$id','$admissionid','$payment','Paid','$date','$adno')";
 mysqli_query($conn,$query);  
 ?>
