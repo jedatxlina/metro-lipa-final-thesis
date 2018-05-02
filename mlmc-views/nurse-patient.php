@@ -517,7 +517,6 @@ include 'admin-header.php' ?>
                 $scope.selectedRow = null;
                 $scope.clickedRow = 0;
                 $scope.new = {};
-
                 $scope.PostCheck =  [];
 
                     $http({
@@ -830,27 +829,56 @@ include 'admin-header.php' ?>
                 }
 
                 $scope.postMedication = function() {
-                    if ($scope.selectedRow != null) {
-                        $scope.admissionid = $scope.selectedRow;
-                        $http({
-                            method: 'get',
-                            url: 'getData/get-medication-details.php',
-                            params: {
-                                admissionid: $scope.admissionid
-                            }
-                        }).then(function(response) {
-                            $scope.medicationdetails = response.data;
-                            angular.element(document).ready(function() {
-                            dTable = $('#postmedication_table')
-                            dTable.DataTable();
-                            });
-                        });
-                        $scope.selectedRow = '';
-                        $('#postMedicationModal').modal('show');
+              
+                        if ($scope.selectedRow != null) {
+                            $scope.admissionid = $scope.selectedRow;
+                            $http({
+                                method: 'get',
+                                url: 'getData/get-medication-details.php',
+                                params: {
+                                    admissionid: $scope.admissionid
+                                }
+                            }).then(function(response) {
+                                $scope.medicationdetails = response.data;
+                                var onhand = 0;
+                                angular.forEach($scope.medicationdetails, function(value, key){
+                                   
+                                    if(value.QuantityOnHand != 0){
+                                        onhand += 1;
+                                    }
+                                            
+                                });
+                                if(onhand > 0){
+                                    $scope.selectedRow = '';
+                                    angular.element(document).ready(function() {
+                                    dTable = $('#postmedication_table')
+                                    dTable.DataTable();
+                                    });
+                                    $('#postMedicationModal').modal('show');
+                                }else{
+                                    swal({
+                                            icon: "warning",
+                                            title: "Quantity on hand is empty!",
+                                            text: "Redirecting in 2..",
+                                            timer: 2000
+                                        }).then(function() {
+                                            window.location.reload(false);
+                                        }, function(dismiss) {
+                                            if (dismiss === 'cancel') {
+                                                window.location.reload(false);
+                                            }
+                                        });
+                                }
+                             
 
-                    } else {
-                        $('#myModal').modal('show');
-                    }
+                            });
+
+                        
+                           
+
+                        } else {
+                            $('#myModal').modal('show');
+                        }
                 }
 
                 $scope.postMedicationConfirm = function() {
