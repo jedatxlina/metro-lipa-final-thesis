@@ -693,16 +693,6 @@
                         }else{
                             $scope.attendphysician = $scope.attendingphysician1.PhysicianID;
                         }
-                        
-                               
-                        $http({
-                            method: 'GET',
-                            url: 'qr-generator/index.php',
-                            params: {medid: $scope.medicalid,
-                            admissionid: $scope.babyadmission,
-                        }
-                        }).then(function(response) {
-                        });
 
                      
                         $http({
@@ -722,20 +712,29 @@
                                     attending: $scope.attendphysician,
                                     medicalid: $scope.medicalid}
                             }).then(function(response) {
-                            swal({
-                                
-                            icon: "success",
-                            title: "Successfully Added!",
-                            text: "Redirecting in 2..",
-                            timer: 2000
-                            }).then(function () {
-                                window.location.href = 'emergency.php?at=' + $scope.at;
-                                }, function (dismiss) {
-                                if (dismiss === 'cancel') {
-                                    window.location.href = 'emergency.php?at=' + $scope.at;
-                                }
-
-                            });
+                                $http({
+                                    method: 'GET',
+                                    url: 'qr-generator/index.php',
+                                    params: {medid: $scope.medicalid,
+                                    admissionid: $scope.babyadmission,
+                                    }
+                                }).then(function(response) {
+                                    swal({
+                                        
+                                        icon: "success",
+                                        title: "Successfully Added!",
+                                        text: "Redirecting in 2..",
+                                        timer: 2000
+                                        }).then(function () {
+                                            window.location.href = 'emergency.php?at=' + $scope.at;
+                                            }, function (dismiss) {
+                                            if (dismiss === 'cancel') {
+                                                window.location.href = 'emergency.php?at=' + $scope.at;
+                                            }
+            
+                                        });
+                                });
+                           
                         });
 
                     }

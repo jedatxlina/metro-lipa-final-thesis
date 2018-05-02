@@ -66,6 +66,11 @@
                                 </div>
                             </div>
                         </div>
+                        <div class="clearfix">
+                                <div class="pull-left">
+                                &emsp;<button ng-click="viewPatientDetails()" class="btn-danger-alt btn" style="font-size:15px;">View Patient Details and History</button>
+                                </div>
+                            </div>
                     </div> 
 
                     <div class="tab-pane active" id="tab-about">
@@ -96,6 +101,11 @@
                                 </div>
                             </div>
                         </div>
+                        <div class="clearfix">
+                                <div class="pull-left">
+                                &emsp;<button ng-click="viewPatientDetails()" class="btn-danger-alt btn" style="font-size:15px;">View Patient Details and History</button>
+                                </div>
+                            </div>
                     </div>
 
                  
@@ -270,6 +280,10 @@ var fetch = angular.module('myApp', ['ui.mask']);
 
        $scope.goBack = function(){
                     window.history.back();
+        }
+
+        $scope.viewPatientDetails = function(){
+            window.location.href = 'view-patient-data.php?at=' + $scope.at + '&id=' + $scope.selectedRow;
         }
 
    }]);

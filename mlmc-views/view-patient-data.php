@@ -41,6 +41,7 @@
                     <div class="list-group list-group-alternate mb-n nav nav-tabs">
                         <a href="#tab-about" 	role="tab" data-toggle="tab" class="list-group-item active"><i class="ti ti-user"></i> About </a>
                         <a href="#tab-details" role="tab" data-toggle="tab" class="list-group-item"><i class="fa fa-stethoscope"></i>Medical Details</a>
+                        <a href="#" ng-click="processMedCert()" role="tab" data-toggle="tab" class="list-group-item"><i class="fa fa-file-text-o"></i>Issue Medical Certificate</a>
                         <a href="#tab-projects" role="tab" data-toggle="tab" class="list-group-item"><i class="ti ti-view-list-alt"></i> Medical History</a>
                         <a href="#tab-edit" 	role="tab" data-toggle="tab" clata-toggle="tab" class="list-group-item" ng-if="chckval != 1"> <i class="ti ti-pencil"></i> Edit</a>
                     </div>
@@ -561,6 +562,12 @@
                 $window.open('view-diagnosis-report.php?at='+$scope.at+'&id='+$scope.id, '_blank');
              
             }
+
+            $scope.processMedCert = function() {
+                    $window.open('inpatient-med-cert.php?at=' + $scope.at + '&admissionid=' + $scope.id, '_blank');
+            
+            }      
+
 
            $scope.viewMedicationReport = function(){    
            

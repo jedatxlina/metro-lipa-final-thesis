@@ -50,6 +50,10 @@
             $query= "UPDATE medication SET DosingID = 0 WHERE AdmissionID = '$admissionid' AND ID = '$medid'";
 
             mysqli_query($conn,$query); 
+        }else{
+            $query= "UPDATE medication SET QuantityOnHand = QuantityOnHand - 1 WHERE AdmissionID = '$admissionid' AND ID = '$medid'";
+
+            mysqli_query($conn,$query); 
         }
 
 

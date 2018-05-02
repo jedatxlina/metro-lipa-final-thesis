@@ -3,7 +3,7 @@
 require_once 'connection.php';
 $at = $_GET['at'];
 
-$sel = mysqli_query($conn,"SELECT * FROM patients_archive JOIN attending_physicians WHERE attending_physicians.PhysicianID = '$at' AND attending_physicians.AdmissionID = patients_archive.ArchiveID");
+$sel = mysqli_query($conn,"SELECT * FROM patients_archive JOIN attending_physicians WHERE attending_physicians.PhysicianID = '$at' AND attending_physicians.AdmissionID = patients_archive.ArchiveID GROUP BY patients_archive.ArchiveID");
 
 $data = array();
 
