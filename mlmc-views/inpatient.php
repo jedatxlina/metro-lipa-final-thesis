@@ -42,8 +42,7 @@ font-weight: bold;
 														<table id="patient_table" class="table table-striped table-bordered" cellspacing="0" width="100%">
 															<thead>
 															<tr>
-																<th>Inpatient ID</th>
-																<th>Admission No</th>
+																
 																<th>Admission Date</th>
 																<th>Admission Time</th>
 																<th>Full name</th>
@@ -54,8 +53,7 @@ font-weight: bold;
 															</thead>
 															<tbody>
 															<tr ng-repeat="user in users" ng-class="{'selected': user.AdmissionID == selectedRow}" ng-click="setClickedRow(user.AdmissionID)">
-																<td>{{user.AdmissionID}}</td>
-																<td>{{user.AdmissionNo}}</td>
+															
 																<td>{{user.AdmissionDate}}</td>
 																<td>{{user.AdmissionTime}}</td>
 																<td>{{user.Lname}}, {{user.Fname}} {{user.Mname}} </td>

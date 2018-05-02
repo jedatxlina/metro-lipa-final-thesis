@@ -49,7 +49,6 @@ include 'admin-header.php' ?>
                         <table id="patient_table" class="table table-striped table-bordered" cellspacing="0" width="100%">
                             <thead>
                                 <tr>
-                                    <th>Outpatient ID</th>
                                     <th>Admission Date/Time</th>
                                     <th>Full name</th>
                                     <th>Admission</th>
@@ -59,7 +58,7 @@ include 'admin-header.php' ?>
                             </thead>
                             <tbody>
                                 <tr ng-repeat="user in users" ng-class="{'selected': user.AdmissionID == selectedRow}" ng-click="setClickedRow(user.AdmissionID)">
-                                    <td>{{user.AdmissionID}}</td>
+                                  
                                     <td>{{user.AdmissionDate}} {{user.AdmissionTime}}</td>
                                     <td>{{user.Lname}}, {{user.Fname}} {{user.Mname}} </td>
                                     <td>{{user.Admission}}</td>
