@@ -291,6 +291,7 @@
                     url: 'getData/get-cnt-patients.php'
                 }).then(function(response) {
                     $scope.countpatients = response.data;
+                    
                 });
 
 

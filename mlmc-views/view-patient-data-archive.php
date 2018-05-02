@@ -265,6 +265,10 @@ var fetch = angular.module('myApp', ['ui.mask']);
            $window.open('view-qr-code.php?at='+$scope.at+'&id='+$scope.id, '_blank');
            
        }
+       
+       $scope.viewHistoryReport = function(){
+        $window.open('view-history-report.php?at='+$scope.at+'&id='+$scope.id, '_blank');
+       }
 
        $scope.admitPatientArchive = function(){
           
