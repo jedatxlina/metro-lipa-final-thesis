@@ -13,6 +13,9 @@ $fee = $_GET['ProfessionalFee'];
 $contact = $_GET['Contact'];
 $email = $_GET['Email'];
 $acctype = $_GET['atype'];
+$tin = $_GET['tin'];
+$lic = $_GET['lic'];
+$ptr = $_GET['ptr'];
 
 
 $specialization = isset($_GET['Specialization']) ? $_GET['Specialization'] : '';
@@ -32,8 +35,8 @@ else if ($acctype == 3)
 }
 else if ($acctype == 4)
 {
-    $query= "INSERT into physicians(PhysicianID,LastName,FirstName,MiddleName,Gender,Birthdate,Specialization,Address,Contact,ProfessionalFee,Email) 
-    VALUES ('$accountid','$lastname','$firstname','$middlename','$gender','$birthdate','$specialization','$address','$contact','$fee','$email')";
+    $query= "INSERT into physicians(PhysicianID,LastName,FirstName,MiddleName,Gender,Birthdate,Specialization,Address,Contact,ProfessionalFee,Email,pathPhoto,PTRNo,TinNo,LicenseNo) 
+    VALUES ('$accountid','$lastname','$firstname','$middlename','$gender','$birthdate','$specialization','$address','$contact','$fee','$email','','$ptr','$tin','$lic')";
 }
 else if ($acctype == 5)
 {

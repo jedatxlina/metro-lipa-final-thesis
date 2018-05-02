@@ -19,7 +19,7 @@
         $sel = mysqli_query($conn,"SELECT medication.*,dosing_time.DosingID,dosing_time.TimeInterval FROM medication JOIN dosing_time WHERE medication.ID = '$medid' AND medication.AdmissionID = '$admissionid' AND medication.DosingID = dosing_time.DosingID");
 
         while($row = mysqli_fetch_assoc($sel))
-        {
+        {   
             $medicationid=$row['MedicationID'];
             $medicinename = $row['MedicineName'];
             $qnty =  intval($row['Quantity']);
@@ -90,6 +90,7 @@
             $bedid = $row['BedID'];
         }
         $med = $medicinename . ' ' . $dsg;
+        
         $billquery = "INSERT into billing(BillID,AdmissionID,Department,ItemID,BillDes,TotalBill,Status,MedicalID,BedID) 
         VALUES('$billid','$admissionid','$department','$medicationid','$med','$price','Unpaid','$medicalid','$bedid')";
         mysqli_query($conn,$billquery);  

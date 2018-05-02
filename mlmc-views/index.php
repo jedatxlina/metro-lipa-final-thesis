@@ -64,7 +64,7 @@
             <div class="col-md-4">
                 <div class="panel panel-danger" data-widget='{"draggable": "false"}'>
                     <div class="panel-heading">
-                        <h2>Common Illnesses</h2>
+                        <h2>Common Illnesses (Weekly)</h2><a ng-click="viewReport()"> <i class="ti ti-printer pull-right"></i></a>
                     </div>
                     <div>
                         <table class="table browsers m-n">
@@ -199,7 +199,7 @@
             }
 
             var app = angular.module('myApp', []);
-            app.controller('userCtrl', function($scope, $http) {
+            app.controller('userCtrl', function($scope, $http,$window) {
                 $scope.at = "<?php echo $at;?>";
 
                 angular.element(document).ready(function() {
@@ -291,6 +291,7 @@
                     url: 'getData/get-cnt-patients.php'
                 }).then(function(response) {
                     $scope.countpatients = response.data;
+                    
                 });
 
 
@@ -302,6 +303,10 @@
                 $scope.buttonDisable = function() {
                     if ($scope.param == '1')
                         return true;
+                }
+
+                $scope.viewReport = function() {
+                    $window.open('view-illnesses-report.php?at='+$scope.at+'&param='+'current', '_blank');
                 }
 
                 $scope.viewProfile = function() {

@@ -319,7 +319,7 @@
                     }
 
                     $scope.submitDetails = function(type){
-                    alert();
+                 
                         $scope.totalbill = 2500;
                         $http({
                         method: 'GET',

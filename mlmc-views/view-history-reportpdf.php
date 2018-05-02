@@ -113,7 +113,7 @@
                     <th>Date & Time Diagnosed</th>
                     <th>Findings</th>
                 </tr>';
-
+               
                 $queryfindings = mysqli_query($conn,"SELECT patients_archive.*,CONCAT(physicians.FirstName,' ',physicians.MiddleName,' ',physicians.LastName) as dfullname,medical_details.*,diagnosis.* FROM patients_archive JOIN medical_details,attending_physicians,physicians,diagnosis WHERE ArchiveNo= '$archiveno' AND patients_archive.MedicalID = medical_details.MedicalID AND medical_details.AttendingID = attending_physicians.AttendingID AND attending_physicians.PhysicianID = physicians.PhysicianID AND attending_physicians.DiagnosisID = diagnosis.DiagnosisID");	
 
                 while ($row = mysqli_fetch_assoc($queryfindings)) {
@@ -124,6 +124,32 @@
                
                     $html .= '<tr><td> ' . $dfullname . ' </td><td>' . $datediagnosed . ' ' . $timediagnosed . '</td><td>' . $diagnosis . '</td></tr>';
                    }
+
+                   $html .= '
+                   </table>
+                   <br>
+                   <center><h5>Laboratory Report</h5></center>
+                   <table>
+                   <tr>
+                       <th>Description</th>
+                       <th>Date & Time Cleared</th>
+                       <th>Result</th>
+                     
+                   </tr>';
+              
+                   $querylaboratory = mysqli_query($conn,"SELECT laboratory_req.*,laboratories.Description FROM patients_archive JOIN medical_details,laboratory_req,laboratories WHERE patients_archive.ArchiveNo = '$archiveno' AND patients_archive.MedicalID = medical_details.MedicalID AND medical_details.MedicalID = laboratory_req.MedicalID AND laboratory_req.LaboratoryID = laboratories.LaboratoryID");	
+
+                   while ($row = mysqli_fetch_assoc($querylaboratory)) {
+
+                    $description = $row['Description'];
+                    $datetimeclearead = $row['DateCleared'] + ' ' + $row['TimeCleared'];
+                    $result = $row['Result'];
+                
+                    $html .= '<tr><td> ' . $description . ' </td><td>' . $datetimeclearead . '</td><td>' . $result . '</td></tr>';
+                    
+                }
+
+
 
 
                 $html .= '
