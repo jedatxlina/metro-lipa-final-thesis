@@ -57,8 +57,9 @@
                 <div class="list-group list-group-alternate mb-n nav nav-tabs">
                     <a href="#tab-about" 	role="tab" data-toggle="tab" class="list-group-item active"><i class="ti ti-user"></i> About </a>
                     <a href="#tab-details" role="tab" data-toggle="tab" class="list-group-item"><i class="fa fa-stethoscope"></i>Add Patient Vitals</a>
+                    <a href="#" ng-click="viewPatientMedication()" role="tab" data-toggle="tab" class="list-group-item"><span class="badge badge-primary"></span> <i class="fa fa-medkit"></i>View Medication</a>
+                    <a href="#" ng-click="postMedication()" role="tab" data-toggle="tab" class="list-group-item"><span class="badge badge-primary"></span> <i class="fa fa-plus-square-o"></i>Post Medication</a>
                     <a href="#tab-supplies" role="tab" data-toggle="tab" class="list-group-item"><i class="fa fa-stethoscope"></i>Supplies Used</a>
-                    <a href="#tab-projects" role="tab" data-toggle="tab" class="list-group-item"><i class="ti ti-view-list-alt"></i> Medical History</a>
                     <a href="#tab-edit" 	role="tab" data-toggle="tab" clata-toggle="tab" class="list-group-item" ng-if="chckval != 1"> <i class="ti ti-pencil"></i> Edit</a>
                 </div>
             </div><!-- col-sm-3 -->
@@ -327,6 +328,95 @@
                         </div>
                     </div>
 
+                     <!-- View Medication Modal -->
+                     <div class="modal fade" id="viewMedicationModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+                        <form class="form-horizontal">
+                            <div class="modal-dialog">
+                                <div class="panel panel-danger" data-widget='{"draggable": "false"}'>
+                                    <div class="panel-heading">
+                                        <h2>Current Patient Medications</h2>
+                                        <div class="panel-ctrls" data-actions-container="" data-action-collapse='{"target": ".panel-body, .panel-footer"}'></div>
+                                    </div>
+                                    <div class="panel-body" style="height: 500px">
+                                        <center><span><strong>History and Current Medicines</strong></span></center>
+                                        <hr>
+                                        <table id="medication_table" class="table table-striped table-bordered" cellspacing="0" width="100%">
+                                            <thead>
+                                                <tr>
+                                                    <th>Medicine Name</th>
+                                                    <th>Required Intake</th>
+                                                    <th>Dosage</th>
+                                                    <th>Ordered By</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <tr ng-repeat="medication in medicationdetails " ng-class="{'selected': medication.ID == selectedRow}" ng-click="setClickedRow(medication.ID)">
+                                                    <td>{{medication.MedicineName}}</td>
+                                                    <td>{{medication.Quantity}}</td>
+                                                    <td>{{medication.Dosage}}</td>
+                                                    <td>Dr. {{medication.Fullname}}</td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+
+                                    </div>
+                                    <div class="panel-footer">
+                                        <button type="button" class="btn btn-danger-alt pull-right" data-dismiss="modal">Close</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                    <!-- View Medication Modal -->
+
+                    
+                        <!-- Post Medication Modal -->
+                        <div class="modal fade" id="postMedicationModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+                        <form class="form-horizontal">
+                            <div class="modal-dialog">
+                                <div class="panel panel-danger" data-widget='{"draggable": "false"}'>
+                                    <div class="panel-heading">
+                                        <h2>Post Patient Medication</h2>
+                                        <div class="panel-ctrls" data-actions-container="" data-action-collapse='{"target": ".panel-body, .panel-footer"}'></div>
+                                    </div>
+                                    <div class="panel-body" style="height: 500px">
+                                        <center><span><strong>Registry Information</strong></span></center>
+                                        <hr>
+                                        <table id="postmedication_table" class="table table-striped table-bordered" cellspacing="0" width="100%">
+                                            <thead>
+                                                <tr>
+                                                    <th>  <a ng-click="clearPushID()" class="pull-right"><i class="ti ti-reload"></i></a></th>
+                                                    <th>Medicine Name</th>
+                                                    <th>Quantity (on hand)</th>
+                                                    <th>Dosage</th>
+                                                    <th>Ordered By</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <tr ng-repeat="medication in medicationdetails track by $index" ng-if="medication.QuantityOnHand!=0">
+                                                    <td><input id="rad" type="radio" ng-click="PushID(medication.ID)"></td>
+                                                    <td>{{medication.MedicineName}}</td>
+                                                    <td>{{medication.QuantityOnHand}}</td>
+                                                    <td>{{medication.Dosage}}</td>
+                                                    <td>Dr. {{medication.Fullname}}</td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                    <div ng-repeat="med in medicationdetails">
+                                        <input type="hidden" ng-model="$parent.medicationid" ng-init="$parent.medicationid = med.MedicationID">
+                                    </div>
+
+                                    <div class="panel-footer">
+                                        <button type="button" class="btn btn-default pull-right" data-dismiss="modal">Close</button>
+                                        <button type="button" ng-click="postMedicationConfirm()" class="btn btn-danger pull-right">Post Medication</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                    <!-- Post Medication Modal -->
+
                     <div class="tab-pane" id="tab-edit" data-ng-repeat="patient in patientdetails">
                         <div class="panel">
                             <div class="panel-heading">
@@ -431,6 +521,10 @@
                             </div>
                         </div>
                     </div>
+
+                       
+
+
                 </div><!-- .tab-content -->
             </div><!-- col-sm-8 -->
             <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
@@ -493,9 +587,11 @@ var fetch = angular.module('myApp', ['ui.mask']);
        $scope.trol=[];
        $scope.clickedRow = 0;
        $scope.new = {};
-       $scope.vitalsid =     "<?php echo rand(111111, 999999);?>"; 
+       $scope.vitalsid =  "<?php echo rand(111111, 999999);?>"; 
        $scope.parsedbp = [];
-                $scope.admissionid = "<?php echo $id; ?>"
+        $scope.admissionid = "<?php echo $id; ?>"
+        $scope.PostCheck =  [];
+
             $scope.AddVitals = function() {
                 $scope.parsedbp =  $scope.bp.split('/');
                 $http({
@@ -566,6 +662,17 @@ var fetch = angular.module('myApp', ['ui.mask']);
                                     }
                                     window.location.reload();
         }
+
+        $scope.PushID = function(param){
+            $scope.PostCheck.push(param);
+        }
+
+        $scope.clearPushID = function(){
+            $('#rad').attr('checked',false);
+            $scope.PostCheck.length = 0;
+            $scope.selectedRow = '';
+        }
+
         $scope.accesstype = $scope.at[0];
             $http({
             method: 'GET',
@@ -627,6 +734,88 @@ var fetch = angular.module('myApp', ['ui.mask']);
             $window.open('view-medication-report.php?at='+$scope.at+'&id='+$scope.id, '_blank');
          
         }
+
+        $scope.viewPatientMedication = function() {
+                        $http({
+                            method: 'get',
+                            url: 'getData/get-medication-details.php',
+                            params: {
+                                admissionid: $scope.id
+                            }
+                        }).then(function(response) {
+                            $scope.medicationdetails = response.data;
+                            angular.element(document).ready(function() {
+                                dTable = $('#medication_table')
+                                dTable.DataTable();
+                            });
+                            
+                            $('#viewMedicationModal').modal('show');
+                        });
+                 
+        }          
+
+        $scope.postMedication = function() {
+              
+                  $http({
+                      method: 'get',
+                      url: 'getData/get-medication-details.php',
+                      params: {
+                          admissionid: $scope.admissionid
+                      }
+                  }).then(function(response) {
+                      $scope.medicationdetails = response.data;
+                      var onhand = 0;
+                      angular.forEach($scope.medicationdetails, function(value, key){
+                         
+                          if(value.QuantityOnHand != 0){
+                              onhand += 1;
+                          }
+                                  
+                      });
+                      if(onhand > 0){
+                          $scope.selectedRow = '';
+                          angular.element(document).ready(function() {
+                          dTable = $('#postmedication_table')
+                          dTable.DataTable();
+                          });
+                          $('#postMedicationModal').modal('show');
+                      }else{
+                          swal({
+                                  icon: "warning",
+                                  title: "Quantity on hand is empty!",
+                                  text: "Redirecting in 2..",
+                                  timer: 2000
+                              }).then(function() {
+                                  window.location.reload(false);
+                              }, function(dismiss) {
+                                  if (dismiss === 'cancel') {
+                                      window.location.reload(false);
+                                  }
+                              });
+                      }
+
+                  });
+      }
+
+      $scope.postMedicationConfirm = function() {
+          // $scope.medid = $scope.selectedRow;
+     
+          // if($scope.PostCheck.indexOf($scope.medid) === -1) {
+          //     $scope.PostCheck.push($scope.medid);
+          // }
+          swal({
+              icon: "success",
+              title: "Medication Updated!",
+              text: "Redirecting in 2..",
+              timer: 2000
+          }).then(function() {
+              window.location.href = 'insertData/post-medication-details.php?at=' + $scope.at + '&id=' + $scope.admissionid + '&medid=' + $scope.PostCheck;
+          }, function(dismiss) {
+              if (dismiss === 'cancel') {
+                  window.location.href = 'insertData/post-medication-details.php?at=' + $scope.at + '&id=' + $scope.admissionid + '&medid=' + $scope.PostCheck;
+              }
+          });
+      }
        
        
        $scope.saveDetails = function(patient){
