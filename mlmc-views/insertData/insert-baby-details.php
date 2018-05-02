@@ -16,12 +16,14 @@
     $lastname = $_GET['lastname'];
     $middlename = $_GET['middlename'];
     $firstname = $_GET['firstname'];
+    $babygender = $_GET['babygender'];
     $citizenship = $_GET['citizenship'];
     $bloodtype = $_GET['bloodtype'];
     $delivery = $_GET['delivery'];
     $weight = $_GET['weight'];
     $attending = $_GET['attending'];
-
+    $status = 'Single';
+    
     $date = date("Y-m-d");
 
     $time = date("h:i A");
@@ -36,8 +38,8 @@
     }
 
 
-    $query = "INSERT into patients(AdmissionID,AdmissionDate,AdmissionTime,FirstName,MiddleName,LastName,Admission,AdmissionType,Province,City,Brgy,CompleteAddress,Birthdate,Citizenship,MedicalID) 
-    VALUES('$babyadmission','$date','$time','$firstname','$middlename','$lastname','New Patient','Inpatient','$province','$city','$brgy','$address','$date','$citizenship','$medicalid')";
+    $query = "INSERT into patients(AdmissionID,AdmissionDate,AdmissionTime,FirstName,MiddleName,LastName,Admission,AdmissionType,Province,City,Brgy,CompleteAddress,Gender,Age,CivilStatus,Birthdate,Occupation,Citizenship,MedicalID) 
+    VALUES('$babyadmission','$date','$time','$firstname','$middlename','$lastname','New Patient','Inpatient','$province','$city','$brgy','$address','$babygender','0','Single','$date','Unemployed','$citizenship','$medicalid')";
 
     mysqli_query($conn,$query);  
 

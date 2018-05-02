@@ -6,7 +6,7 @@
     $id = $_GET['id'];
 
     $randstring = rand(111111, 999999);
-
+    $randstring2 = rand(111111, 999999);
     
     $sel = mysqli_query($conn,"SELECT referrals.AdmissionID,medical_details.AttendingID FROM referrals JOIN medical_details,patients WHERE referrals.ID = '$id' AND patients.AdmissionID = referrals.AdmissionID AND patients.MedicalID = medical_details.MedicalID");
 
@@ -20,7 +20,7 @@
 
     mysqli_query($conn,$query);  
 
-    $query2 = "INSERT into attending_physicians(AttendingID,PhysicianID,AdmissionID) VALUES('$attendingid','$at','$admissionid')";
+    $query2 = "INSERT into attending_physicians(AttendingID,PhysicianID,AdmissionID,DiagnosisID) VALUES('$attendingid','$at','$admissionid','$randstring2')";
 
     mysqli_query($conn,$query2);  
 ?>

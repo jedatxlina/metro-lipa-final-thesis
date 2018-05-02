@@ -343,7 +343,14 @@
                                                     <label>Admission ID</label>
                                                     <input type="text" ng-model="babyadmission" disabled="disabled">
                                                 </div>
-                                              
+                                                <div data-field-span="1">
+                                                <label>Gender</label>
+                                                    <select class="form-control" ng-model="babygender">  
+                                                            <option value="" disabled selected>Select</option>
+                                                            <option value="Male">Male</option>
+                                                            <option value="Female">Female</option>
+                                                        </select>
+                                                        </div>
                                             </div>
                                             <div data-row-span="4">
                                                 <div data-field-span="1" >
@@ -373,10 +380,14 @@
                                                     <label>Blood Type</label>
                                                     <select class="form-control" ng-model="babybloodtype">
                                                         <optgroup label="List of Blood Types">
-                                                            <option value="O">O</option>
-                                                            <option value="A">A</option>
-                                                            <option value="B">B</option>
-                                                            <option value="AB">AB</option>
+                                                            <option value="O+">O+</option>
+                                                            <option value="O-">O-</option>
+                                                            <option value="A+">A+</option>
+                                                            <option value="A-">A-</option>
+                                                            <option value="B+">B+</option>
+                                                            <option value="B-">B-</option>
+                                                            <option value="AB+">AB+</option>
+                                                            <option value="AB-">AB-</option>
                                                         </optgroup>
                                                     </select>
                                                 </div>
@@ -414,7 +425,7 @@
 
                                                                 <div ng-if="!specialization">
                                                                     <div data-field-span="1">
-                                                                        <label>Attending Physiciann</label>
+                                                                        <label>Attending Physician</label>
                                                                         <select class="form-control" ng-model="$parent.attendingphysician2" style="width:395px;">
                                                                             <option value="" disabled selected>Select Physician</option>
                                                                             <option ng-repeat="physician in physicians" value="{{physician.PhysicianID}}">{{physician.Fullname}}</option>
@@ -704,6 +715,7 @@
                                     middlename: $scope.babymiddlename,
                                     firstname: $scope.babyfirstname,
                                     nationality: $scope.babynationality,
+                                    babygender: $scope.babygender,
                                     bloodtype: $scope.babybloodtype,
                                     delivery: $scope.babydelivery,
                                     weight: $scope.babyweight,

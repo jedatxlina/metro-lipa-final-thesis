@@ -14,7 +14,7 @@ date_default_timezone_set("Asia/Singapore");
     $at = $_GET['at'];
     $datetime = date("Y-m-d h:i A");
 
-    $sel = mysqli_query($conn,"SELECT *, CONCAT(Firstname, ' ' ,MiddleName, ' ', LastName) AS Fullname FROM admin WHERE AdminID ='$at'");
+    $sel = mysqli_query($conn,"SELECT *, CONCAT(Firstname, ' ' ,MiddleName, ' ', LastName) AS Fullname FROM nurses WHERE NurseID ='$at'");
 
     while ($row = mysqli_fetch_assoc($sel)) {
         $genfullname = $row['Fullname'];
