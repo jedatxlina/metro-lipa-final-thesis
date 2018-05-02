@@ -4,7 +4,7 @@ require_once 'connection.php';
 $id =  isset($_GET['id']) ? $_GET['id'] : '';
 
 if($id == ''){
-	$sel = mysqli_query($conn,"SELECT * FROM patients_archive");
+	$sel = mysqli_query($conn,"SELECT * FROM patients_archive GROUP BY ArchiveID");
 }else{
 	$sel = mysqli_query($conn,"SELECT * FROM patients_archive WHERE ArchiveID = '$id' GROUP BY ArchiveID");
 }
