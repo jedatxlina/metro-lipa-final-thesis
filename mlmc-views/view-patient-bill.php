@@ -107,6 +107,7 @@
                                                     <li><strong>Admission No:</strong>&emsp; {{patient.AdmissionNo}}</li>
                                                     <br><br>
                                                     <small><input type="checkbox" ng-model="senior" ng-click="seniorClick()" ng-disabled="$parent.fee == 0"> Senior Citizen </small>
+                                                    <small><input type="checkbox" ng-model="senior" ng-click="philhealthClick()" ng-disabled="$parent.fee == 0"> Philhealth </small>
                                                 </ul>
                                                 <br>
                                             </div>
