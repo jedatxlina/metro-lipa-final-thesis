@@ -22,6 +22,12 @@
         $genfullname = $row['Fullname'];
     }
 
+    $getdiag = mysqli_query($conn,"SELECT diagnosis.Findings FROM patients JOIN medical_details,attending_physicians,diagnosis WHERE patients.AdmissionID = '$id' AND patients.MedicalID = medical_details.MedicalID AND medical_details.AttendingID = attending_physicians.AttendingID AND attending_physicians.DiagnosisID = diagnosis.DiagnosisID");
+
+    while ($row = mysqli_fetch_assoc($getdiag)) {
+        $findings = $row['Findings'];
+    }
+
      if(isset($_GET['searchparam'])){
          $searchparam = $_GET['searchparam'];
          $query = mysqli_query($conn,"SELECT PhysicianID, Specialization, CONCAT( FirstName, ' ', MiddleName , ' ' ,LastName) AS FullName FROM physicians");
@@ -58,6 +64,8 @@
          $birthdate = $row['Birthdate'];
          $contact = $row['Contact'];
          $admissiontype = $row['AdmissionType'];
+         $admissiondate = $row['AdmissionDate'];
+         $admissiontime = $row['AdmissionTime'];
      }
     
     $html = '<link type="text/css" href="assets/plugins/gridforms/gridforms/gridforms.css" rel="stylesheet">
@@ -92,7 +100,6 @@
 
     <img src="assets/img/report-header.jpg">
     <h2><center>MEDICAL CERTIFICATE</center></h2>
-    <p><center>(Inpatient)</center><p>
     </head>
     <P><b>TO WHOM IT MAY CONCERN:</b>
     <br><br>
@@ -104,14 +111,14 @@
     <u>' . $address .'   </u>
     <br>
     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-    is/was hospitalized in this institution from ______________ to _____________
+    is/was hospitalized in this institution from <u>'.$admissiondate.' '.$admissiontime .'</u> to <u>'.$datetime.'</u>
     
     <br><br>
 
     <b>DIAGNOSIS:</b>
-    <br><br>
+    <br>
     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-     FINDINGS / DISEASE
+    <br><br><h3><u><b>'.$findings.'</b></u></h3>
 
     <br><br><br>
     
