@@ -88,7 +88,7 @@
                                             <div data-row-span="2">
                                                 <div data-field-span="1">
                                                     <label>Notes</label>
-                                                    <input type="text" ng-value="AdmissionNo" ng-model="NoteID[$index]" placeholder="Notes here"> 
+                                                    <input type="text" ng-model="NoteID[$index]" placeholder="Notes here"> 
                                                 </div>
                                             </div>
                                         </fieldset>

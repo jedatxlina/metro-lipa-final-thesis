@@ -246,16 +246,14 @@
                                 <table id="referral_table" class="table table-striped table-bordered" cellspacing="0" width="100%">
                                     <thead>
                                     <tr>
-                                        <th>ID</th>
-                                        <th>Admission ID</th>
+                                        <th>Patient Name</th>
                                         <th>Referred To</th>
                                         <th>Referred By</th>
                                     </tr>
                                     </thead>
                                     <tbody>
                                     <tr ng-repeat="referral in referraldetails" ng-class="{'selected': referral.ID == selectedRow}" ng-click="setClickedRow(referral.ID)">
-                                            <td>{{referral.ID}}</td>
-                                            <td>{{referral.AdmissionID}}</td>
+                                            <td>{{referral.PatientName}}</td>
                                             <td>{{referral.ReferredTo}}</td>
                                             <td>Dr. {{referral.firstname}} {{referral.middlename}} {{referral.lastname}}</td>
                                         </tr>
@@ -486,7 +484,7 @@
                 }
 
                 $scope.postReferral = function(){
-                    if($scope.admisstype = 'Outpatient')
+                    if($scope.admisstype == 'Outpatient')
                     {
                         $('#errorReferModal').modal('show');
                     }

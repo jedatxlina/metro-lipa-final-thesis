@@ -143,7 +143,7 @@ include 'admin-header.php' ?>
                             <a href="#" ng-click="medicineRequisition()" role="tab" data-toggle="tab" class="list-group-item"><span class="badge badge-primary"></span> <i class="fa fa-plus-square-o"></i>Medicine Requisition</a>
                             <a href="#" ng-click="postDiagnosis()" role="tab" data-toggle="tab" class="list-group-item"><i class="fa fa-stethoscope"></i>Post Diagnosis</a>
                             <a href="#" ng-click="postMedication()" role="tab" data-toggle="tab" class="list-group-item"><span class="badge badge-primary"></span> <i class="fa fa-plus-square-o"></i>Post Medication</a>
-                            <a href="#" ng-click="viewOrder()" role="tab" data-toggle="tab" class="list-group-item"><span class="badge badge-primary"  ng-if="order > 0">{{order}}</span> <i class="ti ti-email"></i>Doctors Order</a>
+                            <a href="#" ng-click="viewOrder()" role="tab" data-toggle="tab" class="list-group-item"><span class="badge badge-primary"  ng-if="order > 0 ">{{order}}</span> <i class="ti ti-email"></i>Doctors Order</a>
                        <!-- <a href="#" ng-click="postBills()" role="tab" data-toggle="tab" class="list-group-item"><i class="fa fa-file-text-o"></i>Process Billing</a> -->
                             <a href="#" ng-click="dischargePatient()" role="tab" data-toggle="tab" class="list-group-item"><i class="fa fa-tag"></i>Tag As Discharged</a>
                             <a href="#" ng-click="processMedCert()" role="tab" data-toggle="tab" class="list-group-item"><i class="fa fa-file-text-o"></i>Process Medical Certificate</a>
@@ -189,7 +189,7 @@ include 'admin-header.php' ?>
                                                 </tr>
                                             </thead>
                                             <tbody>
-                                                <tr ng-repeat="medication in medicationdetails" ng-class="{'selected': medication.ID == selectedRow}" ng-click="setClickedRow(medication.ID)">
+                                                <tr ng-repeat="medication in medicationdetails | filter:{ DosingID: '!0'}" ng-class="{'selected': medication.ID == selectedRow}" ng-click="setClickedRow(medication.ID)">
                                                     <td>{{medication.MedicineName}}</td>
                                                     <td>{{medication.Quantity}}</td>
                                                     <td>{{medication.Dosage}}</td>
@@ -223,18 +223,17 @@ include 'admin-header.php' ?>
                                         <table id="orders_table" class="table table-striped table-bordered" cellspacing="0" width="100%">
                                             <thead>
                                                 <tr>
-                                                    <th>Order ID</th>
-                                                    <th>Admission ID</th>
-                                                    <th>Physician ID</th>
+                                                    <th>Patient Name</th>
+                                                    <th>Physician</th>
                                                     <th>Task</th>
                                                     <th>Status</th>
                                                 </tr>
                                             </thead>
                                             <tbody>
-                                                <tr ng-repeat="order in orders" ng-class="{'selected': order.OrderID == selectedRow}" ng-click="setClickedRow(order.OrderID,order.AdmissionID)">
-                                                    <td>{{order.OrderID}}</td>
-                                                    <td>{{order.AdmissionID}}</td>
-                                                    <td>{{order.PhysicianID}}</td>
+                                                <tr ng-repeat="order in orders | filter:{ AdmissionType: '!Outpatient'}" ng-class="{'selected': order.OrderID == selectedRow}" ng-click="setClickedRow(order.OrderID,order.AdmissionID)">
+                                                    
+                                                    <td>{{order.Dname}}</td>
+                                                    <td>{{order.Pname}}</td>
                                                     <td>{{order.Task}}</td>
                                                     <td>{{order.Status}}</td>
 
@@ -388,7 +387,7 @@ include 'admin-header.php' ?>
                                                 </tr>
                                             </thead>
                                             <tbody>
-                                                <tr ng-repeat="medication in medicationdetails" ng-class="{'selected': medication.ID == selectedRow}" ng-click="setClickedRow(medication.ID)">
+                                                <tr ng-repeat="medication in medicationdetails | filter:{ DosingID: '!0'}" ng-class="{'selected': medication.ID == selectedRow}" ng-click="setClickedRow(medication.ID)">
                                                     <td>{{medication.MedicineName}}</td>
                                                     <td>{{medication.Quantity}}</td>
                                                     <td>{{medication.Dosage}}</td>
@@ -431,7 +430,7 @@ include 'admin-header.php' ?>
                                                 </tr>
                                             </thead>
                                             <tbody>
-                                                <tr ng-repeat="medication in medicationdetails track by $index" ng-if="medication.QuantityOnHand!=0" ng-class="{'selected': medication.ID == selectedRow}" ng-click="setClickedRow(medication.ID)">
+                                                <tr ng-repeat="medication in medicationdetails track by $index" ng-if="medication.QuantityOnHand!=0">
                                                     <td><input id="rad" type="radio" ng-click="PushID(medication.ID)"></td>
                                                     <td>{{medication.MedicineName}}</td>
                                                     <td>{{medication.QuantityOnHand}}</td>
@@ -576,6 +575,7 @@ include 'admin-header.php' ?>
                         method: 'get',
                         url: 'getData/get-order-details.php'
                     }).then(function(response) {
+                        $scope.NoOfOrder = response.data;
                         $scope.order = response.data.length;
                     });
 
@@ -845,11 +845,11 @@ include 'admin-header.php' ?>
                 }
 
                 $scope.postMedicationConfirm = function() {
-                    $scope.medid = $scope.selectedRow;
+                    // $scope.medid = $scope.selectedRow;
                
-                    if($scope.PostCheck.indexOf($scope.medid) === -1) {
-                        $scope.PostCheck.push($scope.medid);
-                    }
+                    // if($scope.PostCheck.indexOf($scope.medid) === -1) {
+                    //     $scope.PostCheck.push($scope.medid);
+                    // }
                    
                     swal({
                         icon: "success",

@@ -129,7 +129,7 @@
                     Patient ID: <span> '.$id.' </span> <br></div>   
 
                     
-                    <div>Age:  <span>  '.$age.' </span> </div>
+                   
                     <div class="pull-left">Gender:  <span>  '.$gender.'  </span>  </div>
 
                 </div>
