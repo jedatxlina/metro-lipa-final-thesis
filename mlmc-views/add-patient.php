@@ -122,7 +122,7 @@
                                                     </div>
                                                     <div data-row-span='4'>
                                                         <div data-field-span="1">
-                                                            <label>House No/Blk No./Zip Code</label>
+                                                            <label>House No/Blk No.</label>
                                                             <input type="text" ng-model="address">
                                                         </div>
                                                     </div>
