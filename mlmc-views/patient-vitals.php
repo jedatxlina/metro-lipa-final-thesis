@@ -419,7 +419,7 @@ include '../mlmc-views/getData/get-inpatient-vitals.php';
                         }
                     });
                     var barChart = new Chart(ct2, {
-                        type: 'bar',
+                        type: 'line',
                         data: chartdata2,
                         options: {
                             responsive: true,
