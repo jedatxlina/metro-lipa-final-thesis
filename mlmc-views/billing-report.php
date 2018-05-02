@@ -243,11 +243,11 @@ while ($row = mysqli_fetch_array($sel3)) {
                                 <th class="text-right">Total Fee</th>
                             </tr>
                         </thead>';
-while ($row = mysqli_fetch_array($sel4)) {
-    $html .= '<tbody><tr>
-      <td>Dr. ' . $row['FirstName'] . ' ' . $row['MiddleName'] . ' ' . $row['LastName'] . '</td><td>' . number_format($row['Discount']) . '</td><td>' . number_format($row['Rate']) . '</td>
-     </tr>';
-    }
+// while ($row = mysqli_fetch_array($sel4)) {
+//     $html .= '<tbody><tr>
+//       <td>Dr. ' . $row['FirstName'] . ' ' . $row['MiddleName'] . ' ' . $row['LastName'] . '</td><td>' . number_format($row['Discount']) . '</td><td>' . number_format($row['Rate']) . '</td>
+//      </tr>';
+//     }
                         $html .= '
                         </tbody>
                     </table>
