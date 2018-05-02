@@ -80,7 +80,7 @@ font-weight: bold;
                         </div>
 					<div class="list-group list-group-alternate mb-n nav nav-tabs">
 						<a href="#" role="tab" data-toggle="tab" class="list-group-item active">Actions Panel</a>
-						<a href="#" ng-click="readyMedicine()" role="tab" data-toggle="tab" class="list-group-item"><i class="ti ti-user"></i> Set Medicine Ready (for PickUp)</a>
+						<!-- <a href="#" ng-click="readyMedicine()" role="tab" data-toggle="tab" class="list-group-item"><i class="ti ti-user"></i> Set Medicine Ready (for PickUp)</a> -->
                         <a href="#" ng-click="clearMedicine()" role="tab" data-toggle="tab" class="list-group-item"><i class="fa fa-file-text-o"></i>Clear Medicine Request</a>
                     </div>
 				</div>
@@ -224,14 +224,14 @@ font-weight: bold;
 		
 		   $scope.clearMedicine = function(){
 			if($scope.selectedRow != null){
-				if ($scope.selectedStatus == 'Pending')
-				 {
-				 	$('#pendingModal').modal('show');
-				 }
-				 else
-				 {
+				// if ($scope.selectedStatus == 'Pending')
+				//  {
+				//  	$('#pendingModal').modal('show');
+				//  }
+				//  else
+				//  {
 						swal({
-							title: "Are you sure you want to set this medicine to Claimed?",
+							title: "Are you sure you want to clear this Medicine Request?",
 							text: "Claimed Medicine Requests are cleared upon claimed by the nurses!",
 							icon: "warning",
 							buttons: true,
@@ -270,7 +270,7 @@ font-weight: bold;
 					
 					}
 					
-                }
+               // }
 				else{
 			    $('#ErrorModal').modal('show');
 			    }

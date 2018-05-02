@@ -8,10 +8,8 @@ $dosage = $_GET['dosage'];
 $medname = $_GET['medname'];
 $requestid = $_GET['requestid'];
 $status = $_GET['status'];
-if ($status == 'Ready')
+
 $status = 'Claimed';
-else if ($status == 'Pending')
-$status = 'Ready';
 $query= "UPDATE medicine_req SET Status = '$status' WHERE MedRequestID = '$requestid'";
 
 
