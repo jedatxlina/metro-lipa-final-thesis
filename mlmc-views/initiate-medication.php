@@ -145,23 +145,23 @@
                 break;
             
             default:
-                require __DIR__ . '/vendor/autoload.php';
+                // require __DIR__ . '/vendor/autoload.php';
 
-                $options = array(
-                    'cluster' => 'ap1',
-                    'encrypted' => true
-                );
+                // $options = array(
+                //     'cluster' => 'ap1',
+                //     'encrypted' => true
+                // );
                 
-                $pusher = new Pusher\Pusher(
-                    'c23d5c3be92c6ab27b7a',
-                    '296fc518f7ee23f7ee56',
-                    '468021',
-                    $options
-                );
+                // $pusher = new Pusher\Pusher(
+                //     'c23d5c3be92c6ab27b7a',
+                //     '296fc518f7ee23f7ee56',
+                //     '468021',
+                //     $options
+                // );
                 
-                $data['message'] = "Dr. " . $fullname . " posted a patient order.";
-                $pusher->trigger('my-channel-inpatient', 'my-event-inpatient', $data);
-                $pusher->trigger('my-channel', 'my-event', $data);
+                // $data['message'] = "Dr. " . $fullname . " posted a patient order.";
+                // $pusher->trigger('my-channel-inpatient', 'my-event-inpatient', $data);
+                // $pusher->trigger('my-channel', 'my-event', $data);
         
                 header("Location:physician.php?at=$at");
                 break;
