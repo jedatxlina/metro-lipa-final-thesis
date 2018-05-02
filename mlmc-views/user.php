@@ -60,7 +60,7 @@
 						<a href="#" ng-click="Add()" role="tab" data-toggle="tab" class="list-group-item"><i class="fa fa-user-plus"></i></i>Add User Account</a>
 						<a href="#" ng-click="EditUser()"role="tab" data-toggle="tab" class="list-group-item"><i class="ti ti-info-alt"></i>Edit Account</a>
                         <a href="#" ng-click="ViewUser()"role="tab" data-toggle="tab" class="list-group-item"><i class="ti ti-info-alt"></i>Edit User Details</a>
-                        <a href="#" ng-click="ViewUserLogs()"role="tab" data-toggle="tab" class="list-group-item"><i class="ti ti-info-alt"></i>View User Logs</a>
+                        <!-- <a href="#" ng-click="ViewUserLogs()"role="tab" data-toggle="tab" class="list-group-item"><i class="ti ti-info-alt"></i>View User Logs</a> -->
                 	</div>
             </div>
           
