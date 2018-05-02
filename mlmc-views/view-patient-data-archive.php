@@ -273,8 +273,17 @@ var fetch = angular.module('myApp', ['ui.mask']);
        $scope.admitPatientArchive = function(){
           
             $scope.archiveid = $scope.id;
-            window.location.href = 'add-patient.php?at=' + $scope.at + '&id=' + 1 + '&chk=' + $scope.archiveid;
+            switch ($scope.at.charAt(0)) {
+                case '7':
+                    window.location.href = 'add-patient.php?at=' + $scope.at + '&id=' + 0 + '&chk=' + $scope.archiveid;
+                    break;
             
+                default:
+                    window.location.href = 'add-patient.php?at=' + $scope.at + '&id=' + 1 + '&chk=' + $scope.archiveid;
+                    break;
+            }
+
+          
        }
 
        $scope.getPage = function(check){
