@@ -51,6 +51,7 @@
         }
         break;
     }
+    
     $query = mysqli_query($conn,"SELECT *,CONCAT(patients.Firstname, ' ' ,patients.MiddleName, ' ',patients.LastName) AS Fullname,CONCAT(physicians.Firstname, ' ' ,physicians.MiddleName, ' ',physicians.LastName) AS pfullname FROM patients JOIN attending_physicians,physicians WHERE patients.AdmissionID = '$id' AND attending_physicians.AdmissionID = '$id' AND attending_physicians.PhysicianID = physicians.PhysicianID");
     while ($row = mysqli_fetch_assoc($query)) {
      $fullname = $row['Fullname'];

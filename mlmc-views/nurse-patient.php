@@ -846,10 +846,11 @@ include 'admin-header.php' ?>
 
                 $scope.postMedicationConfirm = function() {
                     $scope.medid = $scope.selectedRow;
+               
                     if($scope.PostCheck.indexOf($scope.medid) === -1) {
                         $scope.PostCheck.push($scope.medid);
                     }
-      
+                   
                     swal({
                         icon: "success",
                         title: "Medication Updated!",
@@ -981,7 +982,18 @@ include 'admin-header.php' ?>
                             id: $scope.admissionid
                         }
                     }).then(function(response) {
-                        console.log(response.data);
+                        swal({
+                        icon: "success",
+                        title: "Successfully Discharged!",
+                        text: "Redirecting in 2..",
+                        timer: 2000
+                        }).then(function() {
+                            window.location.reload(false);
+                        }, function(dismiss) {
+                            if (dismiss === 'cancel') {
+                                window.location.reload(false);
+                            }
+                        });
                     });
 
                 }
