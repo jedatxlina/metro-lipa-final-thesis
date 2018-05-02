@@ -47,7 +47,7 @@
                                     </tr>
                                     </thead>
                                     <tbody>
-                                    <tr ng-repeat="patient in administered" ng-class="{'selected': patient.AdmissionID == selectedRow}" ng-click="setClickedRow(patient.AdmissionID,patient.MedicalID)">
+                                    <tr ng-repeat="patient in administered" ng-class="{'selected': patient.AdmissionID == selectedRow}" ng-click="setClickedRow(patient.AdmissionID,patient.MedicalID,patient.AdmissionType)">
                                             <td>{{patient.AdmissionID}}</td>
                                             <td>{{patient.Lastname}} {{patient.Firstname}} {{patient.Middlename}}</td>
                                             <td>{{patient.Gender}}</td>
@@ -293,6 +293,22 @@
 					</div>
 				</div>
 				<!--/ Error modal -->
+
+                       <!-- Error Refer modal -->
+				<div class="modal fade" id="errorReferModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+					<div class="modal-dialog">
+						<div class="panel panel-danger" data-widget='{"draggable": "false"}'>
+							<div class="panel-heading">
+								<h2>Error</h2>
+								<div class="panel-ctrls" data-actions-container="" data-action-collapse='{"target": ".panel-body, .panel-footer"}'></div>
+							</div>
+							<div class="panel-body" style="height: 60px">
+							Outpatients cannot be referred to another doctor.
+							</div>
+						</div>
+					</div>
+				</div>
+				<!--/ Error  Refer modal -->
         <script>
         $('.select2').select2({ placeholder : '' });
 
@@ -401,10 +417,11 @@
                     window.location.href = 'view-patient-data.php?at=' + $scope.at + '&id=' + $scope.admissionid;
                 }
 
-                $scope.setClickedRow = function(spec,medid) {
+                $scope.setClickedRow = function(spec,medid,admisstype) {
                     $scope.selectedRow = ($scope.selectedRow == null) ? spec : ($scope.selectedRow == spec) ? null : spec;
                     $scope.clickedRow = ($scope.selectedRow == null) ? 0 : 1;
                     $scope.medid = medid;
+                    $scope.admisstype = admisstype;
                 }
 
                 $scope.viewPatient = function(){
@@ -469,20 +486,27 @@
                 }
 
                 $scope.postReferral = function(){
-                      
-                    if($scope.selectedRow != null){
-                        $scope.admissionid = $scope.selectedRow;
-                        $http({
-                            method: 'get',
-                            url: 'getData/get-patient-details.php',
-                            params: {id: $scope.admissionid}
-                        }).then(function(response) {
-                            $scope.patientdetails = response.data;
-                        });
-                        $('#referralModal').modal('show');
+                    if($scope.admisstype = 'Outpatient')
+                    {
+                        $('#errorReferModal').modal('show');
                     }
-                    else{
-                    $('#errorModal').modal('show');
+                    else
+                    {
+                      
+                        if($scope.selectedRow != null){
+                            $scope.admissionid = $scope.selectedRow;
+                            $http({
+                                method: 'get',
+                                url: 'getData/get-patient-details.php',
+                                params: {id: $scope.admissionid}
+                            }).then(function(response) {
+                                $scope.patientdetails = response.data;
+                            });
+                            $('#referralModal').modal('show');
+                        }
+                        else{
+                        $('#errorModal').modal('show');
+                        }
                     }
                 }
 
