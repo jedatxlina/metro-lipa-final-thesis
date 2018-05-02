@@ -189,7 +189,7 @@ include 'admin-header.php' ?>
                                                 </tr>
                                             </thead>
                                             <tbody>
-                                                <tr ng-repeat="medication in medicationdetails" ng-class="{'selected': medication.ID == selectedRow}" ng-click="setClickedRow(medication.ID)">
+                                                <tr ng-repeat="medication in medicationdetails | filter:{ DosingID: '!0'}" ng-class="{'selected': medication.ID == selectedRow}" ng-click="setClickedRow(medication.ID)">
                                                     <td>{{medication.MedicineName}}</td>
                                                     <td>{{medication.Quantity}}</td>
                                                     <td>{{medication.Dosage}}</td>
@@ -388,7 +388,7 @@ include 'admin-header.php' ?>
                                                 </tr>
                                             </thead>
                                             <tbody>
-                                                <tr ng-repeat="medication in medicationdetails" ng-class="{'selected': medication.ID == selectedRow}" ng-click="setClickedRow(medication.ID)">
+                                                <tr ng-repeat="medication in medicationdetails | filter:{ DosingID: '!0'}" ng-class="{'selected': medication.ID == selectedRow}" ng-click="setClickedRow(medication.ID)">
                                                     <td>{{medication.MedicineName}}</td>
                                                     <td>{{medication.Quantity}}</td>
                                                     <td>{{medication.Dosage}}</td>
@@ -431,7 +431,7 @@ include 'admin-header.php' ?>
                                                 </tr>
                                             </thead>
                                             <tbody>
-                                                <tr ng-repeat="medication in medicationdetails track by $index" ng-if="medication.QuantityOnHand!=0" ng-class="{'selected': medication.ID == selectedRow}" ng-click="setClickedRow(medication.ID)">
+                                                <tr ng-repeat="medication in medicationdetails track by $index" ng-if="medication.QuantityOnHand!=0">
                                                     <td><input id="rad" type="radio" ng-click="PushID(medication.ID)"></td>
                                                     <td>{{medication.MedicineName}}</td>
                                                     <td>{{medication.QuantityOnHand}}</td>
@@ -845,11 +845,11 @@ include 'admin-header.php' ?>
                 }
 
                 $scope.postMedicationConfirm = function() {
-                    $scope.medid = $scope.selectedRow;
+                    // $scope.medid = $scope.selectedRow;
                
-                    if($scope.PostCheck.indexOf($scope.medid) === -1) {
-                        $scope.PostCheck.push($scope.medid);
-                    }
+                    // if($scope.PostCheck.indexOf($scope.medid) === -1) {
+                    //     $scope.PostCheck.push($scope.medid);
+                    // }
                    
                     swal({
                         icon: "success",

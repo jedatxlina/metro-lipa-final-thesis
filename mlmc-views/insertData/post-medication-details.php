@@ -40,9 +40,17 @@
 
         }
 
-        $query= "UPDATE medication SET QuantityOnHand = QuantityOnHand - 1 WHERE AdmissionID = '$admissionid' AND ID = '$medid'";
 
-        mysqli_query($conn,$query); 
+
+        if($quantityOnhand == '1'){
+            $query= "UPDATE medication SET QuantityOnHand = QuantityOnHand - 1 WHERE AdmissionID = '$admissionid' AND ID = '$medid'";
+
+            mysqli_query($conn,$query); 
+
+            $query= "UPDATE medication SET DosingID = 0 WHERE AdmissionID = '$admissionid' AND ID = '$medid'";
+
+            mysqli_query($conn,$query); 
+        }
 
 
         $nextintake = date("h:i A", strtotime("+{$timeinterval} hours"));
