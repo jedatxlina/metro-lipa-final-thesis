@@ -12,6 +12,7 @@
     $dompdf = new Dompdf();
     $at = $_GET['at'];
     $datetime = date("Y-m-d h:i A");
+    $date = date("m-d-Y");
     $id = $_GET['admissionid'];
 
     
@@ -113,10 +114,7 @@
      FINDINGS / DISEASE
 
     <br><br><br>
-    <b>OPERATION:</b>
-    <br><br> 
-    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-    N/A
+    
 
     <br><br><br><br><br>
     &nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
@@ -127,7 +125,7 @@
     
     <br><br>
     &nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-    Issued this...... (date requested) at  Barangay Marawoy, Lipa City, Batangas
+    Issued this '. $date .' at  Barangay Marawoy, Lipa City, Batangas
     <br><br>
     <b>RECOMMENDATIONS</b>
     <br><br>
