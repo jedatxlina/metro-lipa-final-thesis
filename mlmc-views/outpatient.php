@@ -314,7 +314,6 @@ include 'admin-header.php' ?>
                                 <table id="orders_table" class="table table-striped table-bordered" cellspacing="0" width="100%">
                                     <thead>
                                         <tr>
-                                            <th>Order ID</th>
                                             <th>Patient Name</th>
                                             <th>Physician Name</th>
                                             <th>Task</th>
@@ -323,8 +322,7 @@ include 'admin-header.php' ?>
                                     </thead>
                                     <tbody>
                                         <tr ng-repeat="order in orders" ng-class="{'selected': order.OrderID == selectedRow}" ng-click="setClickedRow(order.OrderID,order.AdmissionID)">
-											<td>{{order.OrderID}}</td>
-											
+										
                                             <td>{{order.Dname}}</td>
                                             <td>{{order.Pname}}</td>
                                             <td>{{order.Task}}</td>
@@ -337,7 +335,7 @@ include 'admin-header.php' ?>
 
                             </div>
                             <div class="panel-footer">
-                                <button type="button" ng-click="viewOrderDetails()" class="btn btn-danger-alt pull-left">View Details</button>
+                                <!-- <button type="button" ng-click="viewOrderDetails()" class="btn btn-danger-alt pull-left">View Details</button> -->
                                 <button type="button" ng-click="acceptOrder()" data-dismiss="modal" class="btn btn-danger pull-right">Accept</button>
                                 <button type="button" data-dismiss="modal" class="btn btn-default pull-right">Cancel</button>
                             </div>
@@ -694,13 +692,13 @@ include 'admin-header.php' ?>
             					console.log(response);
             					window.location.reload();
             				});
-            		}
-            
-            		$scope.viewOrderDetails = function(){
-            			$scope.id = $scope.orderadmissionid;
+
+						$scope.id = $scope.orderadmissionid;
             			// window.location.href = 'view-order-details.php?at=' + $scope.at + '&id=' + $scope.orderadmissionid + '&orderid=' + $scope.id;
 						$window.open('view-order-prescription.php?at='+$scope.at+'&id='+$scope.id, '_blank');
             		}
+            
+            		
             
 					$scope.addNewPatient = function() {
 						window.location.href = 'add-patient.php?at=' + $scope.at + '&id=' + 0;
