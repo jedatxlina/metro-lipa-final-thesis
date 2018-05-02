@@ -5,6 +5,7 @@
     require_once 'dompdf/lib/php-font-lib/src/FontLib/Autoloader.php';
     require_once 'dompdf/lib/php-svg-lib/src/autoload.php';
     require_once 'dompdf/src/Autoloader.php';
+    date_default_timezone_set("Asia/Singapore");
     Dompdf\Autoloader::register();
 
     use Dompdf\Dompdf;
