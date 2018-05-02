@@ -869,12 +869,8 @@ include 'admin-header.php' ?>
                                             }
                                         });
                                 }
-                             
 
                             });
-
-                        
-                           
 
                         } else {
                             $('#myModal').modal('show');
@@ -887,7 +883,6 @@ include 'admin-header.php' ?>
                     // if($scope.PostCheck.indexOf($scope.medid) === -1) {
                     //     $scope.PostCheck.push($scope.medid);
                     // }
-                   
                     swal({
                         icon: "success",
                         title: "Medication Updated!",
