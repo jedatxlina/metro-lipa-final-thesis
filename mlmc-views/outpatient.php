@@ -95,7 +95,8 @@ include 'admin-header.php' ?>
                         </div>
                     </div>
                 </div>
-                <div class="list-group list-group-alternate mb-n nav nav-tabs">
+
+                <div class="list-group list-group-alternate mb-n nav nav-tabs" ng-show="at[0]=='7'">
                     <a href="#" role="tab" data-toggle="tab" class="list-group-item active">Actions Panel</a>
                     <a href="#" ng-click="viewPatient()" role="tab" data-toggle="tab" class="list-group-item"><i class="ti ti-user"></i> Patient Details</a>
                     <a href="#" ng-click="dischargePatient('move')" role="tab" data-toggle="tab" class="list-group-item"><i class="fa fa-stethoscope"></i>Move to Emergency</a>
@@ -441,6 +442,7 @@ include 'admin-header.php' ?>
 					$scope.senior = 'false';
 					$scope.hmo = 'false';
 					$scope.hmoprovider = '';	
+
 
 					// Search Query
 					$scope.firstname = '';
