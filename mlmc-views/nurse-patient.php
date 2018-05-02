@@ -833,8 +833,8 @@ include 'admin-header.php' ?>
                         }).then(function(response) {
                             $scope.medicationdetails = response.data;
                             angular.element(document).ready(function() {
-                                dTable = $('#postmedication_table')
-                                dTable.DataTable();
+                            dTable = $('#postmedication_table')
+                            dTable.DataTable();
                             });
                         });
                         $scope.selectedRow = '';
