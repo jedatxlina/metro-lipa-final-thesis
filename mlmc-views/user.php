@@ -160,6 +160,8 @@
                             <!-- <div class="modal-footer">
                                
                             </div> -->
+                           
+
                             <div class="form-group" ng-show='accesstype == 7' >
                                 <label>Select Physician</label>
                                 <select class="form-control" ng-model="assignedphysician" style="width:620px;">
@@ -179,10 +181,31 @@
                                 </select>
                                 
                             </div>
+
                             
                             <div class="form-group" ng-show = "specialization == 'others'">
                             <label >Other Specialization</label>
                             <input type="text" class="form-control" ng-model="otherspecialization">
+                            </div>
+
+                       <div class="form-group" ng-show='accesstype == 4'>
+                       <div class="row">
+                            <div class="col-md-4">
+                            
+                                <label >PTR No.</label>
+                                <input type="text" class="form-control" ng-model="ptr" style="width:190px">
+                                </div>
+                                <div class="col-md-4">
+                                <label >Tin No.</label>
+                                <input type="text" class="form-control" ng-model="tin" style="width:190px">
+                                </div>
+                                <div class="col-md-4">
+                                <label >License No.</label>
+                                <input type="text" class="form-control" ng-model="lic" style="width:190px">
+                             
+                                </div>
+                            
+                            </div>
                             </div>
 
                             <button type="button" class="btn btn-defualt pull-right" data-dismiss="modal">Close</button>
@@ -559,7 +582,10 @@
                                         Address: $scope.address,
                                         Contact: $scope.contact,
                                         Email: $scope.email,
-                                        atype: $scope.accesstype
+                                        atype: $scope.accesstype,
+                                        tin: $scope.tin,
+                                        ptr: $scope.ptr,
+                                        lic: $scope.lic
                                         }
                                     }).then(function(response) {
                                         if ($scope.otherspecialization != null)  

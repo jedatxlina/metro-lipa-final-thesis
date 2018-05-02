@@ -241,7 +241,7 @@
 					<div class="modal-dialog">
 						<div class="panel panel-danger" data-widget='{"draggable": "false"}'>
 							<div class="panel-heading">
-								<h2>Laboratory Request Interpretation</h2>
+								<h2>Laboratory Request Result</h2>
 								<div class="panel-ctrls" data-actions-container="" data-action-collapse='{"target": ".panel-body, .panel-footer"}'></div>
 							</div>
 							<div class="panel-body" style="height: auto">
@@ -272,7 +272,7 @@
 										<div class="form-group">
 											<label for="focusedinput" class="col-sm-3 control-label">
 											&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-											&nbsp;&nbsp;&nbsp;&nbsp;Interpretation
+											&nbsp;&nbsp;&nbsp;&nbsp;Result
                                             </label>
 											<div class="col-sm-7">
                                             <textarea autogrow ng-model="interpret" rows="4" cols="55"></textarea> 
