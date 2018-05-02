@@ -3,7 +3,7 @@ require_once 'connection.php';
 
 $admissionid = $_GET['id'];
 
-$sel = mysqli_query($conn,"SELECT * FROM billing JOIN patients WHERE patients.AdmissionID = '$admissionid' AND patients.AdmissionID = billing.AdmissionID AND patients.MedicalID = billing.MedicalID");
+$sel = mysqli_query($conn,"SELECT * FROM billing JOIN patients WHERE patients.AdmissionID = '$admissionid' AND patients.AdmissionID = billing.AdmissionID AND patients.MedicalID = billing.MedicalID AND billing.Department = 'Inpatient'");
 
 $data = array();
 
