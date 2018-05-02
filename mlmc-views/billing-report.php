@@ -21,9 +21,10 @@ $sel = mysqli_query($conn,"SELECT a.* ,b.Rate,b.RoomType FROM duration a, beds b
 $patd = mysqli_query($conn,"SELECT * FROM patients WHERE AdmissionID = '$adid'");
 $sel5 = mysqli_query($conn,"SELECT SUM(TotalBill) AS TotalBill,BillDes, COUNT(*) AS qty, c.BedID FROM billing c, patients a WHERE c.AdmissionID ='$adid' AND c.Department = 'Supplies' AND a.MedicalID = c.MedicalID GROUP BY BedID");
 // $sel6 = mysqli_query($conn,"SELECT * FROM adv_payment WHERE AdmissionID = '$adid'");
-$findqr =  mysqli_query($conn,"SELECT QR_Path FROM medical_details JOIN patients WHERE patients.AdmissionID = '$adid' AND patients.MedicalID = medical_details.MedicalID GROUP BY QR_Path");
+$findqr =  mysqli_query($conn,"SELECT QR_Path, BedID FROM medical_details JOIN patients WHERE patients.AdmissionID = '$adid' AND patients.MedicalID = medical_details.MedicalID GROUP BY QR_Path");
     while ($row = mysqli_fetch_assoc($findqr)) {
         $path = $row['QR_Path'];
+        $bedid = $row['BedID'];
     }
 $sel4 = mysqli_query($conn,"SELECT a.*,d.LastName, d.FirstName, d.MiddleName FROM attending_physicians a, patients b, medical_details c, physicians d WHERE b.AdmissionID = '$adid' AND b.MedicalID = c.MedicalID AND c.AttendingID = a.AttendingID AND a.PhysicianID = d.PhysicianID");
 $sel3 = mysqli_query($conn,"SELECT SUM(TotalBill) AS TotalBill,BillDes, COUNT(*) AS qty, c.BedID FROM billing c, patients a WHERE c.AdmissionID ='$adid' AND c.Department = 'Laboratory' AND a.MedicalID = c.MedicalID GROUP BY BedID");
@@ -315,9 +316,11 @@ while ($row = mysqli_fetch_array($sel5)) {
             </div>
         </div>
     </div>
-    <div style="A_CSS_ATTRIBUTE:all;position: fixed;bottom: 50px; left: 10px; ">
+    <div style="A_CSS_ATTRIBUTE:all;position: fixed;bottom: 100px; left: 10px; ">
     <b>- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -</b>
-    This is the discharge Stub Please Cut it and show the security on Your way Out. Thank You.
+    This is the discharge Stub Please Cut it and show the security on Your way Out. Thank You.<br>
+    Patient Name: <b><u>'.$name.'</u></b><br>
+    Bed Number: <b><u>'.$bedid.'</u></b><br>
     </div>
 </div>';
 
