@@ -434,7 +434,7 @@ include 'admin-header.php' ?>
                                                     <th>Medicine Name</th>
                                                     <th>Quantity (on hand)</th>
                                                     <th>Dosage</th>
-                                                    <th>Fullname</th>
+                                                    <th>Ordered By</th>
                                                 </tr>
                                             </thead>
                                             <tbody>
@@ -443,7 +443,7 @@ include 'admin-header.php' ?>
                                                     <td>{{medication.MedicineName}}</td>
                                                     <td>{{medication.QuantityOnHand}}</td>
                                                     <td>{{medication.Dosage}}</td>
-                                                    <td>{{medication.Fullname}}</td>
+                                                    <td>Dr. {{medication.Fullname}}</td>
                                                 </tr>
                                             </tbody>
                                         </table>
