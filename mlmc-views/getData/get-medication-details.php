@@ -13,7 +13,8 @@ if(isset($_GET['admissionid'])) {
             "Quantity"=>$row['Quantity'],
             "QuantityOnHand"=>$row['QuantityOnHand'],
             "Dosage"=>$row['Dosage'],
-            "Fullname"=>$row['dfullname']);
+            "Fullname"=>$row['dfullname'],
+            "DosingID"=>$row['DosingID']);
     }
 }
 
