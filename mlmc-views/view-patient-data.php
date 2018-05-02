@@ -97,6 +97,35 @@
                             </div>
                             <div class="panel panel-danger">
                                     <div class="panel-heading">
+                                        <h2>Attending Physicians</h2><a ng-click="viewMedicationsReport()" class="pull-right"><i class="ti ti-printer"></i></a>
+                                        <div class="panel-ctrls"></div>
+                                    </div>
+                                        <div class="panel-body">
+                                            <div class="table-responsive">
+                                                <table id="attending_table" class="table table-striped table-bordered" cellspacing="0" width="100%">
+                                                        <thead>
+                                                            <tr>
+                                                                <th>#</th>
+                                                                <th>Physician Name</th>
+                                                                <th>Specialization</th>
+                                                            </tr>
+                                                        </thead>
+                                                        <tbody>
+                                                            <tr data-ng-repeat="val in attending track by $index">
+                                                                <td>{{$index + 1}}</td>
+                                                                <td>{{val.FullName}}</td>
+                                                                <td>{{val.SP}}</td>
+                                                           
+                                                            </tr>
+                                                        </tbody>
+                                                </table>
+                                            </div>
+                                        </div>
+                                    <div class="panel-footer">
+                                    </div>
+                                </div>
+                            <div class="panel panel-danger">
+                                    <div class="panel-heading">
                                         <h2>Diagnosis</h2><a ng-click="viewDiagnosisReport()" class="pull-right"><i class="ti ti-printer"></i></a>
                                         <div class="panel-ctrls"></div>
                                     </div>
@@ -470,6 +499,18 @@
                 params: {id: $scope.id}
             }).then(function(response) {
                 $scope.patientdetails = response.data;
+            });
+
+            $http({
+                method: 'GET',
+                url: 'getData/get-attending-details.php',
+                params: {id: $scope.id}
+            }).then(function(response) {
+                $scope.attending = response.data;
+                angular.element(document).ready(function() {  
+                dTable = $('#attending_table')  
+                dTable.DataTable();  
+            	});  
             });
 
               $http({

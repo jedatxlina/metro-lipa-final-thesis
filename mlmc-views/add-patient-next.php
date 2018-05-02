@@ -398,15 +398,7 @@
                         // //     $scope.condition = $scope.condition.concat($scope.otherconditions);
                         // // }
 
-                        
-                        $http({
-                            method: 'GET',
-                            url: 'qr-generator/index.php',
-                            params: {medid: $scope.medid,
-                            admissionid: $scope.admissionid,
-                        }
-                        }).then(function(response) {
-                        });
+               
 
                         if($scope.param != 'Outpatient'){
                             $scope.medication = $("#medications").val();
@@ -470,8 +462,18 @@
                                     height: $scope.height,
                                     attending: $scope.attendphysician}
                             }).then(function(response) {
-                                window.location.href = 'insertData/insert-medications-details.php?param=' + $scope.param + '&at=' + $scope.at + '&medicationid=' + $scope.medicationid + '&admissionid=' + $scope.admissionid + '&physicianid=' + $scope.attendphysician + '&medication=' + $scope.medication  + '&attendingid=' + $scope.attendingid + '&medid=' + $scope.medid;
-                            });      
+                                         
+                            });    
+                            $http({
+                                method: 'GET',
+                                url: 'qr-generator/index.php',
+                                params: {medid: $scope.medid,
+                                admissionid: $scope.admissionid,
+                            }
+                            }).then(function(response) {
+                            });  
+                            
+                            window.location.href = 'insertData/insert-medications-details.php?param=' + $scope.param + '&at=' + $scope.at + '&medicationid=' + $scope.medicationid + '&admissionid=' + $scope.admissionid + '&physicianid=' + $scope.attendphysician + '&medication=' + $scope.medication  + '&attendingid=' + $scope.attendingid + '&medid=' + $scope.medid;
                         }
                         else{
                             $scope.attendphysician = $scope.attendingphysician2;
@@ -494,9 +496,20 @@
                                     height: $scope.height,
                                     attending: $scope.attendphysician}
                             }).then(function(response) {
+                                         
+                              
+                            });   
+
+                              $http({
+                                    method: 'GET',
+                                    url: 'qr-generator/index.php',
+                                    params: {medid: $scope.medid,
+                                    admissionid: $scope.admissionid,
+                                }
+                                }).then(function(response) {
+                                });
                                 // window.location.href = 'insertData/insert-condition-details.php?param=' + $scope.param + '&at=' + $scope.at + '&admissionid=' + $scope.admissionid + '&condition=' + $scope.condition + '&medid=' + $scope.medid + '&medication=' + $scope.medication;
                                 window.location.href = 'outpatient.php?at=' + $scope.at;
-                            });   
                         }
 
                     }
