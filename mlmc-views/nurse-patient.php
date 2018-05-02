@@ -223,18 +223,17 @@ include 'admin-header.php' ?>
                                         <table id="orders_table" class="table table-striped table-bordered" cellspacing="0" width="100%">
                                             <thead>
                                                 <tr>
-                                                    <th>Order ID</th>
-                                                    <th>Admission ID</th>
-                                                    <th>Physician ID</th>
+                                                    <th>Patient Name</th>
+                                                    <th>Physician</th>
                                                     <th>Task</th>
                                                     <th>Status</th>
                                                 </tr>
                                             </thead>
                                             <tbody>
                                                 <tr ng-repeat="order in orders" ng-class="{'selected': order.OrderID == selectedRow}" ng-click="setClickedRow(order.OrderID,order.AdmissionID)">
-                                                    <td>{{order.OrderID}}</td>
-                                                    <td>{{order.AdmissionID}}</td>
-                                                    <td>{{order.PhysicianID}}</td>
+                                                    
+                                                    <td>{{order.Pname}}</td>
+                                                    <td>{{order.Dname}}</td>
                                                     <td>{{order.Task}}</td>
                                                     <td>{{order.Status}}</td>
 
