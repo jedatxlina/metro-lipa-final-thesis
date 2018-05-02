@@ -20,7 +20,7 @@
 
    	<div class="row">
 		<div class="col-md-9">
-				<button type="button" ng-click="externalRequest()" class="btn btn-danger-alt pull-left"><i class="fa fa-external-link"></i>&nbsp; External Requests</button>
+				<!-- <button type="button" ng-click="externalRequest()" class="btn btn-danger-alt pull-left"><i class="fa fa-external-link"></i>&nbsp; External Requests</button> -->
 		</div>
 	</div>
     <br>
@@ -36,7 +36,6 @@
                         <table id="table_info" class="table table-striped table-bordered" cellspacing="0" width="100%">
                             <thead>
                                 <tr>
-                                    <th>Admission ID</th>
                                     <th>Fullname</th>
                                     <th>Description</th>
                                     <th>Status</th>
@@ -44,7 +43,7 @@
                             </thead>
                             <tbody>
                                 <tr ng-repeat="labreq in labsreq" ng-class="{'selected': labreq.RequestID == selectedRow}" ng-click="setClickedRow(labreq.RequestID,labreq.AdmissionID,labreq.Description,labreq.LaboratoryID,labreq.Fullname)">
-                                    <td>{{labreq.AdmissionID}}</td>
+                             
                                     <td>{{labreq.Fullname}}</td>
                                     <td>{{labreq.Description}}</td>
                                     <td>{{labreq.Status}}</td>
@@ -84,6 +83,7 @@
 						<a href="#" role="tab" data-toggle="tab" class="list-group-item active">Actions Panel</a>
 						<a href="#" ng-click="viewPatient()" role="tab" data-toggle="tab" class="list-group-item"><i class="ti ti-user"></i> Patient Details</a>
                         <a href="#" ng-click="inputClearModal()"role="tab" data-toggle="tab" class="list-group-item"><i class="ti ti-info-alt"></i>Clear Request</a>
+                        <a href="#" ng-click="RemoveRequest()"role="tab" data-toggle="tab" class="list-group-item"><i class="ti ti-info-alt"></i>Remove Request</a>
                        
                 </div>
                     
@@ -450,7 +450,54 @@
                         });
 
 
-                    swal("Patient Cleared! Refreshing page...", {
+                    swal("Laboratory Request Cleared! Refreshing page...", {
+                        icon: "success",
+                        timer: 1000
+                    });
+                    window.setTimeout(function(){
+                        
+                    // Move to a new location or you can do something else
+                        window.location.href = 'laboratorydept.php?at=' + $scope.at;
+                    }, 1000);
+                    } 
+                    
+                    
+                    else {
+                    swal("Action Cancelled");
+                    }
+                });
+
+                // }
+                // else{
+			    // $('#ErrorModal').modal('show');
+			    // }
+		    
+         }
+
+
+
+          $scope.RemoveRequest = function(){
+		//	if($scope.selectedRow != null){
+                swal({
+                    title: "Are you sure you want to remove the laboratory request of this patient?",
+                    icon: "warning",
+                    buttons: true,
+                    dangerMode: true,
+                })
+                .then((willDelete) => {
+                    if (willDelete) {
+                        $http({
+                            method: 'GET',
+                            params: {
+                                requestid: $scope.selectedRow
+                            },
+                            url: 'updateData/update-laboratory-request-remove.php'
+                        }).then(function(response) {
+                           
+                        });
+                        
+
+                    swal("Laboratory Request Removed! Refreshing page...", {
                         icon: "success",
                         timer: 1000
                     });
