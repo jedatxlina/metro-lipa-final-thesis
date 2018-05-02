@@ -78,7 +78,8 @@
                                                 <div data-field-span="1">
                                                     <label>Medicine</label>
                                                     <input type="text" ng-model="Intake[$index]" ng-init="Intake[$index] = intake.MedicineName" disabled="true">  {{intake.Dosage}}
-                                                    <input type="hidden" ng-model="Dosage[$index]" ng-init="Dosage[$index] = intake.Dosage"> 
+                                                    <label>Dosage</label>
+                                                    <input type="text" ng-model="Dosage[$index]" ng-init="Dosage[$index] = intake.Dosage"> 
                                                 </div>
                                                 <div data-field-span="1">
                                                     <label>Quantity Administered</label>

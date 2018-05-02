@@ -42,6 +42,7 @@ $activeMenu = "patients";
                     </div>
                 <div class="list-group list-group-alternate mb-n nav nav-tabs">
                     <a href="#tab-about" 	role="tab" data-toggle="tab" class="list-group-item active"><i class="ti ti-user"></i> About </a>
+                    <!-- <a href="#" ng-click="processMedCert()" role="tab" data-toggle="tab" class="list-group-item"><i class="fa fa-file-text-o"></i>Issue Medical Certificate</a> -->
                 </div>
             </div><!-- col-sm-3 -->
             <div class="col-sm-9">
@@ -269,6 +270,14 @@ var fetch = angular.module('myApp', ['ui.mask']);
        $scope.viewHistoryReport = function(){
         $window.open('view-history-report.php?at='+$scope.at+'&id='+$scope.id, '_blank');
        }
+
+        $scope.processMedCert = function() {
+            if ($scope.selectedRow != null) {
+                $window.open('inpatient-med-cert.php?at=' + $scope.at + '&admissionid=' + $scope.id, '_blank');
+            } else {
+                $('#errorModal').modal('show');
+            }
+        }      
 
        $scope.admitPatientArchive = function(){
           

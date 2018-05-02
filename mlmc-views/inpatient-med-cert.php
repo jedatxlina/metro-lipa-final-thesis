@@ -16,11 +16,11 @@
     $id = $_GET['admissionid'];
 
     
-    $sel = mysqli_query($conn,"SELECT *, CONCAT(Firstname, ' ' ,MiddleName, ' ', LastName) AS Fullname FROM admin WHERE AdminID ='$at'");
+    // $sel = mysqli_query($conn,"SELECT *, CONCAT(Firstname, ' ' ,MiddleName, ' ', LastName) AS Fullname FROM admin WHERE AdminID ='$at'");
 
-    while ($row = mysqli_fetch_assoc($sel)) {
-        $genfullname = $row['Fullname'];
-    }
+    // while ($row = mysqli_fetch_assoc($sel)) {
+    //     $genfullname = $row['Fullname'];
+    // }
 
     $getdiag = mysqli_query($conn,"SELECT diagnosis.Findings FROM patients JOIN medical_details,attending_physicians,diagnosis WHERE patients.AdmissionID = '$id' AND patients.MedicalID = medical_details.MedicalID AND medical_details.AttendingID = attending_physicians.AttendingID AND attending_physicians.DiagnosisID = diagnosis.DiagnosisID");
 
@@ -28,18 +28,26 @@
         $findings = $row['Findings'];
     }
 
-     if(isset($_GET['searchparam'])){
-         $searchparam = $_GET['searchparam'];
-         $query = mysqli_query($conn,"SELECT PhysicianID, Specialization, CONCAT( FirstName, ' ', MiddleName , ' ' ,LastName) AS FullName FROM physicians");
-     }else{
-         $query = mysqli_query($conn,"SELECT PhysicianID, Specialization, CONCAT( FirstName, ' ', MiddleName , ' ' ,LastName) AS FullName FROM physicians");
-     }
+    //  if(isset($_GET['searchparam'])){
+    //      $searchparam = $_GET['searchparam'];
+    //      $query = mysqli_query($conn,"SELECT PhysicianID, Specialization, CONCAT( FirstName, ' ', MiddleName , ' ' ,LastName) AS FullName FROM physicians");
+    //  }else{
+    //      $query = mysqli_query($conn,"SELECT PhysicianID, Specialization, CONCAT( FirstName, ' ', MiddleName , ' ' ,LastName) AS FullName FROM physicians");
+    //  }
 
 
 
      switch ($at[0]) {
         case '3':
         $sel = mysqli_query($conn,"SELECT *, CONCAT(Firstname, ' ' ,MiddleName, ' ', LastName) AS Fullname FROM nurses WHERE NurseID='$at'");
+
+        while ($row = mysqli_fetch_assoc($sel)) {
+            $genfullname = $row['Fullname'];
+        }
+        break;
+
+        case '7':
+        $sel = mysqli_query($conn,"SELECT *, CONCAT(Firstname, ' ' ,MiddleName, ' ', LastName) AS Fullname FROM secretary WHERE SecretaryID='$at'");
 
         while ($row = mysqli_fetch_assoc($sel)) {
             $genfullname = $row['Fullname'];

@@ -32,7 +32,7 @@ include 'admin-header.php' ?>
                     <div class="col-md-9">
                         <div class="panel panel-danger">
                             <div class="panel-heading">
-                                <h2>Patients</h2><a ng-click="viewReport()" class="pull-right"> &nbsp;<i class="ti ti-printer"></i></a>
+                                <h2>Patients</h2>
                                 <div class="panel-ctrls"></div>
                             </div>
                             <div class="panel-body">
@@ -101,11 +101,41 @@ include 'admin-header.php' ?>
                                                         </tr>
                 
                                                     </tbody>
-                
+                                                    <a ng-click="generatePatientDiet()" class="pull-right"> Generate Patient Diet&nbsp;<i class="ti ti-printer"></i></a>
                                                 </table>
-                                                
+                                               
 													</div>
                                                 
+
+                                                    <div class="tab-pane" id="profile2">
+														<table id="infant_table" class="table table-striped table-bordered" cellspacing="0" width="100%">
+															<thead>
+															<tr>
+																<!-- <th>Inpatient ID</th>
+																<th>Admission No</th> -->
+																<th>Bed ID</th>
+																<th>Full name</th>
+                                                                <th>Gender</th>
+																<th>Birth Date</th>
+																<th>Birth Time</th>
+																<th>Weight</th>
+															</tr>
+															</thead>
+															<tbody>
+															<tr ng-repeat="user in infants" ng-class="{'selected': user.AdmissionID == selectedRow}" ng-click="setClickedRow(user.AdmissionID,user.MedicalID,user.Fullname)">
+																<!-- <td>{{user.AdmissionID}}</td>
+																<td>{{user.AdmissionNo}}</td> -->
+                                                                <td>{{user.BedID}}</td>
+																<td>{{user.Fullname}}</td>
+                                                                <td>{{user.Gender}}</td>
+																<td>{{user.ArrivalDate}}</td>
+																<td>{{user.ArrivalTime}}</td>
+																<td>{{user.Weight}} kg</td>
+																</tr>
+															</tbody>
+														</table>
+													</div>
+													
                                                     
                                                     
 												</div>
@@ -113,7 +143,7 @@ include 'admin-header.php' ?>
 											</div>
                                             
 
-                                <a ng-click="generatePatientDiet()" class="pull-right"> Generate Patient Diet&nbsp;<i class="ti ti-printer"></i></a>
+                             
                                
                             </div>
 
@@ -530,6 +560,18 @@ include 'admin-header.php' ?>
                     });
                     });
 
+                    
+                    $http({
+                    method: 'get',
+                    url: 'getData/get-infant-details.php'
+                     }).then(function(response) {
+                    $scope.infants = response.data;
+                    angular.element(document).ready(function() {
+                        dTable = $('#infant_table')
+                        dTable.DataTable();
+                    });
+                    });
+
 
                 var pusher = new Pusher('c23d5c3be92c6ab27b7a', {
                     cluster: 'ap1',
@@ -869,12 +911,8 @@ include 'admin-header.php' ?>
                                             }
                                         });
                                 }
-                             
 
                             });
-
-                        
-                           
 
                         } else {
                             $('#myModal').modal('show');
@@ -887,7 +925,6 @@ include 'admin-header.php' ?>
                     // if($scope.PostCheck.indexOf($scope.medid) === -1) {
                     //     $scope.PostCheck.push($scope.medid);
                     // }
-                   
                     swal({
                         icon: "success",
                         title: "Medication Updated!",
