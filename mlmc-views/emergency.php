@@ -99,7 +99,7 @@
                             <a href="#" role="tab" data-toggle="tab" class="list-group-item active">Actions Panel</a>
                             <a href="#" ng-click="viewPatient()" role="tab" data-toggle="tab" class="list-group-item"><i class="ti ti-user"></i> Patient Details</a>
                             <a href="#" ng-click="movePatient()" role="tab" data-toggle="tab" class="list-group-item"><i class="fa fa-stethoscope"></i>Move to Inpatient</a>
-                            <a href="#" ng-click="processBilling()" role="tab" data-toggle="tab" class="list-group-item"><i class="fa fa-check-square-o"></i>Process Billing</a>
+                            <!-- <a href="#" ng-click="processBilling()" role="tab" data-toggle="tab" class="list-group-item"><i class="fa fa-check-square-o"></i>Process Billing</a> -->
                             <a href="#" ng-click="processWaiver()" role="tab" data-toggle="tab" class="list-group-item"><i class="fa fa-file-o"></i>Process Refusal Waiver</a>
                             <a href="#" ng-click="dischargePatient()" role="tab" data-toggle="tab" class="list-group-item"><i class="fa fa-check-square-o"></i> Discharge</a>
                             <a href="#" ng-click="opdTransfer()" role="tab" data-toggle="tab" class="list-group-item"><span class="badge badge-primary"  ng-if="notifs > 0">{{notifs}}</span><i class="fa fa-check-square-o"></i>Outpatient Transfers</a>
