@@ -40,6 +40,7 @@ include 'admin-header.php' ?>
 												<ul class="nav nav-tabs">
 													<li class="active"><a href="#home1" data-toggle="tab">Emergency</a></li>
 													<li><a href="#profile1" data-toggle="tab">Inpatient</a></li>
+                                                    <li><a href="#profile2" data-toggle="tab">Nursery</a></li>
 												</ul>
 												<div class="tab-content">
 													<div class="tab-pane active" id="home1">
@@ -102,11 +103,18 @@ include 'admin-header.php' ?>
                                                     </tbody>
                 
                                                 </table>
+                                                
 													</div>
+                                                
+                                                    
+                                                    
 												</div>
+                                                
 											</div>
+                                            
 
                                 <a ng-click="generatePatientDiet()" class="pull-right"> Generate Patient Diet&nbsp;<i class="ti ti-printer"></i></a>
+                               
                             </div>
 
                             <div class="panel-footer"></div>
@@ -177,15 +185,15 @@ include 'admin-header.php' ?>
                                         <div class="panel-ctrls" data-actions-container="" data-action-collapse='{"target": ".panel-body, .panel-footer"}'></div>
                                     </div>
                                     <div class="panel-body" style="height: 500px">
-                                        <center><span><strong>Physician Orders</strong></span></center>
+                                        <center><span><strong>CURRENT MEDICINES REQUIRED TO INTAKE</strong></span></center>
                                         <hr>
                                         <table id="requisition_table" class="table table-striped table-bordered" cellspacing="0" width="100%">
                                             <thead>
                                                 <tr>
                                                     <th>Medicine Name</th>
-                                                    <th>Administered Quantity</th>
+                                                    <th>Required Intake</th>
                                                     <th>Dosage</th>
-                                                    <th>Patient Name</th>
+                                                    <th>Ordered By</th>
                                                 </tr>
                                             </thead>
                                             <tbody>
@@ -193,7 +201,7 @@ include 'admin-header.php' ?>
                                                     <td>{{medication.MedicineName}}</td>
                                                     <td>{{medication.Quantity}}</td>
                                                     <td>{{medication.Dosage}}</td>
-                                                    <td>{{medication.Fullname}}</td>
+                                                    <td>Dr. {{medication.Fullname}}</td>
                                                 </tr>
                                             </tbody>
                                         </table>
@@ -375,23 +383,23 @@ include 'admin-header.php' ?>
                                         <div class="panel-ctrls" data-actions-container="" data-action-collapse='{"target": ".panel-body, .panel-footer"}'></div>
                                     </div>
                                     <div class="panel-body" style="height: 500px">
-                                        <center><span><strong>Registry Information</strong></span></center>
+                                        <center><span><strong>History and Current Medicines</strong></span></center>
                                         <hr>
                                         <table id="medication_table" class="table table-striped table-bordered" cellspacing="0" width="100%">
                                             <thead>
                                                 <tr>
                                                     <th>Medicine Name</th>
-                                                    <th>Administered Quantity</th>
+                                                    <th>Required Intake</th>
                                                     <th>Dosage</th>
-                                                    <th>Patient Name</th>
+                                                    <th>Ordered By</th>
                                                 </tr>
                                             </thead>
                                             <tbody>
-                                                <tr ng-repeat="medication in medicationdetails | filter:{ DosingID: '!0'}" ng-class="{'selected': medication.ID == selectedRow}" ng-click="setClickedRow(medication.ID)">
+                                                <tr ng-repeat="medication in medicationdetails " ng-class="{'selected': medication.ID == selectedRow}" ng-click="setClickedRow(medication.ID)">
                                                     <td>{{medication.MedicineName}}</td>
                                                     <td>{{medication.Quantity}}</td>
                                                     <td>{{medication.Dosage}}</td>
-                                                    <td>{{medication.Fullname}}</td>
+                                                    <td>Dr. {{medication.Fullname}}</td>
                                                 </tr>
                                             </tbody>
                                         </table>
