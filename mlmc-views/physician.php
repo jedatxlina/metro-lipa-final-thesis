@@ -484,7 +484,7 @@
                 }
 
                 $scope.postReferral = function(){
-                    if($scope.admisstype = 'Outpatient')
+                    if($scope.admisstype == 'Outpatient')
                     {
                         $('#errorReferModal').modal('show');
                     }
