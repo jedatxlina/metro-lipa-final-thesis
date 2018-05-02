@@ -631,7 +631,7 @@ include 'admin-header.php' ?>
 					}
 
 					$scope.newPatient = function(){
-						window.location.href = 'add-patient.php?at=' + $scope.at + '&id=' + 0;		
+						window.location.href = 'add-patient.php?at=' + $scope.at + '&id=' + 0 + '&fname=' + $scope.firstname + '&mname=' + $scope.middlename +'&lname=' + $scope.lastname;		
 					}
 
 					$scope.searchPatientSelect = function(){
@@ -704,7 +704,7 @@ include 'admin-header.php' ?>
             		
             
 					$scope.addNewPatient = function() {
-						window.location.href = 'add-patient.php?at=' + $scope.at + '&id=' + 0;
+						window.location.href = 'add-patient.php?at=' + $scope.at + '&id=' + 0 + '&fname=' + $scope.firstname + '&mname=' + $scope.middlename +'&lname=' + $scope.lastname;
 					}
 
 
