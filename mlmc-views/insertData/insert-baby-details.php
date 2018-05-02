@@ -48,8 +48,8 @@
 
     mysqli_query($conn,$query);  
 
-    $query = "INSERT into nursery(NurseryID,AdmissionID,BloodType,DeliveryType,Weight,AttendingID) 
-    VALUES('$babyadmission','$admissionnid','$bloodtype','$delivery','$weight','$attendingid')";
+    $query = "INSERT into nursery(NurseryID,AdmissionID,BloodType,DeliveryType,Weight,MedicalID) 
+    VALUES('$babyadmission','$admissionid','$bloodtype','$delivery','$weight','$medicalid')";
 
     mysqli_query($conn,$query);  
 
