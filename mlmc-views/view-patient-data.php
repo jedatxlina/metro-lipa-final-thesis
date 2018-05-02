@@ -138,6 +138,7 @@
                                                                 <th>Findings</th>
                                                                 <th>DateDiagnosed</th>
                                                                 <th>TimeDiagnosed</th>
+                                                                <th>Diagnosed By</th>
                                                             </tr>
                                                         </thead>
                                                         <tbody>
@@ -146,6 +147,7 @@
                                                                 <td>{{finding.Findings}}</td>
                                                                 <td>{{finding.DateDiagnosed}}</td>
                                                                 <td>{{finding.TimeDiagnosed}}</td>
+                                                                <td>{{finding.PhysicianFullname}}</td>
                                                             </tr>
                                                         </tbody>
                                                 </table>
