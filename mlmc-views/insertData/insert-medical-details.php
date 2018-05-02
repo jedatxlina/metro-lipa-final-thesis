@@ -23,6 +23,12 @@ foreach($variable as $key => $val) {
     }
 }
 
+$sel2 = mysqli_query($conn,"SELECT AdmissionNo FROM patients WHERE AdmissionID='$admissionid'");
+$data = array();
+while ($row = mysqli_fetch_array($sel2)) {
+    $adno = $row['AdmissionNo'];
+}
+
 $pr = $_GET['pr'];
 $rr = $_GET['rr'];
 $temp = $_GET['temp'];
@@ -44,8 +50,8 @@ VALUES('$medicalid','$admissionid','$attendingid','$date','$time','ER','$vitalsi
 
 mysqli_query($conn,$query);  
 
-$query = "INSERT into vitals(VitalsID,AdmissionID,BP,BPD,PR,RR,Temperature,DateTimeChecked) 
-VALUES('$vitalsid','$admissionid','$sys','$dia','$pr','$rr','$temp','$datetime')";
+$query = "INSERT into vitals(VitalsID,AdmissionID,AdmissionNo,BP,BPD,PR,RR,Temperature,DateTimeChecked) 
+VALUES('$vitalsid','$admissionid','$adno','$sys','$dia','$pr','$rr','$temp','$datetime')";
 
 mysqli_query($conn,$query);
 

@@ -3,7 +3,7 @@
 
     $id = $_GET['id'];
 
-    $sel = mysqli_query($conn,"SELECT * FROM diagnosis JOIN patients,attending_physicians,physicians,medical_details WHERE patients.AdmissionID = '$id' AND patients.MedicalID = medical_details.MedicalID AND medical_details.AttendingID = attending_physicians.AttendingID AND attending_physicians.PhysicianID = physicians.PhysicianID AND diagnosis.MedicalID = medical_details.MedicalID");
+    $sel = mysqli_query($conn,"SELECT diagnosis.*, CONCAT(physicians.Firstname, ' ' ,physicians.MiddleName, ' ', physicians.LastName) AS PhysicianFullname FROM diagnosis JOIN patients,attending_physicians,physicians WHERE patients.AdmissionID = '$id' AND patients.MedicalID = diagnosis.MedicalID AND diagnosis.AttendingID = attending_physicians.AttendingID AND attending_physicians.PhysicianID = physicians.PhysicianID AND attending_physicians.DiagnosisID = diagnosis.DiagnosisID");
    
     $data = array();
     while ($row = mysqli_fetch_array($sel)) {
@@ -13,9 +13,7 @@
             "AttendingID"=>$row['AttendingID'],
             "DateDiagnosed"=>$row['DateDiagnosed'],
             "TimeDiagnosed"=>$row['TimeDiagnosed'],
-            "PhysicianLastname"=>$row['LastName'],
-            "PhysicianFirstname"=>$row['FirstName'],
-            "PhysicianMiddlename"=>$row['MiddleName']);
+            "PhysicianFullname"=>$row['PhysicianFullname']);
     }
 
     echo json_encode($data);

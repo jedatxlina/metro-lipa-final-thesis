@@ -1,7 +1,7 @@
 <?php 
 require_once 'connection.php';
 
-$diagnosisid = rand(111111,999999);
+// $diagnosisid = rand(111111,999999);
 $orderid =  rand(111111, 999999);     
 $conditionid = rand(111111,999999);
 
@@ -16,6 +16,7 @@ $medicalid = $_GET['medicalid'];
 $attendingid = $_GET['attendingid'];
 $diagnosis = $_GET['diagnosis'];
 $order = $_GET['order'];
+
 $labs = isset($_GET['lab']) ? $_GET['lab'] : '';
 $meds = $_GET['meds'];
 $date = isset($_GET['appointment']) ? $_GET['appointment'] : '';
@@ -31,6 +32,12 @@ $sel = mysqli_query($conn,"SELECT MedicationID FROM medical_details JOIN patient
 while ($row = mysqli_fetch_assoc($sel)) {
     $medicationid = $row['MedicationID'];
    
+}
+
+$sel2 = mysqli_query($conn,"SELECT DiagnosisID FROM attending_physicians JOIN patients,medical_details WHERE patients.AdmissionID= '$admissionid' AND patients.MedicalID = medical_details.MedicalID AND medical_details.AttendingID = attending_physicians.AttendingID AND attending_physicians.PhysicianID = '$at'");
+
+while ($row = mysqli_fetch_assoc($sel2)) {
+    $diagnosisid = $row['DiagnosisID'];
 }
 
 if($labs != ''){
@@ -264,7 +271,7 @@ if($rate != ''){
 
 
 
-$query= "UPDATE attending_physicians SET DiagnosisID = '$diagnosisid', Rate='$fee' WHERE AdmissionID = '$admissionid' AND AttendingID ='$attendingid' ";
+$query= "UPDATE attending_physicians SET Rate='$fee' WHERE AdmissionID = '$admissionid' AND AttendingID ='$attendingid' AND PhysicianID = '$at'";
 
 mysqli_query($conn,$query);  
 

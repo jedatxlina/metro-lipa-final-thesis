@@ -319,8 +319,7 @@
                     }
 
                     $scope.submitDetails = function(type){
-                 
-                        $scope.totalbill = 2500;
+                        $scope.totalbill = 2000;
                         $http({
                         method: 'GET',
                         url: 'insertData/insert-bed-bill.php',
