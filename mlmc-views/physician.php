@@ -247,14 +247,12 @@
                                     <thead>
                                     <tr>
                                         <th>Patient Name</th>
-                                        <th>Referred To</th>
                                         <th>Referred By</th>
                                     </tr>
                                     </thead>
                                     <tbody>
                                     <tr ng-repeat="referral in referraldetails" ng-class="{'selected': referral.ID == selectedRow}" ng-click="setClickedRow(referral.ID)">
                                             <td>{{referral.PatientName}}</td>
-                                            <td>{{referral.ReferredTo}}</td>
                                             <td>Dr. {{referral.firstname}} {{referral.middlename}} {{referral.lastname}}</td>
                                         </tr>
                                     </tbody>
