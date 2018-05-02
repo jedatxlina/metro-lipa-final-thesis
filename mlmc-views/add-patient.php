@@ -450,6 +450,9 @@
                     $scope.medicalid = "<?php echo  rand(111111, 999999); ?>";
                     $scope.specialization = '';
                     $scope.newborn = 'No';
+                    $scope.firstname = "<?php echo isset($_GET['fname']) ? $_GET['fname'] : ''; ?>";
+                    $scope.middlename = "<?php echo isset($_GET['mname']) ? $_GET['mname'] : ''; ?>";
+                    $scope.lastname = "<?php echo isset($_GET['lname']) ? $_GET['lname'] : ''; ?>";
 
                     switch ($scope.at.charAt(0)) {
                         case '1':

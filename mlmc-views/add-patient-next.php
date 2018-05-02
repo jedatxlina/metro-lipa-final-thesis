@@ -205,7 +205,17 @@
                     $scope.medid = "<?php echo $_GET['medid']; ?>";
                     $scope.param = "<?php echo $_GET['param']; ?>";
                     $scope.specialization = '';
-
+                    <?php
+                    require_once 'connection.php';
+                    $id= $_GET['id'];
+                    $sel = mysqli_query($conn,"SELECT Weight,Height FROM medical_details WHERE AdmissionID = '$id'");
+                    while ($row = mysqli_fetch_array($sel)) {
+                        $weight = $row['Weight'];
+                        $height = $row['Height'];
+                    }
+                    ?>
+                    $scope.weight = "<?php echo isset($weight) ? $weight : ''; ?>";
+                    $scope.height = "<?php echo isset($height) ? $height : ''; ?>";
                     switch ($scope.at.charAt(0)) {
                         case '1':
                             $scope.User = "Administrator";
