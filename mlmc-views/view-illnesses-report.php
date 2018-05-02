@@ -20,17 +20,25 @@
  
 
     if($search != ''){
-        $param =  explode(' - ',$search); 
-        $cnt = count($param);
-        for($x = 0; $x < $cnt; $x++){
-            if($x == 0){
-                $start = $param[$x];
-            }else{
-                $end = $param[$x];
+        if($search == 'current'){
+            $filter = 'current';
+        }else{
+            $param =  explode(' - ',$search); 
+            $cnt = count($param);
+            for($x = 0; $x < $cnt; $x++){
+                if($x == 0){
+                    $start = $param[$x];
+                }else{
+                    $end = $param[$x];
+                }
             }
+            
+            $start = date("Y-m-d", strtotime($start));
+            $end = date("Y-m-d", strtotime($end));
+    
+            $filter = $start . ' - ' . $end;    
         }
-
-        $filter = $start . ' - ' . $end;
+       
     }else{
         $filter = 'None';
     }
@@ -53,10 +61,26 @@
         }
         break;
     }
+    // SELECT DISTINCT(Findings) as findings, count(Findings) as cnt FROM diagnosis WHERE DateDiagnosed BETWEEN '2018-04-26' AND '2018-04-30' GROUP BY Findings
+    
+    switch ($filter) {
+        case 'None':
+        $query2 = mysqli_query($conn,"SELECT CONCAT(patients_archive.Firstname, ' ' ,patients_archive.MiddleName, ' ', patients_archive.LastName) AS Patient,patients_archive.CompleteAddress, patients_archive.ArchiveID,patients_archive.MedicalID, diagnosis.Findings, diagnosis.DateDiagnosed,diagnosis.TimeDiagnosed FROM patients_archive JOIN diagnosis WHERE patients_archive.MedicalID = diagnosis.MedicalID");
+        $query3 = mysqli_query($conn,"SELECT DISTINCT(Findings) as findings, count(Findings) as cnt FROM diagnosis GROUP BY Findings");
+        break;
 
-
-    $query2 = mysqli_query($conn,"SELECT a.AdmissionID,a.CompleteAddress,a.latcoor,a.longcoor,b.MedicalID,b.AdmissionID,c.Conditions,( SELECT COUNT(Conditions) FROM medical_conditions WHERE Conditions = c.Conditions) AS count FROM patients a,medical_details b, conditions c, medical_conditions d WHERE a.AdmissionID = b.AdmissionID AND b.MedicalID = d.MedicalID AND c.Conditions = d.Conditions");
-
+        case 'current':
+        
+        $query2 = mysqli_query($conn,"SELECT CONCAT(patients_archive.Firstname, ' ' ,patients_archive.MiddleName, ' ', patients_archive.LastName) AS Patient,patients_archive.CompleteAddress, patients_archive.ArchiveID,patients_archive.MedicalID, diagnosis.Findings, diagnosis.DateDiagnosed,diagnosis.TimeDiagnosed FROM patients_archive JOIN diagnosis WHERE YEARWEEK(`DateDiagnosed`, 0) = YEARWEEK(CURDATE(), 0) AND patients_archive.MedicalID = diagnosis.MedicalID");
+        $query3 = mysqli_query($conn,"SELECT DISTINCT(diagnosis.Findings) as findings, count(diagnosis.Findings) as cnt FROM diagnosis JOIN patients_archive WHERE YEARWEEK(`DateDiagnosed`, 0) = YEARWEEK(CURDATE(), 0) AND patients_archive.MedicalID = diagnosis.MedicalID GROUP BY diagnosis.Findings");
+        break;
+        break;
+        
+        default:
+            $query2 = mysqli_query($conn,"SELECT CONCAT(patients_archive.Firstname, ' ' ,patients_archive.MiddleName, ' ', patients_archive.LastName) AS Patient,patients_archive.CompleteAddress, patients_archive.ArchiveID,patients_archive.MedicalID, diagnosis.Findings, diagnosis.DateDiagnosed,diagnosis.TimeDiagnosed FROM patients_archive JOIN diagnosis WHERE diagnosis.DateDiagnosed BETWEEN '$start' AND '$end' AND patients_archive.MedicalID = diagnosis.MedicalID");
+            $query3 = mysqli_query($conn,"SELECT DISTINCT(Findings) as findings, count(Findings) as cnt FROM diagnosis JOIN patients_archive WHERE DateDiagnosed BETWEEN '$start' AND '$end' AND patients_archive.MedicalID = diagnosis.MedicalID GROUP BY Findings");
+            break;
+    }
 
     $html = '
     <link type="text/css" href="assets/plugins/gridforms/gridforms/gridforms.css" rel="stylesheet">
@@ -91,22 +115,38 @@
 
     <img src="assets/img/report-header.jpg">    
     <h4><center>Common Illnesses Report</center></h4>
-    <h5><center>Filter: '.$filter.'</center></h5>
+    <h5><center>Date Filter: '.$filter.'</center></h5>
     </head>
     <div class="container-fluid">
-    <br>
+    <table>
+    <tr>
+        <th>Illness</th>
+        <th>Count</th>
+    </tr>';
+
+    while ($row = mysqli_fetch_assoc($query3)) {
+        $findings = $row['findings'];
+        $cnt = $row['cnt'];    
+   
+        $html .= '<tr>
+         <td> ' . $findings . ' </td><td>' . $cnt . '</td></tr>';
+       }
+   
+
+
+    $html .= '</table><br><br><br>
       
             <table>
             <tr>
-                <th>Admission ID</th>
+                <th>Patient Name</th>
                 <th>Complete Address</th>
                 <th>Conditions</th>
             </tr>';
     
         while ($row = mysqli_fetch_assoc($query2)) {
-         $admissionid = $row['AdmissionID'];
+         $admissionid = $row['Patient'];
          $complete = $row['CompleteAddress'];
-         $conditions = $row['Conditions'];
+         $conditions = $row['Findings'];
     
          $html .= '<tr>
           <td> ' . $admissionid . ' </td><td>' . $complete . '</td><td>' . $conditions . '</td></tr>';

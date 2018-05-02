@@ -10,7 +10,7 @@ $parnode = $dom->appendChild($node);
 
 
 // Select all the rows in the markers table
-$query = "SELECT a.AdmissionID,a.CompleteAddress,a.latcoor,a.longcoor,b.MedicalID,b.AdmissionID,c.Conditions,( SELECT COUNT(Conditions) FROM medical_conditions WHERE Conditions = c.Conditions) AS count FROM patients a,medical_details b, conditions c, medical_conditions d WHERE a.AdmissionID = b.AdmissionID AND b.MedicalID = d.MedicalID AND c.Conditions = d.Conditions";
+$query = "SELECT DISTINCT(diagnosis.Findings) as Conditions, count(diagnosis.Findings) as count,patients_archive.ArchiveID,patients_archive.CompleteAddress,patients_archive.latcoor,patients_archive.longcoor FROM diagnosis JOIN patients_archive WHERE patients_archive.MedicalID = diagnosis.MedicalID GROUP BY Findings";
 $result = mysqli_query($conn,$query);
 
 // SELECT MedicalID,Conditions,( SELECT COUNT(Conditions) FROM medical_conditions) AS count FROM medical_conditions as temp
@@ -22,7 +22,7 @@ while ($row = @mysqli_fetch_assoc($result)){
     // Add to XML document node
     $node = $dom->createElement("marker");
     $newnode = $parnode->appendChild($node);
-    $newnode->setAttribute("admissionid",$row['AdmissionID']);
+    $newnode->setAttribute("admissionid",$row['ArchiveID']);
     $newnode->setAttribute("address", $row['CompleteAddress']);
     $newnode->setAttribute("conditions", $row['Conditions']);
     $newnode->setAttribute("lat", $row['latcoor']);

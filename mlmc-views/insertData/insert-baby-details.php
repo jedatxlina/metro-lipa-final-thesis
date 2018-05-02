@@ -8,6 +8,7 @@
     $nurseryid = rand(111111, 999999);
     $medicationid = rand(111111, 999999);
     $vitalsid = rand(111111, 999999);
+    $diagnosisid = rand(111111, 999999);
 
     $medicalid = $_GET['medicalid'];
     $babyadmission = $_GET['babyadmission'];
@@ -35,8 +36,8 @@
     }
 
 
-    $query = "INSERT into patients(AdmissionID,AdmissionDate,AdmissionTime,AdmissionType,FirstName,MiddleName,LastName,Admission,Province,City,Brgy,CompleteAddress,Birthdate,Citizenship,MedicalID) 
-    VALUES('$babyadmission','$date','$time','Inpatient','$firstname','$middlename','$lastname','New Patient','$province','$city','$brgy','$address','$date','$citizenship','$medicalid')";
+    $query = "INSERT into patients(AdmissionID,AdmissionDate,AdmissionTime,FirstName,MiddleName,LastName,Admission,AdmissionType,Province,City,Brgy,CompleteAddress,Birthdate,Citizenship,MedicalID) 
+    VALUES('$babyadmission','$date','$time','$firstname','$middlename','$lastname','New Patient','Inpatient','$province','$city','$brgy','$address','$date','$citizenship','$medicalid')";
 
     mysqli_query($conn,$query);  
 
@@ -50,3 +51,8 @@
 
     mysqli_query($conn,$query);  
 
+    
+    $query = "INSERT into attending_physicians(AttendingID,PhysicianID,AdmissionID,DiagnosisID) 
+    VALUES('$attendingid','$attending','$babyadmission','$diagnosisid')";
+
+    mysqli_query($conn,$query);  

@@ -19,13 +19,29 @@
     $cnt = 1;
 
     switch ($at[0]) {
-        case '7':
-        $sel = mysqli_query($conn,"SELECT *, CONCAT(Firstname, ' ' ,MiddleName, ' ', LastName) AS Fullname FROM secretary WHERE SecretaryID ='$at'");
+            case '2':
+            $sel = mysqli_query($conn,"SELECT *, CONCAT(Firstname, ' ' ,MiddleName, ' ', LastName) AS Fullname FROM admission_staffs WHERE AdmissionStaffID ='$at'");
 
-        while ($row = mysqli_fetch_assoc($sel)) {
-            $genfullname = $row['Fullname'];
-        }
-        break;
+            while ($row = mysqli_fetch_assoc($sel)) {
+                $genfullname = $row['Fullname'];
+            }
+            break;
+
+            case '4':
+            $sel = mysqli_query($conn,"SELECT *, CONCAT(Firstname, ' ' ,MiddleName, ' ', LastName) AS Fullname FROM physicians WHERE PhysicianID ='$at'");
+
+            while ($row = mysqli_fetch_assoc($sel)) {
+                $genfullname = $row['Fullname'];
+            }
+            break;
+            
+            case '7':
+            $sel = mysqli_query($conn,"SELECT *, CONCAT(Firstname, ' ' ,MiddleName, ' ', LastName) AS Fullname FROM secretary WHERE SecretaryID ='$at'");
+
+            while ($row = mysqli_fetch_assoc($sel)) {
+                $genfullname = $row['Fullname'];
+            }
+            break;
         
         default:
         $sel = mysqli_query($conn,"SELECT *, CONCAT(Firstname, ' ' ,MiddleName, ' ', LastName) AS Fullname FROM nurses WHERE NurseID ='$at'");
