@@ -323,7 +323,7 @@ include 'admin-header.php' ?>
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        <tr ng-repeat="order in orders" ng-class="{'selected': order.OrderID == selectedRow}" ng-click="setClickedRow(order.OrderID,order.AdmissionID)">
+                                        <tr ng-repeat="order in orders | filter: { AdmissionType: 'Outpatient'}" ng-class="{'selected': order.OrderID == selectedRow}" ng-click="setClickedRow(order.OrderID,order.AdmissionID)">
 										
                                             <td>{{order.Dname}}</td>
                                             <td>{{order.Pname}}</td>

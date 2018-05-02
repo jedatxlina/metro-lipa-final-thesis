@@ -143,7 +143,7 @@ include 'admin-header.php' ?>
                             <a href="#" ng-click="medicineRequisition()" role="tab" data-toggle="tab" class="list-group-item"><span class="badge badge-primary"></span> <i class="fa fa-plus-square-o"></i>Medicine Requisition</a>
                             <a href="#" ng-click="postDiagnosis()" role="tab" data-toggle="tab" class="list-group-item"><i class="fa fa-stethoscope"></i>Post Diagnosis</a>
                             <a href="#" ng-click="postMedication()" role="tab" data-toggle="tab" class="list-group-item"><span class="badge badge-primary"></span> <i class="fa fa-plus-square-o"></i>Post Medication</a>
-                            <a href="#" ng-click="viewOrder()" role="tab" data-toggle="tab" class="list-group-item"><span class="badge badge-primary"  ng-if="order > 0">{{order}}</span> <i class="ti ti-email"></i>Doctors Order</a>
+                            <a href="#" ng-click="viewOrder()" role="tab" data-toggle="tab" class="list-group-item"><span class="badge badge-primary"  ng-if="order > 0 ">{{order}}</span> <i class="ti ti-email"></i>Doctors Order</a>
                        <!-- <a href="#" ng-click="postBills()" role="tab" data-toggle="tab" class="list-group-item"><i class="fa fa-file-text-o"></i>Process Billing</a> -->
                             <a href="#" ng-click="dischargePatient()" role="tab" data-toggle="tab" class="list-group-item"><i class="fa fa-tag"></i>Tag As Discharged</a>
                             <a href="#" ng-click="processMedCert()" role="tab" data-toggle="tab" class="list-group-item"><i class="fa fa-file-text-o"></i>Process Medical Certificate</a>
@@ -230,10 +230,10 @@ include 'admin-header.php' ?>
                                                 </tr>
                                             </thead>
                                             <tbody>
-                                                <tr ng-repeat="order in orders" ng-class="{'selected': order.OrderID == selectedRow}" ng-click="setClickedRow(order.OrderID,order.AdmissionID)">
+                                                <tr ng-repeat="order in orders | filter:{ AdmissionType: '!Outpatient'}" ng-class="{'selected': order.OrderID == selectedRow}" ng-click="setClickedRow(order.OrderID,order.AdmissionID)">
                                                     
-                                                    <td>{{order.Pname}}</td>
                                                     <td>{{order.Dname}}</td>
+                                                    <td>{{order.Pname}}</td>
                                                     <td>{{order.Task}}</td>
                                                     <td>{{order.Status}}</td>
 
@@ -575,6 +575,7 @@ include 'admin-header.php' ?>
                         method: 'get',
                         url: 'getData/get-order-details.php'
                     }).then(function(response) {
+                        $scope.NoOfOrder = response.data;
                         $scope.order = response.data.length;
                     });
 
