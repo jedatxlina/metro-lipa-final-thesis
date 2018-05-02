@@ -107,6 +107,7 @@
                                                     <li><strong>Admission No:</strong>&emsp; {{patient.AdmissionNo}}</li>
                                                     <br><br>
                                                     <small><input type="checkbox" ng-model="senior" ng-click="seniorClick()" ng-disabled="$parent.fee == 0"> Senior Citizen </small>
+                                                    <small><input type="checkbox" ng-model="senior" ng-click="philhealthClick()" ng-disabled="$parent.fee == 0"> Philhealth </small>
                                                 </ul>
                                                 <br>
                                             </div>
@@ -495,11 +496,17 @@
                         if($scope.senior == 'true'){
                             $scope.senior = 'false';
                             $scope.subtotal = $scope.subtotalroom + $scope.subtotalmedi+$scope.subtotallab+$scope.subtotaldoc;
+                            $scope.subtotal2 = $scope.subtotal-$scope.totaldiscount;
                         }else{
                             $scope.senior = 'true';
                             $scope.subtotal = $scope.subtotal - ($scope.subtotal*$scope.discount);
+                            $scope.subtotal2 = $scope.subtotal-$scope.totaldiscount;
                         }
-                    });
+                        if($scope.subtotal2 <= 0)
+                            $scope.subtotal2 = '0';
+                        else
+                            $scope.subtotal2 = $scope.subtotal-$scope.totaldiscount;
+                        });
                     
                 }
 

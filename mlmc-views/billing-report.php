@@ -4,6 +4,8 @@ require_once 'dompdf/lib/html5lib/Parser.php';
 require_once 'dompdf/lib/php-font-lib/src/FontLib/Autoloader.php';
 require_once 'dompdf/lib/php-svg-lib/src/autoload.php';
 require_once 'dompdf/src/Autoloader.php';
+
+date_default_timezone_set("Asia/Singapore");
 Dompdf\Autoloader::register();
 // reference the Dompdf namespace
 use Dompdf\Dompdf;
@@ -15,13 +17,13 @@ $param = isset($_GET['param']) ? $_GET['param'] : '';
 $id = $_GET['at'];
 $yearage = '0';
 $adid = $_GET['id'];
-$sel = mysqli_query($conn,"SELECT a.* ,b.Rate,b.RoomType FROM duration a, beds b WHERE b.BedID = a.BedID AND a.AdmissionID = '$adid'");
+$sel = mysqli_query($conn,"SELECT a.* ,b.Rate,b.RoomType FROM duration a, beds b, patients c WHERE b.BedID = a.BedID AND a.AdmissionID = '$adid' AND a.AdmissionNo = c.AdmissionNo");
 $patd = mysqli_query($conn,"SELECT * FROM patients WHERE AdmissionID = '$adid'");
-$sel5 = mysqli_query($conn,"SELECT a.SupplyName, SUM(a.Quantity) AS total, b.Price FROM supply_used a, supplies b WHERE AdmissionID='$adid' AND a.SupplyName = b.SuppliesName GROUP BY SupplyName");
-$sel6 = mysqli_query($conn,"SELECT * FROM adv_payment WHERE AdmissionID = '$adid'");
-$sel4 = mysqli_query($conn,"SELECT physicians.LastName, physicians.FirstName, physicians.MiddleName, attending_physicians.Rate, attending_physicians.Discount FROM attending_physicians INNER JOIN physicians ON attending_physicians.PhysicianID=physicians.PhysicianID WHERE attending_physicians.AdmissionID='$adid'");
-$sel3 = mysqli_query($conn,"SELECT laboratories.Rate, laboratories.Description FROM laboratory_req INNER JOIN laboratories ON laboratories.LaboratoryID=laboratory_req.LaboratoryID WHERE laboratory_req.AdmissionID='$adid' AND laboratory_req.Status='Cleared'");
-$sel2 = mysqli_query($conn,"SELECT medication.Quantity,pharmaceuticals.Unit,pharmaceuticals.Price,pharmaceuticals.MedicineID, pharmaceuticals.MedicineName FROM medication INNER JOIN pharmaceuticals ON medication.MedicineID=pharmaceuticals.MedicineID WHERE medication.AdmissionID='$adid'");
+$sel5 = mysqli_query($conn,"SELECT SUM(TotalBill) AS TotalBill,BillDes, COUNT(*) AS qty, c.BedID FROM billing c, patients a WHERE c.AdmissionID ='$adid' AND c.Department = 'Supplies' AND a.MedicalID = c.MedicalID GROUP BY BedID");
+// $sel6 = mysqli_query($conn,"SELECT * FROM adv_payment WHERE AdmissionID = '$adid'");
+$sel4 = mysqli_query($conn,"SELECT a.*,d.LastName, d.FirstName, d.MiddleName FROM attending_physicians a, patients b, medical_details c, physicians d WHERE b.AdmissionID = '$adid' AND b.MedicalID = c.MedicalID AND c.AttendingID = a.AttendingID AND a.PhysicianID = d.PhysicianID");
+$sel3 = mysqli_query($conn,"SELECT SUM(TotalBill) AS TotalBill,BillDes, COUNT(*) AS qty, c.BedID FROM billing c, patients a WHERE c.AdmissionID ='$adid' AND c.Department = 'Laboratory' AND a.MedicalID = c.MedicalID GROUP BY BedID");
+$sel2 = mysqli_query($conn,"SELECT SUM(TotalBill) AS TotalBill,BillDes, COUNT(*) AS qty, c.BedID FROM billing c, patients a WHERE c.AdmissionID ='$adid' AND c.Department = 'Pharmacy' AND a.MedicalID = c.MedicalID GROUP BY BedID");
 $data = array();
 $date = date("Y-m-d");
 $name = '';
@@ -140,13 +142,16 @@ h4 {
                         
 while ($row = mysqli_fetch_array($sel)) {
     $parameterage  = date_create($row['ArrivalDate']);
-    $currentdatetime 	= date_create(); // Current time and date
+    if($row['DischargeDate'] == '0000-00-00 00:00:00')
+        $currentdatetime 	= date_create(date("Y-m-d h:i:sa"));
+    else
+        $currentdatetime 	= date_create($row['DischargeDate']); // Current time and date
     $getage =  date_diff( $parameterage, $currentdatetime );
     $yearage = $getage->d;
     if($yearage <= 1)
         $yearage=1;
     $html .= '<tbody><tr>
-      <td> ' . $row['BedID'] . ' </td><td>' . $row['ArrivalDate'] . '</td><td>' . $date . '</td><td>' . $yearage . '</td><td class="text-right">'. number_format($row['Rate']*$yearage) .'</td>
+      <td> ' . $row['BedID'] . ' </td><td>' . $row['ArrivalDate'] . '</td><td>' . $currentdatetime->format('Y-m-d h:i:sa') . '</td><td>' . $yearage . '</td><td class="text-right">'. $row['Rate'] * $yearage .'</td>
      </tr>';
     }
                         $html .= '
@@ -171,14 +176,14 @@ while ($row = mysqli_fetch_array($sel)) {
                             <tr>
                                 <th>Medicines</th>
                                 <th>Quantity</th>
-                                <th>Unit Cost</th>
+                                <th>Bed ID</th>
                                 <th class="text-right">Total</th>
                             </tr>
                         </thead>';
                         
 while ($row = mysqli_fetch_array($sel2)) {
     $html .= '<tbody><tr>
-      <td>' . $row['MedicineName'] . '</td><td>' . $row['Quantity'] . '</td><td>' . number_format($row['Price']) . '</td><td class="text-right">'. number_format($row['Quantity']*$row['Price']) .'</td>
+      <td>' . $row['BillDes'] . '</td><td>' . $row['qty'] . '</td><td>' . $row['BedID'] . '</td><td class="text-right">'. number_format($row['TotalBill']) .'</td>
      </tr>';
     }
                         $html .= '
@@ -202,13 +207,15 @@ while ($row = mysqli_fetch_array($sel2)) {
                         <thead>
                             <tr>
                                 <th>Descriptions</th>
+                                <th>Quantity</th>
+                                <th>Bed ID</th>
                                 <th class="text-right">Total</th>
                             </tr>
                         </thead>';
                         
 while ($row = mysqli_fetch_array($sel3)) {
     $html .= '<tbody><tr>
-      <td>' . $row['Description'] . '</td><td>' . number_format($row['Rate']) . '</td>
+      <td>' . $row['BillDes'] . '</td><td>' . $row['qty'] . '</td><td>' . $row['BedID'] . '</td><td>' . number_format($row['TotalBill']) . '</td>
      </tr>';
     }
                         $html .= '
@@ -236,11 +243,11 @@ while ($row = mysqli_fetch_array($sel3)) {
                                 <th class="text-right">Total Fee</th>
                             </tr>
                         </thead>';
-while ($row = mysqli_fetch_array($sel4)) {
-    $html .= '<tbody><tr>
-      <td>Dr. ' . $row['FirstName'] . ' ' . $row['MiddleName'] . ' ' . $row['LastName'] . '</td><td>' . number_format($row['Discount']) . '</td><td>' . number_format($row['Rate']) . '</td>
-     </tr>';
-    }
+// while ($row = mysqli_fetch_array($sel4)) {
+//     $html .= '<tbody><tr>
+//       <td>Dr. ' . $row['FirstName'] . ' ' . $row['MiddleName'] . ' ' . $row['LastName'] . '</td><td>' . number_format($row['Discount']) . '</td><td>' . number_format($row['Rate']) . '</td>
+//      </tr>';
+//     }
                         $html .= '
                         </tbody>
                     </table>
@@ -262,14 +269,13 @@ while ($row = mysqli_fetch_array($sel4)) {
                         <thead>
                             <tr>
                                 <th>Supply Name</th>
-                                <th>Price</th>
                                 <th>Quantity</th>
-                                <th class="text-right">Total Fee</th>
+                                <th class="text-right">Total Bill</th>
                             </tr>
                         </thead>';
 while ($row = mysqli_fetch_array($sel5)) {
     $html .= '<tbody><tr>
-      <td>' . $row['SupplyName'] . '</td><td>' .  number_format($row['Price']) . '</td><td>' . $row['total'] . '</td><td>' . number_format($row['total']*$row['Price']) . '</td></tr>';
+      <td>' . $row['BillDes'] . '</td><td>' . $row['qty'] . '</td><td>' . $row['TotalBill'] . '</td></tr>';
     }
                         $html .= '
                         </tbody>
@@ -287,10 +293,10 @@ while ($row = mysqli_fetch_array($sel5)) {
                     <li><strong>Date:</strong> Today</li>
                     <li><strong>Due:</strong> 19/05/2015</li>';
                         
-                    while ($row = mysqli_fetch_array($sel6)) {
-                        $html .= '
-                        <li><strong>Advance Payment:</strong>'.$row['Amount'].'</li>';
-                        }
+                    // while ($row = mysqli_fetch_array($sel6)) {
+                    //     $html .= '
+                    //     <li><strong>Advance Payment:</strong>'.$row['Amount'].'</li>';
+                    //     }
                                             $html .= '
                 </ul>
             </div>

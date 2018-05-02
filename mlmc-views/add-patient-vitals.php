@@ -437,7 +437,7 @@
             <div class="modal-dialog">
             <div class="panel panel-danger" data-widget='{"draggable": "false"}'>
             <div class="panel-heading">
-                <h2>EAdd Supply Used</h2>
+                <h2>Add Supply Used</h2>
                 <div class="panel-ctrls" data-actions-container="" data-action-collapse='{"target": ".panel-body, .panel-footer"}'></div>
             </div>
             <div class="panel-body" style="height: auto; width: auto">
