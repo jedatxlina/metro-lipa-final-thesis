@@ -58,7 +58,7 @@ include 'admin-header.php' ?>
 															</tr>
 															</thead>
 															<tbody>
-															<tr ng-repeat="user in epatient" ng-class="{'selected': user.AdmissionID == selectedRow}" ng-click="setClickedRow(user.AdmissionID,user.MedicalID)">
+															<tr ng-repeat="user in epatient" ng-class="{'selected': user.AdmissionID == selectedRow}" ng-click="setClickedRow(user.AdmissionID,user.MedicalID,user.Fullname)">
 																<!-- <td>{{user.AdmissionID}}</td>
 																<td>{{user.AdmissionNo}}</td> -->
 																<td>{{user.Lname}}, {{user.Fname}} {{user.Mname}} </td>
@@ -692,10 +692,11 @@ include 'admin-header.php' ?>
                     $scope.selectedRow = '';
                 }
 
-                $scope.setClickedRow = function(user, param) {
+                $scope.setClickedRow = function(user, param,name) {
                     $scope.selectedRow = ($scope.selectedRow == null) ? user : ($scope.selectedRow == user) ? null : user;
                     $scope.clickedRow = ($scope.selectedRow == null) ? 0 : 1;
                     $scope.orderadmissionid = param;
+                    $scope.name = name;
                 }
 
 
@@ -966,7 +967,40 @@ include 'admin-header.php' ?>
                                     }
                                 });
                             } else {
-                                $('#dischargeModal').modal('show');
+                                swal({
+                                    title: 'Discharge ' + $scope.name + '?',
+                                    text: 'Patient Will Be Discharged Upon Confirm.',
+                                    icon: "warning",
+                                    buttons: true,
+                                    dangerMode: true,
+                                    })
+                                    .then((willDelete) => {
+                                    if (willDelete) {
+                                        $http({
+                                        method: 'get',
+                                        url: 'insertData/insert-discharged-inpatient.php',
+                                        params: {
+                                            id: $scope.admissionid
+                                        }
+                                    }).then(function(response) {
+                                        swal({
+                                        icon: "success",
+                                        title: "Successfully Discharged!",
+                                        text: "Redirecting in 2..",
+                                        timer: 2000
+                                        }).then(function() {
+                                            window.location.reload(false);
+                                        }, function(dismiss) {
+                                            if (dismiss === 'cancel') {
+                                                window.location.reload(false);
+                                            }
+                                        });
+                                    });
+                            
+                    } else {
+                        window.location.reload(false);
+                    }
+                    });
                             }
                         });
                     } else {
@@ -974,29 +1008,10 @@ include 'admin-header.php' ?>
                     }
                 }
 
-                $scope.tagPatientDischarge = function() {
-                    $http({
-                        method: 'get',
-                        url: 'insertData/insert-discharged-inpatient.php',
-                        params: {
-                            id: $scope.admissionid
-                        }
-                    }).then(function(response) {
-                        swal({
-                        icon: "success",
-                        title: "Successfully Discharged!",
-                        text: "Redirecting in 2..",
-                        timer: 2000
-                        }).then(function() {
-                            window.location.reload(false);
-                        }, function(dismiss) {
-                            if (dismiss === 'cancel') {
-                                window.location.reload(false);
-                            }
-                        });
-                    });
+                // $scope.tagPatientDischarge = function() {
+                 
 
-                }
+                // }
 
                 $scope.getPage = function(check) {
                     switch (check) {

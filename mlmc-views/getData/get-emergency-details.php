@@ -1,7 +1,7 @@
 <?php
 require_once 'connection.php';
 
-$sel = mysqli_query($conn,"select * from patients where AdmissionType = 'Emergency'");
+$sel = mysqli_query($conn,"select *,CONCAT(FirstName, ' ',MiddleName, ' ',LastName) as Fullname from patients where AdmissionType = 'Emergency'");
 
 $data = array();
 
@@ -14,6 +14,7 @@ while ($row = mysqli_fetch_array($sel)) {
     	"Fname"=>$row['FirstName'],
     	"Mname"=>$row['MiddleName'],
 		"Lname"=>$row['LastName'],
+		"Fullname"=>$row['Fullname'],
 		"Admission"=>$row['Admission'],
 		"AdmissionType"=>$row['AdmissionType'],
     	"Gender"=>$row['Gender'],
