@@ -647,9 +647,8 @@
                 }
 
 				 $scope.addNewPatient = function() {
-                    window.location.href = 'add-patient.php?at=' + $scope.at + '&id=' + 1;
+                    window.location.href = 'add-patient.php?at=' + $scope.at + '&id=' + 1 + '&fname=' + $scope.firstname + '&mname=' + $scope.middlename +'&lname=' + $scope.lastname;
                 }
-
                 $scope.searchPatient = function() {
 
                     $scope.birthdate = $("#datepicker").datepicker("option", "dateFormat", "yy-mm-dd").val();
@@ -709,7 +708,7 @@
                 }
 
                 $scope.newPatient = function() {
-                    window.location.href = 'add-patient.php?at=' + $scope.at + '&id=' + 1;
+                    window.location.href = 'add-patient.php?at=' + $scope.at + '&id=' + 1 + '&fname=' + $scope.firstname + '&mname=' + $scope.middlename +'&lname=' + $scope.lastname;
                 }
 
                 $scope.searchPatientSelect = function() {
