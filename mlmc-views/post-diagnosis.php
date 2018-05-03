@@ -592,7 +592,7 @@
 
                 $http({
                     method: 'GET',
-                    url: 'getData/get-medication-details.php',
+                    url: 'getData/get-other-medication-details.php',
                     params: {
                         medicationid: $scope.medicationid,
                         medicalid: $scope.medicalid
