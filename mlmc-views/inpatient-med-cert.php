@@ -45,6 +45,14 @@
             $genfullname = $row['Fullname'];
         }
         break;
+          
+        case '4':
+        $sel = mysqli_query($conn,"SELECT *, CONCAT(FirstName, ' ' ,MiddleName, ' ', LastName) AS Fullname FROM Physicians WHERE PhysicianID='$at'");
+
+        while ($row = mysqli_fetch_assoc($sel)) {
+            $genfullname = $row['Fullname'];
+        }
+        break;
 
         case '7':
         $sel = mysqli_query($conn,"SELECT *, CONCAT(Firstname, ' ' ,MiddleName, ' ', LastName) AS Fullname FROM secretary WHERE SecretaryID='$at'");

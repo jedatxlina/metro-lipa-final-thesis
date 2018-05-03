@@ -1005,6 +1005,7 @@ include 'admin-header.php' ?>
                             id: $scope.admissionid
                         }
                     }).then(function(response) {});
+                    
                     $http({
                         method: 'get',
                         url: 'updateData/update-inpatient-flag.php',

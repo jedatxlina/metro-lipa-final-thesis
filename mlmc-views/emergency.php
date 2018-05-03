@@ -256,7 +256,7 @@
                                             </tr>
                                         </thead>
                                         <tbody>
-                                            <tr data-ng-repeat='trans in transfers' ng-class="{'selected': trans.AdmissionID == selectedRow}" ng-click="setClickedRow(trans.AdmissionID)">
+                                            <tr data-ng-repeat='trans in transfers' ng-class="{'selected': trans.AdmissionID == selectedRow}" ng-click="setClickedRow(trans.AdmissionID,trans.AdmissionNo)">
                                                 <td>{{trans.AdmissionID}}</td>
                                                 <td>{{trans.Firstname}} {{trans.Middlename}} {{trans.Lastname}}</td>
                                                 <td>{{trans.Gender}}</td>
@@ -636,9 +636,10 @@
                     $scope.val = value;
                 });
 
-                $scope.setClickedRow = function(user) {
+                $scope.setClickedRow = function(user,param) {
                     $scope.selectedRow = ($scope.selectedRow == null) ? user : ($scope.selectedRow == user) ? null : user;
                     $scope.clickedRow = ($scope.selectedRow == null) ? 0 : 1;
+                    $scope.AdmissionNo = param;
                 }
 
                 $scope.addPatient = function() {
@@ -839,6 +840,18 @@
                 $scope.admitopdTransfer = function() {
                     if ($scope.selectedRow != null) {
                      $scope.admissionid = $scope.selectedRow;
+
+                        $scope.totalbill = 2000;
+                        $http({
+                        method: 'GET',
+                        url: 'insertData/insert-bed-bill.php',
+                        params: {admissionid: $scope.admissionid,
+                            department: $scope.User,
+                            description: 'Emergency Room Fee',
+                            admissno: $scope.AdmissionNo,
+                            total: $scope.totalbill}
+                        });
+
                         $http({
                             method: 'get',
                             url: 'updateData/update-transfering-patient.php',
