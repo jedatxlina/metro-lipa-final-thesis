@@ -619,7 +619,7 @@
 
                 $http({
                     method: 'GET',
-                    url: 'getData/get-medication-details.php',
+                    url: 'getData/get-other-medication-details.php',
                     params: {
                         medicationid: $scope.medicationid,
                         medicalid: $scope.medicalid
@@ -896,7 +896,7 @@
                     icon: "success",
                     title: "Successfully Posted!",
                     text: "Redirecting in 2..",
-                    timer: 2000
+                    timer: 1000
                 }).then(function() {
                     window.location.href = 'initiate-medication.php?qntyintake=' + $scope.Quantity + '&id=' + $scope.medicationid + '&at=' + $scope.at + '&dosage=' + $scope.Dosage + '&medid=' + $scope.MedID + '&notes=' + $scope.NoteID + '&admissionid=' + $scope.admissionid + '&intake=' + $scope.Intake + '&intakeinterval=' + $scope.IntakeInterval + '&parma=' + 'Outpatient' + '&medicalid=' + $scope.medicalid;
                 }, function(dismiss) {
@@ -936,7 +936,7 @@
                     icon: "success",
                     title: "Successfully Requested!",
                     text: "Redirecting in 2..",
-                    timer: 2000
+                    timer: 1000
                 }).then(function() {
                     window.location.href = 'insertData/insert-laboratory-request-nurse.php?at=' + $scope.attendingphysician + '&id=' + $scope.admissionid + '&lab=' + $scope.lab + '&request=' + $scope.requests + '&nurseat=' + $scope.at;
                 }, function(dismiss) {
