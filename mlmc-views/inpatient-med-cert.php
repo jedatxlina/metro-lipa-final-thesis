@@ -46,6 +46,14 @@
         }
         break;
 
+        case '4':
+        $sel = mysqli_query($conn,"SELECT *, CONCAT(FirstName, ' ' ,MiddleName, ' ', LastName) AS Fullname FROM physicians WHERE PhysicianID='$at'");
+
+        while ($row = mysqli_fetch_assoc($sel)) {
+            $genfullname = $row['Fullname'];
+        }
+        break;
+
         case '7':
         $sel = mysqli_query($conn,"SELECT *, CONCAT(Firstname, ' ' ,MiddleName, ' ', LastName) AS Fullname FROM secretary WHERE SecretaryID='$at'");
 
@@ -75,7 +83,7 @@
          $admissiondate = $row['AdmissionDate'];
          $admissiontime = $row['AdmissionTime'];
      }
-    
+     $findings2=isset($findings) ? $findings : '';
     $html = '<link type="text/css" href="assets/plugins/gridforms/gridforms/gridforms.css" rel="stylesheet">
     <style>
     table {
@@ -126,7 +134,7 @@
     <b>DIAGNOSIS:</b>
     <br>
     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-    <br><br><h3><u><b>'.$findings.'</b></u></h3>
+    <br><br><h3><u><b>'.$findings2.'</b></u></h3>
 
     <br><br><br>
     

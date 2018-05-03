@@ -39,11 +39,7 @@
         $address = $row['CompleteAddress'];
     }
 
-    $sel5 = mysqli_query($conn,"SELECT AdmissionNo FROM patients WHERE AdmissionID = '$babyadmissionid'");
-
-    while ($row = mysqli_fetch_assoc($sel5)) {
-        $adno = $row['AdmissionNo'];
-    }
+    
 
 
     $query = "INSERT into patients(AdmissionID,AdmissionDate,AdmissionTime,FirstName,MiddleName,LastName,Admission,AdmissionType,Province,City,Brgy,CompleteAddress,Gender,Age,CivilStatus,Birthdate,Occupation,Citizenship,MedicalID) 
@@ -67,7 +63,15 @@
 
     mysqli_query($conn,$query);  
 
+    $sel5 = mysqli_query($conn,"SELECT AdmissionNo FROM patients WHERE AdmissionID = '$babyadmissionid'");
+
+    while ($row = mysqli_fetch_assoc($sel5)) {
+        $adno = $row['AdmissionNo'];
+    }
+
     $query = "INSERT into duration(DurationID,AdmissionID,AdmissionNo,ArrivalDate,DischargeDate,BedID,TotalBill) 
-    VALUES('$durationid','$babyadmission','$adno','$diagnosisid','$datetime','0000-00-00 00:00:00','Infant','0000')";
+    VALUES('$durationid','$babyadmission','$adno','$datetime','0000-00-00 00:00:00','Infant','0000')";
 
     mysqli_query($conn,$query); 
+    
+    header( "location: insert-baby-room.php?id=".$babyadmission);
