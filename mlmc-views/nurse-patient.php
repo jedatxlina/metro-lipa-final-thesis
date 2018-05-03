@@ -89,7 +89,7 @@ include 'admin-header.php' ?>
                                                         </tr>
                                                     </thead>
                                                     <tbody>
-                                                        <tr ng-repeat="user in users" ng-class="{'selected': user.AdmissionID == selectedRow}" ng-click="setClickedRow(user.AdmissionID,user.MedicalID)">
+                                                        <tr ng-repeat="user in users" ng-class="{'selected': user.AdmissionID == selectedRow}" ng-click="setClickedRow(user.AdmissionID,user.MedicalID,user.Fullname)">
                                                             <td>{{user.BedID}}</td>
                                                             <td>{{user.Fullname}}</td>
                                                             <td>{{user.Gender}}
@@ -997,6 +997,7 @@ include 'admin-header.php' ?>
                 $scope.confirmBtn = function(user) {
 
                     $scope.admissionid = $scope.selectedRow;
+                 
                     $http({
                         method: 'get',
                         url: 'insertData/insert-roomstart-date.php',
@@ -1065,7 +1066,7 @@ include 'admin-header.php' ?>
                                             window.location.reload(false);
                                         }, function(dismiss) {
                                             if (dismiss === 'cancel') {
-                                                window.location.reload(false);
+                                            window.location.reload(false);
                                             }
                                         });
                                     });
