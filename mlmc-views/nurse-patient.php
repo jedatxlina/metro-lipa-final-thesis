@@ -185,6 +185,7 @@ include 'admin-header.php' ?>
                        <!-- <a href="#" ng-click="postBills()" role="tab" data-toggle="tab" class="list-group-item"><i class="fa fa-file-text-o"></i>Process Billing</a> -->
                             <a href="#" ng-click="dischargePatient()" role="tab" data-toggle="tab" class="list-group-item"><i class="fa fa-tag"></i>Tag As Discharged</a>
                             <a href="#" ng-click="processMedCert()" role="tab" data-toggle="tab" class="list-group-item"><i class="fa fa-file-text-o"></i>Process Medical Certificate</a>
+                            <a href="#" ng-click="relocateRequest()" role="tab" data-toggle="tab" class="list-group-item"><span class="badge badge-danger"></span><i class="ti ti-bell"></i> Relocation Request</a>
                             <a href="#" ng-click="viewFlag()" role="tab" data-toggle="tab" class="list-group-item"><span class="badge badge-danger" ng-if="notif > 0">{{notif}}</span><i class="ti ti-bell"></i> Notifications</a>
                         </div>
                     </div>
@@ -799,6 +800,16 @@ include 'admin-header.php' ?>
                 $scope.viewPatientDetails = function() {
                     window.location.href = 'view-patient-data.php?at=' + $scope.at + '&id=' + $scope.admissionid;
                 }
+
+                $scope.relocateRequest = function() {
+                    if ($scope.selectedRow != null) {
+                        $scope.admissionid = $scope.selectedRow;
+
+                    } else {
+                        $('#myModal').modal('show');
+                    }
+                }
+
 
                 $scope.viewPatientMedication = function() {
                     if ($scope.selectedRow != null) {

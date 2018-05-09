@@ -490,6 +490,14 @@
                                         </div>
                                     </div>
                                 </div>
+                                <div class="row">
+                                    <div class="form-group">
+                                        <label for="focusedinput" class="col-sm-3 control-label">OR Number</label>
+                                        <div class="col-sm-5">
+                                            <input type="text" class="form-control" ng-model="ornumber">
+                                        </div>
+                                    </div>
+                                </div>
                                 <div class="panel-footer">
                                     <button type="button" ng-click="ConfirmInpatient()" class="btn btn-danger-alt pull-right">Confirm</button>
                                     <button type="button" data-dismiss="modal" class="btn btn-default-alt pull-right">Cancel</button>
@@ -515,11 +523,11 @@
                 $scope.order = 0;
                 $scope.notifs = 1;
 
-                					// Search Query
-					$scope.firstname = '';
-					$scope.middlename = '';
-					$scope.lastname = '';
-					$scope.birthdate = '';
+                // Search Query
+				$scope.firstname = '';
+				$scope.middlename = '';
+				$scope.lastname = '';
+				$scope.birthdate = '';
 
 
                 var pusher = new Pusher('c23d5c3be92c6ab27b7a', {
@@ -656,23 +664,28 @@
 
                     $('#searchPatientModal').modal('hide');
                     
-                    $http({
-                        method: 'get',
-                        url: 'getData/get-search-details.php',
-                        params: {
-                            firstname: $scope.firstname,
-                            middlename: $scope.middlename,
-                            lastname: $scope.lastname,
-                            birthdate: $scope.birthdate
-                        }
-                    }).then(function(response) {
-                        $scope.searchres = response.data
-                        angular.element(document).ready(function() {
-                            dTable = $('#results_table')
-                            dTable.DataTable();
+                    if($scope.firstname == '' && $scope.middlename == '' && $scope.lastname == '' && $scope.birthdate == ''){
+                        $('#errorModal').modal('show');
+                    }else{
+                        $http({
+                            method: 'get',
+                            url: 'getData/get-search-details.php',
+                            params: {
+                                firstname: $scope.firstname,
+                                middlename: $scope.middlename,
+                                lastname: $scope.lastname,
+                                birthdate: $scope.birthdate
+                            }
+                        }).then(function(response) {
+                            $scope.searchres = response.data
+                            angular.element(document).ready(function() {
+                                dTable = $('#results_table')
+                                dTable.DataTable();
+                            });
                         });
-                    });
-                    $('#searchResultPatientModal').modal('show');
+                        $('#searchResultPatientModal').modal('show');
+                    }
+
                 }
 
                 $scope.tagPatientDischarge = function() {
@@ -944,7 +957,8 @@
                         url: 'insertData/insert-advpayment-details.php',
                         params: {
                             admissionid: $scope.selectedRow,
-                            payment: $scope.advpayment
+                            payment: $scope.advpayment,
+                            ornumber: $scope.ornumber
                         }
                     }).then(function(response) {
                         window.location.reload();

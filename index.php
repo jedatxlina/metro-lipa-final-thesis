@@ -7,10 +7,30 @@ session_start();
 <!DOCTYPE html>
 <html>
 <head>
+
 <title>Metro Lipa Medical Center Patient Management Systemmmmm  </title>
+
   <?php include 'css/css.html'; ?>  
+<!--   
+  <link type='text/css' href='https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400italic,600' rel='stylesheet'>
+  <link type="text/css" href="mlmc-views/assets/fonts/font-awesome/css/font-awesome.min.css" rel="stylesheet">
+  <link type="text/css" href="mlmc-views/assets/fonts/themify-icons/themify-icons.css" rel="stylesheet">
+  <link type="text/css" href="mlmc-views/assets/css/styles.css" rel="stylesheet">
+  <link type="text/css" href="mlmc-views/assets/plugins/codeprettifier/prettify.css" rel="stylesheet">
+  <link type="text/css" href="mlmc-views/assets/plugins/iCheck/skins/minimal/blue.css" rel="stylesheet">
+
+  <link type="text/css" href="mlmc-views/assets/plugins/gridforms/gridforms/gridforms.css" rel="stylesheet">
+  <link type="text/css" href="mlmc-views/assets/plugins/fullcalendar/fullcalendar.css" rel="stylesheet">
+
+  <link type="text/css" href="mlmc-views/assets/plugins/form-daterangepicker/daterangepicker-bs3.css" rel="stylesheet">
+  <link type="text/css" href="mlmc-views/assets/plugins/jvectormap/jquery-jvectormap-2.0.2.css" rel="stylesheet">
+  <link type="text/css" href="mlmc-views/assets/plugins/switchery/switchery.css" rel="stylesheet">
+  <link type="text/css" href="mlmc-views/assets/plugins/datatables/dataTables.bootstrap.css" rel="stylesheet">
+ -->
+
   <script src="mlmc-views/components/angular.min.js"></script>
 	<script src="mlmc-views/assets/js/mask.js"></script>
+
 </head>
 
 <?php 
@@ -31,7 +51,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST')
 }
 ?>
 <body>
-
+    
   <div class="form"  ng-app="myApp" ng-controller="userCtrl">
   <center> <img src="img/header-logo.png" alt=""> </center>
   <br><br>
@@ -79,6 +99,6 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST')
 </div> <!-- /form -->
   <script src='https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js'></script>
   <script src="js/index.js"></script>
-
+  <!-- <script type="text/javascript" src="mlmc-views/assets/js/bootstrap.min.js"></script> 						 -->
 </body>
 </html>

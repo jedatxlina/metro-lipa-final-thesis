@@ -1,6 +1,7 @@
 <?php
 require 'db.php';
 date_default_timezone_set("Asia/Singapore");
+
 $at =  isset($_GET['at']) ? $_GET['at'] : '';
 
 $datetime = date("Y-m-d h:i A");

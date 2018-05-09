@@ -471,7 +471,10 @@
             }
 
             $scope.seniorClick = function(){
-					
+
+                    $scope.philhealthClick();
+                    $scope.phil = true;
+
                     $http({
                         method: 'GET',
                         url: 'getData/get-discount-details.php'
@@ -516,7 +519,6 @@
                             $scope.subtotal2 = '0';
                         else
                             $scope.subtotal2 = $scope.subtotal-$scope.totaldiscount;
-                    
                 }
 
             $scope.goBack = function() {

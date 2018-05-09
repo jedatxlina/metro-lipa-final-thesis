@@ -134,7 +134,7 @@ font-weight: bold;
 						<a href="#" ng-click="postDiscount()" role="tab" data-toggle="tab" class="list-group-item"><i class="fa fa-file-text-o"></i>Post Discounts</a>
 						<a href="#" ng-click="postTransfers()"role="tab" data-toggle="tab" class="list-group-item"><i class="fa fa-file-text-o"></i>Post A/R Transfers</a>
                         <a href="#" ng-click="postStatement()"role="tab" data-toggle="tab" class="list-group-item"><i class="fa fa-file-text-o"></i>SOA/Billing Statement</a>
-                        <!-- <a href="#" ng-click="reprintReceipt()"role="tab" data-toggle="tab" class="list-group-item"><i class="fa fa-file-text-o"></i>Print Receipt Details</a> -->
+                        <a href="#" ng-click="postPartial()"role="tab" data-toggle="tab" class="list-group-item"><i class="fa fa-file-text-o"></i>Post Partial Payment</a>
 					</div>
 				</div>
 				<!-- Error modal -->
@@ -406,6 +406,7 @@ font-weight: bold;
 									</div>
 								</form>
 				</div>
+
 				<!-- Patient Modal -->
 				<div class="modal fade" id="patientModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
 					<form class="form-horizontal">
@@ -467,15 +468,17 @@ font-weight: bold;
 					</form>
 				</div>
 
-				<div class="modal fade" id="moveInpatientModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+					
+
+				<div class="modal fade" id="postPartialPayment" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
 					<form class="form-horizontal">
 						<div class="modal-dialog">
 							<div class="panel panel-danger" data-widget='{"draggable": "false"}'>
 								<div class="panel-heading">
-									<h2>Patient Details</h2>
+									<h2>Partial Payment</h2>
 									<div class="panel-ctrls" data-actions-container="" data-action-collapse='{"target": ".panel-body, .panel-footer"}'></div>
 								</div>
-								<div class="panel-body" style="height: 400px" ng-repeat="patient in getdetails">
+								<div class="panel-body" style="height: auto" ng-repeat="patient in getdetails">
 									<center><span><strong>Registry Information</strong></span>
 									<p><small>Data below will be moved to Inpatient section permanently</small></p></center>
 									<hr>
@@ -495,48 +498,28 @@ font-weight: bold;
 											</div>
 										</div>
 									</div>
-									<div class="row">
-										<div class="form-group">
-											<label for="focusedinput" class="col-sm-3 control-label">Admission Date</label>
-											<div class="col-sm-5">
-												<input type="text" class="form-control"  ng-value="patient.AdmissionDate" disabled>
-											</div>
-										</div>
-									</div>
-									<div class="row">
-										<div class="form-group">
-											<label for="focusedinput" class="col-sm-3 control-label">Room Type</label>
-											<div class="col-sm-5">
-												<select ng-model="RoomType" class="form-control" >
-												<option value="" disabled selected>Select Room Type</option>
-												<option value="Ward">Ward</option>
-												<option value="OB-Ward">OB-Ward</option>
-												<option value="Female-Ward">Female-Ward</option>
-												<option value="Male-Ward">Male-Ward</option>
-												<option value="Pedia-Ward">Pedia-Ward</option>
-												<option value="Surgical-Ward">Surgical-Ward</option>
-												<option value="Semi-Private">Semi-Private</option>
-												<option value="Private">Private</option>
-												<option value="Suite">Suite</option>
-												<option value="Infectious">Infectious</option>
-											</select>
-											</div>
-										</div>
-									</div>
-									<div class="row">
-										<div class="form-group">
-											<label for="focusedinput" class="col-sm-3 control-label">Bed Number</label>
-											<div class="col-sm-5">
-												<select class="form-control" ng-options="data.BedID for data in bed |  filter:filterBed(RoomType)"  ng-model="$parent.bedno" ng-disabled="RoomType!='Single Deluxe' && RoomType!='Two-Bedded' && RoomType!='Four-Bedded' && RoomType!='Ward'">
-													<option value="" disabled selected>Select Bed Number</option>
-												</select>
-											</div>
-										</div>
-									</div>
+									<hr>
+							
 								</div>
+									<div class="row">
+										<div class="form-group">
+											<label for="focusedinput" class="col-sm-3 control-label">Partial Payment</label>
+											<div class="col-sm-5">
+												<input type="text" class="form-control" ng-model="partialpayment">
+											</div>
+										</div>
+									</div>
+									<div class="row">
+										<div class="form-group">
+											<label for="focusedinput" class="col-sm-3 control-label">OR number</label>
+											<div class="col-sm-5">
+												<input type="text" class="form-control" ng-model="ornumber">
+											</div>
+										</div>
+									</div>
 								<div class="panel-footer">
-								<button type="button" ng-click="ConfirmInpatient()" class="btn btn-danger-alt pull-right">Confirm</button>
-								<button type="button" data-dismiss="modal" class="btn btn-default-alt pull-right">Cancel</button>
+									<button type="button" ng-click="confirmPartial()" class="btn btn-danger-alt pull-right">Confirm</button>
+									<button type="button" data-dismiss="modal" class="btn btn-default-alt pull-right">Cancel</button>
 								</div>
 							</div>
 						</div>
@@ -673,6 +656,20 @@ font-weight: bold;
 			else{
 			$('#errorModal').modal('show');
 			}
+		}
+
+		$scope.confirmPartial = function(){
+			$http({
+                method: 'GET',
+                url: 'insertData/insert-advpayment-details.php',
+                params: {
+                        admissionid: $scope.selectedRow,
+                        payment: $scope.partialpayment,
+                        ornumber: $scope.ornumber
+                }
+            }).then(function(response) {
+                window.location.reload();
+            });
 		}
 
 		$scope.postFee = function(){
@@ -883,6 +880,35 @@ font-weight: bold;
 			$('#errorModal').modal('show');
 			}
 		}
+
+		$scope.postPartial = function(){
+			if ($scope.selectedRow != null) {
+                        $scope.admissionid = $scope.selectedRow;
+                        $http({
+                            method: 'GET',
+                            url: 'getData/get-diet-plans.php'
+                        }).then(function(response) {
+                            $scope.diets = response.data;
+                        });
+                        $http({
+                            method: 'GET',
+                            url: 'getData/get-patient-details.php',
+                            params: {
+                                id: $scope.admissionid
+                            },
+                            contentType: "application/json; charset=utf-8",
+                            dataType: "json"
+                        }).then(function(response) {
+                            $scope.getdetails = response.data;
+
+                        });
+                        $('#postPartialPayment').modal('show');
+
+                    } else {
+                        $('#errorModal').modal('show');
+                    }
+		}
+
 		$scope.viewPatientDetails = function(){
 			window.location.href = 'view-patient-details.php?id=' + $scope.selectedRow;
 		}
