@@ -34,12 +34,14 @@
                                 <tr>
                                     <th>Description</th>
                                     <th>Rate</th>
+                                    <th>Type</th>
                                 </tr>
                             </thead>
                             <tbody>
                                 <tr ng-repeat="lab in labs" ng-class="{'selected': lab.LaboratoryID == selectedRow}" ng-click="setClickedRow(lab.LaboratoryID,lab.Description,lab.Rate)">
                                     <td>{{lab.Description}}</td>
                                     <td>₱{{lab.Rate}}</td>
+                                    <td>{{lab.Type}}</td>
                                 </tr>
                             </tbody>
                         </table>
@@ -82,7 +84,14 @@
                                     
                                     <span style="color:red" ng-show="rate == null && submitted">* Rate is required!</span>
                                 </div>
-      
+                                <div class="form-group">
+                                    <label>Type </label>
+                                    <select ng-model="type" class="form-control" ng-change="accessType()" required>
+                                        <option value="" disabled selected>Select</option>
+                                         <option value="Laboratory">Laboratory</option>
+                                        <option value="Operation">Operation</option>
+                                    </select>
+                                </div>
                                 <div class="modal-footer">
                                     <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
                                     <button ng-click='AddAncillary(); submitted=true' class="btn btn-primary">Confirm</button>
@@ -206,7 +215,8 @@
                     params: {
                         laboratoryid: $scope.labid,
                         description: $scope.description,
-                        rate: $scope.rate
+                        rate: $scope.rate,
+                        type: $scope.type
                     }
                 }).then(function(response) {
                     window.location.href = 'laboratory.php?at=' + $scope.at;

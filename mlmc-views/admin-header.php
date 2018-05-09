@@ -154,7 +154,7 @@
 												<li><a ng-click="getPage('Billing')" href="javascript:void(0);"><i class="fa fa-user"></i><span>&emsp;Patients</span></a></li>
 											</ul>
 										</li>
-                                        <li <?php if ($activeMenu =="laboratory") {?> style="display:block;" class="active" <?php } ?>   <?php if ($id!=1 && $id!=8){?>style="display:none"<?php } ?>><a ng-click="getPage('LaboratoryDept')" href="javascript:void(0);"><i class="fa fa-flask"></i></i><span>Laboratory Department</span></a></li>
+                                        <li <?php if ($activeMenu =="laboratory") {?> style="display:block;" class="active" <?php } ?>   <?php if ($id!=1 && $id!=8){?>style="display:none"<?php } ?>><a ng-click="getPage('LaboratoryDept')" href="javascript:void(0);"><i class="fa fa-flask"></i></i><span>Ancillary Department</span></a></li>
                                         <li class="nav-separator"><span>Extras</span></li>
                                         <li <?php if ($activeMenu =="accounts") {?> style="display:block;" class="active" <?php } ?>        <?php if ($id!=1){?>style="display:none"
                                             <?php } ?>><a ng-click="getPage('Accounts')" href="javascript:void(0);"><i class="fa fa-key"></i><span>Accounts</span></a></li>
