@@ -493,6 +493,85 @@ include 'admin-header.php' ?>
                     </div>
                     <!-- Post Medication Modal -->
 
+                    <div class="modal fade" id="relocateRequestModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+                    <form class="form-horizontal">
+                        <div class="modal-dialog">
+                            <div class="panel panel-danger" data-widget='{"draggable": "false"}'>
+                                <div class="panel-heading">
+                                    <h2>Room Transfer Request</h2>
+                                    <div class="panel-ctrls" data-actions-container="" data-action-collapse='{"target": ".panel-body, .panel-footer"}'></div>
+                                </div>
+                                <div class="panel-body" style="height: auto" ng-repeat="patient in getdetails">
+                                    <center><span><strong>Registry Information</strong></span>
+                                        <p><small>Data below will be moved to Inpatient section permanently</small></p>
+                                    </center>
+                                    <hr>
+                                    <div class="row">
+                                        <div class="form-group">
+                                            <label for="focusedinput" class="col-sm-3 control-label">Patient name</label>
+                                            <div class="col-sm-8">
+                                                <input type="text" class="form-control" ng-value="patient.Firstname + ' ' + patient.Middlename + ' ' + patient.Lastname" ng-model="new.Fullname" disabled>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="form-group">
+                                            <label for="focusedinput" class="col-sm-3 control-label">Admission ID</label>
+                                            <div class="col-sm-5">
+                                                <input type="text" class="form-control" ng-value="patient.AdmissionID" disabled>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                        <div class="form-group">
+                                            <label for="focusedinput" class="col-sm-3 control-label">Room Type</label>
+                                            <div class="col-sm-5">
+                                                <select ng-model="RoomType" class="form-control">
+                                                    <option value="" disabled selected>Select Room Type</option>
+                                                    <option value="Ward">Ward</option>
+                                                    <option value="OB-Ward">OB-Ward</option>
+                                                    <option value="Female-Ward">Female-Ward</option>
+                                                    <option value="Male-Ward">Male-Ward</option>
+                                                    <option value="Pedia-Ward">Pedia-Ward</option>
+                                                    <option value="Surgical-Ward">Surgical-Ward</option>
+                                                    <option value="Semi-Private">Semi-Private</option>
+                                                    <option value="Private">Private</option>
+                                                    <option value="Suite">Suite</option>
+                                                    <option value="Infectious">Infectious</option>
+                                                    <option value="ICU">ICU</option>
+                                                </select>
+                                                </select>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="form-group">
+                                            <label for="focusedinput" class="col-sm-3 control-label">Bed Number</label>
+                                            <div class="col-sm-5">
+                                                <select class="form-control" ng-options="data.BedID for data in bed |  filter:filterBed(RoomType)" ng-model="$parent.bedno" ng-disabled="RoomType==''">
+                                                    <option value="" disabled selected>Select Bed Number</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="form-group">
+                                            <label for="focusedinput" class="col-sm-3 control-label">Special Request</label>
+                                            <div class="col-sm-5">
+                                                <input type="text" class="form-control" ng-model="specialrequest">
+                                            </div>
+                                        </div>
+                                    </div>
+                                <div class="panel-footer">
+                                    <button type="button" ng-click="requestConfirm()" class="btn btn-danger-alt pull-right">Confirm</button>
+                                    <button type="button" data-dismiss="modal" class="btn btn-default-alt pull-right">Cancel</button>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+
                     <div class="modal fade" id="dischargeModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
                         <form class="form-horizontal">
                             <div class="modal-dialog">
@@ -633,7 +712,6 @@ include 'admin-header.php' ?>
                     	method: 'get',
                     	url: 'getData/get-medication-notif.php'
                     }).then(function(response) {
-                    	
                     });	
                 }
 
@@ -693,6 +771,16 @@ include 'admin-header.php' ?>
                     });
                 });
 
+                
+                $http({
+                    method: 'GET',
+                    url: 'getData/get-bed-details.php',
+                    contentType: "application/json; charset=utf-8",
+                    dataType: "json"
+                }).then(function(response) {
+                    $scope.bed = response.data;
+                });
+
                 $scope.generatePatientDiet = function() {
                     if ($scope.val == '') {
                         $window.open('patient-diet.php?at=' + $scope.at, '_blank');
@@ -749,6 +837,15 @@ include 'admin-header.php' ?>
                     $scope.name = name;
                 }
 
+                $scope.filterBed = function(param) {
+                    return function(bed) {
+                        if (bed.RoomType == param) {
+                            if (bed.Status == 'Available')
+                                return true;
+                        }
+                        return false;
+                    };
+                }
 
                 $scope.viewPatient = function() {
                     if ($scope.selectedRow != null) {
@@ -804,10 +901,48 @@ include 'admin-header.php' ?>
                 $scope.relocateRequest = function() {
                     if ($scope.selectedRow != null) {
                         $scope.admissionid = $scope.selectedRow;
+                        $http({
+                            method: 'GET',
+                            url: 'getData/get-patient-details.php',
+                            params: {
+                                id: $scope.admissionid
+                            },
+                            contentType: "application/json; charset=utf-8",
+                            dataType: "json"
+                        }).then(function(response) {
+                            $scope.getdetails = response.data;
 
+                        });
+                        $('#relocateRequestModal').modal('show');
                     } else {
                         $('#myModal').modal('show');
                     }
+                }
+
+                
+                $scope.requestConfirm = function() {
+                    $http({
+                            method: 'get',
+                            url: 'insertData/insert-relocate-request.php',
+                            params: {
+                                AdmissionID: $scope.selectedRow,
+                                BedID: $scope.bedno.BedID,
+                                SpecialRequest: $scope.specialrequest
+                            }
+                        }).then(function(response) {
+                            swal({
+                                icon: "success",
+                                title: "Successfully Requested!",
+                                text: "Redirecting in 2..",
+                                timer: 2000
+                            }).then(function() {
+                                window.location.reload(false);
+                            }, function(dismiss) {
+                                if (dismiss === 'cancel') {
+                                window.location.reload(false);
+                                }
+                            });
+                        });
                 }
 
 

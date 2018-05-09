@@ -121,9 +121,10 @@ font-weight: bold;
 					<div class="list-group list-group-alternate mb-n nav nav-tabs">
 						<a href="#" role="tab" data-toggle="tab" class="list-group-item active">Actions Panel</a>
 						<a href="#" ng-click="viewPatient()" role="tab" data-toggle="tab" class="list-group-item"><i class="ti ti-user"></i> Patient Details</a>
-                        <a href="#" ng-click="relocatePatient()" role="tab" data-toggle="tab" class="list-group-item"><i class="fa fa-stethoscope"></i>Relocate Patient</a>
+                        <a href="#" ng-click="relocatePatient()" role="tab" data-toggle="tab" class="list-group-item"><i class="fa fa-stethoscope"></i>Transfer Patient</a>
                         <a href="#" ng-click="dischargePatient()" role="tab" data-toggle="tab" class="list-group-item"><i class="fa fa-check-square-o"></i>Discharge</a>
                         <a href="#" ng-click="ReAdmitPatient()" role="tab" data-toggle="tab" class="list-group-item"><i class="fa fa-check-square-o"></i> Re-Admit</a>
+						<a href="#" ng-click="transferRequest()" role="tab" data-toggle="tab" class="list-group-item"><i class="fa fa-check-square-o"></i><span class="badge badge-primary"  ng-if="request > 0 ">{{request}}</span> Transfer Requests</a>
                     </div>
 				</div>
 
@@ -226,7 +227,7 @@ font-weight: bold;
 							<div class="modal-dialog" >
 								<div class="panel panel-danger" data-widget='{"draggable": "false"}' >
 									<div class="panel-heading">
-										<h2>Relocate Patient</h2>
+										<h2>Transfer Patient</h2>
 										<div class="panel-ctrls" data-actions-container="" data-action-collapse='{"target": ".panel-body, .panel-footer"}'></div>
 									</div>
 									<div class="panel-body" style="height: auto" data-ng-repeat="relocate in reldetails | limitTo:1">
@@ -280,7 +281,7 @@ font-weight: bold;
 												</div>
 											</div>
 										</div>
-										<center><span><strong>Relocation Details</strong></span></center>	
+										<center><span><strong>Transfer Details</strong></span></center>	
 										<hr>
 										<div class="row">
 											<div class="form-group">
@@ -315,14 +316,18 @@ font-weight: bold;
 											</div>
 										</div>
 									</div>
+											<div class="form-group">
+												<label for="focusedinput" class="col-sm-7 control-label">Transfer Permanently</label>
+												<div class="col-sm-5">
+												<input type="checkbox" ng-model="senior" ng-click="transPermanent()">
+												</div>
+											</div>
 									<div class="panel-footer">
 										<button type="button" ng-click="ConfirmRelo()" class="btn btn-danger-alt pull-right">Confirm</button>
 										<button type="button" data-dismiss="modal" class="btn btn-default-alt pull-right">Cancel</button>
 									</div>
 								</div>
-								<!-- <div class="alert alert-danger">
-									Select Emergency record that you would like to apply an <a href="#" class="alert-link">Action.</a>
-								</div> -->
+							
 							</div>
 						</form>
 					</div>
@@ -390,6 +395,53 @@ font-weight: bold;
 						</form>
 					</div>
 					<!--/ Relocate modal -->
+
+						<!-- Request modal -->
+						<div class="modal fade" id="transferModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+						<form class="form-horizontal" >
+							<div class="modal-dialog" >
+								<div class="panel panel-danger" data-widget='{"draggable": "false"}' >
+									<div class="panel-heading">
+										<h2>Transfer Patient</h2>
+										<div class="panel-ctrls" data-actions-container="" data-action-collapse='{"target": ".panel-body, .panel-footer"}'></div>
+									</div>
+									<div class="panel-body" style="height: auto">
+										<center><span><strong>Registry Information</strong></span></center>
+										<hr>
+										<table id="request_table" class="table table-striped table-bordered" cellspacing="0" width="100%">
+                                            <thead>
+                                                <tr>
+                                                    <th>#</th>
+                                                    <th>Patient Name</th>
+                                                    <th>Current Room</th>
+													<th>Transfer To</th>
+                                                    <th>Request</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <tr ng-repeat="val in details track by $index" ng-class="{'selected': val.ID == selectedRow}" ng-click="setClickedRow(val.ID)">
+                                                    <td>{{$index + 1}}</td>
+                                                    <td>{{val.Fullname}}</td>
+                                                    <td>{{val.Current}}</td>
+													<td>{{val.BedID}}</td>
+                                                    <td>{{val.SpecialRequest}}</td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+
+									</div>
+									<div class="panel-footer">
+										<button type="button" ng-click="requestAccept()" class="btn btn-danger-alt pull-right">Accept</button>
+										<button type="button" data-dismiss="modal" class="btn btn-default-alt pull-right">Cancel</button>
+									</div>
+								</div>
+								<!-- <div class="alert alert-danger">
+									Select Emergency record that you would like to apply an <a href="#" class="alert-link">Action.</a>
+								</div> -->
+							</div>
+						</form>
+					</div>
+					<!--/ Relocate modal -->
 		</div>
 	</div>
 	
@@ -422,6 +474,13 @@ font-weight: bold;
 					$scope.notif = response.data.length;
 					
 				});
+
+			$http({
+                method: 'get',
+                url: 'getData/get-relocate-request-details.php'
+                }).then(function(response) {
+					$scope.request = response.data.length;
+                });
 				
 			
 		}
@@ -521,6 +580,47 @@ font-weight: bold;
            $scope.clickedRow = ($scope.selectedRow == null) ? 0 : 1;
 	   }
 	   
+	   $scope.transferRequest = function(){
+				$http({
+					method: 'get',
+					url: 'getData/get-relocate-request-details.php'
+				}).then(function(response) {
+						$scope.details = response.data;
+						angular.element(document).ready(function() {
+                                dTable = $('#request_table')
+                                dTable.DataTable();
+                            });
+						$('#transferModal').modal('show');
+				});
+	   }
+
+	   	   
+		$scope.requestAccept = function(){
+			if($scope.selectedRow != null){
+				$scope.requestid = $scope.selectedRow;
+				$http({
+					method: 'get',
+					url: 'updateData/update-relocate-request-details.php',
+					params: {transid: $scope.requestid}
+				}).then(function(response) {
+					swal({
+                        icon: "success",
+                        title: "Successfully Accepted!",
+                        text: "Redirecting in 2..",
+                        timer: 2000
+                    }).then(function() {
+						window.location.reload(false);
+                    }, function(dismiss) {
+                        if (dismiss === 'cancel') {
+						window.location.reload(false);
+                        }
+                    });
+				});
+			}
+			else{
+			$('#errorModal').modal('show');
+			}
+	   }
 	  
 		$scope.viewPatient = function(){
 			

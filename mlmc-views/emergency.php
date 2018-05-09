@@ -963,7 +963,6 @@
                     }).then(function(response) {
                         window.location.reload();
                     });
-
                 }
 
                 $scope.dischargePatient = function() {
