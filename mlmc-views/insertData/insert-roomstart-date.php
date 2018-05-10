@@ -2,9 +2,7 @@
 require_once 'connection.php';
 date_default_timezone_set('Asia/Singapore');
 $id = $_GET["id"];
-$bed;
-$admissno;
-$sel = mysqli_query($conn,"SELECT a.AdmissionNo, b.BedID FROM patients a, medical_details b WHERE a.AdmissionType = 'Inpatient' AND a.AdmissionID = '$id' AND a.MedicalID = b.MedicalID");
+$sel = mysqli_query($conn,"SELECT a.AdmissionNo, b.BedID FROM patients a, medical_details b WHERE a.AdmissionType = 'Pending' AND a.AdmissionID = '$id' AND a.MedicalID = b.MedicalID");
 $data = array();
 while ($row = mysqli_fetch_array($sel)) {
     $bed = $row['BedID'];

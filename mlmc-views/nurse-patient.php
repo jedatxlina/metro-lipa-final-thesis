@@ -995,8 +995,8 @@ include 'admin-header.php' ?>
                 }
 
                 $scope.confirmBtn = function(user) {
-
                     $scope.admissionid = $scope.selectedRow;
+                    alert($scope.admissionid);
                     $http({
                         method: 'get',
                         url: 'insertData/insert-roomstart-date.php',

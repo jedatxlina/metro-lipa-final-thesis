@@ -172,7 +172,7 @@ include '../mlmc-views/getData/get-inpatient-vitals.php';
             </div>
         </div>
     </div>
-    <script type="text/javascript" src="../mlmc-views/assets/js/Chart.bundle.js"></script>
+    <script type="text/javascript" src="../mlmc-views/assets/js/Chart.js"></script>
     <script type="text/javascript" src="../mlmc-views/assets/js/jquery.min.js"></script>
     <script type="text/javascript" src="../mlmc-views/assets/js/utils.js"></script>
     <script>
