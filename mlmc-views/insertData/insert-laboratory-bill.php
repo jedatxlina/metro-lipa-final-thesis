@@ -6,7 +6,6 @@ $billid =  rand (111111,999999);
 $admissionid =  $_GET['admissionid']; 
 $laboratoryid = $_GET['laboratoryid']; 
 $des =  $_GET['description'];
-$department = 'Laboratory';
 $percent = '';
 $medicalid = '';
 $bedid = '';
@@ -43,6 +42,15 @@ $sel4 = mysqli_query($conn,"SELECT medical_details.BedID FROM medical_details JO
 while($row = mysqli_fetch_assoc($sel4))
 {
     $bedid = $row['BedID'];
+}
+
+$sel = mysqli_query($conn,"SELECT Type FROM laboratories WHERE LaboratoryID = '$laboratoryid' ");
+
+$department = '';
+
+while($row = mysqli_fetch_assoc($sel))
+{
+    $department = $row['Type'];
 }
 
 $query = "INSERT into billing(BillID,AdmissionID,Department,ItemID,BillDes,TotalBill,Status,MedicalID,BedID) 

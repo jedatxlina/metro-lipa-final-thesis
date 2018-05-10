@@ -39,6 +39,7 @@
                                     <th>Fullname</th>
                                     <th>Description</th>
                                     <th>Status</th>
+                                    <th>Type</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -47,6 +48,7 @@
                                     <td>{{labreq.Fullname}}</td>
                                     <td>{{labreq.Description}}</td>
                                     <td>{{labreq.Status}}</td>
+                                    <td>{{labreq.Type}}</td>
                                 </tr>
                             </tbody>
                         </table>
