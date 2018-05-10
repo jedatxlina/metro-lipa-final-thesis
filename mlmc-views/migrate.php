@@ -36,7 +36,7 @@
                     <div class="list-group list-group-alternate mb-n nav nav-tabs">
                         <a href="#tab-settings" role="tab" data-toggle="tab" class="list-group-item"><i class="fa fa-gear"></i> Settings </a>
                         <a href="#tab-migrate" role="tab" data-toggle="tab" class="list-group-item"><i class="fa fa-database"></i>Migrate Archive</a>
-						<!-- <a href="#tab-reports" role="tab" data-toggle="tab" class="list-group-item"><i class="fa fa-file-pdf-o"></i>Reports</a> -->
+						<a href="#tab-philhealth" role="tab" data-toggle="tab" class="list-group-item"><i class="fa fa-file-pdf-o"></i>Migrate Philhealth Adjustments</a>
                     </div>
                 </div><!-- col-sm-3 -->
                 <div class="col-sm-9">
@@ -145,35 +145,34 @@
 										</div>
 									</div>
 								</div>
-                        </div> <!-- #tab-projects -->
-
-						<!-- <div class="tab-pane" id="tab-reports">
+                        </div> 
+						<div class="tab-pane" id="tab-philhealth">	
                            		<div class="panel panel-danger" data-widget='{"draggable": "false"}'>
 									<div class="panel-heading">
-										<h2>Reports</h2>
+										<h2>Philhealth Adjustments Migration (CSV)</h2>
+										<!-- <div class="panel-ctrls" data-actions-container="" data-action-collapse='{"target": ".panel-body, .panel-footer"}'></div> -->
 										<div class="options">
 											<ul class="nav nav-tabs">
-											<li><a href="#patients-form" data-toggle="tab">Patients</a></li>
-											<li class="active"><a href="#doctors-form" data-toggle="tab">Doctors</a></li>
-											<li><a href="#custom-form" data-toggle="tab">Custom</a></li>
+											<li><a href="#philhealth-form" data-toggle="tab">Migrate</a></li>
+											<li class="active"><a href="#templatephil-form" data-toggle="tab">Templates</a></li>
 											</ul>
 										</div>
 									</div>
 									<div class="panel-body">
 										<div class="tab-content">
-											<div class="tab-pane" id="patients-form">
-											asd
+											<div class="tab-pane" id="philhealth-form">
+														<form action="migrate-philhealth-adjustments.php" enctype='multipart/form-data' class="dropzone"	 id="dropzonewidget">
+														</form>
 											</div>
-											<div class="tab-pane active" id="doctors-form">
-											ss
-											</div>
-											<div class="tab-pane" id="custom-form">
-											
+											<div class="tab-pane active" id="templatephil-form">
+												<span>
+												<a href="patientArchiveCsv/sample-philhealth-adjustment.csv">&emsp;&emsp;&emsp;<img src="assets/img/2000px-Microsoft_Excel_2013_logo.svg.png"  class="resize"><br>Philhealth Adjustment Sample Template</a></span>
 											</div>
 										</div>
 									</div>
 								</div>
-                        </div> -->
+                        </div> 
+				
 					</div><!-- .tab-content -->
 				<!-- Add HMO Provider  -->
 				<div class="modal fade" id="addHmoModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">

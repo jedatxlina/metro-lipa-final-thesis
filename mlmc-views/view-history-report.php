@@ -52,16 +52,9 @@
         break;
     }
     
-    $query = mysqli_query($conn,"SELECT *,CONCAT(patients.Firstname, ' ' ,patients.MiddleName, ' ',patients.LastName) AS Fullname,CONCAT(physicians.Firstname, ' ' ,physicians.MiddleName, ' ',physicians.LastName) AS pfullname FROM patients JOIN attending_physicians,physicians WHERE patients.AdmissionID = '$id' AND attending_physicians.AdmissionID = '$id' AND attending_physicians.PhysicianID = physicians.PhysicianID");
-    while ($row = mysqli_fetch_assoc($query)) {
-     $fullname = $row['Fullname'];
-     $gender = $row['Gender'];
-     $admissiontype = $row['AdmissionType'];
-     $pfullname = $row['pfullname'];
-       
-    }
 
-    $sel = mysqli_query($conn,"SELECT *,patients_archive.AdmissionDate as archivedate, patients_archive.AdmissionTime as archivetime,patients_archive.AdmissionType as archivetype FROM `patients` JOIN patients_archive WHERE patients.AdmissionID = '$id' AND patients.FirstName = patients_archive.FirstName AND patients.MiddleName = patients_archive.MiddleName AND patients.LastName = patients_archive.LastName");
+
+    $sel = mysqli_query($conn,"SELECT * FROM patients_archive WHERE ArchiveID = '$id'");
 
 
     $html = '
@@ -100,41 +93,7 @@
         </head>
         <div class="container-fluid">
         <br>
-        <form class="grid-form">  
-        <fieldset>
-            <div data-row-span="4">
-                    <div data-field-span="1">
-                        <label>Patient ID</label>
-                        '.$id.'
-                    </div>
-                    <div data-field-span="1">
-                        <label>Patient Name</label>
-                        '.$fullname.'
-                    </div>
-                    <div data-field-span="1">
-                        <label>Gender</label>
-                        '.$gender.'
-                    </div>
-                    <div data-field-span="1">
-                    <label>Admission Type</label>
-                    '.$admissiontype.'
-                    </div>
-                </div>
-            <div data-row-span="3">
-                    <div data-field-span="1">
-                        <label>Physician Name</label>
-                        '.$pfullname.'
-                        
-                    </div>
-                    <div data-field-span="1">
-                        <label>Date</label>
-                        '.$datetime.'
-                    </div>
-                    <div data-field-span="1">
-                    </div>
-            </div>
-        </fieldset>  
-    </form>
+      
             <br>Medical History Goes Below:<br><br>
                 <table>
                 <tr>
@@ -146,9 +105,9 @@
         
             while ($row = mysqli_fetch_assoc($sel)) {
              $ArchiveID = $row['ArchiveID'];
-             $archivedate = $row['archivedate'];
-             $archivetime = $row['archivetime'];
-             $archivetype = $row['archivetype'];
+             $archivedate = $row['AdmissionDate'];
+             $archivetime = $row['AdmissionTime'];
+             $archivetype = $row['AdmissionType'];
         
              $html .= '<tr>
               <td> ' . $ArchiveID . ' </td><td>' . $archivedate . '</td><td>' . $archivetime . '</td><td>'. $archivetype . '</td></tr>';

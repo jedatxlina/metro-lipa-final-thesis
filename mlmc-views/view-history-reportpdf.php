@@ -17,7 +17,7 @@
     $datetime = date("Y-m-d h:i A");
 
 
-    $sel = mysqli_query($conn,"SELECT patients_archive.*,CONCAT(physicians.FirstName,' ',physicians.MiddleName,' ',physicians.LastName) as dfullname,medical_details.*,diagnosis.* FROM patients_archive JOIN medical_details,attending_physicians,physicians,diagnosis WHERE ArchiveNo= '$archiveno' AND patients_archive.MedicalID = medical_details.MedicalID AND medical_details.AttendingID = attending_physicians.AttendingID AND attending_physicians.PhysicianID = physicians.PhysicianID AND attending_physicians.DiagnosisID = diagnosis.DiagnosisID");
+    $sel = mysqli_query($conn,"SELECT patients_archive.*,CONCAT(physicians.FirstName,' ',physicians.MiddleName,' ',physicians.LastName) as dfullname,medical_details.*,diagnosis.* FROM patients_archive JOIN medical_details,attending_physicians,physicians,diagnosis WHERE patients_archive.ArchiveNo= '$archiveno' AND patients_archive.MedicalID = medical_details.MedicalID AND medical_details.AttendingID = attending_physicians.AttendingID AND attending_physicians.PhysicianID = physicians.PhysicianID AND attending_physicians.DiagnosisID = diagnosis.DiagnosisID");
 
     while ($row = mysqli_fetch_array($sel)) {
         $archiveid = $row['ArchiveID'];
@@ -114,7 +114,7 @@
                     <th>Findings</th>
                 </tr>';
                
-                $queryfindings = mysqli_query($conn,"SELECT patients_archive.*,CONCAT(physicians.FirstName,' ',physicians.MiddleName,' ',physicians.LastName) as dfullname,medical_details.*,diagnosis.* FROM patients_archive JOIN medical_details,attending_physicians,physicians,diagnosis WHERE ArchiveNo= '$archiveno' AND patients_archive.MedicalID = medical_details.MedicalID AND medical_details.AttendingID = attending_physicians.AttendingID AND attending_physicians.PhysicianID = physicians.PhysicianID AND attending_physicians.DiagnosisID = diagnosis.DiagnosisID");	
+                $queryfindings = mysqli_query($conn,"SELECT patients_archive.*,CONCAT(physicians.FirstName,' ',physicians.MiddleName,' ',physicians.LastName) as dfullname,medical_details.*,diagnosis.* FROM patients_archive JOIN medical_details,attending_physicians,physicians,diagnosis WHERE patients_archive.ArchiveNo = '$archiveno' AND patients_archive.MedicalID = medical_details.MedicalID AND medical_details.AttendingID = attending_physicians.AttendingID AND attending_physicians.PhysicianID = physicians.PhysicianID AND attending_physicians.DiagnosisID = diagnosis.DiagnosisID");	
 
                 while ($row = mysqli_fetch_assoc($queryfindings)) {
                     $dfullname = $row['dfullname'];
@@ -137,19 +137,18 @@
                      
                    </tr>';
               
-                   $querylaboratory = mysqli_query($conn,"SELECT laboratory_req.*,laboratories.Description FROM patients_archive JOIN medical_details,laboratory_req,laboratories WHERE patients_archive.ArchiveNo = '$archiveno' AND patients_archive.MedicalID = medical_details.MedicalID AND medical_details.MedicalID = laboratory_req.MedicalID AND laboratory_req.LaboratoryID = laboratories.LaboratoryID");	
+                $querylaboratory = mysqli_query($conn,"SELECT laboratory_req.*,laboratories.Description FROM patients_archive JOIN medical_details,laboratory_req,laboratories WHERE patients_archive.ArchiveNo = '$archiveno' AND patients_archive.MedicalID = medical_details.MedicalID AND medical_details.MedicalID = laboratory_req.MedicalID AND laboratory_req.LaboratoryID = laboratories.LaboratoryID");	
 
-                   while ($row = mysqli_fetch_assoc($querylaboratory)) {
+                while($row = mysqli_fetch_assoc($querylaboratory)) {
 
                     $description = $row['Description'];
-                    $datetimeclearead = $row['DateCleared'] + ' ' + $row['TimeCleared'];
+                    $datetimeclearead = $row['DateCleared'];
+                    $timecleared =  $row['TimeCleared'];
                     $result = $row['Result'];
                 
-                    $html .= '<tr><td> ' . $description . ' </td><td>' . $datetimeclearead . '</td><td>' . $result . '</td></tr>';
+                    $html .= '<tr><td> ' . $description . ' </td><td>' . $datetimeclearead . ' ' . $timecleared . '</td><td>' . $result . '</td></tr>';
                     
                 }
-
-
 
 
                 $html .= '
@@ -165,7 +164,8 @@
                     <th>Notes</th>
                   
                 </tr>';
-                $querymedications = mysqli_query($conn,"SELECT patients_archive.*,CONCAT(physicians.FirstName,' ',physicians.MiddleName,' ',physicians.LastName) as dfullname,medical_details.*,medication.* FROM patients_archive JOIN medical_details,attending_physicians,physicians,medication WHERE ArchiveNo= '$archiveno' AND patients_archive.MedicalID = medical_details.MedicalID AND medical_details.AttendingID = attending_physicians.AttendingID AND attending_physicians.PhysicianID = physicians.PhysicianID AND medical_details.MedicationID = medication.MedicationID");	
+
+                $querymedications = mysqli_query($conn,"SELECT patients_archive.*,CONCAT(physicians.FirstName,' ',physicians.MiddleName,' ',physicians.LastName) as dfullname,medical_details.*,medication.* FROM patients_archive JOIN medical_details,attending_physicians,physicians,medication WHERE patients_archive.ArchiveNo = '$archiveno' AND patients_archive.MedicalID = medical_details.MedicalID AND medical_details.AttendingID = attending_physicians.AttendingID AND attending_physicians.PhysicianID = physicians.PhysicianID AND medical_details.MedicationID = medication.MedicationID");	
 
                 while ($row = mysqli_fetch_assoc($querymedications)) {
                     $dfullname = $row['dfullname'];
@@ -194,7 +194,7 @@
                        <th>Date & Time Checked</th>
                    </tr>';
 
-                   $queryvitals = mysqli_query($conn,"SELECT patients_archive.*,CONCAT(physicians.FirstName,' ',physicians.MiddleName,' ',physicians.LastName) as dfullname,medical_details.*,vitals.* FROM patients_archive JOIN medical_details,attending_physicians,physicians,vitals WHERE ArchiveNo= '$archiveno' AND patients_archive.MedicalID = medical_details.MedicalID AND medical_details.AttendingID = attending_physicians.AttendingID AND attending_physicians.PhysicianID = physicians.PhysicianID AND medical_details.VitalsID = vitals.VitalsID");	
+                   $queryvitals = mysqli_query($conn,"SELECT patients_archive.*,CONCAT(physicians.FirstName,' ',physicians.MiddleName,' ',physicians.LastName) as dfullname,medical_details.*,vitals.* FROM patients_archive JOIN medical_details,attending_physicians,physicians,vitals WHERE patients_archive.ArchiveNo= '$archiveno' AND patients_archive.MedicalID = medical_details.MedicalID AND medical_details.AttendingID = attending_physicians.AttendingID AND attending_physicians.PhysicianID = physicians.PhysicianID AND medical_details.VitalsID = vitals.VitalsID");	
 
                    while ($row = mysqli_fetch_assoc($queryvitals)) {
                         $dfullname = $row['dfullname'];
@@ -207,10 +207,6 @@
                   
                        $html .= '<tr><td> ' . $accountid . ' </td><td>' . $bp . '</td><td>' . $pr . '</td><td>' . $rr . '</td><td>' . $temp . '</td><td>' . $datetimechecked . '</td></tr>';
                       }
-   
-                      
-
-
         
     $dompdf->loadHtml($html);   
 

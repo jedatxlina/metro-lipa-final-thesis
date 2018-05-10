@@ -256,7 +256,7 @@
                                             </tr>
                                         </thead>
                                         <tbody>
-                                            <tr data-ng-repeat='trans in transfers' ng-class="{'selected': trans.AdmissionID == selectedRow}" ng-click="setClickedRow(trans.AdmissionID)">
+                                            <tr data-ng-repeat='trans in transfers' ng-class="{'selected': trans.AdmissionID == selectedRow}" ng-click="setClickedRow(trans.AdmissionID,trans.AdmissionNo)">
                                                 <td>{{trans.AdmissionID}}</td>
                                                 <td>{{trans.Firstname}} {{trans.Middlename}} {{trans.Lastname}}</td>
                                                 <td>{{trans.Gender}}</td>
@@ -490,6 +490,14 @@
                                         </div>
                                     </div>
                                 </div>
+                                <div class="row">
+                                    <div class="form-group">
+                                        <label for="focusedinput" class="col-sm-3 control-label">OR Number</label>
+                                        <div class="col-sm-5">
+                                            <input type="text" class="form-control" ng-model="ornumber">
+                                        </div>
+                                    </div>
+                                </div>
                                 <div class="panel-footer">
                                     <button type="button" ng-click="ConfirmInpatient()" class="btn btn-danger-alt pull-right">Confirm</button>
                                     <button type="button" data-dismiss="modal" class="btn btn-default-alt pull-right">Cancel</button>
@@ -515,11 +523,11 @@
                 $scope.order = 0;
                 $scope.notifs = 1;
 
-                					// Search Query
-					$scope.firstname = '';
-					$scope.middlename = '';
-					$scope.lastname = '';
-					$scope.birthdate = '';
+                // Search Query
+				$scope.firstname = '';
+				$scope.middlename = '';
+				$scope.lastname = '';
+				$scope.birthdate = '';
 
 
                 var pusher = new Pusher('c23d5c3be92c6ab27b7a', {
@@ -636,9 +644,10 @@
                     $scope.val = value;
                 });
 
-                $scope.setClickedRow = function(user) {
+                $scope.setClickedRow = function(user,param) {
                     $scope.selectedRow = ($scope.selectedRow == null) ? user : ($scope.selectedRow == user) ? null : user;
                     $scope.clickedRow = ($scope.selectedRow == null) ? 0 : 1;
+                    $scope.AdmissionNo = param;
                 }
 
                 $scope.addPatient = function() {
@@ -655,23 +664,28 @@
 
                     $('#searchPatientModal').modal('hide');
                     
-                    $http({
-                        method: 'get',
-                        url: 'getData/get-search-details.php',
-                        params: {
-                            firstname: $scope.firstname,
-                            middlename: $scope.middlename,
-                            lastname: $scope.lastname,
-                            birthdate: $scope.birthdate
-                        }
-                    }).then(function(response) {
-                        $scope.searchres = response.data
-                        angular.element(document).ready(function() {
-                            dTable = $('#results_table')
-                            dTable.DataTable();
+                    if($scope.firstname == '' && $scope.middlename == '' && $scope.lastname == '' && $scope.birthdate == ''){
+                        $('#errorModal').modal('show');
+                    }else{
+                        $http({
+                            method: 'get',
+                            url: 'getData/get-search-details.php',
+                            params: {
+                                firstname: $scope.firstname,
+                                middlename: $scope.middlename,
+                                lastname: $scope.lastname,
+                                birthdate: $scope.birthdate
+                            }
+                        }).then(function(response) {
+                            $scope.searchres = response.data
+                            angular.element(document).ready(function() {
+                                dTable = $('#results_table')
+                                dTable.DataTable();
+                            });
                         });
-                    });
-                    $('#searchResultPatientModal').modal('show');
+                        $('#searchResultPatientModal').modal('show');
+                    }
+
                 }
 
                 $scope.tagPatientDischarge = function() {
@@ -839,6 +853,18 @@
                 $scope.admitopdTransfer = function() {
                     if ($scope.selectedRow != null) {
                      $scope.admissionid = $scope.selectedRow;
+
+                        $scope.totalbill = 2000;
+                        $http({
+                        method: 'GET',
+                        url: 'insertData/insert-bed-bill.php',
+                        params: {admissionid: $scope.admissionid,
+                            department: $scope.User,
+                            description: 'Emergency Room Fee',
+                            admissno: $scope.AdmissionNo,
+                            total: $scope.totalbill}
+                        });
+
                         $http({
                             method: 'get',
                             url: 'updateData/update-transfering-patient.php',
@@ -931,12 +957,12 @@
                         url: 'insertData/insert-advpayment-details.php',
                         params: {
                             admissionid: $scope.selectedRow,
-                            payment: $scope.advpayment
+                            payment: $scope.advpayment,
+                            ornumber: $scope.ornumber
                         }
                     }).then(function(response) {
                         window.location.reload();
                     });
-
                 }
 
                 $scope.dischargePatient = function() {
