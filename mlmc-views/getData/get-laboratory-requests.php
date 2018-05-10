@@ -14,7 +14,8 @@ while ($row = mysqli_fetch_array($sel)) {
         "Description"=>$row['Description'],
         "AdmissionID"=>$row['AdmissionID'],
         "Status"=>$row['Status'],
-        "Rate"=>$row['Rate']);
+        "Rate"=>$row['Rate'],
+        "Type"=>$row['Type']);
 }
 echo json_encode($data);
 ?>

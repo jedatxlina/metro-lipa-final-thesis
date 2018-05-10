@@ -10,7 +10,8 @@ while ($row = mysqli_fetch_array($sel)) {
     $data[] = array(
         "LaboratoryID"=>$row['LaboratoryID'],
         "Description"=>$row['Description'],
-        "Rate"=>$row['Rate']);
+        "Rate"=>$row['Rate'],
+        "Type"=>$row['Type']);
 }
 echo json_encode($data);
 ?>

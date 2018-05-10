@@ -46,7 +46,7 @@
                         <!-- panel -->
                         <div class="list-group list-group-alternate mb-n nav nav-tabs">
                             <a href="#tab-diagnosis" role="tab" data-toggle="tab" class="list-group-item active"><i class="fa fa-stethoscope"></i> Diagnosis</a>
-                            <a href="#tab-laboratory" role="tab" data-toggle="tab" class="list-group-item"><i class="fa fa-stethoscope"></i> Laboratory</a>
+                            <a href="#tab-laboratory" role="tab" data-toggle="tab" class="list-group-item"><i class="fa fa-stethoscope"></i> Laboratory / Operation</a>
                             <a href="#tab-medications" role="tab" data-toggle="tab" class="list-group-item"><i class="fa fa-stethoscope"></i> Medications</a>
                             <a href="#tab-details" role="tab" data-toggle="tab" class="list-group-item"><i class="fa fa-stethoscope"></i>Medical Details</a>
                             <a href="#tab-history" role="tab" data-toggle="tab" class="list-group-item"><i class="ti ti-view-list-alt"></i> Medical History</a>
@@ -126,7 +126,7 @@
                                                     <fieldset>
                                                         <div data-row-span="2">
                                                             <div data-field-span="1">
-                                                                <label>Laboratory: </label>
+                                                                <label>Laboratory / Operation: </label>
                                                                 <input type="radio" ng-model="lab" name="lab" value='Yes' class="tooltips" data-trigger="hover" data-original-title="Yes"> Yes &nbsp;
                                                                 <input type="radio" ng-model="lab" name="lab" value='No' class="tooltips" data-trigger="hover" data-original-title="No" selected> No
                                                                 <br>
@@ -297,7 +297,7 @@
                                 </div>
                                 <div class="panel panel-danger">
                                     <div class="panel-heading">
-                                        <h2>Post Laboratory</h2>
+                                        <h2>Post Laboratory / Operation</h2>
                                     </div>
                                     <div class="panel-body">
                                     <form class="grid-form">
@@ -305,7 +305,7 @@
                                                     <fieldset>
                                                         <div data-row-span="2">
                                                             <div data-field-span="1">
-                                                                <label>Laboratory: </label>
+                                                                <label>Laboratory / Operation: </label>
                                                           
                                                                 <select id="separatelaboratories" class="select2" multiple="multiple" style="width:400px;" >
                                                                     <optgroup label="List of Laboratories">
@@ -619,7 +619,7 @@
 
                 $http({
                     method: 'GET',
-                    url: 'getData/get-medication-details.php',
+                    url: 'getData/get-other-medication-details.php',
                     params: {
                         medicationid: $scope.medicationid,
                         medicalid: $scope.medicalid
@@ -896,7 +896,7 @@
                     icon: "success",
                     title: "Successfully Posted!",
                     text: "Redirecting in 2..",
-                    timer: 2000
+                    timer: 1000
                 }).then(function() {
                     window.location.href = 'initiate-medication.php?qntyintake=' + $scope.Quantity + '&id=' + $scope.medicationid + '&at=' + $scope.at + '&dosage=' + $scope.Dosage + '&medid=' + $scope.MedID + '&notes=' + $scope.NoteID + '&admissionid=' + $scope.admissionid + '&intake=' + $scope.Intake + '&intakeinterval=' + $scope.IntakeInterval + '&parma=' + 'Outpatient' + '&medicalid=' + $scope.medicalid;
                 }, function(dismiss) {
@@ -936,7 +936,7 @@
                     icon: "success",
                     title: "Successfully Requested!",
                     text: "Redirecting in 2..",
-                    timer: 2000
+                    timer: 1000
                 }).then(function() {
                     window.location.href = 'insertData/insert-laboratory-request-nurse.php?at=' + $scope.attendingphysician + '&id=' + $scope.admissionid + '&lab=' + $scope.lab + '&request=' + $scope.requests + '&nurseat=' + $scope.at;
                 }, function(dismiss) {
