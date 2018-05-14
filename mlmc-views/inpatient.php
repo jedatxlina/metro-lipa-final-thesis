@@ -121,7 +121,7 @@ font-weight: bold;
 					<div class="list-group list-group-alternate mb-n nav nav-tabs">
 						<a href="#" role="tab" data-toggle="tab" class="list-group-item active">Actions Panel</a>
 						<a href="#" ng-click="viewPatient()" role="tab" data-toggle="tab" class="list-group-item"><i class="ti ti-user"></i> Patient Details</a>
-                        <a href="#" ng-click="relocatePatient()" role="tab" data-toggle="tab" class="list-group-item"><i class="fa fa-stethoscope"></i>Relocate Patient</a>
+                        <a href="#" ng-click="relocatePatient()" role="tab" data-toggle="tab" class="list-group-item"><i class="fa fa-stethoscope"></i>Transfer Patient</a>
                         <a href="#" ng-click="dischargePatient()" role="tab" data-toggle="tab" class="list-group-item"><i class="fa fa-check-square-o"></i>Discharge</a>
                         <a href="#" ng-click="ReAdmitPatient()" role="tab" data-toggle="tab" class="list-group-item"><i class="fa fa-check-square-o"></i> Re-Admit</a>
                     </div>
@@ -276,6 +276,7 @@ font-weight: bold;
 												<label for="focusedinput" class="col-sm-3 control-label">Current Room</label>
 												<div class="col-sm-5">
 													<input type="text" class="form-control" ng-value="relocate.RoomType + ' ' + relocate.BedID" disabled>
+													<input type="hidden" class="form-control" ng-init = "curroomtype[$index] = relocate.RoomType" ng-model="curroomtype[$index]" disabled>
 													<input type="hidden" class="form-control" ng-init = "curroom[$index] = relocate.BedID" ng-model="curroom[$index]" disabled>
 												</div>
 											</div>
@@ -334,7 +335,7 @@ font-weight: bold;
 							<div class="modal-dialog" >
 								<div class="panel panel-danger" data-widget='{"draggable": "false"}' >
 									<div class="panel-heading">
-										<h2>Relocate Patient</h2>
+										<h2>Room Transfer Patient</h2>
 										<div class="panel-ctrls" data-actions-container="" data-action-collapse='{"target": ".panel-body, .panel-footer"}'></div>
 									</div>
 									<div class="panel-body" style="height: 250px">
@@ -406,6 +407,7 @@ font-weight: bold;
 		$scope.notif = 0;
 		$scope.admissno = [];
 		$scope.curroom = [];
+		$scope.curroomtype = [];
 
 		var pushalert = function (){
 			alert('jed');
@@ -555,7 +557,8 @@ font-weight: bold;
 					params: {id: $scope.admissionid,
 							admissno: $scope.admissno[0],
 							bedno: $scope.bedno.BedID,
-							Prev: $scope.curroom[0]}
+							Prev: $scope.curroom[0],
+							PrevType: $scope.curroomtype[0]}
 				}).then(function(response) {
 					window.location.reload();
 				});

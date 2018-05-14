@@ -283,6 +283,36 @@
                                         </div>
                                     </div>
 
+                                    <h5 class="text-primary text-center" style="font-weight: small;">From Operations</h5>
+                                    <div class="row mb-xl">
+                                        <div class="col-md-12">
+                                            <div class="panel">
+                                                <div class="panel-body no-padding">
+                                                    <div class="table-responsive">
+                                                        <table class="table table-hover m-n">
+                                                            <thead>
+                                                                <tr>
+                                                                    <th>#</th>
+                                                                    <th>Description</th>
+                                                                    <th>Quantity</th>
+                                                                    <th class="text-right">Total</th>
+                                                                </tr>
+                                                            </thead>
+                                                            <tbody>
+                                                                <tr ng-repeat="op in opdetails track by $index">
+                                                                    <td>{{$index + 1}}</td>
+                                                                    <td>{{op.Description}}</td>
+                                                                    <td>{{op.qty}}</td>
+                                                                    <td class="text-right">{{op.Rate.toLocaleString('en')}}</td>
+                                                                </tr>
+                                                            </tbody>
+                                                        </table>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
                                     <h5 class="text-primary text-center" style="font-weight: small;">From Doctors</h5>
                                     <div class="row mb-xl">
                                         <div class="col-md-12">
@@ -501,6 +531,16 @@
                 }
             }).then(function(response) {
                 $scope.labdetails = response.data;
+            });
+
+            $http({
+                method: 'GET',
+                url: 'getData/get-operation-billdetailed.php',
+                params: {
+                    id: $scope.id
+                }
+            }).then(function(response) {
+                $scope.opdetails = response.data;
             });
 
             $http({

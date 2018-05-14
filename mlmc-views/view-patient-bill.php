@@ -56,6 +56,9 @@
                                     <fieldset data-ng-repeat="lab in labdetails track by $index">
                                         <input type="hidden" ng-model='LabBill[$index]' ng-init='LabBill[$index] = lab.Rate'>
                                     </fieldset>
+                                    <fieldset data-ng-repeat="op in opdetails track by $index">
+                                        <input type="hidden" ng-model='OpBill[$index]' ng-init='OpBill[$index] = op.Rate'>
+                                    </fieldset>
                                     <fieldset data-ng-repeat="doc in docdetails track by $index">
                                         <input type="hidden" ng-model='DocBill[$index]' ng-init='DocBill[$index] = doc.Pfee - doc.Discount'>
                                     </fieldset>
@@ -146,18 +149,24 @@
                                                             </tr>
                                                             <tr>
                                                                 <td>4</td>
+                                                                <td>Operations Bill</td>
+                                                                <td class="text-right">₱ {{ subtotalop.toLocaleString('en') }}</td>
+                                                                <td class="text-right">₱ {{ subtotalop.toLocaleString('en') }}</td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td>5</td>
                                                                 <td>Doctors Bill</td>
                                                                 <td class="text-right">₱ {{ subtotaldoc.toLocaleString('en') }}</td>
                                                                 <td class="text-right">₱ {{ subtotaldoc.toLocaleString('en') }}</td>
                                                             </tr>
                                                             <tr>
-                                                                <td>5</td>
+                                                                <td>6</td>
                                                                 <td>Supplies Bill</td>
                                                                 <td class="text-right">₱ {{ subtotalsupp.toLocaleString('en') }}</td>
                                                                 <td class="text-right">₱ {{ subtotalsupp.toLocaleString('en') }}</td>
                                                             </tr>
                                                             <tr id='philhealth'>
-                                                                <td>6</td>
+                                                                <td>7</td>
                                                                 <td>Discounts From Philhealth</td>
                                                                 <td class="text-right">₱ {{ subtotalphil.toLocaleString('en') }}</td>
                                                                 <td class="text-right">₱ {{ subtotalphil.toLocaleString('en') }}</td>
@@ -222,6 +231,7 @@
             $scope.MedicineBill = [];
             $scope.RoomBill = [];
             $scope.LabBill = [];
+            $scope.OpBill = [];
             $scope.PhilBill = [];
             $scope.DocBill = [];
             $scope.RoomDur = [];
@@ -230,6 +240,7 @@
             $scope.subtotalmedi = 0;
             $scope.subtotalroom = 0;
             $scope.subtotallab = 0;
+            $scope.subtotalop = 0;
             $scope.subtotaldoc = 0;
             $scope.subtotalsupp = 0;
             $scope.subtotalphil = 0;
@@ -248,6 +259,7 @@
             var total6 = 0;
             var total7 = 0;
             var total8 = 0;
+            var total9 = 0;
 
             switch ($scope.at.charAt(0)) {
                 case '1':
@@ -330,6 +342,17 @@
             }).then(function(response) {
                 $scope.labdetails = response.data;
             });
+
+            $http({
+                method: 'GET',
+                url: 'getData/get-operations-combilldetailed.php',
+                params: {
+                    id: $scope.id
+                }
+            }).then(function(response) {
+                $scope.opdetails = response.data;
+            });
+
             $http({
                 method: 'GET',
                 url: 'getData/get-doctor-billdetailed.php',
@@ -400,6 +423,11 @@
                     total2 = total2 + parseFloat(product2);
                 }
                 $scope.subtotallab = total2;
+                for (var i = 0; i < $scope.OpBill.length; i++) {
+                    var product10 = $scope.OpBill[i];
+                    total9 = total9 + parseFloat(product10);
+                }
+                $scope.subtotalop = total9;
                 for (var i = 0; i < $scope.DocBill.length; i++) {
                     var product3 = $scope.DocBill[i];
                     total3 = total3 + parseFloat(product3);
@@ -426,12 +454,12 @@
                 }
                 $scope.subtotalphil = 0;
                 $scope.totaldiscount = $scope.discountamount+$scope.advpay+$scope.subtotalphil;
-                $scope.subtotal = $scope.subtotalroom + $scope.subtotalmedi+$scope.subtotallab+$scope.subtotaldoc;
-                $scope.subtotal2 = ($scope.subtotalroom + $scope.subtotalmedi+$scope.subtotallab+$scope.subtotaldoc)-$scope.totaldiscount;
+                $scope.subtotal = $scope.subtotalroom + $scope.subtotalmedi+$scope.subtotallab+$scope.subtotaldoc+$scope.subtotalop;
+                $scope.subtotal2 = ($scope.subtotalroom + $scope.subtotalmedi+$scope.subtotallab+$scope.subtotaldoc+$scope.subtotalop)-$scope.totaldiscount;
                 if($scope.subtotal2 <= 0)
                     $scope.subtotal2 = '0';
                 else
-                    $scope.subtotal2 = ($scope.subtotalroom + $scope.subtotalmedi+$scope.subtotallab+$scope.subtotaldoc)-$scope.totaldiscount;
+                    $scope.subtotal2 = ($scope.subtotalroom + $scope.subtotalmedi+$scope.subtotallab+$scope.subtotaldoc+$scope.subtotalop)-$scope.totaldiscount;
             });
             $http({
                 method: 'GET',
@@ -485,7 +513,7 @@
                         
                         if($scope.senior == 'true'){
                             $scope.senior = 'false';
-                            $scope.subtotal = $scope.subtotalroom + $scope.subtotalmedi+$scope.subtotallab+$scope.subtotaldoc;
+                            $scope.subtotal = $scope.subtotalroom + $scope.subtotalmedi+$scope.subtotallab+$scope.subtotaldoc+$scope.subtotalop;
                             $scope.subtotal2 = $scope.subtotal-$scope.totaldiscount;
                         }else{
                             $scope.senior = 'true';
